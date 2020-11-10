@@ -1,0 +1,129 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light theme-nav" *ngIf="!loggedUserInfo?.isLoggedIn">
+    <div class="container">
+      <a [routerLink]="['/home']" href="javascript:;" class="navbar-brand">
+        <img src="assets/images/logo.png" height="80" /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- <select #langSelect (change)="useLanguage(langSelect.value)" class="test-{{translateService.currentLang}}">
+        <option *ngFor="let lang of translateService.getLangs()" [value]="lang"
+          [selected]="lang === translateService.currentLang">{{ lang }}</option>
+      </select> -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <li *ngIf="!router.url.includes('/employer')" class="nav-item mr-3 my-1">
+            <a (click)="onRedirectUrl('/auth/employer/login')" class="btn btn-outline-blue py-2 px-3"
+              href="javascript:;">
+              <i class="fas fa-handshake pr-1 align-middle"></i> {{"home.employer" | translate}}
+            </a>
+          </li>
+          <li *ngIf="!router.url.includes('/user')" class="nav-item mr-3 my-1">
+            <a (click)="onRedirectUrl('/auth/user/login')" class="btn btn-outline-green py-2 px-3" href="javascript:;">
+              <i class="fas fa-user-tie pr-1 align-middle"></i> {{"home.jobseeker" | translate}}
+            </a>
+          </li>
+          <li *ngIf="!router.url.includes('/agency')" class="nav-item mr-3 my-1">
+            <a (click)="onRedirectUrl('/auth/agency/login')" class="btn btn-outline-orange py-2 px-3"
+              href="javascript:;">
+              <i class="fas fa-briefcase"></i> {{"home.staffingAgency" | translate}}
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav lang-icon">
+          <li class="dropdown test-{{translateService.currentLang}}">
+            <ng-container *ngFor="let lang of translateService.getLangs()">
+
+              <a (click)="onOpenLangMenu()" *ngIf="lang === translateService.currentLang"
+               class="text-capitalize dropdown-toggle" href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img [src]="onGetLangImage(lang)" width="16" class="mr-2"/>
+                <!-- {{onGetLangNames(translateService.currentLang)}} -->
+              </a>
+            </ng-container>
+
+
+            <ul *ngIf="isLangMenuOpen" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin: 3.25rem 0 0;">
+              <ng-container *ngFor="let lang of translateService.getLangs()">
+                <li class="submenu" *ngIf="lang != translateService.currentLang">
+                  <a (click)="useLanguage(lang)" class="text-capitalize dropdown-item" href="javascript:;">
+                    <img [src]="onGetLangImage(lang)" width="16" class="mr-2"/>
+                     {{onGetLangNames(lang)}}
+                  </a>
+                </li>
+              </ng-container>
+
+              <!-- <li class="submenu"> <a class="dropdown-item" href="#"><img src="assets/images/english.png" width="16" class="mr-2"/> English</a></li>
+              <li class="submenu"> <a class="dropdown-item" href="#"><img src="assets/images/español.png" width="16" class="mr-2"/> Español</a></li> -->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="navbar navbar-expand-lg navbar-light theme-nav" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role.includes(1)">
+    <div class="container">
+      <a href="index.html" class="navbar-brand" ><img src="assets/images/logo.png"/></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+          <a class="btn btn-outline-blue btn-sm" href="job-post.html"><i class="fab fa-telegram-plane"></i> Post  Job</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-2">
+           <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <span data-letters="CA"> Company Admin</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li class="submenu"> <a class="dropdown-item" href="job-company-dashboard.html">Dashboard</a></li>
+            <li class="submenu"> <a class="dropdown-item" href="job-company-profile.html">Profile</a></li>
+            <li class="submenu"> <a class="dropdown-item" href="job-notifications.html">Notification</a></li>
+            <li class="submenu"> <a class="dropdown-item" href="job-setting.html">Setting</a></li>
+            <li class="submenu"> <a (click)="logout()" class="dropdown-item" href="javascript:;">Logout</a></li>
+          </ul>
+          </li>
+        </ul>
+      </div>
+      </div>
+  </nav>
+
+  <nav class="navbar navbar-expand-lg navbar-light theme-nav d-none">
+    <div class="container">
+      <a [routerLink]="['/home']" href="javascript:;" class="navbar-brand"><img src="assets/images//logo.png"
+          width="100" /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <li *ngIf="!router.url.includes('/agency')" class="nav-item mr-3 my-1 d-flex">
+            <a [routerLink]="['/notification']" href="javascript:;"
+            class="py-1 px-2 d-flex align-items-center justify-content-center"
+            style="font-size: 22px;"
+              href="javascript:;">
+              <i class="fas fa-bell"></i>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span data-letters="JS"> Jacky Smith</span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li class="submenu"> <a class="dropdown-item" href="candidate-dashboard.html">Dashboard</a></li>
+              <li class="submenu"> <a class="dropdown-item" href="candidate-notifications.html">Notification</a></li>
+              <li class="submenu"> <a class="dropdown-item" href="candidate-setting.html">Setting</a></li>
+              <li class="submenu"> <a class="dropdown-item" href="jobseeker-login.html">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,62 @@
+<ng-template #registerModal let-modal>
+  <div
+  class="modal-header">
+    <h5
+    class="modal-title" id="registerModalLabel">Recruiter Registration</h5>
+    <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form method="post">
+      <div class="form-group">
+        <label>First Name</label>
+        <div class="input-with-icon">
+          <input type="text" class="form-control" placeholder="First Name" name="firstname">
+          <i class="fas fa-user-alt"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <div class="input-with-icon">
+          <input type="text" class="form-control" placeholder="Last Name" name="lastname">
+          <i class="fas fa-user-alt"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email </label>
+        <div class="input-with-icon">
+          <input type="email" class="form-control" placeholder="Email Address" name="emailaddress">
+          <i class="fas fa-envelope"></i>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="router?.url.includes('employer') || router?.url.includes('agency')">
+        <label>Company Name </label>
+        <div class="input-with-icon">
+          <input type="password" class="form-control" placeholder="Company Name" name="companyName">
+          <i class="fas fa-industry"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password </label>
+        <div class="input-with-icon">
+          <input type="password" class="form-control" placeholder="Password" name="password">
+          <i class="fas fa-key"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="termsService">
+        <label class="custom-control-label" for="termsService">Terms of Service and Privacy Policy <a href="#">View</a></label>
+        </div>
+      </div>
+      <div
+       class="form-group mt-5">
+        <a href="javascript:;"
+        [ngClass]="{'btn-theme-blue': router?.url.includes('employer'), 'btn-theme-orange':router?.url.includes('agency'), 'btn-theme-green':router?.url.includes('user') }"
+         class="btn btn-block btn-lg">Register</a>
+      </div>
+    </form>
+
+  </div>
+</ng-template>

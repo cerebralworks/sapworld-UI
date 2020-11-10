@@ -1,0 +1,115 @@
+<div>
+  <h6 class="font-weight-bold mt-4">{{"postYourResume.education" | translate }}</h6>
+  <ng-container>
+    <div class="row mt-3" *ngFor="let item of eduArray; let i=index">
+      <div class="col-lg-2 col-md-5">
+        <div class=" form-group">
+          <label>{{"postYourResume.degree" | translate }} </label>
+          <select class="form-control" name="job-type">
+            <option selected="" disabled="">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}</option>
+            <option >Bachelors</option>
+            <option >Diploma</option>
+            <option >Masters</option>
+            <option >Doctorate</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-5">
+        <div class=" form-group">
+          <label>{{"postYourResume.fieldOfStudy" | translate }}</label>
+          <input type="text" class="form-control" [placeholder]="'postJob.fieldOfStudy' | translate">
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-5">
+        <div class=" form-group">
+          <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
+          <input type="text" class="form-control" [placeholder]="'postJob.yearOfCompletion' | translate">
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-2 d-flex justify-content-center align-items-center">
+        <button type="button" class="btn btn-outline-danger" style="line-height: 1.75; padding: .5rem 1.0rem;"
+          (click)="onRemove(i)"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+  </ng-container>
+							<div class="row mt-3">
+								<div class="col-lg-2 col-md-5">
+									<div class=" form-group">
+										<label>{{"postYourResume.degree" | translate }} </label>
+										<select class="form-control" name="job-type">
+											<option selected="" disabled="">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}</option>
+											<option >Bachelors</option>
+											<option >Diploma</option>
+											<option >Masters</option>
+											<option >Doctorate</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-5">
+									<div class=" form-group">
+										<label>{{"postYourResume.fieldOfStudy" | translate }}</label>
+										<input type="text" class="form-control" [placeholder]="'postJob.fieldOfStudy' | translate">
+									</div>
+                </div>
+                <div class="col-lg-2 col-md-5">
+                  <div class=" form-group">
+                    <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
+                    <input type="text" class="form-control" [placeholder]="'postJob.yearOfCompletion' | translate">
+                  </div>
+                </div>
+                <div class="col-lg-1 col-md-2 d-flex justify-content-center align-items-center">
+                  <button type="button" (click)="onDuplicate()" class="btn btn-outline-success" style="line-height: 1.75; padding: .5rem 1.0rem;">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+							</div>
+
+							<h6 class="font-weight-bold mt-4">{{"postYourResume.experience" | translate }}</h6>
+							<div class="row mt-3">
+								<div class="col-lg-3 col-md-6">
+									<div class=" form-group">
+										<label>{{"postJob.totalYearsOfExperience" | translate }}</label>
+										<input type="text" class="form-control w-40 text-center" value="8+">
+									</div>
+								</div>
+								<div class="col-lg-2 col-md-6">
+									<div class=" form-group">
+										<label>{{"postJob.totalYearsOfSapExperience" | translate }}</label>
+										<input type="text" class="form-control w-50 text-center" value="5+">
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6">
+									<div class=" form-group">
+										<label>{{"postYourResume.currentEmployer" | translate }}</label>
+										<input type="text" class="form-control" placeholder="Current Employer Name">
+									</div>
+								</div>
+							</div>
+
+							<div class="row mt-2">
+								<div class="col-lg-9 ">
+									<div class=" form-group">
+										<label>{{"postYourResume.currentRole" | translate }}</label>
+										<input type="text" class="form-control" placeholder="Current Role">
+									</div>
+								</div>
+							</div>
+
+							<div class="row mt-2">
+								<div class="col-lg-9">
+									<div class=" form-group">
+										<label>{{"postYourResume.DomainsWorked" | translate }}</label>
+										<input type="text" class="form-control" value="Automobile, Finance, Logistics, Payroll, Aviation, Shipping" data-role="tagsinput">
+									</div>
+								</div>
+							</div>
+
+							<div class="row mt-2">
+								<div class="col-lg-9">
+									<div class=" form-group">
+										<label>{{"postYourResume.clientsWorkedWith" | translate }}</label>
+										<input type="text" class="form-control" placeholder="Ex. Microsoft, Google, Facebook, SAP">
+									</div>
+								</div>
+							</div>
+</div>

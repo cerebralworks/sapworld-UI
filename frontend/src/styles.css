@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+.modal-holder{
+  animation-name: modal-animation;
+  animation-duration: 0.3s;
+}
+
+@keyframes modal-animation {
+  0%   {transform: scale(0.5)}
+  100% {transform: scale(1)}
+}

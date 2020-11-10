@@ -1,0 +1,24 @@
+/*--font-family: 'Montserrat', sans-serif;--*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap');
+
+/*-- Small devices (landscape phones,359px and up)--*/
+@media screen and (max-width:320px)  {
+}
+/*-- Small devices (landscape phones, 576px and up)--*/
+@media (min-width: 320px) and (max-width: 767.98px) {
+ }
+
+/*-- Medium devices (tablets, 768px and up)--*/
+@media (min-width: 768px) and (max-width: 1023.98px) {
+}
+
+/*-- Large devices (desktops, large desktops, 1024px and up)--*/
+@media (min-width: 1024px) { 
+}
+
+/**--Big Container--**/
+@media (min-width: 1200px){
+	.container-big {
+		max-width: 1440px!important;
+	}
+}

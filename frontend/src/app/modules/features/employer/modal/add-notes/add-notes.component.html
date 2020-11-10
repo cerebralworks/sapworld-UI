@@ -1,0 +1,19 @@
+<ng-template #addNotesModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Add Notes</h5>
+    <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-theme-blue btn-sm" data-dismiss="modal">Save</button>
+  </div>
+</ng-template>

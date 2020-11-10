@@ -1,0 +1,60 @@
+<ng-template #matchOtherPostModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="matchpostModal">Match Other Posts</h5>
+    <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <form>
+      <div class="form-row">
+        <div class="col-12 my-3">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="match1">
+            <label class="custom-control-label font-weight-bold pt-1" for="match1">Project Manager - (SAP-PS)</label>
+          </div>
+        </div>
+        <div class="col-12 my-3">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="match2">
+            <label class="custom-control-label font-weight-bold pt-1" for="match2">Financial Developer - (SAP-FI)</label>
+          </div>
+        </div>
+        <div class="col-12 my-3">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="match3">
+            <label class="custom-control-label font-weight-bold pt-1" for="match3">Project Management - (SAP-PM)</label>
+          </div>
+        </div>
+        <div class="col-12 my-3">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="match4">
+            <label class="custom-control-label font-weight-bold pt-1" for="match4">Senior Developer  - (SAP-SD)</label>
+          </div>
+        </div>
+        <div class="col-12 my-3">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="match5">
+            <label class="custom-control-label font-weight-bold pt-1" for="match5">Account Manager   - (SAP-AM)</label>
+          </div>
+        </div>
+        <div class="col-12 my-3">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="match6">
+            <label class="custom-control-label font-weight-bold pt-1" for="match6">Sales Executives   - (SAP-SE)</label>
+          </div>
+        </div>
+        <div class="col-12 my-3">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="match7">
+            <label class="custom-control-label font-weight-bold pt-1" for="match7">Account Assistant   - (SAP-AA)</label>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div class="modal-footer">
+    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button [routerLink]="['/employer/job-multiple-candidate-matches']" type="button" class="btn btn-theme-blue">Match</button>
+    </div>
+</ng-template>

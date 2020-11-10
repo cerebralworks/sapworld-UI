@@ -1,0 +1,160 @@
+
+
+<div>
+  <div class="row mt-5 ">
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.totalYearsOfExperience" | translate }}</label>
+        <input type="text" class="form-control w-25 text-center" value="8+">
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.totalYearsOfSapExperience" | translate }}</label>
+        <input type="text" class="form-control w-25 text-center" value="5+">
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-lg-12 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.domainExperience" | translate }}</label>
+        <input type="text" class="form-control" value="Automobile, Finance, Logistics, Shipping" data-role="tagsinput">
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-lg-12 col-md-6">
+      <label>{{"postJob.handsOnWith" | translate }} </label>
+    </div>
+  </div>
+  <ng-container>
+    <div class="row mt-2"  *ngFor="let item of skillArray; let i=index">
+      <div class="col-lg-4 col-md-6">
+        <input type="text" class="form-control" [placeholder]="'postJob.sapModule' | translate">
+      </div>
+      <div class="col-lg-2 col-md-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Exp">
+          <div class="input-group-append ">
+            <select class="input-group-text" id="basic-addon2">
+              <option>Yrs</option>
+              <option>Mon</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-2">
+        <button type="button" class="btn btn-outline-danger" style="line-height: 1.75; padding: .5rem 1.0rem;"
+            (click)="onRemove(i)"><i class="fas fa-times"></i></button>
+
+      </div>
+    </div>
+    </ng-container>
+  <div class="row mt-2">
+    <div class="col-lg-4 col-md-6">
+      <input type="text" class="form-control" [placeholder]="'postJob.sapModule' | translate">
+    </div>
+    <div class="col-lg-2 col-md-4">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Exp">
+        <div class="input-group-append ">
+          <select class="input-group-text" id="basic-addon2">
+            <option>Yrs</option>
+            <option>Mon</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-2">
+      <button (click)="onDuplicate()" type="button" class="btn btn-outline-green" style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-12 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.knowledgeOnOtherSapSkills" | translate }} </label>
+        <input type="text" class="form-control" value="SAP Mobility, SAP FICO, SAP BODS" data-role="tagsinput">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-9 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.programmingSkills" | translate }}</label>
+        <input type="text" class="form-control" value="Python, JAVA, Microsoft BI, Angular" data-role="tagsinput">
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.endToEndImplementation" | translate }} </label>
+       <input type="text" class="form-control w-25" >
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-6 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.niceToHave" | translate }} </label>
+        <input type="text" class="form-control" value="Python, SAP BODS" data-role="tagsinput">
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.certification" | translate }} </label>
+         <input type="text" class="form-control" value="CCNA, AWSC" data-role="tagsinput">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-6 col-md-6">
+      <div class=" form-group">
+      </div>
+      <div class=" form-group">
+        <label class="font-weight-bold">{{"postJob.workAuthorization" | translate }} </label>
+         <div class="mt-2">
+           <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" id="customRadioInline5" name="customRadioInline2" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline5">{{"postJob.shouldBeACitizenPr" | translate }}</label>
+          </div>
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" id="customRadioInline6" name="customRadioInline2" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline6">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.travel" | translate }} </label>
+        <select class="form-control">
+        <option selected="" disabled="">{{"common.select" | translate }}</option>
+        <option>No</option>
+        <option>25%</option>
+        <option>50%</option>
+        <option>75%</option>
+        <option>100%</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-2 col-md-6">
+       <label class="font-weight-bold">{{"postJob.visaSponsorship" | translate }} </label>
+    </div>
+    <div class="col-lg-2 col-md-6">
+      <div class=" form-group">
+        <div class="showhideswitch">
+        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch5">
+        <label class="showhideswitch-label" for="myshowhideswitch5">
+          <span class="showhideswitch-inner yesno"></span>
+          <span class="showhideswitch-switch"></span>
+        </label>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+.job-card .social-media i {
+  font-size: 13px;
+  width: 18px;
+  text-align: center;
+  margin-right: 0px;
+  line-height: 22px;
+}
+.job-card .social-media a.in i {
+  /* color: #0e76a8 !important; */
+  color: #465666;
+}
+.job-card .social-media a.gh i {
+  /* color: #171515 !important; */
+  color: #465666;
+}
+.job-card .social-media a.yt i {
+  /* color: #FF0000 !important; */
+  color: #465666;
+}
+.job-card .social-media a.bl i {
+  /* color: #fc4f08 !important; */
+  color: #465666;
+}
+.job-card .social-media a.bl i {
+  /* color: #fc4f08 !important; */
+  color: #465666;
+}
+.job-card .social-media a.pf i {
+  /* color: #385edf !important; */
+  color: #465666;
+}
+.job-card .linkIcon {
+  margin-right: 0px;
+  padding: 0px 3px 0;
+}
+.job-card .linkIcon.in {
+  padding-left: 0px !important;
+}

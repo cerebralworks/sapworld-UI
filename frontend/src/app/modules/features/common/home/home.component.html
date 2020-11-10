@@ -1,0 +1,86 @@
+ <!-- Banner Section -->
+ <section class="theme-banner">
+  <div class="container">
+    <div class="find-banner w-60">
+      <h1 class="banner-title text-center">{{ 'home.title' | translate}}.</h1>
+      <form method="post" class="find-bar">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 mb-3">
+          <div class="input-with-icon">
+            <input type="text" class="form-control" placeholder="Job Title / SAP Module" value="">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          </div>
+          <div class="col-lg-6 col-md-6 mb-3">
+          <div class="input-with-icon">
+            <input type="text" class="form-control" placeholder="City, State, Zipcode" value="">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+          <div class="custom-control custom-radio ml-1">
+            <input [(ngModel)]="isFindSearch" [value]="0" type="radio" id="customRadio1" name="customRadio" checked class="custom-control-input">
+            <label class="custom-control-label" for="customRadio1">{{ "home.findJobs" | translate}}</label>
+          </div>
+          <div class="custom-control custom-radio ml-1">
+            <input [(ngModel)]="isFindSearch" [value]="1" type="radio" id="customRadio2"  name="customRadio" class="custom-control-input">
+            <label class="custom-control-label" for="customRadio2">{{ "home.findCandidates" | translate}}</label>
+          </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+          <button (click)="onRedirect()" type="button" class="btn btn-block btn-theme-blue btn-lg">{{"home.search" | translate}}</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h5 class="font-weight-bold ">
+            <a class="text-dark" href="#">USA <span class="mx-2">|</span></a>
+            <a class="text-dark" href="#">Europe  <span class="mx-2">|</span></a>
+            <a class="text-dark" href="#">Asia Pacific <span class="mx-2">|</span></a>
+            <a class="text-dark" href="#">South America </a>
+          </h5>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-lg-12 text-center">
+          <a [routerLink]="['/employer/post-job']" class="btn btn-outline-blue font-weight-bold py-2 px-4 mr-1" href="javascript:;">{{"home.postJob" | translate}}   </a>
+          <a [routerLink]="['/user/create-candidate']" class="btn btn-outline-green font-weight-bold py-2 px-4" href="javascript:;">{{"home.postResume" | translate}} </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- //Banner Section -->
+  <!-- Category Section -->
+<section class="job-category">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 class="title mb-4">{{"home.postResume" | translate}}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <a href="#" class="job-category-box">
+        <!-- <i class="flaticon-accounting"></i> -->
+        <h5>India <br>(60)</h5>
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <a href="#" class="job-category-box">
+        <!-- <i class="flaticon-accounting"></i> -->
+        <h5>US <br>(40)</h5>
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <a href="#" class="job-category-box">
+        <!-- <i class="flaticon-accounting"></i> -->
+        <h5>Canada <br>(20)</h5>
+        </a>
+      </div>
+    </div>
+  </div>
+  </section>
+  <!-- //Category Section -->

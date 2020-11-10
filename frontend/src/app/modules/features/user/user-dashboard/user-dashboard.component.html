@@ -1,0 +1,91 @@
+<!-- Sub Header Section -->
+<section class="sub-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
+        </ol>
+      </div>
+      <div class="col-lg-7 clearfix">
+        <form class="form-inline float-right">
+          <div class="input-with-icon mr-sm-2">
+            <input type="text" class="form-control" name="job-title" placeholder="Job Title / SAP Module" style="height: 36px;">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <div class="input-with-icon mr-sm-2">
+            <input type="text" class="form-control" name="job-city" placeholder="City, State, Zipcode" style="height: 36px;">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <button type="button" class="btn btn-theme-blue" onclick="location.href='find-jobs.html'" style="height:35px;line-height:15px;">
+          <i class="fas fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //Sub Header Section -->
+
+<!-- Nav Tab Section -->
+<section class="nav-tab">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <ul class="nav">
+          <li class="nav-item">
+            <a (click)="onTabChange({tabName: 'Profile', tabNumber: 1})"
+              [ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">
+              {{"dashboard.profile" | translate}}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="onTabChange({tabName: 'Matches', tabNumber: 2})"
+              [ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}}
+              <small>(39)</small></a>
+          </li>
+          <li class="nav-item">
+						<a (click)="onTabChange({tabName: 'Visa Sponsored', tabNumber: 3})"
+            [ngClass]="{'active': currentTabInfo.tabNumber == 3}" class="nav-link" href="javascript:;">
+            {{"dashboard.visaSponsored" | translate}}  <small>(28)</small></a>
+					  </li>
+          <li class="nav-item">
+            <a (click)="onTabChange({tabName: 'Applied', tabNumber: 4})"
+              [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">
+              {{"dashboard.applied" | translate}}
+              <small>(12)</small></a>
+          </li>
+          <li class="nav-item">
+            <a (click)="onTabChange({tabName: 'Shortlisted', tabNumber: 5})"
+              [ngClass]="{'active': currentTabInfo.tabNumber == 5}" class="nav-link" href="javascript:;">
+              {{"dashboard.shortlisted" | translate}}
+              <small>(07)</small></a>
+          </li>
+          <li class="nav-item">
+            <a (click)="onTabChange({tabName: 'Resume', tabNumber: 6})"
+              [ngClass]="{'active': currentTabInfo.tabNumber == 6}" class="nav-link" href="javascript:;">
+              {{"dashboard.resume" | translate}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //Nav Tab Section -->
+
+<app-user-profile *ngIf="currentTabInfo.tabNumber == 1">
+</app-user-profile>
+
+<app-matching-job *ngIf="currentTabInfo.tabNumber == 2">
+</app-matching-job>
+
+<app-visa-sponsored *ngIf="currentTabInfo.tabNumber == 3">
+</app-visa-sponsored>
+
+<app-applied-job *ngIf="currentTabInfo.tabNumber == 4">
+</app-applied-job>
+
+<app-shortlisted-job *ngIf="currentTabInfo.tabNumber == 5">
+</app-shortlisted-job>
+
+<app-user-resume *ngIf="currentTabInfo.tabNumber == 6">
+</app-user-resume>
