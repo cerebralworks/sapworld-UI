@@ -18,8 +18,6 @@ export class HomeComponent implements OnInit {
   }
 
   onRedirect = () => {
-    console.log(this.isFindSearch);
-
     if(this.isFindSearch == 0) {
       this.router.navigate(['/find-jobs']);
     }else {

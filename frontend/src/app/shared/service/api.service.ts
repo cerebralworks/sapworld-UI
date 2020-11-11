@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
 import { catchError } from 'rxjs/operators';
@@ -13,7 +13,13 @@ export class ApiService {
   ) { }
 
   private formatErrors(error: any) {
-    return transformError(error);
+    if (error instanceof HttpErrorResponse) {
+      // const errorMessages = new Array<{ propName: string; errors: string }>();
+      console.log(error);
+
+      return throwError(error.error);
+    }
+
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {

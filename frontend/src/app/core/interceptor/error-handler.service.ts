@@ -21,8 +21,6 @@ export class ErrorsHandler extends ErrorHandler {
 
   handleError(error: Error | HttpErrorResponse) {
     if (error instanceof HttpErrorResponse) {
-      console.log('error', error);
-
       // Server or connection error happened
       if (!navigator.onLine) {
         // Handle offline error

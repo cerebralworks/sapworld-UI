@@ -65,8 +65,6 @@ export class PostJobLayoutComponent implements OnInit {
   }
 
   onHeaderTabChange = (currentTabInfo: tabInfo) => {
-    console.log(currentTabInfo);
-
     this.currentTabInfo = { ...currentTabInfo};
   }
 

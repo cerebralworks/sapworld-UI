@@ -8,10 +8,10 @@ export class ValidationService {
   public static getValidationErrorMessage(validatorName: string, validatorValue?: any, labelName?: string): any {
     const config = {
       required: `Field is required.`,
-      invalidPassword: 'Invalid password. Password must be at least 6 characters long, and contain a number.',
+      invalidPassword: 'Invalid password. Password must be at least 8 characters long, and contain a number.',
       maxlength: `The field can't contain more than ${validatorValue.requiredLength} characters.`,
       minlength: `The field must contain atleast ${validatorValue.requiredLength} characters.`,
-      invalidEmail: 'Please enter a valid email address.',
+      invalidEmailAddress: 'Please enter a valid email address.',
     };
 
     return config[validatorName];
@@ -23,12 +23,19 @@ export class ValidationService {
     // {6,100}           - Assert password is between 6 and 100 characters
     // (?=.*[0-9])       - Assert a string has at least one number
     // (?!.*\s)          - Spaces are not allowed
-    return (control.value.match(/^(?=.*\d)(?=.*[a-zA-Z!@#$%^&*])(?!.*\s).{6,100}$/)) ? '' : { invalidPassword: true };
+    return (control.value.match(/^(?=.*\d)(?=.*[a-zA-Z!@#$%^&*])(?!.*\s).{8,100}$/)) ? '' : { invalidPassword: true };
   }
 
-  public static emailValidator(control: AbstractControl): any {
-    if (!control.value) { return; }
-
-    return (control.value.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)) ? '' : { invalidEmail: true };
+  public static emailValidator(control) {
+    // RFC 2822 compliant regex
+    if (
+      control.value.match(
+        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+      )
+    ) {
+      return null;
+    } else {
+      return { invalidEmailAddress: true };
+    }
   }
 }

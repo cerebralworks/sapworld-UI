@@ -15,8 +15,6 @@ export class ControlMessagesComponent {
 
   get errorMessage(): boolean {
     for (const propertyName in this.control.errors) {
-      console.log(this.control.errors);
-
       if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
         return ValidationService.getValidationErrorMessage(
           propertyName,

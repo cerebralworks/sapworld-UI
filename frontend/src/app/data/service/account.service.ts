@@ -18,6 +18,7 @@ export class AccountService extends CacheService {
   public currentUserSubject: BehaviorSubject<
     AccountLogin
   > = new BehaviorSubject<AccountLogin>(this.hasCurrentUser());
+
   isLoginSubject = new BehaviorSubject<boolean>(this.hasIsLoggedIn());
 
   constructor(private apiService: ApiService) {
@@ -74,6 +75,7 @@ export class AccountService extends CacheService {
     return this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
   }
 
+
   checkUserloggedIn = (): Observable<LoggedIn> => {
     return this.apiService.post('/isLoggedIn').pipe(
       map(data => {
@@ -93,7 +95,7 @@ export class AccountService extends CacheService {
   };
 
   signup = (userInfo: {}): Observable<AccountSignup> => {
-    return this.apiService.post('/api/signup', userInfo).pipe(
+    return this.apiService.post('/api/employers/signup', userInfo).pipe(
       map(data => {
         this.setAuth(data);
         return data;
@@ -112,12 +114,10 @@ export class AccountService extends CacheService {
   };
 
   setAuth(data: AccountLogin) {
-    console.log(data);
-
     // Save logged in and sent from server in localstorage
     this.setItem('currentUser', data);
     // Set current user data into observable
-    this.currentUserSubject.next(data);
+    this.changeCurrentUserValue(data);
     // Set isAuthenticated to true
     const isLoggedIn = data.isLoggedIn ? true : false;
     this.isLoginSubject.next(isLoggedIn);

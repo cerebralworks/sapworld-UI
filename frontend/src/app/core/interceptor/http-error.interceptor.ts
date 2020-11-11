@@ -60,8 +60,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           location.reload();
         }
         if (err instanceof HttpErrorResponse) {
-          // console.log('err', err);
-
           try {
 
             if (!navigator.onLine) {
@@ -70,19 +68,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 
             } else {
-              console.log('err fdsssssssssssssssssss', err.error.error.message);
-
               if (err.error.error.message) {
                 this.toastrService.error(err.error.error.message, '');
               } else if (err.error.err) {
                 this.toastrService.error(err.error.err.msg || err.error.err.message, '');
               }
-
-              else {
-                this.toastrService.error(err.error.error.msg, '');
-              }
-              // Handle Http Error (error.status === 403, 404...)
-
             }
           } catch (e) {
             this.toastrService.error('An error occurred', '');
