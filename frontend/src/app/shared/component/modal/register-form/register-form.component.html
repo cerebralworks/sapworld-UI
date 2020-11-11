@@ -54,14 +54,14 @@
       </div>
       <div class="form-group">
         <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="termsService">
+        <input type="checkbox" class="custom-control-input" id="termsService" formControlName="isAgreed">
         <label class="custom-control-label" for="termsService">Terms of Service and Privacy Policy <a href="#">View</a></label>
         </div>
       </div>
       <div
        class="form-group mt-5">
         <button type="submit" [ngClass]="{'btn-theme-blue': router?.url.includes('employer'), 'btn-theme-orange':router?.url.includes('agency'), 'btn-theme-green':router?.url.includes('user') }"
-         class="btn btn-block btn-lg" [disabled]="registerForm.invalid">
+         class="btn btn-block btn-lg" [disabled]="(registerForm.invalid || (!registerForm?.value?.isAgreed))">
          <span [hidden]="isLoading">Submit</span>
          <span [hidden]="!isLoading">
            <i class="fa fa-spinner" aria-hidden="true"></i>

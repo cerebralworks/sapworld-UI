@@ -97,7 +97,8 @@ export class RegisterFormComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
-      companyName: ['', Validators.required]
+      companyName: ['', Validators.required],
+      isAgreed: [false]
     });
   }
 
