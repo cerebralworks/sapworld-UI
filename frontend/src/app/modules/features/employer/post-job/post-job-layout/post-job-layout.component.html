@@ -15,31 +15,35 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 tabs-animated" id="myTab">
+        <form method="post" [formGroup]="postJobForm" (ngSubmit)="postJob()">
+          <app-post-job-header
+          [currentTabInfo]="currentTabInfo"
+          (onTabChangeEvent)="onHeaderTabChange($event)">
+          </app-post-job-header>
 
-        <app-post-job-header
-        [currentTabInfo]="currentTabInfo"
-        (onTabChangeEvent)="onHeaderTabChange($event)">
-        </app-post-job-header>
+          <div class="tab-content" [@animSlider]="slidingCounter">
 
-        <div class="tab-content" [@animSlider]="slidingCounter">
+            <app-job-information
+            [postJobForm]="postJobForm"
+            *ngIf="currentTabInfo.tabNumber == 1"
+            [currentTabInfo]="currentTabInfo">
+            </app-job-information>
 
-          <app-job-information
-          *ngIf="currentTabInfo.tabNumber == 1"
-          [currentTabInfo]="currentTabInfo">
-          </app-job-information>
+            <app-requirement-criteria
+            [postJobForm]="postJobForm"
+            *ngIf="currentTabInfo.tabNumber == 2"
+            [currentTabInfo]="currentTabInfo">
+            </app-requirement-criteria>
 
-          <app-requirement-criteria
-          *ngIf="currentTabInfo.tabNumber == 2"
-          [currentTabInfo]="currentTabInfo">
-          </app-requirement-criteria>
+          </div>
 
-        </div>
-
-        <app-post-job-footer
-        [currentTabInfo]="currentTabInfo"
-        (onTabChangeEvent)="onFooterTabChange($event)"
-        (onEnableJobPreviewModal)="onToggleJobPreviewModal($event)">
-        </app-post-job-footer>
+          <app-post-job-footer
+          [postJobForm]="postJobForm"
+          [currentTabInfo]="currentTabInfo"
+          (onTabChangeEvent)="onFooterTabChange($event)"
+          (onEnableJobPreviewModal)="onToggleJobPreviewModal($event)">
+          </app-post-job-footer>
+        </form>
 
       </div>
     </div>

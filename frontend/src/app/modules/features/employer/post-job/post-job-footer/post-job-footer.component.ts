@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 
 @Component({
@@ -12,6 +13,7 @@ export class PostJobFooterComponent implements OnInit {
   @Input() currentTabInfo: tabInfo;
   @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
   @Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
+  @Input() postJobForm: FormGroup;
 
   public btnType: string;
   public isOpenedJobPreviewModal: any;

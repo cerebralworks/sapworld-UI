@@ -39,7 +39,7 @@
       <div class="form-group" *ngIf="router?.url.includes('employer') || router?.url.includes('agency')">
         <label>Company Name </label>
         <div class="input-with-icon">
-          <input type="password" class="form-control" [placeholder]="'Company Name'" formControlName="companyName">
+          <input type="text" class="form-control" [placeholder]="'Company Name'" formControlName="companyName">
           <i class="fas fa-industry"></i>
         </div>
         <app-control-messages [control]="f['companyName']"></app-control-messages>

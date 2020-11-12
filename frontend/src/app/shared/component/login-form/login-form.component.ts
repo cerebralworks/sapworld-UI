@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';
+import { ValidationService } from '@shared/service/validation.service';
 
 @Component({
   selector: 'app-login-form',
@@ -53,7 +54,7 @@ export class LoginFormComponent implements OnInit {
 
   private buildForm(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', Validators.required]
     });
   }

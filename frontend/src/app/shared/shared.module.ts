@@ -39,6 +39,7 @@ import { ApiService } from './service/api.service';
     SendMailJobPreviewComponent,
     ForgotPasswordComponent,
     FormsModule,
+    ReactiveFormsModule,
     TranslateModule,
     ContactInfoComponent,
     NotesViewComponent,

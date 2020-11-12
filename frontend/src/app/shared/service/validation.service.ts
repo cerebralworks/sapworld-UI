@@ -12,6 +12,7 @@ export class ValidationService {
       maxlength: `The field can't contain more than ${validatorValue.requiredLength} characters.`,
       minlength: `The field must contain atleast ${validatorValue.requiredLength} characters.`,
       invalidEmailAddress: 'Please enter a valid email address.',
+      noFreeEmail: "Please use your business email, we don't accept Gmail, Yahoo, Hotmail and Mailinator accounts."
     };
 
     return config[validatorName];
@@ -36,6 +37,19 @@ export class ValidationService {
       return null;
     } else {
       return { invalidEmailAddress: true };
+    }
+  }
+
+  public static noFreeEmail(control) {
+    // RFC 2822 compliant regex
+    if (
+      control.value.match(
+        /^([\w-.]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)(?!mailinator\.com)([\w-]+.)+[\w-]{2,4})?$/
+      )
+    ) {
+      return null;
+    } else {
+      return { noFreeEmail: true };
     }
   }
 }

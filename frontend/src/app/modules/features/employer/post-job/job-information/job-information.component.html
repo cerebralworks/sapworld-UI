@@ -5,6 +5,7 @@
         <label>{{"postJob.jobTitle" | translate}}</label>
         <input type="text" class="form-control" [placeholder]="'postJob.jobTitle' | translate"/>
       </div>
+      <app-control-messages [control]="f['title']"></app-control-messages>
     </div>
   </div>
   <div class="row mt-2">

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 
 @Component({
@@ -9,10 +10,15 @@ import { tabInfo } from '@data/schema/create-candidate';
 export class JobInformationComponent implements OnInit {
 
   @Input() currentTabInfo: tabInfo;
+  @Input() postJobForm: FormGroup;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  get f() {
+    return this.postJobForm.controls;
   }
 
 }
