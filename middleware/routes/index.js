@@ -1,12 +1,12 @@
 const authentication = require("./authentication");
-const restaurant = require("./restaurant");
+const employer = require("./employer");
 const users = require("./users");
-const hoppoints = require("./hoppoints");
+const industries = require("./industries");
 var appRouter = (app, env, rp) => {
   authentication(app, env, rp);
-  restaurant(app, env, rp);
+  employer(app, env, rp);
   users(app, env, rp);
-  hoppoints(app, env, rp);
+  industries(app, env, rp);
 };
 
 module.exports = appRouter;

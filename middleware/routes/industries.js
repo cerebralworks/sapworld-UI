@@ -5,10 +5,9 @@ module.exports = (app, env, rp) => {
   /**
    * Vendor Hoppoints.
    */
-  app.get('/api/hoppoints/viewSummary', (req, res) => {
+  app.get('/api/industries/list', (req, res) => {
     let requestBody = { ...req.query }
-    requestBody.id = req.session.restaurant.id
-    requestCustom.get(serverRoutes.hopPointsSummary, req, res, requestBody)
+    requestCustom.get(serverRoutes.listIndustries, req, res, requestBody)
   })
 	/**
    * Vendor Hoppoints.

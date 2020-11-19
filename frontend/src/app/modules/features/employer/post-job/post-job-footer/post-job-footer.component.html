@@ -6,12 +6,15 @@
   </div>
   <div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 1">
     <div class="form-group">
-      <button type="button"  (click)="onNext()" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"common.next" | translate}}</button>
+      <button [disabled]="!postJobForm.valid" (click)="onNext()" type="button" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"common.next" | translate}}</button>
     </div>
   </div>
   <div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 2">
     <div class="form-group">
-      <button (click)="onToggleJobPreviewModal(true)" type="button" class="btn btn-theme-green  btn-block btn-lg btnSubmit">{{"common.submit" | translate}}</button>
+      <button [disabled]="!postJobForm.valid" (click)="onToggleJobPreviewModal(true)" type="button" class="btn btn-theme-green  btn-block btn-lg btnSubmit">{{"common.submit" | translate}}</button>
     </div>
   </div>
 </div>
+<!-- (click)="onToggleJobPreviewModal(true)" -->
+<!-- (click)="onNext()" -->
+<!-- [disabled]="!postJobForm.valid"  -->

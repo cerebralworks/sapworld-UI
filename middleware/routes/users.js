@@ -21,7 +21,7 @@ module.exports = (app, env, rp) => {
     requestBody.data = {restaurant : req.session.restaurant.id};
     requestCustom.post(`${serverRoutes.sendNotification}`, req, res, requestBody);
   });
-
+  
   /**
    * Get Restaurant Visits.
    */

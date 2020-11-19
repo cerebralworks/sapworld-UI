@@ -1,25 +1,25 @@
 <ng-template #jobPreviewModal let-modal>
-  <div>
+  <div formGroupName="jobPrev">
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">{{"postJob.jobPreview" | translate }} </h5>
       <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">×</span>
       </button>
-      </div>
-      <div class="modal-body" style="height:550px; overflow-y:scroll;">
+    </div>
+    <div class="modal-body" style="height:550px; overflow-y:scroll;">
       <div class="row">
         <div class="col-lg-12">
           <div class="card job-card">
             <div class="card-body">
               <div class="row">
                 <div class="col-lg-12">
-                  <h5>SAP ABAP Lead Consultant</h5>
+                  <h5>{{postJobForm?.value?.jobInfo?.title}}</h5>
                 </div>
               </div>
               <div class="media">
                 <div class="media-body">
-                  <h6>Wipro Limited - Texas Technology Center</h6>
-                  <h6>5445 Legacy Drive, Suite #300, PLANO, TX – 75024</h6>
+                  <h6>{{profileInfo?.details?.company}}</h6>
+                  <h6>{{postJobForm?.value?.jobInfo?.location}}</h6>
                 </div>
               </div>
             </div>
@@ -40,42 +40,42 @@
         </div>
         <div class="col-lg-6 info">
           <ul class="list-group">
-            <li class="list-group-item">8+ Years</li>
-            <li class="list-group-item">5+ Years</li>
-            <li class="list-group-item">Automotive, Logistics, Finance, Shipping</li>
-            <li class="list-group-item">SAP PM, SAP MM, SAP Mobility</li>
+            <li class="list-group-item">{{postJobForm?.value?.requirement?.experience}} Years</li>
+            <li class="list-group-item">{{postJobForm?.value?.requirement?.sap_experience}} Years</li>
+            <li class="list-group-item">{{onConvertArrayObjToString(postJobForm?.value?.requirement?.domain)}}</li>
+            <li class="list-group-item">{{onConvertArrayObjToAdditionalString(postJobForm?.value?.requirement?.hands_on_experience, 'domain')}}</li>
           </ul>
         </div>
         <div class="col-lg-2 caption">
           <ul class="list-group">
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select1">
-              <label class="custom-control-label" for="select1">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'experience')" class="custom-control-input" id="select1">
+                <label class="custom-control-label" for="select1">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select2">
-              <label class="custom-control-label" for="select2">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'sap_experience')" class="custom-control-input" id="select2">
+                <label class="custom-control-label" for="select2">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select3">
-              <label class="custom-control-label" for="select3">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'domain')" class="custom-control-input" id="select3">
+                <label class="custom-control-label" for="select3">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select4">
-              <label class="custom-control-label" for="select4">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'hands_on_experience')" class="custom-control-input" id="select4">
+                <label class="custom-control-label" for="select4">&nbsp;</label>
               </div>
             </li>
           </ul>
         </div>
 
-        <div class="col-lg-12 border-top pt-3">	</div>
+        <div class="col-lg-12 border-top pt-3"> </div>
         <div class="col-lg-4 caption">
           <ul class="list-group">
             <li class="list-group-item">{{"postJob.knowledgeOnOtherSapSkills" | translate }}</li>
@@ -87,48 +87,48 @@
         </div>
         <div class="col-lg-6 info">
           <ul class="list-group">
-            <li class="list-group-item">SAP BODS, SAP Mobility, SAP FICO </li>
-            <li class="list-group-item">Python, JAVA, Microsoft BI, Angular </li>
-            <li class="list-group-item">Python, SAP BODS</li>
-            <li class="list-group-item">SAP BODS</li>
-            <li class="list-group-item">Lorem</li>
+            <li class="list-group-item">{{onConvertArrayObjToString(postJobForm?.value?.requirement?.skills, 'tag')}} </li>
+            <li class="list-group-item">{{onConvertArrayToString(postJobForm?.value?.requirement?.programming_skills)}} </li>
+            <li class="list-group-item">{{onConvertArrayToString(postJobForm?.value?.requirement?.optinal_skills)}}</li>
+            <li class="list-group-item">{{onConvertArrayToString(postJobForm?.value?.requirement?.certification)}}</li>
+            <li class="list-group-item">{{postJobForm?.value?.requirement?.end_to_end_implementation}}</li>
           </ul>
         </div>
         <div class="col-lg-2 caption">
           <ul class="list-group">
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select5">
-              <label class="custom-control-label" for="select5">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'skills')" class="custom-control-input" id="select5">
+                <label class="custom-control-label" for="select5">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select6">
-              <label class="custom-control-label" for="select6">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'programming_skills')" class="custom-control-input" id="select6">
+                <label class="custom-control-label" for="select6">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select7">
-              <label class="custom-control-label" for="select7">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'optinal_skills')" class="custom-control-input" id="select7">
+                <label class="custom-control-label" for="select7">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select8">
-              <label class="custom-control-label" for="select8">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'certification')" class="custom-control-input" id="select8">
+                <label class="custom-control-label" for="select8">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select8">
-              <label class="custom-control-label" for="select8">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'end_to_end_implementation')" class="custom-control-input" id="select9">
+                <label class="custom-control-label" for="select9">&nbsp;</label>
               </div>
             </li>
           </ul>
         </div>
-        <div class="col-lg-12 border-top pt-3">	</div>
+        <div class="col-lg-12 border-top pt-3"> </div>
 
         <div class="col-lg-4 caption">
           <ul class="list-group">
@@ -136,107 +136,141 @@
             <li class="list-group-item">{{"postJob.remote" | translate}}</li>
             <li class="list-group-item">{{"postJob.startTime" | translate}}</li>
             <li class="list-group-item">{{"postJob.travelRequired" | translate}}</li>
-            <li class="list-group-item">{{"postJob.willingToRelocate" | translate}}</li>
+            <!-- <li class="list-group-item">{{"postJob.willingToRelocate" | translate}}</li> -->
             <li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
             <li class="list-group-item">{{"postJob.visaSponsorship" | translate }}</li>
           </ul>
         </div>
         <div class="col-lg-6 info">
           <ul class="list-group">
-            <li class="list-group-item">Permanent, Contract, Part Time</li>
-            <li class="list-group-item">Yes</li>
-            <li class="list-group-item">Immediate</li>
-            <li class="list-group-item">75%</li>
-            <li class="list-group-item">Yes</li>
-            <li class="list-group-item">Citizen / PR</li>
-            <li class="list-group-item">Yes</li>
+            <li class="list-group-item">{{postJobForm?.value?.jobInfo?.type}}</li>
+            <li class="list-group-item">{{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}}</li>
+            <li class="list-group-item">{{postJobForm?.value?.jobInfo?.availability}}</li>
+            <li class="list-group-item">{{postJobForm?.value?.requirement?.travel_opportunity}}</li>
+            <!-- <li class="list-group-item">{{postJobForm?.value?.jobInfo?.certification}}</li> -->
+            <li class="list-group-item">{{postJobForm?.value?.requirement?.work_authorization}}</li>
+            <li class="list-group-item">{{onGetYesOrNoValue(postJobForm?.value?.requirement?.visa_sponsorship)}}</li>
           </ul>
         </div>
         <div class="col-lg-2 caption">
           <ul class="list-group">
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select9">
-              <label class="custom-control-label" for="select9">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select10">
+                <label class="custom-control-label" for="select10">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select10">
-              <label class="custom-control-label" for="select10">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'remote')" class="custom-control-input" id="select11">
+                <label class="custom-control-label" for="select11">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select11">
-              <label class="custom-control-label" for="select11">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'availability')" class="custom-control-input" id="select12">
+                <label class="custom-control-label" for="select12">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select12">
-              <label class="custom-control-label" for="select12">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'travel_opportunity')" class="custom-control-input" id="select13">
+                <label class="custom-control-label" for="select13">&nbsp;</label>
+              </div>
+            </li>
+            <!-- <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" class="custom-control-input" id="select14">
+                <label class="custom-control-label" for="select14">&nbsp;</label>
+              </div>
+            </li> -->
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'work_authorization')" class="custom-control-input" id="select14">
+                <label class="custom-control-label" for="select14">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select14">
-              <label class="custom-control-label" for="select14">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select13">
-              <label class="custom-control-label" for="select13">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-              <input type="checkbox" class="custom-control-input" checked id="select14">
-              <label class="custom-control-label" for="select14">&nbsp;</label>
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'visa_sponsorship')" class="custom-control-input" id="select15">
+                <label class="custom-control-label" for="select15">&nbsp;</label>
               </div>
             </li>
           </ul>
         </div>
-        <div class="col-lg-12 border-top pt-3">	</div>
+
+        <div class="col-lg-12 border-top pt-3"> </div>
+        <div class="col-lg-4 caption">
+          <ul class="list-group">
+            <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
+            class="list-group-item">{{extra_criteria?.title}}</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 info">
+          <ul class="list-group">
+            <li
+            *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
+            class="list-group-item">{{extra_criteria?.value}}</li></ul>
+        </div>
+        <div class="col-lg-2 caption">
+          <ul class="list-group">
+            <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
+             class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select10">
+                <label class="custom-control-label" for="select10">&nbsp;</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-12 border-top pt-3"> </div>
 
         <div class="col-lg-12">
           <h6>{{"postJob.jobDescription" | translate}}</h6>
-          <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
+          <p>{{postJobForm?.value?.jobInfo?.description}}</p>
         </div>
       </div>
-      </div>
-      <div class="modal-footer">
-      <form class="form-inline mr-auto">
+    </div>
+    <div class="modal-footer">
         <div class="form-group mr-2">
-        <label>{{"postJob.enterNumberOfPositions" | translate}}</label>
+          <label>{{"postJob.enterNumberOfPositions" | translate}}</label>
         </div>
         <div class="form-group">
-        <input class="form-control form-control-sm w-50" type="text" placeholder="Numbers">
+          <input numbersOnly formControlName="number_of_positions" class="form-control form-control-sm w-50" type="text" placeholder="Numbers"/>
+          <app-control-messages [control]="f['number_of_positions']"></app-control-messages>
         </div>
-      </form>
-      <button (click)="onOpenCriteriaModal()" type="button" class="btn btn-theme-green" data-toggle="modal" data-target="#addCriteria">Add Another Criteria</button>
-      <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+      <button (click)="onOpenCriteriaModal()" type="button" class="btn btn-theme-green" data-toggle="modal"
+        data-target="#addCriteria">Add Another Criteria</button>
+      <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
+        data-dismiss="modal">Edit</button>
       <button (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">Post Job</button>
-      </div>
+    </div>
   </div>
 </ng-template>
 
 <ng-template *ngIf="isOpenCriteriaModal" #criteriaModal let-modal>
-  <div>
+
+  <div *ngIf="t?.controls?.length > 0">
+    <ng-container [formGroup]="t?.controls[0]">
     <div class="modal-header">
       <h5 class="modal-title" id="addCriteria">Add Another Criteria</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <button  (click)="onCloseCriteriaModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      </div>
-      <div class="modal-body" style="min-height:250px;">
-        <input class="form-control mt-4" type="text" placeholder="Title">
-        <input class="form-control mt-4" type="text" placeholder="Requirement">
-      </div>
-      <div class="modal-footer">
-      <button (click)="onCloseCriteriaModal()" type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
-      <button  (click)="onCloseCriteriaModal()" type="button" class="btn btn-theme-blue" data-dismiss="modal">Add</button>
-      </div>
+    </div>
+    <div class="modal-body" style="min-height:250px;">
+      <input formControlName="title" class="form-control mt-4" type="text" placeholder="Title">
+      <app-control-messages [control]="t?.controls[0]['controls']['title']"></app-control-messages>
+      <input formControlName="value" class="form-control mt-4" type="text" placeholder="Requirement">
+      <app-control-messages [control]="t?.controls[0]['controls']['value']"></app-control-messages>
+    </div>
+    <div class="modal-footer">
+      <button (click)="onCloseCriteriaModal()" type="button" class="btn btn-secondary "
+        data-dismiss="modal">Close</button>
+      <button [disabled]="(childForm?.value?.jobPrev?.temp_extra_criteria[0].title == '') || (childForm?.value?.jobPrev?.temp_extra_criteria[0].value == '')" (click)="onAddExtraCriteria()" type="button" class="btn btn-theme-blue"
+        data-dismiss="modal">Add</button>
+    </div>
+    </ng-container>
   </div>
 </ng-template>

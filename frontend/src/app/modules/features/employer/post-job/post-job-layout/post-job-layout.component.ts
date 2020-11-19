@@ -100,46 +100,28 @@ export class PostJobLayoutComponent implements OnInit {
 
   postJob = () => {
     this.isLoading = true;
-    const jobInfo: JobPosting = this.postJobForm.value;
+    const jobInfo: JobPosting = {
+      ...this.postJobForm.value.jobInfo,
+      ...this.postJobForm.value.requirement,
+      ...this.postJobForm.value.jobPrev
+    };
+    console.log(this.postJobForm.valid);
+    console.log(this.postJobForm);
     if (this.postJobForm.valid) {
-      // this.employerService.jobPost(jobInfo).subscribe(
-      //   response => {
-      //     this.isLoading = false;
-      //   }, error => {
-      //     if(error && error.error && error.error.errors)
-      //     this.formError = error.error.errors;
-      //     this.isLoading = false;
-      //   }
-      // )
+      this.employerService.jobPost(jobInfo).subscribe(
+        response => {
+          this.isLoading = false;
+        }, error => {
+          if(error && error.error && error.error.errors)
+          this.formError = error.error.errors;
+          this.isLoading = false;
+        }
+      )
     }
   }
 
   private buildForm(): void {
     this.postJobForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      type: ['', Validators.required],
-      description: ['', Validators.required],
-      salary_type: [null, Validators.required],
-      salary_currency: [null, Validators.required],
-      salary: [null, Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      country: ['', Validators.required],
-      zipcode: [null, Validators.required],
-      availability: ['', Validators.required],
-      remote: [null, Validators.required],
-      experience: [null, Validators.required],
-      sap_experience: [null, Validators.required],
-      latlng: ['', Validators.required],
-      domain: [null, Validators.required],
-      hands_on_experience: [null, Validators.required],
-      skills: [null, Validators.required],
-      programming_skills: [null, Validators.required],
-      optinal_skills: [null, Validators.required],
-      certification: [null, Validators.required],
-      work_authorization: [null, Validators.required],
-      visa_sponsorship: [null, Validators.required],
-      end_to_end_implementation: [null, Validators.required],
     });
   }
 

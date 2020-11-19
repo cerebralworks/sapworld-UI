@@ -24,4 +24,28 @@ export class EmployerService extends CacheService {
     );
   };
 
+  getIndustries = (params: any): Observable<JobPosting> => {
+    return this.apiService.get('/api/industries/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
+  getSkill = (params: any): Observable<JobPosting> => {
+    return this.apiService.get('/api/skill-tags/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
+  profile = (params?) => {
+    return this.apiService.get('/api/employers/profile', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
 }

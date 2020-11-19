@@ -20,3 +20,8 @@ export interface AccountSignup {
   userId: string;
 }
 
+export interface VerifyAccount {
+  id: any;
+  token: string;
+}
+

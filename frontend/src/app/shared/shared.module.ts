@@ -12,6 +12,10 @@ import { ContactInfoComponent } from './component/modal/contact-info/contact-inf
 import { NotesViewComponent } from './component/modal/notes-view/notes-view.component';
 import { ControlMessagesComponent } from './component/control-messages/control-messages.component';
 import { ApiService } from './service/api.service';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { NumbersOnlyDirective } from './directives/numbers-only.directive';
+import { CurrencyFormatterDirective } from './directives/currency-formatter.directive';
 
 @NgModule({
   declarations: [
@@ -23,12 +27,16 @@ import { ApiService } from './service/api.service';
     ForgotPasswordComponent,
     ContactInfoComponent,
     NotesViewComponent,
-    ControlMessagesComponent
+    ControlMessagesComponent,
+    NumbersOnlyDirective,
+    CurrencyFormatterDirective
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
+    GooglePlaceModule,
     TranslateModule.forChild()
   ],
   exports: [
@@ -43,7 +51,11 @@ import { ApiService } from './service/api.service';
     TranslateModule,
     ContactInfoComponent,
     NotesViewComponent,
-    ControlMessagesComponent
+    NgSelectModule,
+    GooglePlaceModule,
+    ControlMessagesComponent,
+    NumbersOnlyDirective,
+    CurrencyFormatterDirective
   ],
   providers: [ApiService]
 })

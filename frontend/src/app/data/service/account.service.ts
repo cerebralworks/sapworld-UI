@@ -6,7 +6,8 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 import {
   AccountLogin,
   LoggedIn,
-  AccountSignup
+  AccountSignup,
+  VerifyAccount
 } from '@data/schema/account';
 import { ApiService } from '@shared/service/api.service';
 
@@ -98,6 +99,14 @@ export class AccountService extends CacheService {
     return this.apiService.post('/api/employers/signup', userInfo).pipe(
       map(data => {
         this.setAuth(data);
+        return data;
+      })
+    );
+  };
+
+  verify = (userCredentials: VerifyAccount): Observable<VerifyAccount> => {
+    return this.apiService.post('/api/account/verify', userCredentials).pipe(
+      map(data => {
         return data;
       })
     );

@@ -121,7 +121,7 @@
     "mobileNumber": "Mobile Number",
     "country" : "Country",
     "state": "State",
-    "City": "City",
+    "city": "City",
     "zipCode": "Zip Code",
     "myLinks": "My Links",
     "enterLinkedinUrl": "Enter linkedin url",

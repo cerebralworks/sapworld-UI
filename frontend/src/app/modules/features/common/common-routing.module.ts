@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('@modules/features/common/notification/notification.module').then(m => m.NotificationModule)
   },
+  {
+    path: 'verify/:id/:token',
+    loadChildren: () =>
+      import('@modules/features/common/verify-account/verify-account.module').then(m => m.VerifyAccountModule)
+  },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 
