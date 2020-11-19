@@ -6,6 +6,8 @@ import { trigger, transition, query, style, animate, group } from '@angular/anim
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { JobPosting } from '@data/schema/post-job';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
@@ -55,7 +57,9 @@ export class PostJobLayoutComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private employerService: EmployerService
+    private employerService: EmployerService,
+    private modalService: NgbModal,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -110,6 +114,10 @@ export class PostJobLayoutComponent implements OnInit {
     if (this.postJobForm.valid) {
       this.employerService.jobPost(jobInfo).subscribe(
         response => {
+          this.router.navigate(['/employer/dashboard']).then(() => {
+            this.modalService.dismissAll();
+            this.onToggleJobPreviewModal(false)
+          });
           this.isLoading = false;
         }, error => {
           if(error && error.error && error.error.errors)
