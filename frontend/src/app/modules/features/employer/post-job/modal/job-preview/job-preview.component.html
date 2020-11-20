@@ -218,8 +218,8 @@
               <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
                class="list-group-item">
                 <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select10">
-                  <label class="custom-control-label" for="select10">&nbsp;</label>
+                  <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select_extra_{{i}}">
+                  <label class="custom-control-label" for="select_extra_{{i}}">&nbsp;</label>
                 </div>
               </li>
             </ul>
@@ -238,7 +238,7 @@
         <div class="form-group mr-2">
           <label>{{"postJob.enterNumberOfPositions" | translate}}</label>
         </div>
-        <div class="form-group">
+        <div appMarkAsterisk class="form-group">
           <input numbersOnly formControlName="number_of_positions" class="form-control form-control-sm w-50" type="text" placeholder="Numbers"/>
           <app-control-messages [control]="f['number_of_positions']"></app-control-messages>
         </div>

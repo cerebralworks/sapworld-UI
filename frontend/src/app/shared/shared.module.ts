@@ -16,6 +16,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { CurrencyFormatterDirective } from './directives/currency-formatter.directive';
+import { MarkAsteriskDirective } from './directives/mark-asterisk.directive';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CurrencyFormatterDirective } from './directives/currency-formatter.dire
     NotesViewComponent,
     ControlMessagesComponent,
     NumbersOnlyDirective,
-    CurrencyFormatterDirective
+    CurrencyFormatterDirective,
+    MarkAsteriskDirective
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { CurrencyFormatterDirective } from './directives/currency-formatter.dire
     GooglePlaceModule,
     ControlMessagesComponent,
     NumbersOnlyDirective,
-    CurrencyFormatterDirective
+    CurrencyFormatterDirective,
+    MarkAsteriskDirective
   ],
   providers: [ApiService]
 })

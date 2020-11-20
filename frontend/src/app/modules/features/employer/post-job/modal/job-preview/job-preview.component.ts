@@ -30,6 +30,7 @@ export class JobPreviewComponent implements OnInit {
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
   @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
+  mustMacthObj: any;
 
   constructor(
     private modalService: NgbModal,
@@ -137,27 +138,33 @@ export class JobPreviewComponent implements OnInit {
   }
 
   onAddOrRemoveMustMatch = (event, fieldName) => {
-    if (this.mustMacthArray.length == 0) {
-      this.mustMacthArray.push({ [fieldName]: event.target.checked })
-    } else {
-      let index = this.mustMacthArray.findIndex((x, i) => {
-        return x[fieldName] === true
-      });
+    this.mustMacthObj = { ...this.mustMacthObj, [fieldName]: event.target.checked };
 
-      if (index == -1) {
-        this.mustMacthArray.push({ [fieldName]: event.target.checked });
-      }
-      else {
-        this.mustMacthArray.splice(index, 1);
-      }
-    }
+    // if (this.mustMacthArray.length == 0) {
+    //   this.mustMacthArray.push({ [fieldName]: event.target.checked })
+    // } else {
+    //   let index = this.mustMacthArray.findIndex((x, i) => {
+    //     return x[fieldName] === true
+    //   });
+
+    //   if (index == -1) {
+    //     this.mustMacthArray.push({ [fieldName]: event.target.checked });
+    //   }
+    //   else {
+    //     this.mustMacthArray.splice(index, 1);
+    //   }
+    // }
 
     this.childForm.patchValue({
       jobPrev: {
-        must_match: this.mustMacthArray,
+        must_match: this.mustMacthObj,
       }
     });
 
+  }
+
+  read_prop(obj, prop) {
+    return obj[prop];
   }
 
   onAddExtraCriteria = () => {

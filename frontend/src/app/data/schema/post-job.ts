@@ -14,8 +14,11 @@ export interface JobPosting {
   experience: number;
   sap_experience: number;
   latlng: string;
+  location: string;
   domain: Array<number>;
-  hands_on_experience: Array<{}>;
+  hands_on_experience: Array<any>;
+  extra_criteria: Array<any>;
+  temp_extra_criteria: Array<any>;
   skills: Array<number>;
   programming_skills: Array<string>;
   optinal_skills: Array<string>;

@@ -3,7 +3,7 @@
     <div class="col-lg-8 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.jobTitle" | translate}}</label>
-        <input formControlName="title" type="text" class="form-control" [placeholder]="'postJob.jobTitle' | translate"/>
+        <input appMarkAsterisk formControlName="title" type="text" class="form-control" [placeholder]="'postJob.jobTitle' | translate"/>
       </div>
       <app-control-messages [control]="f['title']"></app-control-messages>
     </div>
@@ -12,15 +12,15 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.jobType" | translate}}</label>
-        <select formControlName="type" class="form-control" name="job-type">
+        <select appMarkAsterisk formControlName="type" class="form-control" name="job-type">
           <option [value]="''">Select</option>
           <option [value]="6">Contract</option>
           <option [value]="5">Remote </option>
-          <option [value]="">Onsite </option>
+          <!-- <option [value]="">Onsite </option> -->
           <option [value]="0">Full Time </option>
           <option [value]="1">Part Time </option>
           <option [value]="4">Temporary </option>
-          <option [value]="">Permanent </option>
+          <!-- <option [value]="">Permanent </option> -->
           <option [value]="2">Freelancer </option>
           <option [value]="3">Internship </option>
         </select>
@@ -30,7 +30,7 @@
     <div class="col-lg-4 col-md-6 d-flex">
       <div class=" form-group w-50">
         <label>{{"postJob.pay" | translate}}</label>
-        <select formControlName="salary_type" class="form-control" name="job-type">
+        <select appMarkAsterisk formControlName="salary_type" class="form-control" name="job-type">
           <option value="" selected="" disabled="">{{"common.select" | translate}} {{"postJob.pay" | translate}}</option>
           <option [value]="0">Hourly </option>
           <option [value]="1">Annual</option>
@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-  <div class="row mt-2">
+  <!-- <div class="row mt-2">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.location" | translate}}</label>
@@ -69,24 +69,34 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.city" | translate}}</label>
-        <input formControlName="city" type="text" class="form-control" [placeholder]="'postYourResume.city' | translate">
+        <input ngx-google-places-autocomplete
+        (onAddressChange)="handleAddressChange($event)"
+        formControlName="city" type="text" class="form-control" [placeholder]="'postYourResume.city' | translate">
       </div>
       <app-control-messages [control]="f['city']"></app-control-messages>
     </div>
-  </div>
+  </div> -->
   <div class="row mt-2">
-
     <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postYourResume.city" | translate}}</label>
+        <input appMarkAsterisk ngx-google-places-autocomplete
+        (onAddressChange)="handleAddressChange($event)"
+        formControlName="city" type="text" class="form-control" [placeholder]="'postYourResume.city' | translate">
+      </div>
+      <app-control-messages [control]="f['city']"></app-control-messages>
+    </div>
+    <!-- <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.state" | translate}}</label>
         <input formControlName="state" type="text" class="form-control" [placeholder]="'postYourResume.state' | translate">
         <app-control-messages [control]="f['state']"></app-control-messages>
       </div>
-    </div>
+    </div> -->
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.zipCode" | translate}}</label>
-        <input numbersOnly formControlName="zipcode" type="text" class="form-control" [placeholder]="'postYourResume.zipCode' | translate">
+        <input appMarkAsterisk numbersOnly formControlName="zipcode" type="text" class="form-control" [placeholder]="'postYourResume.zipCode' | translate">
       </div>
       <app-control-messages [control]="f['zipcode']"></app-control-messages>
     </div>
@@ -95,7 +105,7 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.country" | translate}}</label>
-        <select formControlName="country" class="form-control" name="job-type">
+        <select appMarkAsterisk formControlName="country" class="form-control" name="job-type">
           <option selected="" disabled="">{{"postJob.country" | translate}}</option>
           <option>India </option>
           <option>United States </option>
@@ -117,7 +127,7 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.availability" | translate}}</label>
-        <select formControlName="availability" class="form-control">
+        <select appMarkAsterisk formControlName="availability" class="form-control">
           <option selected="" disabled="">{{"postJob.availability" | translate}}</option>
           <option>Immediate</option>
           <option>15 Days</option>
@@ -134,7 +144,7 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.remote" | translate}} </label>
-         <div class="mt-2">
+         <div appMarkAsterisk class="mt-2">
            <div class="custom-control custom-radio custom-control-inline">
             <input [value]="true" id="remote_PJ_Y" formControlName="remote" type="radio" class="custom-control-input">
             <label class="custom-control-label" for="remote_PJ_Y">{{"common.yes" | translate}}</label>
@@ -152,7 +162,7 @@
     <div class="col-md-12">
       <div class="form-group">
         <label>{{"postJob.jobDescription" | translate}}</label>
-        <textarea formControlName="description" name="job-description" rows="4" class="form-control" [placeholder]="'postJob.jobDescription' | translate"></textarea>
+        <textarea appMarkAsterisk formControlName="description" name="job-description" rows="4" class="form-control" [placeholder]="'postJob.jobDescription' | translate"></textarea>
       </div>
       <app-control-messages [control]="f['description']"></app-control-messages>
     </div>

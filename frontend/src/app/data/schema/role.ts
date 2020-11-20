@@ -4,3 +4,8 @@ export enum Role {
   Employer = 'employer',
   Admin = 'admin',
 }
+
+export interface RoleInfo {
+  roleName: string;
+  roleId: number;
+}

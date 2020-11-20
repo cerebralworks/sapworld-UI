@@ -1,11 +1,12 @@
 const routes = {
     login: '/oauth/token',
     employerSignup: '/employers/signup',
-    accountVerify: '/account/verify',
+    accountVerify: '/accounts/verify',
     listIndustries: '/industries/list',
     employerProfile: '/employers/profile',
     jobPostingCreate: '/jobpostings/create',
-    skillTagList: '/skill-tags/list'
+    skillTagList: '/skill-tags/list',
+    forgotPassword: '/accounts/request-reset-password'
 }
 
 module.exports = routes;

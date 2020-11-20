@@ -116,7 +116,8 @@ module.exports = (app, env, rp) => {
     rp(options)
       .then(function (parsedBody) {
         let responseData = { ...parsedBody }
-        responseData.success = false;
+        responseData.success = true;
+        responseData.message = "Emplyer signup successfully. We shot you an email with a link for verify your account password. Check your inbox."
         res.status(200).json(responseData);
       })
       .catch(function (err) {
@@ -127,7 +128,7 @@ module.exports = (app, env, rp) => {
    /**
    * User's account verify.
    */
-  app.post('/api/account/verify', (req, res) => {
+  app.post('/api/accounts/verify', (req, res) => {
     var options = {
       method: 'POST',
       uri: `${serverRoutes.accountVerify}`,
@@ -141,7 +142,7 @@ module.exports = (app, env, rp) => {
     rp(options)
       .then(function (parsedBody) {
         let responseData = { ...parsedBody }
-        responseData.success = false;
+        responseData.success = true;
         res.status(200).json(responseData);
       })
       .catch(function (err) {
@@ -152,8 +153,38 @@ module.exports = (app, env, rp) => {
         }
         
       })
-  })
-  
+  });
+
+  /**
+   * Forgot Password
+   */
+  app.post('/api/accounts/request-reset-password', (req, res) => {
+    var options = {
+      method: 'POST',
+      uri: `${serverRoutes.forgotPassword}`,
+      json: true,
+      body: req.body,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+    rp(options)
+      .then(function (parsedBody) {
+        let responseData = { ...parsedBody }
+        responseData.success = true;
+        res.status(200).json(responseData);
+      })
+      .catch(function (err) {
+        if(err && err.statusCode) {
+          res.status(err.statusCode).json(err)
+        }else {
+          res.status(500).json(err)
+        }
+        
+      })
+  });
+
   /**
    * User is log out.
    */
@@ -163,11 +194,11 @@ module.exports = (app, env, rp) => {
         res.status(500).json(err)
       } else {
         let responseData = {}
-        responseData.isLoggedIn = false
-        responseData.success = true
-        responseData.role = ''
-        responseData.message = 'Logged out successfully!'
-        res.status(200).json(responseData)
+        responseData.isLoggedIn = false;
+        responseData.success = true;
+        responseData.role = '';
+        responseData.message = 'Logged out successfully!';
+        res.status(200).json(responseData);
       }
     })
   })

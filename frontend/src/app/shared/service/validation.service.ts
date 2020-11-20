@@ -44,7 +44,7 @@ export class ValidationService {
     // RFC 2822 compliant regex
     if (
       control.value.match(
-        /^([\w-.]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)(?!mailinator\.com)([\w-]+.)+[\w-]{2,4})?$/
+        /^([\w-.]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)(?!mailinators\.com)([\w-]+.)+[\w-]{2,4})?$/
       )
     ) {
       return null;

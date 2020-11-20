@@ -104,8 +104,16 @@ export class AccountService extends CacheService {
     );
   };
 
+  getResetLink = (requestParams: any): Observable<any> => {
+    return this.apiService.post('/api/accounts/request-reset-password', requestParams).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
   verify = (userCredentials: VerifyAccount): Observable<VerifyAccount> => {
-    return this.apiService.post('/api/account/verify', userCredentials).pipe(
+    return this.apiService.post('/api/accounts/verify', userCredentials).pipe(
       map(data => {
         return data;
       })

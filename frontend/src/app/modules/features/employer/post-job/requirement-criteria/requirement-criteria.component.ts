@@ -57,7 +57,7 @@ console.log(this.childForm.value);
       hands_on_experience: new FormArray([this.formBuilder.group({
         domain: ['', Validators.required],
         experience: ['', [Validators.required, ]],
-        quote: ['Yrs', [Validators.required]]
+        experience_type: ['year', [Validators.required]]
       })]),
       skills: new FormControl(null, Validators.required),
       programming_skills: new FormControl(null, Validators.required),
@@ -65,7 +65,7 @@ console.log(this.childForm.value);
       certification: new FormControl(null, Validators.required),
       work_authorization: new FormControl(null, Validators.required),
       visa_sponsorship: new FormControl(false, Validators.required),
-      travel_opportunity: new FormControl(null, Validators.required),
+      travel_opportunity: new FormControl("", Validators.required),
       end_to_end_implementation: new FormControl(null, Validators.required)
     }));
 
@@ -113,12 +113,19 @@ console.log(this.childForm.value);
     this.t.push(this.formBuilder.group({
       domain: ['', Validators.required],
       experience: ['', [Validators.required]],
-      quote: ['Yrs', [Validators.required]]
-  }));
+      experience_type: ['year', [Validators.required]]
+    }));
   }
 
   onRemove = (index) => {
-    this.t.removeAt(index);
+    if(index == 0) {
+      this.t.reset()
+      // this.childForm.markAsUntouched();
+      // this.childForm.markAsPristine();
+      // this.childForm.updateValueAndValidity();
+    }else {
+      this.t.removeAt(index);
+    }
   }
 
   onChangeFieldValue = (fieldName, value) => {

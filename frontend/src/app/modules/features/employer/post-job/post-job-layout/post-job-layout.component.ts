@@ -104,13 +104,26 @@ export class PostJobLayoutComponent implements OnInit {
 
   postJob = () => {
     this.isLoading = true;
-    const jobInfo: JobPosting = {
+    let jobInfo: JobPosting = {
       ...this.postJobForm.value.jobInfo,
       ...this.postJobForm.value.requirement,
       ...this.postJobForm.value.jobPrev
     };
-    console.log(this.postJobForm.valid);
-    console.log(this.postJobForm);
+    let domainArray = [];
+    jobInfo.domain.forEach((element: any) => {
+      domainArray.push(parseInt(element.id))
+    });
+    jobInfo.domain = domainArray;
+
+    let skillTagArray = [];
+    jobInfo.skills.forEach((element: any) => {
+      skillTagArray.push(parseInt(element.id))
+    });
+    jobInfo.skills = skillTagArray;
+
+    delete jobInfo.temp_extra_criteria;
+    // delete jobInfo.location;
+
     if (this.postJobForm.valid) {
       this.employerService.jobPost(jobInfo).subscribe(
         response => {

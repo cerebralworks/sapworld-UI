@@ -36,7 +36,7 @@ export class JobInformationComponent implements OnInit {
       salary_type: new FormControl('', Validators.required),
       salary_currency: new FormControl(0, Validators.required),
       salary: new FormControl(null, Validators.required),
-      location: new FormControl('', Validators.required),
+      // location: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
       latlng: new FormControl('', Validators.required),
@@ -73,8 +73,8 @@ export class JobInformationComponent implements OnInit {
     const address = this.fromGooglePlace(event);
     this.childForm.patchValue({
       jobInfo: {
-        location: event.formatted_address,
-        city: address.city,
+        // location: event.formatted_address,
+        city: address.city ? address.city : event.formatted_address,
         state: address.state,
         country: address.country,
         latlng: event.geometry.location.lat() + ',' + event.geometry.location.lat()

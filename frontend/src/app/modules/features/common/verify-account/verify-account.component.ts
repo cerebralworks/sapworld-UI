@@ -11,6 +11,8 @@ import { AccountService } from '@data/service/account.service';
 export class VerifyAccountComponent implements OnInit {
   public isLoading: boolean;
   public counter = 5;
+  public formError: any[] = [];
+  public verifyAccountSuccess: boolean;
 
   constructor(
     private accountService: AccountService,
@@ -34,10 +36,16 @@ export class VerifyAccountComponent implements OnInit {
     this.accountService.verify(requestParams).subscribe(
       response => {
         this.isLoading = false;
+        this.verifyAccountSuccess = true;
         this.onCountDown();
       }, error => {
+        this.verifyAccountSuccess = false;
+        if(error && error.error && error.error.errors)
+          this.formError = error.error.errors;
+          console.log('this.formError', this.formError);
+          this.onCountDown();
+
         this.isLoading = false;
-        this.onCountDown();
       }
     )
   }
@@ -46,7 +54,7 @@ export class VerifyAccountComponent implements OnInit {
     let interval = setInterval(() => {
       this.counter--;
       if (this.counter == 0) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/auth/employer/login']);
         clearInterval(interval);
       }
     }, 1000);
