@@ -31,106 +31,41 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td><a href="javascript:;" [routerLink]="['/employer/job-detail-view']" routerLinkActive="router-link-active" >SAP ABAP Lead Consultant</a></td>
-              <td>Wipro Limited</td>
-              <td>Austin, TX, USA</td>
-              <td>Oct 02, 2020</td>
-              <td class="text-center"><a href="job-company-matching.html">8</a></td>
-              <td class="text-center"><a href="job-applied.html">9</a></td>
-              <td class="text-center"><a href="job-shortlisted.html">12</a></td>
-              <td class="text-center">
-              <select class="form-control form-control-td">
-                <option selected>Active</option>
-                <option>Pause</option>
-                <option>Closed</option>
-              </select>
-              </td>
-              <td class="text-center">
-              <a href="#" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-              <a href="#" class="text-danger"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="#">SAP BA / Project Manager</a></td>
-              <td>SAP Cincinnati</td>
-              <td>OH, USA</td>
-             <td>Oct 02, 2020</td>
-              <td class="text-center"><a href="job-company-matching.html">7</a></td>
-              <td class="text-center"><a href="job-applied.html">8</a></td>
-              <td class="text-center"><a href="job-shortlisted.html">11</a></td>
-              <td class="text-center">
-              <select class="form-control form-control-td">
-                <option selected>Active</option>
-                <option>Pause</option>
-                <option>Closed</option>
-              </select>
-              </td>
-              <td class="text-center">
-              <a href="#" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-              <a href="#" class="text-danger"  data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="#">SAP IBP - Integrated Business Planning</a></td>
-              <td>Techcom Solutions</td>
-              <td>Austin, TX, USA</td>
-              <td>Sep 20, 2020</td>
-              <td class="text-center"><a href="job-company-matching.html">11</a></td>
-              <td class="text-center"><a href="#">10</a></td>
-              <td class="text-center"><a href="#">15</a></td>
-              <td class="text-center">
-              <select class="form-control form-control-td">
-                <option selected>Active</option>
-                <option>Pause</option>
-                <option>Closed</option>
-              </select>
-              </td>
-              <td class="text-center">
-              <a href="#" class="text-info mr-2" data-toggle="tooltip"  title="Edit"><i class="fas fa-edit"></i></a>
-              <a href="#" class="text-danger"  data-toggle="tooltip"  title="Delete"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="#">SAP Security Consultant</a></td>
-              <td>Infosys Technologies Ltd</td>
-              <td>United States</td>
-              <td>Sep 20, 2020</td>
-              <td class="text-center"><a href="job-company-matching.html">14</a></td>
-              <td class="text-center"><a href="#">18</a></td>
-              <td class="text-center"><a href="#">12</a></td>
-              <td class="text-center">
-              <select class="form-control form-control-td">
-                <option selected>Active</option>
-                <option>Pause</option>
-                <option>Closed</option>
-              </select>
-              </td>
-              <td class="text-center">
-              <a href="#" class="text-info mr-2" data-toggle="tooltip"  title="Edit"><i class="fas fa-edit"></i></a>
-              <a href="#" class="text-danger" data-toggle="tooltip"   title="Delete"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="#">SAP Hybris Consultant - C4C</a></td>
-              <td>Techcom Solutions</td>
-              <td>Chennai, India</td>
-              <td>Sep 15, 2020</td>
-              <td class="text-center"><a href="job-company-matching.html">9</a></td>
-              <td class="text-center"><a href="#">13</a></td>
-              <td class="text-center"><a href="#">11</a></td>
-              <td class="text-center">
-              <select class="form-control form-control-td">
-                <option selected>Active</option>
-                <option>Pause</option>
-                <option>Closed</option>
-              </select>
-              </td>
-              <td class="text-center">
-              <a href="#" class="text-info mr-2" data-toggle="tooltip"  title="Edit"><i class="fas fa-edit"></i></a>
-              <a href="#" class="text-danger" data-toggle="tooltip"  title="Delete"><i class="fas fa-trash-alt"></i></a>
-              </td>
-            </tr>
+
+            <ng-container *ngIf="postedJobs?.items?.length > 0; else elseTemplate">
+              <tr *ngFor="let item of postedJobs?.items; let i=index">
+                <td><a href="javascript:;" [routerLink]="['/employer/job-detail-view']" routerLinkActive="router-link-active" >
+                {{item?.title}}</a></td>
+                <td>Wipro Limited</td>
+                <td>
+                  {{item?.city ? item?.city + ', ' : ''}}
+                  {{item?.state ? item?.state + ', ' : ''}}
+                  {{item?.zipcode ? item?.zipcode + ', ' : ''}}
+                  {{item?.country ? item?.country : ''}}
+                </td>
+                <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
+                <td class="text-center"><a href="job-company-matching.html">0</a></td>
+                <td class="text-center"><a href="job-applied.html">0</a></td>
+                <td class="text-center"><a href="job-shortlisted.html">0</a></td>
+                <td class="text-center">
+                <select class="form-control form-control-td">
+                  <option [selected]="item.status == 1">Active</option>
+                  <option [selected]="item.status == 2">Pause</option>
+                  <option [selected]="item.status == 0">Closed</option>
+                </select>
+                </td>
+                <td class="text-center">
+                <a href="#" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+                <a href="#" class="text-danger"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <tr>
+                <td colspan="9"></td>
+              </tr>
+            </ng-template>
+
             </tbody>
           </table>
         </div>

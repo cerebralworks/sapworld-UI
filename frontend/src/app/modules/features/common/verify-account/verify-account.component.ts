@@ -21,8 +21,8 @@ export class VerifyAccountComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const accountId = this.route.snapshot.paramMap.get('id');
-    const accountToken = this.route.snapshot.paramMap.get('token');
+    const accountId = this.route.snapshot.queryParamMap.get('id');
+    const accountToken = this.route.snapshot.queryParamMap.get('token');
     if (accountId && accountToken) {
       this.onVerifyAccount(accountId, accountToken)
     }

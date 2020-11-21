@@ -22,7 +22,8 @@ export class PostedJobComponent implements OnInit {
     this.isLoading = true;
     let requestParams: any = {};
     requestParams.page = 1;
-    requestParams.limit = 1000;
+    requestParams.limit = 10;
+    requestParams.expand = 'city,category,employer';
     this.employerService.getPostedJob(requestParams).subscribe(
       response => {
         this.postedJobs = response;

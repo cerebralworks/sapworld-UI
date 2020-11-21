@@ -14,6 +14,7 @@ export class ResetPasswordComponent implements OnInit {
   public isLoading: boolean;
   public resetPasswordForm: FormGroup;
   public returnUrl: any;
+  formError: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,8 +35,8 @@ export class ResetPasswordComponent implements OnInit {
 
   private buildForm(): void {
     this.resetPasswordForm = this.formBuilder.group({
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+      password: ['', [Validators.required, ValidationService.passwordValidator]],
+      confirmPassword: ['', [Validators.required, ValidationService.passwordValidator]]
     }, {validator: ValidationService.pwdMatchValidator});
   }
 
@@ -43,14 +44,14 @@ export class ResetPasswordComponent implements OnInit {
 
   reset() {
     this.isLoading = true;
-    const accountId = this.route.snapshot.paramMap.get('id');
-    const accountToken = this.route.snapshot.paramMap.get('token');
+    const accountId = this.route.snapshot.queryParamMap.get('id');
+    const accountToken = this.route.snapshot.queryParamMap.get('token');
 
     let requestParams: any = {};
     requestParams.id = accountId;
     requestParams.token = accountToken;
 
-    const userCredentials = this.resetPasswordForm.value;
+    const userCredentials = {...requestParams , ...this.resetPasswordForm.value};
     if (this.resetPasswordForm.valid) {
       this.accountService.resetPassword(userCredentials).subscribe(
         response => {
@@ -60,6 +61,9 @@ export class ResetPasswordComponent implements OnInit {
           }
         }, error => {
           this.isLoading = false;
+          if(error && error.error && error.error.errors)
+          this.formError = error.error.errors;
+          console.log('this.formError', this.formError);
         }
       )
     }
