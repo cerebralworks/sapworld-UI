@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 })
 export class SharedService {
 
+
   constructor(
     public router: Router
   ) { }
 
-  getCurrentRoleFromUrl() {
+  getCurrentRoleFromUrl = () => {
     if(this.router.url.includes('employer')) {
       return { roleName: 'employer', roleId: 1}
     }else if(this.router.url.includes('user')) {
@@ -18,6 +19,12 @@ export class SharedService {
     }else if(this.router.url.includes('admin')) {
       return { roleName: 'admin', roleId: 2}
     }
+  }
+
+  onGetJobType = (index?) => {
+     let jobTypeArray = ['Full Time', 'Part Time', 'Freelance', 'Internship', 'Temporary', 'Remote', 'Contract', 'Day Job'];
+     if(index) { return jobTypeArray[index] }
+     return jobTypeArray;
   }
 
 }

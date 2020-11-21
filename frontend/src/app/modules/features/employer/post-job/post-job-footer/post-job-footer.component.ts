@@ -126,8 +126,6 @@ export class PostJobFooterComponent implements OnInit {
 
   onToggleJobPreviewModal = (status) => {
     console.log(this.getErrors(this.postJobForm));
-    console.log(this.postJobForm);
-    // this.postJob.next();
     if(this.postJobForm.valid) {
       this.onEnableJobPreviewModal.emit(status);
     }

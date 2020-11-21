@@ -3,6 +3,7 @@ import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormG
 import { Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { SharedService } from '@shared/service/shared.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -37,7 +38,8 @@ export class JobPreviewComponent implements OnInit {
     public router: Router,
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
-    private employerService: EmployerService
+    private employerService: EmployerService,
+    public sharedService: SharedService
   ) { }
 
   ngOnInit(): void {

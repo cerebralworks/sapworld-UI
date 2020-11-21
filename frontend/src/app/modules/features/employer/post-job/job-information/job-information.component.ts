@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
+import { SharedService } from '@shared/service/shared.service';
 
 import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
 import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
@@ -19,7 +20,8 @@ export class JobInformationComponent implements OnInit {
   public currentCurrencyFormat: string = "en-US";
 
   constructor(
-    private parentF: FormGroupDirective
+    private parentF: FormGroupDirective,
+    public sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
