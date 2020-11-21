@@ -36,7 +36,9 @@
               <tr *ngFor="let item of postedJobs?.items; let i=index">
                 <td><a href="javascript:;" [routerLink]="['/employer/job-detail-view']" routerLinkActive="router-link-active" >
                 {{item?.title}}</a></td>
-                <td>Wipro Limited</td>
+                <td>
+                  {{item?.company?.company ? item?.company?.company : '-'}}
+                </td>
                 <td>
                   {{item?.city ? item?.city + ', ' : ''}}
                   {{item?.state ? item?.state + ', ' : ''}}

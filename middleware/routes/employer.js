@@ -27,7 +27,7 @@ module.exports = (app, env, rp) => {
    * Job Listed
    */
   app.get("/api/jobpostings/list", (req, res) => {
-    let requestBody = { ...req.body };    
+    let requestBody = { ...req.query };    
     requestCustom.get(`${serverRoutes.jobPostingList}`, req, res, requestBody);
   });
 
