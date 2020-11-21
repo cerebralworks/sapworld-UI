@@ -48,4 +48,12 @@ export class EmployerService extends CacheService {
     );
   }
 
+  getPostedJob = (params: any): Observable<JobPosting> => {
+    return this.apiService.get('/api/jobpostings/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
 }

@@ -33,6 +33,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('@modules/features/common/verify-account/verify-account.module').then(m => m.VerifyAccountModule)
   },
+  {
+    path: 'reset-password/:id/:token',
+    loadChildren: () =>
+      import('@modules/features/common/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
+  },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 

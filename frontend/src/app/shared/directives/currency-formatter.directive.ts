@@ -22,8 +22,6 @@ export class CurrencyFormatterDirective implements OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('dsasdas', this.country);
-
     this.formatter = new Intl.NumberFormat(this.countryTemp ? this.countryTemp : 'en-IN', { maximumFractionDigits: 2 });
   }
 
@@ -57,7 +55,9 @@ export class CurrencyFormatterDirective implements OnDestroy {
   }
 
   unformatValue(v) {
-    return v.replace(/,/g, '');
+    if(v) {
+      return v.replace(/,/g, '');
+    }
   }
 
   validateDecimalValue(v) {
@@ -74,7 +74,7 @@ export class CurrencyFormatterDirective implements OnDestroy {
   }
 
   setValue(v) {
-    this.ngControl.control.setValue(v, { emitEvent: false })
+    this.ngControl.control.setValue(v != 0 ? v : undefined, { emitEvent: false })
   }
 
   ngOnDestroy() {

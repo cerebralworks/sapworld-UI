@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ export class JobPreviewComponent implements OnInit {
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
   @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
-  mustMacthObj: any;
+  public mustMacthObj: any = {};
 
   constructor(
     private modalService: NgbModal,
@@ -65,20 +65,29 @@ export class JobPreviewComponent implements OnInit {
   }
 
   onClickCloseBtn(status) {
+    this.childForm.get('jobPrev.number_of_positions').setValidators(null);
+    this.childForm.get('jobPrev.number_of_positions').updateValueAndValidity();
+    console.log(this.getErrors(this.childForm));
     if (status == false) {
       this.modalService.dismissAll()
     }
     this.onEvent.emit(status);
   }
 
+  getErrors = (formGroup: FormGroup, errors: any = {}) => {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        errors[field] = control.errors;
+      } else if (control instanceof FormGroup) {
+        errors[field] = this.getErrors(control);
+      }
+    });
+    return errors;
+  }
+
   onRedirectDashboard(status) {
-    // if (status == false) {
-    //   this.router.navigate(['/employer/dashboard']).then(() => {
-    //     this.modalService.dismissAll();
-    //   });
-    // }
     this.postJob.next();
-    // this.onEvent.emit(status);
   }
 
   onCloseCriteriaModal() {
@@ -118,9 +127,27 @@ export class JobPreviewComponent implements OnInit {
   createForm() {
     this.childForm = this.parentF.form;
 
+    this.mustMacthObj = {
+      experience: true,
+      sap_experience: true,
+      domain: true,
+      hands_on_experience: true,
+      skills: true,
+      programming_skills: true,
+      optinal_skills: true,
+      certification: true,
+      end_to_end_implementation: true,
+      type: true,
+      remote: true,
+      availability: true,
+      travel_opportunity: true,
+      work_authorization: true,
+      visa_sponsorship: true
+    }
+
     this.childForm.addControl('jobPrev', new FormGroup({
       number_of_positions: new FormControl(null, Validators.required),
-      must_match: new FormControl(null),
+      must_match: new FormControl(this.mustMacthObj),
       extra_criteria: new FormArray([]),
       temp_extra_criteria: new FormArray([]),
     }));
@@ -157,12 +184,24 @@ export class JobPreviewComponent implements OnInit {
     //   }
     // }
 
+    if(this.allMustMatchValue(this.mustMacthObj)) {
+
+    }
+
+
     this.childForm.patchValue({
       jobPrev: {
         must_match: this.mustMacthObj,
       }
     });
 
+  }
+
+  allMustMatchValue = (obj) => {
+    for(var o in obj)
+        if(obj[o]) return false;
+
+    return true;
   }
 
   read_prop(obj, prop) {
@@ -189,9 +228,16 @@ export class JobPreviewComponent implements OnInit {
     )
   }
 
-  onConvertArrayObjToAdditionalString = (value: any[], field: string = 'name') => {
+  onConvertArrayObjToAdditionalString = (value: any[], field: string = 'name', field2?:string) => {
     if (!Array.isArray(value)) return "--";
-    return value.map(s => s[field] + ' (' + s.experience + ' ' + s.quote + ')').toString();
+    return value.map(s => {
+      if(field && field2) {
+        return s[field][field2] + ' (' + s.experience + ' ' + s.experience_type + ')'
+      }
+      if(field && !field2) {
+        return s[field] + ' (' + s.experience + ' ' + s.experience_type + ')'
+      }
+    }).toString();
   }
 
   onConvertArrayToString = (value: any[]) => {

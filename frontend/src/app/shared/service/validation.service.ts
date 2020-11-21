@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class ValidationService {
       maxlength: `The field can't contain more than ${validatorValue.requiredLength} characters.`,
       minlength: `The field must contain atleast ${validatorValue.requiredLength} characters.`,
       invalidEmailAddress: 'Please enter a valid email address.',
+      mismatch: 'Password doesn\'t match.',
       noFreeEmail: "Please use your business email, we don't accept Gmail, Yahoo, Hotmail and Mailinator accounts."
     };
 
@@ -38,6 +39,16 @@ export class ValidationService {
     } else {
       return { invalidEmailAddress: true };
     }
+  }
+
+  public static pwdMatchValidator(frm: FormGroup) {
+    if ((frm.get('password') && frm.get('password').value) && (frm.get('confirmPassword') && frm.get('confirmPassword').value)) {
+      if (frm.get('password').value !== frm.get('confirmPassword').value) {
+        frm.get('confirmPassword').setErrors({ 'mismatch': true });
+        return { mismatch: true };
+      }
+    }
+
   }
 
   public static noFreeEmail(control) {

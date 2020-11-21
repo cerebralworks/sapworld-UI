@@ -89,13 +89,16 @@
       </div>
       <app-control-messages [control]="f['city']"></app-control-messages>
     </div>
-    <!-- <div class="col-lg-4 col-md-6">
+    <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.state" | translate}}</label>
         <input formControlName="state" type="text" class="form-control" [placeholder]="'postYourResume.state' | translate">
         <app-control-messages [control]="f['state']"></app-control-messages>
       </div>
-    </div> -->
+    </div>
+
+  </div>
+  <div class="row mt-2">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.zipCode" | translate}}</label>
@@ -103,8 +106,6 @@
       </div>
       <app-control-messages [control]="f['zipcode']"></app-control-messages>
     </div>
-  </div>
-  <div class="row mt-2">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.country" | translate}}</label>
@@ -127,6 +128,8 @@
       </div>
       <app-control-messages [control]="f['country']"></app-control-messages>
     </div>
+  </div>
+  <div class="row mt-2">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.availability" | translate}}</label>
@@ -141,9 +144,6 @@
         <app-control-messages [control]="f['availability']"></app-control-messages>
       </div>
     </div>
-
-  </div>
-  <div class="row mt-2">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.remote" | translate}} </label>

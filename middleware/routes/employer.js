@@ -23,4 +23,12 @@ module.exports = (app, env, rp) => {
     requestCustom.post(`${serverRoutes.jobPostingCreate}`, req, res, requestBody);
   });
 
+  /**
+   * Job Listed
+   */
+  app.get("/api/jobpostings/list", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.get(`${serverRoutes.jobPostingList}`, req, res, requestBody);
+  });
+
 };

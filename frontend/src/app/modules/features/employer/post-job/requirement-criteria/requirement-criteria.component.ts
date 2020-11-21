@@ -55,7 +55,7 @@ console.log(this.childForm.value);
       sap_experience: new FormControl(null, Validators.required),
       domain: new FormControl(null, Validators.required),
       hands_on_experience: new FormArray([this.formBuilder.group({
-        domain: ['', Validators.required],
+        domain: [null, Validators.required],
         experience: ['', [Validators.required, ]],
         experience_type: ['year', [Validators.required]]
       })]),
@@ -111,7 +111,7 @@ console.log(this.childForm.value);
 
   onDuplicate = () => {
     this.t.push(this.formBuilder.group({
-      domain: ['', Validators.required],
+      domain: [null, Validators.required],
       experience: ['', [Validators.required]],
       experience_type: ['year', [Validators.required]]
     }));

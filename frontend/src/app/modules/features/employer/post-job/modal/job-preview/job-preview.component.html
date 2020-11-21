@@ -19,7 +19,12 @@
               <div class="media">
                 <div class="media-body">
                   <h6>{{profileInfo?.details?.company}}</h6>
-                  <h6>{{postJobForm?.value?.jobInfo?.location}}</h6>
+                  <h6>
+                    {{postJobForm?.value?.jobInfo?.city ? postJobForm?.value?.jobInfo?.city + ', ' : ''}}
+                    {{postJobForm?.value?.jobInfo?.state ? postJobForm?.value?.jobInfo?.state + ', ' : ''}}
+                    {{postJobForm?.value?.jobInfo?.zipcode ? postJobForm?.value?.jobInfo?.zipcode + ', ' : ''}}
+                    {{postJobForm?.value?.jobInfo?.country ? postJobForm?.value?.jobInfo?.country : ''}}
+                  </h6>
                 </div>
               </div>
             </div>
@@ -43,32 +48,32 @@
             <li class="list-group-item">{{postJobForm?.value?.requirement?.experience}} Years</li>
             <li class="list-group-item">{{postJobForm?.value?.requirement?.sap_experience}} Years</li>
             <li class="list-group-item">{{onConvertArrayObjToString(postJobForm?.value?.requirement?.domain)}}</li>
-            <li class="list-group-item">{{onConvertArrayObjToAdditionalString(postJobForm?.value?.requirement?.hands_on_experience, 'domain')}}</li>
+            <li class="list-group-item">{{onConvertArrayObjToAdditionalString(postJobForm?.value?.requirement?.hands_on_experience, 'domain', 'tag')}}</li>
           </ul>
         </div>
         <div class="col-lg-2 caption">
           <ul class="list-group">
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'experience')" class="custom-control-input" id="select1">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'experience')" class="custom-control-input" id="select1">
                 <label class="custom-control-label" for="select1">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'sap_experience')" class="custom-control-input" id="select2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'sap_experience')" class="custom-control-input" id="select2">
                 <label class="custom-control-label" for="select2">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'domain')" class="custom-control-input" id="select3">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'domain')" class="custom-control-input" id="select3">
                 <label class="custom-control-label" for="select3">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'hands_on_experience')" class="custom-control-input" id="select4">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'hands_on_experience')" class="custom-control-input" id="select4">
                 <label class="custom-control-label" for="select4">&nbsp;</label>
               </div>
             </li>
@@ -98,31 +103,31 @@
           <ul class="list-group">
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'skills')" class="custom-control-input" id="select5">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'skills')" class="custom-control-input" id="select5">
                 <label class="custom-control-label" for="select5">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'programming_skills')" class="custom-control-input" id="select6">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'programming_skills')" class="custom-control-input" id="select6">
                 <label class="custom-control-label" for="select6">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'optinal_skills')" class="custom-control-input" id="select7">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'optinal_skills')" class="custom-control-input" id="select7">
                 <label class="custom-control-label" for="select7">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'certification')" class="custom-control-input" id="select8">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'certification')" class="custom-control-input" id="select8">
                 <label class="custom-control-label" for="select8">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'end_to_end_implementation')" class="custom-control-input" id="select9">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'end_to_end_implementation')" class="custom-control-input" id="select9">
                 <label class="custom-control-label" for="select9">&nbsp;</label>
               </div>
             </li>
@@ -156,43 +161,43 @@
           <ul class="list-group">
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select10">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select10">
                 <label class="custom-control-label" for="select10">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'remote')" class="custom-control-input" id="select11">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'remote')" class="custom-control-input" id="select11">
                 <label class="custom-control-label" for="select11">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'availability')" class="custom-control-input" id="select12">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'availability')" class="custom-control-input" id="select12">
                 <label class="custom-control-label" for="select12">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'travel_opportunity')" class="custom-control-input" id="select13">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'travel_opportunity')" class="custom-control-input" id="select13">
                 <label class="custom-control-label" for="select13">&nbsp;</label>
               </div>
             </li>
             <!-- <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" class="custom-control-input" id="select14">
+                <input type="checkbox" checked class="custom-control-input" id="select14">
                 <label class="custom-control-label" for="select14">&nbsp;</label>
               </div>
             </li> -->
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'work_authorization')" class="custom-control-input" id="select14">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'work_authorization')" class="custom-control-input" id="select14">
                 <label class="custom-control-label" for="select14">&nbsp;</label>
               </div>
             </li>
             <li class="list-group-item">
               <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'visa_sponsorship')" class="custom-control-input" id="select15">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'visa_sponsorship')" class="custom-control-input" id="select15">
                 <label class="custom-control-label" for="select15">&nbsp;</label>
               </div>
             </li>
@@ -218,7 +223,7 @@
               <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
                class="list-group-item">
                 <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select_extra_{{i}}">
+                  <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select_extra_{{i}}">
                   <label class="custom-control-label" for="select_extra_{{i}}">&nbsp;</label>
                 </div>
               </li>
