@@ -5,6 +5,7 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { ApiService } from '@shared/service/api.service';
 import { JobPosting } from '@data/schema/post-job';
+import { GetResponse } from '@data/schema/response';
 
 
 @Injectable({
@@ -48,7 +49,7 @@ export class EmployerService extends CacheService {
     );
   }
 
-  getPostedJob = (params: any): Observable<JobPosting> => {
+  getPostedJob = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/jobpostings/list', params).pipe(
       map(data => {
         return data;
@@ -56,4 +57,11 @@ export class EmployerService extends CacheService {
     );
   };
 
+  deletePostedJob = (params: any): Observable<any> => {
+    return this.apiService.post('/api/jobpostings/delete', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
 }

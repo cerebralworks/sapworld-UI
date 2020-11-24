@@ -8,7 +8,8 @@ const routes = {
     skillTagList: '/skill-tags/list',
     forgotPassword: '/accounts/request-reset-password',
     jobPostingList: '/jobpostings/list',
-    resetPassword: '/accounts/reset-password'
+    resetPassword: '/accounts/reset-password',
+    jobDelete: '/jobpostings/delete'
 }
 
 module.exports = routes;

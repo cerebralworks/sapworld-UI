@@ -31,4 +31,12 @@ module.exports = (app, env, rp) => {
     requestCustom.get(`${serverRoutes.jobPostingList}`, req, res, requestBody);
   });
 
+   /**
+   * Job Posting
+   */
+  app.post("/api/jobpostings/delete", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.post(`${serverRoutes.jobDelete}`, req, res, requestBody);
+  });
+
 };

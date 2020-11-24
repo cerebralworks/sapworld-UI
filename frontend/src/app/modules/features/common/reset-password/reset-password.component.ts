@@ -56,9 +56,7 @@ export class ResetPasswordComponent implements OnInit {
       this.accountService.resetPassword(userCredentials).subscribe(
         response => {
           this.isLoading = false;
-          if (response.isLoggedIn) {
-            this.router.navigate([this.returnUrl]);
-          }
+          this.router.navigate([this.returnUrl]);
         }, error => {
           this.isLoading = false;
           if(error && error.error && error.error.errors)

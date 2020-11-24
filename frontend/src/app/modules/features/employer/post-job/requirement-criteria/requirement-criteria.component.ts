@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { EmployerService } from '@data/service/employer.service';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-requirement-criteria',
@@ -29,6 +30,11 @@ export class RequirementCriteriaComponent implements OnInit {
   public isLoading: boolean;
   public industries: any
 
+  @ViewChild(NgSelectComponent)
+    ngSelect: NgSelectComponent;
+    @ViewChild('myselect') myselect;
+    optionsSelect:Array<any>;
+
   constructor(
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
@@ -41,10 +47,32 @@ export class RequirementCriteriaComponent implements OnInit {
     this.onGetSkill();
   }
 
-  onAdd = (event) => {
-    console.log('event', event);
-console.log(this.childForm.value);
+  onChangeSelectSkillEvent = async (event) => {
+    let selectedEle = [];
+    await event.forEach(async element => {
+      if(element && element.tag) {
+        const tag = element.tag.split('-');
+        element.tag = tag[0];
+        await selectedEle.push(element);
+      }
+    });
+    this.childForm.patchValue({
+      requirement: {
+        skills: selectedEle,
+      }
+    });
+  }
 
+  onChangeSelectDomainEvent = async (event, index) => {
+    if(event && event.tag) {
+      const tag = event.tag.split('-');
+      event.tag = tag[0];
+    }
+    // this.childForm.patchValue({
+    //   requirement: {
+    //     domain: event,
+    //   }
+    // });
   }
 
   createForm() {
