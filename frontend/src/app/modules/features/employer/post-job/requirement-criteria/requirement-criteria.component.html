@@ -84,7 +84,7 @@
     <div class="col-lg-9 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.programmingSkills" | translate }}</label>
-        <ng-select id="programmingSkills" appMarkAsterisk [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
+        <ng-select id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
           formControlName="programming_skills">
         </ng-select>
         <app-control-messages [control]="f['programming_skills']"></app-control-messages>
@@ -94,7 +94,7 @@
     <div class="col-lg-3 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.endToEndImplementation" | translate }} </label>
-        <input appMarkAsterisk numbersOnly type="text" class="form-control w-25" formControlName="end_to_end_implementation">
+        <input numbersOnly type="text" class="form-control w-25" formControlName="end_to_end_implementation">
       </div>
     </div>
   </div>
@@ -102,7 +102,7 @@
     <div class="col-lg-6 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.niceToHave" | translate }} </label>
-        <ng-select id="niceToHave" appMarkAsterisk [addTag]="true"  addTagText="Add Nice To Have" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
+        <ng-select id="niceToHave" [addTag]="true"  addTagText="Add Nice To Have" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
           formControlName="optinal_skills">
         </ng-select>
         <app-control-messages [control]="f['optinal_skills']"></app-control-messages>
@@ -111,7 +111,7 @@
     <div class="col-lg-6 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.certification" | translate }} </label>
-        <ng-select id="certification" appMarkAsterisk [addTag]="true" addTagText="Add Certification" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
+        <ng-select id="certification" [addTag]="true" addTagText="Add Certification" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
           formControlName="certification">
         </ng-select>
         <app-control-messages [control]="f['certification']"></app-control-messages>

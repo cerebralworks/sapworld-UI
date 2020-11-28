@@ -10,6 +10,7 @@ export interface LoggedIn {
   success: boolean;
   userId: string;
   isLoggedIn: string;
+  role: Array<any>
 }
 
 export interface AccountSignup {

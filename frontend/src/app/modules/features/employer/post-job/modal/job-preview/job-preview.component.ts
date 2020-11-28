@@ -256,7 +256,6 @@ export class JobPreviewComponent implements OnInit {
     } else {
       return "No"
     }
-
   }
 
 }

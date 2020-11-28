@@ -32,11 +32,24 @@ module.exports = (app, env, rp) => {
   });
 
    /**
-   * Job Posting
+   * Job Delete
    */
   app.post("/api/jobpostings/delete", (req, res) => {
     let requestBody = { ...req.body };    
     requestCustom.post(`${serverRoutes.jobDelete}`, req, res, requestBody);
+  });
+
+  /**
+   * Job View
+   */
+  app.get("/api/jobpostings/view", (req, res) => {
+    let requestBody = { ...req.query };  
+    const jobID = requestBody.id;
+    console.log('requestBody', requestBody);
+    // delete requestBody.jobId;
+    if(jobID) {
+      requestCustom.get(`${serverRoutes.jobPostingView}/${jobID}`, req, res, requestBody);
+    }
   });
 
 };

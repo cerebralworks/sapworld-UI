@@ -27,18 +27,25 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-7">
-                    <h5>SAP ABAP Lead Consultant</h5>
+                    <h5>
+                      {{postedJobsDetails?.title}}
+                    </h5>
                   </div>
                   <div class="col-lg-5 text-right">
-                    <a class="btn btn-outline-warning btn-sm mr-1" href="job-post.html" title="Edit"><i class="fas fa-pencil-alt"></i> {{"dashboard.edit" | translate}}</a>
+                    <a class="btn btn-outline-warning btn-sm mr-1" [routerLink]="['/employer/post-job']" [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;" title="Edit"><i class="fas fa-pencil-alt"></i> {{"dashboard.edit" | translate}}</a>
                     <a class="btn btn-outline-blue btn-sm mr-1" href="javascript:;" (click)="onToggleJDModal(true)"><i class="fas fa-file-alt"></i> {{"dashboard.description" | translate}}</a>
-                    <a class="btn btn-outline-green btn-sm" href="job-company-matching.html" title="Matches"><i class="fas fa-tasks"></i> {{"dashboard.matches" | translate}}</a>
+                    <a class="btn btn-outline-green btn-sm" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches'}" href="javascript:;" title="Matches"><i class="fas fa-tasks"></i> {{"dashboard.matches" | translate}}</a>
                   </div>
                 </div>
                 <div class="media">
                   <div class="media-body">
-                    <h6>Wipro Limited</h6>
-                    <h6>Austin, TX, USA</h6>
+                    <h6>{{postedJobsDetails?.company ? postedJobsDetails?.company : ''}}</h6>
+                    <h6>
+                      {{postedJobsDetails?.city ? postedJobsDetails?.city + ', ' : ''}}
+                      {{postedJobsDetails?.state ? postedJobsDetails?.state + ', ' : ''}}
+                      {{postedJobsDetails?.zipcode ? postedJobsDetails?.zipcode + ', ' : ''}}
+                      {{postedJobsDetails?.country ? postedJobsDetails?.country : ''}}
+                    </h6>
                   </div>
                 </div>
               </div>
@@ -49,17 +56,17 @@
           <div class="col-lg-4 caption">
             <ul class="list-group">
               <li class="list-group-item">{{"dashboard.totalYearsOfExp" | translate }}</li>
-              <li class="list-group-item">{{"dashboard.totalYearsOfSapExperience" | translate }}</li>
+              <li class="list-group-item">{{"dashboard.totalSapExp" | translate }}</li>
               <li class="list-group-item">{{"postJob.domainExperience" | translate }}</li>
               <li class="list-group-item">{{"postJob.handsOnWith" | translate }}</li>
             </ul>
           </div>
           <div class="col-lg-8 info">
             <ul class="list-group">
-              <li class="list-group-item">8+ Years</li>
-              <li class="list-group-item">5+ Years</li>
-              <li class="list-group-item">Automotive, Logistics, Finance, Shipping</li>
-              <li class="list-group-item">SAP PM, SAP MM, SAP Mobility</li>
+              <li class="list-group-item">{{postedJobsDetails?.experience ? postedJobsDetails?.experience + ' Years' : ''}} </li>
+              <li class="list-group-item">{{postedJobsDetails?.sap_experience ? postedJobsDetails?.sap_experience + ' Years' : ''}}</li>
+              <li class="list-group-item">{{onFindDomainFromID(postedJobsDetails?.domain)}}</li>
+              <li class="list-group-item">{{onConvertArrayObjToAdditionalString(postedJobsDetails?.hands_on_experience, 'domain', 'tag')}}</li>
             </ul>
           </div>
 
@@ -74,10 +81,10 @@
           </div>
           <div class="col-lg-8 info">
             <ul class="list-group">
-              <li class="list-group-item">SAP BODS, SAP Mobility, SAP FICO </li>
-              <li class="list-group-item">Python, JAVA, Microsoft BI, Angular </li>
-              <li class="list-group-item">Python, SAP BODS</li>
-              <li class="list-group-item">SAP BODS</li>
+              <li class="list-group-item">{{onFindSkillsFromID(postedJobsDetails?.skills)}} </li>
+              <li class="list-group-item">{{onConvertArrayToString(postedJobsDetails?.programming_skills)}}  </li>
+              <li class="list-group-item">{{onConvertArrayToString(postedJobsDetails?.optinal_skills)}}</li>
+              <li class="list-group-item">{{onConvertArrayToString(postedJobsDetails?.certification)}}</li>
             </ul>
           </div>
 
@@ -88,20 +95,20 @@
               <li class="list-group-item">{{"postJob.remote" | translate}}</li>
               <li class="list-group-item">{{"postJob.startTime" | translate}}</li>
               <li class="list-group-item">{{"postJob.travelRequired" | translate}}</li>
-              <li class="list-group-item">{{"postJob.willingToRelocate" | translate}}</li>
+              <!-- <li class="list-group-item">{{"postJob.willingToRelocate" | translate}}</li> -->
               <li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
               <li class="list-group-item">{{"postJob.visaSponsorship" | translate }}</li>
             </ul>
           </div>
           <div class="col-lg-8 info">
             <ul class="list-group">
-              <li class="list-group-item">Permanent, Contract, Part Time</li>
-            <li class="list-group-item">Yes</li>
-            <li class="list-group-item">Immediate</li>
-            <li class="list-group-item">75%</li>
-            <li class="list-group-item">Yes</li>
-            <li class="list-group-item">Citizen / PR</li>
-            <li class="list-group-item">Yes</li>
+              <li class="list-group-item">{{postedJobsDetails?.type ? sharedService.onGetJobType(postedJobsDetails?.type) : '--'}}</li>
+            <li class="list-group-item">{{onGetYesOrNoValue(postedJobsDetails?.remote)}}</li>
+            <li class="list-group-item">{{postedJobsDetails?.availability ? postedJobsDetails?.availability : '--'}}</li>
+            <li class="list-group-item">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li>
+            <!-- <li class="list-group-item">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li> -->
+            <li class="list-group-item">{{postedJobsDetails?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
+            <li class="list-group-item">{{onGetYesOrNoValue(postedJobsDetails?.visa_sponsorship)}}</li>
             </ul>
           </div>
         </div>
@@ -146,6 +153,7 @@
 </section>
 
 <app-job-description
+[description]="postedJobsDetails?.description"
 [toggleJDModal]="isOpenedJDModal"
 *ngIf="isOpenedJDModal"
 (onEvent)="onToggleJDModal($event)">

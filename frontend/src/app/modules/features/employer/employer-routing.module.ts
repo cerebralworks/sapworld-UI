@@ -13,7 +13,7 @@ const routes: Routes = [
       import('@modules/features/employer/employer-dashboard/employer-dashboard.module').then(m => m.EmployerDashboardModule)
   },
   {
-    path: 'job-detail-view',
+    path: 'job-detail-view/:id',
     loadChildren: () =>
       import('@modules/features/employer/job-detail-view/job-detail-view.module').then(m => m.JobDetailViewModule)
   },

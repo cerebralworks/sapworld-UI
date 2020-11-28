@@ -78,7 +78,7 @@ export class AccountService extends CacheService {
 
 
   checkUserloggedIn = (): Observable<LoggedIn> => {
-    return this.apiService.post('/isLoggedIn').pipe(
+    return this.apiService.post('/api/isLoggedIn').pipe(
       map(data => {
         this.setAuth(data);
         return data;
@@ -138,7 +138,7 @@ export class AccountService extends CacheService {
     // remove user from local storage to log user out
   };
 
-  setAuth(data: AccountLogin) {
+  setAuth(data: LoggedIn) {
     // Save logged in and sent from server in localstorage
     this.setItem('currentUser', data);
     // Set current user data into observable

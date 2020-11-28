@@ -62,7 +62,7 @@
     </div>
   </nav>
 
-  <nav class="navbar navbar-expand-lg navbar-light theme-nav" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role.includes(1)">
+  <nav class="navbar navbar-expand-lg navbar-light theme-nav" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
     <div class="container">
       <a  [routerLink]="['/home']" href="javascript:;" class="navbar-brand" ><img src="assets/images/logo.png"/></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

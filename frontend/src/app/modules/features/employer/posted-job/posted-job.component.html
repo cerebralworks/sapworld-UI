@@ -33,7 +33,7 @@
             <tbody>
             <ng-container *ngIf="postedJobs?.length > 0; else elseTemplate">
               <tr *ngFor="let item of postedJobs; let i=index">
-                <td><a href="javascript:;" [routerLink]="['/employer/job-detail-view']" routerLinkActive="router-link-active" >
+                <td><a href="javascript:;" [routerLink]="['/employer/job-detail-view', item?.id]" routerLinkActive="router-link-active" >
                 {{item?.title}}</a></td>
                 <td>
                   {{item?.company?.company ? item?.company?.company : '-'}}

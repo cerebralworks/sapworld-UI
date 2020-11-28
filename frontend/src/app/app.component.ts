@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
+import { Event, NavigationStart, Router } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
+import { LoggedIn } from '@data/schema/account';
+import { AccountService } from '@data/service/account.service';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
+import { EmployerService } from '@data/service/employer.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,17 +13,19 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'sap-world';
+
+  public title = 'sap-world';
+  public loggedInResponse: LoggedIn;
+  public employerProfileInfo: any = {};
 
   constructor(
     public translateService: TranslateService,
-    public appGlobals: AppGlobals
+    public appGlobals: AppGlobals,
+    private employerService: EmployerService,
+    private accountService: AccountService,
+    private router: Router,
+    private employerSharedService: EmployerSharedService
   ) {
-    // translate.addLangs(['en', 'fr']);
-    // translate.setDefaultLang('en');
-
-    // const browserLang = translate.getBrowserLang();
-    // translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
   }
 
   ngOnInit(): void {
@@ -28,10 +35,46 @@ export class AppComponent {
     } else {
       this.translateService.setDefaultLang('en');
     }
+
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        console.log('asdas dasasdhdjkas');
+
+        this.checkUserLoggedIn();
+      }
+    });
   }
 
   public useLanguage(lang: string): void {
     this.translateService.setDefaultLang(lang);
+  }
+
+  checkUserLoggedIn = () => {
+    this.accountService.checkUserloggedIn().subscribe(
+      response => {
+        this.loggedInResponse = response;
+        this.getUserInfo();
+      },
+      error => {
+      }
+    );
+  };
+
+  getUserInfo = () => {
+    if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(1))){
+      this.onGetEmployerProfile();
+    }
+  }
+
+  onGetEmployerProfile() {
+    this.employerService.profile().subscribe(
+      response => {
+        this.employerProfileInfo = response;
+        if(this.employerProfileInfo && this.employerProfileInfo.details)
+          this.employerSharedService.saveEmployerProfileDetails(this.employerProfileInfo.details);
+      }, error => {
+      }
+    )
   }
 
 }

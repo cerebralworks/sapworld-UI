@@ -107,7 +107,7 @@ app.use((req, res, next) => {
   if (req.session && req.session.isLoggedIn) {
     let date = new Date();
     let current_time = date.getTime();
-    if (current_time >= req.session.expires_in - 300000) {
+    if (current_time >= (req.session.expires_in - 300000)) {
       var options = {
         method: "POST",
         uri: `${serverRoutes.login}`,

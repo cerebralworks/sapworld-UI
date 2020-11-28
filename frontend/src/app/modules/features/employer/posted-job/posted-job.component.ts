@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 
 @Component({
@@ -12,21 +13,36 @@ export class PostedJobComponent implements OnInit {
   public page: number = 1;
   public limit: number = 25;
   public postedJobMeta: any = {};
+  public currentEmployerDetails: any = {};
 
   constructor(
-    public employerService: EmployerService
+    public employerService: EmployerService,
+    private employerSharedService: EmployerSharedService
   ) { }
 
+  validateSubscribe = 0;
   ngOnInit(): void {
-    this.onGetPostedJob();
+    this.employerSharedService.getEmployerProfileDetails().subscribe(
+      details => {
+        if(details) {
+          this.currentEmployerDetails = details;
+          if(this.currentEmployerDetails.id && this.validateSubscribe == 0) {
+            this.onGetPostedJob(this.currentEmployerDetails.id);
+            this.validateSubscribe ++;
+          }
+        }
+      }
+    )
   }
 
-  onGetPostedJob() {
+  onGetPostedJob(companyId) {
     this.isLoading = true;
     let requestParams: any = {};
     requestParams.page = this.page;
     requestParams.limit = this.limit;
     requestParams.expand = 'company';
+    requestParams.company = companyId;
+    requestParams.sort = 'created_at.desc';
     this.employerService.getPostedJob(requestParams).subscribe(
       response => {
         if(response && response.items && response.items.length > 0) {
@@ -73,7 +89,9 @@ export class PostedJobComponent implements OnInit {
 
   onLoadMoreJob = () => {
     this.page = this.page + 1;
-    this.onGetPostedJob();
+    if(this.currentEmployerDetails.id) {
+      this.onGetPostedJob(this.currentEmployerDetails.id);
+    }
   }
 
 }

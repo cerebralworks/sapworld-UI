@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 
 @Component({
@@ -14,9 +15,27 @@ export class EmployerDashboardComponent implements OnInit {
   };
   isOpenedSendMailModal: any;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    const activeTab = this.route.snapshot.queryParamMap.get('activeTab');
+    if(activeTab) {
+      switch (activeTab) {
+        case 'postedJobs':
+          this.onTabChange({tabName: 'Posted Jobs', tabNumber: 1})
+          break;
+        case 'matches':
+          this.onTabChange({tabName: 'Matches', tabNumber: 2})
+          break;
+        case 'applicants':
+          this.onTabChange({tabName: 'Applicants', tabNumber: 3})
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   onTabChange = (tabInfo: tabInfo) => {

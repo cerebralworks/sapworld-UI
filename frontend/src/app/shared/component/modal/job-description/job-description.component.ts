@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class JobDescriptionComponent implements OnInit {
 
+  @Input() description: string;
   @Input() toggleJDModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
 

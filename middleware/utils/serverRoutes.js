@@ -9,7 +9,8 @@ const routes = {
     forgotPassword: '/accounts/request-reset-password',
     jobPostingList: '/jobpostings/list',
     resetPassword: '/accounts/reset-password',
-    jobDelete: '/jobpostings/delete'
+    jobDelete: '/jobpostings/delete',
+    jobPostingView: '/jobpostings/view',
 }
 
 module.exports = routes;

@@ -33,6 +33,8 @@ export class HeaderComponent implements OnInit {
     this.accountUserSubscription = this.accountService
       .isCurrentUser()
       .subscribe(response => {
+        console.log('response', response);
+
         this.loggedUserInfo = response;
       });
     if (!this.cdRef['destroyed']) {

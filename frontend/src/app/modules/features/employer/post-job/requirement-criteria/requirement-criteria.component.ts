@@ -88,13 +88,13 @@ export class RequirementCriteriaComponent implements OnInit {
         experience_type: ['year', [Validators.required]]
       })]),
       skills: new FormControl(null, Validators.required),
-      programming_skills: new FormControl(null, Validators.required),
-      optinal_skills: new FormControl(null, Validators.required),
-      certification: new FormControl(null, Validators.required),
+      programming_skills: new FormControl(null),
+      optinal_skills: new FormControl(null),
+      certification: new FormControl(null),
       work_authorization: new FormControl(null, Validators.required),
       visa_sponsorship: new FormControl(false, Validators.required),
       travel_opportunity: new FormControl("", Validators.required),
-      end_to_end_implementation: new FormControl(null, Validators.required)
+      end_to_end_implementation: new FormControl(null)
     }));
 
   }

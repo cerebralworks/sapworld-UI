@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { tabInfo } from '@data/schema/create-candidate';
-
-
 import { trigger, transition, query, style, animate, group } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { JobPosting } from '@data/schema/post-job';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
@@ -54,16 +52,22 @@ export class PostJobLayoutComponent implements OnInit {
   public postJobForm: FormGroup;
   public isLoading: boolean;
   public formError: any;
+  public postedJobsDetails: JobPosting;
 
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
     private modalService: NgbModal,
     public router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.buildForm();
+    const jobId = this.route.snapshot.queryParamMap.get('id');
+    if(jobId) {
+      this.onGetPostedJob(jobId);
+    }
   }
 
   onNext() {
@@ -109,20 +113,36 @@ export class PostJobLayoutComponent implements OnInit {
       ...this.postJobForm.value.requirement,
       ...this.postJobForm.value.jobPrev
     };
+
     let domainArray = [];
-    jobInfo.domain.forEach((element: any) => {
-      domainArray.push(parseInt(element.id))
-    });
+    if(jobInfo && jobInfo.domain && Array.isArray(jobInfo.domain)) {
+      jobInfo.domain.forEach((element: any) => {
+        domainArray.push(parseInt(element.id))
+      });
+    }
     jobInfo.domain = domainArray;
 
     let skillTagArray = [];
-    jobInfo.skills.forEach((element: any) => {
-      skillTagArray.push(parseInt(element.id))
-    });
+    if(jobInfo && jobInfo.skills && Array.isArray(jobInfo.skills)) {
+      jobInfo.skills.forEach((element: any) => {
+        skillTagArray.push(parseInt(element.id))
+      });
+    }
     jobInfo.skills = skillTagArray;
 
+    let handsOnArray = [];
+    if(jobInfo && jobInfo.hands_on_experience && Array.isArray(jobInfo.hands_on_experience)) {
+      jobInfo.hands_on_experience.forEach((element: any) => {
+        handsOnArray.push({
+          domain: element.domain.id,
+          experience: element.experience,
+          experience_type: element.experience_type
+        })
+      });
+    }
+    jobInfo.hands_on_experience = handsOnArray;
+
     delete jobInfo.temp_extra_criteria;
-    // delete jobInfo.location;
 
     if (this.postJobForm.valid) {
       this.employerService.jobPost(jobInfo).subscribe(
@@ -144,6 +164,20 @@ export class PostJobLayoutComponent implements OnInit {
   private buildForm(): void {
     this.postJobForm = this.formBuilder.group({
     });
+  }
+
+  onGetPostedJob(jobId) {
+    let requestParams: any = {};
+    requestParams.expand = 'employer';
+    requestParams.id = jobId;
+    this.employerService.getPostedJobDetails(requestParams).subscribe(
+      response => {
+        if(response && response.details) {
+          this.postedJobsDetails = response.details;
+        }
+      }, error => {
+      }
+    )
   }
 
 }

@@ -5,7 +5,7 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { ApiService } from '@shared/service/api.service';
 import { JobPosting } from '@data/schema/post-job';
-import { GetResponse } from '@data/schema/response';
+import { GetResponse, GetViewResponse } from '@data/schema/response';
 
 
 @Injectable({
@@ -25,7 +25,7 @@ export class EmployerService extends CacheService {
     );
   };
 
-  getIndustries = (params: any): Observable<JobPosting> => {
+  getIndustries = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/industries/list', params).pipe(
       map(data => {
         return data;
@@ -33,7 +33,7 @@ export class EmployerService extends CacheService {
     );
   };
 
-  getSkill = (params: any): Observable<JobPosting> => {
+  getSkill = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/skill-tags/list', params).pipe(
       map(data => {
         return data;
@@ -51,6 +51,14 @@ export class EmployerService extends CacheService {
 
   getPostedJob = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/jobpostings/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
+  getPostedJobDetails = (params: any): Observable<GetViewResponse> => {
+    return this.apiService.get('/api/jobpostings/view', params).pipe(
       map(data => {
         return data;
       })
