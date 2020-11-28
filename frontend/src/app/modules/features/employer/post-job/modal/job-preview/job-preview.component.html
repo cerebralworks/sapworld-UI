@@ -223,7 +223,7 @@
               <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
                class="list-group-item">
                 <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, 'type')" class="custom-control-input" id="select_extra_{{i}}">
+                  <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event, extra_criteria.title)" class="custom-control-input" id="select_extra_{{i}}">
                   <label class="custom-control-label" for="select_extra_{{i}}">&nbsp;</label>
                 </div>
               </li>

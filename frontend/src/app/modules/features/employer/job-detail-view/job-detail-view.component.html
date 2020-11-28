@@ -27,7 +27,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-7">
-                    <h5>
+                    <h5 class="text-capitalize">
                       {{postedJobsDetails?.title}}
                     </h5>
                   </div>
@@ -55,60 +55,60 @@
         <div class="row mt-3 info-box">
           <div class="col-lg-4 caption">
             <ul class="list-group">
-              <li class="list-group-item">{{"dashboard.totalYearsOfExp" | translate }}</li>
-              <li class="list-group-item">{{"dashboard.totalSapExp" | translate }}</li>
-              <li class="list-group-item">{{"postJob.domainExperience" | translate }}</li>
-              <li class="list-group-item">{{"postJob.handsOnWith" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"dashboard.totalYearsOfExp" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"dashboard.totalSapExp" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.handsOnWith" | translate }}</li>
             </ul>
           </div>
           <div class="col-lg-8 info">
             <ul class="list-group">
-              <li class="list-group-item">{{postedJobsDetails?.experience ? postedJobsDetails?.experience + ' Years' : ''}} </li>
-              <li class="list-group-item">{{postedJobsDetails?.sap_experience ? postedJobsDetails?.sap_experience + ' Years' : ''}}</li>
-              <li class="list-group-item">{{onFindDomainFromID(postedJobsDetails?.domain)}}</li>
-              <li class="list-group-item">{{onConvertArrayObjToAdditionalString(postedJobsDetails?.hands_on_experience, 'domain', 'tag')}}</li>
+              <li class="list-group-item text-capitalize">{{postedJobsDetails?.experience ? postedJobsDetails?.experience + ' Years' : ''}} </li>
+              <li class="list-group-item text-capitalize">{{postedJobsDetails?.sap_experience ? postedJobsDetails?.sap_experience + ' Years' : ''}}</li>
+              <li class="list-group-item text-capitalize">{{onFindDomainFromID(postedJobsDetails?.domain)}}</li>
+              <li class="list-group-item text-capitalize">{{onConvertArrayObjToAdditionalString(postedJobsDetails?.hands_on_experience, 'domain', 'tag')}}</li>
             </ul>
           </div>
 
           <div class="col-lg-12 border-top pt-3">	</div>
           <div class="col-lg-4 caption">
             <ul class="list-group">
-              <li class="list-group-item">{{"dashboard.knowledgeOn" | translate }}</li>
-              <li class="list-group-item">{{"postJob.programmingSkills" | translate }}</li>
-              <li class="list-group-item">{{"postJob.niceToHave" | translate }}</li>
-              <li class="list-group-item">{{"postJob.certification" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"dashboard.knowledgeOn" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.niceToHave" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
             </ul>
           </div>
           <div class="col-lg-8 info">
             <ul class="list-group">
-              <li class="list-group-item">{{onFindSkillsFromID(postedJobsDetails?.skills)}} </li>
-              <li class="list-group-item">{{onConvertArrayToString(postedJobsDetails?.programming_skills)}}  </li>
-              <li class="list-group-item">{{onConvertArrayToString(postedJobsDetails?.optinal_skills)}}</li>
-              <li class="list-group-item">{{onConvertArrayToString(postedJobsDetails?.certification)}}</li>
+              <li class=" list-group-item text-capitalize">{{onFindSkillsFromID(postedJobsDetails?.skills)}} </li>
+              <li class=" list-group-item text-capitalize">{{onConvertArrayToString(postedJobsDetails?.programming_skills)}}  </li>
+              <li class=" list-group-item text-capitalize">{{onConvertArrayToString(postedJobsDetails?.optinal_skills)}}</li>
+              <li class=" list-group-item text-capitalize">{{onConvertArrayToString(postedJobsDetails?.certification)}}</li>
             </ul>
           </div>
 
           <div class="col-lg-12 border-top pt-3">	</div>
           <div class="col-lg-4 caption">
             <ul class="list-group">
-              <li class="list-group-item">{{"postJob.jobType" | translate}}</li>
-              <li class="list-group-item">{{"postJob.remote" | translate}}</li>
-              <li class="list-group-item">{{"postJob.startTime" | translate}}</li>
-              <li class="list-group-item">{{"postJob.travelRequired" | translate}}</li>
-              <!-- <li class="list-group-item">{{"postJob.willingToRelocate" | translate}}</li> -->
-              <li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
-              <li class="list-group-item">{{"postJob.visaSponsorship" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
+              <!-- <li class=" list-group-item text-capitalize">{{"postJob.willingToRelocate" | translate}}</li> -->
+              <li class=" list-group-item text-capitalize">{{"postJob.workAuthorization" | translate }}</li>
+              <li class=" list-group-item text-capitalize">{{"postJob.visaSponsorship" | translate }}</li>
             </ul>
           </div>
           <div class="col-lg-8 info">
             <ul class="list-group">
-              <li class="list-group-item">{{postedJobsDetails?.type ? sharedService.onGetJobType(postedJobsDetails?.type) : '--'}}</li>
-            <li class="list-group-item">{{onGetYesOrNoValue(postedJobsDetails?.remote)}}</li>
-            <li class="list-group-item">{{postedJobsDetails?.availability ? postedJobsDetails?.availability : '--'}}</li>
-            <li class="list-group-item">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li>
-            <!-- <li class="list-group-item">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li> -->
-            <li class="list-group-item">{{postedJobsDetails?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
-            <li class="list-group-item">{{onGetYesOrNoValue(postedJobsDetails?.visa_sponsorship)}}</li>
+              <li class=" list-group-item text-capitalize">{{postedJobsDetails?.type ? sharedService.onGetJobType(postedJobsDetails?.type) : '--'}}</li>
+            <li class=" list-group-item text-capitalize">{{onGetYesOrNoValue(postedJobsDetails?.remote)}}</li>
+            <li class=" list-group-item text-capitalize">{{postedJobsDetails?.availability ? postedJobsDetails?.availability : '--'}}</li>
+            <li class=" list-group-item text-capitalize">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li>
+            <!-- <li class=" list-group-item text-capitalize">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li> -->
+            <li class=" list-group-item text-capitalize">{{postedJobsDetails?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
+            <li class=" list-group-item text-capitalize">{{onGetYesOrNoValue(postedJobsDetails?.visa_sponsorship)}}</li>
             </ul>
           </div>
         </div>

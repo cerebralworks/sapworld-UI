@@ -133,11 +133,20 @@ export class PostJobLayoutComponent implements OnInit {
     let handsOnArray = [];
     if(jobInfo && jobInfo.hands_on_experience && Array.isArray(jobInfo.hands_on_experience)) {
       jobInfo.hands_on_experience.forEach((element: any) => {
-        handsOnArray.push({
-          domain: element.domain.id,
-          experience: element.experience,
-          experience_type: element.experience_type
-        })
+        if(element && element.domain && element.domain.id) {
+          handsOnArray.push({
+            domain: element.domain.id,
+            experience: element.experience,
+            experience_type: element.experience_type
+          })
+        }else {
+          handsOnArray.push({
+            domain: element.domain,
+            experience: element.experience,
+            experience_type: element.experience_type
+          })
+        }
+
       });
     }
     jobInfo.hands_on_experience = handsOnArray;

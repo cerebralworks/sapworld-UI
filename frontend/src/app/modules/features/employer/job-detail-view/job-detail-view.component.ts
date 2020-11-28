@@ -70,6 +70,16 @@ export class JobDetailViewComponent implements OnInit {
     return '--';
   }
 
+  onFindSkillsFromSingleID = (value: any) => {
+    if(value && this.skills && this.skills.items && Array.isArray(this.skills.items)) {
+      const temp = this.skills.items.find(r=> {
+        return value == r.id
+      });
+      return temp;
+    }
+    return '--';
+  }
+
   onGetSkill() {
     let requestParams: any = {};
     requestParams.page = 1;
@@ -115,11 +125,9 @@ export class JobDetailViewComponent implements OnInit {
   onConvertArrayObjToAdditionalString = (value: any[], field: string = 'name', field2?:string) => {
     if (!Array.isArray(value) || value.length == 0) return "--";
     return value.map(s => {
-      if(field && field2) {
-        return s[field][field2] + ' (' + s.experience + ' ' + s.experience_type + ')'
-      }
-      if(field && !field2) {
-        return s[field] + ' (' + s.experience + ' ' + s.experience_type + ')'
+      let element = this.onFindSkillsFromSingleID(s.domain);
+      if(field && (element && element.tag)) {
+        return element.tag + ' (' + s.experience + ' ' + s.experience_type + ')'
       }
     }).join(", ");
   }
