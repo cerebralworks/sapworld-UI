@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
+import { JobPosting } from '@data/schema/post-job';
 import { SharedService } from '@shared/service/shared.service';
 
 import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
@@ -15,8 +16,13 @@ import { AddressComponent as gAddressComponent } from "ngx-google-places-autocom
 export class JobInformationComponent implements OnInit {
 
   @Input() currentTabInfo: tabInfo;
+  @Input('postedJobsDetails')
+  set postedJobsDetails(inFo: JobPosting) {
+    this.getPostedJobsDetails = inFo;
+  }
 
   public childForm;
+  public getPostedJobsDetails: JobPosting;
   public currentCurrencyFormat: string = "en-US";
 
   constructor(
@@ -25,7 +31,18 @@ export class JobInformationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.createForm()
+    this.createForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.childForm && this.getPostedJobsDetails) {
+      this.childForm.patchValue({
+        jobInfo : {
+          ...this.getPostedJobsDetails,
+          salary: this.getPostedJobsDetails.salary.toString()
+        }
+      });
+    }
   }
 
   createForm() {

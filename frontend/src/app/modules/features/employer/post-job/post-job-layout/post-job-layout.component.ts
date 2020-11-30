@@ -183,6 +183,11 @@ export class PostJobLayoutComponent implements OnInit {
       response => {
         if(response && response.details) {
           this.postedJobsDetails = response.details;
+          this.postJobForm.patchValue({
+            ...this.postedJobsDetails
+          });
+          console.log(this.postedJobsDetails);
+
         }
       }, error => {
       }

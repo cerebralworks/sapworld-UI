@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
+import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 
@@ -10,25 +11,19 @@ import { NgSelectComponent } from '@ng-select/ng-select';
   styleUrls: ['./requirement-criteria.component.css'],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective}]
 })
-export class RequirementCriteriaComponent implements OnInit {
+export class RequirementCriteriaComponent implements OnInit, OnChanges {
 
   @Input() currentTabInfo: tabInfo;
+  @Input('postedJobsDetails')
+  set postedJobsDetails(inFo: JobPosting) {
+    this.getPostedJobsDetails = inFo;
+  }
 
   public skillArray: any;
   public childForm;
-
-  items = [
-    {id: 1, name: 'Python'},
-    {id: 2, name: 'Node Js'},
-    {id: 3, name: 'Java'},
-    {id: 4, name: 'PHP', disabled: true},
-    {id: 5, name: 'Django'},
-    {id: 6, name: 'Angular'},
-    {id: 7, name: 'Vue'},
-    {id: 8, name: 'ReactJs'},
-  ];
   public isLoading: boolean;
-  public industries: any
+  public industries: any;
+  public getPostedJobsDetails: JobPosting;
 
   @ViewChild(NgSelectComponent)
     ngSelect: NgSelectComponent;
@@ -46,6 +41,20 @@ export class RequirementCriteriaComponent implements OnInit {
     this.onGetIndustries();
     this.onGetSkill();
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    setTimeout(() => {
+      if(this.childForm && this.getPostedJobsDetails) {
+        this.childForm.patchValue({
+          requirement : {
+            ...this.getPostedJobsDetails
+          }
+        });
+      }
+    });
+  }
+
 
   onChangeSelectSkillEvent = async (event) => {
     let selectedEle = [];
@@ -68,11 +77,6 @@ export class RequirementCriteriaComponent implements OnInit {
       const tag = event.tag.split('-');
       event.tag = tag[0];
     }
-    // this.childForm.patchValue({
-    //   requirement: {
-    //     domain: event,
-    //   }
-    // });
   }
 
   createForm() {

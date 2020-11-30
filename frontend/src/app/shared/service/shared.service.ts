@@ -23,7 +23,7 @@ export class SharedService {
 
   onGetJobType = (index?) => {
      let jobTypeArray = ['Full Time', 'Part Time', 'Freelance', 'Internship', 'Temporary', 'Remote', 'Contract', 'Day Job'];
-     if(index) { return jobTypeArray[index] }
+     if(index > -1) { return jobTypeArray[index] }
      return jobTypeArray;
   }
 

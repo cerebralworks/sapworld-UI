@@ -13,7 +13,7 @@ export class EmployerDashboardComponent implements OnInit {
     tabName: 'Profile',
     tabNumber: 1
   };
-  isOpenedSendMailModal: any;
+  public isOpenedSendMailModal: any;
 
   constructor(
     private route: ActivatedRoute

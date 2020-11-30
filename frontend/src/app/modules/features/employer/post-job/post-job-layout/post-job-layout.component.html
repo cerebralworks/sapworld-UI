@@ -24,11 +24,13 @@
           <div class="tab-content" [@animSlider]="slidingCounter">
 
             <app-job-information
+            [postedJobsDetails]="postedJobsDetails"
             *ngIf="currentTabInfo.tabNumber == 1"
             [currentTabInfo]="currentTabInfo">
             </app-job-information>
 
             <app-requirement-criteria
+            [postedJobsDetails]="postedJobsDetails"
             *ngIf="currentTabInfo.tabNumber == 2"
             [currentTabInfo]="currentTabInfo">
             </app-requirement-criteria>

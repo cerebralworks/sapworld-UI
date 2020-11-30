@@ -55,6 +55,8 @@ export class CurrencyFormatterDirective implements OnDestroy {
   }
 
   unformatValue(v) {
+    console.log(v);
+
     if(v) {
       return v.replace(/,/g, '');
     }
@@ -78,9 +80,12 @@ export class CurrencyFormatterDirective implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.setValue(this.unformatValue(this.ngControl.value));
-    this.destroy$.next();
-    this.destroy$.complete();
+    if(this.ngControl.value) {
+      this.setValue(this.unformatValue(this.ngControl.value));
+      this.destroy$.next();
+      this.destroy$.complete();
+    }
+
   }
 
 }

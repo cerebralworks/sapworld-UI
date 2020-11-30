@@ -215,6 +215,7 @@ export class JobPreviewComponent implements OnInit {
         title: [jobPrev[0].title],
         value: [jobPrev[0].value]
       }));
+      this.onAddOrRemoveMustMatch(true, jobPrev[0].title ? jobPrev[0].title.toLowerCase() : '');
       this.onCloseCriteriaModal();
     }
   }

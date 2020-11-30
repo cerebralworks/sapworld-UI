@@ -102,7 +102,7 @@
           </div>
           <div class="col-lg-8 info">
             <ul class="list-group">
-              <li class=" list-group-item text-capitalize">{{postedJobsDetails?.type ? sharedService.onGetJobType(postedJobsDetails?.type) : '--'}}</li>
+            <li class=" list-group-item text-capitalize">{{postedJobsDetails?.type > -1 ? sharedService.onGetJobType(postedJobsDetails?.type) : '--'}}</li>
             <li class=" list-group-item text-capitalize">{{onGetYesOrNoValue(postedJobsDetails?.remote)}}</li>
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.availability ? postedJobsDetails?.availability : '--'}}</li>
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li>
@@ -111,6 +111,20 @@
             <li class=" list-group-item text-capitalize">{{onGetYesOrNoValue(postedJobsDetails?.visa_sponsorship)}}</li>
             </ul>
           </div>
+
+          <div class="col-lg-4 caption">
+            <ul class="list-group">
+              <li *ngFor="let item of postedJobsDetails?.extra_criteria | keyvalue; let i=index"
+              class=" list-group-item text-capitalize">{{item?.value?.title ? item?.value?.title : '--'}}</li>
+             </ul>
+          </div>
+          <div class="col-lg-8 info">
+            <ul class="list-group">
+              <li *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index"
+              class=" list-group-item text-capitalize">{{item?.value ? item?.value : '--'}}</li>
+            </ul>
+          </div>
+
         </div>
       </div>
       <div class="col-lg-4">
