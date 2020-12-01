@@ -166,8 +166,8 @@ export class JobPreviewComponent implements OnInit {
     return this.f.extra_criteria as FormArray;
   }
 
-  onAddOrRemoveMustMatch = (event, fieldName) => {
-    this.mustMacthObj = { ...this.mustMacthObj, [fieldName]: event.target.checked };
+  onAddOrRemoveMustMatch = (checked, fieldName) => {
+    this.mustMacthObj = { ...this.mustMacthObj, [fieldName]: checked };
 
     // if (this.mustMacthArray.length == 0) {
     //   this.mustMacthArray.push({ [fieldName]: event.target.checked })

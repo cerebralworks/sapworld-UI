@@ -43,16 +43,15 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
-    setTimeout(() => {
-      if(this.childForm && this.getPostedJobsDetails) {
-        this.childForm.patchValue({
-          requirement : {
-            ...this.getPostedJobsDetails
-          }
-        });
-      }
-    });
+    // setTimeout(() => {
+    //   if(this.childForm && this.getPostedJobsDetails) {
+    //     this.childForm.patchValue({
+    //       requirement : {
+    //         ...this.getPostedJobsDetails
+    //       }
+    //     });
+    //   }
+    // });
   }
 
 
