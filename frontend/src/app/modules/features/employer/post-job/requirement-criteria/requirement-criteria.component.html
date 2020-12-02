@@ -20,7 +20,12 @@
     <div class="col-lg-12 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.domainExperience" | translate }}</label>
-        <ng-select  id="domainExperience" appMarkAsterisk [items]="industries?.items" bindLabel="name" [placeholder]="'postJob.sapModule' | translate" appendTo="body" multiple="true"
+        <ng-select
+         class="text-capitalize"
+         id="domainExperience"
+         appMarkAsterisk
+         [items]="industriesItems"
+         bindLabel="name" [placeholder]="'postJob.sapModule' | translate" appendTo="body" multiple="true"
           formControlName="domain">
         </ng-select>
         <app-control-messages [control]="f['domain']"></app-control-messages>

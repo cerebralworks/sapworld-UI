@@ -47,6 +47,7 @@
 
 
           <app-job-preview
+          [postedJobsDetails]="postedJobsDetails"
           (postJob)="postJob()"
           [postJobForm]="postJobForm"
           *ngIf="isOpenedJobPreviewModal"

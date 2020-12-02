@@ -1,4 +1,5 @@
 export interface JobPosting {
+  id: number;
   title: string;
   type: string;
   description: string;
@@ -25,5 +26,6 @@ export interface JobPosting {
   certification: Array<string>;
   work_authorization: number;
   visa_sponsorship: boolean;
+  company: number;
   end_to_end_implementation: number;
 }

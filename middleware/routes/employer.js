@@ -24,6 +24,16 @@ module.exports = (app, env, rp) => {
   });
 
   /**
+   * Job Updating
+   */
+  app.post("/api/jobpostings/update", (req, res) => {
+    let requestBody = { ...req.body };    
+    const jobID = requestBody.id;
+    requestCustom.post(`${serverRoutes.jobPostingUpdate}/${jobID}`, req, res, requestBody);
+  });
+
+
+  /**
    * Job Listed
    */
   app.get("/api/jobpostings/list", (req, res) => {
@@ -45,8 +55,6 @@ module.exports = (app, env, rp) => {
   app.get("/api/jobpostings/view", (req, res) => {
     let requestBody = { ...req.query };  
     const jobID = requestBody.id;
-    console.log('requestBody', requestBody);
-    // delete requestBody.jobId;
     if(jobID) {
       requestCustom.get(`${serverRoutes.jobPostingView}/${jobID}`, req, res, requestBody);
     }

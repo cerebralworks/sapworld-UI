@@ -53,6 +53,7 @@ export class PostJobLayoutComponent implements OnInit {
   public isLoading: boolean;
   public formError: any;
   public postedJobsDetails: JobPosting;
+  public jobId: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,10 +64,14 @@ export class PostJobLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+
     this.buildForm();
-    const jobId = this.route.snapshot.queryParamMap.get('id');
-    if(jobId) {
-      this.onGetPostedJob(jobId);
+    this.jobId = this.route.snapshot.queryParamMap.get('id');
+    if(this.jobId) {
+      this.onGetPostedJob(this.jobId);
     }
   }
 
@@ -154,20 +159,48 @@ export class PostJobLayoutComponent implements OnInit {
     delete jobInfo.temp_extra_criteria;
 
     if (this.postJobForm.valid) {
-      this.employerService.jobPost(jobInfo).subscribe(
-        response => {
-          this.router.navigate(['/employer/dashboard']).then(() => {
-            this.modalService.dismissAll();
-            this.onToggleJobPreviewModal(false)
-          });
-          this.isLoading = false;
-        }, error => {
-          if(error && error.error && error.error.errors)
-          this.formError = error.error.errors;
-          this.isLoading = false;
-        }
-      )
+      if(this.jobId) {
+        this.onJobUpdate(jobInfo);
+      }else {
+        this.onJobPost(jobInfo);
+      }
     }
+  }
+
+  onJobPost = (jobInfo: JobPosting) => {
+    this.employerService.jobPost(jobInfo).subscribe(
+      response => {
+        this.router.navigate(['/employer/dashboard']).then(() => {
+          this.modalService.dismissAll();
+          this.onToggleJobPreviewModal(false)
+        });
+        this.isLoading = false;
+      }, error => {
+        if(error && error.error && error.error.errors)
+        this.formError = error.error.errors;
+        this.isLoading = false;
+      }
+    )
+  }
+
+  onJobUpdate = (jobInfo: JobPosting) => {
+    // jobInfo.latlng = "34.055103,34.055103";
+    const company: any = this.postedJobsDetails.company;
+    jobInfo.company = (company && company.id) ? company.id : company;
+    jobInfo.id = this.postedJobsDetails.id;
+    this.employerService.jobUpdate(jobInfo).subscribe(
+      response => {
+        this.router.navigate(['/employer/dashboard']).then(() => {
+          this.modalService.dismissAll();
+          this.onToggleJobPreviewModal(false)
+        });
+        this.isLoading = false;
+      }, error => {
+        if(error && error.error && error.error.errors)
+        this.formError = error.error.errors;
+        this.isLoading = false;
+      }
+    )
   }
 
   private buildForm(): void {
@@ -186,8 +219,6 @@ export class PostJobLayoutComponent implements OnInit {
           this.postJobForm.patchValue({
             ...this.postedJobsDetails
           });
-          console.log(this.postedJobsDetails);
-
         }
       }, error => {
       }

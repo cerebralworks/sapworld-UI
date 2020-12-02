@@ -90,6 +90,8 @@ export class JobInformationComponent implements OnInit {
 
   handleAddressChange = (event) => {
     const address = this.fromGooglePlace(event);
+    console.log(address);
+
     this.childForm.patchValue({
       jobInfo: {
         // location: event.formatted_address,
@@ -99,29 +101,36 @@ export class JobInformationComponent implements OnInit {
         latlng: event.geometry.location.lat() + ',' + event.geometry.location.lat()
       }
     });
+    console.log(this.childForm);
+
   };
 
   public fromGooglePlace(addr: gAddress) {
     let address: any = {};
-    let houseNumber = this.findType(addr, "street_number");
-    let street = this.findType(addr, "route");
+    let houseNumber = this.findTypeLongName(addr, "street_number");
+    let street = this.findTypeLongName(addr, "route");
 
     address.street = street && houseNumber ? `${houseNumber} ${street}` : null;
     address.street = address.street ? address.street : street;
 
-    address.city = this.findType(addr, "locality");
-    address.state = this.findType(addr, "administrative_area_level_1");
-    address.zipcode = this.findType(addr, "postal_code");
-    address.country = this.findType(addr, "country");
+    address.city = this.findTypeLongName(addr, "locality");
+    address.state = this.findTypeLongName(addr, "administrative_area_level_1");
+    address.zipcode = this.findTypeLongName(addr, "postal_code");
+    address.country = this.findTypeShortName(addr, "country");
 
     address.validated = houseNumber != null && street != null && address.city != null && address.state != null && address.zipcode != null;
 
     return address;
   }
 
-  private findType(addr: gAddress, type: string): string {
+  private findTypeLongName(addr: gAddress, type: string): string {
     let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
     return comp ? comp.long_name : null;
+  }
+
+  private findTypeShortName(addr: gAddress, type: string): string {
+    let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
+    return comp ? comp.short_name : null;
   }
 
 }

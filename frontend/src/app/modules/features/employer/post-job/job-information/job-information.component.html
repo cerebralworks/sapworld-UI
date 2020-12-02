@@ -109,7 +109,8 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.country" | translate}}</label>
-        <select appMarkAsterisk formControlName="country" class="form-control" name="job-type">
+        <input appMarkAsterisk formControlName="country" type="text" class="form-control" [placeholder]="'postYourResume.country' | translate">
+        <!-- <select appMarkAsterisk formControlName="country" class="form-control" name="job-type">
           <option selected="" disabled="">{{"postJob.country" | translate}}</option>
           <option>India </option>
           <option>United States </option>
@@ -124,7 +125,7 @@
           <option>Australia </option>
           <option>United Arab Emirates </option>
           <option>Singapore </option>
-        </select>
+        </select> -->
       </div>
       <app-control-messages [control]="f['country']"></app-control-messages>
     </div>

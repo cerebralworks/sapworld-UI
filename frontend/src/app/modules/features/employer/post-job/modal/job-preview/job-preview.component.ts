@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SharedService } from '@shared/service/shared.service';
@@ -18,6 +19,10 @@ export class JobPreviewComponent implements OnInit {
   @Output() onEvent = new EventEmitter<boolean>();
   @Input() postJobForm: FormGroup;
   @Output() postJob: EventEmitter<any> = new EventEmitter();
+  @Input('postedJobsDetails')
+  set postedJobsDetails(inFo: JobPosting) {
+    this.getPostedJobsDetails = inFo;
+  }
 
   public mbRef: NgbModalRef;
   public criteriaModalRef: NgbModalRef;
@@ -28,6 +33,7 @@ export class JobPreviewComponent implements OnInit {
   public industries: any;
   public profileInfo: any;
   public mustMacthArray: any[] = [];
+  public getPostedJobsDetails: JobPosting;
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
   @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
@@ -57,6 +63,18 @@ export class JobPreviewComponent implements OnInit {
       });
       this.createForm();
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    setTimeout( async () => {
+      if(this.childForm && this.getPostedJobsDetails) {
+        this.childForm.patchValue({
+          jobPrev : {
+            ...this.getPostedJobsDetails
+          }
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {
