@@ -1,0 +1,87 @@
+
+<div>
+  <div class="row mt-5">
+    <div class="col-lg-12 col-md-6">
+      <label>{{"postYourResume.handsOnExperience" | translate }}</label>
+    </div>
+  </div>
+  <ng-container>
+    <div class="row mt-2" *ngFor="let item of skillArray; let i=index">
+      <div class="col-lg-4 col-md-6">
+        <input type="text" class="form-control" [placeholder]="'postYourResume.sapCategory' | translate">
+      </div>
+      <div class="col-lg-2 col-md-4">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Exp">
+          <div class="input-group-append ">
+            <select class="input-group-text" id="basic-addon2">
+              <option>Yrs</option>
+              <option>Mon</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-2">
+        <button type="button" class="btn btn-outline-danger" style="line-height: 1.75; padding: .5rem 1.0rem;"
+          (click)="onRemove(i)"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+  </ng-container>
+  <div class="row mt-2">
+    <div class="col-lg-4 col-md-6">
+      <input type="text" class="form-control" [placeholder]="'postYourResume.sapCategory' | translate">
+    </div>
+    <div class="col-lg-2 col-md-4">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Exp">
+        <div class="input-group-append ">
+          <select class="input-group-text" id="basic-addon2">
+            <option>Yrs</option>
+            <option>Mon</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-2">
+      <button type="button" (click)="onDuplicate()" class="btn btn-outline-success" style="line-height: 1.75; padding: .5rem 1.0rem;">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-lg-9 col-md-6">
+      <div class=" form-group">
+        <label>{{"dashboard.knowledgeOn" | translate }}</label>
+        <input type="text" class="form-control" value="SAP Mobility, SAP FICO, SAP BODS" data-role="tagsinput">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-9 col-md-6">
+      <div class=" form-group">
+        <label>{{"dashboard.programmingSkills" | translate }}</label>
+        <input type="text" class="form-control" value="Python, JAVA, Microsoft BI, Angular" data-role="tagsinput">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-9 col-md-6">
+      <div class=" form-group">
+        <label>{{"postYourResume.others" | translate }}</label>
+        <input type="text" class="form-control" value="Python, SAP BODS" data-role="tagsinput">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-9 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.certification" | translate }} </label>
+        <input type="text" class="form-control" value="SAP Mobility">
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

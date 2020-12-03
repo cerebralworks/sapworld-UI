@@ -1,0 +1,366 @@
+<section class="sub-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <ol class="breadcrumb">>
+          <li class="breadcrumb-item active" aria-current="page">{{"dashboard.candidateMatches" | translate }}</li>
+        </ol>
+      </div>
+      <div class="col-lg-7 clearfix">
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- //Sub Header Section -->
+<section class="my-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card profile-card border p-2">
+              <div class="d-flex">
+                <div class="pc-info">
+                  <a [routerLink]="['/employer/job-detail-view']"  href="javascript:;">
+                    <h5>SAP ABAP Lead Consultant</h5>
+                  </a>
+                  <h6>Wipro Limited</h6>
+                  <h6 class="mb-0">Austin, TX, USA</h6>
+                </div>
+                <div class="pc-btn">
+                  <a class="btn btn-outline-blue btn-sm mr-1" [routerLink]="['/employer/job-multiple-candidate-matches']"  href="javascript:;">
+                    {{"dashboard.matches" | translate}}
+                  </a>
+                  <a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right" href="javascript:;">
+                  <i class="fas fa-file-alt"></i> JD</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row info-box mt-3">
+          <div class="col-lg-4 caption">
+            <ul class="list-group">
+              <li class="list-group-item">{{"postJob.totalYearsOfExperience" | translate }}</li>
+            <li class="list-group-item">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+            <li class="list-group-item">{{"postJob.domainExperience" | translate }}</li>
+            <li class="list-group-item">{{"postJob.handsOnWith" | translate }}</li>
+            </ul>
+          </div>
+          <div class="col-lg-8 info">
+            <ul class="list-group">
+              <li class="list-group-item">9+ Years</li>
+              <li class="list-group-item">6+ Years</li>
+              <li class="list-group-item">Automotive, Logistics, Finance, Shipping </li>
+              <li class="list-group-item">SAP PM, SAP Mobility</li>
+            </ul>
+          </div>
+
+          <div class="col-lg-12 border-top pt-3">	</div>
+          <div class="col-lg-4 caption">
+            <ul class="list-group">
+              <li class="list-group-item">{{"postJob.knowledgeOnOtherSapSkills" | translate }}</li>
+              <li class="list-group-item">{{"postJob.programmingSkills" | translate }}</li>
+              <li class="list-group-item">{{"postJob.niceToHave" | translate }}</li>
+              <li class="list-group-item">{{"postJob.certification" | translate }}</li>
+              <li class="list-group-item">{{"postJob.endToEndImplementation" | translate }}</li>
+            </ul>
+          </div>
+          <div class="col-lg-8 info">
+            <ul class="list-group">
+              <li class="list-group-item">SAP BODS, SAP Mobility, SAP FICO </li>
+              <li class="list-group-item">Python, JAVA, Microsoft BI, Angular </li>
+              <li class="list-group-item">Python, SAP BODS</li>
+              <li class="list-group-item">SAP BODS</li>
+              <li class="list-group-item">Lorem</li>
+            </ul>
+          </div>
+
+          <div class="col-lg-12 border-top pt-3">	</div>
+          <div class="col-lg-4 caption">
+            <ul class="list-group">
+              <li class="list-group-item">{{"postJob.jobType" | translate}}</li>
+              <li class="list-group-item">{{"postJob.remote" | translate}}</li>
+              <li class="list-group-item">{{"postJob.startTime" | translate}}</li>
+              <li class="list-group-item">{{"postJob.travelRequired" | translate}}</li>
+              <li class="list-group-item">{{"postJob.willingToRelocate" | translate}}</li>
+              <li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
+              <li class="list-group-item">{{"postJob.visaSponsorship" | translate }}</li>
+            </ul>
+          </div>
+          <div class="col-lg-8 info">
+            <ul class="list-group">
+              <li class="list-group-item">Permanent, Contract, Part Time</li>
+              <li class="list-group-item">Yes</li>
+              <li class="list-group-item">Immediate</li>
+              <li class="list-group-item">75%</li>
+              <li class="list-group-item">Yes</li>
+              <li class="list-group-item">Citizen / PR</li>
+              <li class="list-group-item">Yes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel">
+          <div class="carousel-inner">
+          <!--Profile1-->
+          <div class="carousel-item active">
+            <div class="row info-box">
+              <div class="col-lg-12">
+                <div class="card profile-card">
+                  <div class="d-flex">
+                    <div class="pc-img">
+                      <img src="assets/images/user-img.jpg">
+                    </div>
+                    <div class="pc-info">
+                      <a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">
+                        <h5>Jacky Smith <small> - Project Manager</small></h5>
+                      </a>
+                      <form class="form-inline">
+                      <a (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-1" href="javascript:;" data-toggle="modal" data-target="#resumeModal">
+                        <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate}}
+                      </a>
+                      <a class="ml-auto border-bottom" href="javascript:;" style="width:170px;" (click)="onToggleOtherPostModal(true)">
+                        {{"dashboard.matchOtherPosts" | translate}}
+                      </a>
+                      <!-- <a [routerLink]="['/employer/job-multiple-candidate-matches']" class="btn btn-theme-blue btn-sm">
+                      <i class="fas fa-tasks"></i></a> -->
+                    </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 info mt-3">
+                <div class="score">
+                  {{"dashboard.score" | translate}} <span>7/10</span>
+                </div>
+                <ul class="list-group">
+                  <li class="list-group-item text-green">8+ Years <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">5+ Years <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item">
+                    <span class="text-green mr-2">Automotive, Logistics, Finance <i class="far fa-check-circle ml-1"></i></span>
+                    <span class="text-danger">Shipping <i class="far fa-times-circle ml-2"></i></span>
+                  </li>
+                  <li class="list-group-item">
+                    <span>
+                      <span class="text-green">SAP PM</span>, <span class="text-blue">SAP MM</span>, <span class="text-green">SAP Mobility</span> <i class="far fa-check-circle ml-1 text-green"></i>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-lg-12 border-top pt-3">	</div>
+              <div class="col-lg-12 info">
+                <ul class="list-group">
+                  <li class="list-group-item text-green">SAP Mobility, SAP FICO <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Java, Python <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Python, SAP BODS <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-blue">SAP Mobility <i class="far fa-times-circle ml-2"></i></li>
+                </ul>
+              </div>
+
+              <div class="col-lg-12 border-top pt-3">	</div>
+              <div class="col-lg-12 info">
+                <ul class="list-group">
+                  <li class="list-group-item text-green"> Full Time, Part Time, Freelancer <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Yes  <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-danger">30 Days <i class="far fa-times-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">H1B <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-danger">No <i class="far fa-times-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Yes <i class="far fa-check-circle ml-2"></i></li>
+                </ul>
+
+                <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal" data-target="#sendMail" style="position: absolute;bottom: 15px; right: 15px;">	<i class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
+              </div>
+            </div>
+          </div>
+          <!--//Profile1-->
+          <!--Profile2-->
+          <div class="carousel-item">
+            <div class="row info-box">
+              <div class="col-lg-12">
+                <div class="card profile-card">
+                  <div class="d-flex">
+                    <div class="pc-img">
+                      <img src="assets/images/user-img2.jpg">
+                    </div>
+                    <div class="pc-info">
+                      <a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">
+                        <h5>Balasubramanian <small> - Jr.Project Manager</small>
+                        <small class="text-muted">(3rd Party Profile)</small></h5>
+                      </a>
+                      <form class="form-inline">
+                      <a class="btn btn-outline-blue btn-sm mr-1" href="#" data-toggle="modal" data-target="#resumeModal">
+                        <i class="fas fa-file-alt"></i> Resume
+                      </a>
+                      <div class="" style="width:150px; border: 2px solid #d2d2d2;border-radius: 10px;margin-right: 7px;">
+                        <select class="selectpicker" multiple data-live-search="true">
+                        <option class="d-none" disabled selected >Choose Jobs </option>
+                        <option>Project Manager - (SAP-PS)  </option>
+                        <option>Financial Developer - (SAP-FI)</option>
+                        <option>Project Management - (SAP-PM)</option>
+                        <option>Senior Developer  - (SAP-SD)</option>
+                        <option>Account Manager   - (SAP-AM)</option>
+                        <option>Sales Executives   - (SAP-SE)</option>
+                        <option>Account Assistant   - (SAP-AA)</option>
+                        </select>
+                      </div>
+                      <button type="button" onclick="location.href='job-candidate-multiple-matchings.html'" title="Matching" data-toggle="tooltip" class="btn btn-theme-blue btn-sm">
+                      <i class="fas fa-tasks"></i></button>
+                    </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 info mt-3">
+                <div class="score">
+                  SCORE <span>7/10</span>
+                </div>
+                <ul class="list-group">
+                  <li class="list-group-item text-green">8+ Years <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">5+ Years <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Automotive, Logistics, Finance <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">SAP PM, SAP MM, SAP Mobility <i class="far fa-check-circle ml-2"></i></li>
+                </ul>
+              </div>
+
+              <div class="col-lg-12 border-top pt-3">	</div>
+              <div class="col-lg-12 info">
+                <ul class="list-group">
+                  <li class="list-group-item text-green">SAP Mobility, SAP FICO <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Java, Python <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Python, SAP BODS <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-danger">SAP Mobility <i class="far fa-times-circle ml-2"></i></li>
+                </ul>
+              </div>
+
+              <div class="col-lg-12 border-top pt-3">	</div>
+              <div class="col-lg-12 info">
+                <ul class="list-group">
+                  <li class="list-group-item text-green"> Full Time, Part Time, Freelancer <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Yes  <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-danger">30 Days <i class="far fa-times-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">H1B <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-danger">No <i class="far fa-times-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Yes <i class="far fa-check-circle ml-2"></i></li>
+                </ul>
+
+                <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal" data-target="#sendMail" style="position: absolute;bottom: 15px; right: 15px;">	<i class="fas fa-paper-plane"></i> Send Mail</button>
+              </div>
+            </div>
+          </div>
+          <!--//Profile2-->
+          <!--Profile3-->
+          <div class="carousel-item">
+            <div class="row info-box">
+              <div class="col-lg-12">
+                <div class="card profile-card">
+                  <div class="d-flex">
+                    <div class="pc-img">
+                      <img src="assets/images/user-img3.jpg">
+                    </div>
+                    <div class="pc-info">
+                      <a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">
+                        <h5>Sindhu Gangadharan  <small> - Sr.Project Manager</small></h5>
+                      </a>
+                      <form class="form-inline">
+                      <a class="btn btn-outline-blue btn-sm mr-1" href="#" data-toggle="modal" data-target="#resumeModal">
+                        <i class="fas fa-file-alt"></i> Resume
+                      </a>
+                      <div class="" style="width:150px; border: 2px solid #d2d2d2;border-radius: 10px;margin-right: 7px;">
+                        <select class="selectpicker" multiple data-live-search="true">
+                        <option class="d-none" disabled selected >Choose Jobs </option>
+                        <option>Project Manager - (SAP-PS)  </option>
+                        <option>Financial Developer - (SAP-FI)</option>
+                        <option>Project Management - (SAP-PM)</option>
+                        <option>Senior Developer  - (SAP-SD)</option>
+                        <option>Account Manager   - (SAP-AM)</option>
+                        <option>Sales Executives   - (SAP-SE)</option>
+                        <option>Account Assistant   - (SAP-AA)</option>
+                        </select>
+                      </div>
+                      <button type="button" onclick="location.href='job-candidate-multiple-matchings.html'" title="Matching" data-toggle="tooltip" class="btn btn-theme-blue btn-sm">
+                      <i class="fas fa-tasks"></i></button>
+                    </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 info mt-3">
+                <div class="score">
+                  {{"dashboard.score" | translate}} <span>7/10</span>
+                </div>
+                <ul class="list-group">
+                  <li class="list-group-item text-green">8+ Years <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">5+ Years <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Automotive, Logistics, Finance <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">SAP PM, SAP MM, SAP Mobility <i class="far fa-check-circle ml-2"></i></li>
+                </ul>
+              </div>
+
+              <div class="col-lg-12 border-top pt-3">	</div>
+              <div class="col-lg-12 info">
+                <ul class="list-group">
+                  <li class="list-group-item text-green">SAP Mobility, SAP FICO <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Java, Python <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Python, SAP BODS <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-danger">SAP Mobility <i class="far fa-times-circle ml-2"></i></li>
+                </ul>
+              </div>
+
+              <div class="col-lg-12 border-top pt-3">	</div>
+              <div class="col-lg-12 info">
+                <ul class="list-group">
+                  <li class="list-group-item text-green"> Full Time, Part Time, Freelancer <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Yes  <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-danger">30 Days <i class="far fa-times-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">H1B <i class="far fa-check-circle ml-2"></i></li>
+                  <li class="list-group-item text-danger">No <i class="far fa-times-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Yes <i class="far fa-check-circle ml-2"></i></li>
+                </ul>
+
+                <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal" data-target="#sendMail" style="position: absolute;bottom: 15px; right: 15px;">	<i class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
+              </div>
+            </div>
+          </div>
+          <!--//Profile3-->
+          </div>
+          <!--PrevNext-->
+           <div class="matchCount" style="top:-45px;">1/10</div>
+          <a class="carousel-control-prev" href="#carouselProfile" role="button" data-slide="prev" style="top:-45px;">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselProfile" role="button" data-slide="next" style="top:-45px;">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-resume-modal
+*ngIf="isOpenedResumeModal"
+[toggleResumeModal]="isOpenedResumeModal"
+(onEvent)="onToggleResumeForm($event)">
+</app-resume-modal>
+
+<app-job-description
+[toggleJDModal]="isOpenedJDModal"
+*ngIf="isOpenedJDModal"
+(onEvent)="onToggleJDModal($event)">
+</app-job-description>
+
+
+<app-match-other-post
+[togglematchOtherPostModal]="isOpenedOtherPostModal"
+*ngIf="isOpenedOtherPostModal"
+(onEvent)="onToggleOtherPostModal($event)">
+</app-match-other-post>

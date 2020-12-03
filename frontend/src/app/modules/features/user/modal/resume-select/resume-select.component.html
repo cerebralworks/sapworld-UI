@@ -1,0 +1,52 @@
+<ng-template #resumeSelectModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Resume</h5>
+    <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <div class=" form-group">
+      <label class="h5">Choose a Resume </label>
+       <div class="mt-2">
+         <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="resume1" name="customRadioInline" checked class="custom-control-input">
+          <label class="custom-control-label" for="resume1">SAP ABAP Developer</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="resume2" name="customRadioInline" class="custom-control-input">
+          <label class="custom-control-label" for="resume2">SAP ABAP Consultant</label>
+        </div>
+      </div>
+    </div>
+    <div class=" form-group mt-5">
+      <label class="h5">Work Authorization Status</label>
+       <div class="mt-2">
+         <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="authorization1" name="customRadioInline2" class="custom-control-input">
+          <label class="custom-control-label" for="authorization1">I am a Citizen / PR</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="authorization2" name="customRadioInline2" checked class="custom-control-input">
+          <label class="custom-control-label" for="authorization2">I have Work Authorization</label>
+        </div>
+      </div>
+    </div>
+    <div class=" form-group mt-5">
+      <label class="h5">Work Permit Status</label>
+      <select class="form-control w-25">
+        <option selected="" disabled="">Select</option>
+        <option>H1B</option>
+        <option>TN</option>
+        <option>OPT</option>
+        <option>L1</option>
+        <option>B1</option>
+        <option>Green Card</option>
+        </select>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button (click)="onClickCloseBtn(false)"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-theme-blue " data-dismiss="modal" data-toggle="modal" data-target="#successMsg" >Submit</button>
+    </div>
+</ng-template>

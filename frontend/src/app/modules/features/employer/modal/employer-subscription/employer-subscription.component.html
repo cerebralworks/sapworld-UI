@@ -1,0 +1,60 @@
+<ng-template #subscriptionModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Our Subscriptions</h5>
+    <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="block block-pricing">
+          <div class="table">
+            <h6>Basic</h6>
+            <h1><small>$</small>5.99</h1>
+            <h5>For 1 Month</h5>
+
+            <ul>
+              <li><b>5</b> Jobs Post</li>
+              <li><b>10</b> Resumes Download</li>
+              <li>Not Access Multiple Matchings</li>
+            </ul>
+            <a href="#" class="btn btn-theme-green btn-round mt-3">Subscribe Now!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="block block-pricing">
+          <div class="table">
+            <h6>Primary</h6>
+            <h1><small>$</small>10.99</h1>
+            <h5>For 3 Months</h5>
+
+            <ul>
+              <li><b>10</b> Jobs Post</li>
+              <li><b>20</b> Resumes Download</li>
+              <li>Access Multiple Matchings</li>
+            </ul>
+            <a href="#" class="btn btn-theme-green btn-round mt-3">Subscribe Now!</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="block block-pricing">
+          <div class="table">
+            <h6>PRO</h6>
+            <h1><small>$</small>19.99</h1>
+            <h5>For 12 Month</h5>
+
+            <ul>
+              <li><b>20</b> Jobs Post</li>
+              <li><b>50</b> Resumes Download</li>
+              <li>Access Multiple Matchings</li>
+            </ul>
+            <a href="#" class="btn btn-theme-green btn-round mt-3">Subscribe Now!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </ng-template>

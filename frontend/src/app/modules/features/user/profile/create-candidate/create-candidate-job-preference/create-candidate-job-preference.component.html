@@ -1,0 +1,113 @@
+<div>
+  <div class="row mt-5 ">
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.jobType" | translate }}</label>
+        <select class="form-control">
+        <option selected="" disabled="">{{"common.select" | translate }} {{"postJob.jobType" | translate }}</option>
+        <option>Full Time</option>
+        <option>Part Time</option>
+        <option>Contract</option>
+        <option>Temporary</option>
+        <option>Freelance</option>
+        <option>Internship</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postYourResume.rolesLookingFor" | translate }}</label>
+        <input type="text" class="form-control" [placeholder]="'postYourResume.rolesLookingFor' | translate">
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2 ">
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postYourResume.preferredLocation" | translate }}</label>
+        <select class="form-control">
+        <option selected="" disabled hidden>Location</option>
+        <option>Anywhere within the country</option>
+        <option>Any country</option>
+        <option>Anywhere within my current state</option>
+        <option>Within 10 miles from my current location</option>
+        <option>Within 15 miles </option>
+        <option>Within 25 miles </option>
+        <option>Within 50 miles </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.availability" | translate }}</label>
+        <select class="form-control">
+        <option selected="" disabled hidden>{{"postJob.availability" | translate }}</option>
+        <option>Immediate</option>
+        <option>15 Days</option>
+        <option>30 Days</option>
+        <option>45 Days</option>
+        <option>60 Days</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.travel" | translate }} </label>
+        <select class="form-control">
+        <option selected="" disabled="">{{"common.select" | translate }} {{"postJob.travel" | translate }}</option>
+        <option>No</option>
+        <option>25%</option>
+        <option>50%</option>
+        <option>75%</option>
+        <option>100%</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.workAuthorization" | translate }}</label>
+         <div class="mt-2">
+           <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInlineA1" name="customRadioInline" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInlineA1">{{"postYourResume.iHaveWorkAuthorization" | translate }}</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInlineA2" name="customRadioInline" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInlineA2">{{"postYourResume.iNeedVisaAponsorship" | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-3 col-md-6">
+      <div class=" form-group">
+        <label>{{"postYourResume.arYouWillingToRelocate" | translate }}?</label>
+         <div class="mt-2">
+           <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline3" name="customRadioInline" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline3">{{"common.yes" | translate }}</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline4" name="customRadioInline" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline4">{{"common.no" | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-6">
+      <div class=" form-group">
+        <label>&nbsp;</label>
+         <div class="mt-2">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="OnlyRemote">
+            <label class="custom-control-label" for="OnlyRemote">{{"postYourResume.onlyRemote" | translate }}</label>
+           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

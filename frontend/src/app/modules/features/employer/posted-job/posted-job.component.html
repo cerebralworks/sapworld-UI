@@ -1,0 +1,81 @@
+<section class="my-4">
+  <div class="container container-big">
+    <div class="row mb-4">
+      <div class="col-lg-12 text-right">
+        <button type="button" class="btn btn-sm btn-outline-success px-3 mr-1" onclick="location.href='#'">
+          {{"dashboard.active" | translate}}
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-warning px-3 mr-1">
+          {{"dashboard.paused" | translate}}
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-danger px-3">
+          {{"dashboard.closed" | translate}}
+        </button>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">{{"postJob.jobTitle" | translate}}</th>
+              <th scope="col">{{"dashboard.employer" | translate}}</th>
+              <th scope="col">{{"postJob.location" | translate}}</th>
+              <th scope="col">{{"dashboard.postedDated" | translate}}</th>
+              <th scope="col" class="text-center">{{"dashboard.matches" | translate}}</th>
+              <th scope="col" class="text-center">{{"dashboard.applications" | translate}}</th>
+              <th scope="col" class="text-center">{{"dashboard.shortlisted" | translate}}</th>
+              <th scope="col" class="text-center">{{"dashboard.status" | translate}}</th>
+              <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="postedJobs?.length > 0; else elseTemplate">
+              <tr *ngFor="let item of postedJobs; let i=index">
+                <td><a href="javascript:;" [routerLink]="['/employer/job-detail-view', item?.id]" routerLinkActive="router-link-active" >
+                {{item?.title}}</a></td>
+                <td>
+                  {{item?.company?.company ? item?.company?.company : '-'}}
+                </td>
+                <td>
+                  {{item?.city ? item?.city + ', ' : ''}}
+                  {{item?.state ? item?.state + ', ' : ''}}
+                  {{item?.zipcode ? item?.zipcode + ', ' : ''}}
+                  {{item?.country ? item?.country : ''}}
+                </td>
+                <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
+                <td class="text-center"><a href="job-company-matching.html">0</a></td>
+                <td class="text-center"><a href="job-applied.html">0</a></td>
+                <td class="text-center"><a href="job-shortlisted.html">0</a></td>
+                <td class="text-center">
+                <select class="form-control form-control-td">
+                  <option [selected]="item.status == 1">Active</option>
+                  <option [selected]="item.status == 2">Pause</option>
+                  <option [selected]="item.status == 0">Closed</option>
+                </select>
+                </td>
+                <td class="text-center">
+                <a href="javascript:;"  [routerLink]="['/employer/post-job']" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+                <a href="javascript:;" (click)="onDeletePostedJob(item?.id, i)" class="text-danger"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <tr>
+                <td colspan="9">No Record Found</td>
+              </tr>
+            </ng-template>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="postedJobMeta?.count > 0 && postedJobMeta?.total > 25">
+          <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
+            Load More
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

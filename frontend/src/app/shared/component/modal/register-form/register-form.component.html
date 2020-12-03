@@ -1,0 +1,74 @@
+<ng-template #registerModal let-modal>
+  <div
+  class="modal-header">
+    <h5
+    class="modal-title" id="registerModalLabel">Recruiter Registration</h5>
+    <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form method="post" [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="form-group">
+        <label>First Name</label>
+        <div appMarkAsterisk class="input-with-icon">
+          <input type="text" class="form-control" [placeholder]="'First Name'" formControlName="firstName">
+          <i class="fas fa-user-alt"></i>
+        </div>
+        <app-control-messages [control]="f['firstName']"></app-control-messages>
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <div appMarkAsterisk class="input-with-icon">
+          <input type="text" class="form-control" [placeholder]="'Last Name'" formControlName="lastName">
+          <i class="fas fa-user-alt"></i>
+        </div>
+        <app-control-messages [control]="f['lastName']"></app-control-messages>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <div appMarkAsterisk class="input-with-icon">
+          <input type="text" class="form-control" [placeholder]="'Email Address'" formControlName="email">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <small class="text-danger" *ngIf="formError?.length > 0 && formError[0]?.field == 'account'">
+          {{formError[0]?.rules[0]?.rule == 'unique' ? formError[0]?.rules[0]?.message : ''}}
+        </small>
+        <app-control-messages [control]="f['email']"></app-control-messages>
+      </div>
+      <div class="form-group" *ngIf="router?.url.includes('employer') || router?.url.includes('agency')">
+        <label>Company Name </label>
+        <div appMarkAsterisk class="input-with-icon">
+          <input type="text" class="form-control" [placeholder]="'Company Name'" formControlName="companyName">
+          <i class="fas fa-industry"></i>
+        </div>
+        <app-control-messages [control]="f['companyName']"></app-control-messages>
+      </div>
+      <div class="form-group">
+        <label>Password </label>
+        <div appMarkAsterisk class="input-with-icon">
+          <input type="password" class="form-control" [placeholder]="'Password'" formControlName="password">
+          <i class="fas fa-key"></i>
+        </div>
+        <app-control-messages [control]="f['password']"></app-control-messages>
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="termsService" formControlName="isAgreed">
+        <label class="custom-control-label" for="termsService">Terms of Service and Privacy Policy <a href="#">View</a></label>
+        </div>
+      </div>
+      <div
+       class="form-group mt-5">
+        <button type="submit" [ngClass]="{'btn-theme-blue': router?.url.includes('employer'), 'btn-theme-orange':router?.url.includes('agency'), 'btn-theme-green':router?.url.includes('user') }"
+         class="btn btn-block btn-lg" [disabled]="(registerForm.invalid || (!registerForm?.value?.isAgreed))">
+         <span [hidden]="isLoading">Submit</span>
+         <span [hidden]="!isLoading">
+           <i class="fa fa-spinner" aria-hidden="true"></i>
+         </span>
+        </button>
+      </div>
+    </form>
+
+  </div>
+</ng-template>

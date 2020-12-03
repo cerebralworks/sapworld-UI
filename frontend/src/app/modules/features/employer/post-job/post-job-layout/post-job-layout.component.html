@@ -1,0 +1,65 @@
+<!-- Sub Header Section -->
+<section class="sub-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">{{"postJob.postYourJob" | translate }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- //Sub Header Section -->
+<section class="my-5" style="min-height: 970px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 tabs-animated" id="myTab">
+        <form method="post" #postJobNgForm="ngForm" [formGroup]="postJobForm">
+          <app-post-job-header
+          [currentTabInfo]="currentTabInfo"
+          (onTabChangeEvent)="onHeaderTabChange($event)">
+          </app-post-job-header>
+
+          <div class="tab-content" [@animSlider]="slidingCounter">
+
+            <app-job-information
+            [postedJobsDetails]="postedJobsDetails"
+            *ngIf="currentTabInfo.tabNumber == 1"
+            [currentTabInfo]="currentTabInfo">
+            </app-job-information>
+
+            <app-requirement-criteria
+            [postedJobsDetails]="postedJobsDetails"
+            *ngIf="currentTabInfo.tabNumber == 2"
+            [currentTabInfo]="currentTabInfo">
+            </app-requirement-criteria>
+
+          </div>
+
+          <app-post-job-footer
+          (postJob)="postJob()"
+          [postJobForm]="postJobForm"
+          [currentTabInfo]="currentTabInfo"
+          (onTabChangeEvent)="onFooterTabChange($event)"
+          (onEnableJobPreviewModal)="onToggleJobPreviewModal($event)">
+          </app-post-job-footer>
+
+
+          <app-job-preview
+          [postedJobsDetails]="postedJobsDetails"
+          (postJob)="postJob()"
+          [postJobForm]="postJobForm"
+          *ngIf="isOpenedJobPreviewModal"
+          [toggleJobPreviewModal]="isOpenedJobPreviewModal"
+          (onEvent)="onToggleJobPreviewModal($event)">
+          </app-job-preview>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+

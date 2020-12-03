@@ -1,0 +1,294 @@
+<ng-template #jobPreviewModal let-modal>
+  <div formGroupName="jobPrev">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">{{"postJob.jobPreview" | translate }} </h5>
+      <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body" style="height:550px; overflow-y:scroll;">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card job-card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12 text-capitalize">
+                  <h5>{{postJobForm?.value?.jobInfo?.title}}</h5>
+                </div>
+              </div>
+              <div class="media">
+                <div class="media-body">
+                  <h6 class="text-capitalize">{{profileInfo?.details?.company}}</h6>
+                  <h6 class="text-capitalize">
+                    {{postJobForm?.value?.jobInfo?.city ? postJobForm?.value?.jobInfo?.city + ', ' : ''}}
+                    {{postJobForm?.value?.jobInfo?.state ? postJobForm?.value?.jobInfo?.state + ', ' : ''}}
+                    {{postJobForm?.value?.jobInfo?.zipcode ? postJobForm?.value?.jobInfo?.zipcode + ', ' : ''}}
+                    {{postJobForm?.value?.jobInfo?.country ? postJobForm?.value?.jobInfo?.country : ''}}
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3 info-box">
+        <div class="col-lg-12 text-right">
+          <h6>Choose Mandatory Requirement <span class="required-asterisk">*</span></h6>
+        </div>
+        <div class="col-lg-4 caption">
+          <ul class="list-group">
+            <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfExperience" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.handsOnWith" | translate }}</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 info">
+          <ul class="list-group">
+            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.experience}} Years</li>
+            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.sap_experience}} Years</li>
+            <li class="list-group-item text-capitalize">{{onFindDomainFromID(postJobForm?.value?.requirement?.domain)}}</li>
+            <li class="list-group-item text-uppercase">
+              <p class="m-0 w-100 float-left" *ngFor="let item of postJobForm?.value?.requirement?.hands_on_experience">
+                <span class="text-wrap-custom float-left">{{item?.domain ? onFindSkillsFromSingleID(item?.domain)?.tag : '--'}}</span>
+                <span *ngIf="item?.domain">({{item?.experience + ' ' + item?.experience_type}})</span>
+              </p>
+              <!-- {{onConvertArrayObjToAdditionalString(postJobForm?.value?.requirement?.hands_on_experience, 'domain', 'tag')}} -->
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-2 caption">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'experience')" class="custom-control-input" id="select1">
+                <label class="custom-control-label" for="select1">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'sap_experience')" class="custom-control-input" id="select2">
+                <label class="custom-control-label" for="select2">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'domain')" class="custom-control-input" id="select3">
+                <label class="custom-control-label" for="select3">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'hands_on_experience')" class="custom-control-input" id="select4">
+                <label class="custom-control-label" for="select4">&nbsp;</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-12 border-top pt-3"> </div>
+        <div class="col-lg-4 caption">
+          <ul class="list-group">
+            <li class="list-group-item text-capitalize">{{"postJob.knowledgeOnOtherSapSkills" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.niceToHave" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 info">
+          <ul class="list-group">
+            <li class="list-group-item text-uppercase">
+              <p class="m-0 w-100 float-left" *ngFor="let item of postJobForm?.value?.requirement?.skills">
+                <span class="text-wrap-custom float-left">{{item ? onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
+              </p>
+              <!-- {{onConvertArrayObjToString(postJobForm?.value?.requirement?.skills, 'tag')}}  -->
+            </li>
+            <li class="list-group-item text-capitalize">{{onConvertArrayToString(postJobForm?.value?.requirement?.programming_skills)}} </li>
+            <li class="list-group-item text-capitalize">{{onConvertArrayToString(postJobForm?.value?.requirement?.optinal_skills)}}</li>
+            <li class="list-group-item text-capitalize">{{onConvertArrayToString(postJobForm?.value?.requirement?.certification)}}</li>
+            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.end_to_end_implementation}}</li>
+          </ul>
+        </div>
+        <div class="col-lg-2 caption">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'skills')" class="custom-control-input" id="select5">
+                <label class="custom-control-label" for="select5">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'programming_skills')" class="custom-control-input" id="select6">
+                <label class="custom-control-label" for="select6">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'optinal_skills')" class="custom-control-input" id="select7">
+                <label class="custom-control-label" for="select7">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'certification')" class="custom-control-input" id="select8">
+                <label class="custom-control-label" for="select8">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'end_to_end_implementation')" class="custom-control-input" id="select9">
+                <label class="custom-control-label" for="select9">&nbsp;</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-12 border-top pt-3"> </div>
+
+        <div class="col-lg-4 caption">
+          <ul class="list-group">
+            <li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
+            <!-- <li class="list-group-item text-capitalize">{{"postJob.willingToRelocate" | translate}}</li> -->
+            <li class="list-group-item text-capitalize">{{"postJob.workAuthorization" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.visaSponsorship" | translate }}</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 info">
+          <ul class="list-group">
+            <li class="list-group-item text-capitalize">{{sharedService.onGetJobType(postJobForm?.value?.jobInfo?.type)}}</li>
+            <li class="list-group-item text-capitalize">{{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}}</li>
+            <li class="list-group-item text-capitalize">{{postJobForm?.value?.jobInfo?.availability}}</li>
+            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.travel_opportunity}}</li>
+            <!-- <li class="list-group-item text-capitalize">{{postJobForm?.value?.jobInfo?.certification}}</li> -->
+            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
+            <li class="list-group-item text-capitalize">{{onGetYesOrNoValue(postJobForm?.value?.requirement?.visa_sponsorship)}}</li>
+          </ul>
+        </div>
+        <div class="col-lg-2 caption">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'type')" class="custom-control-input" id="select10">
+                <label class="custom-control-label" for="select10">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'remote')" class="custom-control-input" id="select11">
+                <label class="custom-control-label" for="select11">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'availability')" class="custom-control-input" id="select12">
+                <label class="custom-control-label" for="select12">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'travel_opportunity')" class="custom-control-input" id="select13">
+                <label class="custom-control-label" for="select13">&nbsp;</label>
+              </div>
+            </li>
+            <!-- <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked class="custom-control-input" id="select14">
+                <label class="custom-control-label" for="select14">&nbsp;</label>
+              </div>
+            </li> -->
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'work_authorization')" class="custom-control-input" id="select14">
+                <label class="custom-control-label" for="select14">&nbsp;</label>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'visa_sponsorship')" class="custom-control-input" id="select15">
+                <label class="custom-control-label" for="select15">&nbsp;</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- <div class="col-lg-12 border-top pt-3"> </div> -->
+        <ng-container *ngIf="childForm?.value?.jobPrev?.extra_criteria?.length > 0">
+          <div class="col-lg-4 caption">
+            <ul class="list-group">
+              <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
+              class="list-group-item text-capitalize">{{extra_criteria?.title}}</li>
+            </ul>
+          </div>
+          <div class="col-lg-6 info">
+            <ul class="list-group">
+              <li
+              *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
+              class="list-group-item text-capitalize">{{extra_criteria?.value}}</li></ul>
+          </div>
+          <div class="col-lg-2 caption">
+            <ul class="list-group">
+              <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
+               class="list-group-item">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, extra_criteria.title)" class="custom-control-input" id="select_extra_{{i}}">
+                  <label class="custom-control-label" for="select_extra_{{i}}">&nbsp;</label>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+
+        <div class="col-lg-12 border-top pt-3"> </div>
+
+        <div class="col-lg-12">
+          <h6>{{"postJob.jobDescription" | translate}}</h6>
+          <p>{{postJobForm?.value?.jobInfo?.description}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group mr-2">
+          <label>{{"postJob.enterNumberOfPositions" | translate}}</label>
+        </div>
+        <div appMarkAsterisk class="form-group">
+          <input numbersOnly formControlName="number_of_positions" class="form-control form-control-sm w-50" type="text" placeholder="Numbers"/>
+          <app-control-messages [control]="f['number_of_positions']"></app-control-messages>
+        </div>
+      <button (click)="onOpenCriteriaModal()" type="button" class="btn btn-theme-green" data-toggle="modal"
+        data-target="#addCriteria">Add Another Criteria</button>
+      <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
+        data-dismiss="modal">Edit</button>
+      <button [disabled]="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">Post Job</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template *ngIf="isOpenCriteriaModal" #criteriaModal let-modal>
+
+  <div *ngIf="t?.controls?.length > 0">
+    <ng-container [formGroup]="t?.controls[0]">
+    <div class="modal-header">
+      <h5 class="modal-title" id="addCriteria">Add Another Criteria</h5>
+      <button  (click)="onCloseCriteriaModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="min-height:250px;">
+      <input formControlName="title" class="form-control mt-4" type="text" placeholder="Title">
+      <app-control-messages [control]="t?.controls[0]['controls']['title']"></app-control-messages>
+      <input formControlName="value" class="form-control mt-4" type="text" placeholder="Requirement">
+      <app-control-messages [control]="t?.controls[0]['controls']['value']"></app-control-messages>
+    </div>
+    <div class="modal-footer">
+      <button (click)="onCloseCriteriaModal()" type="button" class="btn btn-secondary "
+        data-dismiss="modal">Close</button>
+      <button [disabled]="(childForm?.value?.jobPrev?.temp_extra_criteria[0].title == '') || (childForm?.value?.jobPrev?.temp_extra_criteria[0].value == '')" (click)="onAddExtraCriteria()" type="button" class="btn btn-theme-blue"
+        data-dismiss="modal">Add</button>
+    </div>
+    </ng-container>
+  </div>
+</ng-template>
