@@ -50,23 +50,13 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
     this.onGetSkill();
   }
 
-  onReturnText = (text) => {
-    console.log(text);
-return text;
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout( async () => {
       if(this.childForm && this.getPostedJobsDetails) {
         if(this.getPostedJobsDetails && this.getPostedJobsDetails.hands_on_experience && Array.isArray(this.getPostedJobsDetails.hands_on_experience)) {
           this.t.removeAt(0);
           this.getPostedJobsDetails.hands_on_experience.map((value, index) => {
-          console.log('index');
-
           this.onDuplicate();
-          //   value.domain = this.onFindSkillsFromSingleID(value.domain);value.experience = value.experience;
-          //   value.experience_type = value.experience_type;
-          //   return value
           });
         }
         this.childForm.patchValue({
@@ -74,8 +64,6 @@ return text;
             ...this.getPostedJobsDetails
           }
         });
-        console.log(this.childForm);
-
       }
     });
   }
@@ -183,21 +171,6 @@ return text;
         if(response && response.items) {
           this.industriesItems = [...response.items];
         }
-        if(this.getPostedJobsDetails && this.getPostedJobsDetails.domain) {
-          setTimeout(() => {
-            // this.childForm.patchValue({
-            //   requirement : {
-            //     domain: this.onFindDomainFromID(this.getPostedJobsDetails.domain, 'obj')
-            //   }
-            // });
-            // const value = this.onFindDomainFromID(this.getPostedJobsDetails.domain, 'obj');
-            // this.childForm.controls['requirement'].controls['domain'].setValue(value, {onlySelf: true});
-
-            console.log(this.childForm);
-
-          }, 3000);
-        }
-
         this.isLoading = false;
       }, error => {
         this.isLoading = false;
@@ -216,25 +189,6 @@ return text;
         if(response && response.items) {
           this.skillItems = [...response.items];
         }
-        if(this.getPostedJobsDetails && this.getPostedJobsDetails.hands_on_experience && Array.isArray(this.getPostedJobsDetails.hands_on_experience)) {
-          // const handsOnWith = this.getPostedJobsDetails.hands_on_experience.map((value, index) => {
-          //   value.domain = this.onFindSkillsFromSingleID(value.domain);value.experience = value.experience;
-          //   value.experience_type = value.experience_type;
-          //   return value
-          // });
-          // this.setHandOnWithValue(handsOnWith);
-        }
-
-      if(this.getPostedJobsDetails && this.getPostedJobsDetails.skills) {
-        setTimeout(() => {
-          // this.childForm.patchValue({
-          //   requirement : {
-          //     skills: this.onFindSkillsFromID(this.getPostedJobsDetails.skills, 'obj')
-          //   }
-          // });
-        }, 100);
-      }
-
         this.isLoading = false;
       }, error => {
         this.isLoading = false;
@@ -253,17 +207,6 @@ return text;
   onRemove = (index) => {
     if(index == 0) {
       this.t.reset();
-      // this.setValue()
-      // this.childForm.patchValue({
-      //   requirement: {
-      //     hands_on_experience: {
-      //       experience_type: 'year'
-      //     }
-      //   }
-      // });
-      // this.childForm.markAsUntouched();
-      // this.childForm.markAsPristine();
-      // this.childForm.updateValueAndValidity();
     }else {
       this.t.removeAt(index);
     }

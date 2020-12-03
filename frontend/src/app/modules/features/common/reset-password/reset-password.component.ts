@@ -61,7 +61,6 @@ export class ResetPasswordComponent implements OnInit {
           this.isLoading = false;
           if(error && error.error && error.error.errors)
           this.formError = error.error.errors;
-          console.log('this.formError', this.formError);
         }
       )
     }

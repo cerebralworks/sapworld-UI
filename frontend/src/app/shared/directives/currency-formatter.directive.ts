@@ -55,8 +55,6 @@ export class CurrencyFormatterDirective implements OnDestroy {
   }
 
   unformatValue(v) {
-    console.log(v);
-
     if(v) {
       return v.replace(/,/g, '');
     }

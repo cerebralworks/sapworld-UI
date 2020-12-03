@@ -19,8 +19,6 @@ export class JobPreviewComponent implements OnInit {
   @Output() onEvent = new EventEmitter<boolean>();
   @Input() postJobForm: FormGroup;
   @Output() postJob: EventEmitter<any> = new EventEmitter();
-  industriesItems: any[];
-  skillItems: any[];
   @Input('postedJobsDetails')
   set postedJobsDetails(inFo: JobPosting) {
     this.getPostedJobsDetails = inFo;
@@ -36,6 +34,8 @@ export class JobPreviewComponent implements OnInit {
   public profileInfo: any;
   public mustMacthArray: any[] = [];
   public getPostedJobsDetails: JobPosting;
+  public industriesItems: any[] = [];
+  public skillItems: any[] = [];
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
   @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
@@ -90,7 +90,7 @@ export class JobPreviewComponent implements OnInit {
   onClickCloseBtn(status) {
     this.childForm.get('jobPrev.number_of_positions').setValidators(null);
     this.childForm.get('jobPrev.number_of_positions').updateValueAndValidity();
-    console.log(this.getErrors(this.childForm));
+    // console.log(this.getErrors(this.childForm));
     if (status == false) {
       this.modalService.dismissAll()
     }
@@ -301,14 +301,10 @@ export class JobPreviewComponent implements OnInit {
   };
 
   onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => {
-    console.log('arrayValues', arrayValues);
-
     if(this.skillItems && this.skillItems && Array.isArray(this.skillItems) && Array.isArray(arrayValues) && arrayValues.length > 0) {
       const temp = this.skillItems.filter(r=> {
         return arrayValues.includes(r.id)
       });
-      console.log(returnVal,temp);
-
       if(returnVal == 'obj') {
         return temp;
       }

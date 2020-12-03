@@ -38,8 +38,6 @@ export class AppComponent {
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
-        console.log('asdas dasasdhdjkas');
-
         this.checkUserLoggedIn();
       }
     });

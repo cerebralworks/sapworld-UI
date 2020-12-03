@@ -28,13 +28,6 @@ export class PostJobFooterComponent implements OnInit {
     for (let key in this.postJobForm.controls.requirement['controls']) {
       this.removeError(this.postJobForm.controls.requirement['controls'][key], 'required')
     }
-
-    // this.postJobForm.controls.requirement.controls
-    // this.postJobForm.controls.requirement.reset();
-    // this.postJobForm.controls.requirement.clearValidators();
-    // this.postJobForm.controls.requirement.updateValueAndValidity();
-    // this.postJobForm.controls.requirement.markAsPristine();
-    // console.log('dfsdfsdfsdfsd', this.postJobForm.controls.requirement);
     this.btnType = 'prev';
     this.onTabChange();
   }
@@ -53,7 +46,6 @@ export class PostJobFooterComponent implements OnInit {
     // this function removes single error
   removeError(control: AbstractControl, error: string) {
     const err = control.errors; // get control errors
-    console.log('err', err);
     if (err) {
       delete err[error]; // delete your own error
       if (!Object.keys(err).length) { // if no errors left
@@ -74,7 +66,7 @@ export class PostJobFooterComponent implements OnInit {
   }
 
   onTabChange = () => {
-    console.log(this.getErrors(this.postJobForm), this.postJobForm.valid);
+    // console.log(this.getErrors(this.postJobForm), this.postJobForm.valid);
 
     if(this.btnType == 'next' && this.postJobForm.valid) {
       let nextTabProgressor = {} as tabInfo;

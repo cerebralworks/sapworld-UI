@@ -79,7 +79,6 @@ export class HeaderComponent implements OnInit {
         localStorage.clear();
       },
       error => {
-        console.log(error);
       }
     );
   }
