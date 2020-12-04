@@ -6,7 +6,7 @@ import { env } from 'process';
 
 export const environment = {
   production: false,
-  serverUrl: 'http://localhost:3001',
+  serverUrl: 'http://65.0.146.153:5000',
   envName: 'DEV',
   API_URL: 'assets/api'
 };

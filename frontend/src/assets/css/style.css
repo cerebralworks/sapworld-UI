@@ -1893,3 +1893,6 @@ a:hover {
 
 
 
+.lg-mh-30 { min-height: 30px!important; line-height: 16px;}
+.lg-mh-40 { min-height: 40px!important; line-height: 16px;}
+.lg-mh-50 { min-height: 50px!important; line-height: 16px;}

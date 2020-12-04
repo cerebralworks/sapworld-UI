@@ -28,4 +28,5 @@ export interface JobPosting {
   visa_sponsorship: boolean;
   company: number;
   end_to_end_implementation: number;
+  contract_duration: number;
 }

@@ -1,0 +1,17 @@
+<ng-template *ngIf="toggleDeleteModal" #deleteModal let-modal let-d="dismiss">
+  <div class="full-width">
+    <div class="modal-header bg-dblue text-white">
+      <h3 class="modal-title" id="exampleModalLabel">Delete {{typeOfModel}}</h3>
+      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onModelClosed()">
+        <i class="fa fa-close right ml-2" aria-hidden="true"></i>
+      </button> -->
+    </div>
+    <div class="modal-body">
+      Are you sure you want to permanently delete <i class="color-pink text-capitalize">{{showRecordName}}</i>&nbsp;?
+    </div>
+    <div class="modal-footer full-width">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onModelClosed()">Cancel</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onModelSubmitted()">Delete</button>
+    </div>
+  </div>
+</ng-template>

@@ -14,6 +14,9 @@ export class PostedJobComponent implements OnInit {
   public limit: number = 25;
   public postedJobMeta: any = {};
   public currentEmployerDetails: any = {};
+  public isDeleteModalOpened: boolean = false;
+  currentJobDetails: any;
+  currentJobIndex: any;
 
   constructor(
     public employerService: EmployerService,
@@ -57,25 +60,38 @@ export class PostedJobComponent implements OnInit {
     )
   }
 
-  onDeletePostedJob(jobId, index) {
-    if (this.onConfirmDelete()) {
-      this.isLoading = true;
-      let requestParams: any = {};
-      requestParams.ids = [parseInt(jobId)];
+  onDeleteJobConfirm = (item, index) => {
+    this.currentJobDetails = item;
+    this.currentJobIndex = index;
+    this.isDeleteModalOpened = true;
+  }
 
-      this.employerService.deletePostedJob(requestParams).subscribe(
-        response => {
-          if (index > -1) {
-            this.postedJobs.splice(index, 1);
-            this.postedJobMeta.total = this.postedJobMeta.total ? this.postedJobMeta.total - 1 : this.postedJobMeta.total;
-          }
-          this.isLoading = false;
-        }, error => {
-          this.isLoading = false;
-        }
-      )
+  onDeleteJobConfirmed = (status) => {
+    if(status == true) {
+      this.onDeletePostedJob();
+    }else {
+      this.isDeleteModalOpened = false;
     }
+  }
 
+  onDeletePostedJob() {
+    this.isLoading = true;
+    let requestParams: any = {};
+    requestParams.ids = [parseInt(this.currentJobDetails.id)];
+
+    this.employerService.deletePostedJob(requestParams).subscribe(
+      response => {
+        this.onDeleteJobConfirmed(false);
+        if (this.currentJobIndex > -1) {
+          this.postedJobs.splice(this.currentJobIndex, 1);
+          this.postedJobMeta.total = this.postedJobMeta.total ? this.postedJobMeta.total - 1 : this.postedJobMeta.total;
+        }
+        this.isLoading = false;
+      }, error => {
+        this.onDeleteJobConfirmed(false);
+        this.isLoading = false;
+      }
+    )
   }
 
   onConfirmDelete = () => {

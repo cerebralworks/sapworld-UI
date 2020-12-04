@@ -20,7 +20,7 @@
             <thead>
             <tr>
               <th scope="col">{{"postJob.jobTitle" | translate}}</th>
-              <th scope="col">{{"dashboard.employer" | translate}}</th>
+              <!-- <th scope="col">{{"dashboard.employer" | translate}}</th> -->
               <th scope="col">{{"postJob.location" | translate}}</th>
               <th scope="col">{{"dashboard.postedDated" | translate}}</th>
               <th scope="col" class="text-center">{{"dashboard.matches" | translate}}</th>
@@ -35,9 +35,9 @@
               <tr *ngFor="let item of postedJobs; let i=index">
                 <td><a href="javascript:;" [routerLink]="['/employer/job-detail-view', item?.id]" routerLinkActive="router-link-active" >
                 {{item?.title}}</a></td>
-                <td>
+                <!-- <td>
                   {{item?.company?.company ? item?.company?.company : '-'}}
-                </td>
+                </td> -->
                 <td>
                   {{item?.city ? item?.city + ', ' : ''}}
                   {{item?.state ? item?.state + ', ' : ''}}
@@ -57,7 +57,7 @@
                 </td>
                 <td class="text-center">
                 <a href="javascript:;"  [routerLink]="['/employer/post-job']" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                <a href="javascript:;" (click)="onDeletePostedJob(item?.id, i)" class="text-danger"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                <a href="javascript:;" (click)="onDeleteJobConfirm(item, i)" class="text-danger"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
                 </td>
               </tr>
             </ng-container>
@@ -79,3 +79,12 @@
     </div>
   </div>
 </section>
+
+<app-delete-modal
+*ngIf="isDeleteModalOpened"
+[typeOfModel]="'Job'"
+[showRecordName]="currentJobDetails?.title"
+(onTriggerDeleteAction)="onDeleteJobConfirmed($event)"
+[toggleDeleteModal]="isDeleteModalOpened">
+
+</app-delete-modal>

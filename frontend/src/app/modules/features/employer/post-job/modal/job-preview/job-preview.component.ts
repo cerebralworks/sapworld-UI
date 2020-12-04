@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -40,6 +40,7 @@ export class JobPreviewComponent implements OnInit {
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
   @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
   public mustMacthObj: any = {};
+  public jobId:string;
 
   constructor(
     private modalService: NgbModal,
@@ -47,10 +48,13 @@ export class JobPreviewComponent implements OnInit {
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    public route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.jobId = this.route.snapshot.queryParamMap.get('id');
+
     this.onGetProfile();
     this.onGetIndustries();
     this.onGetSkill()

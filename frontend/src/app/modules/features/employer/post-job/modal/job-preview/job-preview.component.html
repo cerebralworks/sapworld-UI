@@ -89,7 +89,7 @@
         <div class="col-lg-12 border-top pt-3"> </div>
         <div class="col-lg-4 caption">
           <ul class="list-group">
-            <li class="list-group-item text-capitalize">{{"postJob.knowledgeOnOtherSapSkills" | translate }}</li>
+            <li class="list-group-item text-capitalize lg-mh-40">{{"postJob.knowledgeOnOtherSapSkills" | translate }}</li>
             <li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
             <li class="list-group-item text-capitalize">{{"postJob.niceToHave" | translate }}</li>
             <li class="list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
@@ -98,7 +98,7 @@
         </div>
         <div class="col-lg-6 info">
           <ul class="list-group">
-            <li class="list-group-item text-uppercase">
+            <li class="list-group-item text-uppercase lg-mh-40">
               <p class="m-0 w-100 float-left" *ngFor="let item of postJobForm?.value?.requirement?.skills">
                 <span class="text-wrap-custom float-left">{{item ? onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
               </p>
@@ -262,7 +262,9 @@
         data-target="#addCriteria">Add Another Criteria</button>
       <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
         data-dismiss="modal">Edit</button>
-      <button [disabled]="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">Post Job</button>
+      <button [disabled]="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
+        {{jobId ? 'Update Job' : 'Post Job'}}
+      </button>
     </div>
   </div>
 </ng-template>

@@ -18,6 +18,7 @@ import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { CurrencyFormatterDirective } from './directives/currency-formatter.directive';
 import { MarkAsteriskDirective } from './directives/mark-asterisk.directive';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { DeleteModalComponent } from './component/modal/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     ControlMessagesComponent,
     NumbersOnlyDirective,
     CurrencyFormatterDirective,
-    MarkAsteriskDirective
+    MarkAsteriskDirective,
+    DeleteModalComponent
   ],
   imports: [
     CommonModule,
@@ -61,7 +63,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
     NumbersOnlyDirective,
     CurrencyFormatterDirective,
     NgxSelectModule,
-    MarkAsteriskDirective
+    MarkAsteriskDirective,
+    DeleteModalComponent
   ],
   providers: [ApiService]
 })

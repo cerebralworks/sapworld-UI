@@ -24,6 +24,7 @@ export class JobInformationComponent implements OnInit {
   public childForm;
   public getPostedJobsDetails: JobPosting;
   public currentCurrencyFormat: string = "en-US";
+  public isContractDuration: boolean = false;
 
   constructor(
     private parentF: FormGroupDirective,
@@ -51,6 +52,7 @@ export class JobInformationComponent implements OnInit {
     this.childForm.addControl('jobInfo', new FormGroup({
       title: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
+      contract_duration: new FormControl(''),
       description: new FormControl('', Validators.required),
       salary_type: new FormControl('', Validators.required),
       salary_currency: new FormControl(0, Validators.required),
@@ -85,6 +87,21 @@ export class JobInformationComponent implements OnInit {
     this.childForm.markAsUntouched();
     this.childForm.markAsPristine();
     this.childForm.updateValueAndValidity();
+  }
+
+  onChangeJobType = (value) => {
+    if(value == 6 || value == '6'){
+      this.isContractDuration = true;
+      this.childForm.get('jobInfo.contract_duration').setValidators([Validators.required]);
+      this.childForm.get('jobInfo.contract_duration').updateValueAndValidity();
+      console.log(this.childForm);
+
+
+    }else {
+      this.isContractDuration = false;
+      this.childForm.get('jobInfo.contract_duration').setValidators(null);
+      this.childForm.get('jobInfo.contract_duration').updateValueAndValidity();
+    }
   }
 
   handleAddressChange = (event) => {
