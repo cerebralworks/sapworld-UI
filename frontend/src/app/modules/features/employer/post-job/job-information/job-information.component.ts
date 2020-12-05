@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { textEditorConfig } from '@config/rich-editor';
 import { tabInfo } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { SharedService } from '@shared/service/shared.service';
 
 import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
@@ -25,6 +27,7 @@ export class JobInformationComponent implements OnInit {
   public getPostedJobsDetails: JobPosting;
   public currentCurrencyFormat: string = "en-US";
   public isContractDuration: boolean = false;
+  public editorConfig: AngularEditorConfig = textEditorConfig;
 
   constructor(
     private parentF: FormGroupDirective,
@@ -106,12 +109,14 @@ export class JobInformationComponent implements OnInit {
 
   handleAddressChange = (event) => {
     const address = this.fromGooglePlace(event);
+    console.log('address', address, event.geometry.location.lat() + ',' + event.geometry.location.lng());
+
     this.childForm.patchValue({
       jobInfo: {
         city: address.city ? address.city : event.formatted_address,
         state: address.state,
         country: address.country,
-        latlng: event.geometry.location.lat() + ',' + event.geometry.location.lat()
+        latlng: event.geometry.location.lat() + ',' + event.geometry.location.lng()
       }
     });
   };

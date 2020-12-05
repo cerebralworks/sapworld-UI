@@ -173,7 +173,8 @@
     <div class="col-md-12">
       <div class="form-group">
         <label>{{"postJob.jobDescription" | translate}}</label>
-        <textarea appMarkAsterisk formControlName="description" name="job-description" rows="4" class="form-control" [placeholder]="'postJob.jobDescription' | translate"></textarea>
+        <angular-editor appMarkAsterisk formControlName="description" [config]="editorConfig" [placeholder]="'postJob.jobDescription' | translate"></angular-editor>
+        <!-- <textarea appMarkAsterisk formControlName="description" name="job-description" rows="4" class="form-control" [placeholder]="'postJob.jobDescription' | translate"></textarea> -->
       </div>
       <app-control-messages [control]="f['description']"></app-control-messages>
     </div>

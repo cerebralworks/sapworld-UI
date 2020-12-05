@@ -19,6 +19,7 @@ import { CurrencyFormatterDirective } from './directives/currency-formatter.dire
 import { MarkAsteriskDirective } from './directives/mark-asterisk.directive';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { DeleteModalComponent } from './component/modal/delete-modal/delete-modal.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { DeleteModalComponent } from './component/modal/delete-modal/delete-moda
     NgSelectModule,
     NgxSelectModule,
     GooglePlaceModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    AngularEditorModule
   ],
   exports: [
     LoginFormComponent,
@@ -64,7 +66,8 @@ import { DeleteModalComponent } from './component/modal/delete-modal/delete-moda
     CurrencyFormatterDirective,
     NgxSelectModule,
     MarkAsteriskDirective,
-    DeleteModalComponent
+    DeleteModalComponent,
+    AngularEditorModule
   ],
   providers: [ApiService]
 })

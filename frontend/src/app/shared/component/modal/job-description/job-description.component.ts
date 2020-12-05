@@ -12,6 +12,7 @@ export class JobDescriptionComponent implements OnInit {
 
   @Input() description: string;
   @Input() toggleJDModal: boolean;
+  @Input() isRichTextEnabled: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
 
   public mbRef: NgbModalRef;

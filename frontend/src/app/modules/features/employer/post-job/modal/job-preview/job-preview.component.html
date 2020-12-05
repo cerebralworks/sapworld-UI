@@ -246,7 +246,7 @@
 
         <div class="col-lg-12">
           <h6>{{"postJob.jobDescription" | translate}}</h6>
-          <p>{{postJobForm?.value?.jobInfo?.description}}</p>
+          <p [innerHTML]="postJobForm?.value?.jobInfo?.description"></p>
         </div>
       </div>
     </div>
