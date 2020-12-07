@@ -7,7 +7,7 @@ module.exports = (app, env, rp) => {
    */
   app.get("/api/users/profile", (req, res) => {
     let requestBody = { ...req.query };    
-    requestCustom.get(`${serverRoutes.employerProfile}`, req, res, requestBody);
+    requestCustom.get(`${serverRoutes.userProfile}`, req, res, requestBody);
   });
 
 

@@ -64,6 +64,8 @@ export class AppComponent {
   };
 
   getUserInfo = () => {
+    console.log(this.loggedInResponse.role.includes(0));
+
     if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(1))){
       this.onGetEmployerProfile();
     }else if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(0))) {

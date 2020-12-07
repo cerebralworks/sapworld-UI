@@ -5,6 +5,7 @@ const routes = {
     accountVerify: '/accounts/verify',
     listIndustries: '/industries/list',
     employerProfile: '/employers/profile',
+    userProfile: '/users/profile',
     jobPostingCreate: '/jobpostings/create',
     jobPostingUpdate: '/jobpostings/update',
     skillTagList: '/skill-tags/list',
