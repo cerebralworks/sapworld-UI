@@ -66,7 +66,7 @@ module.exports = (app, env, rp) => {
   });
 
   /**
-   * User's signup.
+   * Employer's signup.
    */
   app.post('/api/employers/signup', (req, res) => {
     var options = {
@@ -84,6 +84,32 @@ module.exports = (app, env, rp) => {
         let responseData = { ...parsedBody }
         responseData.success = true;
         responseData.message = "Emplyer signup successfully. We shot you an email with a link for verify your account password. Check your inbox."
+        res.status(200).json(responseData);
+      })
+      .catch(function (err) {
+        res.status(500).json(err)
+      })
+  })
+
+  /**
+   * User's signup.
+   */
+  app.post('/api/users/signup', (req, res) => {
+    var options = {
+      method: 'POST',
+      uri: `${serverRoutes.userSignup}`,
+      json: true,
+      body: req.body,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+    rp(options)
+      .then(function (parsedBody) {
+        let responseData = { ...parsedBody }
+        responseData.success = true;
+        responseData.message = "User signup successfully. We shot you an email with a link for verify your account password. Check your inbox."
         res.status(200).json(responseData);
       })
       .catch(function (err) {

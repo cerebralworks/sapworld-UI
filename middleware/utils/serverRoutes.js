@@ -1,6 +1,7 @@
 const routes = {
     login: '/oauth/token',
     employerSignup: '/employers/signup',
+    userSignup: '/users/signup',
     accountVerify: '/accounts/verify',
     listIndustries: '/industries/list',
     employerProfile: '/employers/profile',

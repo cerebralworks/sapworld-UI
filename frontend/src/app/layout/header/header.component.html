@@ -77,7 +77,11 @@
         <ul class="navbar-nav ml-2">
            <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           <span data-letters="CA"> Company Admin</span>
+           <span class="d-flex align-items-center">
+            <ngx-avatar class="float-left mr-2" size="35" name="{{currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name}}"></ngx-avatar>
+            <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
+            {{currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name}}
+          </span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li class="submenu"> <a [routerLink]="['/employer/dashboard']" class="dropdown-item" href="javascript:;">Dashboard</a></li>
@@ -119,9 +123,9 @@
       </div>
   </nav>
 
-  <nav class="navbar navbar-expand-lg navbar-light theme-nav d-none">
+  <nav class="navbar navbar-expand-lg navbar-light theme-nav" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
     <div class="container">
-      <a [routerLink]="['/home']" href="javascript:;" class="navbar-brand"><img src="assets/images//logo.png"
+      <a [routerLink]="['/home']" href="javascript:;" class="navbar-brand"><img src="assets/images/logo.png"
           width="100" /></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,13 +144,44 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span data-letters="JS"> Jacky Smith</span>
+              <span class="d-flex align-items-center">
+                <ngx-avatar class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}"></ngx-avatar>
+                <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
+                {{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}
+              </span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li class="submenu"> <a class="dropdown-item" href="candidate-dashboard.html">Dashboard</a></li>
-              <li class="submenu"> <a class="dropdown-item" href="candidate-notifications.html">Notification</a></li>
-              <li class="submenu"> <a class="dropdown-item" href="candidate-setting.html">Setting</a></li>
-              <li class="submenu"> <a class="dropdown-item" href="jobseeker-login.html">Logout</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/dashboard']" href="javascript:;">Dashboard</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/notification']" href="javascript:;">Notification</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/profile-setting']" href="javascript:;">Setting</a></li>
+              <li class="submenu"> <a class="dropdown-item" (click)="logout()" href="javascript:;">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav lang-icon">
+          <li class="dropdown test-{{translateService.currentLang}}">
+            <ng-container *ngFor="let lang of translateService.getLangs()">
+
+              <a (click)="onOpenLangMenu()" *ngIf="lang === translateService.currentLang"
+               class="text-capitalize dropdown-toggle" href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img [src]="onGetLangImage(lang)" width="16" class="mr-2"/>
+                <!-- {{onGetLangNames(translateService.currentLang)}} -->
+              </a>
+            </ng-container>
+
+
+            <ul *ngIf="isLangMenuOpen" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin: 3.25rem 0 0;">
+              <ng-container *ngFor="let lang of translateService.getLangs()">
+                <li class="submenu" *ngIf="lang != translateService.currentLang">
+                  <a (click)="useLanguage(lang)" class="text-capitalize dropdown-item" href="javascript:;">
+                    <img [src]="onGetLangImage(lang)" width="16" class="mr-2"/>
+                     {{onGetLangNames(lang)}}
+                  </a>
+                </li>
+              </ng-container>
+
+              <!-- <li class="submenu"> <a class="dropdown-item" href="#"><img src="assets/images/english.png" width="16" class="mr-2"/> English</a></li>
+              <li class="submenu"> <a class="dropdown-item" href="#"><img src="assets/images/español.png" width="16" class="mr-2"/> Español</a></li> -->
             </ul>
           </li>
         </ul>

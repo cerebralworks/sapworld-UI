@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContentComponent } from './content/content.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     TranslateModule.forChild(),
-    LayoutRoutingModule
+    LayoutRoutingModule,
+    SharedModule
   ],
   exports: [
     TranslateModule,

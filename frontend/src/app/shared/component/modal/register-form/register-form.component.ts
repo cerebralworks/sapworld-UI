@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { Subscription } from 'rxjs';
 
@@ -29,7 +30,8 @@ export class RegisterFormComponent implements OnInit {
     public router: Router,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +46,16 @@ export class RegisterFormComponent implements OnInit {
         backdrop: 'static',
         keyboard: false
       });
+      const currentRole = this.sharedService.getCurrentRoleFromUrl();
+      if(currentRole.roleId == 1) {
+        this.registerForm.get('companyName').setValidators([Validators.required]);
+        this.registerForm.get('companyName').updateValueAndValidity();
+      }else {
+        this.registerForm.get('companyName').setValidators(null);
+        this.registerForm.get('companyName').updateValueAndValidity();
+      }
+      console.log(this.registerForm);
+
     }
   }
 
@@ -67,17 +79,39 @@ export class RegisterFormComponent implements OnInit {
     this.isLoading = true;
 
     if (this.registerForm.valid) {
-      this.accountService.signup(this.onGenerateRes()).subscribe(
-        response => {
-          this.isLoading = false;
-          this.onClickCloseBtn(false)
-        }, error => {
-          if(error && error.error && error.error.errors)
-          this.formError = error.error.errors;
-          this.isLoading = false;
-        }
-      )
+      const currentRole = this.sharedService.getCurrentRoleFromUrl();
+      if(currentRole.roleId == 0) {
+        this.registerUser();
+      }else if(currentRole.roleId == 1) {
+        this.registerEmployer();
+      }
     }
+  }
+
+  registerUser = () => {
+    this.accountService.userSignup(this.onGenerateRes()).subscribe(
+      response => {
+        this.isLoading = false;
+        this.onClickCloseBtn(false)
+      }, error => {
+        if(error && error.error && error.error.errors)
+        this.formError = error.error.errors;
+        this.isLoading = false;
+      }
+    )
+  }
+
+  registerEmployer = () => {
+    this.accountService.employerSignup(this.onGenerateRes()).subscribe(
+      response => {
+        this.isLoading = false;
+        this.onClickCloseBtn(false)
+      }, error => {
+        if(error && error.error && error.error.errors)
+        this.formError = error.error.errors;
+        this.isLoading = false;
+      }
+    )
   }
 
   onGenerateRes = () => {
@@ -97,7 +131,7 @@ export class RegisterFormComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, ValidationService.emailValidator, ValidationService.noFreeEmail]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
-      companyName: ['', Validators.required],
+      companyName: [''],
       isAgreed: [false]
     });
   }

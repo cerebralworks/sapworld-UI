@@ -5,6 +5,8 @@ import { LoggedIn } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
+import { UserSharedService } from '@data/service/user-shared.service';
+import { UserService } from '@data/service/user.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -17,14 +19,17 @@ export class AppComponent {
   public title = 'sap-world';
   public loggedInResponse: LoggedIn;
   public employerProfileInfo: any = {};
+  public userProfileInfo: any = {};
 
   constructor(
     public translateService: TranslateService,
     public appGlobals: AppGlobals,
     private employerService: EmployerService,
+    private userService: UserService,
     private accountService: AccountService,
     private router: Router,
-    private employerSharedService: EmployerSharedService
+    private employerSharedService: EmployerSharedService,
+    private userSharedService: UserSharedService
   ) {
   }
 
@@ -61,6 +66,8 @@ export class AppComponent {
   getUserInfo = () => {
     if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(1))){
       this.onGetEmployerProfile();
+    }else if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(0))) {
+      this.onGetUserProfile();
     }
   }
 
@@ -70,6 +77,17 @@ export class AppComponent {
         this.employerProfileInfo = response;
         if(this.employerProfileInfo && this.employerProfileInfo.details)
           this.employerSharedService.saveEmployerProfileDetails(this.employerProfileInfo.details);
+      }, error => {
+      }
+    )
+  }
+
+  onGetUserProfile() {
+    this.userService.profile().subscribe(
+      response => {
+        this.userProfileInfo = response;
+        if(this.userProfileInfo && this.userProfileInfo.details)
+          this.userSharedService.saveUserProfileDetails(this.userProfileInfo.details);
       }, error => {
       }
     )

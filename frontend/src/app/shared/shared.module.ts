@@ -20,6 +20,7 @@ import { MarkAsteriskDirective } from './directives/mark-asterisk.directive';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { DeleteModalComponent } from './component/modal/delete-modal/delete-modal.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     NgxSelectModule,
     GooglePlaceModule,
     TranslateModule.forChild(),
-    AngularEditorModule
+    AngularEditorModule,
+    AvatarModule
   ],
   exports: [
     LoginFormComponent,
@@ -67,7 +69,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     NgxSelectModule,
     MarkAsteriskDirective,
     DeleteModalComponent,
-    AngularEditorModule
+    AngularEditorModule,
+    AvatarModule
   ],
   providers: [ApiService]
 })

@@ -95,8 +95,17 @@ export class AccountService extends CacheService {
     );
   };
 
-  signup = (userInfo: {}): Observable<AccountSignup> => {
+  employerSignup = (userInfo: {}): Observable<AccountSignup> => {
     return this.apiService.post('/api/employers/signup', userInfo).pipe(
+      map(data => {
+        this.setAuth(data);
+        return data;
+      })
+    );
+  };
+
+  userSignup = (userInfo: {}): Observable<AccountSignup> => {
+    return this.apiService.post('/api/users/signup', userInfo).pipe(
       map(data => {
         this.setAuth(data);
         return data;

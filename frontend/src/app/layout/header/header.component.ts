@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { AccountLogin } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
+import { UserSharedService } from '@data/service/user-shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
@@ -18,13 +20,17 @@ export class HeaderComponent implements OnInit {
   public isLangMenuOpen: boolean;
   public loggedUserInfo: AccountLogin;
   public accountUserSubscription: Subscription;
+  public currentEmployerDetails: any = {};
+  public currentUserDetails: any = {};
 
   constructor(
     public router: Router,
     public translateService: TranslateService,
     public appGlobals: AppGlobals,
     private accountService: AccountService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private employerSharedService: EmployerSharedService,
+    private userSharedService: UserSharedService
   ) { }
 
   ngOnInit(): void {
@@ -35,9 +41,32 @@ export class HeaderComponent implements OnInit {
       .subscribe(response => {
         this.loggedUserInfo = response;
       });
+      this.employerSharedService.getEmployerProfileDetails().subscribe(
+        details => {
+          if(details) {
+            this.currentEmployerDetails = details;
+          }
+        }
+      )
+      this.userSharedService.getUserProfileDetails().subscribe(
+        details => {
+          if(details) {
+            this.currentUserDetails = details;
+          }
+        }
+      )
     if (!this.cdRef['destroyed']) {
       this.cdRef.detectChanges();
     }
+  }
+
+  onChangeNameAbb = (name: string) => {
+    if(name) {
+      let matches = name.match(/\b(\w)/g);
+      let acronym = matches.join('');
+      return acronym;
+    }
+    return;
   }
 
   onRedirectUrl = (url: string) => {
