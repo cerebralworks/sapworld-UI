@@ -16,7 +16,8 @@ export class LoginFormComponent implements OnInit {
   public error: string;
   public isLoading: boolean;
   public loginForm: FormGroup;
-  public returnUrl: any;
+  public returnEmployerUrl: any;
+  public returnUserUrl: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +28,8 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/employer/dashboard';
+    this.returnEmployerUrl = this.route.snapshot.queryParams['returnUrl'] || '/employer/dashboard';
+    this.returnUserUrl = this.route.snapshot.queryParams['returnUrl'] || '/user/dashboard';
   }
 
   get f() {
@@ -42,8 +44,10 @@ export class LoginFormComponent implements OnInit {
       this.accountService.login(userCredentials).subscribe(
         response => {
           this.isLoading = false;
-          if (response.isLoggedIn) {
-            this.router.navigate([this.returnUrl]);
+          if (response.isLoggedIn && response.role.includes(0)) {
+            this.router.navigate([this.returnUserUrl]);
+          }else if (response.isLoggedIn && response.role.includes(1)) {
+            this.router.navigate([this.returnEmployerUrl]);
           }
         }, error => {
           this.isLoading = false;

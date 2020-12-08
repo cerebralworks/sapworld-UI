@@ -35,6 +35,7 @@
     "requirementCriteria": "Requirement Criteria",
     "jobTitle": "Job Title",
     "jobType": "Job Type",
+    "contractDuration": "Contract Duration",
     "pay": "Pay",
     "country": "Country",
     "location": "Location",

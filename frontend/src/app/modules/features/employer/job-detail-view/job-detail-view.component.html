@@ -105,6 +105,7 @@
           <div class="col-lg-4 caption">
             <ul class="list-group">
               <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+              <li class="list-group-item text-capitalize" *ngIf="postedJobsDetails?.type == '6'">{{"postJob.contractDuration" | translate}}</li>
               <li class=" list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
               <li class=" list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
               <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
@@ -116,6 +117,7 @@
           <div class="col-lg-8 info">
             <ul class="list-group">
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.type > -1 ? sharedService.onGetJobType(postedJobsDetails?.type) : '--'}}</li>
+            <li class="list-group-item text-capitalize" *ngIf="postedJobsDetails?.type == '6'">{{postedJobsDetails?.contract_duration}} months</li>
             <li class=" list-group-item text-capitalize">{{onGetYesOrNoValue(postedJobsDetails?.remote)}}</li>
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.availability ? postedJobsDetails?.availability : '--'}}</li>
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li>

@@ -22,8 +22,8 @@
                   <h6 class="text-capitalize">
                     {{postJobForm?.value?.jobInfo?.city ? postJobForm?.value?.jobInfo?.city + ', ' : ''}}
                     {{postJobForm?.value?.jobInfo?.state ? postJobForm?.value?.jobInfo?.state + ', ' : ''}}
-                    {{postJobForm?.value?.jobInfo?.zipcode ? postJobForm?.value?.jobInfo?.zipcode + ', ' : ''}}
                     {{postJobForm?.value?.jobInfo?.country ? postJobForm?.value?.jobInfo?.country : ''}}
+                    <!-- {{postJobForm?.value?.jobInfo?.zipcode ? postJobForm?.value?.jobInfo?.zipcode + ', ' : ''}} -->
                   </h6>
                 </div>
               </div>
@@ -149,6 +149,7 @@
         <div class="col-lg-4 caption">
           <ul class="list-group">
             <li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+            <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li>
             <li class="list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
             <li class="list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
             <li class="list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
@@ -160,6 +161,7 @@
         <div class="col-lg-6 info">
           <ul class="list-group">
             <li class="list-group-item text-capitalize">{{sharedService.onGetJobType(postJobForm?.value?.jobInfo?.type)}}</li>
+            <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{postJobForm?.value?.jobInfo?.contract_duration}} months</li>
             <li class="list-group-item text-capitalize">{{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}}</li>
             <li class="list-group-item text-capitalize">{{postJobForm?.value?.jobInfo?.availability}}</li>
             <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.travel_opportunity}}</li>

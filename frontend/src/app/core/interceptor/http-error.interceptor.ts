@@ -36,6 +36,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       tap(evt => {
+        console.log(evt);
+
         if (evt instanceof HttpResponse) {
           if (evt.body && evt.body.success && evt.body.message) {
             this.toastrService.success(

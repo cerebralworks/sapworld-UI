@@ -3,12 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 import { env } from 'process';
+let host = window.location.host;
+let hostName = host.split(':');
+const baseUrl = `${window.location.protocol}//${hostName[0]}`;
+const port = hostName[1];
 
 export const environment = {
   production: false,
   serverUrl: 'http://localhost:5000',
   envName: 'DEV',
-  API_URL: 'assets/api'
+  API_URL: 'assets/api',
+  clientUrl: `${baseUrl}:${port}`
 };
 
 /*

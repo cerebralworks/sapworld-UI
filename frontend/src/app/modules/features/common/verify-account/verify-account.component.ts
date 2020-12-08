@@ -13,6 +13,7 @@ export class VerifyAccountComponent implements OnInit {
   public counter = 5;
   public formError: any[] = [];
   public verifyAccountSuccess: boolean;
+  public accountRole: string;
 
   constructor(
     private accountService: AccountService,
@@ -23,6 +24,7 @@ export class VerifyAccountComponent implements OnInit {
   ngOnInit(): void {
     const accountId = this.route.snapshot.queryParamMap.get('id');
     const accountToken = this.route.snapshot.queryParamMap.get('token');
+    this.accountRole = this.route.snapshot.queryParamMap.get('role');
     if (accountId && accountToken) {
       this.onVerifyAccount(accountId, accountToken)
     }
@@ -53,7 +55,14 @@ export class VerifyAccountComponent implements OnInit {
     let interval = setInterval(() => {
       this.counter--;
       if (this.counter == 0) {
-        this.router.navigate(['/auth/employer/login']);
+        if(this.accountRole.includes('0')) {
+          this.router.navigate(['/auth/user/login']);
+        }else if(this.accountRole.includes('1')) {
+          this.router.navigate(['/auth/employer/login']);
+        }else {
+          this.router.navigate(['/home']);
+        }
+
         clearInterval(interval);
       }
     }, 1000);

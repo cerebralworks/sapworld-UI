@@ -8,6 +8,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
 import { TranslateService } from '@ngx-translate/core';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,8 @@ export class AppComponent {
     private accountService: AccountService,
     private router: Router,
     private employerSharedService: EmployerSharedService,
-    private userSharedService: UserSharedService
+    private userSharedService: UserSharedService,
+    private ngxService: NgxUiLoaderService
   ) {
   }
 
@@ -74,23 +76,29 @@ export class AppComponent {
   }
 
   onGetEmployerProfile() {
+    // this.ngxService.start();
     this.employerService.profile().subscribe(
       response => {
+        // this.ngxService.stop();
         this.employerProfileInfo = response;
         if(this.employerProfileInfo && this.employerProfileInfo.details)
           this.employerSharedService.saveEmployerProfileDetails(this.employerProfileInfo.details);
       }, error => {
+        // this.ngxService.stop();
       }
     )
   }
 
   onGetUserProfile() {
+    // this.ngxService.start();
     this.userService.profile().subscribe(
       response => {
+        // this.ngxService.stop();
         this.userProfileInfo = response;
         if(this.userProfileInfo && this.userProfileInfo.details)
           this.userSharedService.saveUserProfileDetails(this.userProfileInfo.details);
       }, error => {
+        // this.ngxService.stop();
       }
     )
   }

@@ -80,7 +80,7 @@
            <span class="d-flex align-items-center">
             <ngx-avatar class="float-left mr-2" size="35" name="{{currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name}}"></ngx-avatar>
             <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
-            <span class="text-capitalize">{{currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name}}</span>
+            <span class="text-capitalize">{{(currentEmployerDetails?.first_name ? currentEmployerDetails?.first_name : '') + ' ' + (currentEmployerDetails?.last_name ? currentEmployerDetails?.last_name : '')}}</span>
           </span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -147,7 +147,7 @@
               <span class="d-flex align-items-center">
                 <ngx-avatar class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}"></ngx-avatar>
                 <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
-                <span class="text-capitalize">{{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}</span>
+                <span class="text-capitalize">{{(currentUserDetails?.first_name ? currentUserDetails?.first_name : '') + ' ' + (currentUserDetails?.last_name ? currentUserDetails?.last_name : '')}}</span>
               </span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
