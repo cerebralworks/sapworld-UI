@@ -31,7 +31,7 @@ export class RegisterFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private accountService: AccountService,
-    private sharedService: SharedService
+    public sharedService: SharedService,
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +49,7 @@ export class RegisterFormComponent implements OnInit {
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 1) {
         this.registerForm.get('companyName').setValidators([Validators.required]);
+        this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator, ValidationService.noFreeEmail]);
         this.registerForm.get('companyName').updateValueAndValidity();
       }else {
         this.registerForm.get('companyName').setValidators(null);
@@ -129,7 +130,7 @@ export class RegisterFormComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', [Validators.required, ValidationService.emailValidator, ValidationService.noFreeEmail]],
+      email: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       companyName: [''],
       isAgreed: [false]
