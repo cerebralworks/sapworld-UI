@@ -64,7 +64,8 @@
     "travelRequired": "Reise erforderlich",
     "enterNumberOfPositions": "Geben Sie die Anzahl der Positionen ein",
     "availableIn": "Disponible en",
-    "skills": "Kompetenzen"
+    "skills": "Kompetenzen",
+    "salary": "Gehalt"
   },
   "dashboard": {
     "dashboard": "Instrumententafel",

@@ -74,7 +74,9 @@ export class JobInformationComponent implements OnInit {
     return this.childForm.controls.jobInfo.controls;
   }
 
-  onChangeCurrentFormat  = (value) => {
+  onChangeCurrentFormat  = (value, event) => {
+    console.log(event, value);
+
     if(value == 0) {
       this.currentCurrencyFormat = 'en-US';
     } else if(value == 1) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Event, NavigationStart, Router } from '@angular/router';
+import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { LoggedIn } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
@@ -21,6 +21,7 @@ export class AppComponent {
   public loggedInResponse: LoggedIn;
   public employerProfileInfo: any = {};
   public userProfileInfo: any = {};
+  public loaderEnabled: boolean = false;
 
   constructor(
     public translateService: TranslateService,
@@ -47,6 +48,13 @@ export class AppComponent {
       if (event instanceof NavigationStart) {
         this.checkUserLoggedIn();
       }
+      if (event instanceof NavigationEnd) {
+       if(event.url == '/home') {
+        this.loaderEnabled = false;
+       }else {
+        this.loaderEnabled = true;
+       }
+      }
     });
   }
 
@@ -66,8 +74,6 @@ export class AppComponent {
   };
 
   getUserInfo = () => {
-    console.log(this.loggedInResponse.role.includes(0));
-
     if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(1))){
       this.onGetEmployerProfile();
     }else if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(0))) {

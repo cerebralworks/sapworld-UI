@@ -106,6 +106,7 @@
             <ul class="list-group">
               <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
               <li class="list-group-item text-capitalize" *ngIf="postedJobsDetails?.type == '6'">{{"postJob.contractDuration" | translate}}</li>
+              <li class="list-group-item text-capitalize">{{"postJob.salary" | translate}}</li>
               <li class=" list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
               <li class=" list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
               <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
@@ -118,6 +119,17 @@
             <ul class="list-group">
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.type > -1 ? sharedService.onGetJobType(postedJobsDetails?.type) : '--'}}</li>
             <li class="list-group-item text-capitalize" *ngIf="postedJobsDetails?.type == '6'">{{postedJobsDetails?.contract_duration}} months</li>
+            <li class="list-group-item text-capitalize">
+              <ng-container *ngIf="postedJobsDetails?.salary_type == 0">
+                {{sharedService.onGetCurrency(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + '/hr'}}
+              </ng-container>
+              <ng-container *ngIf="postedJobsDetails?.salary_type ==1">
+                {{sharedService.onGetCurrency(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' Annual pay'}}
+              </ng-container>
+              <ng-container  *ngIf="postedJobsDetails?.salary_type < 0">
+                --
+              </ng-container>
+            </li>
             <li class=" list-group-item text-capitalize">{{onGetYesOrNoValue(postedJobsDetails?.remote)}}</li>
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.availability ? postedJobsDetails?.availability : '--'}}</li>
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li>

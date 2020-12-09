@@ -37,7 +37,7 @@
         <app-control-messages [control]="f['contract_duration']"></app-control-messages>
       </div>
     </div>
-    <div class="col-lg-4 col-md-6 d-flex">
+    <div class="col-lg-5 col-md-6 d-flex">
       <div class=" form-group w-50">
         <label>{{"postJob.pay" | translate}}</label>
         <select appMarkAsterisk formControlName="salary_type" class="form-control" name="job-type">
@@ -51,10 +51,10 @@
       <div class=" form-group w-50 ml-2">
         <label>&nbsp;</label>
         <div class="input-group">
-          <select (change)="onChangeCurrentFormat($event?.target?.value)" formControlName="salary_currency" class="form-control w-40"  style="background: #eee;">
-            <option [value]="0">$</option>
-            <option [value]="1">₹</option>
-            <option [value]="2">£</option>
+          <select (change)="onChangeCurrentFormat($event?.target?.value, $event)" formControlName="salary_currency" class="form-control w-40"  style="background: #eee;">
+            <ng-container *ngFor="let item of sharedService.onGetCurrency(); let i=index">
+              <option *ngIf="item.symbol" [value]="i">{{item.symbol}}</option>
+            </ng-container>
           </select>
           <input currencyFormatter [country]="currentCurrencyFormat" formControlName="salary" type="text" class="form-control w-60">
         </div>

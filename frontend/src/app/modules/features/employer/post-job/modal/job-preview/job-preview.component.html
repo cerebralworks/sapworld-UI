@@ -150,6 +150,7 @@
           <ul class="list-group">
             <li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
             <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"postJob.salary" | translate}}</li>
             <li class="list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
             <li class="list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
             <li class="list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
@@ -162,6 +163,17 @@
           <ul class="list-group">
             <li class="list-group-item text-capitalize">{{sharedService.onGetJobType(postJobForm?.value?.jobInfo?.type)}}</li>
             <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{postJobForm?.value?.jobInfo?.contract_duration}} months</li>
+            <li class="list-group-item text-capitalize">
+              <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
+                {{sharedService.onGetCurrency(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
+              </ng-container>
+              <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
+                {{sharedService.onGetCurrency(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}
+              </ng-container>
+              <ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
+                --
+              </ng-container>
+            </li>
             <li class="list-group-item text-capitalize">{{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}}</li>
             <li class="list-group-item text-capitalize">{{postJobForm?.value?.jobInfo?.availability}}</li>
             <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.travel_opportunity}}</li>

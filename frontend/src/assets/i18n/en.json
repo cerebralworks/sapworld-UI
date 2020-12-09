@@ -64,7 +64,8 @@
     "travelRequired": "Travel Required",
     "enterNumberOfPositions": "Enter Number of Positions",
     "availableIn": "Verfügbar in",
-    "skills": "Skills"
+    "skills": "Skills",
+    "salary": "Salary"
   },
   "dashboard": {
     "dashboard": "Dashboard",

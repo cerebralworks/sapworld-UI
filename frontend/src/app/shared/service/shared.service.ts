@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+// import * as counry from "@shared/json/currency.json";
+import  *  as  currencies  from  '@shared/json/currency.json';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
+  public currencyArray: any;
 
   constructor(
     public router: Router
-  ) { }
+  ) {
+    this.currencyArray = currencies;
+   }
 
   getCurrentRoleFromUrl = () => {
     if(this.router.url.includes('employer')) {
@@ -26,5 +32,10 @@ export class SharedService {
      if(index > -1) { return jobTypeArray[index] }
      return jobTypeArray;
   }
+
+  onGetCurrency = (index?) => {
+    if(index > -1) { return this.currencyArray.default[index] }
+    return this.currencyArray.default;
+ }
 
 }

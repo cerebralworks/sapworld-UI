@@ -56,7 +56,7 @@
   </div>
   <div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
     <ng-container [formGroup]="ticket">
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-6 col-md-8">
         <ngx-select
         (change)="onChangeSelectDomainEvent($event, i)"
         class="text-uppercase"
