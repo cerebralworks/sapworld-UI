@@ -1,115 +1,132 @@
-<div>
+<div formGroupName="educationExp">
   <h6 class="font-weight-bold mt-4">{{"postYourResume.education" | translate }}</h6>
-  <ng-container>
-    <div class="row mt-3" *ngFor="let item of eduArray; let i=index">
+  <div class="row mt-3" *ngFor="let ticket of t.controls; let i = index; let last = last">
+    <ng-container [formGroup]="ticket">
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.degree" | translate }} </label>
-          <select class="form-control" name="job-type">
-            <option selected="" disabled="">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}</option>
-            <option >Bachelors</option>
-            <option >Diploma</option>
-            <option >Masters</option>
-            <option >Doctorate</option>
+          <select (change)="onChangeDegreeValue($event?.target?.value)" appMarkAsterisk formControlName="degree" class="form-control">
+            <option [value]="''">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}
+            </option>
+            <ng-container *ngFor="let education of educations; let i = index">
+              <option [style.display]="educationsSelectedArray.includes(education) ? 'none' : 'block'" [value]="education">
+                {{education}}
+              </option>
+            </ng-container>
+            <!-- <option>Bachelors</option>
+            <option>Diploma</option>
+            <option>Masters</option>
+            <option>Doctorate</option> -->
           </select>
+          <app-control-messages [control]="ticket['controls']['degree']"></app-control-messages>
         </div>
       </div>
       <div class="col-lg-4 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.fieldOfStudy" | translate }}</label>
-          <input type="text" class="form-control" [placeholder]="'postJob.fieldOfStudy' | translate">
+          <input appMarkAsterisk formControlName="field_of_study" type="text" class="form-control" [placeholder]="'postYourResume.fieldOfStudy' | translate">
+          <app-control-messages [control]="ticket['controls']['field_of_study']"></app-control-messages>
         </div>
       </div>
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
-          <input type="text" class="form-control" [placeholder]="'postJob.yearOfCompletion' | translate">
+          <input appMarkAsterisk numbersOnly formControlName="year_of_completion" type="text" class="form-control" [placeholder]="'postYourResume.yearOfCompletion' | translate">
+          <app-control-messages [control]="ticket['controls']['year_of_completion']"></app-control-messages>
         </div>
       </div>
-      <div class="col-lg-1 col-md-2 d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-outline-danger" style="line-height: 1.75; padding: .5rem 1.0rem;"
-          (click)="onRemove(i)"><i class="fas fa-times"></i></button>
+      <div class="col-lg-2 col-md-4 d-flex justify-content-center align-items-center">
+        <button type="button" class="btn btn-outline-danger"
+          style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
+        <button *ngIf="last" (click)="onDuplicate()" type="button" class="btn btn-outline-green ml-2"
+          style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
+      </div>
+    </ng-container>
+  </div>
+
+  <h6 class="font-weight-bold mt-4">{{"postYourResume.experience" | translate }}</h6>
+  <div class="row mt-3">
+    <div class="col-lg-3 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.totalYearsOfExperience" | translate }}</label>
+        <input appMarkAsterisk numbersOnly formControlName="experience" type="text" class="form-control w-40 text-center" placeholder="+8">
+        <app-control-messages [control]="f['experience']"></app-control-messages>
       </div>
     </div>
-  </ng-container>
-							<div class="row mt-3">
-								<div class="col-lg-2 col-md-5">
-									<div class=" form-group">
-										<label>{{"postYourResume.degree" | translate }} </label>
-										<select class="form-control" name="job-type">
-											<option selected="" disabled="">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}</option>
-											<option >Bachelors</option>
-											<option >Diploma</option>
-											<option >Masters</option>
-											<option >Doctorate</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-5">
-									<div class=" form-group">
-										<label>{{"postYourResume.fieldOfStudy" | translate }}</label>
-										<input type="text" class="form-control" [placeholder]="'postJob.fieldOfStudy' | translate">
-									</div>
-                </div>
-                <div class="col-lg-2 col-md-5">
-                  <div class=" form-group">
-                    <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
-                    <input type="text" class="form-control" [placeholder]="'postJob.yearOfCompletion' | translate">
-                  </div>
-                </div>
-                <div class="col-lg-1 col-md-2 d-flex justify-content-center align-items-center">
-                  <button type="button" (click)="onDuplicate()" class="btn btn-outline-success" style="line-height: 1.75; padding: .5rem 1.0rem;">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </div>
-							</div>
+    <div class="col-lg-3 col-md-6">
+      <div class=" form-group">
+        <label>{{"postJob.totalYearsOfSapExperience" | translate }}</label>
+        <input appMarkAsterisk numbersOnly formControlName="sap_experience" type="text" class="form-control w-50 text-center"  placeholder="+5">
+        <app-control-messages [control]="f['sap_experience']"></app-control-messages>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postYourResume.currentEmployer" | translate }}</label>
+        <input appMarkAsterisk formControlName="current_employer" type="text" class="form-control" placeholder="Current Employer Name">
+        <app-control-messages [control]="f['current_employer']"></app-control-messages>
+      </div>
+    </div>
+  </div>
 
-							<h6 class="font-weight-bold mt-4">{{"postYourResume.experience" | translate }}</h6>
-							<div class="row mt-3">
-								<div class="col-lg-3 col-md-6">
-									<div class=" form-group">
-										<label>{{"postJob.totalYearsOfExperience" | translate }}</label>
-										<input type="text" class="form-control w-40 text-center" value="8+">
-									</div>
-								</div>
-								<div class="col-lg-2 col-md-6">
-									<div class=" form-group">
-										<label>{{"postJob.totalYearsOfSapExperience" | translate }}</label>
-										<input type="text" class="form-control w-50 text-center" value="5+">
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-6">
-									<div class=" form-group">
-										<label>{{"postYourResume.currentEmployer" | translate }}</label>
-										<input type="text" class="form-control" placeholder="Current Employer Name">
-									</div>
-								</div>
-							</div>
+  <div class="row mt-2">
+    <div class="col-lg-9 ">
+      <div class=" form-group">
+        <label>{{"postYourResume.currentRole" | translate }}</label>
+        <input appMarkAsterisk formControlName="current_employer_role" type="text" class="form-control" placeholder="Current Role">
+        <app-control-messages [control]="f['current_employer_role']"></app-control-messages>
+      </div>
+    </div>
+  </div>
 
-							<div class="row mt-2">
-								<div class="col-lg-9 ">
-									<div class=" form-group">
-										<label>{{"postYourResume.currentRole" | translate }}</label>
-										<input type="text" class="form-control" placeholder="Current Role">
-									</div>
-								</div>
-							</div>
+  <div class="row mt-2">
+    <div class="col-lg-9">
+      <div class=" form-group">
+        <label>{{"postYourResume.DomainsWorked" | translate }}</label>
+        <!-- <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label"
+          bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
+          formControlName="domains_worked">
+        </ng-select> -->
+        <ngx-select
+        [placeholder]="'postYourResume.DomainsWorked' | translate"
+        appMarkAsterisk
+        class="text-capitalize"
+        [items]="industryItems"
+        [multiple]="true"
+        autoClearSearch="true"
+        noResultsFound="No results found"
+        formControlName="domains_worked"
+        optionValueField="id"
+        optionTextField="name"
+         ></ngx-select>
+        <!-- <input type="text" class="form-control" value="Automobile, Finance, Logistics, Payroll, Aviation, Shipping" data-role="tagsinput"> -->
+        <app-control-messages [control]="f['domains_worked']"></app-control-messages>
+      </div>
+    </div>
+  </div>
 
-							<div class="row mt-2">
-								<div class="col-lg-9">
-									<div class=" form-group">
-										<label>{{"postYourResume.DomainsWorked" | translate }}</label>
-										<input type="text" class="form-control" value="Automobile, Finance, Logistics, Payroll, Aviation, Shipping" data-role="tagsinput">
-									</div>
-								</div>
-							</div>
+  <div class="row mt-2">
+    <div class="col-lg-9">
+      <div class=" form-group">
+        <label>{{"postYourResume.clientsWorkedWith" | translate }}</label>
+        <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label"
+          bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
+          formControlName="clients_worked">
+        </ng-select>
+        <!-- <input type="text" class="form-control" placeholder="Ex. Microsoft, Google, Facebook, SAP"> -->
+        <app-control-messages [control]="f['clients_worked']"></app-control-messages>
+      </div>
+    </div>
+  </div>
 
-							<div class="row mt-2">
-								<div class="col-lg-9">
-									<div class=" form-group">
-										<label>{{"postYourResume.clientsWorkedWith" | translate }}</label>
-										<input type="text" class="form-control" placeholder="Ex. Microsoft, Google, Facebook, SAP">
-									</div>
-								</div>
-							</div>
+  <div class="row mt-2">
+    <div class="col-lg-4">
+      <div class=" form-group">
+        <label>End to End Implementation</label>
+        <input numbersOnlys formControlName="end_to_end_implementation" type="text" class="form-control w-25">
+      </div>
+    </div>
+  </div>
 </div>
+
+

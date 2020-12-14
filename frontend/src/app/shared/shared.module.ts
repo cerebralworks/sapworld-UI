@@ -21,6 +21,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { DeleteModalComponent } from './component/modal/delete-modal/delete-modal.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AvatarModule } from 'ngx-avatar';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AvatarModule } from 'ngx-avatar';
     GooglePlaceModule,
     TranslateModule.forChild(),
     AngularEditorModule,
-    AvatarModule
+    AvatarModule,
+    ImageCropperModule
   ],
   exports: [
     LoginFormComponent,
@@ -70,7 +72,8 @@ import { AvatarModule } from 'ngx-avatar';
     MarkAsteriskDirective,
     DeleteModalComponent,
     AngularEditorModule,
-    AvatarModule
+    AvatarModule,
+    ImageCropperModule
   ],
   providers: [ApiService]
 })

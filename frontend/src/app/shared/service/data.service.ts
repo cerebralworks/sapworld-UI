@@ -1,19 +1,47 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { UtilsHelperService } from './utils-helper.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
-    private dataSource = new BehaviorSubject<any>({});
+  private skillTags = new BehaviorSubject<any>({});
+  private industries = new BehaviorSubject<any>({});
+  private userPhoto = new BehaviorSubject<any>({});
 
-    sendDataSource(data: {}) {
-        this.dataSource.next(data);
-    }
+  setSkillDataSource(data: {}) {
+    this.skillTags.next(data);
+  }
 
-    clearDataSource(): any {
-        this.dataSource.next({});
-    }
+  clearSkillDataSource(): any {
+    this.skillTags.next({});
+  }
 
-    getDataSource(): Observable<any> {
-        return this.dataSource.asObservable();
-    }
+  getSkillDataSource(): Observable<any> {
+    return this.skillTags.asObservable();
+  }
+
+  setIndustriesDataSource(data: {}) {
+    this.industries.next(data);
+  }
+
+  clearIndustriesDataSource(): any {
+    this.industries.next({});
+  }
+
+  getIndustriesDataSource(): Observable<any> {
+    return this.industries.asObservable();
+  }
+
+  setUserPhoto(data: {}) {
+    this.userPhoto.next(data);
+  }
+
+  clearUserPhoto(): any {
+    this.userPhoto.next({});
+  }
+
+  getUserPhoto(): Observable<any> {
+    return this.userPhoto.asObservable();
+  }
+
 }

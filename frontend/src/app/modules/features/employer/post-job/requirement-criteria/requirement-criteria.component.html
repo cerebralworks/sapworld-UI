@@ -79,18 +79,7 @@
         <ng-template ngx-select-option-not-found>
             Nothing found
         </ng-template>
-
-        <!-- <ng-template ngx-select-option-not-found let-input>
-            Not found <button (click)="addItem(input)">(+) Add "{{input}}" as new item</button>
-        </ng-template> -->
-         <!-- <ngx-option *ngFor="let item of skillArray?.items" [value]="item">{{item?.tag ? item?.tag?.split('-')[0] : ''}}</ngx-option> -->
-        </ngx-select>
-        <!-- <ng-select (change)="onChangeSelectDomainEvent($event, i)" class="text-uppercase" id="domain_{{i}}" appMarkAsterisk bindLabel="tag" [placeholder]="'postJob.sapModule' | translate" appendTo="body"
-          formControlName="domain">
-          <ng-option *ngFor="let item of skillArray?.items" [value]="item">{{item?.tag ? item?.tag?.split('-')[0] : ''}}</ng-option>
-        </ng-select> -->
-        <!-- <input formControlName="domain" type="text" class="form-control"
-          [placeholder]="'postJob.sapModule' | translate"> -->
+         </ngx-select>
         <app-control-messages [control]="ticket['controls']['domain']"></app-control-messages>
       </div>
 

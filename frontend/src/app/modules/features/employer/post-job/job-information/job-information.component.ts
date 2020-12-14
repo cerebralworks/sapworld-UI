@@ -75,8 +75,6 @@ export class JobInformationComponent implements OnInit {
   }
 
   onChangeCurrentFormat  = (value, event) => {
-    console.log(event, value);
-
     if(value == 0) {
       this.currentCurrencyFormat = 'en-US';
     } else if(value == 1) {
@@ -110,7 +108,7 @@ export class JobInformationComponent implements OnInit {
   }
 
   handleAddressChange = (event) => {
-    const address = this.fromGooglePlace(event);
+    const address = this.sharedService.fromGooglePlace(event);
     console.log('address', address, event.geometry.location.lat() + ',' + event.geometry.location.lng());
 
     this.childForm.patchValue({
@@ -123,32 +121,32 @@ export class JobInformationComponent implements OnInit {
     });
   };
 
-  public fromGooglePlace(addr: gAddress) {
-    let address: any = {};
-    let houseNumber = this.findTypeLongName(addr, "street_number");
-    let street = this.findTypeLongName(addr, "route");
+  // public fromGooglePlace(addr: gAddress) {
+  //   let address: any = {};
+  //   let houseNumber = this.findTypeLongName(addr, "street_number");
+  //   let street = this.findTypeLongName(addr, "route");
 
-    address.street = street && houseNumber ? `${houseNumber} ${street}` : null;
-    address.street = address.street ? address.street : street;
+  //   address.street = street && houseNumber ? `${houseNumber} ${street}` : null;
+  //   address.street = address.street ? address.street : street;
 
-    address.city = this.findTypeLongName(addr, "locality");
-    address.state = this.findTypeLongName(addr, "administrative_area_level_1");
-    address.zipcode = this.findTypeLongName(addr, "postal_code");
-    address.country = this.findTypeShortName(addr, "country");
+  //   address.city = this.findTypeLongName(addr, "locality");
+  //   address.state = this.findTypeLongName(addr, "administrative_area_level_1");
+  //   address.zipcode = this.findTypeLongName(addr, "postal_code");
+  //   address.country = this.findTypeShortName(addr, "country");
 
-    address.validated = houseNumber != null && street != null && address.city != null && address.state != null && address.zipcode != null;
+  //   address.validated = houseNumber != null && street != null && address.city != null && address.state != null && address.zipcode != null;
 
-    return address;
-  }
+  //   return address;
+  // }
 
-  private findTypeLongName(addr: gAddress, type: string): string {
-    let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
-    return comp ? comp.long_name : null;
-  }
+  // private findTypeLongName(addr: gAddress, type: string): string {
+  //   let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
+  //   return comp ? comp.long_name : null;
+  // }
 
-  private findTypeShortName(addr: gAddress, type: string): string {
-    let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
-    return comp ? comp.short_name : null;
-  }
+  // private findTypeShortName(addr: gAddress, type: string): string {
+  //   let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
+  //   return comp ? comp.short_name : null;
+  // }
 
 }

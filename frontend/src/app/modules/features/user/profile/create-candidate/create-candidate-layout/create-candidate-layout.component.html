@@ -1,63 +1,60 @@
-
 <!-- Sub Header Section -->
 <section class="sub-header">
   <div class="container">
     <div class="row">
       <div class="col-lg-5">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active" aria-current="page">{{"postYourResume.candidateRegistration" | translate }}</li>
+          <li class="breadcrumb-item active" aria-current="page">{{"postYourResume.candidateRegistration" | translate }}
+          </li>
         </ol>
       </div>
     </div>
   </div>
 </section>
-  <!-- //Sub Header Section -->
-  <section class="my-4">
+<!-- //Sub Header Section -->
+<section class="my-4">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 tabs-animated" id="myTab">
+        <form method="post" #candidateNgForm="ngForm" [formGroup]="candidateForm">
+          <app-create-candidate-header #target [currentTabInfo]="currentTabInfo"
+            (onTabChangeEvent)="onHeaderTabChange($event)">
+          </app-create-candidate-header>
 
-        <app-create-candidate-header
-        #target
-        [currentTabInfo]="currentTabInfo"
-        (onTabChangeEvent)="onHeaderTabChange($event)"
-        >
-        </app-create-candidate-header>
+          <div class="tab-content" [@animSlider]="slidingCounter">
 
-        <div class="tab-content" [@animSlider]="slidingCounter">
+            <app-create-candidate-personal-details *ngIf="currentTabInfo.tabNumber == 1"
+              [currentTabInfo]="currentTabInfo">
+            </app-create-candidate-personal-details>
 
-          <app-create-candidate-personal-details
-          *ngIf="currentTabInfo.tabNumber == 1"
+            <app-create-candidate-education-exp *ngIf="currentTabInfo.tabNumber == 2" [currentTabInfo]="currentTabInfo">
+            </app-create-candidate-education-exp>
+
+            <app-create-candidate-skillset *ngIf="currentTabInfo.tabNumber == 3" [currentTabInfo]="currentTabInfo">
+            </app-create-candidate-skillset>
+
+            <app-create-candidate-job-preference *ngIf="currentTabInfo.tabNumber == 4"
+              [currentTabInfo]="currentTabInfo">
+            </app-create-candidate-job-preference>
+
+          </div>
+
+          <app-create-candidate-footer
+          (postJob)="postJob()"
+          [createCandidateForm]="candidateForm"
+          (onEnableJobPreviewModal)="onToggleRegisterReview($event)"
           [currentTabInfo]="currentTabInfo"
-          >
-          </app-create-candidate-personal-details>
+          (onTabChangeEvent)="onFooterTabChange($event)">
+          </app-create-candidate-footer>
 
-          <app-create-candidate-education-exp
-          *ngIf="currentTabInfo.tabNumber == 2"
-          [currentTabInfo]="currentTabInfo"
-          >
-          </app-create-candidate-education-exp>
+          <app-candidate-review-modal
+          (postJob)="postJob()"
+          *ngIf="isOpenedRegisterReviewModal"
+          [toggleRegisterReviewModal]="isOpenedRegisterReviewModal"
+          (onEvent)="onToggleRegisterReview($event)"
+          ></app-candidate-review-modal>
 
-          <app-create-candidate-skillset
-          *ngIf="currentTabInfo.tabNumber == 3"
-          [currentTabInfo]="currentTabInfo"
-          >
-          </app-create-candidate-skillset>
-
-          <app-create-candidate-job-preference
-          *ngIf="currentTabInfo.tabNumber == 4"
-          [currentTabInfo]="currentTabInfo"
-          >
-          </app-create-candidate-job-preference>
-
-        </div>
-
-        <app-create-candidate-footer
-        [currentTabInfo]="currentTabInfo"
-        (onTabChangeEvent)="onFooterTabChange($event)"
-        >
-        </app-create-candidate-footer>
-
+        </form>
       </div>
     </div>
   </div>

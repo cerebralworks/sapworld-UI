@@ -13,7 +13,7 @@
 							<div class="row">
 								<div class="col-lg-7">
 									<a href="candidate-job-view.html">
-										<h5>Jacky Smith <small> - Project Manager</small></h5>
+										<h5>{{childForm?.value?.personalDetails?.first_name + ' ' + childForm?.value?.personalDetails?.last_name}} <small> - {{childForm?.value?.personalDetails?.current_employer_role}}</small></h5>
 									</a>
 								</div>
 								<div class="col-lg-5 text-right">
@@ -24,11 +24,15 @@
 								</div>
 							</div>
 							<div class="media">
-								<img src="assets/imagges/user-img.jpg">
+								<img [src]="userPhotoInfo?.base64 ? convertToImage(userPhotoInfo?.base64) : 'assets/images/user-img-icon.jpg'">
 								<div class="media-body">
-									<h6>+91 9876543210 / 9876543222	</h6>
-									<h6><a href="mailto:peter-parker2010@gmail.com">jacky-smith2010@gmail.com</a> <span class="mx-2">||</span>	Austin, TX, USA</h6>
-									<h6 class="mb-0">Tata Consultancy Services Ltd</h6>
+									<h6>{{userInfo?.phone}}	</h6>
+                  <h6><a href="mailto:peter-parker2010@gmail.com">{{userInfo?.email}}</a> <span class="mx-2">||</span>
+                    {{childForm?.value?.personalDetails?.city ? childForm?.value?.personalDetails?.city + ', ' : ''}}
+                    {{childForm?.value?.personalDetails?.state ? childForm?.value?.personalDetails?.state + ', ' : ''}}
+                    {{childForm?.value?.personalDetails?.country ? childForm?.value?.personalDetails?.country : ''}}
+                  </h6>
+									<h6 class="mb-0">{{childForm?.value?.personalDetails?.current_employer}}</h6>
 								</div>
 							</div>
 						</div>
@@ -46,10 +50,20 @@
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-					  <li class="list-group-item">8+ Years</li>
+            <li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.experience}} Years</li>
+            <li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.sap_experience}} Years</li>
+            <li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(childForm?.value?.educationExp?.domains_worked)}}</li>
+            <li class="list-group-item text-uppercase">
+              <p class="m-0 w-100 float-left" *ngFor="let item of childForm?.value?.skillSet?.hands_on_experience">
+                <span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
+                <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.experience_type}})</span>
+              </p>
+              <!-- {{onConvertArrayObjToAdditionalString(childForm?.value?.requirement?.hands_on_experience, 'domain', 'tag')}} -->
+            </li>
+					  <!-- <li class="list-group-item">8+ Years</li>
 					  <li class="list-group-item">5+ Years</li>
 					  <li class="list-group-item">Automotive, Logistics, Finance</li>
-					  <li class="list-group-item">SAP PM, SAP MM, SAP Mobility</li>
+					  <li class="list-group-item">SAP PM, SAP MM, SAP Mobility</li> -->
 					</ul>
 				</div>
 
@@ -59,15 +73,22 @@
 					  <li class="list-group-item">Knowledge on</li>
 					  <li class="list-group-item">Programming Skills</li>
 					  <li class="list-group-item">Others</li>
-					  <li class="list-group-item">Certifications</li>
+            <li class="list-group-item">Certifications</li>
+            <li class="list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-					  <li class="list-group-item">SAP Mobility, SAP FICO</li>
-					  <li class="list-group-item">Java, Python</li>
-					  <li class="list-group-item">Python, SAP BODS</li>
-					  <li class="list-group-item">SAP Mobility</li>
+					  <li class="list-group-item text-uppercase lg-mh-40">
+              <p class="m-0 w-100 float-left" *ngFor="let item of childForm?.value?.skillSet?.skills">
+                <span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
+              </p>
+              <!-- {{onConvertArrayObjToString(childForm?.value?.requirement?.skills, 'tag')}}  -->
+            </li>
+            <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
+            <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}}</li>
+            <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.certification)}}</li>
+            <li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.end_to_end_implementation}}</li>
 					</ul>
 				</div>
 
@@ -82,10 +103,18 @@
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-					  <li class="list-group-item">Google, SAP</li>
-					  <li class="list-group-item">Full Time, Part Time, Freelancer</li>
-					  <li class="list-group-item">Senior Consultant</li>
-					  <li class="list-group-item">Yes</li>
+					  <li class="list-group-item">
+              {{utilsHelperService.onConvertArrayToString(childForm?.value?.educationExp?.clients_worked)}}
+            </li>
+					  <li class="list-group-item text-capitalize">
+              {{sharedService.onGetJobType(childForm?.value?.jobPref?.job_type)}}
+            </li>
+					  <li class="list-group-item">
+              {{childForm?.value?.jobPref?.job_role}}
+            </li>
+					  <li class="list-group-item">
+              {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}
+            </li>
 					</ul>
 				</div>
 
@@ -100,16 +129,22 @@
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-					  <li class="list-group-item">30 Days</li>
-					  <li class="list-group-item">H1B</li>
-					  <li class="list-group-item">No</li>
-					  <li class="list-group-item">Yes</li>
+					  <li class="list-group-item">
+              {{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + 'Days'}}
+            </li>
+					  <li class="list-group-item text-capitalize">{{childForm?.value?.jobPref?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
+					  <li class="list-group-item">
+              {{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}
+            </li>
+					  <li class="list-group-item">
+              {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.willing_to_relocate)}}
+            </li>
 					</ul>
 				</div>
 			</div>
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Edit</button>
-			<button type="button" class="btn btn-theme-blue btn-sm" (click)="onRedirect()">Ok</button>
+			<button  (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Edit</button>
+			<button type="button" class="btn btn-theme-blue btn-sm" (click)="onRedirectDashboard()">Ok</button>
 		  </div>
 </ng-template>

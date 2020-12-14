@@ -1,111 +1,133 @@
-<div>
+<div formGroupName="jobPref">
   <div class="row mt-5 ">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.jobType" | translate }}</label>
-        <select class="form-control">
-        <option selected="" disabled="">{{"common.select" | translate }} {{"postJob.jobType" | translate }}</option>
-        <option>Full Time</option>
-        <option>Part Time</option>
-        <option>Contract</option>
-        <option>Temporary</option>
-        <option>Freelance</option>
-        <option>Internship</option>
+        <select appMarkAsterisk formControlName="job_type" class="form-control" name="job-type">
+          <option [value]="''">{{"common.select" | translate }}</option>
+          <option *ngFor="let type of sharedService.onGetJobType(); let i = index" [value]="i">
+            {{type}}
+          </option>
         </select>
+        <app-control-messages [control]="f['type']"></app-control-messages>
       </div>
     </div>
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.rolesLookingFor" | translate }}</label>
-        <input type="text" class="form-control" [placeholder]="'postYourResume.rolesLookingFor' | translate">
+        <input formControlName="job_role" type="text" class="form-control" [placeholder]="'postYourResume.rolesLookingFor' | translate">
       </div>
     </div>
   </div>
   <div class="row mt-2 ">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
-        <label>{{"postYourResume.preferredLocation" | translate }}</label>
-        <select class="form-control">
-        <option selected="" disabled hidden>Location</option>
-        <option>Anywhere within the country</option>
-        <option>Any country</option>
-        <option>Anywhere within my current state</option>
-        <option>Within 10 miles from my current location</option>
-        <option>Within 15 miles </option>
-        <option>Within 25 miles </option>
-        <option>Within 50 miles </option>
-        </select>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
-      <div class=" form-group">
         <label>{{"postJob.availability" | translate }}</label>
-        <select class="form-control">
-        <option selected="" disabled hidden>{{"postJob.availability" | translate }}</option>
-        <option>Immediate</option>
-        <option>15 Days</option>
-        <option>30 Days</option>
-        <option>45 Days</option>
-        <option>60 Days</option>
+        <select formControlName="availability" class="form-control">
+          <option [value]="null">{{"common.select" | translate }}</option>
+          <option *ngFor="let type of availabilityArray" [value]="type.id">{{ type.text }}</option>
+          <!-- <option *ngFor="let availabilityOption of sharedService.onGetAvailability(); let i = index" [value]="availability"> -->
+            <!-- {{availabilityOption?.text}}
+          </option> -->
         </select>
+        <app-control-messages [control]="f['availability']"></app-control-messages>
       </div>
     </div>
-  </div>
-  <div class="row mt-2">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.travel" | translate }} </label>
-        <select class="form-control">
-        <option selected="" disabled="">{{"common.select" | translate }} {{"postJob.travel" | translate }}</option>
-        <option>No</option>
-        <option>25%</option>
-        <option>50%</option>
-        <option>75%</option>
-        <option>100%</option>
+        <select appMarkAsterisk formControlName="travel" class="form-control">
+          <option [value]="null">{{"common.select" | translate }}</option>
+          <option *ngFor="let travel of travelArray; let i = index" [value]="travel?.id">
+            {{travel?.text}}
+          </option>
         </select>
-      </div>
-    </div>
-    <div class="col-lg-6 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.workAuthorization" | translate }}</label>
-         <div class="mt-2">
-           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInlineA1" name="customRadioInline" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInlineA1">{{"postYourResume.iHaveWorkAuthorization" | translate }}</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInlineA2" name="customRadioInline" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInlineA2">{{"postYourResume.iNeedVisaAponsorship" | translate }}</label>
-          </div>
-        </div>
+        <app-control-messages [control]="f['travel']"></app-control-messages>
       </div>
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-lg-3 col-md-6">
+
+    <div class="col-lg-6 col-md-6">
       <div class=" form-group">
-        <label>{{"postYourResume.arYouWillingToRelocate" | translate }}?</label>
-         <div class="mt-2">
-           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline3" name="customRadioInline" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInline3">{{"common.yes" | translate }}</label>
+        <label>{{"postJob.workAuthorization" | translate }}</label>
+        <div appMarkAsterisk class="mt-2">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input (change)="onChangeFieldValue('work_authorization', 0)" [value]="0" formControlName="work_authorization" type="radio" id="customRadioInline5"
+              name="work_authorization" class="custom-control-input">
+            <label class="custom-control-label"
+              for="customRadioInline5">{{"postJob.shouldBeACitizenPr" | translate }}</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline4" name="customRadioInline" class="custom-control-input">
-            <label class="custom-control-label" for="customRadioInline4">{{"common.no" | translate }}</label>
+            <input (change)="onChangeFieldValue('work_authorization', 1)" [value]="1" formControlName="work_authorization" type="radio" id="customRadioInline6"
+              name="work_authorization" class="custom-control-input">
+            <label class="custom-control-label"
+              for="customRadioInline6">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
           </div>
+          <app-control-messages [control]="f['work_authorization']"></app-control-messages>
         </div>
       </div>
     </div>
-    <div class="col-lg-2 col-md-6">
+
+    <div class="col-lg-3 col-md-6">
       <div class=" form-group">
         <label>&nbsp;</label>
          <div class="mt-2">
           <div class="custom-control custom-checkbox mr-sm-2">
-            <input type="checkbox" class="custom-control-input" id="OnlyRemote">
+            <input formControlName="remote_only" (change)="onChangeFieldValue('remote_only', $event?.target?.checked)" type="checkbox" class="custom-control-input" id="OnlyRemote">
             <label class="custom-control-label" for="OnlyRemote">{{"postYourResume.onlyRemote" | translate }}</label>
            </div>
         </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row mt-2">
+
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
+        <label>{{"postYourResume.arYouWillingToRelocate" | translate }}?</label>
+         <div class="mt-2">
+           <div class="custom-control custom-radio custom-control-inline">
+            <input (change)="onChangeFieldValue('willing_to_relocate', true)" [value]="true" formControlName="willing_to_relocate" type="radio" id="customRadioInline3" name="willing_to_relocate" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline3">{{"common.yes" | translate }}</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input (change)="onChangeFieldValue('willing_to_relocate', false)" [value]="false" formControlName="willing_to_relocate" type="radio" id="customRadioInline4" name="willing_to_relocate" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline4">{{"common.no" | translate }}</label>
+          </div>
+        </div>
+      </div>
+      <!-- <div class=" form-group">
+        <label>&nbsp;</label>
+         <div class="mt-2">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <input formControlName="remote_only" (change)="onChangeFieldValue('remote_only', $event?.target?.checked)" type="checkbox" class="custom-control-input" id="OnlyRemote">
+            <label class="custom-control-label" for="OnlyRemote">{{"postYourResume.onlyRemote" | translate }}</label>
+           </div>
+        </div>
+      </div> -->
+      <!-- <div class=" form-group">
+        <label>&nbsp;</label>
+         <div class="mt-2">
+          <div class="custom-control custom-checkbox mr-sm-2">
+            <label class="custom-control-label" for="OnlyRemote">{{"postYourResume.onlyRemote" | translate }}</label>
+            <input (change)="onChangeFieldValue('remote_only', $event?.target?.value)" formControlName="remote_only" type="checkbox" class="custom-control-input" id="OnlyRemote">
+            <app-control-messages [control]="f['remote_only']"></app-control-messages>
+           </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="col-lg-4 col-md-6" *ngIf="(!childForm?.value?.jobPref?.remote_only && !childForm?.value?.jobPref?.willing_to_relocate)">
+      <div class=" form-group">
+        <label>{{"postYourResume.preferredLocation" | translate }}</label>
+        <select formControlName="preferred_location" class="form-control">
+          <option [value]="null">{{"common.select" | translate }}</option>
+          <option *ngFor="let preferredLocation of sharedService.onGetPreferedLocation(); let i = index" [value]="i">
+            {{preferredLocation}}
+          </option>
+        </select>
+        <app-control-messages [control]="f['preferred_location']"></app-control-messages>
       </div>
     </div>
   </div>

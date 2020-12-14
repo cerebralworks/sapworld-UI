@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { tabInfo, tabProgressor } from '@data/schema/create-candidate';
 
 @Component({
@@ -10,6 +11,9 @@ export class CreateCandidateFooterComponent implements OnInit {
 
   @Input() currentTabInfo: tabInfo;
   @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
+  @Output() postJob: EventEmitter<any> = new EventEmitter();
+  @Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
+  @Input() createCandidateForm: FormGroup;
 
   public btnType: string;
   isOpenedRegisterReviewModal: any;
@@ -66,7 +70,23 @@ export class CreateCandidateFooterComponent implements OnInit {
   }
 
   onToggleRegisterReview = (status) => {
-    this.isOpenedRegisterReviewModal = status;
+    // this.isOpenedRegisterReviewModal = status;
+    console.log(this.getErrors(this.createCandidateForm));
+    if(this.createCandidateForm.valid) {
+      this.onEnableJobPreviewModal.emit(status);
+    }
+  }
+
+  getErrors = (formGroup: FormGroup, errors: any = {}) => {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        errors[field] = control.errors;
+      } else if (control instanceof FormGroup) {
+        errors[field] = this.getErrors(control);
+      }
+    });
+    return errors;
   }
 
 

@@ -1,21 +1,26 @@
-<div>
+<div formGroupName="personalDetails">
    <div class="row mt-5">
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
           <label>{{"postYourResume.firstName" | translate }}</label>
-          <input type="text" class="form-control" placeholder="First Name" value="Jacky">
+          <input appMarkAsterisk formControlName="first_name" type="text" class="form-control" placeholder="First Name" value="Jacky">
+          <app-control-messages [control]="f['first_name']"></app-control-messages>
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
           <label>{{"postYourResume.lastName" | translate }}</label>
-          <input type="text" class="form-control" placeholder="Last Name" value="Smith">
+          <input appMarkAsterisk formControlName="last_name" type="text" class="form-control" placeholder="Last Name" value="Smith">
+          <app-control-messages [control]="f['last_name']"></app-control-messages>
         </div>
       </div>
       <div class="col-lg-4 mt-4">
         <div class="upload-box">
-          <div class="box text-center">
-            <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple="">
+          <div class="box text-center upload-image">
+            <img *ngIf="defaultProfilePic" [src]="convertToImage(defaultProfilePic)" alt="upload-photo" class="img-fluid mx-auto rounded-circle border border-primary"
+                                    style="width:150px;height:150px;">
+            <input [style.top]="defaultProfilePic ? '-150px' : '0px'" type="file"  class="upload-input" #userImage (change)="handleFileInput($event, CropImage);" />
+            <!-- <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple=""> -->
             <label for="file-5">
               <i class="fas fa-user-tie"></i>
               <span>{{"postYourResume.uploadPhoto" | translate }} <br> ({{"postYourResume.dragAndDrop" | translate }})</span>
@@ -27,56 +32,52 @@
     <div class="row mt-2">
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
-          <label>{{"postYourResume.firstName" | translate }}</label>
-          <input type="email" class="form-control" placeholder="username@mail.com" value="jacky-smith2010@gmail.com">
+          <label>{{"postYourResume.emailAddress" | translate }}</label>
+          <input appMarkAsterisk formControlName="email" type="email" class="form-control" placeholder="username@mail.com" value="jacky-smith2010@gmail.com">
+          <app-control-messages [control]="f['email']"></app-control-messages>
         </div>
       </div>
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
-          <label>{{"postYourResume.lastName" | translate }}</label>
-          <input type="text" class="form-control" placeholder="+91 9876543210" value="+91 9876543210">
+          <label>{{"postYourResume.mobileNumber" | translate }}</label>
+          <input appMarkAsterisk numbersOnly formControlName="phone" type="text" class="form-control" placeholder="+91 9876543210" value="+91 9876543210">
+          <app-control-messages [control]="f['phone']"></app-control-messages>
         </div>
       </div>
     </div>
     <div class="row mt-2">
+      <div class="col-lg-4 col-md-6">
+        <div class=" form-group">
+          <label>{{"postYourResume.city" | translate}}</label>
+          <input appMarkAsterisk ngx-google-places-autocomplete
+          (onAddressChange)="handleAddressChange($event)"
+          formControlName="city" type="text" class="form-control" [placeholder]="'postYourResume.city' | translate">
+          <app-control-messages [control]="f['city']"></app-control-messages>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class=" form-group">
+          <label>{{"postYourResume.state" | translate}}</label>
+          <input appMarkAsterisk formControlName="state" type="text" class="form-control" [placeholder]="'postYourResume.state' | translate">
+          <app-control-messages [control]="f['state']"></app-control-messages>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="row mt-2">
+      <div class="col-lg-4 col-md-6">
+        <div class=" form-group">
+          <label>{{"postYourResume.zipCode" | translate}}</label>
+          <input appMarkAsterisk numbersOnly formControlName="zipcode" type="text" class="form-control" [placeholder]="'postYourResume.zipCode' | translate">
+          <app-control-messages [control]="f['zipcode']"></app-control-messages>
+        </div>
+      </div>
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
            <label>{{"postYourResume.country" | translate }}</label>
-          <input type="text" class="form-control" placeholder="Country">
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <div class=" form-group">
-          <label>{{"postYourResume.state" | translate }}</label>
-            <select class="form-control" name="job-type">
-            <option selected="" disabled="">{{"common.select" | translate }} {{"postYourResume.state" | translate }}</option>
-            <option >State 1</option>
-            <option >State 2</option>
-            <option >State 3</option>
-            <option >State 4</option>
-            <option >State 5</option>
-            </select>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-lg-4 col-md-6">
-        <div class=" form-group">
-           <label>{{"postYourResume.city" | translate }}</label>
-            <select class="form-control" name="job-type">
-            <option selected="" disabled="">{{"common.select" | translate }} {{"postYourResume.city" | translate }}</option>
-            <option >City 1</option>
-            <option >City 2</option>
-            <option >City 3</option>
-            <option >City 4</option>
-            <option >City 5</option>
-            </select>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <div class=" form-group">
-          <label>{{"postYourResume.zipCode" | translate }}</label>
-          <input type="text" class="form-control" placeholder="Zip Code">
+          <input appMarkAsterisk formControlName="country" type="text" class="form-control" placeholder="Country">
+          <app-control-messages [control]="f['country']"></app-control-messages>
         </div>
       </div>
     </div>
@@ -93,13 +94,13 @@
             <div class="col-lg-4 col-md-6">
               <div class="d-flex">
                 <div class="linkIcon in"><i class="fab fa-linkedin"></i></div>
-                <input type="text" class="form-control form-control-sm"
-                [placeholder]="'postJob.enterLinkedinUrl' | translate">
+                <input formControlName="linkedin" type="text" class="form-control form-control-sm"
+                [placeholder]="'postYourResume.enterLinkedinUrl' | translate">
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="showhideswitch mt-2">
-                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch5" checked>
+                <input (change)="onSetLinks('linkedin', $event?.target?.value);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch5" >
                 <label class="showhideswitch-label" for="myshowhideswitch5">
                   <span class="showhideswitch-inner"></span>
                   <span class="showhideswitch-switch"></span>
@@ -111,13 +112,13 @@
             <div class="col-lg-4 col-md-6">
               <div class="d-flex">
                 <div class="linkIcon gh"><i class="fab fa-github"></i></div>
-                <input type="text" class="form-control form-control-sm"
-                [placeholder]="'postJob.enterGithubUrl' | translate">
+                <input formControlName="github" type="text" class="form-control form-control-sm"
+                [placeholder]="'postYourResume.enterGithubUrl' | translate">
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="showhideswitch mt-2">
-                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch6" checked>
+                <input (change)="onSetLinks('github', $event?.target?.value);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch6" >
                 <label class="showhideswitch-label" for="myshowhideswitch6">
                   <span class="showhideswitch-inner"></span>
                   <span class="showhideswitch-switch"></span>
@@ -129,13 +130,13 @@
             <div class="col-lg-4 col-md-6">
               <div class="d-flex">
                 <div class="linkIcon yt"><i class="fab fa-youtube-square"></i></div>
-                <input type="text" class="form-control form-control-sm"
-                [placeholder]="'postJob.enterYoutubeUrl' | translate">
+                <input formControlName="youtube" type="text" class="form-control form-control-sm"
+                [placeholder]="'postYourResume.enterYoutubeUrl' | translate">
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="showhideswitch mt-2">
-                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch7" checked>
+                <input (change)="onSetLinks('youtube', $event?.target?.value);" [value]="true" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch7" >
                 <label class="showhideswitch-label" for="myshowhideswitch7">
                   <span class="showhideswitch-inner"></span>
                   <span class="showhideswitch-switch"></span>
@@ -147,13 +148,13 @@
             <div class="col-lg-4 col-md-6">
               <div class="d-flex">
                 <div class="linkIcon bl"><i class="fas fa-blog"></i></div>
-                <input type="text" class="form-control form-control-sm"
-                [placeholder]="'postJob.enterBlogUrl' | translate">
+                <input formControlName="blog" type="text" class="form-control form-control-sm"
+                [placeholder]="'postYourResume.enterBlogUrl' | translate">
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="showhideswitch mt-2">
-                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch8" checked>
+                <input (change)="onSetLinks('blog', $event?.target?.value);" [value]="true" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch8" >
                 <label class="showhideswitch-label" for="myshowhideswitch8">
                   <span class="showhideswitch-inner"></span>
                   <span class="showhideswitch-switch"></span>
@@ -165,13 +166,13 @@
             <div class="col-lg-4 col-md-6">
               <div class="d-flex">
                 <div class="linkIcon pf"><i class="fas fa-laptop-code"></i></div>
-                <input type="text" class="form-control form-control-sm"
-                [placeholder]="'postJob.enterPortfolioUrl' | translate">
+                <input formControlName="portfolio" type="text" class="form-control form-control-sm"
+                [placeholder]="'postYourResume.enterPortfolioUrl' | translate">
               </div>
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="showhideswitch mt-2">
-                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch9" checked>
+                <input (change)="onSetLinks('portfolio', $event?.target?.value);" [value]="true" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch9" >
                 <label class="showhideswitch-label" for="myshowhideswitch9">
                   <span class="showhideswitch-inner"></span>
                   <span class="showhideswitch-switch"></span>
@@ -187,3 +188,29 @@
 
 
   </div>
+
+
+  <ng-template #CropImage let-modal let-d="dismiss">
+    <form>
+        <div class="modal-header">
+            <!-- <h4 class="modal-title" id="exampleModalLabel">Add Clinical Team
+            </h4> -->
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="mbRef.close('Closed from Close button')">
+                <span aria-hidden="true">&times;</span>
+            </button> -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+        (click)="mbRef.close('Closed from Close button')">
+        <span>Close</span>
+        <i class="fas fa-times right ml-2"></i>
+      </button>
+        </div>
+        <div class="modal-body">
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" [autoCrop]="true" [resizeToWidth]="295" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed($event)">
+            </image-cropper>
+        </div>
+        <div class="modal-footer mt-3">
+            <button type="button" class="btn btn-gren" data-dismiss="modal" (click)="SetPreviousProfilePic()">Cancel</button>
+            <button type="button" class="btn btn-gren" data-dismiss="modal" (click)="onImageCropSave()">Save</button>
+        </div>
+    </form>
+</ng-template>
