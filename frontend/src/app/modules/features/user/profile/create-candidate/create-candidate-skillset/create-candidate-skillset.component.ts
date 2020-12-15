@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
+import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { SharedService } from '@shared/service/shared.service';
@@ -17,12 +18,14 @@ export class CreateCandidateSkillsetComponent implements OnInit {
   skillArray: any[] = [];
   public childForm;
   public skillItems: any[] = [];
+  public userInfo: any;
 
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
     private formBuilder: FormBuilder,
-    private dataService: DataService
+    private dataService: DataService,
+    private userSharedService: UserSharedService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +38,19 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       },
       error => {
         this.skillItems = [];
+      }
+    )
+
+    this.userSharedService.getUserProfileDetails().subscribe(
+      response => {
+        this.userInfo = response;
+        if(this.userInfo) {
+          // this.childForm.patchValue({
+          //   skillSet: {
+          //     ...this.userInfo
+          //   }
+          // })
+        }
       }
     )
   }

@@ -19,33 +19,33 @@ import { UserService } from '@data/service/user.service';
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
   animations: [
     trigger('slideInOut', [
-        state('in', style({height: '*', opacity: 0})),
-        transition(':leave', [
-            style({height: '*', opacity: 1}),
+      state('in', style({ height: '*', opacity: 0 })),
+      transition(':leave', [
+        style({ height: '*', opacity: 1 }),
 
-            group([
-                animate(300, style({height: 0})),
-                animate('200ms ease-in-out', style({'opacity': '0'}))
-            ])
-
-        ]),
-        transition(':enter', [
-            style({height: '0', opacity: 0}),
-
-            group([
-                animate(300, style({height: '*'})),
-                animate('400ms ease-in-out', style({'opacity': '1'}))
-            ])
-
+        group([
+          animate(300, style({ height: 0 })),
+          animate('200ms ease-in-out', style({ 'opacity': '0' }))
         ])
+
+      ]),
+      transition(':enter', [
+        style({ height: '0', opacity: 0 }),
+
+        group([
+          animate(300, style({ height: '*' })),
+          animate('400ms ease-in-out', style({ 'opacity': '1' }))
+        ])
+
+      ])
     ])
-]
+  ]
 })
 export class CreateCandidatePersonalDetailsComponent implements OnInit {
 
   @Input() currentTabInfo: tabInfo;
   public childForm;
-  public show:boolean = false;
+  public show: boolean = false;
   public userInfo: any = {};
   defaultProfilePic: string;
   mbRef: any;
@@ -60,7 +60,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
-    private dataService: DataService ,
+    private dataService: DataService,
     private userSharedService: UserSharedService,
     private toastrService: ToastrService,
     private modalService: NgbModal,
@@ -74,15 +74,33 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     this.userSharedService.getUserProfileDetails().subscribe(
       response => {
         this.userInfo = response;
-        if(this.userInfo) {
+        if (this.userInfo) {
           this.childForm.patchValue({
             personalDetails: {
+              // ...this.userInfo,
               email: this.userInfo.email,
-              // phone: this.userInfo.phone,
+              first_name: this.userInfo.first_name,
+              last_name: this.userInfo.last_name,
             }
-          })
+          });
           this.childForm.get('personalDetails.email').disable();
-          // this.childForm.get('personalDetails.phone').disable()
+
+          let latlngText: string = this.userInfo.latlng_text;
+          if (latlngText) {
+            const splitedString: any[] = latlngText.split(',');
+            if (splitedString && splitedString.length) {
+              this.childForm.patchValue({
+                personalDetails: {
+                  latlng: {
+                    lat: splitedString[0],
+                    lng: splitedString[1]
+                  }
+                }
+              })
+            }
+            console.log(this.childForm);
+
+          }
         }
 
       }
@@ -154,7 +172,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 
   handleFileInput(event, CropImagePopUp) {
     let files: FileList = event.target.files;
-    if(files && files.length > 0) {
+    if (files && files.length > 0) {
       let fileToUpload = files.item(0);
       let allowedExtensions = ["jpg", "jpeg", "png", "JPG", "JPEG"];
 
@@ -213,7 +231,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   onImageCropSave() {
     this.defaultProfilePic = this.profilePicValue;
     this.previousProfilePic = this.defaultProfilePic;
-    this.dataService.setUserPhoto({photoBlob: this.croppedFile, base64: this.defaultProfilePic})
+    this.dataService.setUserPhoto({ photoBlob: this.croppedFile, base64: this.defaultProfilePic })
     // this.onUserPhotoUpdate();
     this.mbRef.close();
   }

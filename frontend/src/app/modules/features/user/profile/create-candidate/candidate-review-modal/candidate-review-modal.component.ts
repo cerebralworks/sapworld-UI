@@ -62,8 +62,6 @@ export class CandidateReviewModalComponent implements OnInit {
     this.dataService.getUserPhoto().subscribe(
       response => {
         this.userPhotoInfo = response;
-        console.log('this.userPhotoInfo', this.userPhotoInfo);
-
       }
     )
   }

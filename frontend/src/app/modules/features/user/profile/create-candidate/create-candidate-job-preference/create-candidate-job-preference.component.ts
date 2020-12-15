@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
+import { UserSharedService } from '@data/service/user-shared.service';
 import { SharedService } from '@shared/service/shared.service';
 
 @Component({
@@ -15,10 +16,12 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
   public childForm;
 public availabilityArray: any[];
 public travelArray: any[]
+  userInfo: any;
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
     private formBuilder: FormBuilder,
+    private userSharedService: UserSharedService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +42,19 @@ public travelArray: any[]
       {id: 75, text: '75%'},
       {id: 100, text: '100%'},
     ];
+
+    this.userSharedService.getUserProfileDetails().subscribe(
+      response => {
+        this.userInfo = response;
+        if(this.userInfo) {
+          // this.childForm.patchValue({
+          //   jobPref: {
+          //     ...this.userInfo
+          //   }
+          // })
+        }
+      }
+    )
   }
 
   createForm() {
@@ -49,7 +65,7 @@ public travelArray: any[]
       job_role: new FormControl('', Validators.required),
       willing_to_relocate: new FormControl(null, Validators.required),
       preferred_location: new FormControl(null),
-      work_authorization: new FormControl(null, Validators.required),
+      work_authorization: new FormControl(null),
       travel: new FormControl(null, Validators.required),
       availability: new FormControl(null, Validators.required),
       remote_only: new FormControl(false, Validators.required),

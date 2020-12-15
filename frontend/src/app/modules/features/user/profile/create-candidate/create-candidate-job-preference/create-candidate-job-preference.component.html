@@ -15,7 +15,7 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.rolesLookingFor" | translate }}</label>
-        <input formControlName="job_role" type="text" class="form-control" [placeholder]="'postYourResume.rolesLookingFor' | translate">
+        <input appMarkAsterisk formControlName="job_role" type="text" class="form-control" [placeholder]="'postYourResume.rolesLookingFor' | translate">
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.availability" | translate }}</label>
-        <select formControlName="availability" class="form-control">
+        <select appMarkAsterisk formControlName="availability" class="form-control">
           <option [value]="null">{{"common.select" | translate }}</option>
           <option *ngFor="let type of availabilityArray" [value]="type.id">{{ type.text }}</option>
           <!-- <option *ngFor="let availabilityOption of sharedService.onGetAvailability(); let i = index" [value]="availability"> -->
@@ -48,7 +48,7 @@
   </div>
   <div class="row mt-2">
 
-    <div class="col-lg-6 col-md-6">
+    <!-- <div class="col-lg-6 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.workAuthorization" | translate }}</label>
         <div appMarkAsterisk class="mt-2">
@@ -67,27 +67,11 @@
           <app-control-messages [control]="f['work_authorization']"></app-control-messages>
         </div>
       </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6">
-      <div class=" form-group">
-        <label>&nbsp;</label>
-         <div class="mt-2">
-          <div class="custom-control custom-checkbox mr-sm-2">
-            <input formControlName="remote_only" (change)="onChangeFieldValue('remote_only', $event?.target?.checked)" type="checkbox" class="custom-control-input" id="OnlyRemote">
-            <label class="custom-control-label" for="OnlyRemote">{{"postYourResume.onlyRemote" | translate }}</label>
-           </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <div class="row mt-2">
-
+    </div> -->
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.arYouWillingToRelocate" | translate }}?</label>
-         <div class="mt-2">
+         <div appMarkAsterisk class="mt-2">
            <div class="custom-control custom-radio custom-control-inline">
             <input (change)="onChangeFieldValue('willing_to_relocate', true)" [value]="true" formControlName="willing_to_relocate" type="radio" id="customRadioInline3" name="willing_to_relocate" class="custom-control-input">
             <label class="custom-control-label" for="customRadioInline3">{{"common.yes" | translate }}</label>
@@ -98,7 +82,9 @@
           </div>
         </div>
       </div>
-      <!-- <div class=" form-group">
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class=" form-group">
         <label>&nbsp;</label>
          <div class="mt-2">
           <div class="custom-control custom-checkbox mr-sm-2">
@@ -106,18 +92,10 @@
             <label class="custom-control-label" for="OnlyRemote">{{"postYourResume.onlyRemote" | translate }}</label>
            </div>
         </div>
-      </div> -->
-      <!-- <div class=" form-group">
-        <label>&nbsp;</label>
-         <div class="mt-2">
-          <div class="custom-control custom-checkbox mr-sm-2">
-            <label class="custom-control-label" for="OnlyRemote">{{"postYourResume.onlyRemote" | translate }}</label>
-            <input (change)="onChangeFieldValue('remote_only', $event?.target?.value)" formControlName="remote_only" type="checkbox" class="custom-control-input" id="OnlyRemote">
-            <app-control-messages [control]="f['remote_only']"></app-control-messages>
-           </div>
-        </div>
-      </div> -->
+      </div>
     </div>
+  </div>
+  <div class="row mt-2">
     <div class="col-lg-4 col-md-6" *ngIf="(!childForm?.value?.jobPref?.remote_only && !childForm?.value?.jobPref?.willing_to_relocate)">
       <div class=" form-group">
         <label>{{"postYourResume.preferredLocation" | translate }}</label>

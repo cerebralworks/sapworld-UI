@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
+import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 
@@ -21,12 +22,14 @@ export class CreateCandidateEducationExpComponent implements OnInit {
   public educationsSelectedArray: any[] = [];
   educationsSelectedValue: any;
   educationsSelectedIndex: number;
+  userInfo: any;
 
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
     private formBuilder: FormBuilder,
-    private dataService: DataService
+    private dataService: DataService,
+    private userSharedService: UserSharedService
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +51,18 @@ export class CreateCandidateEducationExpComponent implements OnInit {
         this.industryItems = [];
       }
     )
+    this.userSharedService.getUserProfileDetails().subscribe(
+      response => {
+        this.userInfo = response;
+        if(this.userInfo) {
+          // this.childForm.patchValue({
+          //   educationExp: {
+          //     ...this.userInfo
+          //   }
+          // })
+        }
+      }
+    )
   }
 
   createForm() {
@@ -55,16 +70,16 @@ export class CreateCandidateEducationExpComponent implements OnInit {
 
     this.childForm.addControl('educationExp', new FormGroup({
       education_qualification: new FormArray([this.formBuilder.group({
-        degree: ['', Validators.required],
-        field_of_study: ['', [Validators.required,]],
-        year_of_completion: ['', [Validators.required]]
+        degree: [''],
+        field_of_study: [''],
+        year_of_completion: ['']
       })]),
       experience: new FormControl('', Validators.required),
       sap_experience: new FormControl('', Validators.required),
       current_employer: new FormControl('', Validators.required),
       current_employer_role: new FormControl('', Validators.required),
       domains_worked: new FormControl('', Validators.required),
-      clients_worked: new FormControl('', Validators.required),
+      clients_worked: new FormControl(''),
       end_to_end_implementation: new FormControl(null),
     }));
   }
@@ -87,9 +102,9 @@ export class CreateCandidateEducationExpComponent implements OnInit {
   onDuplicate = () => {
     if (this.t.length < 4) {
       this.t.push(this.formBuilder.group({
-        degree: ['', Validators.required],
-        field_of_study: ['', [Validators.required,]],
-        year_of_completion: ['', [Validators.required]]
+        degree: [''],
+        field_of_study: [''],
+        year_of_completion: ['']
       }));
     }
   }

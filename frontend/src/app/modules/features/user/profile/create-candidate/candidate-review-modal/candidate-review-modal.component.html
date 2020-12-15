@@ -56,7 +56,7 @@
             <li class="list-group-item text-uppercase">
               <p class="m-0 w-100 float-left" *ngFor="let item of childForm?.value?.skillSet?.hands_on_experience">
                 <span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
-                <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.experience_type}})</span>
+                <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
               </p>
               <!-- {{onConvertArrayObjToAdditionalString(childForm?.value?.requirement?.hands_on_experience, 'domain', 'tag')}} -->
             </li>
@@ -122,7 +122,7 @@
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
 					  <li class="list-group-item">Available in</li>
-					  <li class="list-group-item">Work Authorization</li>
+					  <!-- <li class="list-group-item">Work Authorization</li> -->
 					  <li class="list-group-item">Travel</li>
 					  <li class="list-group-item">Willing to Relocate</li>
 					</ul>
@@ -132,7 +132,7 @@
 					  <li class="list-group-item">
               {{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + 'Days'}}
             </li>
-					  <li class="list-group-item text-capitalize">{{childForm?.value?.jobPref?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
+					  <!-- <li class="list-group-item text-capitalize">{{childForm?.value?.jobPref?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li> -->
 					  <li class="list-group-item">
               {{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}
             </li>

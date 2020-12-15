@@ -5,7 +5,7 @@
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.degree" | translate }} </label>
-          <select (change)="onChangeDegreeValue($event?.target?.value)" appMarkAsterisk formControlName="degree" class="form-control">
+          <select (change)="onChangeDegreeValue($event?.target?.value)" formControlName="degree" class="form-control">
             <option [value]="''">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}
             </option>
             <ng-container *ngFor="let education of educations; let i = index">
@@ -24,14 +24,14 @@
       <div class="col-lg-4 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.fieldOfStudy" | translate }}</label>
-          <input appMarkAsterisk formControlName="field_of_study" type="text" class="form-control" [placeholder]="'postYourResume.fieldOfStudy' | translate">
+          <input formControlName="field_of_study" type="text" class="form-control" [placeholder]="'postYourResume.fieldOfStudy' | translate">
           <app-control-messages [control]="ticket['controls']['field_of_study']"></app-control-messages>
         </div>
       </div>
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
-          <input appMarkAsterisk numbersOnly formControlName="year_of_completion" type="text" class="form-control" [placeholder]="'postYourResume.yearOfCompletion' | translate">
+          <input numbersOnly formControlName="year_of_completion" type="text" class="form-control" [placeholder]="'postYourResume.yearOfCompletion' | translate">
           <app-control-messages [control]="ticket['controls']['year_of_completion']"></app-control-messages>
         </div>
       </div>
@@ -109,7 +109,7 @@
     <div class="col-lg-9">
       <div class=" form-group">
         <label>{{"postYourResume.clientsWorkedWith" | translate }}</label>
-        <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label"
+        <ng-select id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label"
           bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
           formControlName="clients_worked">
         </ng-select>
