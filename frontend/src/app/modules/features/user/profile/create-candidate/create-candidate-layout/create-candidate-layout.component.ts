@@ -130,20 +130,23 @@ export class CreateCandidateLayoutComponent implements OnInit {
 
 
     if (this.candidateForm.valid) {
-      if(this.userPhotoInfo && this.userPhotoInfo.base64) {
+      if(this.userPhotoInfo && this.userPhotoInfo.photoBlob) {
         this.onUserPhotoUpdate();
       }
       this.onUserUpdate(candidateInfo);
     }
   }
 
+  randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
+
   onUserPhotoUpdate = () => {
-    let file: any = base64ToFile(this.userPhotoInfo.base64);
     const formData = new FormData();
-    formData.append('photo' , file, file.name);
-  //   Array.from(this.filesToUploadData).map((file, index) => {
-  //     formData.append('file' + index, file, file.name);
-  // });
+    var rString = this.randomString(40, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    formData.append('photo' , this.userPhotoInfo.photoBlob, ((this.userPhotoInfo && this.userPhotoInfo.photoBlob && this.userPhotoInfo.photoBlob.name) ? this.userPhotoInfo.photoBlob.name : rString));
     this.userService.photoUpdate(formData).subscribe(
       response => {
       }, error => {
