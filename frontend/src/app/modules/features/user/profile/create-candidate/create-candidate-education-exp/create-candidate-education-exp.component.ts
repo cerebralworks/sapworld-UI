@@ -36,6 +36,7 @@ export class CreateCandidateEducationExpComponent implements OnInit {
     this.createForm();
 
     this.educations = [
+      "High School",
       "Bachelors",
       "Diploma",
       "Masters",

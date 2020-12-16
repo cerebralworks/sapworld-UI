@@ -92,7 +92,7 @@
     <div class="col-lg-9 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.programmingSkills" | translate }}</label>
-        <ng-select id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. Javascript, Php" appendTo="body" multiple="true"
+        <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. Javascript, Php" appendTo="body" multiple="true"
           formControlName="programming_skills">
         </ng-select>
         <app-control-messages [control]="f['programming_skills']"></app-control-messages>
@@ -103,9 +103,10 @@
     <div class="col-lg-9 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.others" | translate }}</label>
-        <ng-select id="othersSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. Docker, Azure" appendTo="body" multiple="true"
+        <ng-select appMarkAsterisk id="othersSkills" [addTag]="true" addTagText="Add Other Skill" bindValue="label" bindLabel="label" placeholder="Ex. Docker, Azure" appendTo="body" multiple="true"
           formControlName="other_skills">
         </ng-select>
+        <app-control-messages [control]="f['other_skills']"></app-control-messages>
       </div>
     </div>
   </div>
