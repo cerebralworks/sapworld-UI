@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -17,6 +17,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 public availabilityArray: any[];
 public travelArray: any[]
   userInfo: any;
+  savedUserDetails: any;
+  @Input('userDetails')
+  set userDetails(inFo: any) {
+    this.savedUserDetails = inFo;
+  }
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
@@ -46,15 +51,28 @@ public travelArray: any[]
     this.userSharedService.getUserProfileDetails().subscribe(
       response => {
         this.userInfo = response;
-        if(this.userInfo) {
-          // this.childForm.patchValue({
-          //   jobPref: {
-          //     ...this.userInfo
-          //   }
-          // })
-        }
       }
     )
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    setTimeout(async () => {
+    if(this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
+      this.childForm.patchValue({
+        skillSet: {
+          ...this.savedUserDetails,
+        },
+        educationExp : {
+          ...this.savedUserDetails
+        },
+        jobPref : {
+          ...this.savedUserDetails
+        },
+      });
+      console.log(this.childForm);
+
+    }
+  });
   }
 
   createForm() {
@@ -69,6 +87,33 @@ public travelArray: any[]
       travel: new FormControl(null, Validators.required),
       availability: new FormControl(null, Validators.required),
       remote_only: new FormControl(false, Validators.required),
+    }));
+    this.childForm.addControl('skillSet', new FormGroup({
+      hands_on_experience: new FormArray([this.formBuilder.group({
+        skill_id: [null, Validators.required],
+        skill_name: ['dasdasd'],
+        experience: ['', [Validators.required,]],
+        exp_type: ['years', [Validators.required]]
+      })]),
+      skills: new FormControl(null, Validators.required),
+      programming_skills: new FormControl(null, Validators.required),
+      other_skills: new FormControl(null, Validators.required),
+      certification: new FormControl(null),
+      bio: new FormControl('Lorem Ipsum'),
+    }));
+    this.childForm.addControl('educationExp', new FormGroup({
+      education_qualification: new FormArray([this.formBuilder.group({
+        degree: [''],
+        field_of_study: [''],
+        year_of_completion: ['']
+      })]),
+      experience: new FormControl('', Validators.required),
+      sap_experience: new FormControl('', Validators.required),
+      current_employer: new FormControl('', Validators.required),
+      current_employer_role: new FormControl('', Validators.required),
+      domains_worked: new FormControl('', Validators.required),
+      clients_worked: new FormControl(''),
+      end_to_end_implementation: new FormControl(null),
     }));
   }
 
@@ -85,9 +130,6 @@ public travelArray: any[]
       // this.isContractDuration = true;
       // this.childForm.get('jobPref.contract_duration').setValidators([Validators.required]);
       // this.childForm.get('jobPref.contract_duration').updateValueAndValidity();
-      // console.log(this.childForm);
-
-
     }else {
       // this.isContractDuration = false;
       // this.childForm.get('jobPref.contract_duration').setValidators(null);
@@ -96,15 +138,11 @@ public travelArray: any[]
   }
 
   onChangeFieldValue = (fieldName, value) => {
-    console.log('value', value);
-
     this.childForm.patchValue({
       jobPref: {
         [fieldName]: value,
       }
     });
-    console.log(this.childForm);
-
   }
 
 }

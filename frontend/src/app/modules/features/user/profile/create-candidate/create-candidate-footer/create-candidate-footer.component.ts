@@ -14,6 +14,11 @@ export class CreateCandidateFooterComponent implements OnInit {
   @Output() postJob: EventEmitter<any> = new EventEmitter();
   @Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
   @Input() createCandidateForm: FormGroup;
+  savedUserDetails: any;
+  @Input('userDetails')
+  set userDetails(inFo: any) {
+    this.savedUserDetails = inFo;
+  }
 
   public btnType: string;
   isOpenedRegisterReviewModal: any;
@@ -70,8 +75,6 @@ export class CreateCandidateFooterComponent implements OnInit {
   }
 
   onToggleRegisterReview = (status) => {
-    // this.isOpenedRegisterReviewModal = status;
-    console.log(this.getErrors(this.createCandidateForm));
     if(this.createCandidateForm.valid) {
       this.onEnableJobPreviewModal.emit(status);
     }

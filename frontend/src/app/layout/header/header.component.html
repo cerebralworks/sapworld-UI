@@ -152,6 +152,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/dashboard']" href="javascript:;">Dashboard</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/create-candidate']" href="javascript:;">Profile</a></li>
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/notification']" href="javascript:;">Notification</a></li>
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/profile-setting']" href="javascript:;">Setting</a></li>
               <li class="submenu"> <a class="dropdown-item" (click)="logout()" href="javascript:;">Logout</a></li>
@@ -165,7 +166,6 @@
               <a (click)="onOpenLangMenu()" *ngIf="lang === translateService.currentLang"
                class="text-capitalize dropdown-toggle" href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img [src]="onGetLangImage(lang)" width="16" class="mr-2"/>
-                <!-- {{onGetLangNames(translateService.currentLang)}} -->
               </a>
             </ng-container>
 

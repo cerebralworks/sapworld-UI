@@ -23,23 +23,32 @@
 
           <div class="tab-content" [@animSlider]="slidingCounter">
 
-            <app-create-candidate-personal-details *ngIf="currentTabInfo.tabNumber == 1"
+            <app-create-candidate-personal-details
+            [userDetails]="userDetails"
+            *ngIf="currentTabInfo.tabNumber == 1"
               [currentTabInfo]="currentTabInfo">
             </app-create-candidate-personal-details>
 
-            <app-create-candidate-education-exp *ngIf="currentTabInfo.tabNumber == 2" [currentTabInfo]="currentTabInfo">
+            <app-create-candidate-education-exp
+            [userDetails]="userDetails"
+            *ngIf="currentTabInfo.tabNumber == 2" [currentTabInfo]="currentTabInfo">
             </app-create-candidate-education-exp>
 
-            <app-create-candidate-skillset *ngIf="currentTabInfo.tabNumber == 3" [currentTabInfo]="currentTabInfo">
+            <app-create-candidate-skillset
+            [userDetails]="userDetails"
+            *ngIf="currentTabInfo.tabNumber == 3" [currentTabInfo]="currentTabInfo">
             </app-create-candidate-skillset>
 
-            <app-create-candidate-job-preference *ngIf="currentTabInfo.tabNumber == 4"
+            <app-create-candidate-job-preference
+            [userDetails]="userDetails"
+            *ngIf="currentTabInfo.tabNumber == 4"
               [currentTabInfo]="currentTabInfo">
             </app-create-candidate-job-preference>
 
           </div>
 
           <app-create-candidate-footer
+          [userDetails]="userDetails"
           (postJob)="postJob()"
           [createCandidateForm]="candidateForm"
           (onEnableJobPreviewModal)="onToggleRegisterReview($event)"
@@ -48,6 +57,7 @@
           </app-create-candidate-footer>
 
           <app-candidate-review-modal
+          [userDetails]="userDetails"
           (postJob)="postJob()"
           *ngIf="isOpenedRegisterReviewModal"
           [toggleRegisterReviewModal]="isOpenedRegisterReviewModal"

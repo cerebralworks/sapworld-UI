@@ -97,9 +97,6 @@ export class JobInformationComponent implements OnInit {
       this.isContractDuration = true;
       this.childForm.get('jobInfo.contract_duration').setValidators([Validators.required]);
       this.childForm.get('jobInfo.contract_duration').updateValueAndValidity();
-      console.log(this.childForm);
-
-
     }else {
       this.isContractDuration = false;
       this.childForm.get('jobInfo.contract_duration').setValidators(null);
@@ -109,8 +106,6 @@ export class JobInformationComponent implements OnInit {
 
   handleAddressChange = (event) => {
     const address = this.sharedService.fromGooglePlace(event);
-    console.log('address', address, event.geometry.location.lat() + ',' + event.geometry.location.lng());
-
     this.childForm.patchValue({
       jobInfo: {
         city: address.city ? address.city : event.formatted_address,

@@ -77,11 +77,9 @@ export class SharedService {
   let industries;
   this.dataService.getIndustriesDataSource().subscribe(
     response => {
-      console.log(response);
       industries = response
     }
   );
-  console.log(industries);
   if(industries && industries.items && Array.isArray(industries.items) && Array.isArray(arrayValues) && arrayValues.length > 0) {
     const temp = industries.items.filter(r=> {
       return arrayValues.includes(r.id)
@@ -98,7 +96,6 @@ onFindSkillsFromSingleID = (value: any) => {
   let skillItems;
   this.dataService.getSkillDataSource().subscribe(
     response => {
-      console.log(response);
       skillItems = response
     }
   );
@@ -115,7 +112,6 @@ onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => 
   let skillItems;
   this.dataService.getSkillDataSource().subscribe(
     response => {
-      console.log(response);
       skillItems = response
     }
   );

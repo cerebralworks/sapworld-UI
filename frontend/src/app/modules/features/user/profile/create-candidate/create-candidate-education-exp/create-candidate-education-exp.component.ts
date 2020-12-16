@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -11,7 +11,7 @@ import { SharedService } from '@shared/service/shared.service';
   styleUrls: ['./create-candidate-education-exp.component.css'],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
-export class CreateCandidateEducationExpComponent implements OnInit {
+export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 
   @Input() currentTabInfo: tabInfo;
 
@@ -23,6 +23,11 @@ export class CreateCandidateEducationExpComponent implements OnInit {
   educationsSelectedValue: any;
   educationsSelectedIndex: number;
   userInfo: any;
+  savedUserDetails: any;
+  @Input('userDetails')
+  set userDetails(inFo: any) {
+    this.savedUserDetails = inFo;
+  }
 
   constructor(
     private parentF: FormGroupDirective,
@@ -36,11 +41,11 @@ export class CreateCandidateEducationExpComponent implements OnInit {
     this.createForm();
 
     this.educations = [
-      "High School",
-      "Bachelors",
-      "Diploma",
-      "Masters",
-      "Doctorate"
+      "high school",
+      "bachelors",
+      "diploma",
+      "masters",
+      "doctorate"
     ];
     this.dataService.getIndustriesDataSource().subscribe(
       response => {
@@ -56,14 +61,34 @@ export class CreateCandidateEducationExpComponent implements OnInit {
       response => {
         this.userInfo = response;
         if(this.userInfo) {
-          // this.childForm.patchValue({
-          //   educationExp: {
-          //     ...this.userInfo
-          //   }
-          // })
+
         }
       }
     )
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    setTimeout( async () => {
+    if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
+      if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
+        if ((this.savedUserDetails.education_qualification.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.education_qualification && this.savedUserDetails.education_qualification.length)) {
+         this.t.removeAt(0);
+          this.savedUserDetails.education_qualification.map((value, index) => {
+            this.onDuplicate();
+            this.onChangeDegreeValue(value.degree);
+          });
+        }
+      }
+      if (this.savedUserDetails.education_qualification == null) {
+        delete this.savedUserDetails.education_qualification;
+      }
+      this.childForm.patchValue({
+        educationExp: {
+          ...this.savedUserDetails
+        }
+      })
+    }
+  });
   }
 
   createForm() {
@@ -101,7 +126,7 @@ export class CreateCandidateEducationExpComponent implements OnInit {
   }
 
   onDuplicate = () => {
-    if (this.t.length < 4) {
+    if (this.t.length < 5) {
       this.t.push(this.formBuilder.group({
         degree: [''],
         field_of_study: [''],
@@ -118,7 +143,12 @@ export class CreateCandidateEducationExpComponent implements OnInit {
     }
 
     if (index == 0 && this.t.length == 1) {
-      this.t.reset();
+      this.t.removeAt(0);
+      this.t.push(this.formBuilder.group({
+        degree: [''],
+        field_of_study: [null],
+        year_of_completion: [null]
+      }));
     } else {
       this.t.removeAt(index);
 

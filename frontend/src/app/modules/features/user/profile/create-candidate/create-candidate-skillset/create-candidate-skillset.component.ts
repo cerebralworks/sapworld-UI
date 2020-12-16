@@ -19,6 +19,11 @@ export class CreateCandidateSkillsetComponent implements OnInit {
   public childForm;
   public skillItems: any[] = [];
   public userInfo: any;
+  savedUserDetails: any;
+  @Input('userDetails')
+  set userDetails(inFo: any) {
+    this.savedUserDetails = inFo;
+  }
 
   constructor(
     private parentF: FormGroupDirective,
@@ -32,7 +37,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     this.createForm();
     this.dataService.getSkillDataSource().subscribe(
       response => {
-        if(response && response.items) {
+        if (response && response.items) {
           this.skillItems = [...response.items];
         }
       },
@@ -44,15 +49,32 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     this.userSharedService.getUserProfileDetails().subscribe(
       response => {
         this.userInfo = response;
-        if(this.userInfo) {
-          // this.childForm.patchValue({
-          //   skillSet: {
-          //     ...this.userInfo
-          //   }
-          // })
-        }
       }
     )
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    setTimeout(async () => {
+      if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
+        if (this.savedUserDetails && this.savedUserDetails.hands_on_experience && Array.isArray(this.savedUserDetails.hands_on_experience)) {
+          if ((this.savedUserDetails.hands_on_experience.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.hands_on_experience && this.savedUserDetails.hands_on_experience.length)) {
+            this.t.removeAt(0);
+            this.savedUserDetails.hands_on_experience.map((value, index) => {
+              value.skill_id = value.skill_id.toString();
+              this.onDuplicate();
+            });
+          }
+        }
+        if (this.savedUserDetails.hands_on_experience == null) {
+          delete this.savedUserDetails.hands_on_experience;
+        }
+        this.childForm.patchValue({
+          skillSet: {
+            ...this.savedUserDetails
+          }
+        });
+      }
+    });
   }
 
   createForm() {
@@ -62,14 +84,14 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       hands_on_experience: new FormArray([this.formBuilder.group({
         skill_id: [null, Validators.required],
         skill_name: ['dasdasd'],
-        experience: ['', [Validators.required, ]],
+        experience: ['', [Validators.required,]],
         exp_type: ['years', [Validators.required]]
       })]),
       skills: new FormControl(null, Validators.required),
       programming_skills: new FormControl(null, Validators.required),
       other_skills: new FormControl(null, Validators.required),
       certification: new FormControl(null),
-      bio: new FormControl('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'),
+      bio: new FormControl('Lorem Ipsum'),
       // work_authorization: new FormControl(null, Validators.required),
       // visa_sponsorship: new FormControl(false, Validators.required),
       // travel_opportunity: new FormControl("", Validators.required),
@@ -92,15 +114,15 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     this.t.push(this.formBuilder.group({
       skill_id: [null, Validators.required],
       skill_name: ['sdasdasd'],
-      experience: ['', [Validators.required, ]],
+      experience: ['', [Validators.required,]],
       exp_type: ['years', [Validators.required]]
     }));
   }
 
   onRemove = (index) => {
-    if(index == 0) {
+    if (index == 0) {
       this.t.reset();
-    }else {
+    } else {
       this.t.removeAt(index);
     }
   }

@@ -55,8 +55,6 @@ export class RegisterFormComponent implements OnInit {
         this.registerForm.get('companyName').setValidators(null);
         this.registerForm.get('companyName').updateValueAndValidity();
       }
-      console.log(this.registerForm);
-
     }
   }
 

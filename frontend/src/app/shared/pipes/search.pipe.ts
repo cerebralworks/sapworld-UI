@@ -10,8 +10,6 @@ export class JsonFilterByPipe implements PipeTransform {
         const jsonKeyArray = [];
 
         if (searchText == null || searchText === 'undefined') { return json; }
-        // console.log('json', json);
-
         if (jsonKey.indexOf(',') > 0) {
             jsonKey.split(',').forEach((key) => {
                 jsonKeyArray.push(key.trim());

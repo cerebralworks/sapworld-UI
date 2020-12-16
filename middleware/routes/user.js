@@ -17,6 +17,12 @@ module.exports = (app, env, rp) => {
     requestCustom.post(`${serverRoutes.userUpdate}`, req, res, requestBody);
   });
 
+  app.get("/api/users/view", (req, res) => {
+    let requestBody = { ...req.query };   
+    const userID = requestBody.id; 
+    requestCustom.get(`${serverRoutes.userView}/${userID}`, req, res, requestBody);
+  });
+
   app.post("/api/users/update-photo", (req, res) => {
     var form = new IncomingForm();
     form.parse(req, function(err, fields, files) {

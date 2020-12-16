@@ -9,6 +9,8 @@ import { UserService } from '@data/service/user.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { DataService } from '@shared/service/data.service';
 import { ImageCropperComponent, ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
+import { ToastrService } from 'ngx-toastr';
+import { UserSharedService } from '@data/service/user-shared.service';
 
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
@@ -55,9 +57,10 @@ export class CreateCandidateLayoutComponent implements OnInit {
   public isOpenedRegisterReviewModal: any;
   public candidateForm: FormGroup;
   public userId: string;
-  jobId: any;
-  filesToUploadData: any;
+  public filesToUploadData: any;
   public userPhotoInfo: any;
+  userDetails: any;
+  userInfo: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -66,9 +69,12 @@ export class CreateCandidateLayoutComponent implements OnInit {
     private route: ActivatedRoute,
     private sharedApiService: SharedApiService,
     private userService: UserService,
-    private dataService: DataService
+    private dataService: DataService,
+    private toastrService: ToastrService,
+    private userSharedService: UserSharedService
   ) { }
 
+  validateInfo = 0;
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
@@ -77,18 +83,24 @@ export class CreateCandidateLayoutComponent implements OnInit {
     this.buildForm();
     this.onGetSkill();
     this.onGetIndustries();
-    this.userId = this.route.snapshot.queryParamMap.get('id');
-    if(this.userId) {
-      this.onGetCreatedUserInfo(this.userId);
-    }
 
     this.dataService.getUserPhoto().subscribe(
       response => {
         this.userPhotoInfo = response;
-        console.log('this.userPhotoInfo', this.userPhotoInfo);
+
 
       }
     )
+
+    this.userSharedService.getUserProfileDetails().subscribe(
+        response => {
+          this.userInfo = response;
+          if(this.userInfo && this.userInfo.id && this.validateInfo == 0) {
+            this.onGetCandidateInfo(this.userInfo.id);
+            this.validateInfo++;
+          }
+        }
+      )
   }
 
   onNext() {
@@ -126,8 +138,6 @@ export class CreateCandidateLayoutComponent implements OnInit {
       ...this.candidateForm.value.skillSet,
       ...this.candidateForm.value.jobPref
     };
-    console.log('candidateInfo', candidateInfo);
-
 
     if (this.candidateForm.valid) {
       if(this.userPhotoInfo && this.userPhotoInfo.photoBlob) {
@@ -162,6 +172,14 @@ export class CreateCandidateLayoutComponent implements OnInit {
           this.onToggleRegisterReview(false)
         });
       }, error => {
+        if(error && error.error && error.error.errors) {
+          let imp = error.error.errors.filter((_val) => {
+           return _val.rules.filter(val => val.rule == 'unique')
+          });
+          if(imp.length > 0 && imp[0].rules.length > 0) {
+            this.toastrService.error(imp[0].rules[0].message)
+          }
+        }
       }
     )
   }
@@ -173,23 +191,6 @@ export class CreateCandidateLayoutComponent implements OnInit {
   private buildForm(): void {
     this.candidateForm = this.formBuilder.group({
     });
-  }
-
-  onGetCreatedUserInfo(jobId) {
-    let requestParams: any = {};
-    requestParams.expand = 'company';
-    requestParams.id = jobId;
-    // this.employerService.getPostedJobDetails(requestParams).subscribe(
-    //   response => {
-    //     if(response && response.details) {
-    //       this.postedJobsDetails = response.details;
-    //       this.postJobForm.patchValue({
-    //         ...this.postedJobsDetails
-    //       });
-    //     }
-    //   }, error => {
-    //   }
-    // )
   }
 
   onGetSkill = () => {
@@ -206,6 +207,22 @@ export class CreateCandidateLayoutComponent implements OnInit {
     requestParams.limit = 1000;
     requestParams.search = '';
     this.sharedApiService.onGetIndustries(requestParams);
+  }
+
+  onGetCandidateInfo(userId) {
+    let requestParams: any = {};
+    requestParams.id = userId;
+    this.userService.profileView(requestParams).subscribe(
+      response => {
+        if(response && response.details) {
+          this.userDetails = response.details;
+          this.candidateForm.patchValue({
+            ...this.userDetails
+          });
+        }
+      }, error => {
+      }
+    )
   }
 
 }

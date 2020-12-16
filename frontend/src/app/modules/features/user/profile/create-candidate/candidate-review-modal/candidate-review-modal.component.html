@@ -6,14 +6,17 @@
     </button>
     </div>
     <div class="modal-body" style="height:550px; overflow-y:scroll;">
-			<div class="row">
+      <div class="row">
 				<div class="col-lg-12">
 					<div class="card job-card">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-lg-7">
-									<a href="candidate-job-view.html">
-										<h5>{{childForm?.value?.personalDetails?.first_name + ' ' + childForm?.value?.personalDetails?.last_name}} <small> - {{childForm?.value?.personalDetails?.current_employer_role}}</small></h5>
+									<a href="javascript:;" class="text-capitalize">
+                    {{childForm?.value?.personalDetails?.first_name + ' ' + childForm?.value?.personalDetails?.last_name}}
+                      <small  class="text-capitalize" *ngIf="childForm?.value?.educationExp?.current_employer_role">
+                        - {{childForm?.value?.educationExp?.current_employer_role}}
+                      </small>
 									</a>
 								</div>
 								<div class="col-lg-5 text-right">
@@ -26,13 +29,26 @@
 							<div class="media">
 								<img [src]="userPhotoInfo?.base64 ? convertToImage(userPhotoInfo?.base64) : 'assets/images/user-img-icon.jpg'">
 								<div class="media-body">
-									<h6>{{childForm?.value?.personalDetails?.phone}}	</h6>
-                  <h6><a href="mailto:peter-parker2010@gmail.com">{{userInfo?.email}}</a> <span class="mx-2">||</span>
-                    {{childForm?.value?.personalDetails?.city ? childForm?.value?.personalDetails?.city + ', ' : ''}}
-                    {{childForm?.value?.personalDetails?.state ? childForm?.value?.personalDetails?.state + ', ' : ''}}
-                    {{childForm?.value?.personalDetails?.country ? childForm?.value?.personalDetails?.country : ''}}
+									<h6 class="mb-1">{{childForm?.value?.personalDetails?.phone}}	</h6>
+									<h6 *ngIf="childForm?.value?.personalDetails?.social_media_link?.length">
+                    <a class="mr-1" *ngFor="let item of childForm?.value?.personalDetails?.social_media_link" href="{{item.url}}" target="_blank">
+                      <ng-container [ngSwitch]="item?.media">
+                        <ng-container *ngSwitchCase="'youtube'">
+                          <i class="fab fa-youtube-square"></i>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'portfolio'">
+                          <i class="fas fa-laptop-code"></i>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'blog'">
+                          <i class="fas fa-blog"></i>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                          <i class="fab fa-{{item.media}}"></i>
+                        </ng-container>
+                      </ng-container>
+                    </a>
                   </h6>
-									<h6 class="mb-0">{{childForm?.value?.personalDetails?.current_employer}}</h6>
+									<h6 class="mb-0 text-capitalize">{{childForm?.value?.educationExp?.current_employer}}</h6>
 								</div>
 							</div>
 						</div>
@@ -58,19 +74,14 @@
                 <span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
                 <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
               </p>
-              <!-- {{onConvertArrayObjToAdditionalString(childForm?.value?.requirement?.hands_on_experience, 'domain', 'tag')}} -->
             </li>
-					  <!-- <li class="list-group-item">8+ Years</li>
-					  <li class="list-group-item">5+ Years</li>
-					  <li class="list-group-item">Automotive, Logistics, Finance</li>
-					  <li class="list-group-item">SAP PM, SAP MM, SAP Mobility</li> -->
 					</ul>
 				</div>
 
 				<div class="col-lg-12 border-top pt-3">	</div>
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
-					  <li class="list-group-item">Knowledge on</li>
+					  <li class="list-group-item lg-mh-40">Knowledge on</li>
 					  <li class="list-group-item">Programming Skills</li>
 					  <li class="list-group-item">Others</li>
             <li class="list-group-item">Certifications</li>
@@ -83,12 +94,11 @@
               <p class="m-0 w-100 float-left" *ngFor="let item of childForm?.value?.skillSet?.skills">
                 <span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
               </p>
-              <!-- {{onConvertArrayObjToString(childForm?.value?.requirement?.skills, 'tag')}}  -->
             </li>
             <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
             <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}}</li>
             <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.certification)}}</li>
-            <li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.end_to_end_implementation}}</li>
+            <li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.end_to_end_implementation ? childForm?.value?.educationExp?.end_to_end_implementation : '--'}}</li>
 					</ul>
 				</div>
 
@@ -103,16 +113,16 @@
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-					  <li class="list-group-item">
+					  <li class="list-group-item text-capitalize">
               {{utilsHelperService.onConvertArrayToString(childForm?.value?.educationExp?.clients_worked)}}
             </li>
 					  <li class="list-group-item text-capitalize">
               {{sharedService.onGetJobType(childForm?.value?.jobPref?.job_type)}}
             </li>
-					  <li class="list-group-item">
-              {{childForm?.value?.jobPref?.job_role}}
+					  <li class="list-group-item text-capitalize">
+              {{childForm?.value?.jobPref?.job_role ? childForm?.value?.jobPref?.job_role : '--'}}
             </li>
-					  <li class="list-group-item">
+					  <li class="list-group-item text-capitalize">
               {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}
             </li>
 					</ul>
@@ -122,7 +132,6 @@
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
 					  <li class="list-group-item">Available in</li>
-					  <!-- <li class="list-group-item">Work Authorization</li> -->
 					  <li class="list-group-item">Travel</li>
 					  <li class="list-group-item">Willing to Relocate</li>
 					</ul>
@@ -132,8 +141,7 @@
 					  <li class="list-group-item">
               {{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + ' Days'}}
             </li>
-					  <!-- <li class="list-group-item text-capitalize">{{childForm?.value?.jobPref?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li> -->
-					  <li class="list-group-item">
+             <li class="list-group-item">
               {{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}
             </li>
 					  <li class="list-group-item">

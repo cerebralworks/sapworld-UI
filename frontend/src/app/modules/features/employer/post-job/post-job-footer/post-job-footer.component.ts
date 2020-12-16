@@ -66,8 +66,6 @@ export class PostJobFooterComponent implements OnInit {
   }
 
   onTabChange = () => {
-    // console.log(this.getErrors(this.postJobForm), this.postJobForm.valid);
-
     if(this.btnType == 'next' && this.postJobForm.valid) {
       let nextTabProgressor = {} as tabInfo;
       nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
@@ -117,7 +115,6 @@ export class PostJobFooterComponent implements OnInit {
   }
 
   onToggleJobPreviewModal = (status) => {
-    console.log(this.getErrors(this.postJobForm));
     if(this.postJobForm.valid) {
       this.onEnableJobPreviewModal.emit(status);
     }

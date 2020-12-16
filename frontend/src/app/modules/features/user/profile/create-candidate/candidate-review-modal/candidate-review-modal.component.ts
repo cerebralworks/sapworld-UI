@@ -20,11 +20,11 @@ export class CandidateReviewModalComponent implements OnInit {
   @Input() toggleRegisterReviewModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
   @Output() postJob: EventEmitter<any> = new EventEmitter();
-  getPostedJobsDetails: any;
+  savedUserDetails: any;
   jobId: string;
-  @Input('postedJobsDetails')
-  set postedJobsDetails(inFo: any) {
-    this.getPostedJobsDetails = inFo;
+  @Input('userDetails')
+  set userDetails(inFo: any) {
+    this.savedUserDetails = inFo;
   }
 
   public childForm;
@@ -50,7 +50,6 @@ export class CandidateReviewModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.childForm = this.parentF.form;
-    console.log(this.childForm);
 
     this.jobId = this.route.snapshot.queryParamMap.get('id');
 

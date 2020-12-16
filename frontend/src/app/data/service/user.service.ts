@@ -41,4 +41,12 @@ export class UserService extends CacheService {
     );
   }
 
+  profileView = (params?) => {
+    return this.apiService.get('/api/users/view', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
 }

@@ -94,7 +94,6 @@ export class JobPreviewComponent implements OnInit {
   onClickCloseBtn(status) {
     this.childForm.get('jobPrev.number_of_positions').setValidators(null);
     this.childForm.get('jobPrev.number_of_positions').updateValueAndValidity();
-    // console.log(this.getErrors(this.childForm));
     if (status == false) {
       this.modalService.dismissAll()
     }

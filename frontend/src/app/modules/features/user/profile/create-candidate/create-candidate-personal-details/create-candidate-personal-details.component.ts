@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { tabInfo } from '@data/schema/create-candidate';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
 import { ControlContainer, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
@@ -47,12 +47,18 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   public childForm;
   public show: boolean = false;
   public userInfo: any = {};
-  defaultProfilePic: string;
-  mbRef: any;
-  profilePicValue: any;
-  profilePicAsEvent: any;
-  previousProfilePic: string;
-  imageChangedEvent: FileList;
+  public defaultProfilePic: string;
+  public mbRef: any;
+  public profilePicValue: any;
+  public profilePicAsEvent: any;
+  public previousProfilePic: string;
+  public imageChangedEvent: FileList;
+  public socialMediaLinks: any[] = [];
+  savedUserDetails: any;
+  @Input('userDetails')
+  set userDetails(inFo: any) {
+    this.savedUserDetails = inFo;
+  }
 
   @ViewChild('userImage', { static: false }) userImage: ElementRef;
   croppedFile: any;
@@ -71,40 +77,103 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
 
-    this.userSharedService.getUserProfileDetails().subscribe(
-      response => {
-        this.userInfo = response;
-        if (this.userInfo) {
+    // this.userSharedService.getUserProfileDetails().subscribe(
+    //   response => {
+    //     this.userInfo = response;
+    //     if (this.userInfo) {
+    //       this.childForm.patchValue({
+    //         personalDetails: {
+    //           ...this.userInfo,
+    //         }
+    //       });
+    //       if(this.userInfo && this.userInfo.social_media_link && this.userInfo.social_media_link.length > 0) {
+    //         this.childForm.patchValue({
+    //           personalDetails: {
+    //             linkedin: this.onFindMediaLinks('linkedin', this.userInfo.social_media_link).url,
+    //             github: this.onFindMediaLinks('github', this.userInfo.social_media_link).url,
+    //             youtube: this.onFindMediaLinks('youtube', this.userInfo.social_media_link).url,
+    //             blog: this.onFindMediaLinks('blog', this.userInfo.social_media_link).url,
+    //             portfolio: this.onFindMediaLinks('portfolio', this.userInfo.social_media_link).url,
+    //             linkedinBoolen: this.onFindMediaLinks('linkedin', this.userInfo.social_media_link).visibility,
+    //             githubBoolen: this.onFindMediaLinks('github', this.userInfo.social_media_link).visibility,
+    //             youtubeBoolen: this.onFindMediaLinks('youtube', this.userInfo.social_media_link).visibility,
+    //             blogBoolen: this.onFindMediaLinks('blog', this.userInfo.social_media_link).visibility,
+    //             portfolioBoolen: this.onFindMediaLinks('portfolio', this.userInfo.social_media_link).visibility
+    //           }
+    //         })
+    //       }
+    //       this.childForm.get('personalDetails.email').disable();
+
+    //       let latlngText: string = this.userInfo.latlng_text;
+    //       if (latlngText) {
+    //         const splitedString: any[] = latlngText.split(',');
+    //         if (splitedString && splitedString.length) {
+    //           this.childForm.patchValue({
+    //             personalDetails: {
+    //               latlng: {
+    //                 lat: splitedString[0],
+    //                 lng: splitedString[1]
+    //               }
+    //             }
+    //           })
+    //         }
+    //       }
+    //     }
+
+    //   }
+    // )
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.childForm && this.savedUserDetails) {
+      this.childForm.patchValue({
+        personalDetails: {
+          ...this.savedUserDetails,
+        }
+      });
+      if(this.savedUserDetails && this.savedUserDetails.social_media_link && this.savedUserDetails.social_media_link.length > 0) {
+        this.childForm.patchValue({
+          personalDetails: {
+            linkedin: this.onFindMediaLinks('linkedin', this.savedUserDetails.social_media_link).url,
+            github: this.onFindMediaLinks('github', this.savedUserDetails.social_media_link).url,
+            youtube: this.onFindMediaLinks('youtube', this.savedUserDetails.social_media_link).url,
+            blog: this.onFindMediaLinks('blog', this.savedUserDetails.social_media_link).url,
+            portfolio: this.onFindMediaLinks('portfolio', this.savedUserDetails.social_media_link).url,
+            linkedinBoolen: this.onFindMediaLinks('linkedin', this.savedUserDetails.social_media_link).visibility,
+            githubBoolen: this.onFindMediaLinks('github', this.savedUserDetails.social_media_link).visibility,
+            youtubeBoolen: this.onFindMediaLinks('youtube', this.savedUserDetails.social_media_link).visibility,
+            blogBoolen: this.onFindMediaLinks('blog', this.savedUserDetails.social_media_link).visibility,
+            portfolioBoolen: this.onFindMediaLinks('portfolio', this.savedUserDetails.social_media_link).visibility
+          }
+        })
+      }
+      this.childForm.get('personalDetails.email').disable();
+
+      let latlngText: string = this.savedUserDetails.latlng_text;
+      if (latlngText) {
+        const splitedString: any[] = latlngText.split(',');
+        if (splitedString && splitedString.length) {
           this.childForm.patchValue({
             personalDetails: {
-              // ...this.userInfo,
-              email: this.userInfo.email,
-              first_name: this.userInfo.first_name,
-              last_name: this.userInfo.last_name,
+              latlng: {
+                lat: splitedString[0],
+                lng: splitedString[1]
+              }
             }
-          });
-          this.childForm.get('personalDetails.email').disable();
-
-          let latlngText: string = this.userInfo.latlng_text;
-          if (latlngText) {
-            const splitedString: any[] = latlngText.split(',');
-            if (splitedString && splitedString.length) {
-              this.childForm.patchValue({
-                personalDetails: {
-                  latlng: {
-                    lat: splitedString[0],
-                    lng: splitedString[1]
-                  }
-                }
-              })
-            }
-            console.log(this.childForm);
-
-          }
+          })
         }
-
       }
-    )
+    }
+  }
+
+  onFindMediaLinks = (mediaType: string, array: any[]) => {
+    if(mediaType) {
+      const link = array.find((val, index) => {
+        return val.media == mediaType;
+      });
+      return link ? link : ''
+    }
+    return ''
   }
 
   createForm() {
@@ -114,7 +183,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       first_name: new FormControl('', Validators.required),
       last_name: new FormControl('', Validators.required),
       email: new FormControl(''),
-      phone: new FormControl('',),
+      phone: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
       latlng: new FormControl('', Validators.required),
@@ -125,7 +194,12 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       github: new FormControl(''),
       youtube: new FormControl(''),
       blog: new FormControl(''),
-      portfolio: new FormControl('')
+      portfolio: new FormControl(''),
+      linkedinBoolen: new FormControl(false),
+      githubBoolen: new FormControl(false),
+      youtubeBoolen: new FormControl(false),
+      blogBoolen: new FormControl(false),
+      portfolioBoolen: new FormControl(false)
     }));
   }
 
@@ -135,8 +209,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 
   handleAddressChange = (event) => {
     const address = this.sharedService.fromGooglePlace(event);
-    console.log('address', address, event.geometry.location.lat() + ',' + event.geometry.location.lng());
-
     this.childForm.patchValue({
       personalDetails: {
         city: address.city ? address.city : event.formatted_address,
@@ -151,23 +223,33 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   };
 
   onSetLinks = (fieldName, status) => {
-    console.log(this.childForm.value.personalDetails[fieldName]);
-
-    let arrayValue = [];
-    arrayValue.push(
-      {
-        "media": fieldName,
-        "url": this.childForm.value.personalDetails[fieldName],
-        "visibility": status
+    if(this.socialMediaLinks.length == 0) {
+      this.socialMediaLinks.push(
+        {
+          "media": fieldName,
+          "url": this.childForm.value.personalDetails[fieldName],
+          "visibility": status
+        }
+      )
+    }else {
+      let findInex = this.socialMediaLinks.findIndex(val => ((val.media == fieldName) && (val.visibility == true)))
+      if(findInex > -1) {
+        this.socialMediaLinks[findInex].visibility = status;
+      }else {
+        this.socialMediaLinks.push(
+          {
+            "media": fieldName,
+            "url": this.childForm.value.personalDetails[fieldName],
+            "visibility": status
+          }
+        )
       }
-    )
+    }
     this.childForm.patchValue({
       personalDetails: {
-        social_media_link: arrayValue
+        social_media_link: this.socialMediaLinks
       }
     })
-    console.log(this.childForm.value);
-
   }
 
   handleFileInput(event, CropImagePopUp) {
@@ -232,7 +314,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     this.defaultProfilePic = this.profilePicValue;
     this.previousProfilePic = this.defaultProfilePic;
     this.dataService.setUserPhoto({ photoBlob: this.croppedFile, base64: this.defaultProfilePic })
-    // this.onUserPhotoUpdate();
     this.mbRef.close();
   }
 
@@ -247,35 +328,5 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   convertToImage(imageString: string): string {
     return this.utilsHelperService.convertToImageUrl(imageString);
   }
-
-  // base64ToFile(data, filename) {
-
-  //   const arr = data.split(',');
-  //   const mime = arr[0].match(/:(.*?);/)[1];
-  //   const bstr = atob(arr[1]);
-  //   let n = bstr.length;
-  //   let u8arr = new Uint8Array(n);
-
-  //   while(n--){
-  //       u8arr[n] = bstr.charCodeAt(n);
-  //   }
-
-  //   return new File([u8arr], filename, { type: mime });
-  // }
-
-  // onUserPhotoUpdate = () => {
-  //   console.log('this.profilePicAsEvent', this.croppedFile);
-
-  //   const formData = new FormData();
-  //   formData.append('photo' , this.croppedFile, this.croppedFile.name);
-  // //   Array.from(this.filesToUploadData).map((file, index) => {
-  // //     formData.append('file' + index, file, file.name);
-  // // });
-  //   this.userService.photoUpdate(formData).subscribe(
-  //     response => {
-  //     }, error => {
-  //     }
-  //   )
-  // }
 
 }

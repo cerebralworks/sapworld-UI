@@ -27,8 +27,6 @@ export class UtilsHelperService {
   }
 
   onConvertArrayToString = (value: any[]) => {
-    console.log(value);
-
     if (!Array.isArray(value)) return "--";
     return value.join(", ");
   }
