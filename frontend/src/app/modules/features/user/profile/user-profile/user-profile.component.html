@@ -15,7 +15,7 @@
                     </h5>
                   </div>
                   <div class="col-lg-5 text-right">
-                    <a class="btn btn-outline-warning btn-sm mr-1" href="javascript:;" title="Edit"><i
+                    <a class="btn btn-outline-warning btn-sm mr-1"  [routerLink]="['/user/create-candidate']" href="javascript:;" title="Edit"><i
                         class="fas fa-pencil-alt"></i> {{"dashboard.edit" | translate }}</a>
                     <span data-toggle="modal" data-target="#resumeModal">
                       <a (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm" href="javascript:;">
