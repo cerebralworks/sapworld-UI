@@ -42,4 +42,5 @@ export interface CandidateProfile {
   company: number;
   end_to_end_implementation: number;
   contract_duration: number;
+  education_qualification: any[];
 }

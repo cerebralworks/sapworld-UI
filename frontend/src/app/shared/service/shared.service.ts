@@ -19,9 +19,17 @@ export class SharedService {
   constructor(
     public router: Router,
     private dataService: DataService,
-    private utilsHelperService: UtilsHelperService
+    private utilsHelperService: UtilsHelperService,
+    private sharedApiService: SharedApiService
   ) {
     this.currencyArray = currencies;
+
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.limit = 1000;
+    requestParams.search = '';
+    sharedApiService.onGetSkill(requestParams);
+    sharedApiService.onGetIndustries(requestParams);
    }
 
   getCurrentRoleFromUrl = () => {
@@ -84,6 +92,7 @@ export class SharedService {
     const temp = industries.items.filter(r=> {
       return arrayValues.includes(r.id)
     });
+
     if(returnVal == 'obj') {
       return temp;
     }

@@ -14,7 +14,7 @@
           <app-control-messages [control]="f['last_name']"></app-control-messages>
         </div>
       </div>
-      <div class="col-lg-4 mt-4">
+      <div class="col-lg-4 mt-4" style="z-index: 1;">
         <div class="upload-box">
           <div class="box text-center upload-image">
             <img *ngIf="defaultProfilePic" [src]="convertToImage(defaultProfilePic)" alt="upload-photo" class="img-fluid mx-auto rounded-circle border border-primary"
@@ -40,7 +40,7 @@
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
           <label>{{"postYourResume.mobileNumber" | translate }}</label>
-          <input appMarkAsterisk numbersOnly formControlName="phone" type="text" class="form-control" placeholder="+91 9876543210" value="+91 9876543210">
+          <input appMarkAsterisk numbersOnly minlength=10 maxlength=10 formControlName="phone" type="text" class="form-control" placeholder="+91 9876543210" value="+91 9876543210">
           <app-control-messages [control]="f['phone']"></app-control-messages>
         </div>
       </div>

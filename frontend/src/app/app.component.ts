@@ -66,6 +66,9 @@ export class AppComponent {
     this.accountService.checkUserloggedIn().subscribe(
       response => {
         this.loggedInResponse = response;
+        if(this.loggedInResponse && (this.loggedInResponse.isLoggedIn == false)) {
+          this.validateCall = 0;
+        }
         this.getUserInfo();
       },
       error => {
@@ -82,29 +85,32 @@ export class AppComponent {
   }
 
   onGetEmployerProfile() {
-    // this.ngxService.start();
     this.employerService.profile().subscribe(
       response => {
-        // this.ngxService.stop();
         this.employerProfileInfo = response;
-        if(this.employerProfileInfo && this.employerProfileInfo.details)
+        if(this.employerProfileInfo && this.employerProfileInfo.details) {
           this.employerSharedService.saveEmployerProfileDetails(this.employerProfileInfo.details);
+        }
+
       }, error => {
-        // this.ngxService.stop();
       }
     )
   }
 
+  validateCall = 0;
   onGetUserProfile() {
-    // this.ngxService.start();
     this.userService.profile().subscribe(
       response => {
-        // this.ngxService.stop();
         this.userProfileInfo = response;
-        if(this.userProfileInfo && this.userProfileInfo.details)
+        if(this.userProfileInfo && this.userProfileInfo.details) {
           this.userSharedService.saveUserProfileDetails(this.userProfileInfo.details);
+          if (this.userProfileInfo && this.userProfileInfo.details.profile_completed == false && this.validateCall == 0) {
+            this.router.navigate(['/user/create-candidate']);
+            this.validateCall++;
+          }
+        }
+
       }, error => {
-        // this.ngxService.stop();
       }
     )
   }

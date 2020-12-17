@@ -7,6 +7,7 @@ export class DataService {
   private skillTags = new BehaviorSubject<any>({});
   private industries = new BehaviorSubject<any>({});
   private userPhoto = new BehaviorSubject<any>({});
+  private tabInfo = new BehaviorSubject<any>({});
 
   setSkillDataSource(data: {}) {
     this.skillTags.next(data);
@@ -42,6 +43,18 @@ export class DataService {
 
   getUserPhoto(): Observable<any> {
     return this.userPhoto.asObservable();
+  }
+
+  setTabInfo(data: any[]) {
+    this.tabInfo.next(data);
+  }
+
+  clearTabInfo(): any {
+    this.tabInfo.next([]);
+  }
+
+  getTabInfo(): Observable<any> {
+    return this.tabInfo.asObservable();
   }
 
 }

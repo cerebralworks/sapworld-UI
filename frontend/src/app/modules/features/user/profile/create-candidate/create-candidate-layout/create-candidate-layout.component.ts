@@ -81,14 +81,12 @@ export class CreateCandidateLayoutComponent implements OnInit {
     };
 
     this.buildForm();
-    this.onGetSkill();
-    this.onGetIndustries();
+    // this.onGetSkill();
+    // this.onGetIndustries();
 
     this.dataService.getUserPhoto().subscribe(
       response => {
         this.userPhotoInfo = response;
-
-
       }
     )
 
@@ -138,6 +136,16 @@ export class CreateCandidateLayoutComponent implements OnInit {
       ...this.candidateForm.value.skillSet,
       ...this.candidateForm.value.jobPref
     };
+
+    if(candidateInfo && candidateInfo.education_qualification && Array.isArray(candidateInfo.education_qualification)) {
+      let educationQualification = candidateInfo.education_qualification.filter((val) => {
+        return (val.degree != null && val.degree != '') && (val.field_of_study != null && val.field_of_study != '') && (val.year_of_completion != null && val.year_of_completion != '')
+      });
+      candidateInfo.education_qualification = educationQualification;
+    }
+
+    console.log(candidateInfo);
+
 
     if (this.candidateForm.valid) {
       if(this.userPhotoInfo && this.userPhotoInfo.photoBlob) {

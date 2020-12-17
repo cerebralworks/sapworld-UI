@@ -13,6 +13,7 @@ export class ValidationService {
       minlength: `The field must contain atleast ${validatorValue.requiredLength} characters.`,
       invalidEmailAddress: 'Please enter a valid email address.',
       mismatch: 'Password doesn\'t match.',
+      inValidMobile: 'Invalid mobile number',
       noFreeEmail: "Please use your business email, we don't accept Gmail, Yahoo, Hotmail and Mailinator accounts."
     };
 
@@ -63,6 +64,20 @@ export class ValidationService {
       return null;
     } else {
       return { noFreeEmail: true };
+    }
+  }
+
+  public static mobileNumber(control) {
+    control.value = control.value.toString()
+    // RFC 2822 compliant regex
+    if (
+      control && control.value && (control.value.match(
+        /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/
+      ))
+    ) {
+      return null;
+    } else {
+      return { inValidMobile: true };
     }
   }
 }

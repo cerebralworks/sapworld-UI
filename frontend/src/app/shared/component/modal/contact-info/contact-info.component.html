@@ -8,11 +8,13 @@
   <div class="modal-body">
     <div class="mt-3">
       <div class="contactIcon"><i class="fas fa-phone-alt"></i> Phone </div>
-      <h5>+91 9876543210 / 9876543222</h5>
+      <h5>
+        {{userInfo?.phone}}
+      </h5>
     </div>
     <div class="mt-4">
       <div class="contactIcon"><i class="fas fa-envelope"></i> Email </div>
-      <h5><a href="mailto:peter-parker2010@gmail.com">jacky-smith2010@gmail.com</a></h5>
+      <h5><a href="mailto:{{userInfo?.email}}">{{userInfo?.email}}</a></h5>
     </div>
   </div>
   <div class="modal-footer">

@@ -5,7 +5,7 @@
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.degree" | translate }} </label>
-          <select (change)="onChangeDegreeValue($event?.target?.value)" formControlName="degree" class="form-control text-capitalize">
+          <select (change)="onChangeDegreeValue($event?.target?.value, i)" formControlName="degree" class="form-control text-capitalize">
             <option [value]="''">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}
             </option>
             <ng-container *ngFor="let education of educations; let i = index">
@@ -20,14 +20,14 @@
       <div class="col-lg-4 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.fieldOfStudy" | translate }}</label>
-          <input formControlName="field_of_study" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.fieldOfStudy' | translate">
+          <input (change)="onChangeStudyValue($event?.target?.value, i)" formControlName="field_of_study" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.fieldOfStudy' | translate">
           <app-control-messages [control]="ticket['controls']['field_of_study']"></app-control-messages>
         </div>
       </div>
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
-          <input numbersOnly formControlName="year_of_completion" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.yearOfCompletion' | translate">
+          <input  (change)="onChangeCompletionValue($event?.target?.value, i)" numbersOnly formControlName="year_of_completion" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.yearOfCompletion' | translate">
           <app-control-messages [control]="ticket['controls']['year_of_completion']"></app-control-messages>
         </div>
       </div>

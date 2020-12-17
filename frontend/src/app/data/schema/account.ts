@@ -9,7 +9,7 @@ export interface AccountLogin {
 export interface LoggedIn {
   success: boolean;
   userId: string;
-  isLoggedIn: string;
+  isLoggedIn: boolean;
   role: Array<any>
 }
 

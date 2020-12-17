@@ -64,7 +64,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
             if (!navigator.onLine) {
               // Handle offline error
-              this.toastrService.error('No Internet Connection', '');
+              // this.toastrService.error('No Internet Connection', '');
 
 
             } else {

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserSharedService } from '@data/service/user-shared.service';
+import { SharedService } from '@shared/service/shared.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,10 +12,21 @@ export class UserProfileComponent implements OnInit {
 
   public isOpenedContactInfoModal: boolean = false;
   public isOpenedResumeModal: boolean = false;
+  public userInfo: any;
+  public userPhotoInfo: any;
 
-  constructor() { }
+  constructor(
+    private userSharedService: UserSharedService,
+    public utilsHelperService: UtilsHelperService,
+    public sharedService: SharedService
+  ) { }
 
   ngOnInit(): void {
+    this.userSharedService.getUserProfileDetails().subscribe(
+      response => {
+        this.userInfo = response;
+      }
+    )
   }
 
   onToggleContactInfoModal = (status) => {
@@ -23,5 +37,8 @@ export class UserProfileComponent implements OnInit {
     this.isOpenedResumeModal = status;
   }
 
+  convertToImage(imageString: string): string {
+    return this.utilsHelperService.convertToImageUrl(imageString);
+  }
 
 }

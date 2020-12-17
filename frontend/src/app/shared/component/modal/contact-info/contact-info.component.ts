@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-contact-info',
@@ -10,15 +11,18 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 export class ContactInfoComponent implements OnInit {
 
   @Input() toggleContactInfoModal: boolean;
+  @Input() userInfo: any;
   @Output() onEvent = new EventEmitter<boolean>();
 
   public mbRef: NgbModalRef;
 
   @ViewChild("contactInfoModal", { static: false }) contactInfoModal: TemplateRef<any>;
 
+
   constructor(
     private modalService: NgbModal,
-    public router: Router
+    public router: Router,
+    private utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
@@ -47,5 +51,8 @@ export class ContactInfoComponent implements OnInit {
     }
   }
 
+  convertToImage(imageString: string): string {
+    return this.utilsHelperService.convertToImageUrl(imageString);
+  }
 
 }

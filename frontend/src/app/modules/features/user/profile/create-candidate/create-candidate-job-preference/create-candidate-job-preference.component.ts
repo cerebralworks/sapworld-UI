@@ -2,6 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
+import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 
 @Component({
@@ -14,10 +15,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 
   @Input() currentTabInfo: tabInfo;
   public childForm;
-public availabilityArray: any[];
-public travelArray: any[]
-  userInfo: any;
-  savedUserDetails: any;
+  public availabilityArray: any[];
+  public travelArray: any[]
+  public userInfo: any;
+  public savedUserDetails: any;
+  public tabInfos: tabInfo[];
   @Input('userDetails')
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
@@ -26,26 +28,27 @@ public travelArray: any[]
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
     private formBuilder: FormBuilder,
-    private userSharedService: UserSharedService
+    private userSharedService: UserSharedService,
+    private dataService: DataService
   ) { }
 
   ngOnInit(): void {
     this.createForm();
 
     this.availabilityArray = [
-      {id: 0, text: 'Immediate'},
-      {id: 15, text: '15 Days'},
-      {id: 30, text: '30 Days'},
-      {id: 45, text: '45 Days'},
-      {id: 60, text: '60 Days'},
+      { id: 0, text: 'Immediate' },
+      { id: 15, text: '15 Days' },
+      { id: 30, text: '30 Days' },
+      { id: 45, text: '45 Days' },
+      { id: 60, text: '60 Days' },
     ];
 
     this.travelArray = [
-      {id: 0, text: 'No'},
-      {id: 25, text: '25%'},
-      {id: 50, text: '50%'},
-      {id: 75, text: '75%'},
-      {id: 100, text: '100%'},
+      { id: 0, text: 'No' },
+      { id: 25, text: '25%' },
+      { id: 50, text: '50%' },
+      { id: 75, text: '75%' },
+      { id: 100, text: '100%' },
     ];
 
     this.userSharedService.getUserProfileDetails().subscribe(
@@ -53,26 +56,45 @@ public travelArray: any[]
         this.userInfo = response;
       }
     )
+    this.dataService.getTabInfo().subscribe(
+      response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.tabInfos = response;
+        }
+      }
+    )
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout(async () => {
-    if(this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
-      this.childForm.patchValue({
-        skillSet: {
-          ...this.savedUserDetails,
-        },
-        educationExp : {
-          ...this.savedUserDetails
-        },
-        jobPref : {
-          ...this.savedUserDetails
-        },
-      });
-      console.log(this.childForm);
+      if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
+        if(this.tabInfos && this.tabInfos.length) {
+          let educationExpIndex = this.tabInfos.findIndex(val => val.tabNumber == 2);
+          if(educationExpIndex == -1) {
+            this.childForm.patchValue({
+              educationExp : {
+                ...this.savedUserDetails
+              },
+            });
+          }
 
-    }
-  });
+          let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
+          if(skillSetIndex == -1) {
+            this.childForm.patchValue({
+              skillSet : {
+                ...this.savedUserDetails
+              },
+            });
+          }
+        }
+        this.childForm.patchValue({
+          jobPref: {
+            ...this.savedUserDetails
+          },
+        });
+
+      }
+    });
   }
 
   createForm() {
@@ -126,11 +148,11 @@ public travelArray: any[]
   }
 
   onChangeJobType = (value) => {
-    if(value == 6 || value == '6'){
+    if (value == 6 || value == '6') {
       // this.isContractDuration = true;
       // this.childForm.get('jobPref.contract_duration').setValidators([Validators.required]);
       // this.childForm.get('jobPref.contract_duration').updateValueAndValidity();
-    }else {
+    } else {
       // this.isContractDuration = false;
       // this.childForm.get('jobPref.contract_duration').setValidators(null);
       // this.childForm.get('jobPref.contract_duration').updateValueAndValidity();

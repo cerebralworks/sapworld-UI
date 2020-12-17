@@ -22,6 +22,8 @@ import { DeleteModalComponent } from './component/modal/delete-modal/delete-moda
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AvatarModule } from 'ngx-avatar';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ContactCardComponent } from './component/contact-card/contact-card.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -37,10 +39,12 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     NumbersOnlyDirective,
     CurrencyFormatterDirective,
     MarkAsteriskDirective,
-    DeleteModalComponent
+    DeleteModalComponent,
+    ContactCardComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
@@ -73,7 +77,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     DeleteModalComponent,
     AngularEditorModule,
     AvatarModule,
-    ImageCropperModule
+    ImageCropperModule,
+    ContactCardComponent,
+    RouterModule
   ],
   providers: [ApiService]
 })
