@@ -14,6 +14,11 @@ export class UtilsHelperService {
     return array.indexOf(word.toLowerCase()) > -1;
   }
 
+  isEmptyObj(obj) {
+    for (let x in obj) { if (obj.hasOwnProperty(x)) return false; }
+    return true;
+  }
+
   convertToImageUrl(imageString: any): string {
     if (imageString !== null && imageString !== undefined && imageString !== 0) {
       if (!(imageString.indexOf("https://") >= 0 || imageString.indexOf("http://") >= 0)) {

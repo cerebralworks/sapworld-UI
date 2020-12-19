@@ -3,7 +3,7 @@
     <div class="col-lg-8 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.jobTitle" | translate}}</label>
-        <input appMarkAsterisk formControlName="title" type="text" class="form-control" [placeholder]="'postJob.jobTitle' | translate"/>
+        <input appMarkAsterisk formControlName="title" type="text" class="form-control text-capitalize" [placeholder]="'postJob.jobTitle' | translate"/>
       </div>
       <app-control-messages [control]="f['title']"></app-control-messages>
     </div>
@@ -53,7 +53,7 @@
         <div class="input-group">
           <select (change)="onChangeCurrentFormat($event?.target?.value, $event)" formControlName="salary_currency" class="form-control w-40"  style="background: #eee;">
             <ng-container *ngFor="let item of sharedService.onGetCurrency(); let i=index">
-              <option *ngIf="item.symbol" [value]="i">{{item.symbol}}</option>
+              <option *ngIf="item.code" [value]="item.code">{{item.code}}</option>
             </ng-container>
           </select>
           <input currencyFormatter [country]="currentCurrencyFormat" formControlName="salary" type="text" class="form-control w-60">
@@ -62,44 +62,20 @@
       </div>
     </div>
   </div>
-  <!-- <div class="row mt-2">
-    <div class="col-lg-4 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.location" | translate}}</label>
-        <input
-        ngx-google-places-autocomplete
-        (onAddressChange)="handleAddressChange($event)"
-        formControlName="location"
-        type="text"
-        class="form-control"
-        placeholder="Type location...">
-      </div>
-      <app-control-messages [control]="f['location']"></app-control-messages>
-    </div>
-    <div class="col-lg-4 col-md-6">
-      <div class=" form-group">
-        <label>{{"postYourResume.city" | translate}}</label>
-        <input ngx-google-places-autocomplete
-        (onAddressChange)="handleAddressChange($event)"
-        formControlName="city" type="text" class="form-control" [placeholder]="'postYourResume.city' | translate">
-      </div>
-      <app-control-messages [control]="f['city']"></app-control-messages>
-    </div>
-  </div> -->
   <div class="row mt-2">
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.city" | translate}}</label>
         <input appMarkAsterisk ngx-google-places-autocomplete
         (onAddressChange)="handleAddressChange($event)"
-        formControlName="city" type="text" class="form-control" [placeholder]="'postYourResume.city' | translate">
+        formControlName="city" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.city' | translate">
       </div>
       <app-control-messages [control]="f['city']"></app-control-messages>
     </div>
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.state" | translate}}</label>
-        <input formControlName="state" type="text" class="form-control" [placeholder]="'postYourResume.state' | translate">
+        <input formControlName="state" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.state' | translate">
         <app-control-messages [control]="f['state']"></app-control-messages>
       </div>
     </div>
@@ -116,23 +92,8 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.country" | translate}}</label>
-        <input appMarkAsterisk formControlName="country" type="text" class="form-control" [placeholder]="'postYourResume.country' | translate">
-        <!-- <select appMarkAsterisk formControlName="country" class="form-control" name="job-type">
-          <option selected="" disabled="">{{"postJob.country" | translate}}</option>
-          <option>India </option>
-          <option>United States </option>
-          <option>Russia </option>
-          <option>Mexico </option>
-          <option>Japan </option>
-          <option>Germany </option>
-          <option>United Kingdom </option>
-          <option>France</option>
-          <option>Canada </option>
-          <option>Malaysia </option>
-          <option>Australia </option>
-          <option>United Arab Emirates </option>
-          <option>Singapore </option>
-        </select> -->
+        <input appMarkAsterisk formControlName="country" type="text" class="form-control text-uppercase" [placeholder]="'postYourResume.country' | translate">
+
       </div>
       <app-control-messages [control]="f['country']"></app-control-messages>
     </div>
@@ -142,12 +103,8 @@
       <div class=" form-group">
         <label>{{"postJob.availability" | translate}}</label>
         <select appMarkAsterisk formControlName="availability" class="form-control">
-          <option selected="" disabled="">{{"postJob.availability" | translate}}</option>
-          <option>Immediate</option>
-          <option>15 Days</option>
-          <option>30 Days</option>
-          <option>45 Days</option>
-          <option>60 Days</option>
+          <option [value]="null">{{"common.select" | translate }}</option>
+          <option *ngFor="let type of availabilityArray" [value]="type.id">{{ type.text }}</option>
         </select>
         <app-control-messages [control]="f['availability']"></app-control-messages>
       </div>

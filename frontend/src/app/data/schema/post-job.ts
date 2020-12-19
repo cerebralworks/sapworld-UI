@@ -29,4 +29,5 @@ export interface JobPosting {
   company: number;
   end_to_end_implementation: number;
   contract_duration: number;
+  latlng_text: any;
 }

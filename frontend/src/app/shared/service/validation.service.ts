@@ -68,7 +68,7 @@ export class ValidationService {
   }
 
   public static mobileNumber(control) {
-    control.value = control.value.toString()
+    // control.value = control.value.toString()
     // RFC 2822 compliant regex
     if (
       control && control.value && (control.value.match(

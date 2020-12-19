@@ -98,6 +98,9 @@ export class SharedService {
     }
     return this.utilsHelperService.onConvertArrayObjToString(temp, 'name');
   }
+  if(returnVal == 'obj') {
+    return [];
+  }
   return '--';
 }
 

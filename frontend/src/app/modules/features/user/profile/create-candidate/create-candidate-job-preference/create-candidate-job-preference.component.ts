@@ -15,8 +15,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 
   @Input() currentTabInfo: tabInfo;
   public childForm;
-  public availabilityArray: any[];
-  public travelArray: any[]
+  public availabilityArray: { id: number; text: string; }[];
+  public travelArray: { id: number; text: string; }[];
   public userInfo: any;
   public savedUserDetails: any;
   public tabInfos: tabInfo[];

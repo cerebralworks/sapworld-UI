@@ -23,6 +23,7 @@ export class JobInformationComponent implements OnInit {
     this.getPostedJobsDetails = inFo;
   }
 
+  public availabilityArray: { id: number; text: string; }[];
   public childForm;
   public getPostedJobsDetails: JobPosting;
   public currentCurrencyFormat: string = "en-US";
@@ -36,6 +37,14 @@ export class JobInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+
+    this.availabilityArray = [
+      { id: 0, text: 'Immediate' },
+      { id: 15, text: '15 Days' },
+      { id: 30, text: '30 Days' },
+      { id: 45, text: '45 Days' },
+      { id: 60, text: '60 Days' },
+    ];
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -46,6 +55,20 @@ export class JobInformationComponent implements OnInit {
           salary: this.getPostedJobsDetails.salary.toString()
         }
       });
+      let latlngText: string = this.getPostedJobsDetails.latlng_text;
+      if (latlngText) {
+        const splitedString: any[] = latlngText.split(',');
+        if (splitedString && splitedString.length) {
+          this.childForm.patchValue({
+            personalDetails: {
+              latlng: {
+                lat: splitedString[0],
+                lng: splitedString[1]
+              }
+            }
+          })
+        }
+      }
     }
   }
 
@@ -58,14 +81,14 @@ export class JobInformationComponent implements OnInit {
       contract_duration: new FormControl(''),
       description: new FormControl('', Validators.required),
       salary_type: new FormControl('', Validators.required),
-      salary_currency: new FormControl(0, Validators.required),
+      salary_currency: new FormControl('USD', Validators.required),
       salary: new FormControl(null, Validators.required),
       city: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
-      latlng: new FormControl('', Validators.required),
+      latlng: new FormControl({}, Validators.required),
       country: new FormControl('', Validators.required),
       zipcode: new FormControl(null, Validators.required),
-      availability: new FormControl('', Validators.required),
+      availability: new FormControl(null, Validators.required),
       remote: new FormControl(null, Validators.required),
     }));
   }
@@ -111,37 +134,12 @@ export class JobInformationComponent implements OnInit {
         city: address.city ? address.city : event.formatted_address,
         state: address.state,
         country: address.country,
-        latlng: event.geometry.location.lat() + ',' + event.geometry.location.lng()
+        latlng: {
+          "lat": event.geometry.location.lat(),
+          "lng": event.geometry.location.lng()
+        }
       }
     });
   };
-
-  // public fromGooglePlace(addr: gAddress) {
-  //   let address: any = {};
-  //   let houseNumber = this.findTypeLongName(addr, "street_number");
-  //   let street = this.findTypeLongName(addr, "route");
-
-  //   address.street = street && houseNumber ? `${houseNumber} ${street}` : null;
-  //   address.street = address.street ? address.street : street;
-
-  //   address.city = this.findTypeLongName(addr, "locality");
-  //   address.state = this.findTypeLongName(addr, "administrative_area_level_1");
-  //   address.zipcode = this.findTypeLongName(addr, "postal_code");
-  //   address.country = this.findTypeShortName(addr, "country");
-
-  //   address.validated = houseNumber != null && street != null && address.city != null && address.state != null && address.zipcode != null;
-
-  //   return address;
-  // }
-
-  // private findTypeLongName(addr: gAddress, type: string): string {
-  //   let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
-  //   return comp ? comp.long_name : null;
-  // }
-
-  // private findTypeShortName(addr: gAddress, type: string): string {
-  //   let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
-  //   return comp ? comp.short_name : null;
-  // }
 
 }

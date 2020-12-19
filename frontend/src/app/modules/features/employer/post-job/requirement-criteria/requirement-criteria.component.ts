@@ -20,6 +20,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
     this.getPostedJobsDetails = inFo;
   }
 
+  public travelArray: { id: number; text: string; }[];
   public skillItems: any[] = [];
   public childForm;
   public isLoading: boolean;
@@ -48,6 +49,14 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
     this.createForm();
     this.onGetIndustries();
     this.onGetSkill();
+
+    this.travelArray = [
+      { id: 0, text: 'No' },
+      { id: 25, text: '25%' },
+      { id: 50, text: '50%' },
+      { id: 75, text: '75%' },
+      { id: 100, text: '100%' },
+    ];
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -56,6 +65,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
         if(this.getPostedJobsDetails && this.getPostedJobsDetails.hands_on_experience && Array.isArray(this.getPostedJobsDetails.hands_on_experience)) {
           this.t.removeAt(0);
           this.getPostedJobsDetails.hands_on_experience.map((value, index) => {
+          value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
           this.onDuplicate();
           });
         }
@@ -135,9 +145,10 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
       sap_experience: new FormControl(null, Validators.required),
       domain: new FormControl(null, Validators.required),
       hands_on_experience: new FormArray([this.formBuilder.group({
-        domain: [null, Validators.required],
-        experience: ['', [Validators.required, ]],
-        experience_type: ['year', [Validators.required]]
+        skill_id: [null, Validators.required],
+        skill_name: ['dasdasd'],
+        experience: ['', [Validators.required,]],
+        exp_type: ['years', [Validators.required]]
       })]),
       skills: new FormControl(null, Validators.required),
       programming_skills: new FormControl(null),
@@ -145,7 +156,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
       certification: new FormControl(null),
       work_authorization: new FormControl(null, Validators.required),
       visa_sponsorship: new FormControl(false, Validators.required),
-      travel_opportunity: new FormControl("", Validators.required),
+      travel: new FormControl(null, Validators.required),
       end_to_end_implementation: new FormControl(null)
     }));
 
@@ -198,9 +209,10 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 
   onDuplicate = () => {
     this.t.push(this.formBuilder.group({
-      domain: [null, Validators.required],
-      experience: ['', [Validators.required]],
-      experience_type: ['year', [Validators.required]]
+      skill_id: [null, Validators.required],
+      skill_name: ['dasdasd'],
+      experience: ['', [Validators.required,]],
+      exp_type: ['years', [Validators.required]]
     }));
   }
 
@@ -216,9 +228,9 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
     this.t.removeAt(0);
     items.forEach((element, index) => {
       this.onDuplicate();
-      (this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['domain'].setValue(element.domain);
+      (this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['skill_id'].setValue(element.skill_id);
       (this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['experience'].setValue(element.experience);
-      (this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['experience_type'].setValue(element.experience_type);
+      (this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['exp_type'].setValue(element.exp_type);
     });
   }
 

@@ -62,7 +62,7 @@
         class="text-uppercase"
         appMarkAsterisk
         [items]="skillItems"
-        formControlName="domain"
+        formControlName="skill_id"
         optionValueField="id"
         optionTextField="tag"
         autoClearSearch="true"
@@ -80,14 +80,14 @@
             Nothing found
         </ng-template>
          </ngx-select>
-        <app-control-messages [control]="ticket['controls']['domain']"></app-control-messages>
+        <app-control-messages [control]="ticket['controls']['skill_id']"></app-control-messages>
       </div>
 
       <div class="col-lg-2 col-md-4">
         <div class="input-group mb-3">
           <input numbersOnly formControlName="experience" type="text" class="form-control" placeholder="Exp">
           <div class="input-group-append ">
-            <select formControlName="experience_type" class="input-group-text" id="basic-addon2">
+            <select formControlName="exp_type" class="input-group-text" id="basic-addon2">
               <option value="year">Yrs</option>
               <option value="month">Mon</option>
             </select>
@@ -208,15 +208,13 @@
     <div class="col-lg-2 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.travel" | translate }} </label>
-        <select appMarkAsterisk formControlName="travel_opportunity" class="form-control">
-          <option selected="" disabled="">{{"common.select" | translate }}</option>
-          <option>No</option>
-          <option>25%</option>
-          <option>50%</option>
-          <option>75%</option>
-          <option>100%</option>
+        <select appMarkAsterisk formControlName="travel" class="form-control">
+          <option [value]="null">{{"common.select" | translate }}</option>
+          <option *ngFor="let travel of travelArray; let i = index" [value]="travel?.id">
+            {{travel?.text}}
+          </option>
         </select>
-        <app-control-messages [control]="f['travel_opportunity']"></app-control-messages>
+        <app-control-messages [control]="f['travel']"></app-control-messages>
       </div>
     </div>
   </div>
