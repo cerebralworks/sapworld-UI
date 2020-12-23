@@ -55,7 +55,9 @@ export class SharedService {
 
  onGetCurrencyCode = (value?) => {
   if(value) { return this.currencyArray.default.find(val => {
-    return (val.code && val.code.toLowerCase()) == value
+    console.log('das', value, val.code.toLowerCase(), ((val.code && val.code.toLowerCase()) == value.toLowerCase()));
+
+    return ((val.code && val.code.toLowerCase()) == value.toLowerCase());
   }) }
   return this.currencyArray.default;
 }

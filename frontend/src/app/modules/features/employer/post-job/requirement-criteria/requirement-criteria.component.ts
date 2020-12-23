@@ -150,7 +150,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
       domain: new FormControl(null, Validators.required),
       hands_on_experience: new FormArray([this.formBuilder.group({
         skill_id: [null, Validators.required],
-        skill_name: ['dasdasd'],
+        skill_name: [''],
         experience: ['', [Validators.required,]],
         exp_type: ['years', [Validators.required]]
       })]),
@@ -214,7 +214,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
   onDuplicate = () => {
     this.t.push(this.formBuilder.group({
       skill_id: [null, Validators.required],
-      skill_name: ['dasdasd'],
+      skill_name: [''],
       experience: ['', [Validators.required,]],
       exp_type: ['years', [Validators.required]]
     }));

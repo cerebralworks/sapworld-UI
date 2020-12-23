@@ -32,9 +32,9 @@
         </div>
       </div>
       <div class="row mt-3 info-box">
-        <div class="col-lg-12 text-right">
+        <!-- <div class="col-lg-12 text-right">
           <h6>Choose Mandatory Requirement <span class="required-asterisk">*</span></h6>
-        </div>
+        </div> -->
         <div class="col-lg-4 caption">
           <ul class="list-group">
             <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfExperience" | translate }}</li>
@@ -50,8 +50,8 @@
             <li class="list-group-item text-capitalize">{{onFindDomainFromID(postJobForm?.value?.requirement?.domain)}}</li>
             <li class="list-group-item text-uppercase">
               <p class="m-0 w-100 float-left" *ngFor="let item of postJobForm?.value?.requirement?.hands_on_experience">
-                <span class="text-wrap-custom float-left">{{item?.domain ? onFindSkillsFromSingleID(item?.domain)?.tag : '--'}}</span>
-                <span *ngIf="item?.domain">({{item?.experience + ' ' + item?.experience_type}})</span>
+                <span class="text-wrap-custom float-left">{{item?.skill_id ? onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
+                <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
               </p>
               <!-- {{onConvertArrayObjToAdditionalString(postJobForm?.value?.requirement?.hands_on_experience, 'domain', 'tag')}} -->
             </li>
@@ -165,6 +165,16 @@
             <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{postJobForm?.value?.jobInfo?.contract_duration}} months</li>
             <li class="list-group-item text-capitalize">
               <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
+                {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
+
+              </ng-container>
+              <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
+                {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}
+              </ng-container>
+              <ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
+                --
+              </ng-container>
+              <!-- <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
                 {{sharedService.onGetCurrency(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
               </ng-container>
               <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
@@ -172,11 +182,14 @@
               </ng-container>
               <ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
                 --
-              </ng-container>
+              </ng-container> -->
             </li>
             <li class="list-group-item text-capitalize">{{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}}</li>
-            <li class="list-group-item text-capitalize">{{postJobForm?.value?.jobInfo?.availability}}</li>
-            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.travel_opportunity}}</li>
+            <li class="list-group-item text-capitalize">
+              {{(postJobForm?.value?.jobInfo?.availability || postJobForm?.value?.jobInfo?.availability == 0) ? (postJobForm?.value?.jobInfo?.availability == 0 ? 'Immediate' : postJobForm?.value?.jobInfo?.availability + ' Days') : '--'}}</li>
+            <li class="list-group-item text-capitalize">
+              {{(postJobForm?.value?.jobInfo?.travel_opportunity || postJobForm?.value?.jobInfo?.travel_opportunity==0) ? (postJobForm?.value?.requirement?.travel_opportunity == 0 ? 'No' : postedJobsDetails?.travel_opportunity + '%') : '--'}}
+            </li>
             <!-- <li class="list-group-item text-capitalize">{{postJobForm?.value?.jobInfo?.certification}}</li> -->
             <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
             <li class="list-group-item text-capitalize">{{onGetYesOrNoValue(postJobForm?.value?.requirement?.visa_sponsorship)}}</li>

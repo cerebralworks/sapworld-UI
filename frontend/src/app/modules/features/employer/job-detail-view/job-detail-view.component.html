@@ -71,8 +71,8 @@
               <li class="list-group-item text-capitalize">{{onFindDomainFromID(postedJobsDetails?.domain)}}</li>
               <li class="list-group-item text-uppercase">
                 <p class="m-0 w-100 float-left" *ngFor="let item of postedJobsDetails?.hands_on_experience">
-                  <span class="text-wrap-custom float-left">{{item?.domain ? onFindSkillsFromSingleID(item?.domain)?.tag : '--'}}</span>
-                  <span *ngIf="item?.domain">({{item?.experience + ' ' + item?.experience_type}})</span>
+                  <span class="text-wrap-custom float-left">{{item?.skill_id ? onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
+                  <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
                 </p>
                 <!-- {{((postedJobsDetails?.hands_on_experience, 'domain', 'tag'))}} -->
               </li>
@@ -121,20 +121,23 @@
             <li class="list-group-item text-capitalize" *ngIf="postedJobsDetails?.type == '6'">{{postedJobsDetails?.contract_duration}} months</li>
             <li class="list-group-item text-capitalize">
               <ng-container *ngIf="postedJobsDetails?.salary_type == 0">
-                {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol}}
-                {{postedJobsDetails?.salary + '/hr'}}
+                {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + '/hr'}}
+
               </ng-container>
               <ng-container *ngIf="postedJobsDetails?.salary_type ==1">
-                {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol}}
-                {{postedJobsDetails?.salary + ' Annual pay'}}
+                {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' Annual pay'}}
+
               </ng-container>
               <ng-container  *ngIf="postedJobsDetails?.salary_type < 0">
                 --
               </ng-container>
             </li>
             <li class=" list-group-item text-capitalize">{{onGetYesOrNoValue(postedJobsDetails?.remote)}}</li>
-            <li class=" list-group-item text-capitalize">{{postedJobsDetails?.availability ? postedJobsDetails?.availability : '--'}}</li>
-            <li class=" list-group-item text-capitalize">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li>
+            <li class=" list-group-item text-capitalize">
+              {{(postedJobsDetails?.availability || postedJobsDetails.availability == 0) ? (postedJobsDetails.availability == 0 ? 'Immediate' : postedJobsDetails?.availability + ' Days') : '--'}}
+            </li>
+            <li class=" list-group-item text-capitalize">
+              {{(postedJobsDetails?.travel_opportunity || postedJobsDetails?.travel_opportunity==0) ? (postedJobsDetails?.travel_opportunity == 0 ? 'No' : postedJobsDetails?.travel_opportunity + '%') : '--'}}</li>
             <!-- <li class=" list-group-item text-capitalize">{{postedJobsDetails?.travel_opportunity ? postedJobsDetails?.travel_opportunity : '--'}}</li> -->
             <li class=" list-group-item text-capitalize">{{postedJobsDetails?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
             <li class=" list-group-item text-capitalize">{{onGetYesOrNoValue(postedJobsDetails?.visa_sponsorship)}}</li>
