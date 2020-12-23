@@ -17,3 +17,12 @@
   margin-left: 3px;
   font-size: 1.2em;
 }
+
+
+.ngx-slider .ngx-slider-pointer {
+  background-color: #28a745 !important;
+}
+
+.ngx-slider .ngx-slider-selection {
+  background: #28a745 !important;
+}

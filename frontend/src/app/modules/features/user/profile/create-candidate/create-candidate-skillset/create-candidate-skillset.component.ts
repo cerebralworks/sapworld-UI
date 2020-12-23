@@ -60,7 +60,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
           if ((this.savedUserDetails.hands_on_experience.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.hands_on_experience && this.savedUserDetails.hands_on_experience.length)) {
             this.t.removeAt(0);
             this.savedUserDetails.hands_on_experience.map((value, index) => {
-              value.skill_id = value.skill_id.toString();
+              value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
               this.onDuplicate();
             });
           }
@@ -77,13 +77,22 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     });
   }
 
+  onSelectSkillEvent = async (skillId, index) => {
+    if(skillId) {
+      const skillObj = this.sharedService.onFindSkillsFromSingleID(skillId);
+      const skillName = (skillObj && skillObj.tag) ? skillObj.tag : '';
+      if(skillName)
+      (this.childForm.controls.skillSet.controls.hands_on_experience).controls[index].controls['skill_name'].setValue(skillName);
+    }
+  }
+
   createForm() {
     this.childForm = this.parentF.form;
 
     this.childForm.addControl('skillSet', new FormGroup({
       hands_on_experience: new FormArray([this.formBuilder.group({
         skill_id: [null, Validators.required],
-        skill_name: ['dasdasd'],
+        skill_name: [''],
         experience: ['', [Validators.required,]],
         exp_type: ['years', [Validators.required]]
       })]),
@@ -91,14 +100,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       programming_skills: new FormControl(null, Validators.required),
       other_skills: new FormControl(null, Validators.required),
       certification: new FormControl(null),
-      bio: new FormControl('Lorem Ipsum'),
-      // work_authorization: new FormControl(null, Validators.required),
-      // visa_sponsorship: new FormControl(false, Validators.required),
-      // travel_opportunity: new FormControl("", Validators.required),
-      // end_to_end_implementation: new FormControl(null)7742+3292+5600+4200+1000+5000+2000+6000+3000
-
-      //7742+3292+3000+6000+2000+3000+500
-      //14466- 5600+5000+2000+4200
+      bio: new FormControl('Lorem Ipsum')
     }));
   }
 
@@ -113,7 +115,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
   onDuplicate = () => {
     this.t.push(this.formBuilder.group({
       skill_id: [null, Validators.required],
-      skill_name: ['sdasdasd'],
+      skill_name: [''],
       experience: ['', [Validators.required,]],
       exp_type: ['years', [Validators.required]]
     }));

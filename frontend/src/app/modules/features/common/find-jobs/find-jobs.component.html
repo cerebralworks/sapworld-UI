@@ -26,7 +26,7 @@
               <label>Sort by : </label>
               </div>
               <div class="form-group">
-              <select name="sort" [(ngModel)]="queryParams.sort" (change)="onSortBy($event?.target?.value)" class="form-control form-control-sm">
+              <select name="sort" [(ngModel)]="queryParams.sort" (change)="onFilterByValues('sort', $event?.target?.value)" class="form-control form-control-sm">
                 <option [value]="undefined">Select</option>
                 <option value="created_at.desc">Most Recent </option>
                 <option value="most_popular.desc">Most Popular </option>
@@ -44,8 +44,8 @@
                 <div class="card-body">
                   <div class="clearfix">
                     <div class="float-left">
-                      <a href="job-post-view.html">
-                        <h5>{{item?.title}}</h5>
+                      <a href="javascript:;" [routerLink]="['/employer/job-detail-view', item?.id]" >
+                        <h5 class="text-capitalize">{{item?.title}}</h5>
                       </a>
                     </div>
                     <div class="float-right">
@@ -54,15 +54,15 @@
                   </div>
                   <div class="media">
                     <div class="media-body">
-                      <h6>
+                      <h6 class="text-capitalize">
                         {{item?.city ? item?.city + ', ' : ''}}
                         {{item?.state ? item?.state + ', ' : ''}}
                         {{item?.country ? item?.country : ''}}
                       </h6>
                       <h6>{{item?.experience ? item?.experience + ' Years Exp.' : ''}} <span *ngIf="item?.type">{{' , '}}</span>{{item?.type ? sharedService.onGetJobType(item?.type) : ''}} <span *ngIf="item?.remote" class="remote pl-2">Remote</span></h6>
                       <div class="mt-2">
-                        <ng-container *ngFor="let domain of sharedService.onFindDomainFromID(item?.domain, 'obj')">
-                          <span *ngIf="domain" class="sap-badge">{{domain | json}}</span>
+                        <ng-container *ngFor="let itemSub of item?.hands_on_experience">
+                          <span *ngIf="itemSub.skill_id" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub.skill_id).tag)}}</span>
                         </ng-container>
                       </div>
                     </div>
@@ -106,58 +106,10 @@
             </div>
             <div class="card-body collapse multi-collapse" id="collapseJoptype">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">
+                <li class="list-group-item" *ngFor="let item of sharedService.onGetJobType(); let i=index">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck7">
-                    <label class="custom-control-label" for="customCheck7">Remote </label>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck8">
-                    <label class="custom-control-label" for="customCheck8">Onsite</label>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck9">
-                    <label class="custom-control-label" for="customCheck9">Full Time</label>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck10">
-                    <label class="custom-control-label" for="customCheck10">Part Time</label>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck11">
-                    <label class="custom-control-label" for="customCheck11">Contract</label>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck12">
-                    <label class="custom-control-label" for="customCheck12">Temporary</label>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck13">
-                    <label class="custom-control-label" for="customCheck13">Permanent</label>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck14">
-                    <label class="custom-control-label" for="customCheck14">Freelancer</label>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck15">
-                    <label class="custom-control-label" for="customCheck15">Internship</label>
+                    <input [value]="i" (change)="onFilterByValues('type', i, 'array')" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
+                    <label class="custom-control-label" for="customCheck_{{i}}">{{item}} </label>
                   </div>
                 </li>
               </ul>
@@ -168,11 +120,11 @@
               Salary  <i class="fas fa-angle-down float-right pt-1"></i>
             </div>
             <div class="card-body p-3 collapse multi-collapse" id="collapseSalary">
-              <div class="salary-slider-range clearfix">
+              <!-- <div class="salary-slider-range clearfix">
                 <input class="min_salary" type="text">
                 <input class="max_salary" type="text">
-              </div>
-              <div id="salary-slider-range" name="rangeInput"></div>
+              </div> -->
+              <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
             </div>
           </div>
           <div class="card mt-4">
@@ -181,49 +133,9 @@
             </div>
             <div class="card-body p-3 collapse multi-collapse" id="collapseSkills">
               <div class="skill-select">
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input  mb-0" type="checkbox" id="Check1" name="example1">
-                  <label class="custom-control-label mb-0" for="Check1">SAP-FI </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input  mb-0" type="checkbox" id="Check2" name="example1">
-                  <label class="custom-control-label  mb-0" for="Check2">SAP-FSCM </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input  mb-0" type="checkbox" id="Check3" name="example1">
-                  <label class="custom-control-label  mb-0" for="Check3">SAP-CO </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input mb-0" type="checkbox" id="Check4" name="example1">
-                  <label class="custom-control-label mb-0" for="Check4">SAP-MM </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input mb-0" type="checkbox" id="Check5" name="example1">
-                  <label class="custom-control-label mb-0" for="Check5">SAP-SD </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input mb-0" type="checkbox" id="Check6" name="example1">
-                  <label class="custom-control-label mb-0" for="Check6">SAP-LE </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input mb-0" type="checkbox" id="Check7" name="example1">
-                  <label class="custom-control-label mb-0" for="Check7">SAP-PP</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input mb-0" type="checkbox" id="Check8" name="example1">
-                  <label class="custom-control-label mb-0" for="Check8">SAP-QM </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input mb-0" type="checkbox" id="Check9" name="example1">
-                  <label class="custom-control-label mb-0" for="Check9">SAP-PM </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input mb-0" type="checkbox" id="Check9" name="example1">
-                  <label class="custom-control-label mb-0" for="Check9">SAP-PS </label>
-                </div>
-                <div class="custom-control custom-checkbox mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-                  <input class="custom-control-input mb-0" type="checkbox" id="Check9" name="example1">
-                  <label class="custom-control-label mb-0" for="Check9">SAP-HR </label>
+                <div class="custom-control custom-checkbox mb-2" *ngFor="let item of skillItems?.items; let i=index">
+                  <input class="custom-control-input  mb-0" type="checkbox" id="Check_{{i}}" name="example1">
+                  <label class="custom-control-label  mb-0" for="Check_{{i}}">{{utilsHelperService.onSplitTag(item?.tag)}} </label>
                 </div>
               </div>
             </div>

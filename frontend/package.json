@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-slider/ngx-slider": "^2.0.3",
     "@angular/animations": "^10.1.2",
     "@angular/common": "~10.1.1",
     "@angular/compiler": "~10.1.1",
@@ -36,6 +37,7 @@
     "ngx-toastr": "^13.0.0",
     "ngx-ui-loader": "^10.0.0",
     "popper.js": "^1.16.1",
+    "query-string": "^6.13.7",
     "rxjs": "~6.6.0",
     "rxjs-compat": "^6.6.3",
     "secure-ls": "^1.2.3",

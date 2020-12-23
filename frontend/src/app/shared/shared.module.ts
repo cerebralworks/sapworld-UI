@@ -24,6 +24,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ContactCardComponent } from './component/contact-card/contact-card.component';
 import { RouterModule } from '@angular/router';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { RouterModule } from '@angular/router';
     TranslateModule.forChild(),
     AngularEditorModule,
     AvatarModule,
-    ImageCropperModule
+    ImageCropperModule,
+    NgxSliderModule
   ],
   exports: [
     LoginFormComponent,
@@ -79,7 +81,8 @@ import { RouterModule } from '@angular/router';
     AvatarModule,
     ImageCropperModule,
     ContactCardComponent,
-    RouterModule
+    RouterModule,
+    NgxSliderModule
   ],
   providers: [ApiService]
 })

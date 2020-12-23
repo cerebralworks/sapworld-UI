@@ -6,6 +6,7 @@ const routes = {
     listIndustries: '/industries/list',
     employerProfile: '/employers/profile',
     userProfile: '/users/profile',
+    userList: '/users/list',
     userView: '/users/view',
     userUpdate: "/users/update",
     userPhotoUpdate: "/users/update-photo",

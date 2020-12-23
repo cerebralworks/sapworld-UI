@@ -5,6 +5,7 @@ import { tabInfo } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { SharedService } from '@shared/service/shared.service';
 
 @Component({
   selector: 'app-requirement-criteria',
@@ -37,7 +38,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -130,10 +132,12 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
     });
   }
 
-  onChangeSelectDomainEvent = async (event, index) => {
-    if(event && event.tag) {
-      const tag = event.tag.split('-');
-      event.tag = tag[0];
+  onSelectSkillEvent = async (skillId, index) => {
+    if(skillId) {
+      const skillObj = this.sharedService.onFindSkillsFromSingleID(skillId);
+      const skillName = (skillObj && skillObj.tag) ? skillObj.tag : '';
+      if(skillName)
+      (this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['skill_name'].setValue(skillName);
     }
   }
 
@@ -156,7 +160,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
       certification: new FormControl(null),
       work_authorization: new FormControl(null, Validators.required),
       visa_sponsorship: new FormControl(false, Validators.required),
-      travel: new FormControl(null, Validators.required),
+      travel_opportunity: new FormControl(null, Validators.required),
       end_to_end_implementation: new FormControl(null)
     }));
 

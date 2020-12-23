@@ -25,6 +25,14 @@ export class UserService extends CacheService {
     );
   }
 
+  getUsers = (params?) => {
+    return this.apiService.get('/api/users/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
   update = (params?) => {
     return this.apiService.post('/api/users/update', params).pipe(
       map(data => {

@@ -30,19 +30,6 @@
         optionValueField="id"
         optionTextField="name"
          ></ngx-select>
-
-        <!-- <ngx-select-dropdown
-        class="text-capitalize"
-         [options]="industriesItems"
-        formControlName="domain" [multiple]="true" ></ngx-select-dropdown> -->
-        <!-- <ng-select
-         class="text-capitalize"
-         id="domainExperience"
-         appMarkAsterisk
-         [items]="industriesItems"
-         bindLabel="name" [placeholder]="'postJob.sapModule' | translate" appendTo="body" multiple="true"
-          formControlName="domain">
-        </ng-select> -->
         <app-control-messages [control]="f['domain']"></app-control-messages>
       </div>
     </div>
@@ -58,7 +45,8 @@
     <ng-container [formGroup]="ticket">
       <div class="col-lg-6 col-md-8">
         <ngx-select
-        (change)="onChangeSelectDomainEvent($event, i)"
+        (select)="onSelectSkillEvent($event, i)"
+        [placeholder]="'Select Skills'"
         class="text-uppercase"
         appMarkAsterisk
         [items]="skillItems"
@@ -208,7 +196,7 @@
     <div class="col-lg-2 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.travel" | translate }} </label>
-        <select appMarkAsterisk formControlName="travel" class="form-control">
+        <select appMarkAsterisk formControlName="travel_opportunity" class="form-control">
           <option [value]="null">{{"common.select" | translate }}</option>
           <option *ngFor="let travel of travelArray; let i = index" [value]="travel?.id">
             {{travel?.text}}

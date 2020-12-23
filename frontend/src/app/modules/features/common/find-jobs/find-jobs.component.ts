@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
-import queryString from "query-string";
+import { Options, LabelType } from '@angular-slider/ngx-slider';
+import * as queryString from "query-string";
+import { DataService } from '@shared/service/data.service';
 
 @Component({
   selector: 'app-find-jobs',
@@ -19,18 +21,44 @@ export class FindJobsComponent implements OnInit {
   public postedJobMeta: any;
   public sortByValue: string = 'created_at.desc';
   public experienceFilter: { value: {min: number, max: number}; text: string; }[];
-  public queryParams: any = {};
+  public queryParams: any = { type: []};
+
+  public minValue: number = 100;
+  public maxValue: number = 400;
+  public options: Options = {
+    floor: 0,
+    ceil: 500,
+    translate: (value: number, label: LabelType): string => {
+      switch (label) {
+        case LabelType.Low:
+          return "<b>Min price:</b> $" + value;
+        case LabelType.High:
+          return "<b>Max price:</b> $" + value;
+        default:
+          return "$" + value;
+      }
+    }
+  };
+  public skillItems: any = {};
 
   constructor(
     private employerService: EmployerService,
     public sharedService: SharedService,
     private router: Router,
     private route: ActivatedRoute,
-    private utilsHelperService: UtilsHelperService
+    public utilsHelperService: UtilsHelperService,
+    private dataService: DataService
   ) {
     this.route.queryParams.subscribe(params => {
       if(params && !this.utilsHelperService.isEmptyObj(params)) {
-        this.queryParams = { ...params };
+        let urlQueryParams = {...params};
+        const myArray = this.route.snapshot.queryParamMap.get('type');
+        if (myArray === null) {
+          urlQueryParams.type = new Array<string>();
+        } else {
+          urlQueryParams.type = JSON.parse(myArray);
+        }
+        this.queryParams = { ...urlQueryParams };
       }
     });
   }
@@ -49,7 +77,13 @@ export class FindJobsComponent implements OnInit {
       {value: {min: 10, max: 20}, text: '10 Years & above'}
     ]
 
-    // this.onGetPostedJob();
+    this.dataService.getSkillDataSource().subscribe(
+      response => {
+        this.skillItems = response
+      }
+    );
+
+    this.onGetPostedJob();
   }
 
   onGetPostedJob() {
@@ -68,20 +102,37 @@ export class FindJobsComponent implements OnInit {
     )
   }
 
-  onSortBy = (value) => {
-    if(value != 'undefined') {
-      this.onRedirectRouteWithQuery({sort: value})
+  onFilterByValues = (fieldName, value, type: string = 'string') => {
+    if(value != 'undefined' && type == 'string') {
+      this.onRedirectRouteWithQuery({[fieldName]: value})
+    } else if(value != 'undefined' && type == 'array') {
+      let index = this.queryParams.type.indexOf(value);
+      if(index > -1) {
+        this.queryParams.type.splice(index, 1)
+      }else {
+        this.queryParams.type.push(value)
+      }
+      this.onRedirectRouteWithQuery({[fieldName]: this.queryParams.type})
+
     }
   }
 
-  onRedirectRouteWithQuery = (params: {}) => {
+  onRedirectRouteWithQuery = (params: any = {}) => {
+    params.type = JSON.stringify(params.type);
     this.queryParams = { ...this.queryParams, ...params };
-    this.router.navigate([], {
-      queryParams: {
-        ...this.queryParams
-      },
-      queryParamsHandling: 'merge',
-    });
+    const navigationExtras: NavigationExtras = {
+      queryParams: {...this.queryParams},
+      queryParamsHandling: 'merge'
+    };
+
+    this.router.navigate([], navigationExtras);
   }
 
+}
+
+export interface queryParams {
+  type: any[];
+  min_salary: number;
+  max_salary: number;
+  skills: any[];
 }

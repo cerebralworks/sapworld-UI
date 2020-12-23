@@ -53,6 +53,13 @@ export class SharedService {
     return this.currencyArray.default;
  }
 
+ onGetCurrencyCode = (value?) => {
+  if(value) { return this.currencyArray.default.find(val => {
+    return (val.code && val.code.toLowerCase()) == value
+  }) }
+  return this.currencyArray.default;
+}
+
  onGetPreferedLocation = (index?) => {
   let locationArray = [ 'Within 10 miles from my current location', 'Within 15 miles', 'Within 25 miles', 'Within 50 miles'];
   if(index > -1) { return locationArray[index] }

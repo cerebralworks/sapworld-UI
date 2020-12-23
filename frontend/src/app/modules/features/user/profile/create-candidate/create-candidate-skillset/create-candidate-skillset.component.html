@@ -11,6 +11,7 @@
         <div class="col-lg-5 col-md-8">
           <ngx-select
           class="text-capitalize"
+          (select)="onSelectSkillEvent($event, i)"
           [placeholder]="'Select Skills'"
           [items]="skillItems"
           formControlName="skill_id"
