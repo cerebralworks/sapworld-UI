@@ -131,11 +131,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if(this.isFindSearch == 0) {
         this.router.navigate(['/find-jobs'], {queryParams: {alphabet: this.searchJobs.nativeElement.value,city: this.location,}});
       }else {
-        this.router.navigate(['/find-candidates']);
+        this.router.navigate(['/find-candidates'], {queryParams: {alphabet: this.searchJobs.nativeElement.value,city: this.location,}});
       }
     }
   }
-
 }
 
 export const atLeastOne = (validator: ValidatorFn, controls:string[] = null) => (

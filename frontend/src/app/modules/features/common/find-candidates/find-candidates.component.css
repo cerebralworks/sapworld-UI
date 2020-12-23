@@ -1,0 +1,26 @@
+.textshadow {
+  color: black;
+  display: block;
+  font: bold 72px Helvetica;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding: 50px;
+}
+
+.textshadow.blurry-text {
+   text-shadow: 0 0 32px white;
+   color: transparent;
+}
+
+.blur {
+  filter:url(#wherearemyglasses);
+  /* ^ for Firefox */
+  -webkit-filter: blur(6px);
+  /* ^ Webkit browsers */
+  filter: blur(6px);
+}
+.inner{
+    width:30px;
+    display:inline-block;
+    background:#696969;
+}

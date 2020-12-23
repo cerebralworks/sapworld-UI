@@ -25,6 +25,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ContactCardComponent } from './component/contact-card/contact-card.component';
 import { RouterModule } from '@angular/router';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgInitDirective } from './directives/nginit.directive';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     CurrencyFormatterDirective,
     MarkAsteriskDirective,
     DeleteModalComponent,
-    ContactCardComponent
+    ContactCardComponent,
+    NgInitDirective
   ],
   imports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     ImageCropperModule,
     ContactCardComponent,
     RouterModule,
-    NgxSliderModule
+    NgxSliderModule,
+    NgInitDirective
   ],
   providers: [ApiService]
 })
