@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CandidateProfile } from '@data/schema/create-candidate';
+import { UserService } from '@data/service/user.service';
 
 @Component({
   selector: 'app-employer-candidate-profile-view',
@@ -7,12 +10,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployerCandidateProfileViewComponent implements OnInit {
 
-    public isOpenedResumeModal: boolean;
+  public isOpenedResumeModal: boolean;
   public isOpenedSendMailModal: boolean;
+  public userDetails: CandidateProfile;
+  public userID: string;
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute
+  ) {
+    this.userID = this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
+    this.onGetCandidateInfo();
+  }
+
+  onGetCandidateInfo() {
+    let requestParams: any = {};
+    requestParams.id = this.userID;
+    this.userService.profileView(requestParams).subscribe(
+      response => {
+        if(response && response.details) {
+          this.userDetails = response.details;
+        }
+      }, error => {
+      }
+    )
   }
 
   onToggleResumeForm = (status) => {

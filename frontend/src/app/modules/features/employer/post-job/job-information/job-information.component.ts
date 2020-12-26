@@ -5,6 +5,7 @@ import { tabInfo } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { SharedService } from '@shared/service/shared.service';
+import { ValidationService } from '@shared/service/validation.service';
 
 import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
 import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
@@ -79,7 +80,7 @@ export class JobInformationComponent implements OnInit {
       title: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
       contract_duration: new FormControl(''),
-      description: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(100)])),
       salary_type: new FormControl('', Validators.required),
       salary_currency: new FormControl('USD', Validators.required),
       salary: new FormControl(null, Validators.required),

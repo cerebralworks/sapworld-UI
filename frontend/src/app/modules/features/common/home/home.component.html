@@ -3,28 +3,49 @@
   <div class="container">
     <div class="find-banner w-60">
 
-        <h1 class="banner-title text-center">{{ 'home.title' | translate}}.</h1>
-        <form class="find-bar" method="post" (ngSubmit)="onRedirect()" #searchNgForm="ngForm" [formGroup]="searchForm">
-        <span *ngIf="searchForm?.errors?.atLeastOne && searchNgForm?.submitted" class="d-flex justify-content-center pb-2 text-danger">At least one field
+      <h1 class="banner-title text-center">{{ 'home.title' | translate}}.</h1>
+      <form class="find-bar" method="post" (ngSubmit)="onRedirect()" #searchNgForm="ngForm" [formGroup]="searchForm">
+        <span *ngIf="searchForm?.errors?.atLeastOne && searchNgForm?.submitted"
+          class="d-flex justify-content-center pb-2 text-danger">At least one field
           has to be provided.</span>
         <div class="row">
- <div class="col-lg-6 col-md-6 mb-3">
+          <div class="col-lg-6 col-md-6 mb-3">
             <div class="input-with-icon">
-              <input formControlName="title" #searchJob type="text" class="form-control"
+              <input formControlName="search" #searchJob type="text" class="form-control"
                 placeholder="Job Title / SAP Module" value="">
               <i class="fas fa-briefcase"></i>
+              <!-- <ul>
+                <li *ngFor="let item of filteredValues; let i=index">
+                  {{item.title}}
+                </li>
+              </ul> -->
             </div>
+            <ul id="myUL">
+              <ng-container *ngIf="filteredValues?.length; else elseTemplate">
+                <li *ngFor="let item of filteredValues; let i=index">
+                  <a (keyup.enter)="onSelectSkill(item)" (click)="onSelectSkill(item)" href="javascript:;">{{item?.tag}}</a>
+                </li>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <li *ngIf="searchForm?.errors?.atLeastOne == false">
+                  <a href="javascript:;">No Skill Match</a>
+                </li>
+              </ng-template>
+
+            </ul>
           </div>
           <div class="col-lg-6 col-md-6 mb-3">
             <div class="input-with-icon">
-              <input formControlName="location" [options]="{
+              <input formControlName="location"  type="text"
+                  class="form-control" placeholder="City, State" value="">
+              <!-- <input formControlName="location" [options]="{
               types: ['(regions)']
               }" ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)" type="text"
-                class="form-control" placeholder="City, State" value="">
+                class="form-control" placeholder="City, State" value=""> -->
               <i class="fas fa-map-marker-alt"></i>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
+          <!-- <div class="col-lg-6 col-md-6">
             <div
               *ngIf="(!loggedUserInfo?.isLoggedIn || (loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(0)))"
               class="custom-control custom-radio ml-1">
@@ -43,9 +64,14 @@
                 class="custom-control-input">
               <label class="custom-control-label" for="customRadio2">{{ "home.findCandidates" | translate}}</label>
             </div>
-          </div>
+          </div> -->
           <div class="col-lg-6 col-md-6">
-            <button type="submit" class="btn btn-block btn-theme-blue btn-lg">{{"home.search" | translate}}</button>
+            <button type="submit" class="btn btn-block btn-theme-blue btn-lg">
+              <span *ngIf="(!loggedUserInfo?.isLoggedIn || (loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(0)))">
+                {{"home.findJobs" | translate}}
+              </span>
+              <span *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)">{{"home.findCandidates" | translate}}</span>
+            </button>
           </div>
         </div>
       </form>

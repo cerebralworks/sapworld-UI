@@ -16,7 +16,7 @@ module.exports = (app, env, rp) => {
    * User crm for restaurant
    */
   app.get("/api/users/list", (req, res) => {
-    let requestBody = { ...req.query };    
+    let requestBody = { ...req.query };   
     requestCustom.get(`${serverRoutes.userList}`, req, res, requestBody);
   });
 

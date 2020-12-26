@@ -19,6 +19,18 @@ export class UtilsHelperService {
     return true;
   }
 
+  clean(obj) {
+    for (var propName in obj) {
+      if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '') {
+        delete obj[propName];
+      }
+      if(Array.isArray(obj[propName]) && obj[propName].length == 0) {
+        delete obj[propName];
+      }
+    }
+    return obj
+  }
+
   convertToImageUrl(imageString: any): string {
     if (imageString !== null && imageString !== undefined && imageString !== 0) {
       if (!(imageString.indexOf("https://") >= 0 || imageString.indexOf("http://") >= 0)) {

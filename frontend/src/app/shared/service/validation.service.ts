@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class ValidationService {
       minlength: `The field must contain atleast ${validatorValue.requiredLength} characters.`,
       invalidEmailAddress: 'Please enter a valid email address.',
       mismatch: 'Password doesn\'t match.',
+      range: `The field must contain atleast characters.`,
       inValidMobile: 'Invalid mobile number',
       noFreeEmail: "Please use your business email, we don't accept Gmail, Yahoo, Hotmail and Mailinator accounts."
     };
@@ -80,4 +81,14 @@ export class ValidationService {
       return { inValidMobile: true };
     }
   }
+
+  public static checkLimit(min: number, max: number): ValidatorFn {
+    return (c: AbstractControl): { [key: string]: boolean } | null => {
+        if (c.value && (isNaN(c.value) || c.value < min || c.value > max)) {
+            return { range: true };
+        }
+        return null;
+    };
+  }
+
 }
