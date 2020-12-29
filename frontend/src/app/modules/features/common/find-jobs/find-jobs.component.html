@@ -18,7 +18,7 @@
       <div class="col-lg-8 col-md-7">
         <div class="row">
           <div class="col-lg-7 title mb-0">
-            <h2><span>Search results for "{{(skillString && skillString?.title) ? utilsHelperService.onSplitTag(skillString?.tag) : ''}}{{(skillString && cityString) ? ', ' : ''}}{{cityString ? cityString : ''}}"</span></h2>
+            <h2><span>Search results for "{{(skillString) ? skillString : ''}}{{(skillString && cityString) ? ', ' : ''}}{{cityString ? cityString : ''}}"</span></h2>
           </div>
           <div class="col-lg-5">
             <form class="form-inline float-right">
