@@ -18,7 +18,7 @@
       <div class="col-lg-8 col-md-7">
         <div class="row">
           <div class="col-lg-7 title mb-0">
-            <h2>Find Results</h2>
+            <h2><span>Search results for "{{(skillString && skillString?.title) ? utilsHelperService.onSplitTag(skillString?.tag) : ''}}{{(skillString && cityString) ? ', ' : ''}}{{cityString ? cityString : ''}}"</span></h2>
           </div>
           <div class="col-lg-5">
             <form class="form-inline float-right">
@@ -26,8 +26,8 @@
               <label>Sort by : </label>
               </div>
               <div class="form-group">
-              <select name="sort" [(ngModel)]="queryParams.sort" (change)="onFilterByValues('sort', $event?.target?.value)" class="form-control form-control-sm">
-                <option [value]="undefined">Select</option>
+              <select name="sort" [(ngModel)]="queryParams.sort" (change)="onSortByValues('sort', $event?.target?.value)" class="form-control form-control-sm">
+                <option [value]="''">Select</option>
                 <option value="created_at.desc">Most Recent </option>
                 <option value="most_popular.desc">Most Popular </option>
                 <option value="title.asc">Ascending (A to Z)  </option>
@@ -93,7 +93,7 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let item of experienceFilter; let i=index">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="experienceCheck_{{i}}">
+                    <input type="checkbox" [checked]="onCheckExpDefault(item)" (change)="onFiltertByExperience(item)" class="custom-control-input" id="experienceCheck_{{i}}">
                     <label class="custom-control-label" for="experienceCheck_{{i}}">{{item?.text}} </label>
                   </div>
                 </li>
@@ -104,11 +104,11 @@
             <div class="card-header" data-toggle="collapse" data-target="#collapseJoptype" aria-expanded="false" aria-controls="collapseJoptype">
               Job Type  <i class="fas fa-angle-down float-right pt-1"></i>
             </div>
-            <div class="card-body collapse multi-collapse" id="collapseJoptype">
+            <div [ngClass]="{'show': queryParams?.type}" class="card-body collapse multi-collapse" id="collapseJoptype">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let item of sharedService.onGetJobType(); let i=index">
                   <div class="custom-control custom-checkbox">
-                    <input [value]="i" (change)="onFilterByValues('type', i, 'array')" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
+                    <input [value]="i" [checked]="queryParams?.type?.includes(i)" (change)="onFiltertByJobType('type', i)" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
                     <label class="custom-control-label" for="customCheck_{{i}}">{{item}} </label>
                   </div>
                 </li>
@@ -119,22 +119,18 @@
             <div class="card-header" data-toggle="collapse" data-target="#collapseSalary" aria-expanded="false" aria-controls="collapseSalary">
               Salary  <i class="fas fa-angle-down float-right pt-1"></i>
             </div>
-            <div class="card-body p-3 collapse multi-collapse" id="collapseSalary">
-              <!-- <div class="salary-slider-range clearfix">
-                <input class="min_salary" type="text">
-                <input class="max_salary" type="text">
-              </div> -->
-              <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+            <div [ngClass]="{'show': (queryParams?.min_salary && queryParams?.max_salary)}" class="card-body p-3 collapse multi-collapse" id="collapseSalary">
+              <ngx-slider (userChangeEnd)="onFilterWithSalary($event)" [(value)]="minSalary" [(highValue)]="maxSalary" [options]="options"></ngx-slider>
             </div>
           </div>
           <div class="card mt-4">
             <div class="card-header" data-toggle="collapse" data-target="#collapseSkills" aria-expanded="false" aria-controls="collapseSkills">
               SAP Skills  <i class="fas fa-angle-down float-right pt-1"></i>
             </div>
-            <div class="card-body p-3 collapse multi-collapse" id="collapseSkills">
+            <div [ngClass]="{'show': skills?.length}" class="card-body p-3 collapse multi-collapse" id="collapseSkills">
               <div class="skill-select">
                 <div class="custom-control custom-checkbox mb-2" *ngFor="let item of skillItems?.items; let i=index">
-                  <input class="custom-control-input  mb-0" type="checkbox" id="Check_{{i}}" name="example1">
+                  <input [checked]="skills?.includes(customParseInt(item?.id))" (change)="onFiltertBySkill(item)" class="custom-control-input  mb-0" type="checkbox" id="Check_{{i}}" name="example1">
                   <label class="custom-control-label  mb-0" for="Check_{{i}}">{{utilsHelperService.onSplitTag(item?.tag)}} </label>
                 </div>
               </div>

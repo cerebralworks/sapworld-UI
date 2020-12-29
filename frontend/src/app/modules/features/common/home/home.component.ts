@@ -9,6 +9,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
 import { CacheService } from '@shared/service/cache.service';
 import { SharedService } from '@shared/service/shared.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { fromEvent, of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
@@ -30,9 +31,9 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
   public searchForm: FormGroup;
 
   @ViewChild('searchJob', { static: false }) searchJobs: ElementRef;
-  filteredValues: any[] = [];
-  selectedSkillItem: any;
-
+  public filteredValues: any[] = [];
+  public selectedSkillItem: any;
+  public isMenuOpen: boolean = false
 
   constructor(
     private router: Router,
@@ -42,9 +43,15 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
     private userSharedService: UserSharedService,
     private accountService: AccountService,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    public utilsHelperService: UtilsHelperService
   ) {
     super();
+  }
+
+  onCheck = (event) => {
+console.log(event);
+
   }
 
   ngOnInit(): void {
@@ -53,11 +60,6 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
       .isCurrentUser()
       .subscribe(response => {
         this.loggedUserInfo = response;
-        if (this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(0)) {
-          this.isFindSearch = 0;
-        } else if (this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
-          this.isFindSearch = 1;
-        }
       });
   }
 
@@ -71,8 +73,6 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
 
   atLeastOnePhoneRequired(group: FormGroup): { [s: string]: boolean } {
     if (group) {
-      // console.log(group);
-
       if (group.controls['search'].value || group.controls['location'].value) {
         return null;
       }
@@ -102,7 +102,12 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
         , distinctUntilChanged()
         // subscription for response
       ).subscribe((text: string) => {
-        this.onGetSkillTag(text);
+        if (this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
+          this.onGetSkillTag(text);
+        } else {
+          this.onGetJobBySearch(text)
+        }
+
       });
     }
 
@@ -154,31 +159,11 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
       });
     }else {
       this.searchForm.patchValue({
-        search: item.tag ? item.tag.toLowerCase() : this.searchForm.value.search.toLowerCase()
+        search: item.title ? item.title.toLowerCase() : this.searchForm.value.search.toLowerCase()
       });
     }
-
     this.filteredValues = []
   }
-
-  // onGetCandidateList(query) {
-  //   this.filteredValues = [];
-  //   let requestParams: any = {};
-  //   requestParams.page = 1;
-  //   requestParams.limit = 1000;
-  //   requestParams.status = 1;
-  //   requestParams.skill_tags = query;
-
-  //   this.userService.getUsers(requestParams).subscribe(
-  //     response => {
-  //       if(response && response.items && response.items.length > 0) {
-  //         this.filteredValues = [...response.items];
-  //       }
-  //       this.filteredValues = { ...response.meta };
-  //     }, error => {
-  //     }
-  //   )
-  // }
 
 
   handleAddressChange = (event) => {
@@ -192,21 +177,22 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
 
   onRedirect = () => {
     if (this.searchForm.valid) {
-      if (this.isFindSearch == 0) {
-        this.router.navigate(['/find-jobs'],
-          {
-            queryParams:
-            {
-              search: this.searchForm.value.search,
-              city: (this.searchForm.value && this.searchForm.value.location) ? this.searchForm.value.location : ''
-            }
-          });
-      } else {
+      if(this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
         this.router.navigate(['/find-candidates'],
           {
             queryParams:
             {
               skill_tags: this.searchForm.value.skillId,
+              city: (this.searchForm.value && this.searchForm.value.location) ? this.searchForm.value.location : ''
+            }
+          });
+
+      } else {
+        this.router.navigate(['/find-jobs'],
+          {
+            queryParams:
+            {
+              search: this.searchForm.value.search,
               city: (this.searchForm.value && this.searchForm.value.location) ? this.searchForm.value.location : ''
             }
           });

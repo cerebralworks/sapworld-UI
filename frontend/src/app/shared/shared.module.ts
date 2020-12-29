@@ -26,6 +26,8 @@ import { ContactCardComponent } from './component/contact-card/contact-card.comp
 import { RouterModule } from '@angular/router';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgInitDirective } from './directives/nginit.directive';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { ClickOutsideDirective } from './directives/clickOutside.directive';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { NgInitDirective } from './directives/nginit.directive';
     MarkAsteriskDirective,
     DeleteModalComponent,
     ContactCardComponent,
-    NgInitDirective
+    NgInitDirective,
+    ClickOutsideDirective
   ],
   imports: [
     CommonModule,
@@ -57,7 +60,8 @@ import { NgInitDirective } from './directives/nginit.directive';
     AngularEditorModule,
     AvatarModule,
     ImageCropperModule,
-    NgxSliderModule
+    NgxSliderModule,
+    PerfectScrollbarModule
   ],
   exports: [
     LoginFormComponent,
@@ -85,7 +89,9 @@ import { NgInitDirective } from './directives/nginit.directive';
     ContactCardComponent,
     RouterModule,
     NgxSliderModule,
-    NgInitDirective
+    NgInitDirective,
+    PerfectScrollbarModule,
+    ClickOutsideDirective
   ],
   providers: [ApiService]
 })

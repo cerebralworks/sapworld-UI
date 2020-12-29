@@ -11,60 +11,42 @@
         <div class="row">
           <div class="col-lg-6 col-md-6 mb-3">
             <div class="input-with-icon">
-              <input formControlName="search" #searchJob type="text" class="form-control"
+              <input (click)="isMenuOpen = true" formControlName="search" #searchJob type="text" class="form-control"
                 placeholder="Job Title / SAP Module" value="">
               <i class="fas fa-briefcase"></i>
-              <!-- <ul>
-                <li *ngFor="let item of filteredValues; let i=index">
-                  {{item.title}}
-                </li>
-              </ul> -->
             </div>
-            <ul id="myUL">
-              <ng-container *ngIf="filteredValues?.length; else elseTemplate">
-                <li *ngFor="let item of filteredValues; let i=index">
-                  <a (keyup.enter)="onSelectSkill(item)" (click)="onSelectSkill(item)" href="javascript:;">{{item?.tag}}</a>
-                </li>
-              </ng-container>
-              <ng-template #elseTemplate>
-                <li *ngIf="searchForm?.errors?.atLeastOne == false">
-                  <a href="javascript:;">No Skill Match</a>
-                </li>
-              </ng-template>
+            <!-- <perfect-scrollbar scrollToBottom="true" style="height: 50%"> -->
+              <ul *ngIf="isMenuOpen" (outsideClick)="isMenuOpen = false" outsideClick id="myUL">
+                <ng-container *ngIf="filteredValues?.length; else elseTemplate">
+                  <ng-container *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1); else elseTemplate">
+                    <li *ngFor="let item of filteredValues; let i=index">
+                      <a (keyup.enter)="onSelectSkill(item)" (click)="onSelectSkill(item)" href="javascript:;">{{item?.tag}}</a>
+                    </li>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <li *ngFor="let item of filteredValues; let i=index">
+                      <a (keyup.enter)="onSelectSkill(item)" (click)="onSelectSkill(item)" href="javascript:;">{{item?.title}}</a>
+                    </li>
+                  </ng-template>
 
-            </ul>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <li *ngIf="(!searchForm?.errors?.atLeastOne && utilsHelperService.isEmptyObj(selectedSkillItem))">
+                    <a href="javascript:;">No data found</a>
+                  </li>
+                </ng-template>
+
+              </ul>
+            <!-- </perfect-scrollbar> -->
+
           </div>
           <div class="col-lg-6 col-md-6 mb-3">
             <div class="input-with-icon">
               <input formControlName="location"  type="text"
                   class="form-control" placeholder="City, State" value="">
-              <!-- <input formControlName="location" [options]="{
-              types: ['(regions)']
-              }" ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)" type="text"
-                class="form-control" placeholder="City, State" value=""> -->
               <i class="fas fa-map-marker-alt"></i>
             </div>
           </div>
-          <!-- <div class="col-lg-6 col-md-6">
-            <div
-              *ngIf="(!loggedUserInfo?.isLoggedIn || (loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(0)))"
-              class="custom-control custom-radio ml-1">
-              <input [(ngModel)]="isFindSearch" [ngModelOptions]="{standalone: true}" [value]="0" type="radio"
-                id="customRadio1" name="customRadio"
-                attr.checked="{{loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(0) ? true : false}}"
-                class="custom-control-input">
-              <label class="custom-control-label" for="customRadio1">{{ "home.findJobs" | translate}}</label>
-            </div>
-            <div
-              *ngIf="(!loggedUserInfo?.isLoggedIn || (loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)))"
-              class="custom-control custom-radio ml-1">
-              <input [(ngModel)]="isFindSearch" [ngModelOptions]="{standalone: true}" [value]="1" type="radio"
-                id="customRadio2" name="customRadio"
-                attr.checked="{{loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) ? true : false}}"
-                class="custom-control-input">
-              <label class="custom-control-label" for="customRadio2">{{ "home.findCandidates" | translate}}</label>
-            </div>
-          </div> -->
           <div class="col-lg-6 col-md-6">
             <button type="submit" class="btn btn-block btn-theme-blue btn-lg">
               <span *ngIf="(!loggedUserInfo?.isLoggedIn || (loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(0)))">

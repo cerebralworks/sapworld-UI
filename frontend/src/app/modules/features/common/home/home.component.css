@@ -20,3 +20,28 @@
 #myUL li a:hover:not(.header) {
   background-color: #eee; /* Add a hover effect to all links, except for headers */
 }
+
+
+mark { background-color:pink; }
+
+
+.list-autocomplete {
+  padding:0; }
+.list-autocomplete em {
+  font-style:normal;
+  background-color:#e1f2f9;
+}
+
+.hasNoResults {
+  color:#aaa; }
+.hasNoResults,
+.btn-extra {
+  display:block;
+  padding:10px; }
+
+.hasNoResults {
+  color:#aaa; }
+
+.btn-extra {
+  width:100%;
+  border-top:.5px solid #d2d2d2; }

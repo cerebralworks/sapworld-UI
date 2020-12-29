@@ -16,7 +16,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 export class FindCandidatesComponent extends CacheService implements OnInit {
 
   public page: number = 1;
-  public limit: number = 1000;
+  public limit: number = 25;
   public userList: any[];
   public userMeta: any;
   public sortByValue: string = 'created_at.desc';
