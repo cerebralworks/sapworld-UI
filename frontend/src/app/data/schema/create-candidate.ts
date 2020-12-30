@@ -14,7 +14,7 @@ export interface tabProgressor {
 export interface CandidateProfile {
   id: number;
   title: string;
-  type: string;
+  job_type: number;
   description: string;
   salary_type: number;
   salary_currency: number;
@@ -23,8 +23,8 @@ export interface CandidateProfile {
   state: string;
   country: string;
   zipcode: number;
-  availability: string;
-  remote: boolean;
+  availability: number;
+  remote_only: boolean;
   experience: number;
   sap_experience: number;
   latlng: string;
@@ -43,4 +43,10 @@ export interface CandidateProfile {
   end_to_end_implementation: number;
   contract_duration: number;
   education_qualification: any[];
+  domains_worked: any[];
+  other_skills: any[];
+  job_role: string;
+  clients_worked:  any[];
+  willing_to_relocate: boolean;
+  travel: number
 }

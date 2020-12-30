@@ -9,7 +9,8 @@ export class ContactCardComponent implements OnInit {
 
   @Input() userInfo: any;
   @Input() isEdit: boolean;
-  @Input() isResume: boolean;
+  @Input() isResume?: boolean;
+  @Input() isMail?: boolean = false;
 
   public isOpenedContactInfoModal: boolean;
   public isOpenedResumeModal: boolean;

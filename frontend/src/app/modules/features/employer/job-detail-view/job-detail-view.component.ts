@@ -1,8 +1,12 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
+import { LoggedIn } from '@data/schema/account';
 import { GetResponse } from '@data/schema/response';
+import { AccountService } from '@data/service/account.service';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
+import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-job-detail-view',
@@ -15,12 +19,17 @@ export class JobDetailViewComponent implements OnInit {
   public postedJobsDetails: any = {};
   public skills: GetResponse;
   public industries: GetResponse;
+  public loggedUserInfo: LoggedIn;
+  public previousUrl: string;
 
   constructor(
     public employerService: EmployerService,
     private route: ActivatedRoute,
-    public sharedService: SharedService
-  ) { }
+    public sharedService: SharedService,
+    private accountService: AccountService,
+    private location: Location
+  ) {
+  }
 
   ngOnInit(): void {
     const jobId = this.route.snapshot.paramMap.get('id');
@@ -30,6 +39,15 @@ export class JobDetailViewComponent implements OnInit {
       this.onGetIndustries();
     }
 
+    this.accountService
+      .isCurrentUser()
+      .subscribe(response => {
+        this.loggedUserInfo = response;
+      });
+  }
+
+  onRedirectBack = () => {
+    this.location.back();
   }
 
   onGetPostedJob(jobId) {

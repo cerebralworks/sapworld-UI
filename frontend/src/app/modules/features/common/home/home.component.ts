@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoggedIn } from '@data/schema/account';
@@ -11,8 +11,10 @@ import { CacheService } from '@shared/service/cache.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
-import { fromEvent, of, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { concat, fromEvent, Observable, of, Subject } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+// import { concat, Observable, of, Subject, throwError } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
@@ -35,6 +37,12 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
   public selectedSkillItem: any;
   public isMenuOpen: boolean = false
 
+  movies$: Observable<any>;
+  moviesLoading = false;
+  moviesInput$ = new Subject<string>();
+  selectedMovie: any;
+  minLengthTerm = 3;
+
   constructor(
     private router: Router,
     private employerService: EmployerService,
@@ -44,7 +52,8 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
     private accountService: AccountService,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    public utilsHelperService: UtilsHelperService
+    public utilsHelperService: UtilsHelperService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     super();
   }
@@ -86,7 +95,64 @@ console.log(event);
 
   ngAfterViewInit(): void {
     this.onTitleSearch();
+    // this.loadMovies();
+    // this.changeDetectorRef.detectChanges();
   }
+
+  loadMovies() {
+
+    this.movies$ = concat(
+      of([]), // default items
+      this.moviesInput$.pipe(
+        filter(res => {
+          return res !== null && res.length >= this.minLengthTerm
+        }),
+        distinctUntilChanged(),
+        debounceTime(800),
+        switchMap(term => {
+
+          return this.getMovies(term).pipe(
+            catchError(() => of([])), // empty list on error
+          )
+        })
+      )
+    );
+
+  }
+
+  trackByFn(item: any) {
+    return item.id;
+  }
+
+  getMovies(term: string = null): Observable<any> {
+    this.filteredValues = [];
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.limit = 1000;
+    requestParams.status = 1;
+    requestParams.search = term;
+    return this.employerService.getSkill(requestParams).pipe(
+      map((response) => {
+          if (response && response.items && response.items.length > 0) {
+           return [...response.items];
+          }
+        }, error => {
+        }
+      )
+    )
+    // onGetSkillTag
+    // return this.http
+    //   .get<any>('http://www.omdbapi.com/?apikey=[YOUR_OMDB_KEY]&s=' + term)
+    //   .pipe(map(resp => {
+    //     if (resp.Error) {
+    //       throwError(resp.Error);
+    //     } else {
+    //       return resp.Search;
+    //     }
+    //   })
+    //   );
+  }
+
 
   onTitleSearch = () => {
     if (this.searchJobs && this.searchJobs.nativeElement) {
@@ -95,7 +161,7 @@ console.log(event);
           return event.target.value;
         })
         // if character length greater then 2
-        , filter(res => res.length > 1 || res.length == 0)
+        , filter(res => res.length > 1)
         // Time in milliseconds between key events
         , debounceTime(600)
         // If previous query is diffent from current

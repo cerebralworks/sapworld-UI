@@ -10,6 +10,24 @@
           has to be provided.</span>
         <div class="row">
           <div class="col-lg-6 col-md-6 mb-3">
+            <!-- <ng-select
+    [items]="movies$ | async"
+    bindLabel="tag"
+    [multiple]="true"
+    [trackByFn]="trackByFn"
+    [minTermLength]="minLengthTerm"
+    [loading]="moviesLoading"
+    placeholder="Job Title / SAP Module"
+    typeToSearchText="Please enter {{minLengthTerm}} or more characters" [typeahead]="moviesInput$"
+    formControlName="search">
+    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+      {{utilsHelperService.onSplitTag(item.tag)}}
+      <span class="ng-value-icon right" (click)="clear(item)">×</span>
+  </ng-template>
+    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+      {{utilsHelperService.onSplitTag(item.tag)}}
+    </ng-template>
+  </ng-select> -->
             <div class="input-with-icon">
               <input (click)="isMenuOpen = true" formControlName="search" #searchJob type="text" class="form-control"
                 placeholder="Job Title / SAP Module" value="">

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { UserService } from '@data/service/user.service';
+import { SharedService } from '@shared/service/shared.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-employer-candidate-profile-view',
@@ -17,9 +19,11 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public sharedService: SharedService,
+    public utilsHelperService: UtilsHelperService
   ) {
-    this.userID = this.route.snapshot.paramMap.get('id');
+    this.userID = this.route.snapshot.queryParamMap.get('id');
   }
 
   ngOnInit(): void {

@@ -21,6 +21,10 @@
           <a (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}</a>
         </span>
+        <span  *ngIf="isMail">
+          <a class="btn btn-outline-orange btn-sm ml-1" href="javascript:;">
+          <i class="fas fa-paper-plane"></i> Send Mail</a>
+        </span>
       </div>
     </div>
     <div class="media">
