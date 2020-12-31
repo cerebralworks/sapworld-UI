@@ -94,10 +94,10 @@
             class="btn btn-outline-green font-weight-bold py-2 px-4" href="javascript:;">{{"home.postResume" |
             translate}} </a>
           <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(0)"
-            [routerLink]="['/employer/post-job']" class="btn btn-outline-blue font-weight-bold py-2 px-4 mr-1"
+            [routerLink]="['/user/dashboard']" [queryParams]="{activeTab: 'matches'}" class="btn btn-outline-blue font-weight-bold py-2 px-4 mr-1"
             href="javascript:;">{{"dashboard.matches" | translate}} </a>
           <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)"
-            [routerLink]="['/user/create-candidate']" class="btn btn-outline-green font-weight-bold py-2 px-4"
+            [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches'}" class="btn btn-outline-green font-weight-bold py-2 px-4"
             href="javascript:;">{{"dashboard.matches" | translate}} </a>
         </div>
       </div>

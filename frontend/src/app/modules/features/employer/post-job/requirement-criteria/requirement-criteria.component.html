@@ -21,6 +21,8 @@
       <div class=" form-group">
         <label>{{"postJob.domainExperience" | translate }}</label>
         <ngx-select
+        appMarkAsterisk
+        [placeholder]="'Select Domain'"
         class="text-capitalize"
         [items]="industriesItems"
         [multiple]="true"
@@ -46,8 +48,8 @@
       <div class="col-lg-6 col-md-8">
         <ngx-select
         (select)="onSelectSkillEvent($event, i)"
-        [placeholder]="'Select Skills'"
-        class="text-uppercase"
+        [placeholder]="'Select SAP Skills'"
+        class="text-capitalize"
         appMarkAsterisk
         [items]="skillItems"
         formControlName="skill_id"
@@ -98,6 +100,7 @@
         <label>{{"postJob.knowledgeOnOtherSapSkills" | translate }} </label>
         <ngx-select
         class="text-capitalize"
+        [placeholder]="'Select Other SAP Skills'"
         [multiple]="true"
         appMarkAsterisk
         [items]="skillItems"
@@ -135,7 +138,7 @@
     <div class="col-lg-9 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.programmingSkills" | translate }}</label>
-        <ng-select id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
+        <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. Javascript, Php" appendTo="body" multiple="true"
           formControlName="programming_skills">
         </ng-select>
         <app-control-messages [control]="f['programming_skills']"></app-control-messages>
@@ -153,7 +156,7 @@
     <div class="col-lg-6 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.niceToHave" | translate }} </label>
-        <ng-select id="niceToHave" [addTag]="true"  addTagText="Add Nice To Have" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
+        <ng-select id="niceToHave" [addTag]="true"  addTagText="Add Nice To Have" bindValue="label" bindLabel="label" placeholder="Ex. Docker, Azure" appendTo="body" multiple="true"
           formControlName="optinal_skills">
         </ng-select>
         <app-control-messages [control]="f['optinal_skills']"></app-control-messages>
@@ -162,7 +165,7 @@
     <div class="col-lg-6 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.certification" | translate }} </label>
-        <ng-select id="certification" [addTag]="true" addTagText="Add Certification" bindValue="label" bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
+        <ng-select id="certification" [addTag]="true" addTagText="Add Certification" bindValue="label" bindLabel="label" placeholder="Ex. AWS, CCNA" appendTo="body" multiple="true"
           formControlName="certification">
         </ng-select>
         <app-control-messages [control]="f['certification']"></app-control-messages>

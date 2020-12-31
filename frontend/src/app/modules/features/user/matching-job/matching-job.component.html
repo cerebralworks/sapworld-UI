@@ -35,204 +35,47 @@
             <!--//Search Results Tags-->
           </div>
         </div>
-        <div class="row mt-4 mb-4">
-          <div class="col-lg-12">
-            <div class="card job-card">
-              <div class="card-body">
-                <div class="clearfix">
-                  <div class="float-left">
-                    <a href="javascript:;"  [routerLink]="['/user/job-matches']" >
-                      <h5>SAP ABAP Lead Consultant</h5>
-                    </a>
+        <ng-container *ngIf="postedJobs.length > 0; else elseTemplate">
+          <div class="row mt-4 mb-4" *ngFor="let item of postedJobs; let i=index">
+            <div class="col-lg-12">
+              <div class="card job-card">
+                <div class="card-body">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <a href="javascript:;" [routerLink]="['/employer/job-detail-view', item?.id]" >
+                        <h5 class="text-capitalize">{{item?.title}}</h5>
+                      </a>
+                    </div>
+                    <div class="float-right">
+                      <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob"> <i class="fas fa-check"></i> Apply Now</button>
+                    </div>
                   </div>
-                  <div class="float-right">
-                    <button type="button" class="btn btn-outline-green btn-sm" (click)="onToggleResumeSelectModal(true)"> <i class="fas fa-check"></i> {{"common.apply" | translate}} </button>
-                  </div>
-                </div>
-                <div class="media">
-                  <div class="media-body">
-                    <h6>Wipro Limited</h6>
-                    <h6>Austin, TX, USA</h6>
-                    <h6>Permanent, Contract, Part Time, <span class="remote pl-2">Remote</span></h6>
-                    <div class="mt-2">
-                      <span class="sap-badge">SAP ABAP</span> <span class="sap-badge">SAP Mobility</span>
-                      <span class="sap-badge">SAP FSCM</span>
+                  <div class="media">
+                    <div class="media-body">
+                      <h6 class="text-capitalize">
+                        {{item?.company?.company}}
+                      </h6>
+                      <h6 class="text-capitalize">
+                        {{item?.city ? item?.city + ', ' : ''}}
+                        {{item?.state ? item?.state + ', ' : ''}}
+                        {{item?.country ? item?.country : ''}}
+                      </h6>
+                      <h6>{{item?.experience ? item?.experience + ' Years Exp.' : ''}} <span *ngIf="item?.type">{{' , '}}</span>{{item?.type ? sharedService.onGetJobType(item?.type) : ''}} <span *ngIf="item?.remote" class="remote pl-2">Remote</span></h6>
+                      <div class="mt-2">
+                        <ng-container *ngFor="let itemSub of item?.hands_on_experience">
+                          <span *ngIf="itemSub.skill_id" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub.skill_id).tag)}}</span>
+                        </ng-container>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row mt-4 mb-4">
-          <div class="col-lg-12">
-            <div class="card job-card">
-              <div class="card-body">
-                <div class="clearfix">
-                  <div class="float-left">
-                    <a href="candidate-job-view-matches.html">
-                      <h5>SAP BA / Project Manager</h5>
-                    </a>
-                  </div>
-                  <div class="float-right">
-                    <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob"> <i class="fas fa-check"></i> {{"common.apply" | translate}}</button>
-                  </div>
-                </div>
-                <div class="media">
-                  <div class="media-body">
-                    <h6>SAP Cincinnati</h6>
-                    <h6>OH, USA</h6>
-                    <h6>Permanent, Contract, Part Time, <span class="remote pl-2">Remote</span></h6>
-                    <div class="mt-2">
-                      <span class="sap-badge">SAP PM</span> <span class="sap-badge">SAP MM</span> <span class="sap-badge">SAP Mobility</span>
-                      <span class="sap-badge">SAP FSCM</span> <span class="sap-badge">SAP QM</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4 mb-4">
-          <div class="col-lg-12">
-            <div class="card job-card">
-              <div class="card-body">
-                <div class="clearfix">
-                  <div class="float-left">
-                    <a href="#">
-                      <h5>SAP IBP - Integrated Business Planning</h5>
-                    </a>
-                  </div>
-                  <div class="float-right">
-                    <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob"> <i class="fas fa-check"></i> {{"common.apply" | translate}}</button>
-                  </div>
-                </div>
-                <div class="media">
-                  <div class="media-body">
-                    <h6>Techcom Solutions</h6>
-                    <h6>Chennai, India</h6>
-                    <h6>Permanent, Contract, Part Time</h6>
-                    <div class="mt-2">
-                      <span class="sap-badge">SAP IBP</span> <span class="sap-badge">SAP FSCM</span> <span class="sap-badge">SAP PM</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4 mb-4">
-          <div class="col-lg-12">
-            <div class="card job-card">
-              <div class="card-body">
-                <div class="clearfix">
-                  <div class="float-left">
-                    <a href="#">
-                      <h5>SAP Security Consultant</h5>
-                    </a>
-                  </div>
-                  <div class="float-right">
-                    <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob"> <i class="fas fa-check"></i> {{"common.apply" | translate}}</button>
-                  </div>
-                </div>
-                <div class="media">
-                  <div class="media-body">
-                    <h6>Infosys Technologies Ltd</h6>
-                    <h6>New York, NY 10007</h6>
-                    <h6>Permanent, Contract, Part Time, <span class="remote pl-2">Remote</span></h6>
-                    <div class="mt-2">
-                      <span class="sap-badge">SAP ABAP</span> <span class="sap-badge">SAP Mobility</span><span class="sap-badge">SAP FSCM</span> <span class="sap-badge">SAP QM</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4 mb-4">
-          <div class="col-lg-12">
-            <div class="card job-card">
-              <div class="card-body">
-                <div class="clearfix">
-                  <div class="float-left">
-                    <a href="#">
-                      <h5>SAP Hybris Consultant - C4C</h5>
-                    </a>
-                  </div>
-                  <div class="float-right">
-                    <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob"> <i class="fas fa-check"></i> {{"common.apply" | translate}}</button>
-                  </div>
-                </div>
-                <div class="media">
-                  <div class="media-body">
-                    <h6>Next Ventures</h6>
-                    <h6>Chennai, Tamil Nadu</h6>
-                    <h6>Permanent, Contract</h6>
-                    <div class="mt-2">
-                      <span class="sap-badge">SAP C4C</span> <span class="sap-badge">SAP Mobility</span><span class="sap-badge">SAP FSCM</span> <span class="sap-badge">SAP QM</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4 mb-4">
-          <div class="col-lg-12">
-            <div class="card job-card">
-              <div class="card-body">
-                <div class="clearfix">
-                  <div class="float-left">
-                    <a href="#">
-                      <h5>SAP Sr. Consultant-ERP</h5>
-                    </a>
-                  </div>
-                  <div class="float-right">
-                    <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob"> <i class="fas fa-check"></i> {{"common.apply" | translate}}</button>
-                  </div>
-                </div>
-                <div class="media">
-                  <div class="media-body">
-                    <h6>Randstad </h6>
-                    <h6>Chennai, Tamil Nadu</h6>
-                    <h6>Permanent, Contract, Part Time, <span class="remote pl-2">Remote</span></h6>
-                    <div class="mt-2">
-                      <span class="sap-badge">SAP ERP</span> <span class="sap-badge">SAP Mobility</span><span class="sap-badge">SAP FSCM</span> <span class="sap-badge">SAP QM</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4 mb-4">
-          <div class="col-lg-12">
-            <div class="card job-card">
-              <div class="card-body">
-                <div class="clearfix">
-                  <div class="float-left">
-                    <a href="#">
-                      <h5>SAP SD consultant</h5>
-                    </a>
-                  </div>
-                  <div class="float-right">
-                    <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob"> <i class="fas fa-check"></i> {{"common.apply" | translate}}</button>
-                  </div>
-                </div>
-                <div class="media">
-                  <div class="media-body">
-                    <h6>Cherrytec Intelisolve Ltd</h6>
-                    <h6>Chennai, Tamil Nadu</h6>
-                    <h6>Permanent, Part Time</h6>
-                    <div class="mt-2">
-                      <span class="sap-badge">SAP SD</span> <span class="sap-badge">SAP Mobility</span><span class="sap-badge">SAP FSCM</span> <span class="sap-badge">SAP QM</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <p>No Jobs Found</p>
+        </ng-template>
       </div>
       <div class="col-lg-4 col-md-5">
         <div class="title">

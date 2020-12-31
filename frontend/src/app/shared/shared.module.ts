@@ -28,6 +28,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgInitDirective } from './directives/nginit.directive';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ClickOutsideDirective } from './directives/clickOutside.directive';
+import { AppPasswordDirective } from './directives/app-password.directive';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ClickOutsideDirective } from './directives/clickOutside.directive';
     DeleteModalComponent,
     ContactCardComponent,
     NgInitDirective,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    AppPasswordDirective
   ],
   imports: [
     CommonModule,
@@ -91,7 +93,8 @@ import { ClickOutsideDirective } from './directives/clickOutside.directive';
     NgxSliderModule,
     NgInitDirective,
     PerfectScrollbarModule,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    AppPasswordDirective
   ],
   providers: [ApiService]
 })
