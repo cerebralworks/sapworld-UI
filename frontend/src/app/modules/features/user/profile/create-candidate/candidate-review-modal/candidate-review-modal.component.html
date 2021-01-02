@@ -32,7 +32,7 @@
                   <h6>
                     <a href="mailto:{{userInfo?.email}}">
                     <i class="fas fa-envelope" *ngIf="userInfo?.email"></i> {{userInfo?.email}}</a>
-                    <i class="fas fa-mobile" *ngIf="childForm?.value?.personalDetails?.phone"></i> {{childForm?.value?.personalDetails?.phone}}
+                    <i class="fas fa-mobile" *ngIf="childForm?.value?.personalDetails?.phone"></i> {{childForm?.value?.personalDetails?.phone?.e164Number ? childForm?.value?.personalDetails?.phone?.e164Number : childForm?.value?.personalDetails?.phone}}
                   </h6>
 									<h6 *ngIf="childForm?.value?.personalDetails?.social_media_link?.length">
                     <a class="mr-1" *ngFor="let item of childForm?.value?.personalDetails?.social_media_link" href="{{item.url}}" target="_blank">

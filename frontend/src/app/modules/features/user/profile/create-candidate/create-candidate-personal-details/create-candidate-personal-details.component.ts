@@ -222,7 +222,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       youtubeBoolen: new FormControl(false),
       blogBoolen: new FormControl(false),
       portfolioBoolen: new FormControl(false),
-      dialCode: new FormControl('+1'),
     }));
   }
 
@@ -353,13 +352,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   }
 
   onCountryChange = (event) => {
-    if(event && event.dialCode) {
-      this.childForm.patchValue({
-        personalDetails: {
-          dialCode: '+' + event.dialCode
-        }
-      })
-    }
+    // if(event && event.dialCode) {
+    //   this.childForm.patchValue({
+    //     personalDetails: {
+    //       dialCode: '+' + event.dialCode
+    //     }
+    //   })
+    // }
   }
 
 }
