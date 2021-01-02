@@ -11,8 +11,8 @@
   </div>
   <div class="form-group">
     <label>Password</label>
-    <div class="input-with-icon">
-      <input type="password" class="form-control" [placeholder]="'Password'" formControlName="password">
+    <div class="input-with-icon input-group">
+      <input appPassword type="password" class="form-control" [placeholder]="'Password'" formControlName="password">
       <i class="fas fa-lock"></i>
     </div>
     <app-control-messages [control]="f['password']"></app-control-messages>

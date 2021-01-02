@@ -76,6 +76,11 @@
         <ng-template #elseTemplate>
           <p>No Jobs Found</p>
         </ng-template>
+        <div class="d-flex justify-content-center" *ngIf="((postedJobMeta?.count > 0 && postedJobMeta?.total > 25) && (postedJobMeta?.total != postedJobs?.length))">
+          <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
+            Load More
+          </button>
+        </div>
       </div>
       <div class="col-lg-4 col-md-5">
         <div class="title">

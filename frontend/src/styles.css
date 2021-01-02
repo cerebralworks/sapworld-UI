@@ -26,3 +26,17 @@
 .ngx-slider .ngx-slider-selection {
   background: #28a745 !important;
 }
+
+.iti__country-list {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	box-shadow: none;
+	border-color: #c7cace;
+	font-size: 14px;
+	margin-left: 0;
+	margin-top: -1px;
+	width: 350px;
+}
+.iti--allow-dropdown {
+  width: 350px;
+}

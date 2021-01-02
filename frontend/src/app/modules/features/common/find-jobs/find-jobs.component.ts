@@ -159,7 +159,7 @@ export class FindJobsComponent extends CacheService implements OnInit {
     this.employerService.getPostedJob(removeEmpty).subscribe(
       response => {
         if(response && response.items && response.items.length > 0) {
-          this.postedJobs = [...response.items];
+          this.postedJobs = [...this.postedJobs, ...response.items];
         }
         this.postedJobMeta = { ...response.meta };
       }, error => {
@@ -271,6 +271,11 @@ export class FindJobsComponent extends CacheService implements OnInit {
      return true;
     }
     return false;
+  }
+
+  onLoadMoreJob = () => {
+    this.page = this.page + 1;
+    this.onGetPostedJob();
   }
 
 }

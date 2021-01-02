@@ -144,6 +144,10 @@ export class CreateCandidateLayoutComponent implements OnInit {
       candidateInfo.education_qualification = educationQualification;
     }
 
+    if(candidateInfo && candidateInfo.phone && candidateInfo.phone.e164Number) {
+      candidateInfo.phone = candidateInfo.phone.e164Number
+    }
+
     console.log(candidateInfo);
 
 

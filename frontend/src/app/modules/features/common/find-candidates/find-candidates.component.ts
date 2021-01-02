@@ -17,7 +17,7 @@ export class FindCandidatesComponent extends CacheService implements OnInit {
 
   public page: number = 1;
   public limit: number = 25;
-  public userList: any[];
+  public userList: any[] = [];
   public userMeta: any;
   public sortByValue: string = 'created_at.desc';
   public experienceFilter: { value: {min: number, max: number}; text: string; }[];
@@ -143,7 +143,7 @@ export class FindCandidatesComponent extends CacheService implements OnInit {
     this.userService.getUsers(removeEmpty).subscribe(
       response => {
         if(response && response.items && response.items.length > 0) {
-          this.userList = [...response.items];
+          this.userList = [...this.userList, ...response.items];
         }
         this.userMeta = { ...response.meta };
       }, error => {
@@ -255,6 +255,11 @@ export class FindCandidatesComponent extends CacheService implements OnInit {
     }else {
       this.onRedirectRouteWithQuery({min_salary: '', max_salary: ''})
     }
+  }
+
+  onLoadMoreJob = () => {
+    this.page = this.page + 1;
+    this.onGetCandidateList();
   }
 
 }

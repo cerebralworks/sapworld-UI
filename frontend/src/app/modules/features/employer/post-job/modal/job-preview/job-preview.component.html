@@ -188,7 +188,7 @@
             <li class="list-group-item text-capitalize">
               {{(postJobForm?.value?.jobInfo?.availability || postJobForm?.value?.jobInfo?.availability == 0) ? (postJobForm?.value?.jobInfo?.availability == 0 ? 'Immediate' : postJobForm?.value?.jobInfo?.availability + ' Days') : '--'}}</li>
             <li class="list-group-item text-capitalize">
-              {{(postJobForm?.value?.jobInfo?.travel_opportunity || postJobForm?.value?.jobInfo?.travel_opportunity==0) ? (postJobForm?.value?.requirement?.travel_opportunity == 0 ? 'No' : postedJobsDetails?.travel_opportunity + '%') : '--'}}
+              {{(postJobForm?.value?.requirement?.travel_opportunity || postJobForm?.value?.requirement?.travel_opportunity==0) ? (postJobForm?.value?.requirement?.travel_opportunity == 0 ? 'No' : postJobForm?.value?.requirement?.travel_opportunity + '%') : '--'}}
             </li>
             <!-- <li class="list-group-item text-capitalize">{{postJobForm?.value?.jobInfo?.certification}}</li> -->
             <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>

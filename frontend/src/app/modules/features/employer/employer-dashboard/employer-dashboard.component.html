@@ -32,23 +32,23 @@
 				<div class="col-lg-12">
 				<ul class="nav">
 					  <li class="nav-item">
-						<a (click)="onTabChange({tabName: 'Posted Jobs', tabNumber: 1})"
+						<a (click)="onTabChange({tabName: 'postedJobs', tabNumber: 1})"
             [ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">{{"dashboard.postedJobs" | translate}}</a>
 					  </li>
 					  <li class="nav-item">
-						<a (click)="onTabChange({tabName: 'Matches', tabNumber: 2})"
+						<a (click)="onTabChange({tabName: 'matches', tabNumber: 2})"
             [ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}} <small>(59)</small></a>
 					  </li>
 					  <li class="nav-item">
-						<a (click)="onTabChange({tabName: 'Applicants', tabNumber: 3})"
+						<a (click)="onTabChange({tabName: 'applicants', tabNumber: 3})"
             [ngClass]="{'active': currentTabInfo.tabNumber == 3}" class="nav-link" href="javascript:;">{{"dashboard.applicants" | translate}} <small>(43)</small></a>
 					  </li>
 					  <li class="nav-item">
-						<a (click)="onTabChange({tabName: 'Shortlisted', tabNumber: 4})"
+						<a (click)="onTabChange({tabName: 'shortlisted', tabNumber: 4})"
             [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">{{"dashboard.shortlisted" | translate}} <small>(26)</small></a>
             </li>
             <li class="nav-item">
-              <a (click)="onTabChange({tabName: 'Shortlisted', tabNumber: 5})"
+              <a (click)="onTabChange({tabName: 'savedProfile', tabNumber: 5})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 5}"
               class="nav-link" href="javascript:;">{{"dashboard.savedProfile" | translate}} <small>(6)</small></a>
               </li>

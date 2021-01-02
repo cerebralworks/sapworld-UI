@@ -46,8 +46,8 @@
       </div>
       <div class="form-group">
         <label>Password </label>
-        <div appMarkAsterisk class="input-with-icon">
-          <input type="password" class="form-control" [placeholder]="'Password'" formControlName="password">
+        <div appMarkAsterisk class="input-with-icon input-group">
+          <input appPassword type="password" class="form-control" [placeholder]="'Password'" formControlName="password">
           <i class="fas fa-key"></i>
         </div>
         <app-control-messages [control]="f['password']"></app-control-messages>

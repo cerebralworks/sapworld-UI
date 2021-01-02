@@ -30,17 +30,21 @@ export class MatchingJobComponent implements OnInit {
     private userSharedService: UserSharedService
   ) { }
 
-
+validateAPI = 0;
   ngOnInit(): void {
     this.userSharedService.getUserProfileDetails().subscribe(
       response => {
         this.userInfo = response;
-        if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length) {
+        if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length && this.validateAPI == 0) {
           this.onGetPostedJob();
+          this.validateAPI++;
         }
       }
     )
+  }
 
+  ngOnDestroy(): void {
+    this.validateAPI = 0;
   }
 
   onGetPostedJob() {
@@ -58,7 +62,7 @@ export class MatchingJobComponent implements OnInit {
     this.employerService.getPostedJob(removeEmpty).subscribe(
       response => {
         if(response && response.items && response.items.length > 0) {
-          this.postedJobs = [...response.items];
+          this.postedJobs = [...this.postedJobs, ...response.items];
         }
         this.postedJobMeta = { ...response.meta };
       }, error => {
@@ -69,5 +73,11 @@ export class MatchingJobComponent implements OnInit {
   onToggleResumeSelectModal = (status) => {
     this.isOpenedResumeSelectModal = status;
   }
+
+  onLoadMoreJob = () => {
+    this.page = this.page + 1;
+    this.onGetPostedJob();
+  }
+
 
 }

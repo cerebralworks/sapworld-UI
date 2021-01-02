@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperComponent, ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { UserService } from '@data/service/user.service';
+import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-create-candidate-personal-details',
@@ -62,6 +63,12 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 
   @ViewChild('userImage', { static: false }) userImage: ElementRef;
   croppedFile: any;
+  separateDialCode = false;
+	SearchCountryField = SearchCountryField;
+	TooltipLabel = TooltipLabel;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
 
   constructor(
     private parentF: FormGroupDirective,
@@ -163,6 +170,21 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
           })
         }
       }
+      let phoneNumber: string = this.savedUserDetails.phone;
+      if(phoneNumber) {
+        // this.childForm.controls.personalDetails.controls.phone.setValue('+919898989898');
+        // this.cd.detectChanges();
+        let phoneComponents = {
+          IDDCC: phoneNumber.substring(0, phoneNumber.length - 10),
+          NN: phoneNumber.substring(phoneNumber.length - 10, phoneNumber.length)
+        };
+        // this.childForm.patchValue({
+        //   personalDetails: {
+        //     phone: phoneComponents.NN,
+        //     dialCode: phoneComponents.IDDCC
+        //   }
+        // })
+      }
     }
   }
 
@@ -199,7 +221,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       githubBoolen: new FormControl(false),
       youtubeBoolen: new FormControl(false),
       blogBoolen: new FormControl(false),
-      portfolioBoolen: new FormControl(false)
+      portfolioBoolen: new FormControl(false),
+      dialCode: new FormControl('+1'),
     }));
   }
 
@@ -327,6 +350,16 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 
   convertToImage(imageString: string): string {
     return this.utilsHelperService.convertToImageUrl(imageString);
+  }
+
+  onCountryChange = (event) => {
+    if(event && event.dialCode) {
+      this.childForm.patchValue({
+        personalDetails: {
+          dialCode: '+' + event.dialCode
+        }
+      })
+    }
   }
 
 }

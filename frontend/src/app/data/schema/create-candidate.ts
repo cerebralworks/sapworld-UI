@@ -48,5 +48,6 @@ export interface CandidateProfile {
   job_role: string;
   clients_worked:  any[];
   willing_to_relocate: boolean;
-  travel: number
+  travel: number;
+  phone: any;
 }

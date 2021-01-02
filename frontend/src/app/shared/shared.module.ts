@@ -29,6 +29,7 @@ import { NgInitDirective } from './directives/nginit.directive';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ClickOutsideDirective } from './directives/clickOutside.directive';
 import { AppPasswordDirective } from './directives/app-password.directive';
+import {Ng2TelInputModule} from 'ng2-tel-input';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AppPasswordDirective } from './directives/app-password.directive';
     AvatarModule,
     ImageCropperModule,
     NgxSliderModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    Ng2TelInputModule
   ],
   exports: [
     LoginFormComponent,
@@ -94,7 +96,8 @@ import { AppPasswordDirective } from './directives/app-password.directive';
     NgInitDirective,
     PerfectScrollbarModule,
     ClickOutsideDirective,
-    AppPasswordDirective
+    AppPasswordDirective,
+    Ng2TelInputModule
   ],
   providers: [ApiService]
 })

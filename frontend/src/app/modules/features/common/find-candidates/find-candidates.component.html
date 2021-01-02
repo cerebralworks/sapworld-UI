@@ -96,7 +96,11 @@
         <ng-template #elseTemplate>
           <p>No candidates available</p>
         </ng-template>
-
+        <div class="d-flex justify-content-center" *ngIf="((userMeta?.count > 0 && userMeta?.total > 25) && (userMeta?.total != userList?.length))">
+          <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
+            Load More
+          </button>
+        </div>
       </div>
       <!--Side Bar Section-->
       <div class="col-lg-4 col-md-5">

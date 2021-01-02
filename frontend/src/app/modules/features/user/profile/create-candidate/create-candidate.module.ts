@@ -10,6 +10,8 @@ import { CreateCandidateEducationExpComponent } from './create-candidate-educati
 import { CreateCandidateSkillsetComponent } from './create-candidate-skillset/create-candidate-skillset.component';
 import { CreateCandidateJobPreferenceComponent } from './create-candidate-job-preference/create-candidate-job-preference.component';
 import { CandidateReviewModalComponent } from './candidate-review-modal/candidate-review-modal.component';
+import { Ng2TelInputModule } from 'ng2-tel-input';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 const routes: Routes = [
   {
@@ -32,6 +34,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    NgxIntlTelInputModule,
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule]
