@@ -30,6 +30,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ClickOutsideDirective } from './directives/clickOutside.directive';
 import { AppPasswordDirective } from './directives/app-password.directive';
 import {Ng2TelInputModule} from 'ng2-tel-input';
+import { SharedUserProfileComponent } from './component/shared-user-profile/shared-user-profile.component';
+import { SharedJobProfileComponent } from './component/shared-job-profile/shared-job-profile.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     ContactCardComponent,
     NgInitDirective,
     ClickOutsideDirective,
-    AppPasswordDirective
+    AppPasswordDirective,
+    SharedUserProfileComponent,
+    SharedJobProfileComponent
   ],
   imports: [
     CommonModule,
@@ -97,6 +101,8 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     PerfectScrollbarModule,
     ClickOutsideDirective,
     AppPasswordDirective,
+    SharedUserProfileComponent,
+    SharedJobProfileComponent,
     Ng2TelInputModule
   ],
   providers: [ApiService]

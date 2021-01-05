@@ -57,4 +57,12 @@ export class UserService extends CacheService {
     );
   }
 
+  getJob = (params?) => {
+    return this.apiService.get('/api/jobpostings/job-scoring', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
 }

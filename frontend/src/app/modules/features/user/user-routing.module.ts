@@ -13,7 +13,7 @@ const routes: Routes = [
       import('@modules/features/user/profile/create-candidate/create-candidate.module').then(m => m.CreateCandidateModule)
   },
   {
-    path: 'job-matches',
+    path: 'job-matches/:id',
     loadChildren: () =>
       import('@modules/features/user/candidate-job-matches/candidate-job-matches.module').then(m => m.CandidateJobMatchesModule)
   },

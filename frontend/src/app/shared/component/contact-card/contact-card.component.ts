@@ -11,6 +11,7 @@ export class ContactCardComponent implements OnInit {
   @Input() isEdit: boolean;
   @Input() isResume?: boolean;
   @Input() isMail?: boolean = false;
+  @Input() isContactIcon?: boolean = true;
 
   public isOpenedContactInfoModal: boolean;
   public isOpenedResumeModal: boolean;
@@ -18,6 +19,8 @@ export class ContactCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.userInfo);
+
   }
 
   onToggleContactInfoModal = (status) => {

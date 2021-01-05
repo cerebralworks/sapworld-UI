@@ -7,6 +7,7 @@ const routes = {
     employerProfile: '/employers/profile',
     userProfile: '/users/profile',
     userList: '/users/list',
+    userJobScoring: '/jobpostings/job-scoring',
     userView: '/users/view',
     userUpdate: "/users/update",
     userPhotoUpdate: "/users/update-photo",

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 
@@ -20,11 +21,16 @@ export class PostedJobComponent implements OnInit {
 
   constructor(
     public employerService: EmployerService,
-    private employerSharedService: EmployerSharedService
+    private employerSharedService: EmployerSharedService,
+    private router: Router
   ) { }
 
   validateSubscribe = 0;
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+
     this.employerSharedService.getEmployerProfileDetails().subscribe(
       details => {
         if(details) {

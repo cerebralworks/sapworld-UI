@@ -40,3 +40,19 @@
 .iti--allow-dropdown {
   width: 350px;
 }
+
+.input-group-text i{
+  position: unset!important;
+  top: 50%!important;
+  left: unset!important;
+  font-size: 18px!important;
+  transform: unset!important;
+  color: #333;
+  transition: unset!important;
+}
+
+.input-group-text {
+  border-radius: 0 10px 10px 0!important;
+  border: 2px solid #ccd1d6;
+  border-left: 0;
+}

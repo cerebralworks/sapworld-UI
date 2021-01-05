@@ -168,6 +168,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
   onUserPhotoUpdate = () => {
     const formData = new FormData();
     var rString = this.randomString(40, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    console.log(this.userPhotoInfo);
+
     formData.append('photo' , this.userPhotoInfo.photoBlob, ((this.userPhotoInfo && this.userPhotoInfo.photoBlob && this.userPhotoInfo.photoBlob.name) ? this.userPhotoInfo.photoBlob.name : rString));
     this.userService.photoUpdate(formData).subscribe(
       response => {
@@ -227,7 +229,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
     this.userService.profileView(requestParams).subscribe(
       response => {
         if(response && response.details) {
-          this.userDetails = response.details;
+          this.userDetails = {...response.details, meta: response.meta};
           this.candidateForm.patchValue({
             ...this.userDetails
           });

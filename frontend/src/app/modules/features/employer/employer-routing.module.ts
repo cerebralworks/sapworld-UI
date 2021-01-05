@@ -18,7 +18,7 @@ const routes: Routes = [
       import('@modules/features/employer/job-detail-view/job-detail-view.module').then(m => m.JobDetailViewModule)
   },
   {
-    path: 'job-candidate-matches',
+    path: 'job-candidate-matches/:id',
     loadChildren: () =>
       import('@modules/features/employer/employer-candidate-profile-matches/employer-candidate-profile-matches.module').then(m => m.EmployerCandidateProfileMatchesModule)
   },

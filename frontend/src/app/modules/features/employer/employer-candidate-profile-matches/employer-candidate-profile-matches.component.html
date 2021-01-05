@@ -1,8 +1,11 @@
 <section class="sub-header">
   <div class="container">
     <div class="row">
-      <div class="col-lg-5">
-        <ol class="breadcrumb">>
+      <div class="col-lg-5 d-flex align-items-center">
+        <button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <ol class="breadcrumb">
           <li class="breadcrumb-item active" aria-current="page">{{"dashboard.candidateMatches" | translate }}</li>
         </ol>
       </div>
@@ -39,7 +42,11 @@
           </div>
         </div>
 
-        <div class="row info-box mt-3">
+        <app-shared-job-profile
+        [jobInfo]="postedJobsDetails"
+        >
+        </app-shared-job-profile>
+        <!-- <div class="row info-box mt-3">
           <div class="col-lg-4 caption">
             <ul class="list-group">
               <li class="list-group-item">{{"postJob.totalYearsOfExperience" | translate }}</li>
@@ -100,7 +107,7 @@
               <li class="list-group-item">Yes</li>
             </ul>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-lg-6">
         <div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel">

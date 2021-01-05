@@ -1,0 +1,122 @@
+<div class="row mt-3 info-box">
+  <div class="col-lg-12 mt-2">
+    <h6 class="font-weight-bold">&nbsp;</h6>
+  </div>
+  <div class="col-lg-4 caption">
+    <ul class="list-group">
+      <li class="list-group-item">{{"postJob.totalYearsOfExperience" | translate }}</li>
+      <li class="list-group-item">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+      <li class="list-group-item">{{"dashboard.domainsWorked" | translate }}</li>
+      <li class="list-group-item">{{"postYourResume.handsOnExperience" | translate }}</li>
+    </ul>
+  </div>
+  <div class="col-lg-8 info">
+    <ul class="list-group">
+      <li class="list-group-item text-capitalize">{{userInfo?.experience ? userInfo?.experience + ' Years' : '--'}}</li>
+      <li class="list-group-item text-capitalize">{{userInfo?.sap_experience ? userInfo?.sap_experience + ' Years': '--'}} </li>
+      <li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(userInfo?.domains_worked)}}</li>
+      <li class="list-group-item text-uppercase">
+        <ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
+          <p class="m-0 w-100 float-left" *ngFor="let item of userInfo?.hands_on_experience">
+            <span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
+            <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
+          </p>
+        </ng-container>
+        <ng-template #elseHandsTemplate>
+          <p>--</p>
+        </ng-template>
+
+
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-lg-12 border-top pt-3"> </div>
+  <div class="col-lg-4 caption">
+    <ul class="list-group">
+      <li class="list-group-item lg-mh-40">{{"postJob.knowledgeOnOtherSapSkills" | translate }}</li>
+      <li class="list-group-item">{{"postJob.programmingSkills" | translate }}</li>
+      <li class="list-group-item">{{"postYourResume.others" | translate }}</li>
+      <li class="list-group-item">{{"postJob.certification" | translate }}</li>
+      <li class="list-group-item">{{"postJob.endToEndImplementation" | translate }}</li>
+    </ul>
+  </div>
+  <div class="col-lg-8 info">
+    <ul class="list-group">
+      <li class="list-group-item text-uppercase lg-mh-40">
+        <ng-container *ngIf="userInfo?.skills?.length; else elseSkillsTemplate">
+          <p class="m-0 w-100 float-left" *ngFor="let item of userInfo?.skills">
+            <span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
+          </p>
+        </ng-container>
+        <ng-template #elseSkillsTemplate>
+          <p>--</p>
+        </ng-template>
+
+
+      </li>
+      <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+      <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+      <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
+      <li class="list-group-item text-capitalize">{{userInfo?.end_to_end_implementation ? userInfo?.end_to_end_implementation : '--'}}</li>
+    </ul>
+    <!-- <ul class="list-group">
+      <li class="list-group-item">SAP Mobility, SAP FICO</li>
+      <li class="list-group-item">Java, Python</li>
+      <li class="list-group-item">Python, SAP BODS</li>
+      <li class="list-group-item">SAP Mobility</li>
+    </ul> -->
+  </div>
+
+  <div class="col-lg-12 border-top pt-3"> </div>
+  <div class="col-lg-4 caption">
+    <ul class="list-group">
+      <li class="list-group-item">{{"postYourResume.previousEmployers" | translate}}</li>
+      <li class="list-group-item">{{"postJob.jobType" | translate}}</li>
+      <li class="list-group-item">{{"postYourResume.rolesLookingFor" | translate }}</li>
+      <li class="list-group-item">{{"postJob.remote" | translate }}</li>
+    </ul>
+  </div>
+  <div class="col-lg-8 info">
+    <ul class="list-group">
+      <li class="list-group-item text-capitalize">
+        {{utilsHelperService.onConvertArrayToString(userInfo?.clients_worked)}}
+      </li>
+      <li class="list-group-item text-capitalize">
+        {{(userInfo?.job_type || userInfo?.job_type == 0) ? sharedService.onGetJobType(userInfo?.job_type) : '--'}}
+      </li>
+      <li class="list-group-item text-capitalize">
+        {{userInfo?.job_role ? userInfo?.job_role : '--'}}
+      </li>
+      <li class="list-group-item text-capitalize">
+        {{utilsHelperService.onGetYesOrNoValue(userInfo?.remote_only)}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-lg-12 border-top pt-3"> </div>
+  <div class="col-lg-4 caption">
+    <ul class="list-group">
+      <li class="list-group-item">{{"postJob.availableIn" | translate }}</li>
+      <li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
+      <li class="list-group-item">{{"postJob.travel" | translate }}</li>
+      <li class="list-group-item">{{"postJob.willingToRelocate" | translate }}</li>
+    </ul>
+  </div>
+  <div class="col-lg-8 info">
+    <ul class="list-group">
+      <li class="list-group-item">
+        {{(userInfo?.availability || userInfo?.availability == 0) ? (userInfo?.availability == 0 ? 'Immediate' : userInfo?.availability + ' Days') : '--'}}
+      </li>
+      <li class="list-group-item">
+        {{(userInfo?.work_authorization || userInfo?.work_authorization == 0) ? (userInfo?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" | translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+      </li>
+       <li class="list-group-item">
+        {{(userInfo?.travel || userInfo?.travel == 0) ? userInfo?.travel == 0 ? 'No' : userInfo?.travel + '%' : '--'}}
+      </li>
+      <li class="list-group-item">
+        {{utilsHelperService.onGetYesOrNoValue(userInfo?.willing_to_relocate)}}
+      </li>
+    </ul>
+  </div>
+</div>

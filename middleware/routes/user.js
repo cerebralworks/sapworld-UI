@@ -31,6 +31,11 @@ module.exports = (app, env, rp) => {
     requestCustom.get(`${serverRoutes.userView}/${userID}`, req, res, requestBody);
   });
 
+  app.get("/api/jobpostings/job-scoring", (req, res) => {
+    let requestBody = { ...req.query };   
+    requestCustom.get(`${serverRoutes.userJobScoring}`, req, res, requestBody);
+  });
+
   app.post("/api/users/update-photo", (req, res) => {
     var form = new IncomingForm();
     form.parse(req, function(err, fields, files) {

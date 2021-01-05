@@ -1,7 +1,7 @@
 export interface JobPosting {
   id: number;
   title: string;
-  type: string;
+  type: number | string;
   description: string;
   salary_type: number;
   salary_currency: number;
@@ -10,7 +10,7 @@ export interface JobPosting {
   state: string;
   country: string;
   zipcode: number;
-  availability: string;
+  availability: number;
   remote: boolean;
   experience: number;
   sap_experience: number;
@@ -30,4 +30,5 @@ export interface JobPosting {
   end_to_end_implementation: number;
   contract_duration: number;
   latlng_text: any;
+  travel_opportunity: number;
 }

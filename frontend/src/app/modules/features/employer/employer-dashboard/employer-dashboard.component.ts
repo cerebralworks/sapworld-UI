@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-employer-dashboard',
@@ -14,11 +15,23 @@ export class EmployerDashboardComponent implements OnInit {
     tabNumber: 1
   };
   public isOpenedSendMailModal: any;
+  public queryParams: any = {};
 
   constructor(
     private route: ActivatedRoute,
-     private router: Router
-  ) { }
+     private router: Router,
+     private utilsHelperService: UtilsHelperService
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+
+    this.route.queryParams.subscribe(params => {
+      if(params && !this.utilsHelperService.isEmptyObj(params)) {
+        this.queryParams = {...params}
+      }
+    });
+  }
 
   ngOnInit(): void {
     const activeTab = this.route.snapshot.queryParamMap.get('activeTab');
@@ -49,7 +62,7 @@ export class EmployerDashboardComponent implements OnInit {
     this.currentTabInfo = tabInfo;
 
     const navigationExtras: NavigationExtras = {
-      queryParams: {activeTab: tabInfo.tabName}
+      queryParams: {...this.queryParams, activeTab: tabInfo.tabName}
     };
 
     this.router.navigate([], navigationExtras);

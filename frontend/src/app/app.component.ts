@@ -89,6 +89,7 @@ export class AppComponent {
       response => {
         this.employerProfileInfo = response;
         if(this.employerProfileInfo && this.employerProfileInfo.details) {
+          this.employerProfileInfo.details = {...this.employerProfileInfo.details, meta: this.employerProfileInfo.meta};
           this.employerSharedService.saveEmployerProfileDetails(this.employerProfileInfo.details);
         }
 
@@ -103,6 +104,7 @@ export class AppComponent {
       response => {
         this.userProfileInfo = response;
         if(this.userProfileInfo && this.userProfileInfo.details) {
+          this.userProfileInfo.details = {...this.userProfileInfo.details, meta: this.userProfileInfo.meta};
           this.userSharedService.saveUserProfileDetails(this.userProfileInfo.details);
           if (this.userProfileInfo && this.userProfileInfo.details.profile_completed == false && this.validateCall == 0) {
             this.router.navigate(['/user/create-candidate']);

@@ -42,7 +42,7 @@
                 <div class="card-body">
                   <div class="clearfix">
                     <div class="float-left">
-                      <a href="javascript:;" [routerLink]="['/employer/job-detail-view', item?.id]" >
+                      <a href="javascript:;" [routerLink]="['/user/job-matches', item?.id]" >
                         <h5 class="text-capitalize">{{item?.title}}</h5>
                       </a>
                     </div>
@@ -63,7 +63,7 @@
                       <h6>{{item?.experience ? item?.experience + ' Years Exp.' : ''}} <span *ngIf="item?.type">{{' , '}}</span>{{item?.type ? sharedService.onGetJobType(item?.type) : ''}} <span *ngIf="item?.remote" class="remote pl-2">Remote</span></h6>
                       <div class="mt-2">
                         <ng-container *ngFor="let itemSub of item?.hands_on_experience">
-                          <span *ngIf="itemSub.skill_id" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub.skill_id).tag)}}</span>
+                          <span *ngIf="itemSub.skill_id" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub?.skill_id)?.tag)}}</span>
                         </ng-container>
                       </div>
                     </div>

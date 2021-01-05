@@ -57,11 +57,13 @@ export class JobInformationComponent implements OnInit {
         }
       });
       let latlngText: string = this.getPostedJobsDetails.latlng_text;
+      console.log(latlngText);
+
       if (latlngText) {
         const splitedString: any[] = latlngText.split(',');
         if (splitedString && splitedString.length) {
           this.childForm.patchValue({
-            personalDetails: {
+            jobInfo: {
               latlng: {
                 lat: splitedString[0],
                 lng: splitedString[1]

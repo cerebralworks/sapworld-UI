@@ -9,7 +9,8 @@
               - {{userInfo?.current_employer_role}}
             </small>
           </a>
-          <small (click)="onToggleContactInfoModal(true)" class="ml-2" type="button" data-toggle="modal" data-target="#contactModal">
+
+          <small *ngIf="isContactIcon" (click)="onToggleContactInfoModal(true)" class="ml-2" type="button" data-toggle="modal" data-target="#contactModal">
             <i class="fas fa-address-card"></i>
             </small>
         </h5>
@@ -28,8 +29,13 @@
       </div>
     </div>
     <div class="media">
-      <img [src]="userInfo?.photo ? userInfo?.photo : 'assets/images/user-img-icon.jpg'">
+      <img [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo : 'assets/images/user-img-icon.jpg'">
       <div class="media-body">
+        <h6 class="text-capitalize">
+          {{userInfo?.city ? userInfo?.city : ''}}
+          {{userInfo?.state ? ', ' + userInfo?.state : ''}}
+          {{userInfo?.country ? ', ' + userInfo?.country : ''}}
+        </h6>
         <h6>
           <a href="mailto:{{userInfo?.email}}">
           <i class="fas fa-envelope" *ngIf="userInfo?.email"></i> {{userInfo?.email}}</a>

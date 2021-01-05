@@ -45,7 +45,9 @@
                   {{item?.country ? item?.country : ''}}
                 </td>
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
-                <td class="text-center"><a href="job-company-matching.html">0</a></td>
+                <td class="text-center">
+                  <a  [routerLink]="['/employer/dashboard']"
+                  [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;">0</a></td>
                 <td class="text-center"><a href="job-applied.html">0</a></td>
                 <td class="text-center"><a href="job-shortlisted.html">0</a></td>
                 <td class="text-center">
