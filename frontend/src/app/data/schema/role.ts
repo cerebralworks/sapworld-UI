@@ -1,8 +1,8 @@
 export enum Role {
-  User = 'user',
-  Agency = 'agency',
-  Employer = 'employer',
-  Admin = 'admin',
+  User = 0,
+  Employer = 1,
+  Agency = 2,
+  Admin = 3,
 }
 
 export interface RoleInfo {

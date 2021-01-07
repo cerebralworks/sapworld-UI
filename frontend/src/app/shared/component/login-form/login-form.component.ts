@@ -28,8 +28,8 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.returnEmployerUrl = this.route.snapshot.queryParams['returnUrl'] || '/employer/dashboard';
-    this.returnUserUrl = this.route.snapshot.queryParams['returnUrl'] || '/user/dashboard';
+    this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
+    this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
   }
 
   get f() {

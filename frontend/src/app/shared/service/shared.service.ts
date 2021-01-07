@@ -132,11 +132,11 @@ onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => 
   let skillItems;
   this.dataService.getSkillDataSource().subscribe(
     response => {
-      skillItems = response
+      skillItems = response;
     }
   );
   if(skillItems && skillItems.items && Array.isArray(skillItems.items) && Array.isArray(arrayValues) && arrayValues.length > 0) {
-    const temp = skillItems.filter(r=> {
+    const temp = skillItems.items.filter(r=> {
       return arrayValues.includes(r.id)
     });
     if(returnVal == 'obj') {

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '@app/guard/auth.guard';
+import { Role } from '@data/schema/role';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'find-candidates',
+    data: { roles: [Role.Admin, Role.Employer] },
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('@modules/features/common/find-candidates/find-candidates.module').then(m => m.FindCandidatesModule)
   },

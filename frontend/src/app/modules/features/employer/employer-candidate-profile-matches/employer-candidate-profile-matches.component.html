@@ -14,7 +14,7 @@
     </div>
   </div>
 </section>
-  <!-- //Sub Header Section -->
+<!-- //Sub Header Section -->
 <section class="my-5">
   <div class="container">
     <div class="row">
@@ -24,27 +24,26 @@
             <div class="card profile-card border p-2">
               <div class="d-flex">
                 <div class="pc-info">
-                  <a [routerLink]="['/employer/job-detail-view']"  href="javascript:;">
+                  <a [routerLink]="['/employer/job-detail-view']" href="javascript:;">
                     <h5>SAP ABAP Lead Consultant</h5>
                   </a>
                   <h6>Wipro Limited</h6>
                   <h6 class="mb-0">Austin, TX, USA</h6>
                 </div>
                 <div class="pc-btn">
-                  <a class="btn btn-outline-blue btn-sm mr-1" [routerLink]="['/employer/job-multiple-candidate-matches']"  href="javascript:;">
+                  <a class="btn btn-outline-blue btn-sm mr-1"
+                    [routerLink]="['/employer/job-multiple-candidate-matches']" href="javascript:;">
                     {{"dashboard.matches" | translate}}
                   </a>
                   <a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right" href="javascript:;">
-                  <i class="fas fa-file-alt"></i> JD</a>
+                    <i class="fas fa-file-alt"></i> JD</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <app-shared-job-profile
-        [jobInfo]="postedJobsDetails"
-        >
+        <app-shared-job-profile [jobInfo]="postedJobsDetails" [fieldsExclude]="{salary: false}">
         </app-shared-job-profile>
         <!-- <div class="row info-box mt-3">
           <div class="col-lg-4 caption">
@@ -112,240 +111,168 @@
       <div class="col-lg-6">
         <div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel">
           <div class="carousel-inner">
-          <!--Profile1-->
-          <div class="carousel-item active">
-            <div class="row info-box">
-              <div class="col-lg-12">
-                <div class="card profile-card">
-                  <div class="d-flex">
-                    <div class="pc-img">
-                      <img src="assets/images/user-img.jpg">
-                    </div>
-                    <div class="pc-info">
-                      <a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">
-                        <h5>Jacky Smith <small> - Project Manager</small></h5>
-                      </a>
-                      <form class="form-inline">
-                      <a (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-1" href="javascript:;" data-toggle="modal" data-target="#resumeModal">
-                        <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate}}
-                      </a>
-                      <a class="ml-auto border-bottom" href="javascript:;" style="width:170px;" (click)="onToggleOtherPostModal(true)">
-                        {{"dashboard.matchOtherPosts" | translate}}
-                      </a>
-                      <!-- <a [routerLink]="['/employer/job-multiple-candidate-matches']" class="btn btn-theme-blue btn-sm">
+            <!--Profile1-->
+            <div class="carousel-item active">
+              <div class="row info-box">
+                <div class="col-lg-12">
+                  <div class="card profile-card">
+                    <div class="d-flex">
+                      <div class="pc-img">
+                        <img
+                          [src]="matchingUsers?.profile?.photo ? (matchingUsers?.photo?.path+'/'+ matchingUsers?.photo?.folder+'/'+matchingUsers?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
+                      </div>
+                      <div class="pc-info">
+                        <a [routerLink]="['/employer/candidate-profile']" href="javascript:;">
+                          <h5 class="text-capitalize">
+                            <span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
+                              + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
+                            <small *ngIf="matchingUsers?.profile?.job_role"> -
+                              {{matchingUsers?.profile?.job_role}}</small>
+                          </h5>
+                        </a>
+                        <form class="form-inline">
+                          <a (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-1"
+                            href="javascript:;" data-toggle="modal" data-target="#resumeModal">
+                            <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate}}
+                          </a>
+                          <a class="ml-auto border-bottom" href="javascript:;" style="width:170px;"
+                            (click)="onToggleOtherPostModal(true)">
+                            {{"dashboard.matchOtherPosts" | translate}}
+                          </a>
+                          <!-- <a [routerLink]="['/employer/job-multiple-candidate-matches']" class="btn btn-theme-blue btn-sm">
                       <i class="fas fa-tasks"></i></a> -->
-                    </form>
+                        </form>
 
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12 info mt-3">
-                <div class="score">
-                  {{"dashboard.score" | translate}} <span>7/10</span>
-                </div>
-                <ul class="list-group">
-                  <li class="list-group-item text-green">8+ Years <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">5+ Years <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item">
-                    <span class="text-green mr-2">Automotive, Logistics, Finance <i class="far fa-check-circle ml-1"></i></span>
-                    <span class="text-danger">Shipping <i class="far fa-times-circle ml-2"></i></span>
-                  </li>
-                  <li class="list-group-item">
-                    <span>
-                      <span class="text-green">SAP PM</span>, <span class="text-blue">SAP MM</span>, <span class="text-green">SAP Mobility</span> <i class="far fa-check-circle ml-1 text-green"></i>
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="col-lg-12 border-top pt-3">	</div>
-              <div class="col-lg-12 info">
-                <ul class="list-group">
-                  <li class="list-group-item text-green">SAP Mobility, SAP FICO <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Java, Python <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Python, SAP BODS <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-blue">SAP Mobility <i class="far fa-times-circle ml-2"></i></li>
-                </ul>
-              </div>
-
-              <div class="col-lg-12 border-top pt-3">	</div>
-              <div class="col-lg-12 info">
-                <ul class="list-group">
-                  <li class="list-group-item text-green"> Full Time, Part Time, Freelancer <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Yes  <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-danger">30 Days <i class="far fa-times-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">H1B <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-danger">No <i class="far fa-times-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Yes <i class="far fa-check-circle ml-2"></i></li>
-                </ul>
-
-                <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal" data-target="#sendMail" style="position: absolute;bottom: 15px; right: 15px;">	<i class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
-              </div>
-            </div>
-          </div>
-          <!--//Profile1-->
-          <!--Profile2-->
-          <div class="carousel-item">
-            <div class="row info-box">
-              <div class="col-lg-12">
-                <div class="card profile-card">
-                  <div class="d-flex">
-                    <div class="pc-img">
-                      <img src="assets/images/user-img2.jpg">
-                    </div>
-                    <div class="pc-info">
-                      <a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">
-                        <h5>Balasubramanian <small> - Jr.Project Manager</small>
-                        <small class="text-muted">(3rd Party Profile)</small></h5>
-                      </a>
-                      <form class="form-inline">
-                      <a class="btn btn-outline-blue btn-sm mr-1" href="#" data-toggle="modal" data-target="#resumeModal">
-                        <i class="fas fa-file-alt"></i> Resume
-                      </a>
-                      <div class="" style="width:150px; border: 2px solid #d2d2d2;border-radius: 10px;margin-right: 7px;">
-                        <select class="selectpicker" multiple data-live-search="true">
-                        <option class="d-none" disabled selected >Choose Jobs </option>
-                        <option>Project Manager - (SAP-PS)  </option>
-                        <option>Financial Developer - (SAP-FI)</option>
-                        <option>Project Management - (SAP-PM)</option>
-                        <option>Senior Developer  - (SAP-SD)</option>
-                        <option>Account Manager   - (SAP-AM)</option>
-                        <option>Sales Executives   - (SAP-SE)</option>
-                        <option>Account Assistant   - (SAP-AA)</option>
-                        </select>
                       </div>
-                      <button type="button" onclick="location.href='job-candidate-multiple-matchings.html'" title="Matching" data-toggle="tooltip" class="btn btn-theme-blue btn-sm">
-                      <i class="fas fa-tasks"></i></button>
-                    </form>
-
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-12 info mt-3">
-                <div class="score">
-                  SCORE <span>7/10</span>
-                </div>
-                <ul class="list-group">
-                  <li class="list-group-item text-green">8+ Years <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">5+ Years <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Automotive, Logistics, Finance <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">SAP PM, SAP MM, SAP Mobility <i class="far fa-check-circle ml-2"></i></li>
-                </ul>
-              </div>
-
-              <div class="col-lg-12 border-top pt-3">	</div>
-              <div class="col-lg-12 info">
-                <ul class="list-group">
-                  <li class="list-group-item text-green">SAP Mobility, SAP FICO <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Java, Python <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Python, SAP BODS <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-danger">SAP Mobility <i class="far fa-times-circle ml-2"></i></li>
-                </ul>
-              </div>
-
-              <div class="col-lg-12 border-top pt-3">	</div>
-              <div class="col-lg-12 info">
-                <ul class="list-group">
-                  <li class="list-group-item text-green"> Full Time, Part Time, Freelancer <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Yes  <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-danger">30 Days <i class="far fa-times-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">H1B <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-danger">No <i class="far fa-times-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Yes <i class="far fa-check-circle ml-2"></i></li>
-                </ul>
-
-                <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal" data-target="#sendMail" style="position: absolute;bottom: 15px; right: 15px;">	<i class="fas fa-paper-plane"></i> Send Mail</button>
-              </div>
-            </div>
-          </div>
-          <!--//Profile2-->
-          <!--Profile3-->
-          <div class="carousel-item">
-            <div class="row info-box">
-              <div class="col-lg-12">
-                <div class="card profile-card">
-                  <div class="d-flex">
-                    <div class="pc-img">
-                      <img src="assets/images/user-img3.jpg">
-                    </div>
-                    <div class="pc-info">
-                      <a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">
-                        <h5>Sindhu Gangadharan  <small> - Sr.Project Manager</small></h5>
-                      </a>
-                      <form class="form-inline">
-                      <a class="btn btn-outline-blue btn-sm mr-1" href="#" data-toggle="modal" data-target="#resumeModal">
-                        <i class="fas fa-file-alt"></i> Resume
-                      </a>
-                      <div class="" style="width:150px; border: 2px solid #d2d2d2;border-radius: 10px;margin-right: 7px;">
-                        <select class="selectpicker" multiple data-live-search="true">
-                        <option class="d-none" disabled selected >Choose Jobs </option>
-                        <option>Project Manager - (SAP-PS)  </option>
-                        <option>Financial Developer - (SAP-FI)</option>
-                        <option>Project Management - (SAP-PM)</option>
-                        <option>Senior Developer  - (SAP-SD)</option>
-                        <option>Account Manager   - (SAP-AM)</option>
-                        <option>Sales Executives   - (SAP-SE)</option>
-                        <option>Account Assistant   - (SAP-AA)</option>
-                        </select>
-                      </div>
-                      <button type="button" onclick="location.href='job-candidate-multiple-matchings.html'" title="Matching" data-toggle="tooltip" class="btn btn-theme-blue btn-sm">
-                      <i class="fas fa-tasks"></i></button>
-                    </form>
-
-                    </div>
+                <div class="col-lg-12 info mt-3">
+                  <div class="score">
+                    {{"dashboard.score" | translate}} <span>{{matchingUsers?.score ? matchingUsers?.score :
+                      0}}/10</span>
                   </div>
+                  <ul class="list-group">
+                    <li class="list-group-item">{{matchingUsers?.profile?.experience ?
+                      matchingUsers?.profile?.experience + ' Years' : '--'}} <i class="far fa-check-circle ml-2"></i>
+                    </li>
+                    <li class="list-group-item">{{matchingUsers?.profile?.experience ?
+                      matchingUsers?.profile?.experience + ' Years' : '--'}} <i class="far fa-check-circle ml-2"></i>
+                    </li>
+                    <li class="list-group-item text-capitalize">
+                      <ng-container
+                        *ngFor="let item of sharedService.onFindDomainFromID(matchingUsers?.profile?.domains_worked, 'obj')">
+                        <span class="text-green mr-2" *ngIf="postedJobsDetails?.domain?.includes(item?.id)">
+                          {{item?.name}}
+                          <i class="far fa-check-circle ml-1"></i>
+                        </span>
+                        <span class="text-blue" *ngIf="!postedJobsDetails?.domain?.includes(item?.id)">
+                          {{item?.name}}
+                          <i class="far fa-times-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+                    </li>
+                    <li class="list-group-item text-uppercase">
+                      <ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
+                        <p class="m-0 w-100 float-left"
+                          *ngFor="let item of matchingUsers?.profile?.hands_on_experience">
+                          <span class="text-wrap-custom float-left">{{item?.skill_id ?
+                            sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
+                          <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
+                        </p>
+                      </ng-container>
+                      <ng-template #elseHandsTemplate>
+                        <p>--</p>
+                      </ng-template>
+                    </li>
+                  </ul>
                 </div>
-              </div>
-              <div class="col-lg-12 info mt-3">
-                <div class="score">
-                  {{"dashboard.score" | translate}} <span>7/10</span>
-                </div>
-                <ul class="list-group">
-                  <li class="list-group-item text-green">8+ Years <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">5+ Years <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Automotive, Logistics, Finance <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">SAP PM, SAP MM, SAP Mobility <i class="far fa-check-circle ml-2"></i></li>
-                </ul>
-              </div>
 
-              <div class="col-lg-12 border-top pt-3">	</div>
-              <div class="col-lg-12 info">
-                <ul class="list-group">
-                  <li class="list-group-item text-green">SAP Mobility, SAP FICO <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Java, Python <i class="far fa-check-circle ml-2"></i></li>
+                <div class="col-lg-12 border-top pt-3"> </div>
+                <div class="col-lg-12 info">
+                  <ul class="list-group">
+                    <li class="list-group-item text-uppercase lg-mh-40 text-green">
+                      <ng-container *ngIf="matchingUsers?.profile?.skills?.length; else elseSkillsTemplate">
+                        <p class="m-0 w-100 float-left" *ngFor="let item of matchingUsers?.profile?.skills">
+                          <span class="text-wrap-custom float-left"
+                            *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">{{item
+                            ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
+                          <i class="far fa-check-circle ml-2"
+                            *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))"></i>
+                        </p>
+                      </ng-container>
+                      <ng-template #elseSkillsTemplate>
+                        <p>--</p>
+                      </ng-template>
+                    </li>
+                    <li class="list-group-item text-capitalize">
+                      {{utilsHelperService.onConvertArrayToString(matchingUsers?.profile?.programming_skills)}} </li>
+                    <li class="list-group-item text-capitalize">
+                      {{utilsHelperService.onConvertArrayToString(matchingUsers?.profile?.other_skills)}}</li>
+                    <li class="list-group-item text-capitalize">
+                      {{utilsHelperService.onConvertArrayToString(matchingUsers?.profile?.certification)}}</li>
+                    <!-- <li class="list-group-item text-green">SAP Mobility, SAP FICO <i class="far fa-check-circle ml-2"></i></li> -->
+                    <!-- <li class="list-group-item text-green">Java, Python <i class="far fa-check-circle ml-2"></i></li>
                   <li class="list-group-item text-green">Python, SAP BODS <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-danger">SAP Mobility <i class="far fa-times-circle ml-2"></i></li>
-                </ul>
-              </div>
+                  <li class="list-group-item text-blue">SAP Mobility <i class="far fa-times-circle ml-2"></i></li> -->
+                  </ul>
+                </div>
 
-              <div class="col-lg-12 border-top pt-3">	</div>
-              <div class="col-lg-12 info">
-                <ul class="list-group">
-                  <li class="list-group-item text-green"> Full Time, Part Time, Freelancer <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Yes  <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-danger">30 Days <i class="far fa-times-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">H1B <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-danger">No <i class="far fa-times-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Yes <i class="far fa-check-circle ml-2"></i></li>
-                </ul>
+                <div class="col-lg-12 border-top pt-3"> </div>
+                <div class="col-lg-12 info">
+                  <ul class="list-group">
+                    <li class="list-group-item text-capitalize">
+                      {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
+                      sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
+                    </li>
+                    <li class="list-group-item text-capitalize">
+                      {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
+                    </li>
+                    <li class="list-group-item">
+                      {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
+                      (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability +
+                      ' Days') : '--'}}
+                    </li>
+                    <li class="list-group-item">
+                      {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
+                      matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
+                    </li>
+                    <li class="list-group-item">
+                      {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization == 0)
+                      ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                      translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                    </li>
 
-                <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal" data-target="#sendMail" style="position: absolute;bottom: 15px; right: 15px;">	<i class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
+                    <li class="list-group-item">
+                      {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.willing_to_relocate)}}
+                    </li>
+                    <!-- <li class="list-group-item text-green"> Full Time, Part Time, Freelancer <i class="far fa-check-circle ml-2"></i></li> -->
+                    <!-- <li class="list-group-item text-green">Yes  <i class="far fa-check-circle ml-2"></i></li> -->
+                    <!-- <li class="list-group-item text-danger">30 Days <i class="far fa-times-circle ml-2"></i></li> -->
+                    <!-- <li class="list-group-item text-green">H1B <i class="far fa-check-circle ml-2"></i></li> -->
+                    <!-- <li class="list-group-item text-danger">No <i class="far fa-times-circle ml-2"></i></li>
+                  <li class="list-group-item text-green">Yes <i class="far fa-check-circle ml-2"></i></li> -->
+                  </ul>
+
+                  <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal"
+                    data-target="#sendMail" style="position: absolute;bottom: 15px; right: 15px;"> <i
+                      class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
+                </div>
               </div>
             </div>
-          </div>
-          <!--//Profile3-->
+            <!--//Profile1-->
           </div>
           <!--PrevNext-->
-           <div class="matchCount" style="top:-45px;">1/10</div>
-          <a class="carousel-control-prev" href="#carouselProfile" role="button" data-slide="prev" style="top:-45px;">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
+          <div class="matchCount" style="top:-45px;">1/10</div>
+          <a (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
+            data-slide="prev" style="top:-45px;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselProfile" role="button" data-slide="next" style="top:-45px;">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
+          <a (click)="onChangeUser('next')" class="carousel-control-next" href="#carouselProfile" role="button"
+            data-slide="next" style="top:-45px;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
           </a>
         </div>
       </div>
@@ -353,21 +280,14 @@
   </div>
 </section>
 
-<app-resume-modal
-*ngIf="isOpenedResumeModal"
-[toggleResumeModal]="isOpenedResumeModal"
-(onEvent)="onToggleResumeForm($event)">
+<app-resume-modal *ngIf="isOpenedResumeModal" [toggleResumeModal]="isOpenedResumeModal"
+  (onEvent)="onToggleResumeForm($event)">
 </app-resume-modal>
 
-<app-job-description
-[toggleJDModal]="isOpenedJDModal"
-*ngIf="isOpenedJDModal"
-(onEvent)="onToggleJDModal($event)">
+<app-job-description [toggleJDModal]="isOpenedJDModal" *ngIf="isOpenedJDModal" (onEvent)="onToggleJDModal($event)">
 </app-job-description>
 
 
-<app-match-other-post
-[togglematchOtherPostModal]="isOpenedOtherPostModal"
-*ngIf="isOpenedOtherPostModal"
-(onEvent)="onToggleOtherPostModal($event)">
+<app-match-other-post [togglematchOtherPostModal]="isOpenedOtherPostModal" *ngIf="isOpenedOtherPostModal"
+  (onEvent)="onToggleOtherPostModal($event)">
 </app-match-other-post>

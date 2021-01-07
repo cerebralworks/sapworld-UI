@@ -68,7 +68,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.validateSubscribe = 0;
+    this.validateSubscribe = null;
   }
 
   onSetJob = (item) =>{
@@ -125,6 +125,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     requestParams.status = 1;
     requestParams.skill_tags_filter_type = 1;
     requestParams.job_posting = jobId;
+    requestParams.min_experience = this.selectedJob.sap_experience
+    requestParams.city = this.selectedJob.city
 
     const removeEmpty = this.utilsHelperService.clean(requestParams)
 

@@ -80,4 +80,12 @@ export class EmployerService extends CacheService {
       })
     );
   };
+
+  getJobScoring = (params?) => {
+    return this.apiService.get('/api/jobpostings/job-scoring', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
 }

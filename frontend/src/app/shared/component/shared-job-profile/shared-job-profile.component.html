@@ -27,7 +27,7 @@
   <div class="col-lg-12 border-top pt-3">	</div>
   <div class="col-lg-4 caption">
     <ul class="list-group">
-      <li class=" list-group-item text-capitalize lg-mh-40">{{"dashboard.knowledgeOn" | translate }}</li>
+      <li class=" list-group-item text-capitalize lg-mh-40" *ngIf="sharedService.onFindSkillsFromID(jobInfo?.skills, 'obj')?.length">{{"dashboard.knowledgeOn" | translate }}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.niceToHave" | translate }}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
@@ -37,7 +37,7 @@
     <ul class="list-group">
       <li class=" list-group-item text-uppercase lg-mh-40">
         <p class="m-0 w-100 float-left" *ngFor="let item of jobInfo?.skills">
-          <span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
+          <span class="text-wrap-custom float-left" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
         </p>
       </li>
       <li class=" list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(jobInfo?.programming_skills)}}  </li>
@@ -51,7 +51,7 @@
     <ul class="list-group">
       <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
       <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li>
-      <li class="list-group-item text-capitalize">{{"postJob.salary" | translate}}</li>
+      <li class="list-group-item text-capitalize" *ngIf="fieldsExclude?.salary">{{"postJob.salary" | translate}}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
@@ -63,7 +63,7 @@
     <ul class="list-group">
     <li class=" list-group-item text-capitalize">{{jobInfo?.type > -1 ? sharedService.onGetJobType(jobInfo?.type) : '--'}}</li>
     <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{jobInfo?.contract_duration}} months</li>
-    <li class="list-group-item text-capitalize">
+    <li class="list-group-item text-capitalize" *ngIf="fieldsExclude?.salary">
       <ng-container *ngIf="jobInfo?.salary_type == 0">
         {{sharedService.onGetCurrencyCode(jobInfo?.salary_currency)?.symbol + jobInfo?.salary + '/hr'}}
 

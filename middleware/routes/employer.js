@@ -60,4 +60,9 @@ module.exports = (app, env, rp) => {
     }
   });
 
+  app.get("/api/jobpostings/job-scoring", (req, res) => {
+    let requestBody = { ...req.query };   
+    requestCustom.get(`${serverRoutes.userJobScoring}`, req, res, requestBody);
+  });
+
 };

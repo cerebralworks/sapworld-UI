@@ -28,19 +28,19 @@ export class CandidateJobMatchesComponent implements OnInit {
         this.userInfo = response;
       }
     )
-    this.onGetJobById();
+    // this.onGetJobById();
   }
 
-  onGetJobById = () => {
-    let requestParams: any = {};
-    requestParams.id = this.jobId;
+  // onGetJobById = () => {
+  //   let requestParams: any = {};
+  //   requestParams.id = this.jobId;
 
-    this.userService.getJob(requestParams).subscribe(
-      response => {
-      }, error => {
-      }
-    )
-  }
+  //   this.userService.getJob(requestParams).subscribe(
+  //     response => {
+  //     }, error => {
+  //     }
+  //   )
+  // }
 
   onToggleJDModal = (status) => {
     this.isOpenedJDModal = status;

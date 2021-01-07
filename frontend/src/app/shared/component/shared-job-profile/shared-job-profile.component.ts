@@ -10,7 +10,8 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 })
 export class SharedJobProfileComponent implements OnInit {
 
-  @Input() jobInfo: JobPosting
+  @Input() jobInfo: JobPosting;
+  @Input() fieldsExclude: JobPosting;
 
   constructor(
     public sharedService: SharedService,
