@@ -43,70 +43,10 @@
           </div>
         </div>
 
-        <app-shared-job-profile [jobInfo]="postedJobsDetails" [fieldsExclude]="{salary: false}">
+        <app-shared-job-profile [jobInfo]="postedJobsDetails"
+          [fieldsExclude]="{salary: false, visa_sponsorship: false}">
         </app-shared-job-profile>
-        <!-- <div class="row info-box mt-3">
-          <div class="col-lg-4 caption">
-            <ul class="list-group">
-              <li class="list-group-item">{{"postJob.totalYearsOfExperience" | translate }}</li>
-            <li class="list-group-item">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
-            <li class="list-group-item">{{"postJob.domainExperience" | translate }}</li>
-            <li class="list-group-item">{{"postJob.handsOnWith" | translate }}</li>
-            </ul>
-          </div>
-          <div class="col-lg-8 info">
-            <ul class="list-group">
-              <li class="list-group-item">9+ Years</li>
-              <li class="list-group-item">6+ Years</li>
-              <li class="list-group-item">Automotive, Logistics, Finance, Shipping </li>
-              <li class="list-group-item">SAP PM, SAP Mobility</li>
-            </ul>
-          </div>
 
-          <div class="col-lg-12 border-top pt-3">	</div>
-          <div class="col-lg-4 caption">
-            <ul class="list-group">
-              <li class="list-group-item">{{"postJob.knowledgeOnOtherSapSkills" | translate }}</li>
-              <li class="list-group-item">{{"postJob.programmingSkills" | translate }}</li>
-              <li class="list-group-item">{{"postJob.niceToHave" | translate }}</li>
-              <li class="list-group-item">{{"postJob.certification" | translate }}</li>
-              <li class="list-group-item">{{"postJob.endToEndImplementation" | translate }}</li>
-            </ul>
-          </div>
-          <div class="col-lg-8 info">
-            <ul class="list-group">
-              <li class="list-group-item">SAP BODS, SAP Mobility, SAP FICO </li>
-              <li class="list-group-item">Python, JAVA, Microsoft BI, Angular </li>
-              <li class="list-group-item">Python, SAP BODS</li>
-              <li class="list-group-item">SAP BODS</li>
-              <li class="list-group-item">Lorem</li>
-            </ul>
-          </div>
-
-          <div class="col-lg-12 border-top pt-3">	</div>
-          <div class="col-lg-4 caption">
-            <ul class="list-group">
-              <li class="list-group-item">{{"postJob.jobType" | translate}}</li>
-              <li class="list-group-item">{{"postJob.remote" | translate}}</li>
-              <li class="list-group-item">{{"postJob.startTime" | translate}}</li>
-              <li class="list-group-item">{{"postJob.travelRequired" | translate}}</li>
-              <li class="list-group-item">{{"postJob.willingToRelocate" | translate}}</li>
-              <li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
-              <li class="list-group-item">{{"postJob.visaSponsorship" | translate }}</li>
-            </ul>
-          </div>
-          <div class="col-lg-8 info">
-            <ul class="list-group">
-              <li class="list-group-item">Permanent, Contract, Part Time</li>
-              <li class="list-group-item">Yes</li>
-              <li class="list-group-item">Immediate</li>
-              <li class="list-group-item">75%</li>
-              <li class="list-group-item">Yes</li>
-              <li class="list-group-item">Citizen / PR</li>
-              <li class="list-group-item">Yes</li>
-            </ul>
-          </div>
-        </div> -->
       </div>
       <div class="col-lg-6">
         <div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel">
@@ -139,8 +79,6 @@
                             (click)="onToggleOtherPostModal(true)">
                             {{"dashboard.matchOtherPosts" | translate}}
                           </a>
-                          <!-- <a [routerLink]="['/employer/job-multiple-candidate-matches']" class="btn btn-theme-blue btn-sm">
-                      <i class="fas fa-tasks"></i></a> -->
                         </form>
 
                       </div>
@@ -148,20 +86,65 @@
                   </div>
                 </div>
                 <div class="col-lg-12 info mt-3">
-                  <div class="score">
+                  <div class="score"
+                    [ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
                     {{"dashboard.score" | translate}} <span>{{matchingUsers?.score ? matchingUsers?.score :
                       0}}/10</span>
                   </div>
                   <ul class="list-group">
-                    <li class="list-group-item">{{matchingUsers?.profile?.experience ?
-                      matchingUsers?.profile?.experience + ' Years' : '--'}} <i class="far fa-check-circle ml-2"></i>
+                    <li class="list-group-item">
+                      <span class="text-green"
+                        *ngIf="matchingUsers?.profile?.experience >= postedJobsDetails?.experience">
+                        {{matchingUsers?.profile?.experience ? matchingUsers?.profile?.experience + ' Years' : '--'}} <i
+                          class="far fa-check-circle ml-2"></i>
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="matchingUsers?.profile?.experience < postedJobsDetails?.experience">
+                        {{matchingUsers?.profile?.experience ? matchingUsers?.profile?.experience + ' Years' : '--'}} <i
+                          class="far fa-times-circle ml-2"></i>
+                      </span>
                     </li>
-                    <li class="list-group-item">{{matchingUsers?.profile?.experience ?
-                      matchingUsers?.profile?.experience + ' Years' : '--'}} <i class="far fa-check-circle ml-2"></i>
+                    <li class="list-group-item">
+                      <span class="text-green"
+                        *ngIf="matchingUsers?.profile?.sap_experience >= postedJobsDetails?.sap_experience">
+                        {{matchingUsers?.profile?.sap_experience ? matchingUsers?.profile?.sap_experience + ' Years' :
+                        '--'}} <i class="far fa-check-circle ml-2"></i>
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="matchingUsers?.profile?.experience < postedJobsDetails?.sap_experience">
+                        {{matchingUsers?.profile?.sap_experience ? matchingUsers?.profile?.sap_experience + ' Years' :
+                        '--'}} <i class="far fa-times-circle ml-2"></i>
+                      </span>
                     </li>
                     <li class="list-group-item text-capitalize">
+
+                      <ng-container *ngFor="let item of matchingUsers?.profile?.domains_worked">
+                        <span class="text-green"
+                          *ngIf="onChangeStringNumber('domain', 'domains_worked', item, 'check').type == 'check'">
+                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                          <i class="far fa-check-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
                       <ng-container
-                        *ngFor="let item of sharedService.onFindDomainFromID(matchingUsers?.profile?.domains_worked, 'obj')">
+                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.domains_worked, postedJobsDetails?.domain)">
+                        <span class="text-blue"
+                          *ngIf="onChangeStringNumber('domain', 'domains_worked', item, 'close').type == 'close'">
+                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                          <i class="fa fa-info-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
+                      <ng-container *ngFor="let item of postedJobsDetails?.domain">
+                        <span class="text-danger"
+                          *ngIf="onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info'">
+                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                          <i class="fa fa-times-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
+                      <!-- <ng-container
+                        *ngFor="let item of sharedService.onFindDomainFromID(onChangeValue(matchingUsers?.profile?.domains_worked, postedJobsDetails?.domain, 'array'), 'obj')">
                         <span class="text-green mr-2" *ngIf="postedJobsDetails?.domain?.includes(item?.id)">
                           {{item?.name}}
                           <i class="far fa-check-circle ml-1"></i>
@@ -170,16 +153,63 @@
                           {{item?.name}}
                           <i class="far fa-times-circle ml-2"></i>
                         </span>
-                      </ng-container>
+                      </ng-container> -->
                     </li>
-                    <li class="list-group-item text-uppercase">
+                    <li class="list-group-item text-uppercase d-flex">
                       <ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
-                        <p class="m-0 w-100 float-left"
-                          *ngFor="let item of matchingUsers?.profile?.hands_on_experience">
-                          <span class="text-wrap-custom float-left">{{item?.skill_id ?
-                            sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
-                          <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
-                        </p>
+                        <ng-container *ngFor="let item of matchingUsers?.profile?.hands_on_experience; let i = index">
+                          <div class="text-green border-right text-center d-flex"
+                            *ngIf="onChangeObj('hands_on_experience', 'hands_on_experience', item, 'check', 'skill_id').type == 'check'">
+                            <div [ngClass]="{'pl-2': i >= 1}" class="pr-2">
+                              {{utilsHelperService.onSplitTag(item.skill_name)}}<br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+
+                            </div>
+                            <i class="far fa-check-circle ml-2 d-flex align-items-center"></i>
+                          </div>
+                        </ng-container>
+
+                        <ng-container
+                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience); let i = index">
+                          <div class="text-blue border-right text-center d-flex"
+                            *ngIf="onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
+                            <div [ngClass]="{'pl-2': i >= 1}" class="pr-2">
+                              {{utilsHelperService.onSplitTag(item.skill_name)}}<br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+
+                            </div>
+                            <i class="fa fa-info-circle ml-2 d-flex align-items-center"></i>
+                          </div>
+                        </ng-container>
+
+                        <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index">
+                          <div class="text-danger border-right text-center d-flex"
+                            *ngIf="onChangeObj('hands_on_experience', 'hands_on_experience', item, 'info', 'skill_id').type == 'info'">
+                            <div [ngClass]="{'pl-2': i >= 1}" class="pr-2">
+                              {{utilsHelperService.onSplitTag(item.skill_name)}}<br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+
+                            </div>
+                            <i class="fa fa-times-circle ml-2 d-flex align-items-center"></i>
+                          </div>
+                        </ng-container>
+                        <!-- <ng-container
+                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience, 'arrayObj', 'skill_id'); let i = index">
+
+                          <div [ngClass]="{'text-green': !this.utilsHelperService.isEmptyObj(onChange(item)),
+                          'text-blue': this.utilsHelperService.isEmptyObj(onChange(item))}"
+                            class="border-right text-center d-flex">
+                            <div [ngClass]="{'pl-2': i >= 1}" class="pr-2">
+                              {{item?.skill_id ?
+                              utilsHelperService.onSplitTag(item?.skill_name)
+                              : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                            </div>
+                            <i *ngIf="!this.utilsHelperService.isEmptyObj(onChange(postedJobsDetails?.hands_on_experience, item, 'skill_id'))"
+                              class="far fa-check-circle ml-2 d-flex align-items-center"></i>
+                            <i *ngIf="this.utilsHelperService.isEmptyObj(onChange(matchingUsers?.profile?.hands_on_experience, item, 'skill_id'))"
+                              class="far fa-times-circle ml-2 d-flex align-items-center"></i>
+                            <i *ngIf="this.utilsHelperService.isEmptyObj(onChange(postedJobsDetails?.hands_on_experience, item, 'skill_id'))"
+                              class="fa fa-info-circle ml-2 d-flex align-items-center"></i>
+                          </div>
+
+                        </ng-container> -->
                       </ng-container>
                       <ng-template #elseHandsTemplate>
                         <p>--</p>
@@ -191,30 +221,136 @@
                 <div class="col-lg-12 border-top pt-3"> </div>
                 <div class="col-lg-12 info">
                   <ul class="list-group">
-                    <li class="list-group-item text-uppercase lg-mh-40 text-green">
+                    <li class="list-group-item text-uppercase">
                       <ng-container *ngIf="matchingUsers?.profile?.skills?.length; else elseSkillsTemplate">
-                        <p class="m-0 w-100 float-left" *ngFor="let item of matchingUsers?.profile?.skills">
-                          <span class="text-wrap-custom float-left"
-                            *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">{{item
-                            ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
-                          <i class="far fa-check-circle ml-2"
-                            *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))"></i>
-                        </p>
+                        <ng-container *ngFor="let item of matchingUsers?.profile?.skills">
+                          <span class="text-green"
+                            *ngIf="onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
+
+                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+                            <i class="far fa-check-circle ml-2"></i>
+                          </span>
+                        </ng-container>
+
+                        <ng-container
+                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.skills, postedJobsDetails?.skills)">
+                          <span class="text-blue"
+                            *ngIf="onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
+                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+                            <i class="fa fa-info-circle ml-2"></i>
+                          </span>
+                        </ng-container>
+
+                        <ng-container *ngFor="let item of postedJobsDetails?.skills">
+                          <span class="text-danger"
+                            *ngIf="onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
+                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+                            <i class="fa fa-times-circle ml-2"></i>
+                          </span>
+                        </ng-container>
+                        <!-- <ng-container
+                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.skills, postedJobsDetails?.skills); let i = index; let last = last;">
+                          <span *ngIf="postedJobsDetails?.skills?.includes(item)" class="text-green m-0 float-left">
+                            <span class="text-wrap-custom float-left"
+                              *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">{{item
+                              ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}
+                            </span>
+                            <i class="far fa-check-circle ml-2"
+                              *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))"></i>&nbsp;
+                          </span>
+
+                          <span *ngIf="!postedJobsDetails?.skills?.includes(item)" class="text-danger m-0 float-left">
+                            <span class="text-wrap-custom float-left"
+                              *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">{{item
+                              ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}
+                            </span>
+                            <i class="far fa-times-circle ml-2"
+                              *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))"></i>&nbsp;
+                          </span>
+                        </ng-container> -->
                       </ng-container>
                       <ng-template #elseSkillsTemplate>
                         <p>--</p>
                       </ng-template>
                     </li>
                     <li class="list-group-item text-capitalize">
-                      {{utilsHelperService.onConvertArrayToString(matchingUsers?.profile?.programming_skills)}} </li>
+                      <ng-container *ngFor="let item of matchingUsers?.profile?.programming_skills">
+                        <span class="text-green"
+                          *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true).type == 'check'">
+                          {{item}}
+                          <i class="far fa-check-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
+                      <ng-container
+                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.programming_skills, postedJobsDetails?.programming_skills)">
+                        <span class="text-blue"
+                          *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
+                          {{item}}
+                          <i class="fa fa-info-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
+                      <ng-container *ngFor="let item of postedJobsDetails?.programming_skills">
+                        <span class="text-danger"
+                          *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'info', true).type == 'info'">
+                          {{item}}
+                          <i class="fa fa-times-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+                    </li>
                     <li class="list-group-item text-capitalize">
-                      {{utilsHelperService.onConvertArrayToString(matchingUsers?.profile?.other_skills)}}</li>
+                      <ng-container *ngFor="let item of matchingUsers?.profile?.other_skills">
+                        <span class="text-green"
+                          *ngIf="onChangeStringNumber('optinal_skills', 'other_skills', item, 'check', true).type == 'check'">
+                          {{item}}
+                          <i class="far fa-check-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
+                      <ng-container
+                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.other_skills, postedJobsDetails?.optinal_skills)">
+                        <span class="text-blue"
+                          *ngIf="onChangeStringNumber('optinal_skills', 'other_skills', item, 'close', true).type == 'close'">
+                          {{item}}
+                          <i class="fa fa-info-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
+                      <ng-container *ngFor="let item of postedJobsDetails?.optinal_skills">
+                        <span class="text-danger"
+                          *ngIf="onChangeStringNumber('optinal_skills', 'other_skills', item, 'info', true).type == 'info'">
+                          {{item}}
+                          <i class="fa fa-times-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+                    </li>
                     <li class="list-group-item text-capitalize">
-                      {{utilsHelperService.onConvertArrayToString(matchingUsers?.profile?.certification)}}</li>
-                    <!-- <li class="list-group-item text-green">SAP Mobility, SAP FICO <i class="far fa-check-circle ml-2"></i></li> -->
-                    <!-- <li class="list-group-item text-green">Java, Python <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Python, SAP BODS <i class="far fa-check-circle ml-2"></i></li>
-                  <li class="list-group-item text-blue">SAP Mobility <i class="far fa-times-circle ml-2"></i></li> -->
+                      <ng-container *ngFor="let item of matchingUsers?.profile?.certification">
+                        <span class="text-green"
+                          *ngIf="onChangeStringNumber('certification', 'certification', item, 'check', true).type == 'check'">
+                          {{item}}
+                          <i class="far fa-check-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
+                      <ng-container
+                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.certification, postedJobsDetails?.certification)">
+                        <span class="text-blue"
+                          *ngIf="onChangeStringNumber('certification', 'certification', item, 'close', true).type == 'close'">
+                          {{item}}
+                          <i class="fa fa-info-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+
+                      <ng-container *ngFor="let item of postedJobsDetails?.certification">
+                        <span class="text-danger"
+                          *ngIf="onChangeStringNumber('certification', 'certification', item, 'info', true).type == 'info'">
+                          {{item}}
+                          <i class="fa fa-times-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+                      </li>
                   </ul>
                 </div>
 
@@ -222,36 +358,91 @@
                 <div class="col-lg-12 info">
                   <ul class="list-group">
                     <li class="list-group-item text-capitalize">
-                      {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
-                      sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
+                      <ng-container *ngIf="matchingUsers?.profile?.job_type == postedJobsDetails?.type">
+                        <span class="text-green">
+                          {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
+                          sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
+                          <i class="far fa-check-circle ml-2"></i>
+                        </span>
+                      </ng-container>
+                      <ng-container *ngIf="matchingUsers?.profile?.job_type != postedJobsDetails?.type">
+                        <span class="text-danger">
+                          {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
+                          sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
+                          <i class="far fa-times-circle ml-2"></i>
+                        </span>
+                      </ng-container>
                     </li>
                     <li class="list-group-item text-capitalize">
-                      {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
+                      <span class="text-green" *ngIf="matchingUsers?.profile?.remote_only == postedJobsDetails?.remote">
+                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
+                        <i class="far fa-check-circle ml-2"></i>
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="matchingUsers?.profile?.remote_only != postedJobsDetails?.remote">
+                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
+                        <i class="far fa-times-circle ml-2"></i>
+                      </span>
                     </li>
                     <li class="list-group-item">
-                      {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
-                      (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability +
-                      ' Days') : '--'}}
+                      <span class="text-green"
+                        *ngIf="matchingUsers?.profile?.availability == postedJobsDetails?.availability">
+                        {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
+                        (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
+                        +
+                        ' Days') : '--'}}
+                        <i class="far fa-check-circle ml-2"></i>
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="matchingUsers?.profile?.availability != postedJobsDetails?.availability">
+                        {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
+                        (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
+                        +
+                        ' Days') : '--'}}
+                        <i class="far fa-times-circle ml-2"></i>
+                      </span>
                     </li>
                     <li class="list-group-item">
-                      {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
-                      matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
+                      <span class="text-green"
+                        *ngIf="matchingUsers?.profile?.travel == postedJobsDetails?.travel_opportunity">
+                        {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
+                        matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
+                        <i class="far fa-check-circle ml-2"></i>
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="matchingUsers?.profile?.travel != postedJobsDetails?.travel_opportunity">
+                        {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
+                        matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
+                        <i class="far fa-times-circle ml-2"></i>
+                      </span>
                     </li>
                     <li class="list-group-item">
-                      {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization == 0)
-                      ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                      translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                      <span class="text-green"
+                        *ngIf="matchingUsers?.profile?.work_authorization == postedJobsDetails?.work_authorization">
+                        {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
+                        0)
+                        ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                        translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                        <i class="far fa-check-circle ml-2"></i>
+                      </span>
+                      <span class="text-danger"
+                        *ngIf="matchingUsers?.profile?.work_authorization != postedJobsDetails?.work_authorization">
+                        {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
+                        0)
+                        ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                        translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                        <i class="far fa-times-circle ml-2"></i>
+                      </span>
                     </li>
 
-                    <li class="list-group-item">
-                      {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.willing_to_relocate)}}
-                    </li>
-                    <!-- <li class="list-group-item text-green"> Full Time, Part Time, Freelancer <i class="far fa-check-circle ml-2"></i></li> -->
-                    <!-- <li class="list-group-item text-green">Yes  <i class="far fa-check-circle ml-2"></i></li> -->
-                    <!-- <li class="list-group-item text-danger">30 Days <i class="far fa-times-circle ml-2"></i></li> -->
-                    <!-- <li class="list-group-item text-green">H1B <i class="far fa-check-circle ml-2"></i></li> -->
-                    <!-- <li class="list-group-item text-danger">No <i class="far fa-times-circle ml-2"></i></li>
-                  <li class="list-group-item text-green">Yes <i class="far fa-check-circle ml-2"></i></li> -->
+                    <!-- <li class="list-group-item">
+                      <span *ngIf="matchingUsers?.profile?.willing_to_relocate ">
+                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.willing_to_relocate)}}
+                      </span>
+                      <span>
+                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.willing_to_relocate)}}
+                      </span>
+                    </li> -->
                   </ul>
 
                   <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal"

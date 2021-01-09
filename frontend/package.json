@@ -32,6 +32,7 @@
     "google-libphonenumber": "^3.2.15",
     "intl-tel-input": "^17.0.3",
     "jquery": "^3.5.1",
+    "lodash": "^4.17.20",
     "ng2-tel-input": "^2.3.0",
     "ngx-avatar": "^4.0.0",
     "ngx-bootstrap": "^6.2.0",

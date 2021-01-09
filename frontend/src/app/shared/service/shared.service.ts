@@ -112,6 +112,22 @@ export class SharedService {
   return '--';
 }
 
+onFindDomainFromSingleID = (value: any) => {
+  let industries;
+  this.dataService.getIndustriesDataSource().subscribe(
+    response => {
+      industries = response
+    }
+  );
+  if(value && industries && industries.items && Array.isArray(industries.items)) {
+    const temp = industries.items.find(r=> {
+      return value == r.id
+    });
+    return temp;
+  }
+  return '--';
+}
+
 onFindSkillsFromSingleID = (value: any) => {
   let skillItems;
   this.dataService.getSkillDataSource().subscribe(

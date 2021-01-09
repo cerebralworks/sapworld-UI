@@ -6,6 +6,7 @@ import { GetResponse } from '@data/schema/response';
 import { AccountService } from '@data/service/account.service';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
@@ -27,7 +28,8 @@ export class JobDetailViewComponent implements OnInit {
     private route: ActivatedRoute,
     public sharedService: SharedService,
     private accountService: AccountService,
-    private location: Location
+    private location: Location,
+    public utilsHelperService: UtilsHelperService
   ) {
   }
 

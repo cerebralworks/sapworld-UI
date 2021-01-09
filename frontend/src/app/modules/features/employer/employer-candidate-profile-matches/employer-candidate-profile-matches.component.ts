@@ -5,6 +5,8 @@ import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedService } from '@shared/service/shared.service';
 
+import * as lodash from 'lodash';
+
 @Component({
   selector: 'app-employer-candidate-profile-matches',
   templateUrl: './employer-candidate-profile-matches.component.html',
@@ -20,6 +22,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   public page: number = 0;
   public userId: string;
   public matchingUsers: any = {};
+  public cusLoadsh: any = lodash;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +33,21 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     ) {
     this.jobId = this.route.snapshot.paramMap.get('jobId');
     this.userId = this.route.snapshot.paramMap.get('userId');
+   }
+
+   onChange (array: any[] = [], item, field) {
+    //  console.log(item, this.postedJobsDetails.hands_on_experience);
+    //  console.log(lodash.find(this.postedJobsDetails.hands_on_experience, {...item}));
+
+if(!this.utilsHelperService.isEmptyObj(item) && array && array.length) {
+  return array.find((val) => {
+    return val[field] == item[field];
+  });
+  // console.log(this.postedJobsDetails.hands_on_experience, {skill_id: item.skill_id});
+
+  // console.log(lodash.find(this.postedJobsDetails.hands_on_experience, {...item}));
+}
+    //  return lodash.find(this.postedJobsDetails.hands_on_experience, {...item})
    }
 
   ngOnInit(): void {
@@ -119,6 +137,85 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     }
     }
     return false;
+}
+
+onChangeValue(array1: any[] = [], array2: any[] = [], type = 'array', field: string = 'id', filterArray: string ='') {
+  if(array1 && array1.length && array2 && array2.length) {
+    let result;
+    if(type == 'array') {
+      result = lodash.uniq([...array1, ...array2])
+    }
+    if(type == 'arrayObj') {
+      result = lodash.uniqBy([...array1, ...array2], field)
+    }
+    if(result && result.length) {
+      return result;
+    }
+  }
+  return [];
+}
+
+onLoweCase (array: any[] = []) {
+  if(array && array.length) {
+    return array.map(v => v.toLowerCase());
+  }
+}
+
+onDiff = (arr1: any[] = [], arr2: any[] = []) => {
+  console.log(arr1, arr2);
+
+  if(arr1 && arr1.length && arr2 && arr2.length) {
+  let difference = arr1
+                 .filter(x => !arr2.includes(x))
+                 .concat(arr2.filter(x => !arr1.includes(x)));
+                 console.log('difference', difference);
+                 return difference;
+  }
+  return [];
+}
+
+onChangeStringNumber(field1, field2, item, type, isString: boolean = false) {
+  let lowerCaseJob = [];
+  if(this.postedJobsDetails && this.postedJobsDetails[field1]) {
+    lowerCaseJob = isString ? this.onLoweCase(this.postedJobsDetails[field1]) : this.postedJobsDetails[field1];
+  }
+  let lowerCaseUser = [];
+  if(this.matchingUsers && this.matchingUsers.profile && this.matchingUsers.profile[field2]) {
+    lowerCaseUser = isString ? this.onLoweCase(this.matchingUsers.profile[field2]) : this.matchingUsers.profile[field2];
+  }
+
+  if(lowerCaseJob.includes(item.toLowerCase()) && type == 'check') {
+    return {type: 'check', class: 'text-green'}
+  }else if(!lowerCaseUser.includes(item.toLowerCase()) && type == 'info') {
+    return {type: 'info', class: 'text-blue'}
+  }else if(!lowerCaseJob.includes(item?.toLowerCase()) && type == 'close') {
+    return {type: 'close', class: 'text-danger'}
+  }
+  return {type: '', class: ''}
+}
+
+onChangeObj(field1, field2, item, type, filterField) {
+  let lowerCaseJob = [];
+  if(this.postedJobsDetails && this.postedJobsDetails[field1]) {
+    lowerCaseJob = this.postedJobsDetails[field1]
+  }
+  let lowerCaseUser = [];
+  if(this.matchingUsers && this.matchingUsers.profile && this.matchingUsers.profile[field2]) {
+    lowerCaseUser = this.matchingUsers.profile[field2]
+  }
+  let jobIndex = lowerCaseJob.findIndex(val => val[filterField] == item[filterField]);
+  console.log('jobIndex', jobIndex);
+
+  let userIndex = lowerCaseUser.findIndex(val => val[filterField] == item[filterField])
+  console.log('userIndex', userIndex);
+  if(jobIndex > -1 && type == 'check') {
+    return {type: 'check', class: 'text-green'}
+  }else if(userIndex == -1 && type == 'info') {
+    return {type: 'info', class: 'text-blue'}
+  }else if(jobIndex == -1 && type == 'close') {
+    return {type: 'close', class: 'text-danger'}
+  }
+  return {type: '', class: ''}
 }
 
 }

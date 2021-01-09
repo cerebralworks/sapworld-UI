@@ -352,6 +352,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   }
 
   onCountryChange = (event) => {
+    console.log(event, this.childForm);
+
     // if(event && event.dialCode) {
     //   this.childForm.patchValue({
     //     personalDetails: {
