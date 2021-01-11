@@ -142,18 +142,6 @@
                           <i class="fa fa-times-circle ml-2"></i>
                         </span>
                       </ng-container>
-
-                      <!-- <ng-container
-                        *ngFor="let item of sharedService.onFindDomainFromID(onChangeValue(matchingUsers?.profile?.domains_worked, postedJobsDetails?.domain, 'array'), 'obj')">
-                        <span class="text-green mr-2" *ngIf="postedJobsDetails?.domain?.includes(item?.id)">
-                          {{item?.name}}
-                          <i class="far fa-check-circle ml-1"></i>
-                        </span>
-                        <span class="text-blue" *ngIf="!postedJobsDetails?.domain?.includes(item?.id)">
-                          {{item?.name}}
-                          <i class="far fa-times-circle ml-2"></i>
-                        </span>
-                      </ng-container> -->
                     </li>
                     <li class="list-group-item text-uppercase d-flex">
                       <ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
@@ -190,26 +178,6 @@
                             <i class="fa fa-times-circle ml-2 d-flex align-items-center"></i>
                           </div>
                         </ng-container>
-                        <!-- <ng-container
-                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience, 'arrayObj', 'skill_id'); let i = index">
-
-                          <div [ngClass]="{'text-green': !this.utilsHelperService.isEmptyObj(onChange(item)),
-                          'text-blue': this.utilsHelperService.isEmptyObj(onChange(item))}"
-                            class="border-right text-center d-flex">
-                            <div [ngClass]="{'pl-2': i >= 1}" class="pr-2">
-                              {{item?.skill_id ?
-                              utilsHelperService.onSplitTag(item?.skill_name)
-                              : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
-                            </div>
-                            <i *ngIf="!this.utilsHelperService.isEmptyObj(onChange(postedJobsDetails?.hands_on_experience, item, 'skill_id'))"
-                              class="far fa-check-circle ml-2 d-flex align-items-center"></i>
-                            <i *ngIf="this.utilsHelperService.isEmptyObj(onChange(matchingUsers?.profile?.hands_on_experience, item, 'skill_id'))"
-                              class="far fa-times-circle ml-2 d-flex align-items-center"></i>
-                            <i *ngIf="this.utilsHelperService.isEmptyObj(onChange(postedJobsDetails?.hands_on_experience, item, 'skill_id'))"
-                              class="fa fa-info-circle ml-2 d-flex align-items-center"></i>
-                          </div>
-
-                        </ng-container> -->
                       </ng-container>
                       <ng-template #elseHandsTemplate>
                         <p>--</p>
@@ -248,26 +216,6 @@
                             <i class="fa fa-times-circle ml-2"></i>
                           </span>
                         </ng-container>
-                        <!-- <ng-container
-                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.skills, postedJobsDetails?.skills); let i = index; let last = last;">
-                          <span *ngIf="postedJobsDetails?.skills?.includes(item)" class="text-green m-0 float-left">
-                            <span class="text-wrap-custom float-left"
-                              *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">{{item
-                              ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}
-                            </span>
-                            <i class="far fa-check-circle ml-2"
-                              *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))"></i>&nbsp;
-                          </span>
-
-                          <span *ngIf="!postedJobsDetails?.skills?.includes(item)" class="text-danger m-0 float-left">
-                            <span class="text-wrap-custom float-left"
-                              *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">{{item
-                              ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}
-                            </span>
-                            <i class="far fa-times-circle ml-2"
-                              *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))"></i>&nbsp;
-                          </span>
-                        </ng-container> -->
                       </ng-container>
                       <ng-template #elseSkillsTemplate>
                         <p>--</p>

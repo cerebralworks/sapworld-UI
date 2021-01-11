@@ -7,6 +7,8 @@ import { JobPosting } from '@data/schema/post-job';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import * as lodash from 'lodash';
+
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
   group([
@@ -119,23 +121,8 @@ export class PostJobLayoutComponent implements OnInit {
       ...this.postJobForm.value.jobPrev
     };
 
-    // let domainArray = [];
-    // if(jobInfo && jobInfo.domain && Array.isArray(jobInfo.domain)) {
-    //   jobInfo.domain.forEach((element: any) => {
-    //     domainArray.push(parseInt(element.id))
-    //   });
-    // }
-    // jobInfo.domain = domainArray;
-
-    // let skillTagArray = [];
-    // if(jobInfo && jobInfo.skills && Array.isArray(jobInfo.skills)) {
-    //   jobInfo.skills.forEach((element: any) => {
-    //     skillTagArray.push(parseInt(element.id))
-    //   });
-    // }
-    // jobInfo.skills = skillTagArray;
-
     let handsOnArray = [];
+    let tempSkill = [];
     if(jobInfo && jobInfo.hands_on_experience && Array.isArray(jobInfo.hands_on_experience)) {
       jobInfo.hands_on_experience.forEach((element: any) => {
         if(element && element.skill_id && element.skill_id) {
@@ -145,18 +132,16 @@ export class PostJobLayoutComponent implements OnInit {
             skill_name: element.skill_name,
             exp_type: element.exp_type
           })
-        }else {
-          handsOnArray.push({
-            skill_id: element.skill_id,
-            skill_name: element.skill_name,
-            experience: element.experience,
-            exp_type: element.exp_type
-          })
+          tempSkill.push(element.skill_id)
         }
-
       });
     }
     jobInfo.hands_on_experience = handsOnArray;
+
+    if(Array.isArray(tempSkill) && Array.isArray(jobInfo.skills)) {
+      jobInfo.skills = lodash.uniq([...tempSkill, ...jobInfo.skills]);
+    }
+
 
     delete jobInfo.temp_extra_criteria;
 

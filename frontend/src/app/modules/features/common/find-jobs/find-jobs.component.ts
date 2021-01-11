@@ -259,6 +259,11 @@ export class FindJobsComponent extends CacheService implements OnInit {
     this.queryParams = { ...this.queryParams, ...params };
     const removeEmpty = this.utilsHelperService.clean(this.queryParams);
 
+    if(removeEmpty && removeEmpty.type && Array.isArray(removeEmpty.type)) {
+      removeEmpty.type = removeEmpty.type.join(',');
+    }
+
+
     const navigationExtras: NavigationExtras = {
       queryParams: {...removeEmpty}
     };

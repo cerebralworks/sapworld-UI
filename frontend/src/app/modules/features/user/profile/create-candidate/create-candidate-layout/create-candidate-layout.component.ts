@@ -12,6 +12,8 @@ import { ImageCropperComponent, ImageCroppedEvent, base64ToFile } from 'ngx-imag
 import { ToastrService } from 'ngx-toastr';
 import { UserSharedService } from '@data/service/user-shared.service';
 
+import * as lodash from 'lodash';
+
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
   group([
@@ -148,8 +150,18 @@ export class CreateCandidateLayoutComponent implements OnInit {
       candidateInfo.phone = candidateInfo.phone.e164Number
     }
 
-    console.log(candidateInfo);
+    let tempSkill = [];
+    if(candidateInfo && candidateInfo.hands_on_experience && Array.isArray(candidateInfo.hands_on_experience)) {
+      candidateInfo.hands_on_experience.forEach((element: any) => {
+        if(element && element.skill_id && element.skill_id) {
+          tempSkill.push(element.skill_id)
+        }
+      });
+    }
 
+    if(Array.isArray(tempSkill) && Array.isArray(candidateInfo.skills)) {
+      candidateInfo.skills = lodash.uniq([...tempSkill, ...candidateInfo.skills]);
+    }
 
     if (this.candidateForm.valid) {
       if(this.userPhotoInfo && this.userPhotoInfo.photoBlob) {

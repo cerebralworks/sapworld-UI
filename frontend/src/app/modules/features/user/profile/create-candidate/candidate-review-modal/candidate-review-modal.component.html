@@ -37,9 +37,9 @@
 								<img [src]="userPhotoInfo?.base64 ? convertToImage(userPhotoInfo?.base64) : 'assets/images/user-img-icon.jpg'">
 								<div class="media-body">
                   <h6 class="text-capitalize">
-                    {{userInfo?.city ? userInfo?.city : ''}}
-                    {{userInfo?.state ? ', ' + userInfo?.state : ''}}
-                    {{userInfo?.country ? ', ' + userInfo?.country : ''}}
+                    {{childForm?.value?.personalDetails?.city ? childForm?.value?.personalDetails?.city : ''}}
+                    {{childForm?.value?.personalDetails?.state ? ', ' + childForm?.value?.personalDetails?.state : ''}}
+                    {{childForm?.value?.personalDetails?.country ? ', ' + childForm?.value?.personalDetails?.country : ''}}
                   </h6>
                   <h6>
                     <a href="mailto:{{userInfo?.email}}">

@@ -40,7 +40,8 @@
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
           <label>{{"postYourResume.mobileNumber" | translate }}</label>
-          <ngx-intl-tel-input (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
+          <ngx-intl-tel-input
+          [maxLength]="10"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
           [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
           [selectedCountryISO]="CountryISO.India" [maxLength]="15" [tooltipField]="TooltipLabel.Name"

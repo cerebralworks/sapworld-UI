@@ -43,8 +43,8 @@ export class FindCandidatesComponent extends CacheService implements OnInit {
   };
   public skillItems: any = {};
   public customParseInt: any = parseInt;
-  cityString: string;
-  skillString: any;
+  public cityString: string;
+  public skillString: any;
 
   constructor(
     public sharedService: SharedService,
@@ -234,6 +234,11 @@ export class FindCandidatesComponent extends CacheService implements OnInit {
   onRedirectRouteWithQuery = (params: any = {}) => {
     this.queryParams = { ...this.queryParams, ...params };
     const removeEmpty = this.utilsHelperService.clean(this.queryParams);
+
+    if(removeEmpty && removeEmpty.job_types && Array.isArray(removeEmpty.job_types)) {
+      removeEmpty.job_types = removeEmpty.job_types.join(',');
+    }
+
 
     const navigationExtras: NavigationExtras = {
       queryParams: {...removeEmpty}

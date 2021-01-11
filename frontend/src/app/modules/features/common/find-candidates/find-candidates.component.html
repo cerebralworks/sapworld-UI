@@ -154,8 +154,8 @@
             <div [ngClass]="{'show': skills?.length}" class="card-body p-3 collapse multi-collapse" id="collapseSkills">
               <div class="skill-select">
                 <div class="custom-control custom-checkbox mb-2" *ngFor="let item of skillItems?.items; let i=index">
-                  <input [checked]="skills?.includes(customParseInt(item?.id))" (change)="onFiltertBySkill(item)" class="custom-control-input  mb-0" type="checkbox" id="Check_{{i}}" name="example1">
-                  <label class="custom-control-label  mb-0" for="Check_{{i}}">{{utilsHelperService.onSplitTag(item?.tag)}} </label>
+                  <input [checked]="skills?.includes(customParseInt(item?.id))" (change)="onFiltertBySkill(item)" class="custom-control-input  mb-0" type="checkbox" id="Check_skill_{{i}}" name="example1">
+                  <label class="custom-control-label  mb-0" for="Check_skill_{{i}}">{{utilsHelperService.onSplitTag(item?.tag)}} </label>
                 </div>
               </div>
             </div>
