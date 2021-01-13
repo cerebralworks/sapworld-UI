@@ -57,16 +57,17 @@
                         </h5>
                       </a>
                     </div>
-                    <div class="col-lg-5 text-right">
+                    <div class="col-lg-5 text-right mt-2">
                       <span data-toggle="modal" data-target="#exampleModal">
                         <a class="btn btn-outline-blue btn-sm mr-1" href="javascript:;">
                         <i class="fas fa-file-alt"></i> Resume</a>
                       </span>
-                      <span data-toggle="modal" data-target="#hireNow">
-                        <a class="btn btn-outline-orange btn-sm" href="javascript:;">
-                        <i class="fas fa-paper-plane"></i> Mail</a>
-                      </span>
+                      <span data-toggle="modal" data-target="#sendMail">
+												<a class="btn btn-outline-orange btn-sm" href="javascript:;">
+												<i class="fas fa-paper-plane"></i> Send Mail</a>
+											</span>
                     </div>
+                    <div class="save-icon" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
                   </div>
                   <div class="media">
                     <img [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo : 'assets/images/user-img-icon.jpg'">

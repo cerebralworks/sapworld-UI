@@ -9,38 +9,55 @@
       </div>
     </div>
     <div class="row mt-5">
-      <div class="col-lg-2 alert fade show" role="alert">
+      <div *ngFor="let item of userProfileInfo?.doc_resume; let i=index" class="col-lg-2 alert fade show" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <a href="#" data-toggle="modal" data-target="#resumeModal">
+        <!-- {{(userProfileInfo?.meta?.doc_resume?.path + '/' + userProfileInfo?.meta?.doc_resume?.folder + '/' + item?.file) | json}} -->
+        <a (click)="onToggleResumeForm(true, (userProfileInfo?.meta?.doc_resume?.path + '/' + userProfileInfo?.meta?.doc_resume?.folder + '/' + item?.file))" href="#" data-toggle="modal" data-target="#resumeModal">
+          <!-- <ngx-doc-viewer [url]="item?.meta?.doc_resume?.path + '/' + item?.meta?.doc_resume?.folder + '/' + item?.file" viewer="google" style="width:100%;height:50vh;"></ngx-doc-viewer> -->
           <i class="far fa-file-alt h1"></i>
           <p class="card-title mb-2">SAP ABAP Developer</p>
         </a>
+
         <div class="form-group form-check  mb-0">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">{{"common.default" | translate}} </label>
-        </div>
-      </div>
-      <div class="col-lg-2 alert fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <a href="#" data-toggle="modal" data-target="#resumeModal">
-          <i class="far fa-file-alt h1"></i>
-          <p class="card-title mb-2">SAP ABAP Consultant</p>
-        </a>
-        <div class="form-group form-check  mb-0">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">{{"common.default" | translate}} </label>
+          <input [checked]="(item.default == 1 || item.default == '1')" type="checkbox" class="form-check-input" id="resumeCheck_{{i}}">
+          <label class="form-check-label" for="resumeCheck_{{i}}">{{"common.default" | translate}} </label>
         </div>
       </div>
       <div class="col-lg-2 alert">
         <label class="text-black-50">
           <h1 class="text-black-50 mb-0"><i class="far fa-plus-square"></i></h1>
-          {{"common.addResume" | translate}}<input type="file" hidden="">
+          {{"common.addResume" | translate}}
+          <input type="file" hidden (change)="handleFileInput($event);">
         </label>
       </div>
     </div>
   </div>
 </section>
+
+<app-resume-modal
+*ngIf="isOpenedResumeModal"
+[url]="selectedResumeUrl"
+[toggleResumeModal]="isOpenedResumeModal"
+(onEvent)="onToggleResumeForm($event)">
+</app-resume-modal>
+
+<ng-template #resumeTitleModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Add Resume Tilte</h5>
+    <button type="button" (click)="mbRef?.close()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <div class=" form-group">
+      <label class="h5">Resume Title</label>
+      <input [(ngModel)]="resumeTitle" type="text" class="form-control" placeholder="Enter Resume Title">
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button type="button" (click)="mbRef?.close()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+    <button type="button" (click)="onSaveResume()" class="btn btn-theme-blue " data-dismiss="modal">Save</button>
+    </div>
+</ng-template>

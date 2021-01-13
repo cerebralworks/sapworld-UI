@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class ResumeModalComponent implements OnInit {
 
   @Input() toggleResumeModal: boolean;
+  @Input() url: any;
   @Output() onEvent = new EventEmitter<boolean>();
 
   public mbRef: NgbModalRef;
@@ -20,7 +22,8 @@ export class ResumeModalComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    public router: Router
+    public router: Router,
+    public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +52,11 @@ export class ResumeModalComponent implements OnInit {
     if(status == false) {
       this.mbRef.close()
     }
+  }
+
+  resumeLoaded = (event) => {
+    console.log(event);
+
   }
 
 }

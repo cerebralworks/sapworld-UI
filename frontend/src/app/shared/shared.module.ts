@@ -32,6 +32,8 @@ import { AppPasswordDirective } from './directives/app-password.directive';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { SharedUserProfileComponent } from './component/shared-user-profile/shared-user-profile.component';
 import { SharedJobProfileComponent } from './component/shared-job-profile/shared-job-profile.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-preview/job-preview.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { SharedJobProfileComponent } from './component/shared-job-profile/shared
     ClickOutsideDirective,
     AppPasswordDirective,
     SharedUserProfileComponent,
-    SharedJobProfileComponent
+    SharedJobProfileComponent,
+    JobPreviewModalComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +72,8 @@ import { SharedJobProfileComponent } from './component/shared-job-profile/shared
     ImageCropperModule,
     NgxSliderModule,
     PerfectScrollbarModule,
-    Ng2TelInputModule
+    Ng2TelInputModule,
+    NgxDocViewerModule
   ],
   exports: [
     LoginFormComponent,
@@ -103,7 +107,10 @@ import { SharedJobProfileComponent } from './component/shared-job-profile/shared
     AppPasswordDirective,
     SharedUserProfileComponent,
     SharedJobProfileComponent,
-    Ng2TelInputModule
+    Ng2TelInputModule,
+    NgxDocViewerModule,
+    NgxDocViewerModule,
+    JobPreviewModalComponent
   ],
   providers: [ApiService]
 })

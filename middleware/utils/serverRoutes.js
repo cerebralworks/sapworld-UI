@@ -11,6 +11,7 @@ const routes = {
     userView: '/users/view',
     userUpdate: "/users/update",
     userPhotoUpdate: "/users/update-photo",
+    userResumeUpdate: "/users/update-doc-resume",
     jobPostingCreate: '/jobpostings/create',
     jobPostingUpdate: '/jobpostings/update',
     skillTagList: '/skill-tags/list',

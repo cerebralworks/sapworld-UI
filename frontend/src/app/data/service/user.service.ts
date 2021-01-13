@@ -49,6 +49,14 @@ export class UserService extends CacheService {
     );
   }
 
+  resumeUpdate = (params?) => {
+    return this.apiService.post('/api/users/update-doc-resume', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
   profileView = (params?) => {
     return this.apiService.get('/api/users/view', params).pipe(
       map(data => {
