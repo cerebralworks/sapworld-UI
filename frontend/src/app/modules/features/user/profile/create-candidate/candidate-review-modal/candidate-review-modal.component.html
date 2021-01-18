@@ -1,9 +1,9 @@
 <ng-template #registerReviewModal let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Profile Preview</h5>
-    <button type="button" (click)="onClickCloseBtn(false)" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- <button type="button" (click)="onClickCloseBtn(false)" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
-    </button>
+    </button> -->
     </div>
     <div class="modal-body" style="height:550px; overflow-y:scroll;">
       <div class="row">
@@ -173,6 +173,6 @@
 		  </div>
 		  <div class="modal-footer">
 			<button  (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Edit</button>
-			<button type="button" class="btn btn-theme-blue btn-sm" (click)="onRedirectDashboard()">Ok</button>
+			<button type="button" class="btn btn-theme-blue btn-sm" (click)="onRedirectDashboard()">Save & Close</button>
 		  </div>
 </ng-template>

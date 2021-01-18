@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CandidateProfile, tabInfo, tabProgressor } from '@data/schema/create-candidate';
 
 import { trigger, transition, query, style, animate, group } from '@angular/animations';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '@data/service/user.service';
@@ -216,6 +216,46 @@ export class CreateCandidateLayoutComponent implements OnInit {
 
   private buildForm(): void {
     this.candidateForm = this.formBuilder.group({
+    });
+
+    setTimeout(() => {
+      this.candidateForm.addControl('jobPref', new FormGroup({
+        job_type: new FormControl('', Validators.required),
+        job_role: new FormControl('', Validators.required),
+        willing_to_relocate: new FormControl(null, Validators.required),
+        preferred_location: new FormControl(null),
+        work_authorization: new FormControl(null),
+        travel: new FormControl(null, Validators.required),
+        availability: new FormControl(null, Validators.required),
+        remote_only: new FormControl(false, Validators.required),
+      }));
+      this.candidateForm.addControl('skillSet', new FormGroup({
+        hands_on_experience: new FormArray([this.formBuilder.group({
+          skill_id: [null, Validators.required],
+          skill_name: ['dasdasd'],
+          experience: ['', [Validators.required,]],
+          exp_type: ['years', [Validators.required]]
+        })]),
+        skills: new FormControl(null, Validators.required),
+        programming_skills: new FormControl(null, Validators.required),
+        other_skills: new FormControl(null, Validators.required),
+        certification: new FormControl(null),
+        bio: new FormControl('Lorem Ipsum'),
+      }));
+      this.candidateForm.addControl('educationExp', new FormGroup({
+        education_qualification: new FormArray([this.formBuilder.group({
+          degree: [''],
+          field_of_study: [''],
+          year_of_completion: ['']
+        })]),
+        experience: new FormControl('', Validators.required),
+        sap_experience: new FormControl('', Validators.required),
+        current_employer: new FormControl('', Validators.required),
+        current_employer_role: new FormControl('', Validators.required),
+        domains_worked: new FormControl('', Validators.required),
+        clients_worked: new FormControl(''),
+        end_to_end_implementation: new FormControl(null),
+      }));
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { tabInfo } from '@data/schema/create-candidate';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
-import { ControlContainer, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { DataService } from '@shared/service/data.service';
@@ -60,6 +60,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
   }
+  public tabInfos: tabInfo[];
 
   @ViewChild('userImage', { static: false }) userImage: ElementRef;
   croppedFile: any;
@@ -78,57 +79,22 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     private toastrService: ToastrService,
     private modalService: NgbModal,
     private utilsHelperService: UtilsHelperService,
-    private userService: UserService
+    private userService: UserService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.createForm();
 
-    // this.userSharedService.getUserProfileDetails().subscribe(
-    //   response => {
-    //     this.userInfo = response;
-    //     if (this.userInfo) {
-    //       this.childForm.patchValue({
-    //         personalDetails: {
-    //           ...this.userInfo,
-    //         }
-    //       });
-    //       if(this.userInfo && this.userInfo.social_media_link && this.userInfo.social_media_link.length > 0) {
-    //         this.childForm.patchValue({
-    //           personalDetails: {
-    //             linkedin: this.onFindMediaLinks('linkedin', this.userInfo.social_media_link).url,
-    //             github: this.onFindMediaLinks('github', this.userInfo.social_media_link).url,
-    //             youtube: this.onFindMediaLinks('youtube', this.userInfo.social_media_link).url,
-    //             blog: this.onFindMediaLinks('blog', this.userInfo.social_media_link).url,
-    //             portfolio: this.onFindMediaLinks('portfolio', this.userInfo.social_media_link).url,
-    //             linkedinBoolen: this.onFindMediaLinks('linkedin', this.userInfo.social_media_link).visibility,
-    //             githubBoolen: this.onFindMediaLinks('github', this.userInfo.social_media_link).visibility,
-    //             youtubeBoolen: this.onFindMediaLinks('youtube', this.userInfo.social_media_link).visibility,
-    //             blogBoolen: this.onFindMediaLinks('blog', this.userInfo.social_media_link).visibility,
-    //             portfolioBoolen: this.onFindMediaLinks('portfolio', this.userInfo.social_media_link).visibility
-    //           }
-    //         })
-    //       }
-    //       this.childForm.get('personalDetails.email').disable();
+    this.dataService.getTabInfo().subscribe(
+      response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.tabInfos = response;
+          console.log('this.tabInfos', this.tabInfos);
 
-    //       let latlngText: string = this.userInfo.latlng_text;
-    //       if (latlngText) {
-    //         const splitedString: any[] = latlngText.split(',');
-    //         if (splitedString && splitedString.length) {
-    //           this.childForm.patchValue({
-    //             personalDetails: {
-    //               latlng: {
-    //                 lat: splitedString[0],
-    //                 lng: splitedString[1]
-    //               }
-    //             }
-    //           })
-    //         }
-    //       }
-    //     }
-
-    //   }
-    // )
+        }
+      }
+    )
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -168,6 +134,40 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
               }
             }
           })
+        }
+      }
+      if(this.tabInfos && this.tabInfos.length) {
+        console.log('adasdsa');
+
+        let educationExpIndex = this.tabInfos.findIndex(val => val.tabNumber == 2);
+        console.log(educationExpIndex);
+
+        if(educationExpIndex == -1) {
+          console.log('sdasda', this.savedUserDetails);
+
+          this.childForm.patchValue({
+            educationExp : {
+              ...this.savedUserDetails
+            },
+          });
+        }
+
+        let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
+        if(skillSetIndex == -1) {
+          this.childForm.patchValue({
+            skillSet : {
+              ...this.savedUserDetails
+            },
+          });
+        }
+
+        let jobPrefIndex = this.tabInfos.findIndex(val => val.tabNumber == 4);
+        if(jobPrefIndex == -1) {
+          this.childForm.patchValue({
+            jobPref : {
+              ...this.savedUserDetails
+            },
+          });
         }
       }
       let phoneNumber: string = this.savedUserDetails.phone;
@@ -223,6 +223,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       blogBoolen: new FormControl(false),
       portfolioBoolen: new FormControl(false),
     }));
+
   }
 
   get f() {

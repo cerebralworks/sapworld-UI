@@ -21,6 +21,8 @@ export class UserResumeComponent implements OnInit {
   public mbRef: NgbModalRef;
 
   @ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
+  currentResumeDetails: any;
+  isDeleteModalOpened: boolean;
 
   constructor(
     private userService: UserService,
@@ -74,6 +76,32 @@ export class UserResumeComponent implements OnInit {
     formData.append('title', this.resumeTitle);
     this.userService.resumeUpdate(formData).subscribe(
       response => {
+        this.onGetUserProfile();
+      }, error => {
+      }
+    )
+  }
+
+  onDeleteJobConfirm = (item, index) => {
+    this.currentResumeDetails = item;
+    this.isDeleteModalOpened = true;
+  }
+
+  onDeleteJobConfirmed = (status) => {
+    if(status == true) {
+      this.onDeleteUserResume();
+    }else {
+      this.isDeleteModalOpened = false;
+    }
+  }
+
+  onDeleteUserResume = () => {
+    const formData = new FormData();
+
+    formData.append('file_key', this.currentResumeDetails.file);
+    this.userService.deleteResume(formData).subscribe(
+      response => {
+        this.isDeleteModalOpened = false;
         this.onGetUserProfile();
       }, error => {
       }

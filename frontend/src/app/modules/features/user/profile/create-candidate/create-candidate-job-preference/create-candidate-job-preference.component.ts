@@ -110,33 +110,33 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
       availability: new FormControl(null, Validators.required),
       remote_only: new FormControl(false, Validators.required),
     }));
-    this.childForm.addControl('skillSet', new FormGroup({
-      hands_on_experience: new FormArray([this.formBuilder.group({
-        skill_id: [null, Validators.required],
-        skill_name: ['dasdasd'],
-        experience: ['', [Validators.required,]],
-        exp_type: ['years', [Validators.required]]
-      })]),
-      skills: new FormControl(null, Validators.required),
-      programming_skills: new FormControl(null, Validators.required),
-      other_skills: new FormControl(null, Validators.required),
-      certification: new FormControl(null),
-      bio: new FormControl('Lorem Ipsum'),
-    }));
-    this.childForm.addControl('educationExp', new FormGroup({
-      education_qualification: new FormArray([this.formBuilder.group({
-        degree: [''],
-        field_of_study: [''],
-        year_of_completion: ['']
-      })]),
-      experience: new FormControl('', Validators.required),
-      sap_experience: new FormControl('', Validators.required),
-      current_employer: new FormControl('', Validators.required),
-      current_employer_role: new FormControl('', Validators.required),
-      domains_worked: new FormControl('', Validators.required),
-      clients_worked: new FormControl(''),
-      end_to_end_implementation: new FormControl(null),
-    }));
+    // this.childForm.addControl('skillSet', new FormGroup({
+    //   hands_on_experience: new FormArray([this.formBuilder.group({
+    //     skill_id: [null, Validators.required],
+    //     skill_name: ['dasdasd'],
+    //     experience: ['', [Validators.required,]],
+    //     exp_type: ['years', [Validators.required]]
+    //   })]),
+    //   skills: new FormControl(null, Validators.required),
+    //   programming_skills: new FormControl(null, Validators.required),
+    //   other_skills: new FormControl(null, Validators.required),
+    //   certification: new FormControl(null),
+    //   bio: new FormControl('Lorem Ipsum'),
+    // }));
+    // this.childForm.addControl('educationExp', new FormGroup({
+    //   education_qualification: new FormArray([this.formBuilder.group({
+    //     degree: [''],
+    //     field_of_study: [''],
+    //     year_of_completion: ['']
+    //   })]),
+    //   experience: new FormControl('', Validators.required),
+    //   sap_experience: new FormControl('', Validators.required),
+    //   current_employer: new FormControl('', Validators.required),
+    //   current_employer_role: new FormControl('', Validators.required),
+    //   domains_worked: new FormControl('', Validators.required),
+    //   clients_worked: new FormControl(''),
+    //   end_to_end_implementation: new FormControl(null),
+    // }));
   }
 
   get f() {

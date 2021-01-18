@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { tabInfo, tabProgressor } from '@data/schema/create-candidate';
+import { UserSharedService } from '@data/service/user-shared.service';
+import { DataService } from '@shared/service/data.service';
 
 @Component({
   selector: 'app-create-candidate-footer',
@@ -14,7 +16,9 @@ export class CreateCandidateFooterComponent implements OnInit {
   @Output() postJob: EventEmitter<any> = new EventEmitter();
   @Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
   @Input() createCandidateForm: FormGroup;
-  savedUserDetails: any;
+  public savedUserDetails: any;
+  public userInfo: any;
+  tabInfos: any[];
   @Input('userDetails')
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
@@ -23,9 +27,28 @@ export class CreateCandidateFooterComponent implements OnInit {
   public btnType: string;
   isOpenedRegisterReviewModal: any;
 
-  constructor() { }
+  constructor(
+    private userSharedService: UserSharedService,
+    private dataService: DataService
+    ) { }
 
+  validateInfo = 0;
   ngOnInit(): void {
+    this.userSharedService.getUserProfileDetails().subscribe(
+      response => {
+        this.userInfo = response;
+        if(this.userInfo && this.userInfo.id && this.validateInfo == 0) {
+          this.validateInfo++;
+        }
+      }
+    )
+    this.dataService.getTabInfo().subscribe(
+      response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.tabInfos = response;
+        }
+      }
+    )
   }
 
   onPrevious = () => {

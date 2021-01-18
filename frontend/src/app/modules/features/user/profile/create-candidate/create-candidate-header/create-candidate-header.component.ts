@@ -19,6 +19,8 @@ export class CreateCandidateHeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.tabTempArray.push(this.currentTabInfo);
+    this.dataService.setTabInfo(this.tabTempArray);
     this.dataService.getTabInfo().subscribe(
       response => {
         if(response && Array.isArray(response) && response.length) {
@@ -37,11 +39,10 @@ export class CreateCandidateHeaderComponent implements OnInit {
       let index = this.tabInfos.findIndex(val => val.tabNumber == currentTabInfo.tabNumber);
       if(index == -1) {
         this.tabTempArray.push(currentTabInfo);
-        // this.tabTempArray.splice(index, 1)
-      }else {
-        // this.tabTempArray.push(currentTabInfo);
       }
     }
+    console.log(this.tabTempArray);
+
     this.dataService.setTabInfo(this.tabTempArray);
   }
 

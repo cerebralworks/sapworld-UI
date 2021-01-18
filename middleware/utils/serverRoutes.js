@@ -12,6 +12,7 @@ const routes = {
     userUpdate: "/users/update",
     userPhotoUpdate: "/users/update-photo",
     userResumeUpdate: "/users/update-doc-resume",
+    userResumeDelete: "/users/delete-resume",
     jobPostingCreate: '/jobpostings/create',
     jobPostingUpdate: '/jobpostings/update',
     skillTagList: '/skill-tags/list',

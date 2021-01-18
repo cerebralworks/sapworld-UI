@@ -6,16 +6,28 @@
       </button>
     </div>
   </div>
+
   <div class="col-lg-2 col-md-6">
     <div class="form-group">
-      <button  [disabled]="!createCandidateForm.valid" (click)="onNext()" *ngIf="currentTabInfo.tabNumber != 4" type="button"
-        class="btn btn-theme-blue btn-block btn-lg btnNext">
-        {{"common.next" | translate }}
+      <button [disabled]="!createCandidateForm.valid" (click)="onNext()" *ngIf="currentTabInfo.tabNumber != 4" type="button"
+        class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
+        {{userInfo?.id ? 'Update & Next' : ("common.next" | translate) }}
       </button>
+
+
       <button  [disabled]="!createCandidateForm.valid" *ngIf="currentTabInfo.tabNumber == 4" type="button" class="btn btn-theme-green btn-block btn-lg btnSubmit"
         (click)="onToggleRegisterReview(true)">
         {{"common.submit" | translate }}
       </button>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber != 4">
+    <div class="form-group">
+      <button [disabled]="!createCandidateForm.valid" (click)="onToggleRegisterReview(true)" *ngIf="userInfo?.id" type="button"
+      class="btn btn-theme-blue btn-block btn-lg btnNext">
+      Update
+      <!-- {{"common.next" | translate }} -->
+    </button>
     </div>
   </div>
 </div>
