@@ -107,7 +107,7 @@
 				<div class="col-lg-8 info">
 					<ul class="list-group">
 					  <li class="list-group-item text-uppercase lg-mh-40">
-              <p class="m-0 w-100 float-left" *ngFor="let item of childForm?.value?.skillSet?.skills">
+              <p class="m-0 w-100 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id')">
                 <span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
               </p>
             </li>

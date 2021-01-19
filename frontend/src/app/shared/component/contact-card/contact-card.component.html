@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="media">
-      <img [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo : 'assets/images/user-img-icon.jpg'">
+      <img [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
       <div class="media-body">
         <h6 class="text-capitalize">
           {{userInfo?.city ? userInfo?.city : ''}}

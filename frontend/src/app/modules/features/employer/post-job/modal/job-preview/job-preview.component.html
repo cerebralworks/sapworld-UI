@@ -2,9 +2,9 @@
   <div formGroupName="jobPrev">
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">{{"postJob.jobPreview" | translate }} </h5>
-      <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <!-- <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">×</span>
-      </button>
+      </button> -->
     </div>
     <div class="modal-body" style="height:550px; overflow-y:scroll;">
       <div class="row">
@@ -99,7 +99,7 @@
         <div class="col-lg-6 info">
           <ul class="list-group">
             <li class="list-group-item text-uppercase lg-mh-40">
-              <p class="m-0 w-100 float-left" *ngFor="let item of postJobForm?.value?.requirement?.skills">
+              <p class="m-0 w-100 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id')">
                 <span class="text-wrap-custom float-left">{{item ? onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
               </p>
               <!-- {{onConvertArrayObjToString(postJobForm?.value?.requirement?.skills, 'tag')}}  -->
@@ -272,6 +272,7 @@
       </div>
     </div>
     <div class="modal-footer">
+      <div class="form-inline mr-auto">
         <div class="form-group mr-2">
           <label>{{"postJob.enterNumberOfPositions" | translate}}</label>
         </div>
@@ -279,12 +280,14 @@
           <input numbersOnly formControlName="number_of_positions" class="form-control form-control-sm w-50" type="text" placeholder="Numbers"/>
           <app-control-messages [control]="f['number_of_positions']"></app-control-messages>
         </div>
+      </div>
+
       <button (click)="onOpenCriteriaModal()" type="button" class="btn btn-theme-green" data-toggle="modal"
         data-target="#addCriteria">Add Another Criteria</button>
       <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
         data-dismiss="modal">Edit</button>
       <button [disabled]="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
-        {{jobId ? 'Update Job' : 'Post Job'}}
+        {{jobId ? 'Update & Close' : 'Save & Close'}}
       </button>
     </div>
   </div>

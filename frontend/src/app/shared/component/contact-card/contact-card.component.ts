@@ -15,11 +15,12 @@ export class ContactCardComponent implements OnInit {
 
   public isOpenedContactInfoModal: boolean;
   public isOpenedResumeModal: boolean;
+  public randomNum: number;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.userInfo);
+    this.randomNum = Math.random();
 
   }
 

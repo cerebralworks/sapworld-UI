@@ -4,8 +4,8 @@
   </div>
   <div class="col-lg-4 caption">
     <ul class="list-group">
-      <li class="list-group-item">{{"postJob.totalYearsOfExperience" | translate }}</li>
-      <li class="list-group-item">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+      <li class="list-group-item">{{"dashboard.totalYearsOfExp" | translate }}</li>
+      <li class="list-group-item">{{"dashboard.totalSapExp" | translate }}</li>
       <li class="list-group-item">{{"dashboard.domainsWorked" | translate }}</li>
       <li class="list-group-item">{{"postYourResume.handsOnExperience" | translate }}</li>
     </ul>
@@ -48,7 +48,7 @@
     <ul class="list-group">
       <li class="list-group-item text-uppercase lg-mh-40">
         <ng-container *ngIf="userInfo?.skills?.length; else elseSkillsTemplate">
-          <span class="m-0 float-left" *ngFor="let item of userInfo?.skills; let i = index; let last = last;">
+          <span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
             <span class="text-wrap-custom float-left"
             *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">
             {{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}

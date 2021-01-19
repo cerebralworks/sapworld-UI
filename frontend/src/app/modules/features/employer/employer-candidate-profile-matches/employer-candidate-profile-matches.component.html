@@ -25,10 +25,14 @@
               <div class="d-flex">
                 <div class="pc-info">
                   <a [routerLink]="['/employer/job-detail-view']" href="javascript:;">
-                    <h5>SAP ABAP Lead Consultant</h5>
+                    <h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
                   </a>
-                  <h6>Wipro Limited</h6>
-                  <h6 class="mb-0">Austin, TX, USA</h6>
+                  <h6 class="text-capitalize">{{postedJobsDetails?.company?.company}}</h6>
+                  <h6 class="mb-0 text-capitalize">
+                    {{postedJobsDetails?.city ? postedJobsDetails?.city : ''}}
+                    {{postedJobsDetails?.state ? ', ' + postedJobsDetails?.state : ''}}
+                    {{postedJobsDetails?.country ? ', ' + postedJobsDetails?.country : ''}}
+                  </h6>
                 </div>
                 <div class="pc-btn">
                   <a class="btn btn-outline-blue btn-sm mr-1"
@@ -59,10 +63,10 @@
                     <div class="d-flex">
                       <div class="pc-img">
                         <img
-                          [src]="matchingUsers?.profile?.photo ? (matchingUsers?.photo?.path+'/'+ matchingUsers?.photo?.folder+'/'+matchingUsers?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
+                          [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
                       </div>
                       <div class="pc-info">
-                        <a [routerLink]="['/employer/candidate-profile']" href="javascript:;">
+                        <a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id}" href="javascript:;">
                           <h5 class="text-capitalize">
                             <span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
                               + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
@@ -191,7 +195,7 @@
                   <ul class="list-group">
                     <li class="list-group-item text-uppercase">
                       <ng-container *ngIf="matchingUsers?.profile?.skills?.length; else elseSkillsTemplate">
-                        <ng-container *ngFor="let item of matchingUsers?.profile?.skills">
+                        <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(matchingUsers?.profile?.skills, matchingUsers?.profile?.hands_on_experience, 'skill_id')">
                           <span class="text-green"
                             *ngIf="onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
 
@@ -209,7 +213,7 @@
                           </span>
                         </ng-container>
 
-                        <ng-container *ngFor="let item of postedJobsDetails?.skills">
+                        <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id')">
                           <span class="text-danger"
                             *ngIf="onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
                             {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
@@ -334,7 +338,7 @@
                     </li>
                     <li class="list-group-item">
                       <span class="text-green"
-                        *ngIf="matchingUsers?.profile?.availability == postedJobsDetails?.availability">
+                        *ngIf="matchingUsers?.profile?.availability >= postedJobsDetails?.availability">
                         {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
                         (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
                         +
@@ -342,7 +346,7 @@
                         <i class="far fa-check-circle ml-2"></i>
                       </span>
                       <span class="text-danger"
-                        *ngIf="matchingUsers?.profile?.availability != postedJobsDetails?.availability">
+                        *ngIf="matchingUsers?.profile?.availability < postedJobsDetails?.availability">
                         {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
                         (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
                         +
@@ -423,7 +427,7 @@
   (onEvent)="onToggleResumeForm($event)">
 </app-resume-modal>
 
-<app-job-description [toggleJDModal]="isOpenedJDModal" *ngIf="isOpenedJDModal" (onEvent)="onToggleJDModal($event)">
+<app-job-description [isRichTextEnabled]="true" [description]="postedJobsDetails?.description" [toggleJDModal]="isOpenedJDModal" *ngIf="isOpenedJDModal" (onEvent)="onToggleJDModal($event)">
 </app-job-description>
 
 

@@ -71,7 +71,7 @@
             <ul class="list-group">
               <li class="list-group-item text-uppercase lg-mh-40">
                 <ng-container *ngIf="userDetails?.skills?.length; else elseSkillsTemplate">
-                  <p class="m-0 w-100 float-left" *ngFor="let item of userDetails?.skills">
+                  <p class="m-0 w-100 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userDetails?.skills, userDetails?.hands_on_experience, 'skill_id')">
                     <span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
                   </p>
                 </ng-container>

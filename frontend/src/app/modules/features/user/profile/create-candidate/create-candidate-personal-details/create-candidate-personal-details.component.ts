@@ -56,6 +56,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   public imageChangedEvent: FileList;
   public socialMediaLinks: any[] = [];
   savedUserDetails: any;
+  randomNum: number;
   @Input('userDetails')
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
@@ -84,14 +85,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.randomNum = Math.random();
     this.createForm();
 
     this.dataService.getTabInfo().subscribe(
       response => {
         if (response && Array.isArray(response) && response.length) {
           this.tabInfos = response;
-          console.log('this.tabInfos', this.tabInfos);
-
         }
       }
     )
@@ -136,40 +136,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
           })
         }
       }
-      if(this.tabInfos && this.tabInfos.length) {
-        console.log('adasdsa');
 
-        let educationExpIndex = this.tabInfos.findIndex(val => val.tabNumber == 2);
-        console.log(educationExpIndex);
-
-        if(educationExpIndex == -1) {
-          console.log('sdasda', this.savedUserDetails);
-
-          this.childForm.patchValue({
-            educationExp : {
-              ...this.savedUserDetails
-            },
-          });
-        }
-
-        let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
-        if(skillSetIndex == -1) {
-          this.childForm.patchValue({
-            skillSet : {
-              ...this.savedUserDetails
-            },
-          });
-        }
-
-        let jobPrefIndex = this.tabInfos.findIndex(val => val.tabNumber == 4);
-        if(jobPrefIndex == -1) {
-          this.childForm.patchValue({
-            jobPref : {
-              ...this.savedUserDetails
-            },
-          });
-        }
-      }
       let phoneNumber: string = this.savedUserDetails.phone;
       if(phoneNumber) {
         // this.childForm.controls.personalDetails.controls.phone.setValue('+919898989898');

@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   public accountUserSubscription: Subscription;
   public currentEmployerDetails: any = {};
   public currentUserDetails: any = {};
+  public randomNum: number;
 
   constructor(
     public router: Router,
@@ -34,6 +35,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.randomNum = Math.random();
     this.translateService.addLangs(this.appGlobals.availableLanguages);
     this.translateService.use('en');
     this.accountUserSubscription = this.accountService

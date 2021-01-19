@@ -12,3 +12,9 @@
   margin-right: 5px;
   color: white;
 }
+.img-circule {
+  width: 40px;
+    margin-right: 15px;
+    border-radius: 31px;
+    margin-top: 0;
+}

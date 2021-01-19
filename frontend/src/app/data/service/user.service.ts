@@ -65,6 +65,14 @@ export class UserService extends CacheService {
     );
   }
 
+  chooseDefaultResume = (params?) => {
+    return this.apiService.post('/api/users/choose-default-resume', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
   profileView = (params?) => {
     return this.apiService.get('/api/users/view', params).pipe(
       map(data => {

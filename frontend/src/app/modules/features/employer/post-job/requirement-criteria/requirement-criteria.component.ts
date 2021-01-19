@@ -6,6 +6,7 @@ import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-requirement-criteria',
@@ -39,7 +40,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
     private route: ActivatedRoute,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +72,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
           value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
           this.onDuplicate();
           });
+          this.getPostedJobsDetails.skills = this.utilsHelperService.differenceByPropValArray(this.getPostedJobsDetails.skills, this.getPostedJobsDetails.hands_on_experience, 'skill_id')
         }
         this.childForm.patchValue({
           requirement : {

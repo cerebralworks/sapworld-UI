@@ -5,6 +5,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { SharedService } from '@shared/service/shared.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-create-candidate-skillset',
@@ -30,7 +31,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     public sharedService: SharedService,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private userSharedService: UserSharedService
+    private userSharedService: UserSharedService,
+    public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +66,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
               this.onDuplicate();
             });
           }
+          this.savedUserDetails.skills = this.utilsHelperService.differenceByPropValArray(this.savedUserDetails.skills, this.savedUserDetails.hands_on_experience, 'skill_id')
+
         }
         if (this.savedUserDetails.hands_on_experience == null) {
           delete this.savedUserDetails.hands_on_experience;

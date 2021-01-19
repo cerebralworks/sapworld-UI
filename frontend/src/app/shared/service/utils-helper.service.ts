@@ -89,4 +89,21 @@ export class UtilsHelperService {
     return '--';
   }
 
+  differenceByPropVal<T>(arr1: T[], arr2: T[], propertyName: string): T[] {
+    return arr1.filter(
+      (a: T): boolean =>
+        !arr2.find((b: T): boolean => b[propertyName] === a[propertyName])
+    );
+  }
+
+  differenceByPropValArray<T>(arr1: T[], arr2: T[], propertyName: string): T[] {
+    if(arr1 && arr2 && Array.isArray(arr1) && Array.isArray(arr2)) {
+      return arr1.filter(
+        (a: any): boolean =>
+          !arr2.find((b: T): boolean => parseInt(b[propertyName]) == parseInt(a))
+      );
+    }
+    return [];
+  }
+
 }

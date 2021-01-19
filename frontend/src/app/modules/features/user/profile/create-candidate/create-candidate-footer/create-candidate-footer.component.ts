@@ -13,7 +13,7 @@ export class CreateCandidateFooterComponent implements OnInit {
 
   @Input() currentTabInfo: tabInfo;
   @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
-  @Output() postJob: EventEmitter<any> = new EventEmitter();
+  @Output() createCandidate: EventEmitter<any> = new EventEmitter();
   @Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
   @Input() createCandidateForm: FormGroup;
   public savedUserDetails: any;
@@ -49,6 +49,9 @@ export class CreateCandidateFooterComponent implements OnInit {
         }
       }
     )
+
+    console.log(this.getErrors(this.createCandidateForm));
+
   }
 
   onPrevious = () => {

@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -13,23 +14,23 @@ import { ToastrService } from 'ngx-toastr';
 export class UserResumeComponent implements OnInit {
 
   public userSelectedResume: File;
-  public resumeTitle: string = ""
-  public resumeDefault: boolean = false;
   public userProfileInfo: any;
   public isOpenedResumeModal: boolean;
   public selectedResumeUrl: any;
   public mbRef: NgbModalRef;
 
   @ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
-  currentResumeDetails: any;
-  isDeleteModalOpened: boolean;
+  public currentResumeDetails: any;
+  public isDeleteModalOpened: boolean;
+  public resumeForm: FormGroup;
 
   constructor(
     private userService: UserService,
     private utilsHelperService: UtilsHelperService,
     private toastrService: ToastrService,
     private userSharedService: UserSharedService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +40,14 @@ export class UserResumeComponent implements OnInit {
 
       }
     )
+
+    this.buildForm();
+  }
+
+  private buildForm(): void {
+    this.resumeForm = this.formBuilder.group({
+      title: new FormControl('', [Validators.required])
+    });
   }
 
   handleFileInput(event) {
@@ -65,17 +74,23 @@ export class UserResumeComponent implements OnInit {
   }
 
   onSaveResume = () => {
-    this.onUserResumeUpdate()
+    if(this.resumeForm.valid) {
+      this.onUserResumeUpdate();
+    }
+  }
+
+  get f() {
+    return this.resumeForm.controls;
   }
 
   onUserResumeUpdate = () => {
     const formData = new FormData();
 
     formData.append('doc_resume', this.userSelectedResume, this.userSelectedResume.name);
-    formData.append('default', this.resumeDefault.toString());
-    formData.append('title', this.resumeTitle);
+    formData.append('title', this.resumeForm.value.title);
     this.userService.resumeUpdate(formData).subscribe(
       response => {
+        this.modalService.dismissAll();
         this.onGetUserProfile();
       }, error => {
       }
@@ -88,9 +103,9 @@ export class UserResumeComponent implements OnInit {
   }
 
   onDeleteJobConfirmed = (status) => {
-    if(status == true) {
+    if (status == true) {
       this.onDeleteUserResume();
-    }else {
+    } else {
       this.isDeleteModalOpened = false;
     }
   }
@@ -108,11 +123,38 @@ export class UserResumeComponent implements OnInit {
     )
   }
 
+  onCheck = (array: any[], fields) => {
+    if (array && Array.isArray(array) && array.length) {
+      return array.every(i => {
+        return (i[fields] == 0 || i[fields] == '0')
+      });
+    }
+    return false
+  }
+
+  onChooseDefaultResume = (item, eventValue, isNonDefault: boolean = false) => {
+    const formData = new FormData();
+
+    if (isNonDefault) {
+      const defaultVal = eventValue ? '1' : '0';
+      formData.append('remove_all_default', defaultVal);
+    } else {
+      formData.append('file_key', item.file);
+    }
+    this.userService.chooseDefaultResume(formData).subscribe(
+      response => {
+        this.onGetUserProfile();
+      }, error => {
+      }
+    )
+  }
+
   onGetUserProfile() {
     this.userService.profile().subscribe(
       response => {
         let userProfileInfo = response;
-        this.userProfileInfo = {...userProfileInfo.details, meta: userProfileInfo.meta};
+        this.userProfileInfo = { ...userProfileInfo.details, meta: userProfileInfo.meta };
+        this.modalService.dismissAll();
       }, error => {
         this.modalService.dismissAll();
       }
@@ -120,7 +162,7 @@ export class UserResumeComponent implements OnInit {
   }
 
   onToggleResumeForm = (status, selectedResumeUrl?) => {
-    if(selectedResumeUrl) {
+    if (selectedResumeUrl) {
       this.selectedResumeUrl = selectedResumeUrl;
       console.log(this.selectedResumeUrl);
 

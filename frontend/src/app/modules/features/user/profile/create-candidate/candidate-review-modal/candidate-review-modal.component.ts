@@ -19,9 +19,9 @@ export class CandidateReviewModalComponent implements OnInit {
 
   @Input() toggleRegisterReviewModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
-  @Output() postJob: EventEmitter<any> = new EventEmitter();
-  savedUserDetails: any;
-  jobId: string;
+  @Output() createCandidate: EventEmitter<any> = new EventEmitter();
+  public savedUserDetails: any;
+  public jobId: string;
   @Input('userDetails')
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
@@ -90,7 +90,7 @@ export class CandidateReviewModalComponent implements OnInit {
   }
 
   onRedirectDashboard(status) {
-    this.postJob.next();
+    this.createCandidate.next();
   }
 
   convertToImage(imageString: string): string {

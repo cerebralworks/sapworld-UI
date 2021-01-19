@@ -4,6 +4,7 @@ import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-create-candidate-education-exp',
@@ -34,7 +35,8 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
     public sharedService: SharedService,
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private userSharedService: UserSharedService
+    private userSharedService: UserSharedService,
+    public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {

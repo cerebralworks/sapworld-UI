@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';
 import { ValidationService } from '@shared/service/validation.service';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-login-form',
@@ -18,6 +19,7 @@ export class LoginFormComponent implements OnInit {
   public loginForm: FormGroup;
   public returnEmployerUrl: any;
   public returnUserUrl: any;
+
 
   constructor(
     private formBuilder: FormBuilder,

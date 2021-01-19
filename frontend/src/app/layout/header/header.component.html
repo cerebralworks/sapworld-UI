@@ -145,7 +145,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="d-flex align-items-center">
-                <ngx-avatar class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}"></ngx-avatar>
+                <img class="img-circule" *ngIf="currentUserDetails?.photo" [src]="currentUserDetails?.photo ? (currentUserDetails?.meta?.photo?.path+'/'+ currentUserDetails?.meta?.photo?.folder+'/'+currentUserDetails?.meta?.photo?.sizes?.medium+'/'+currentUserDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
+            <ngx-avatar *ngIf="!currentUserDetails?.photo" class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}"></ngx-avatar>
+                <!-- <ngx-avatar class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}"></ngx-avatar> -->
                 <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
                 <span class="text-capitalize">{{(currentUserDetails?.first_name ? currentUserDetails?.first_name : '') + ' ' + (currentUserDetails?.last_name ? currentUserDetails?.last_name : '')}}</span>
               </span>

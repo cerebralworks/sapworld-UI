@@ -49,7 +49,7 @@
 
           <app-create-candidate-footer
           [userDetails]="userDetails"
-          (postJob)="postJob()"
+          (postJcreateCandidateob)="createCandidate()"
           [createCandidateForm]="candidateForm"
           (onEnableJobPreviewModal)="onToggleRegisterReview($event)"
           [currentTabInfo]="currentTabInfo"
@@ -58,7 +58,7 @@
 
           <app-candidate-review-modal
           [userDetails]="userDetails"
-          (postJob)="postJob()"
+          (createCandidate)="createCandidate()"
           *ngIf="isOpenedRegisterReviewModal"
           [toggleRegisterReviewModal]="isOpenedRegisterReviewModal"
           (onEvent)="onToggleRegisterReview($event)"

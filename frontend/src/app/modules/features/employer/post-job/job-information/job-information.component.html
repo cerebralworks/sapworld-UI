@@ -43,6 +43,7 @@
         <select appMarkAsterisk formControlName="salary_type" class="form-control" name="job-type">
           <option value="" selected="" disabled="">{{"common.select" | translate}} {{"postJob.pay" | translate}}</option>
           <option [value]="0">Hourly </option>
+          <option [value]="2">Monthly</option>
           <option [value]="1">Annual</option>
         </select>
         <app-control-messages [control]="f['salary_type']"></app-control-messages>

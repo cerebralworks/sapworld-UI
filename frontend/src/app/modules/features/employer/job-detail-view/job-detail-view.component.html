@@ -37,7 +37,7 @@
                   <div class="col-lg-5 text-right">
                     <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)" class="btn btn-outline-warning btn-sm mr-1" [routerLink]="['/employer/post-job']" [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;" title="Edit"><i class="fas fa-pencil-alt"></i> {{"dashboard.edit" | translate}}</a>
                     <a class="btn btn-outline-blue btn-sm mr-1" href="javascript:;" (click)="onToggleJDModal(true)"><i class="fas fa-file-alt"></i> {{"dashboard.description" | translate}}</a>
-                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)" class="btn btn-outline-green btn-sm" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches'}" href="javascript:;" title="Matches"><i class="fas fa-tasks"></i> {{"dashboard.matches" | translate}}</a>
+                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)" class="btn btn-outline-green btn-sm" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches', id: postedJobsDetails?.id}" href="javascript:;" title="Matches"><i class="fas fa-tasks"></i> {{"dashboard.matches" | translate}}</a>
                   </div>
                 </div>
                 <div class="media">
@@ -55,7 +55,7 @@
             </div>
           </div>
         </div>
-        <app-shared-job-profile [jobInfo]="postedJobsDetails" [fieldsExclude]="{salary: true}">
+        <app-shared-job-profile [jobInfo]="postedJobsDetails" [fieldsExclude]="{salary: true, visa_sponsorship: true, end_to_end_implementation: true}">
         </app-shared-job-profile>
       </div>
       <div class="col-lg-4">

@@ -5,6 +5,7 @@ import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SharedService } from '@shared/service/shared.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -49,7 +50,8 @@ export class JobPreviewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
     public sharedService: SharedService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CandidateProfile, tabInfo, tabProgressor } from '@data/schema/create-candidate';
 
 import { trigger, transition, query, style, animate, group } from '@angular/animations';
@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserSharedService } from '@data/service/user-shared.service';
 
 import * as lodash from 'lodash';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
@@ -50,7 +51,7 @@ const right = [
     ]),
   ],
 })
-export class CreateCandidateLayoutComponent implements OnInit {
+export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 
   public currentTabInfo: tabInfo = {tabNumber: 1, tabName: 'Personal Detail'};
   public currentProgessor: tabProgressor;
@@ -61,8 +62,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
   public userId: string;
   public filesToUploadData: any;
   public userPhotoInfo: any;
-  userDetails: any;
-  userInfo: any;
+  public userDetails: any;
+  public userInfo: any;
+  public tabInfos: tabInfo[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -73,7 +75,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
     private userService: UserService,
     private dataService: DataService,
     private toastrService: ToastrService,
-    private userSharedService: UserSharedService
+    private userSharedService: UserSharedService,
+    private utilsHelperService: UtilsHelperService
   ) { }
 
   validateInfo = 0;
@@ -82,15 +85,23 @@ export class CreateCandidateLayoutComponent implements OnInit {
       return false;
     };
 
-    this.buildForm();
-    // this.onGetSkill();
-    // this.onGetIndustries();
-
     this.dataService.getUserPhoto().subscribe(
       response => {
         this.userPhotoInfo = response;
       }
     )
+
+    this.dataService.getTabInfo().subscribe(
+      response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.tabInfos = response;
+          console.log('this.tabInfos', this.tabInfos);
+
+        }
+      }
+    )
+
+    this.buildForm();
 
     this.userSharedService.getUserProfileDetails().subscribe(
         response => {
@@ -101,6 +112,90 @@ export class CreateCandidateLayoutComponent implements OnInit {
           }
         }
       )
+
+  }
+
+  validateOnAPI = 0;
+  validateOnForm = 0;
+  ngDoCheck(): void {
+
+    if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
+      this.candidateForm.addControl('jobPref', new FormGroup({
+            job_type: new FormControl('', Validators.required),
+            job_role: new FormControl('', Validators.required),
+            willing_to_relocate: new FormControl(null, Validators.required),
+            preferred_location: new FormControl(null),
+            work_authorization: new FormControl(null),
+            travel: new FormControl(null, Validators.required),
+            availability: new FormControl(null, Validators.required),
+            remote_only: new FormControl(false, Validators.required),
+          }));
+          this.candidateForm.addControl('skillSet', new FormGroup({
+            hands_on_experience: new FormArray([this.formBuilder.group({
+              skill_id: [null, Validators.required],
+              skill_name: ['dasdasd'],
+              experience: ['', [Validators.required,]],
+              exp_type: ['years', [Validators.required]]
+            })]),
+            skills: new FormControl(null, Validators.required),
+            programming_skills: new FormControl(null, Validators.required),
+            other_skills: new FormControl(null, Validators.required),
+            certification: new FormControl(null),
+            bio: new FormControl('Lorem Ipsum'),
+          }));
+          this.candidateForm.addControl('educationExp', new FormGroup({
+            education_qualification: new FormArray([this.formBuilder.group({
+              degree: [''],
+              field_of_study: [''],
+              year_of_completion: ['']
+            })]),
+            experience: new FormControl('', Validators.required),
+            sap_experience: new FormControl('', Validators.required),
+            current_employer: new FormControl('', Validators.required),
+            current_employer_role: new FormControl('', Validators.required),
+            domains_worked: new FormControl('', Validators.required),
+            clients_worked: new FormControl(''),
+            end_to_end_implementation: new FormControl(null),
+          }));
+          this.validateOnForm++
+    }
+    if(this.tabInfos && this.tabInfos.length && this.validateOnAPI == 0 && !this.utilsHelperService.isEmptyObj(this.userDetails)) {
+      let educationExpIndex = this.tabInfos.findIndex(val => val.tabNumber == 2);
+
+      if(educationExpIndex == -1) {
+        if (this.userDetails && this.userDetails.education_qualification == null) {
+          delete this.userDetails.education_qualification;
+        }
+        this.candidateForm.patchValue({
+          educationExp : {
+            ...this.userDetails
+          },
+        });
+      }
+
+      let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
+      if(skillSetIndex == -1) {
+        if (this.userDetails && this.userDetails.hands_on_experience == null) {
+          delete this.userDetails.hands_on_experience;
+        }
+        this.candidateForm.patchValue({
+          skillSet : {
+            ...this.userDetails
+          },
+        });
+      }
+
+      let jobPrefIndex = this.tabInfos.findIndex(val => val.tabNumber == 4);
+      if(jobPrefIndex == -1) {
+        this.candidateForm.patchValue({
+          jobPref : {
+            ...this.userDetails
+          },
+        });
+      }
+      this.validateOnAPI++
+    }
+
   }
 
   onNext() {
@@ -131,7 +226,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
     this.currentTabInfo = { ...currentTabInfo};
   }
 
-  postJob = () => {
+  createCandidate = () => {
     let candidateInfo: CandidateProfile = {
       ...this.candidateForm.value.personalDetails,
       ...this.candidateForm.value.educationExp,
@@ -216,46 +311,6 @@ export class CreateCandidateLayoutComponent implements OnInit {
 
   private buildForm(): void {
     this.candidateForm = this.formBuilder.group({
-    });
-
-    setTimeout(() => {
-      this.candidateForm.addControl('jobPref', new FormGroup({
-        job_type: new FormControl('', Validators.required),
-        job_role: new FormControl('', Validators.required),
-        willing_to_relocate: new FormControl(null, Validators.required),
-        preferred_location: new FormControl(null),
-        work_authorization: new FormControl(null),
-        travel: new FormControl(null, Validators.required),
-        availability: new FormControl(null, Validators.required),
-        remote_only: new FormControl(false, Validators.required),
-      }));
-      this.candidateForm.addControl('skillSet', new FormGroup({
-        hands_on_experience: new FormArray([this.formBuilder.group({
-          skill_id: [null, Validators.required],
-          skill_name: ['dasdasd'],
-          experience: ['', [Validators.required,]],
-          exp_type: ['years', [Validators.required]]
-        })]),
-        skills: new FormControl(null, Validators.required),
-        programming_skills: new FormControl(null, Validators.required),
-        other_skills: new FormControl(null, Validators.required),
-        certification: new FormControl(null),
-        bio: new FormControl('Lorem Ipsum'),
-      }));
-      this.candidateForm.addControl('educationExp', new FormGroup({
-        education_qualification: new FormArray([this.formBuilder.group({
-          degree: [''],
-          field_of_study: [''],
-          year_of_completion: ['']
-        })]),
-        experience: new FormControl('', Validators.required),
-        sap_experience: new FormControl('', Validators.required),
-        current_employer: new FormControl('', Validators.required),
-        current_employer_role: new FormControl('', Validators.required),
-        domains_worked: new FormControl('', Validators.required),
-        clients_worked: new FormControl(''),
-        end_to_end_implementation: new FormControl(null),
-      }));
     });
   }
 

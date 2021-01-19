@@ -49,7 +49,7 @@
     <ul class="list-group">
       <li class=" list-group-item text-uppercase">
         <ng-container *ngIf="jobInfo?.skills?.length; else elseSkillsTemplate">
-          <span class="m-0 float-left" *ngFor="let item of jobInfo?.skills; let i = index; let last = last;">
+          <span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo?.skills, jobInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
             <span class="text-wrap-custom float-left"
             *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">
             {{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
@@ -78,6 +78,7 @@
       <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.workAuthorization" | translate }}</li>
       <li class=" list-group-item text-capitalize"  *ngIf="fieldsExclude?.visa_sponsorship">{{"postJob.visaSponsorship" | translate }}</li>
+      <li class=" list-group-item text-capitalize"  *ngIf="fieldsExclude?.end_to_end_implementation">{{"postJob.endToEndImplementation" | translate }}</li>
     </ul>
   </div>
   <div class="col-lg-8 info">
@@ -105,6 +106,7 @@
       {{(jobInfo?.travel_opportunity || jobInfo?.travel_opportunity==0) ? (jobInfo?.travel_opportunity == 0 ? 'No' : jobInfo?.travel_opportunity + '%') : '--'}}</li>
      <li class=" list-group-item text-capitalize">{{jobInfo?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
     <li class=" list-group-item text-capitalize"  *ngIf="fieldsExclude?.visa_sponsorship">{{utilsHelperService.onGetYesOrNoValue(jobInfo?.visa_sponsorship)}}</li>
+    <li class=" list-group-item text-capitalize"  *ngIf="fieldsExclude?.end_to_end_implementation">{{jobInfo?.end_to_end_implementation}}</li>
     </ul>
   </div>
 

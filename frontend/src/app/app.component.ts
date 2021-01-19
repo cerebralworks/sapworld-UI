@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { LoggedIn } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
@@ -22,21 +22,29 @@ export class AppComponent {
   public employerProfileInfo: any = {};
   public userProfileInfo: any = {};
   public loaderEnabled: boolean = false;
+  public returnEmployerUrl: any;
+  public returnUserUrl: any;
 
   constructor(
-    public translateService: TranslateService,
-    public appGlobals: AppGlobals,
-    private employerService: EmployerService,
-    private userService: UserService,
-    private accountService: AccountService,
-    private router: Router,
-    private employerSharedService: EmployerSharedService,
-    private userSharedService: UserSharedService,
-    private ngxService: NgxUiLoaderService
+    public translateService?: TranslateService,
+    public appGlobals?: AppGlobals,
+    private employerService?: EmployerService,
+    private userService?: UserService,
+    private accountService?: AccountService,
+    private router?: Router,
+    private employerSharedService?: EmployerSharedService,
+    private userSharedService?: UserSharedService,
+    private route?: ActivatedRoute,
+    private ngxService?: NgxUiLoaderService
   ) {
   }
 
   ngOnInit(): void {
+
+    this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
+    this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
+
+
     let browserLang = this.translateService.getBrowserLang();
     if (this.appGlobals.availableLanguages.indexOf(browserLang) > -1) {
       this.translateService.setDefaultLang(browserLang);
@@ -91,6 +99,7 @@ export class AppComponent {
         if(this.employerProfileInfo && this.employerProfileInfo.details) {
           this.employerProfileInfo.details = {...this.employerProfileInfo.details, meta: this.employerProfileInfo.meta};
           this.employerSharedService.saveEmployerProfileDetails(this.employerProfileInfo.details);
+          // this.router.navigate([this.returnUserUrl]);
         }
 
       }, error => {
@@ -106,8 +115,14 @@ export class AppComponent {
         if(this.userProfileInfo && this.userProfileInfo.details) {
           this.userProfileInfo.details = {...this.userProfileInfo.details, meta: this.userProfileInfo.meta};
           this.userSharedService.saveUserProfileDetails(this.userProfileInfo.details);
-          if (this.userProfileInfo && this.userProfileInfo.details.profile_completed == false && this.validateCall == 0) {
-            this.router.navigate(['/user/create-candidate']);
+          // if () {
+            if(this.userProfileInfo && this.userProfileInfo.details.profile_completed == false && this.validateCall == 0) {
+              this.router.navigate(['/user/create-candidate']);
+            // }
+            // else {
+            //   this.router.navigate([this.returnUserUrl]);
+            // }
+
             this.validateCall++;
           }
         }
