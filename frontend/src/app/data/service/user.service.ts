@@ -81,6 +81,22 @@ export class UserService extends CacheService {
     );
   }
 
+  jobApply = (params?) => {
+    return this.apiService.post('/api/jobpostings/apply', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  applicationsListForUser = (params?) => {
+    return this.apiService.get('/api/jobpostings/applications/list-for-user', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
   // getJob = (params?) => {
   //   return this.apiService.get('/api/jobpostings/job-scoring', params).pipe(
   //     map(data => {

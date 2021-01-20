@@ -135,4 +135,14 @@ module.exports = (app, env, rp) => {
     });
   });
 
+  app.post("/api/jobpostings/apply", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.post(`${serverRoutes.jobApply}`, req, res, requestBody);
+  });
+
+  app.get("/api/jobpostings/applications/list-for-user", (req, res) => {
+    let requestBody = { ...req.query };   
+    requestCustom.get(`${serverRoutes.applicationsListForUser}`, req, res, requestBody);
+  });
+
 };

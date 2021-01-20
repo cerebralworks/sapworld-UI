@@ -47,7 +47,7 @@
                       </a>
                     </div>
                     <div class="float-right">
-                      <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob"> <i class="fas fa-check"></i> Apply Now</button>
+                      <button type="submit" class="btn btn-outline-green btn-sm" (click)="onToggleResumeSelectModal(true, item)"> <i class="fas fa-check"></i> Apply Now</button>
                     </div>
                   </div>
                   <div class="media">
@@ -271,6 +271,7 @@
 
 <app-resume-select
 [toggleResumeSelectModal]="isOpenedResumeSelectModal"
+[currentJobDetails]="currentJobDetails"
 *ngIf="isOpenedResumeSelectModal"
 (onEvent)="onToggleResumeSelectModal($event)">
 </app-resume-select>

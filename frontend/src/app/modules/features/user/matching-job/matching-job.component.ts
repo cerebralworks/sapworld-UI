@@ -19,6 +19,7 @@ export class MatchingJobComponent implements OnInit {
   public postedJobs: any[] = [];
   public postedJobMeta: any;
   public userInfo: any;
+  public currentJobDetails: any;
 
   constructor(
     public sharedService: SharedService,
@@ -70,7 +71,10 @@ validateAPI = 0;
     )
   }
 
-  onToggleResumeSelectModal = (status) => {
+  onToggleResumeSelectModal = (status, item?) => {
+    if(!this.utilsHelperService.isEmptyObj(item)) {
+      this.currentJobDetails = item;
+    }
     this.isOpenedResumeSelectModal = status;
   }
 
