@@ -88,4 +88,12 @@ export class EmployerService extends CacheService {
       })
     );
   }
+
+  applicationsList = (params?) => {
+    return this.apiService.get('/api/jobpostings/applications/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
 }

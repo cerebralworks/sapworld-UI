@@ -11,18 +11,22 @@
               <th scope="col">{{"postJob.location" | translate}}</th>
               <th scope="col">{{"dashboard.postedDated" | translate}}</th>
               <th scope="col">{{"dashboard.status" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th>
+              <!-- <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
             </tr>
             </thead>
             <tbody>
               <ng-container *ngIf="appliedJobs?.length; else elseTemplate">
                 <tr *ngFor="let item of appliedJobs">
                   <td><a class="text-capitalize" href="candidate-job-view.html">{{item?.job_posting?.title}}</a></td>
-                  <td>Wipro Limited</td>
-                  <td>Austin, TX, USA</td>
+                  <td>{{item?.employer?.company ? item?.employer?.company : '--'}}</td>
+                  <td class="text-capitalize">
+                    {{item?.job_posting?.city ? item?.job_posting?.city + ', ' : ''}}
+                    {{item?.job_posting?.state ? item?.job_posting?.state + ', ' : ''}}
+                    {{item?.job_posting?.country ? item?.job_posting?.country : ''}}
+                  </td>
                   <td>{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}</td>
-                  <td [ngClass]="{'text-success': item?.job_posting?.status == 1, 'text-danger': item?.job_posting?.status == 0}">{{item?.job_posting?.status == 1 ? 'Open' : 'Closed'}} </td>
-                  <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
+                  <td  class="text-capitalize" [ngClass]="{'text-success': item?.job_posting?.status == 1, 'text-danger': item?.job_posting?.status == 0}">{{item?.job_posting?.status == 1 ? 'Open' : 'Closed'}} </td>
+                  <!-- <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td> -->
                 </tr>
               </ng-container>
               <ng-template #elseTemplate>

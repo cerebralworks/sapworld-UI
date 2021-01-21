@@ -25,7 +25,7 @@ export class AppliedJobComponent implements OnInit {
       let requestParams: any = {};
       requestParams.page = this.page;
       requestParams.limit = this.limit;
-      requestParams.expand = "job_posting,user";
+      requestParams.expand = "job_posting,user,employer";
       this.userService.applicationsListForUser(requestParams).subscribe(
         response => {
           if(response && response.items && response.items.length > 0) {

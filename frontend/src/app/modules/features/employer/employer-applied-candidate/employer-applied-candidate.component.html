@@ -3,29 +3,9 @@
     <div class="row mb-5">
       <div class="col-lg-12">
         <div class="matching-post">
-          <div class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input class="custom-control-input  mb-0" type="radio" id="Check21" name="example1" checked>
-            <label class="custom-control-label mb-0" for="Check21">SAP ABAP Lead Consultant(19) </label>
-          </div>
-          <div class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input class="custom-control-input  mb-0" type="radio" id="Check22" name="example1">
-            <label class="custom-control-label  mb-0" for="Check22">SAP IBP - Integrated Business Planning  (4)</label>
-          </div>
-          <div class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input class="custom-control-input  mb-0" type="radio" id="Check23" name="example1">
-            <label class="custom-control-label  mb-0" for="Check23">SAP Security Consultant (7) </label>
-          </div>
-          <div class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input class="custom-control-input mb-0" type="radio" id="Check24" name="example1">
-            <label class="custom-control-label mb-0" for="Check24">SSAP Hybris Consultant - C4C (10)</label>
-          </div>
-          <div class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input class="custom-control-input mb-0" type="radio" id="Check25" name="example1">
-            <label class="custom-control-label mb-0" for="Check25">SAP Sr. Consultant-ERP  (7)</label>
-          </div>
-          <div class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input class="custom-control-input mb-0" type="radio" id="Check26" name="example1">
-            <label class="custom-control-label mb-0" for="Check26">SAP SD consultant (8)</label>
+          <div *ngFor="let item of postedJobs; let i = index" class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
+            <input (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}" [checked]="(selectedJob?.id == item?.id)">
+            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} {{ selectedJob?.id == item?.id ? (appliedJobMeta?.total ?  '(' + appliedJobMeta?.total + ')' :  '(' +0+ ')') : ''}} </label>
           </div>
         </div>
       </div>
@@ -40,66 +20,35 @@
               <th scope="col">{{"dashboard.position" | translate}}</th>
               <th scope="col">{{"dashboard.mobile" | translate}}</th>
               <th scope="col">{{"dashboard.email" | translate}}</th>
-              <th scope="col">{{"dashboard.jobDetails" | translate}}</th>
-              <th scope="col">{{"dashboard.sendMail" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th>
+              <th scope="col">{{"postJob.location" | translate}}</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td><a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">Jacky Smith</a></td>
-              <td>Project Manager</td>
-              <td>+91 9876543210</td>
-              <td>jacky-smith2010@gmail.com</td>
-              <td>Project Management- SAP (PS)</td>
-              <td class="text-center"><a href="#" class="text-primary"><i class="fas fa-paper-plane"></i></a></td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-              <td><a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">Sindhu Gangadharan</a></td>
-              <td>Sr.Project Manager</td>
-              <td>+91 9876543210</td>
-              <td>username@gmail.com</td>
-              <td>Materials Management - SAP (MM)</td>
-              <td class="text-center"><a href="#" class="text-primary"><i class="fas fa-paper-plane"></i></a></td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-              <td><a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">Balasubramanian</a></td>
-              <td>Jr.Project Manager</td>
-              <td>+91 9876543210</td>
-              <td>jacky-smith2010@gmail.com</td>
-              <td>Project Management- SAP (PS)</td>
-              <td class="text-center"><a href="#" class="text-primary"><i class="fas fa-paper-plane"></i></a></td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-              <td><a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">Hemant Raj</a></td>
-              <td>Project Manager</td>
-              <td>+91 9876543210</td>
-              <td>username@gmail.com</td>
-              <td>Materials Management - SAP (MM)</td>
-              <td class="text-center"><a href="#" class="text-primary"><i class="fas fa-paper-plane"></i></a></td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-              <td><a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">Jacky Smith</a></td>
-              <td>Project Manager</td>
-              <td>+91 9876543210</td>
-              <td>jacky-smith2010@gmail.com</td>
-              <td>Project Management- SAP (PS)</td>
-              <td class="text-center"><a href="#" class="text-primary"><i class="fas fa-paper-plane"></i></a></td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-              <td><a [routerLink]="['/employer/candidate-profile']"  href="javascript:;">Sindhu Gangadharan</a></td>
-              <td>Sr.Project Manager</td>
-              <td>+91 9876543210</td>
-              <td>username@gmail.com</td>
-              <td>Materials Management - SAP (MM)</td>
-              <td class="text-center"><a href="#" class="text-primary"><i class="fas fa-paper-plane"></i></a></td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
+              <ng-container *ngIf="appliedJobs?.length; else elseTemplate">
+              <tr *ngFor="let item of appliedJobs">
+                <td>
+                  <a class="text-capitalize" [routerLink]="['/employer/candidate-profile']"  href="javascript:;">
+                    {{item?.user?.first_name + ' ' + item?.user?.last_name}}
+                  </a>
+                  </td>
+                <td class="text-capitalize">
+                  {{item?.user?.current_employer_role ? item?.user?.current_employer_role : '--'}}
+                </td>
+                <td>{{item?.user?.phone ? item?.user?.phone : '--'}}</td>
+                <td>{{item?.user?.email ? item?.user?.email : '--'}}</td>
+                <td class="text-capitalize">
+                  {{item?.user?.city ? item?.user?.city + ', ' : ''}}
+                  {{item?.user?.state ? item?.user?.state + ', ' : ''}}
+                  {{item?.user?.country ? item?.user?.country : ''}}
+                </td>
+              </tr>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <tr>
+                <td colspan="6">No Record Found</td>
+              </tr>
+            </ng-template>
+
             </tbody>
           </table>
         </div>

@@ -171,8 +171,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
   onGetPostedJob(companyId) {
     let requestParams: any = {};
-    requestParams.page = this.page;
-    requestParams.limit = this.limit;
+    requestParams.page = 1;
+    requestParams.limit = 1000;
     requestParams.expand = 'company';
     requestParams.company = companyId;
     requestParams.sort = 'created_at.desc';
