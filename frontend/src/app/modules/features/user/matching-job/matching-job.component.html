@@ -47,7 +47,9 @@
                       </a>
                     </div>
                     <div class="float-right">
-                      <button type="submit" class="btn btn-outline-green btn-sm" (click)="onToggleResumeSelectModal(true, item)"> <i class="fas fa-check"></i> Apply Now</button>
+                      <button [ngClass]="{'applied-btn-green': (item?.is_job_applied  || (currentJobDetails?.id == item?.id && !isOpenedResumeSelectModal)), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied || (currentJobDetails?.id == item?.id && !isOpenedResumeSelectModal)" type="button" class="btn btn-sm" (click)="onToggleResumeSelectModal(true, item)"> <i class="fas fa-check"></i>
+                         {{(item?.is_job_applied || (currentJobDetails?.id == item?.id && !isOpenedResumeSelectModal)) ? 'Applied' : 'Apply Now'}}
+                        </button>
                     </div>
                   </div>
                   <div class="media">

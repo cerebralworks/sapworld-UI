@@ -1,0 +1,67 @@
+ <!-- Sub Header Section -->
+ <section class="sub-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">Candidate View Jobs</li>
+        </ol>
+      </div>
+      <div class="col-lg-7 clearfix">
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- //Sub Header Section -->
+
+  <section class="my-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<!-- <div class="row"> -->
+						<!-- <div class="col-lg-12 title"> -->
+							<!-- <h2>Post Job Details</small></h2> -->
+						<!-- </div> -->
+					<!-- </div>	 -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card job-card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-lg-7">
+											<h5>SAP ABAP Lead Consultant</h5>
+										</div>
+										<div class="col-lg-5 text-right">
+											<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;"><i class="fas fa-file-alt"></i> Description</a>
+										</div>
+									</div>
+									<div class="media">
+										<div class="media-body">
+											<h6>Wipro Limited</h6>
+											<h6>Austin, TX, USA</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<app-shared-job-profile [jobInfo]="postedJobsDetails"
+          [fieldsExclude]="{salary: true, visa_sponsorship: true, end_to_end_implementation: true}">
+        </app-shared-job-profile>
+				</div>
+				<div class="col-lg-4">
+					<div class="title">
+						<h2>More Jobs</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+  <app-job-description
+  [isRichTextEnabled]="true"
+  [description]="postedJobsDetails?.description"
+  [toggleJDModal]="isOpenedJDModal"
+  *ngIf="isOpenedJDModal"
+  (onEvent)="onToggleJDModal($event)">
+  </app-job-description>

@@ -10,7 +10,8 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 })
 export class SharedUserProfileComponent implements OnInit {
 
-  @Input() userInfo: CandidateProfile
+  @Input() userInfo: CandidateProfile;
+  @Input() fieldsExclude: any;
 
   constructor(
     public sharedService: SharedService,

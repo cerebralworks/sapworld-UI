@@ -106,4 +106,17 @@ export class UtilsHelperService {
     return [];
   }
 
+  onGetFilteredValue = (array: any[], fields, value) => {
+    console.log('arr', array);
+
+    if (array && Array.isArray(array) && array.length) {
+      return array.find(i => {
+        console.log(array, fields, value, i[fields] == value || i[fields] == value.toString());
+
+        return (i[fields] == value || i[fields] == value.toString())
+      });
+    }
+    return {}
+  }
+
 }

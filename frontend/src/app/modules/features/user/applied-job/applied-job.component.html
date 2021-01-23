@@ -17,7 +17,11 @@
             <tbody>
               <ng-container *ngIf="appliedJobs?.length; else elseTemplate">
                 <tr *ngFor="let item of appliedJobs">
-                  <td><a class="text-capitalize" href="candidate-job-view.html">{{item?.job_posting?.title}}</a></td>
+                  <td>
+                    <a [routerLink]="[ '/user/candidate-job-view', item?.job_posting?.id ]" class="text-capitalize" href="javacript:;">
+                      {{item?.job_posting?.title}}
+                    </a>
+                  </td>
                   <td>{{item?.employer?.company ? item?.employer?.company : '--'}}</td>
                   <td class="text-capitalize">
                     {{item?.job_posting?.city ? item?.job_posting?.city + ', ' : ''}}

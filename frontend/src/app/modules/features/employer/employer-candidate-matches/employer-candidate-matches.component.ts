@@ -48,7 +48,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       }
     }
   };
-  skillItems: any;
+  public skillItems: any;
+  public selectedResumeUrl: any;
 
   constructor(
     public sharedService: SharedService,
@@ -126,15 +127,6 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
-
-    // this.route.queryParams.subscribe(params => {
-    //   if(params && !this.utilsHelperService.isEmptyObj(params)) {
-    //     this.queryParams = {...params};
-
-
-    //   }
-    // });
-
     this.dataService.getSkillDataSource().subscribe(
       response => {
         this.skillItems = response
@@ -360,7 +352,10 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     // this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
   }
 
-  onToggleResumeForm = (status) => {
+  onToggleResumeForm = (status, selectedResumeUrl?) => {
+    if (selectedResumeUrl) {
+      this.selectedResumeUrl = selectedResumeUrl;
+    }
     this.isOpenedResumeModal = status;
   }
 

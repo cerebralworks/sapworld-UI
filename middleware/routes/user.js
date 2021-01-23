@@ -145,4 +145,9 @@ module.exports = (app, env, rp) => {
     requestCustom.get(`${serverRoutes.applicationsListForUser}`, req, res, requestBody);
   });
 
+  app.get("/api/jobpostings/user-scoring", (req, res) => {
+    let requestBody = { ...req.query };   
+    requestCustom.get(`${serverRoutes.userScoring}`, req, res, requestBody);
+  });
+
 };

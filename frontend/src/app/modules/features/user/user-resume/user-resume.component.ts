@@ -164,8 +164,6 @@ export class UserResumeComponent implements OnInit {
   onToggleResumeForm = (status, selectedResumeUrl?) => {
     if (selectedResumeUrl) {
       this.selectedResumeUrl = selectedResumeUrl;
-      console.log(this.selectedResumeUrl);
-
     }
 
     this.isOpenedResumeModal = status;

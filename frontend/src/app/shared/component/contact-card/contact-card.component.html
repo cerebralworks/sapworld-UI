@@ -19,8 +19,11 @@
         <a [routerLink]="[ '/user/create-candidate' ]" *ngIf="isEdit" class="btn btn-outline-warning btn-sm mr-1" href="javascript:;" title="Edit"><i
             class="fas fa-pencil-alt"></i> {{"dashboard.edit" | translate }}</a>
         <span *ngIf="isResume">
-          <a (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}</a>
+          <a
+          [class.disabled]="!selectedResume?.file"
+          (click)="selectedResume?.file && onToggleResumeForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
+          </a>
         </span>
         <span  *ngIf="isMail">
           <a class="btn btn-outline-orange btn-sm ml-1" href="javascript:;">
@@ -74,6 +77,7 @@
 ></app-contact-info>
 
 <app-resume-modal
+[url]="selectedResumeUrl"
 *ngIf="isOpenedResumeModal"
 [toggleResumeModal]="isOpenedResumeModal"
 (onEvent)="onToggleResumeForm($event)">
