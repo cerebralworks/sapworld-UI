@@ -66,7 +66,7 @@
                           [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
                       </div>
                       <div class="pc-info">
-                        <a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id}" href="javascript:;">
+                        <a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
                           <h5 class="text-capitalize">
                             <span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
                               + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
@@ -397,8 +397,7 @@
                     </li> -->
                   </ul>
 
-                  <button type="submit" class="btn btn-outline-orange ml-auto" data-toggle="modal"
-                    data-target="#sendMail" style="position: absolute;bottom: 15px; right: 15px;"> <i
+                  <button (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="position: absolute;bottom: 15px; right: 15px;"> <i
                       class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
                 </div>
               </div>
@@ -434,3 +433,11 @@
 <app-match-other-post [togglematchOtherPostModal]="isOpenedOtherPostModal" *ngIf="isOpenedOtherPostModal"
   (onEvent)="onToggleOtherPostModal($event)">
 </app-match-other-post>
+
+<app-send-mail-job-preview
+*ngIf="isOpenedSendMailModal"
+[jobInfo]="postedJobsDetails"
+[userInfo]="currentUserInfo"
+[toggleSendMailModal]="isOpenedSendMailModal"
+(onEvent)="onToggleSendMail($event)">
+</app-send-mail-job-preview>

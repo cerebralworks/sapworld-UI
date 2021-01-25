@@ -26,7 +26,7 @@
           </a>
         </span>
         <span  *ngIf="isMail">
-          <a class="btn btn-outline-orange btn-sm ml-1" href="javascript:;">
+          <a (click)="onToggleSendMail(true)"  class="btn btn-outline-orange btn-sm ml-1" href="javascript:;">
           <i class="fas fa-paper-plane"></i> Send Mail</a>
         </span>
       </div>
@@ -82,3 +82,11 @@
 [toggleResumeModal]="isOpenedResumeModal"
 (onEvent)="onToggleResumeForm($event)">
 </app-resume-modal>
+
+<app-send-mail-job-preview
+*ngIf="isOpenedSendMailModal"
+[jobInfo]="jobInfo"
+[userInfo]="userInfo"
+[toggleSendMailModal]="isOpenedSendMailModal"
+(onEvent)="onToggleSendMail($event)">
+</app-send-mail-job-preview>

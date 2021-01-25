@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
+import { JobPosting } from '@data/schema/post-job';
+import { EmployerService } from '@data/service/employer.service';
 import { UserService } from '@data/service/user.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -16,18 +18,42 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
   public isOpenedSendMailModal: boolean;
   public userDetails: CandidateProfile;
   public userID: string;
+  public jobId: string;
+  public postedJobsDetails: JobPosting;
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
     public sharedService: SharedService,
-    public utilsHelperService: UtilsHelperService
+    public utilsHelperService: UtilsHelperService,
+    private employerService: EmployerService
   ) {
     this.userID = this.route.snapshot.queryParamMap.get('id');
+    this.jobId = this.route.snapshot.queryParamMap.get('jobId');
   }
 
   ngOnInit(): void {
-    this.onGetCandidateInfo();
+    if(this.userID) {
+      this.onGetCandidateInfo();
+    }
+
+    if(this.jobId) {
+      this.onGetPostedJob();
+    }
+  }
+
+  onGetPostedJob() {
+    let requestParams: any = {};
+    requestParams.expand = 'company';
+    requestParams.id = this.jobId;
+    this.employerService.getPostedJobDetails(requestParams).subscribe(
+      response => {
+        if (response && response.details) {
+          this.postedJobsDetails = response.details;
+        }
+      }, error => {
+      }
+    )
   }
 
   onGetCandidateInfo() {

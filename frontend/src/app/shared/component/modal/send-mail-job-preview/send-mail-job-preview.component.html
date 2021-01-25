@@ -11,21 +11,28 @@
         <div class="card job-card">
           <div class="card-body">
             <div class="row">
-              <div class="col-lg-12">
-                <h5>SAP ABAP Lead Consultant</h5>
+              <div class="col-lg-12 text-capitalize">
+                <h5>{{jobInfo?.title}}</h5>
               </div>
             </div>
             <div class="media">
               <div class="media-body">
-                <h6>Wipro Limited </h6>
-                <h6>Austin, TX, USA</h6>
+                <h6>{{jobInfo?.company?.company}} </h6>
+                <h6 class=" text-capitalize">
+                  {{jobInfo?.city ? jobInfo?.city : ''}}
+          {{jobInfo?.state ? ', ' + jobInfo?.state : ''}}
+          {{jobInfo?.country ? ', ' + jobInfo?.country : ''}}
+                </h6>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row mt-3 info-box">
+    <app-shared-job-profile [jobInfo]="jobInfo"
+          [isDescrition]="true">
+        </app-shared-job-profile>
+    <!-- <div class="row mt-3 info-box">
       <div class="col-lg-4 caption">
         <ul class="list-group">
           <li class="list-group-item">Total Years of Experience</li>
@@ -88,10 +95,10 @@
         <h6>Job Description</h6>
         <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
       </div>
-    </div>
+    </div> -->
     </div>
     <div class="modal-footer">
     <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-theme-blue" data-dismiss="modal" data-toggle="modal" data-target="#successMsg" >Send Mail</button>
+    <button (click)="onSendMail()" type="button" class="btn btn-theme-blue" data-dismiss="modal" data-toggle="modal" data-target="#successMsg" >Send Mail</button>
     </div>
 </ng-template>

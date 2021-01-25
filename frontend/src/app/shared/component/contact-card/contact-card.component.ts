@@ -1,4 +1,6 @@
 import { Component, DoCheck, Input, OnDestroy, OnInit } from '@angular/core';
+import { CandidateProfile } from '@data/schema/create-candidate';
+import { JobPosting } from '@data/schema/post-job';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
@@ -13,6 +15,7 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   @Input() isResume?: boolean;
   @Input() isMail?: boolean = false;
   @Input() isContactIcon?: boolean = true;
+  @Input() jobInfo?: JobPosting;
 
   public isOpenedContactInfoModal: boolean;
   public isOpenedResumeModal: boolean;
@@ -20,6 +23,8 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public selectedResumeUrl: any;
   public selectedResume: any = {};
   public validateOnAPI: number = 0;
+  public currentUserInfo: CandidateProfile;
+  public isOpenedSendMailModal: boolean;
 
   constructor(
     public utilsHelperService: UtilsHelperService
@@ -48,6 +53,13 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
       this.selectedResumeUrl = selectedResumeUrl;
     }
     this.isOpenedResumeModal = status;
+  }
+
+  onToggleSendMail = (status,item?) => {
+    if(item && !this.utilsHelperService.isEmptyObj(item)) {
+      this.currentUserInfo = item;
+    }
+    this.isOpenedSendMailModal = status;
   }
 
 }

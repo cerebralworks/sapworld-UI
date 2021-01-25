@@ -63,8 +63,8 @@
                           <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
                         </a>
                       </span>
-                      <span data-toggle="modal" data-target="#sendMail">
-												<a class="btn btn-outline-orange btn-sm" href="javascript:;">
+                      <span class="ml-1">
+												<a (click)="onToggleSendMail(true, item)" class="btn btn-outline-orange btn-sm" href="javascript:;">
 												<i class="fas fa-paper-plane"></i> Send Mail</a>
 											</span>
                     </div>
@@ -236,6 +236,8 @@
 
 <app-send-mail-job-preview
 *ngIf="isOpenedSendMailModal"
+[jobInfo]="selectedJob"
+[userInfo]="currentUserInfo"
 [toggleSendMailModal]="isOpenedSendMailModal"
 (onEvent)="onToggleSendMail($event)">
 </app-send-mail-job-preview>

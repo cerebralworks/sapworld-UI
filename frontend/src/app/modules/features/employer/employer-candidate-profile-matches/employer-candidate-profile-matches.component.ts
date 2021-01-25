@@ -6,6 +6,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedService } from '@shared/service/shared.service';
 
 import * as lodash from 'lodash';
+import { CandidateProfile } from '@data/schema/create-candidate';
 
 @Component({
   selector: 'app-employer-candidate-profile-matches',
@@ -23,6 +24,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   public userId: string;
   public matchingUsers: any = {};
   public cusLoadsh: any = lodash;
+  public isOpenedSendMailModal: boolean;
+  public currentUserInfo: CandidateProfile;
 
   constructor(
     private route: ActivatedRoute,
@@ -188,10 +191,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       lowerCaseUser = this.matchingUsers.profile[field2]
     }
     let jobIndex = lowerCaseJob.findIndex(val => val[filterField] == item[filterField]);
-    console.log('jobIndex', jobIndex);
 
-    let userIndex = lowerCaseUser.findIndex(val => val[filterField] == item[filterField])
-    console.log('userIndex', userIndex);
+    let userIndex = lowerCaseUser.findIndex(val => val[filterField] == item[filterField]);
     if (jobIndex > -1 && type == 'check') {
       return { type: 'check', class: 'text-green' }
     } else if (userIndex == -1 && type == 'info') {
@@ -200,6 +201,13 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       return { type: 'close', class: 'text-danger' }
     }
     return { type: '', class: '' }
+  }
+
+  onToggleSendMail = (status,item?) => {
+    if(item && !this.utilsHelperService.isEmptyObj(item)) {
+      this.currentUserInfo = item;
+    }
+    this.isOpenedSendMailModal = status;
   }
 
 }

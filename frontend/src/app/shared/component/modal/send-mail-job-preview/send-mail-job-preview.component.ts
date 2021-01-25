@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CandidateProfile } from '@data/schema/create-candidate';
+import { JobPosting } from '@data/schema/post-job';
+import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,6 +16,8 @@ export class SendMailJobPreviewComponent implements OnInit {
 
 
   @Input() toggleSendMailModal: boolean;
+  @Input() jobInfo: JobPosting;
+  @Input() userInfo: CandidateProfile;
   @Output() onEvent = new EventEmitter<boolean>();
 
   public mbRef: NgbModalRef;
@@ -21,7 +27,9 @@ export class SendMailJobPreviewComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    public router: Router
+    public router: Router,
+    private employerService: EmployerService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +57,25 @@ export class SendMailJobPreviewComponent implements OnInit {
     this.onEvent.emit(status);
     if(status == false) {
       this.modalService.dismissAll()
+    }
+  }
+
+  onSendMail = () => {
+    if((this.jobInfo && this.jobInfo.id) && (this.userInfo && this.userInfo.email)) {
+      let requestParams: any = {};
+      requestParams.job_id = this.jobInfo.id;
+      requestParams.email_id = this.userInfo.email;
+
+      this.employerService.sendMail(requestParams).subscribe(
+        response => {
+          this.toastrService.success('Mail sent  successfully', 'Success')
+          this.onClickCloseBtn(false);
+        }, error => {
+          this.toastrService.error('Something went wrong', 'Failed')
+        }
+      )
+    }else {
+      this.toastrService.error('Something went wrong', 'Failed')
     }
   }
 

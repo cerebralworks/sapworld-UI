@@ -26,7 +26,7 @@ export interface JobPosting {
   certification: Array<string>;
   work_authorization: number;
   visa_sponsorship: boolean;
-  company: number;
+  company: any;
   end_to_end_implementation: number;
   contract_duration: number;
   latlng_text: any;

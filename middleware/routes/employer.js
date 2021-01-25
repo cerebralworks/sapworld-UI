@@ -70,4 +70,9 @@ module.exports = (app, env, rp) => {
     requestCustom.get(`${serverRoutes.applicationsListForEmp}`, req, res, requestBody);
   });
 
+  app.get("/api/jobpostings/send-email", (req, res) => {
+    let requestBody = { ...req.query };    
+    requestCustom.get(`${serverRoutes.sendMail}`, req, res, requestBody);
+  });
+
 };

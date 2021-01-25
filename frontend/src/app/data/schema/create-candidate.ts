@@ -50,4 +50,5 @@ export interface CandidateProfile {
   willing_to_relocate: boolean;
   travel: number;
   phone: any;
+  email: string;
 }

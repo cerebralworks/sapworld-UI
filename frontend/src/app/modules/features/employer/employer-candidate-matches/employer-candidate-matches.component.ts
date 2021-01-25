@@ -2,6 +2,7 @@ import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { CandidateProfile } from '@data/schema/create-candidate';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UserService } from '@data/service/user.service';
@@ -23,6 +24,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public userList: any[] = [];
   public userMeta: any;
   public userInfo: any;
+  public currentUserInfo: CandidateProfile;
   public postedJobs: any[] = [];
   public postedJobMeta: any;
   public selectedJob: any;
@@ -359,7 +361,10 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     this.isOpenedResumeModal = status;
   }
 
-  onToggleSendMail = (status) => {
+  onToggleSendMail = (status,item?) => {
+    if(item && !this.utilsHelperService.isEmptyObj(item)) {
+      this.currentUserInfo = item;
+    }
     this.isOpenedSendMailModal = status;
   }
 

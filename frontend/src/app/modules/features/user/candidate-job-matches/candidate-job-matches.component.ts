@@ -22,6 +22,8 @@ export class CandidateJobMatchesComponent implements OnInit {
   public page: number = 0;
   public matchingJob: any = {};
   public cusLoadsh: any = lodash;
+  public currentJobDetails: any;
+  public isOpenedResumeSelectModal: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -182,6 +184,13 @@ export class CandidateJobMatchesComponent implements OnInit {
       return { type: 'close', class: 'text-danger' }
     }
     return { type: '', class: '' }
+  }
+
+  onToggleResumeSelectModal = (status, item?) => {
+    if(!this.utilsHelperService.isEmptyObj(item)) {
+      this.currentJobDetails = item;
+    }
+    this.isOpenedResumeSelectModal = status;
   }
 
 }

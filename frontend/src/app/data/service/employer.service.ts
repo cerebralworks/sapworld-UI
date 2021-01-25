@@ -96,4 +96,12 @@ export class EmployerService extends CacheService {
       })
     );
   }
+
+  sendMail = (params: any): Observable<any> => {
+    return this.apiService.get('/api/jobpostings/send-email', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
 }
