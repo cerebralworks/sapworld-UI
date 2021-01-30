@@ -76,8 +76,14 @@ export class CandidateJobMatchesComponent implements OnInit {
 
   onChangeUser = (type) => {
     if (type == 'next') {
-      this.page++;
-      this.onGetUserScoringById();
+      const count = this.matchingJob && this.matchingJob.meta && this.matchingJob.meta.count ? this.matchingJob.meta.count : 0;
+      console.log('count', count);
+
+      if(this.page > count) {
+        this.page++;
+        this.onGetUserScoringById();
+      }
+
     } else if (type == 'prev' && this.page > 0) {
       this.page--;
       if (this.page <= 0) {
@@ -172,10 +178,10 @@ export class CandidateJobMatchesComponent implements OnInit {
       lowerCaseUser = this.matchingJob.jobs[field2]
     }
     let jobIndex = lowerCaseJob.findIndex(val => val[filterField] == item[filterField]);
-    console.log('jobIndex', jobIndex);
+    // console.log('jobIndex', jobIndex);
 
     let userIndex = lowerCaseUser.findIndex(val => val[filterField] == item[filterField])
-    console.log('userIndex', userIndex);
+    // console.log('userIndex', userIndex);
     if (jobIndex > -1 && type == 'check') {
       return { type: 'check', class: 'text-green' }
     } else if (userIndex == -1 && type == 'info') {

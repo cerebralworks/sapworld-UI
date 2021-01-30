@@ -54,8 +54,8 @@ validateAPI = 0;
     requestParams.limit = this.limit;
     requestParams.expand = 'company';
     requestParams.expand = 'company';
-    if(this.userInfo && this.userInfo.city) {
-      requestParams.city = this.userInfo.city
+    if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == false) {
+      requestParams.city = this.userInfo.city;
     }
     if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length) {
       requestParams.skills = this.userInfo.skills.join(',')

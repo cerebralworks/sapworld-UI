@@ -26,6 +26,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   public cusLoadsh: any = lodash;
   public isOpenedSendMailModal: boolean;
   public currentUserInfo: CandidateProfile;
+  public matchedElement: boolean = true;
+  public missingElement: boolean = true;
+  public moreElement: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -88,8 +91,14 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
 
   onChangeUser = (type) => {
     if (type == 'next') {
-      this.page++;
-      this.onGetJobScoringById();
+      const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? this.matchingUsers.meta.count : 0;
+      console.log('count', count);
+
+      if(this.page > count) {
+        this.page++;
+        this.onGetJobScoringById();
+      }
+
     } else if (type == 'prev' && this.page > 0) {
       this.page--;
       if (this.page <= 0) {
@@ -171,11 +180,15 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       lowerCaseUser = isString ? this.onLoweCase(this.matchingUsers.profile[field2]) : this.matchingUsers.profile[field2];
     }
 
-    if (lowerCaseJob.includes(item.toLowerCase()) && type == 'check') {
+    console.log('lowerCaseJob', lowerCaseJob);
+    console.log('lowerCaseUser', lowerCaseUser);
+console.log(item);
+const itemMod = isString ? item.toLowerCase() : item;
+    if (lowerCaseJob.includes(itemMod) && type == 'check') {
       return { type: 'check', class: 'text-green' }
-    } else if (!lowerCaseUser.includes(item.toLowerCase()) && type == 'info') {
+    } else if (!lowerCaseUser.includes(itemMod) && type == 'info') {
       return { type: 'info', class: 'text-blue' }
-    } else if (!lowerCaseJob.includes(item?.toLowerCase()) && type == 'close') {
+    } else if (!lowerCaseJob.includes(itemMod) && type == 'close') {
       return { type: 'close', class: 'text-danger' }
     }
     return { type: '', class: '' }
@@ -208,6 +221,30 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       this.currentUserInfo = item;
     }
     this.isOpenedSendMailModal = status;
+  }
+
+  onShowMatches = () => {
+    this.matchedElement = true;
+    this.missingElement = false;
+    this.moreElement = false;
+  }
+
+  onShowMissing = () => {
+    this.missingElement = true;
+    this.matchedElement = false;
+    this.moreElement = false;
+  }
+
+  onShowMore = () => {
+    this.moreElement = true;
+    this.matchedElement = false;
+    this.missingElement = false;
+  }
+
+  onReset = () => {
+    this.moreElement = true;
+    this.matchedElement = true;
+    this.missingElement = true;
   }
 
 }

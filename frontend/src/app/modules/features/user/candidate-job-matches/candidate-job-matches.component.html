@@ -82,34 +82,34 @@
                 <ul class="list-group">
                   <li class="list-group-item">
                     <span class="matchTxt">
-                      <i *ngIf="matchingJob?.jobs?.experience >= userInfo?.experience" class="far fa-check-circle text-green small"></i>
-                      <i *ngIf="matchingJob?.jobs?.experience < userInfo?.experience" class="far fa-times-circle text-danger small"></i>
+                      <i *ngIf="matchingJob?.jobs?.experience <= userInfo?.experience" class="far fa-check-circle text-green small"></i>
+                      <i *ngIf="matchingJob?.jobs?.experience > userInfo?.experience" class="far fa-times-circle text-danger small"></i>
                       {{matchingJob?.jobs?.experience ? matchingJob?.jobs?.experience + ' Years' : '--'}}
                     </span>
                   </li>
                   <li class="list-group-item">
                     <span class="matchTxt">
-                      <i class="far fa-check-circle text-green small" *ngIf="matchingJob?.jobs?.sap_experience >= userInfo?.sap_experience"></i>
-                      <i class="far fa-check-circle text-green small" *ngIf="matchingJob?.jobs?.experience < userInfo?.sap_experience"></i>
+                      <i class="far fa-check-circle text-green small" *ngIf="matchingJob?.jobs?.sap_experience <= userInfo?.sap_experience"></i>
+                      <i class="far fa-check-circle text-green small" *ngIf="matchingJob?.jobs?.sap_experience > userInfo?.sap_experience"></i>
                       {{matchingJob?.jobs?.sap_experience ? matchingJob?.jobs?.sap_experience + ' Years' :'--'}}
                     </span>
                   </li>
                   <li class="list-group-item">
                     <ng-container *ngFor="let item of matchingJob?.jobs?.domain; let first = first;">
-                      <span class="matchTxt text-capitalize">
-                        <i *ngIf="onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'check'" class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                      <span class="matchTxt text-capitalize" *ngIf="onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'check'">
+                        <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
                         {{sharedService.onFindDomainFromSingleID(item)?.name}}
                       </span>
                     </ng-container>
-                    <ng-container *ngFor="let item of onChangeValue(matchingJob?.jobs?.domains_worked, userInfo?.domain); let first = first;">
-                      <span class="matchTxt text-capitalize">
-                        <i *ngIf="onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'info'" class="fa fa-info-circle text-blue small" [ngClass]="{'ml-2': !first}"></i>
+                    <ng-container *ngFor="let item of onChangeValue(matchingJob?.jobs?.domain, userInfo?.domains_worked); let first = first;">
+                      <span class="matchTxt text-capitalize" *ngIf="onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'info'">
+                        <i  class="fa fa-info-circle text-blue small" [ngClass]="{'ml-2': !first}"></i>
                         {{sharedService.onFindDomainFromSingleID(item)?.name}}
                       </span>
                     </ng-container>
-                    <ng-container  *ngFor="let item of userInfo?.domain; let first = first;">
-                      <span class="matchTxt text-capitalize">
-                        <i *ngIf="onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'close'" class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                    <ng-container  *ngFor="let item of userInfo?.domains_worked; let first = first;">
+                      <span class="matchTxt text-capitalize" *ngIf="onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'close'">
+                        <i  class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
                         {{sharedService.onFindDomainFromSingleID(item)?.name}}
                       </span>
                     </ng-container>
@@ -164,7 +164,6 @@
                           *ngIf="onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
                           <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
                           {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
-
                         </span>
                       </ng-container>
 
@@ -192,53 +191,53 @@
                     </ng-template>
                   </li>
                   <li class="list-group-item">
-                    <ng-container *ngFor="let item of matchingJob?.jobs?.programming_skills; let first = first;">
+                    <ng-container *ngFor="let item of matchingJob?.jobs?.programming_skills; let first = first; let i = index">
                       <span
                         *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true).type == 'check'">
-                        <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                        <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
                         {{item}}
                       </span>
                     </ng-container>
 
                     <ng-container
-                      *ngFor="let item of onChangeValue(matchingJob?.jobs?.programming_skills, userInfo?.programming_skills); let first = first;">
+                      *ngFor="let item of onChangeValue(matchingJob?.jobs?.programming_skills, userInfo?.programming_skills); let i = index; let first = first;">
                       <span
                         *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
-                        <i class="far fa-times-info text-blue small" [ngClass]="{'ml-2': !first}"></i>
+                        <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
                         {{item}}
                       </span>
                     </ng-container>
 
-                    <ng-container *ngFor="let item of userInfo?.programming_skills; let first = first;">
+                    <ng-container *ngFor="let item of userInfo?.programming_skills; let i = index; let first = first;">
                       <span
                         *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'info', true).type == 'info'">
-                        <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                        <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
                         {{item}}
                       </span>
                     </ng-container>
                   </li>
                   <li class="list-group-item">
-                    <ng-container *ngFor="let item of matchingJob?.jobs?.optinal_skills; let first = first;">
+                    <ng-container *ngFor="let item of matchingJob?.jobs?.optinal_skills; let i = index; let first = first;">
                       <span
                         *ngIf="onChangeStringNumber('other_skills', 'optinal_skills', item, 'check', true).type == 'check'">
-                        <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                        <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
                         {{item}}
                       </span>
                     </ng-container>
 
                     <ng-container
-                      *ngFor="let item of onChangeValue(matchingJob?.jobs?.optinal_skills, userInfo?.other_skills); let first = first;">
+                      *ngFor="let item of onChangeValue(matchingJob?.jobs?.optinal_skills, userInfo?.other_skills); let i = index; let first = first;">
                       <span
                         *ngIf="onChangeStringNumber('other_skills', 'optinal_skills', item, 'close', true).type == 'close'">
-                        <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                        <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
                         {{item}}
                       </span>
                     </ng-container>
 
-                    <ng-container *ngFor="let item of userInfo?.other_skills; let first = first;">
+                    <ng-container *ngFor="let item of userInfo?.other_skills; let i = index; let first = first;">
                       <span
                         *ngIf="onChangeStringNumber('other_skills', 'optinal_skills', item, 'info', true).type == 'info'">
-                        <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                        <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
                         {{item}}
                       </span>
                     </ng-container>
@@ -295,8 +294,8 @@
                     {{utilsHelperService.onGetYesOrNoValue(matchingJob?.jobs?.remote)}}
                    </li>
                   <li class="list-group-item">
-                    <i *ngIf="matchingJob?.jobs?.availability <= userInfo?.availability" class="fa fa-check-circle text-green small"></i>
-                    <i *ngIf="matchingJob?.jobs?.availability > userInfo?.availability" class="fa fa-times-circle text-danger small"></i>
+                    <i *ngIf="matchingJob?.jobs?.availability >= userInfo?.availability" class="fa fa-check-circle text-green small"></i>
+                    <i *ngIf="matchingJob?.jobs?.availability < userInfo?.availability" class="fa fa-times-circle text-danger small"></i>
                     {{(matchingJob?.jobs?.availability || matchingJob?.jobs?.availability == 0) ?
                       (matchingJob?.jobs?.availability == 0 ? 'Immediate' : matchingJob?.jobs?.availability
                       +
@@ -334,7 +333,7 @@
           <!--//Profile1-->
           </div>
           <!--PrevNext-->
-          <div class="matchCount" style="top:-45px;">1/10</div>
+          <div class="matchCount" style="top:-45px;">{{page+1}}/{{matchingJob?.meta?.count}}</div>
           <a (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
             data-slide="prev" style="top:-45px;">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
