@@ -1,7 +1,7 @@
 
 <!-- <p>{{counter}}</p> -->
 
-<div class="container">
+<!-- <div class="container">
 <div class="row">
   <div class="col-md-12 d-flex align-items-center justify-content-center"  style="height: 300px;">
     <ng-container *ngIf="verifyAccountSuccess == true">
@@ -26,4 +26,45 @@
     </ng-container>
   </div>
 </div>
-</div>
+</div> -->
+
+<section class="my-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="successMsg">
+          <ng-container *ngIf="verifyAccountSuccess == true">
+            <h1 class="text-green mx-auto pt-4"><i class="fas fa-check-square"></i></h1>
+            <h5 class="mt-3">Your account has been activated successfully. Please Wait</h5>
+            <div class="item html">
+              <h2>{{counter}}</h2>
+              <svg width="130" height="130" xmlns="http://www.w3.org/2000/svg">
+               <g>
+                <title>Layer 1</title>
+                <circle id="circle" class="circle_animation" r="43.0" cy="65" cx="50" stroke-width="4" fill="#fff"  stroke="#385edf" fill="none"/>
+               </g>
+              </svg>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="verifyAccountSuccess == false">
+            <ng-container *ngIf="formError && formError?.length > 0; else elseTemplate">
+              <p class="pr-2 mt-2"><i class="fa fa-times-circle" style="font-size:48px;color:red"></i></p>
+              <p class="" *ngFor="let item of formError; let i=index">
+                <ng-container *ngFor="let rule of item?.rules">
+                  {{rule.message}}
+                </ng-container>
+              </p>
+              <p class="">Your verification has been failed. Please try again.</p>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <p class="pr-2"><i class="fa fa-times-circle" style="font-size:48px;color:red"></i></p>
+              <p class="">Something went wrong. Your verification has been failed. Please try again.</p>
+            </ng-template>
+
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
@@ -20,6 +20,8 @@ export class UserResumeComponent implements OnInit {
   public mbRef: NgbModalRef;
 
   @ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
+  @ViewChild('userResume', { static: false }) userResume: ElementRef;
+
   public currentResumeDetails: any;
   public isDeleteModalOpened: boolean;
   public resumeForm: FormGroup;
@@ -91,7 +93,9 @@ export class UserResumeComponent implements OnInit {
     this.userService.resumeUpdate(formData).subscribe(
       response => {
         this.modalService.dismissAll();
-        this.onGetUserProfile();
+        this.onGetUserProfile(true);
+        this.resumeForm.reset();
+        this.userResume.nativeElement.value = null;
       }, error => {
       }
     )
@@ -117,7 +121,7 @@ export class UserResumeComponent implements OnInit {
     this.userService.deleteResume(formData).subscribe(
       response => {
         this.isDeleteModalOpened = false;
-        this.onGetUserProfile();
+        this.onGetUserProfile(true);
       }, error => {
       }
     )
@@ -132,7 +136,7 @@ export class UserResumeComponent implements OnInit {
     return false
   }
 
-  onChooseDefaultResume = (item, eventValue, isNonDefault: boolean = false) => {
+  onChooseDefaultResume = (item, eventValue?, isNonDefault: boolean = false) => {
     const formData = new FormData();
 
     if (isNonDefault) {
@@ -149,11 +153,14 @@ export class UserResumeComponent implements OnInit {
     )
   }
 
-  onGetUserProfile() {
+  onGetUserProfile(isRequiredDefault : boolean = false) {
     this.userService.profile().subscribe(
       response => {
         let userProfileInfo = response;
         this.userProfileInfo = { ...userProfileInfo.details, meta: userProfileInfo.meta };
+        if(isRequiredDefault && !this.utilsHelperService.isEmptyObj(this.userProfileInfo) && this.userProfileInfo.doc_resume && Array.isArray(this.userProfileInfo.doc_resume) && this.userProfileInfo.doc_resume.length == 1) {
+          this.onChooseDefaultResume(this.userProfileInfo.doc_resume[0])
+        }
         this.modalService.dismissAll();
       }, error => {
         this.modalService.dismissAll();

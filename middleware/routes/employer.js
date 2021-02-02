@@ -75,4 +75,9 @@ module.exports = (app, env, rp) => {
     requestCustom.get(`${serverRoutes.sendMail}`, req, res, requestBody);
   });
 
+  app.post("/api/employers/update-company-profile", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.post(`${serverRoutes.updateCompanyProfile}`, req, res, requestBody);
+  });
+
 };

@@ -1,60 +1,231 @@
- <!-- Sub Header Section -->
- <section class="sub-header">
+<!-- Sub Header Section -->
+<section class="sub-header">
   <div class="container">
     <div class="row">
-      <div class="col-lg-5">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active" aria-current="page">Company Profile</li>
-        </ol>
+      <div class="col-lg-10">
+        <div class="company-info">
+          <div class="media">
+            <div class="media-head">
+              <img src="assets/img/wipro-company-logo.png">
+            </div>
+            <div class="media-body">
+              <h5 class="mt-0">Wipro Limited - Texas Technology Center</h5>
+              <h6>Austin, Texas, USA</h6>
+              <h6>www.wipro.com</h6>
+              <h4>
+                <a href="https://in.linkedin.com/" target="_blank"><i class="fab fa-linkedin in"></i></a>
+                <a href="https://twitter.com/login?lang=en" target="_blank"><i class="fab fa-twitter-square tw"></i></a>
+                <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube-square yt"></i></a>
+              </h4>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-lg-7 clearfix">
+      <div class="col-lg-2">
+        <div class="company-folw">
+          <button  onclick="location.href='job-company-creat-profile.html'"  class="btn btn-outline-warning btn-block"><i class="fas fa-pencil-alt"></i> Edit</button> <br>
+          <button  onclick="location.href='job-post.html'" class="btn btn-outline-primary btn-block"><i class="fab fa-telegram-plane"></i> Post Job</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
   <!-- //Sub Header Section -->
+
 <section class="my-5">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-12">
-        <div class="row">
-          <div class="col-lg-12 title">
-            <h2>Company Details</h2>
+      <!--Tab Section-->
+      <div class="col-lg-8 col-md-12 company-info-tab">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="company-tab" data-toggle="tab" href="#company" role="tab" aria-controls="company" aria-selected="true">About Company</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="jobs-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="false">Open Jobs</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="employees-tab" data-toggle="tab" href="#employees" role="tab" aria-controls="employees" aria-selected="false">Employees</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <!--About Company-->
+          <div class="tab-pane fade show active" id="company" role="tabpanel" aria-labelledby="company-tab">
+            <h6>Description</h6>
+
+            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
+
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
           </div>
-        </div>
-        <div class="row mb-5 bg-light py-3">
-          <div class="col-lg-2 text-center">
-            <div class="profile-img">
-              <img src="assets/images/sap-logo.png">
+          <!--Open Jobs-->
+          <div class="tab-pane fade" id="jobs" role="tabpanel" aria-labelledby="jobs-tab">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="company-jbcard">
+                  <h4><a href="job-post-view.html">SAP ABAP Lead Consultant</a></h4>
+                  <h5>Austin, TX, USA</h5>
+                  <h5><i class="far fa-clock"></i> Nov 15, 2020</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="company-jbcard">
+                  <h4><a href="job-post-view.html">SAP BA / Project Manager</a></h4>
+                  <h5>Alberta Canada</h5>
+                  <h5><i class="far fa-clock"></i> Nov 15, 2020</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="company-jbcard">
+                  <h4><a href="job-post-view.html">SAP IBP - Integrated Business Planning</a></h4>
+                  <h5>Tlaquepaque, Jalisco México</h5>
+                  <h5><i class="far fa-clock"></i> Nov 09, 2020</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="company-jbcard">
+                  <h4><a href="job-post-view.html">SAP BA / Project Manager</a></h4>
+                  <h5>Buenos Aires - Argentina</h5>
+                  <h5><i class="far fa-clock"></i> Nov 09, 2020</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="company-jbcard">
+                  <h4><a href="job-post-view.html">SAP ABAP Lead Consultant</a></h4>
+                  <h5>Bengaluru, India</h5>
+                  <h5><i class="far fa-clock"></i> Nov 05, 2020</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="company-jbcard">
+                  <h4><a href="job-post-view.html">SAP BA / Project Manager</a></h4>
+                  <h5>Bengaluru, India</h5>
+                  <h5><i class="far fa-clock"></i> Nov 05, 2020</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="company-jbcard">
+                  <h4><a href="job-post-view.html">SAP ABAP Lead Consultant</a></h4>
+                  <h5>Bengaluru, India</h5>
+                  <h5><i class="far fa-clock"></i> Nov 02, 2020</h5>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="company-jbcard">
+                  <h4><a href="job-post-view.html">SAP BA / Project Manager</a></h4>
+                  <h5>Bengaluru, India</h5>
+                  <h5><i class="far fa-clock"></i> Nov 02, 2020</h5>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-lg-7">
-            <div class="profile-info">
-              <h3>SAP India Pvt. Ltd. <small>Financial Department</small></h3>
-              <h6><i class="fas fa-phone"></i> +00 004 1234567, +00 004 1234568, 117 </h6>
-              <h6><a href="mailto:sapfi-department22@gmail.com" >
-                <i class="fas fa-envelope"></i> sapfi-department22@gmail.com</a></h6>
-              <h6><i class="fas fa-map-marker-alt"></i> 22 Main Road, Kolkata, India</h6>
+
+          <div class="tab-pane fade" id="employees" role="tabpanel" aria-labelledby="employees-tab">
+            <div class="row">
+              <div class="col-lg-6 mb-4">
+                <h5 class="mb-1">Anand Balakrishna</h5>
+                <p>Recruiter</p>
+                <p>anand@cerebral-works.com</p>
+              </div>
+              <div class="col-lg-6 mb-4">
+                <h5 class="mb-1">Manikandan</h5>
+                <p>Recruiter</p>
+                <p>manikandan@cerebral-works.com</p>
+              </div>
+              <div class="col-lg-6 mb-4">
+                <h5 class="mb-1">Pradeep Paramasivam</h5>
+                <p>Recruiter</p>
+                <p>pradeep@cerebral-works.com</p>
+              </div>
+              <div class="col-lg-6 mb-4">
+                <h5 class="mb-1">Sundar</h5>
+                <p>Recruiter</p>
+                <p>sundar@cerebral-works.com</p>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-3 text-right">
-            <a [routerLink]="['/employer/post-job']" class="btn btn-outline-primary btn-sm mr-1" href="javascript:;" >Post Job</a>
-            <a [routerLink]="['/employer/post-job']" class="btn btn-outline-warning btn-sm" href="javascript:;"><i class="fas fa-pencil-alt"></i></a>
-          </div>
-        </div>
-        <div class="row profile-info">
-          <div class="col-lg-12 mb-3">
-            <h5>About Us</h5>
-            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
           </div>
         </div>
       </div>
+
+      <!--Side Section-->
       <div class="col-lg-4">
         <div class="title">
-          <h2>New Candidates</h2>
+          <h2>Contact Us</h2>
         </div>
-        <div class="sidebar-widget text-left">
-          --
+        <div class="sidebar-widget text-left bg-white">
+          <div class="row  mb-3">
+            <div class="col">
+              <p class="mb-0">Email Address</p>
+              <h5>www.careers.wipro.com</h5>
+            </div>
+          </div>
+          <div class="row  mb-3">
+            <div class="col">
+              <p class="mb-0">Phone Number</p>
+              <h5>+00 004 1234567</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="title mt-5">
+          <h2>Profile Settings</h2>
+        </div>
+        <div class="sidebar-widget text-left  bg-white">
+          <div class="row mb-4">
+            <div class="col-lg-6">
+              <p>Phone Number</p>
+            </div>
+            <div class="col-lg-6 clearfix">
+              <div class="showhideswitch float-right">
+                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch1" checked>
+                <label class="showhideswitch-label" for="myshowhideswitch1">
+                  <span class="showhideswitch-inner"></span>
+                  <span class="showhideswitch-switch"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-lg-6">
+              <p>Email Address</p>
+            </div>
+            <div class="col-lg-6 clearfix">
+              <div class="showhideswitch float-right">
+                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch2" checked>
+                <label class="showhideswitch-label" for="myshowhideswitch2">
+                  <span class="showhideswitch-inner"></span>
+                  <span class="showhideswitch-switch"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-lg-6">
+              <p>Open Jobs</p>
+            </div>
+            <div class="col-lg-6 clearfix">
+              <div class="showhideswitch float-right">
+                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch3" checked>
+                <label class="showhideswitch-label" for="myshowhideswitch3">
+                  <span class="showhideswitch-inner"></span>
+                  <span class="showhideswitch-switch"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-lg-6">
+              <p>Employees</p>
+            </div>
+            <div class="col-lg-6 clearfix">
+              <div class="showhideswitch float-right">
+                <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch4" checked>
+                <label class="showhideswitch-label" for="myshowhideswitch4">
+                  <span class="showhideswitch-inner"></span>
+                  <span class="showhideswitch-switch"></span>
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -18,7 +18,8 @@
       <div class="col-lg-12 tabs-animated" id="myTab">
         <form method="post" #candidateNgForm="ngForm" [formGroup]="candidateForm">
           <app-create-candidate-header #target [currentTabInfo]="currentTabInfo"
-            (onTabChangeEvent)="onHeaderTabChange($event)">
+            (onTabChangeEvent)="onHeaderTabChange($event)"
+            [createCandidateForm]="candidateForm">
           </app-create-candidate-header>
 
           <div class="tab-content" [@animSlider]="slidingCounter">

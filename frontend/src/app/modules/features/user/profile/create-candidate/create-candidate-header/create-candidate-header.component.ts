@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { DataService } from '@shared/service/data.service';
 
@@ -10,6 +11,7 @@ import { DataService } from '@shared/service/data.service';
 export class CreateCandidateHeaderComponent implements OnInit {
 
   @Input() currentTabInfo: tabInfo;
+  @Input() createCandidateForm: FormGroup;
   @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
   public tabInfos: any[] = [];
   public tabTempArray: any[] = [];
@@ -41,9 +43,19 @@ export class CreateCandidateHeaderComponent implements OnInit {
         this.tabTempArray.push(currentTabInfo);
       }
     }
-    console.log(this.tabTempArray);
-
     this.dataService.setTabInfo(this.tabTempArray);
+
+    // this.tabInfos.map((val: tabInfo, index) => {
+    //   if(val.tabNumber > currentTabInfo.tabNumber) {
+    //     if(val.tabNumber == 2) {
+    //       this.createCandidateForm.removeControl('educationExp');
+    //     }else if(val.tabNumber == 3) {
+    //       this.createCandidateForm.removeControl('skillSet');
+    //     }else if(val.tabNumber == 4) {
+    //       this.createCandidateForm.removeControl('jobPref');
+    //     }
+    //   }
+    // })
   }
 
 }

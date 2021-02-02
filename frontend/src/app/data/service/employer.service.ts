@@ -104,4 +104,13 @@ export class EmployerService extends CacheService {
       })
     );
   };
+
+  updateCompanyProfile = (params) => {
+    return this.apiService.post('/api/employers/update-company-profile', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
 }

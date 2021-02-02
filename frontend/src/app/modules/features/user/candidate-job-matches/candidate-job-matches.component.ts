@@ -24,6 +24,9 @@ export class CandidateJobMatchesComponent implements OnInit {
   public cusLoadsh: any = lodash;
   public currentJobDetails: any;
   public isOpenedResumeSelectModal: boolean;
+  public matchedElement: boolean = true;
+  public missingElement: boolean = true;
+  public moreElement: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -197,6 +200,30 @@ export class CandidateJobMatchesComponent implements OnInit {
       this.currentJobDetails = item;
     }
     this.isOpenedResumeSelectModal = status;
+  }
+
+  onShowMatches = () => {
+    this.matchedElement = true;
+    this.missingElement = false;
+    this.moreElement = false;
+  }
+
+  onShowMissing = () => {
+    this.missingElement = true;
+    this.matchedElement = false;
+    this.moreElement = false;
+  }
+
+  onShowMore = () => {
+    this.moreElement = true;
+    this.matchedElement = false;
+    this.missingElement = false;
+  }
+
+  onReset = () => {
+    this.moreElement = true;
+    this.matchedElement = true;
+    this.missingElement = true;
   }
 
 }

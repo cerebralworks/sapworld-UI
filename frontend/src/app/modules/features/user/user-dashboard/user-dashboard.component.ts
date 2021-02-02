@@ -1,22 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from '@shared/service/data.service';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css']
 })
-export class UserDashboardComponent implements OnInit {
+export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 
   public currentTabInfo: tabInfo = {
     tabName: 'Profile',
     tabNumber: 1
   };
+  toggleResumeModal: boolean;
+  @ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
+  mbRef: NgbModalRef;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dataService: DataService,
+    private modelService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +56,39 @@ export class UserDashboardComponent implements OnInit {
           break;
       }
     }
+  }
+
+  validateOnPrfile = 0;
+  ngDoCheck(): void {
+    const profileCompletionValue = this.dataService.getProfileCompletion();
+    console.log('profileCompletionValue', profileCompletionValue, this.validateOnPrfile == 0);
+
+    if(profileCompletionValue && this.validateOnPrfile == 0) {
+      console.log('456');
+
+      this.toggleResumeModal = true;
+      setTimeout(() => {
+        this.onOpenResumeModal()
+      });
+      this.validateOnPrfile ++;
+    }
+  }
+
+  onOpenResumeModal = () => {
+    if (this.toggleResumeModal) {
+      this.mbRef = this.modelService.open(this.deleteModal, {
+        windowClass: 'modal-holder',
+        centered: true,
+        backdrop: 'static',
+        keyboard: false
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.toggleResumeModal = false;
+    this.dataService.clearProfileCompletion()
+    this.validateOnPrfile = null;
   }
 
   onTabChange = (tabInfo: tabInfo) => {

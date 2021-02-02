@@ -25,6 +25,7 @@ const routes = {
     jobPostingList: '/jobpostings/list',
     resetPassword: '/accounts/reset-password',
     jobDelete: '/jobpostings/delete',
+    updateCompanyProfile: '/employers/update-company-profile',
     sendMail: '/jobpostings/send-email',
     jobPostingView: '/jobpostings/view',
 }

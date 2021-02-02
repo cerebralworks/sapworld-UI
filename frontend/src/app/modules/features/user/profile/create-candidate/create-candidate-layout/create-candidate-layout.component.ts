@@ -206,6 +206,14 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 
   onPrevious() {
     if (this.slidingCounter > 0) {
+      // console.log(this.slidingCounter);
+      // if(this.slidingCounter == 1) {
+      //   this.candidateForm.removeControl('educationExp');
+      // }else if(this.slidingCounter == 2) {
+      //   this.candidateForm.removeControl('skillSet');
+      // }else if(this.slidingCounter == 3) {
+      //   this.candidateForm.removeControl('jobPref');
+      // }
       this.slidingCounter--;
     }
   }
@@ -275,7 +283,6 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
   onUserPhotoUpdate = () => {
     const formData = new FormData();
     var rString = this.randomString(40, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-    console.log(this.userPhotoInfo);
 
     formData.append('photo' , this.userPhotoInfo.photoBlob, ((this.userPhotoInfo && this.userPhotoInfo.photoBlob && this.userPhotoInfo.photoBlob.name) ? this.userPhotoInfo.photoBlob.name : rString));
     this.userService.photoUpdate(formData).subscribe(
@@ -289,6 +296,10 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
     this.userService.update(candidateInfo).subscribe(
       response => {
         this.router.navigate(['/user/dashboard']).then(() => {
+          if(this.userInfo && this.userInfo.doc_resume && this.userInfo.doc_resume.length == 0) {
+            this.dataService.setProfileCompletion();
+          }
+
           this.modalService.dismissAll();
           this.onToggleRegisterReview(false)
         });

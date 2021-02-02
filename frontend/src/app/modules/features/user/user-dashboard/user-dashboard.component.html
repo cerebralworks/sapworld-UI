@@ -89,3 +89,18 @@
 
 <app-user-resume *ngIf="currentTabInfo.tabNumber == 6">
 </app-user-resume>
+
+<ng-template *ngIf="toggleResumeModal" #deleteModal let-modal let-d="dismiss">
+  <div class="full-width">
+    <div class="modal-header bg-dblue text-white">
+      <h3 class="modal-title" id="exampleModalLabel">Upload Resume</h3>
+    </div>
+    <div class="modal-body">
+      Please upload your resume. Click the below button to redirect resume upload page.
+    </div>
+    <div class="modal-footer full-width">
+      <button type="button" class="btn btn-primary"
+      (click)="onTabChange({tabName: 'resume', tabNumber: 6});mbRef?.close()">Upload</button>
+    </div>
+  </div>
+</ng-template>

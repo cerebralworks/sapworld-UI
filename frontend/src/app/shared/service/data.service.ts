@@ -8,6 +8,7 @@ export class DataService {
   private industries = new BehaviorSubject<any>({});
   private userPhoto = new BehaviorSubject<any>({});
   private tabInfo = new BehaviorSubject<any>({});
+  private profileCompletion: boolean = false;
 
   setSkillDataSource(data: {}) {
     this.skillTags.next(data);
@@ -55,6 +56,18 @@ export class DataService {
 
   getTabInfo(): Observable<any> {
     return this.tabInfo.asObservable();
+  }
+
+  setProfileCompletion() {
+    this.profileCompletion = true;
+  }
+
+  clearProfileCompletion(): any {
+    this.profileCompletion = false;
+  }
+
+  getProfileCompletion(): any {
+    return this.profileCompletion;
   }
 
 }

@@ -1,6 +1,6 @@
 <section class="my-5">
   <div class="container">
-    <div class="row mt-3">
+    <div class="row mt-3" *ngIf="userProfileInfo?.doc_resume?.length > 1">
       <div class="col-lg-12">
         <div class="custom-control custom-checkbox mr-sm-2">
           <input [checked]="onCheck(userProfileInfo?.doc_resume, 'default')" (click)="onChooseDefaultResume({}, $event.target.checked, true)" type="checkbox" class="custom-control-input" id="chooseApplying">
@@ -29,7 +29,7 @@
         <label class="text-black-50">
           <h1 class="text-black-50 mb-0"><i class="far fa-plus-square"></i></h1>
           {{"common.addResume" | translate}}
-          <input type="file" hidden (change)="handleFileInput($event);">
+          <input #userResume type="file" hidden (change)="handleFileInput($event);">
         </label>
       </div>
     </div>
