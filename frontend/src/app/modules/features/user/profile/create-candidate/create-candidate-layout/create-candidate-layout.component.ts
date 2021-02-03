@@ -296,7 +296,7 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
     this.userService.update(candidateInfo).subscribe(
       response => {
         this.router.navigate(['/user/dashboard']).then(() => {
-          if(this.userInfo && this.userInfo.doc_resume && this.userInfo.doc_resume.length == 0) {
+          if(this.userInfo && (!this.userInfo.doc_resume || this.userInfo.doc_resume.length == 0)) {
             this.dataService.setProfileCompletion();
           }
 

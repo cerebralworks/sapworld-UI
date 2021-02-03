@@ -13,7 +13,7 @@ export class VerifyAccountComponent implements OnInit {
   public counter = 5;
   public formError: any[] = [];
   public verifyAccountSuccess: boolean;
-  public accountRole: string;
+  public accountRole: string = "";
 
   constructor(
     private accountService: AccountService,
@@ -54,7 +54,7 @@ export class VerifyAccountComponent implements OnInit {
   onCountDown = () => {
     let interval = setInterval(() => {
       this.counter--;
-      if (this.counter == 0 && this.accountRole) {
+      if (this.counter == 0) {
         if(this.accountRole.includes('0')) {
           this.router.navigate(['/auth/user/login']);
         }else if(this.accountRole.includes('1')) {

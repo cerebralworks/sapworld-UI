@@ -61,11 +61,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
   validateOnPrfile = 0;
   ngDoCheck(): void {
     const profileCompletionValue = this.dataService.getProfileCompletion();
-    console.log('profileCompletionValue', profileCompletionValue, this.validateOnPrfile == 0);
-
     if(profileCompletionValue && this.validateOnPrfile == 0) {
-      console.log('456');
-
       this.toggleResumeModal = true;
       setTimeout(() => {
         this.onOpenResumeModal()
