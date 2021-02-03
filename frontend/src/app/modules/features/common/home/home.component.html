@@ -10,14 +10,15 @@
           has to be provided.</span>
         <div class="row">
           <div class="col-lg-6 col-md-6 mb-3">
-            <!-- <ng-select
+            <ng-select
+            class="search-skill"
     [items]="movies$ | async"
     bindLabel="tag"
     [multiple]="true"
     [trackByFn]="trackByFn"
     [minTermLength]="minLengthTerm"
     [loading]="moviesLoading"
-    placeholder="Job Title / SAP Module"
+    placeholder="SAP Module"
     typeToSearchText="Please enter {{minLengthTerm}} or more characters" [typeahead]="moviesInput$"
     formControlName="search">
     <ng-template ng-label-tmp let-item="item" let-clear="clear">
@@ -27,13 +28,12 @@
     <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
       {{utilsHelperService.onSplitTag(item.tag)}}
     </ng-template>
-  </ng-select> -->
-            <div class="input-with-icon">
+  </ng-select>
+            <!-- <div class="input-with-icon">
               <input (click)="isMenuOpen = true" formControlName="search" #searchJob type="text" class="form-control"
                 placeholder="Job Title / SAP Module" value="">
               <i class="fas fa-briefcase"></i>
             </div>
-            <!-- <perfect-scrollbar scrollToBottom="true" style="height: 50%"> -->
               <ul *ngIf="isMenuOpen" (outsideClick)="isMenuOpen = false" outsideClick id="myUL">
                 <ng-container *ngIf="filteredValues?.length; else elseTemplate">
                   <ng-container *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1); else elseTemplate">
@@ -54,9 +54,7 @@
                   </li>
                 </ng-template>
 
-              </ul>
-            <!-- </perfect-scrollbar> -->
-
+              </ul> -->
           </div>
           <div class="col-lg-6 col-md-6 mb-3">
             <div class="input-with-icon">

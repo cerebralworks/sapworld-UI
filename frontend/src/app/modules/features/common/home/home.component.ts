@@ -41,7 +41,7 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
   moviesLoading = false;
   moviesInput$ = new Subject<string>();
   selectedMovie: any;
-  minLengthTerm = 3;
+  minLengthTerm = 2;
 
   constructor(
     private router: Router,
@@ -94,9 +94,9 @@ console.log(event);
   }
 
   ngAfterViewInit(): void {
-    this.onTitleSearch();
-    // this.loadMovies();
-    // this.changeDetectorRef.detectChanges();
+    // this.onTitleSearch();
+    this.loadMovies();
+    this.changeDetectorRef.detectChanges();
   }
 
   loadMovies() {
@@ -168,12 +168,12 @@ console.log(event);
         , distinctUntilChanged()
         // subscription for response
       ).subscribe((text: string) => {
-        if (this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
-          this.onGetSkillTag(text);
-        } else {
-          this.onGetJobBySearch(text)
-        }
-
+        // if (this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
+        //   this.onGetSkillTag(text);
+        // } else {
+        //   this.onGetJobBySearch(text)
+        // }
+        this.onGetSkillTag(text);
       });
     }
 
@@ -220,8 +220,8 @@ console.log(event);
     if(this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
       this.setItem('homeSelectedSkill', item);
       this.searchForm.patchValue({
-        search: item.tag ? item.tag.toLowerCase() : this.searchForm.value.search.toLowerCase(),
-        skillId: item.id ? item.id : ''
+        search: item.tag ? item.tag.toString() : this.searchForm.value.search.toString(),
+        skillId: item.id ? item.id.toString() : ''
       });
     }else {
       this.searchForm.patchValue({
@@ -244,27 +244,39 @@ console.log(event);
   onRedirect = () => {
     if (this.searchForm.valid) {
       if(this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
+        this.setItem('homeSelectedSkill', this.onReturnIDFronArray(this.searchForm.value.search, 'tag', true));
         this.router.navigate(['/find-candidates'],
           {
             queryParams:
             {
-              skill_tags: this.searchForm.value.skillId,
+              skill_tags: this.onReturnIDFronArray(this.searchForm.value.search, 'id'),
               city: (this.searchForm.value && this.searchForm.value.location) ? this.searchForm.value.location : ''
             }
           });
 
       } else {
+        this.setItem('homeSelectedSkill', this.onReturnIDFronArray(this.searchForm.value.search, 'tag', true));
         this.router.navigate(['/find-jobs'],
           {
             queryParams:
             {
-              search: this.searchForm.value.search,
+              skills: this.onReturnIDFronArray(this.searchForm.value.search, 'id'),
               city: (this.searchForm.value && this.searchForm.value.location) ? this.searchForm.value.location : ''
             }
           });
       }
     }
   }
+
+  onReturnIDFronArray = (arrayOfObj: any [] =[], field: string, isString: boolean = false) => {
+    if(Array.isArray(arrayOfObj) && arrayOfObj.length) {
+      return arrayOfObj.map((val) => {
+        return isString ? val[field] ? this.utilsHelperService.onSplitTag(val[field]) : '': val[field] ? val[field] : '';
+      }).toString();
+    }
+    return "";
+  }
+
 }
 
 export const atLeastOne = (validator: ValidatorFn, controls: string[] = null) => (

@@ -68,7 +68,7 @@ export class FindJobsComponent extends CacheService implements OnInit {
     this.route.queryParams.subscribe(params => {
       if(params && !this.utilsHelperService.isEmptyObj(params)) {
         let urlQueryParams = {...params};
-        this.skillString = this.route.snapshot.queryParamMap.get('search');
+        // this.skillString = this.route.snapshot.queryParamMap.get('search');
         this.cityString = this.route.snapshot.queryParamMap.get('city');
 
         const jobTypes = this.route.snapshot.queryParamMap.get('type');
@@ -85,6 +85,8 @@ export class FindJobsComponent extends CacheService implements OnInit {
 
         const skillTags = this.route.snapshot.queryParamMap.get('skills');
         if(skillTags) {
+          this.skillString = this.getItem('homeSelectedSkill');
+
           let skillArray = new Array();
           skillArray = skillTags.split(",");
           if(skillArray && skillArray.length) {

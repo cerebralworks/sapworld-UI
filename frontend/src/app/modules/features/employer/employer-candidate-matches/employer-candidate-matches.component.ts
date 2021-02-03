@@ -52,6 +52,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   };
   public skillItems: any;
   public selectedResumeUrl: any;
+  selectedResume: any;
 
   constructor(
     public sharedService: SharedService,
@@ -145,6 +146,13 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
         }
       }
     )
+  }
+
+  onGetFilteredValue(resumeArray: any[]): any {
+    if(resumeArray && Array.isArray(resumeArray) && !this.utilsHelperService.isEmptyObj(this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1))) {
+      return this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1).file;
+    }
+    return "";
   }
 
   ngOnDestroy(): void {

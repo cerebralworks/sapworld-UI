@@ -98,3 +98,20 @@ a.disabled {
 .upload-box .box input {
   z-index: 9;
 }
+
+.search-skill .ng-select-container {
+  min-height: 50px;
+  border-radius: 10px;
+  border: 2px solid #ccd1d6;
+}
+
+.search-skill.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+  top: 12px !important;
+}
+
+/* .ng-placeholder::before {
+  content: "\f0b1";
+}
+.msp-mar:before {
+  content: "\f3c5";
+} */
