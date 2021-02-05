@@ -1,21 +1,21 @@
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
   <li class="nav-item" [ngClass]="{'active': currentTabInfo.tabNumber == 1}">
     <a [ngClass]="{'active': currentTabInfo.tabNumber == 1}"
-      (click)="onTabChange({tabName: 'Personal Detail', tabNumber: 1})" class="nav-link" href="javascript:;">
+      (click)="userInfo?.profile_completed && onTabChange({tabName: 'Personal Detail', tabNumber: 1})" class="nav-link" href="javascript:;">
       {{"postYourResume.personalDetails" | translate }}
     </a>
   </li>
 
   <li class="nav-item" [ngClass]="{'active': currentTabInfo.tabNumber == 2}">
     <a [ngClass]="{'active': currentTabInfo.tabNumber == 2}"
-      (click)="onTabChange({tabName: 'Education Experience', tabNumber: 2})" class="nav-link" href="javascript:;">
+      (click)="userInfo?.profile_completed && onTabChange({tabName: 'Education Experience', tabNumber: 2})" class="nav-link" href="javascript:;">
       {{"postYourResume.educationExperience" | translate }}
     </a>
   </li>
 
   <li class="nav-item" [ngClass]="{'active': currentTabInfo.tabNumber == 3}">
     <a [ngClass]="{'active': currentTabInfo.tabNumber == 3}"
-      (click)="onTabChange({tabName: 'Skillsets', tabNumber: 3})"
+      (click)="userInfo?.profile_completed && onTabChange({tabName: 'Skillsets', tabNumber: 3})"
       class="nav-link" href="javascript:;">
       {{"postYourResume.skillsets" | translate }}
     </a>
@@ -23,7 +23,7 @@
 
   <li class="nav-item" [ngClass]="{'active': currentTabInfo.tabNumber == 4}">
     <a [ngClass]="{'active': currentTabInfo.tabNumber == 4}"
-      (click)="onTabChange({tabName: 'Job Preference', tabNumber: 4})" class="nav-link" href="javascript:;">
+      (click)="userInfo?.profile_completed && onTabChange({tabName: 'Job Preference', tabNumber: 4})" class="nav-link" href="javascript:;">
       {{"postYourResume.jobPreference" | translate }}
     </a>
   </li>

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
+import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 
 @Component({
@@ -15,8 +16,10 @@ export class CreateCandidateHeaderComponent implements OnInit {
   @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
   public tabInfos: any[] = [];
   public tabTempArray: any[] = [];
+  public userInfo: any;
 
   constructor(
+    private userSharedService: UserSharedService,
     private dataService: DataService
   ) { }
 
@@ -27,6 +30,14 @@ export class CreateCandidateHeaderComponent implements OnInit {
       response => {
         if (response && Array.isArray(response) && response.length) {
           this.tabInfos = response;
+        }
+      }
+    )
+    this.userSharedService.getUserProfileDetails().subscribe(
+      response => {
+        this.userInfo = response;
+        if(this.userInfo && this.userInfo.id && this.validateInfo == 0) {
+          this.validateInfo++;
         }
       }
     )
