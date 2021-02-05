@@ -36,9 +36,6 @@ export class CreateCandidateHeaderComponent implements OnInit {
     this.userSharedService.getUserProfileDetails().subscribe(
       response => {
         this.userInfo = response;
-        if(this.userInfo && this.userInfo.id && this.validateInfo == 0) {
-          this.validateInfo++;
-        }
       }
     )
   }
