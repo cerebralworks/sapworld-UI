@@ -49,9 +49,6 @@ export class CreateCandidateFooterComponent implements OnInit {
         }
       }
     )
-
-    console.log(this.getErrors(this.createCandidateForm));
-
   }
 
   onPrevious = () => {

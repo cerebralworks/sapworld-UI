@@ -6,16 +6,35 @@
         <div class="company-info">
           <div class="media">
             <div class="media-head">
-              <img src="assets/img/wipro-company-logo.png">
+              <img (error)="updateUrl($event)" src="employerDetails?.photo" [src]="employerDetails?.photo ? (employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
             </div>
             <div class="media-body">
-              <h5 class="mt-0">Wipro Limited - Texas Technology Center</h5>
-              <h6>Austin, Texas, USA</h6>
-              <h6>www.wipro.com</h6>
-              <h4>
-                <a href="https://in.linkedin.com/" target="_blank"><i class="fab fa-linkedin in"></i></a>
-                <a href="https://twitter.com/login?lang=en" target="_blank"><i class="fab fa-twitter-square tw"></i></a>
-                <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube-square yt"></i></a>
+              <h5 class="mt-0">{{employerDetails?.company ? employerDetails?.company : ''}}</h5>
+              <h6>
+                {{companyProfileInfo?.city ? companyProfileInfo?.city : ''}}
+                {{companyProfileInfo?.state ? ', ' + companyProfileInfo?.state : ''}}
+                {{companyProfileInfo?.country ? ', ' + companyProfileInfo?.country : ''}}
+              </h6>
+              <h6>
+                {{companyProfileInfo?.website}}
+              </h6>
+              <h4 *ngIf="companyProfileInfo?.social_media_link?.length">
+                <a class="mr-1" *ngFor="let item of companyProfileInfo?.social_media_link" href="{{item.url}}" target="_blank">
+                  <ng-container [ngSwitch]="item?.media">
+                    <ng-container *ngSwitchCase="'youtube'">
+                      <i class="fab fa-youtube-square"></i>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'portfolio'">
+                      <i class="fas fa-laptop-code"></i>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'blog'">
+                      <i class="fas fa-blog"></i>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      <i class="fab fa-{{item.media}}"></i>
+                    </ng-container>
+                  </ng-container>
+                </a>
               </h4>
             </div>
           </div>
@@ -23,8 +42,8 @@
       </div>
       <div class="col-lg-2">
         <div class="company-folw">
-          <button  onclick="location.href='job-company-creat-profile.html'"  class="btn btn-outline-warning btn-block"><i class="fas fa-pencil-alt"></i> Edit</button> <br>
-          <button  onclick="location.href='job-post.html'" class="btn btn-outline-primary btn-block"><i class="fab fa-telegram-plane"></i> Post Job</button>
+          <button [routerLink]="[ '/employer/create-profile']" class="btn btn-outline-warning btn-block"><i class="fas fa-pencil-alt"></i> Edit</button> <br>
+          <button [routerLink]="[ '/employer/post-job']" class="btn btn-outline-primary btn-block"><i class="fab fa-telegram-plane"></i> Post Job</button>
         </div>
       </div>
     </div>
@@ -38,13 +57,13 @@
       <!--Tab Section-->
       <div class="col-lg-8 col-md-12 company-info-tab">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
+          <li class="nav-employerDetails" role="presentation">
             <a class="nav-link active" id="company-tab" data-toggle="tab" href="#company" role="tab" aria-controls="company" aria-selected="true">About Company</a>
           </li>
-          <li class="nav-item" role="presentation">
+          <li class="nav-employerDetails" role="presentation">
             <a class="nav-link" id="jobs-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="false">Open Jobs</a>
           </li>
-          <li class="nav-item" role="presentation">
+          <li class="nav-employerDetails" role="presentation">
             <a class="nav-link" id="employees-tab" data-toggle="tab" href="#employees" role="tab" aria-controls="employees" aria-selected="false">Employees</a>
           </li>
         </ul>
@@ -52,70 +71,40 @@
           <!--About Company-->
           <div class="tab-pane fade show active" id="company" role="tabpanel" aria-labelledby="company-tab">
             <h6>Description</h6>
+            <ng-container *ngIf="companyProfileInfo?.description; else elseDesTemplate">
+              <div [innerHTML]="companyProfileInfo?.description">
+              </div>
+            </ng-container>
+            <ng-template #elseDesTemplate>
+              No description was found
+            </ng-template>
 
-            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
 
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
           </div>
           <!--Open Jobs-->
           <div class="tab-pane fade" id="jobs" role="tabpanel" aria-labelledby="jobs-tab">
             <div class="row">
-              <div class="col-lg-6">
-                <div class="company-jbcard">
-                  <h4><a href="job-post-view.html">SAP ABAP Lead Consultant</a></h4>
-                  <h5>Austin, TX, USA</h5>
-                  <h5><i class="far fa-clock"></i> Nov 15, 2020</h5>
+              <ng-container *ngIf="postedJobs.length; else elseTemplate">
+                <div class="col-lg-6" *ngFor="let item of postedJobs; let i=index">
+                  <div class="company-jbcard">
+                    <h4><a [routerLink]="['/employer/job-detail-view', item?.id]" href="javascript:;">{{item?.title}}</a></h4>
+                    <h5>
+                      {{item?.city ? item?.city : ''}}
+                      {{item?.state ? ', ' + item?.state : ''}}
+                      {{item?.country ? ', ' + item?.country : ''}}
+                    </h5>
+                    <h5><i class="far fa-clock"></i>
+                      {{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}
+                    </h5>
+                  </div>
                 </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="company-jbcard">
-                  <h4><a href="job-post-view.html">SAP BA / Project Manager</a></h4>
-                  <h5>Alberta Canada</h5>
-                  <h5><i class="far fa-clock"></i> Nov 15, 2020</h5>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <div class="col-lg-6">
+                  No data found
                 </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="company-jbcard">
-                  <h4><a href="job-post-view.html">SAP IBP - Integrated Business Planning</a></h4>
-                  <h5>Tlaquepaque, Jalisco México</h5>
-                  <h5><i class="far fa-clock"></i> Nov 09, 2020</h5>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="company-jbcard">
-                  <h4><a href="job-post-view.html">SAP BA / Project Manager</a></h4>
-                  <h5>Buenos Aires - Argentina</h5>
-                  <h5><i class="far fa-clock"></i> Nov 09, 2020</h5>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="company-jbcard">
-                  <h4><a href="job-post-view.html">SAP ABAP Lead Consultant</a></h4>
-                  <h5>Bengaluru, India</h5>
-                  <h5><i class="far fa-clock"></i> Nov 05, 2020</h5>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="company-jbcard">
-                  <h4><a href="job-post-view.html">SAP BA / Project Manager</a></h4>
-                  <h5>Bengaluru, India</h5>
-                  <h5><i class="far fa-clock"></i> Nov 05, 2020</h5>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="company-jbcard">
-                  <h4><a href="job-post-view.html">SAP ABAP Lead Consultant</a></h4>
-                  <h5>Bengaluru, India</h5>
-                  <h5><i class="far fa-clock"></i> Nov 02, 2020</h5>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="company-jbcard">
-                  <h4><a href="job-post-view.html">SAP BA / Project Manager</a></h4>
-                  <h5>Bengaluru, India</h5>
-                  <h5><i class="far fa-clock"></i> Nov 02, 2020</h5>
-                </div>
-              </div>
+              </ng-template>
+
             </div>
           </div>
 
@@ -155,13 +144,22 @@
           <div class="row  mb-3">
             <div class="col">
               <p class="mb-0">Email Address</p>
-              <h5>www.careers.wipro.com</h5>
+              <h5>{{companyProfileInfo?.email_id ? companyProfileInfo?.email_id : '--'}}</h5>
             </div>
           </div>
           <div class="row  mb-3">
             <div class="col">
               <p class="mb-0">Phone Number</p>
-              <h5>+00 004 1234567</h5>
+              <ng-container *ngIf="companyProfileInfo?.contact; else elsePhoneTemplate">
+                <h5 *ngFor="let item of companyProfileInfo?.contact; let i=index">
+                  {{item ? item : ''}}
+                </h5>
+              </ng-container>
+              <ng-template #elsePhoneTemplate>
+                --
+              </ng-template>
+
+
             </div>
           </div>
         </div>

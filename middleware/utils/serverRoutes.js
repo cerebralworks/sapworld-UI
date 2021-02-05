@@ -15,6 +15,7 @@ const routes = {
     applicationsListForUser: "/jobpostings/applications/list-for-user",
     applicationsListForEmp: "/jobpostings/applications/list",
     userPhotoUpdate: "/users/update-photo",
+    employerPhotoUpdate: "/employers/update-photo",
     userResumeUpdate: "/users/update-doc-resume",
     userResumeDelete: "/users/delete-resume",
     userChooseDefaultResume: "/users/choose-default-resume",
@@ -28,6 +29,7 @@ const routes = {
     updateCompanyProfile: '/employers/update-company-profile',
     sendMail: '/jobpostings/send-email',
     jobPostingView: '/jobpostings/view',
+    employerCompanyProfile: '/employers/company-profile',
 }
 
 module.exports = routes;

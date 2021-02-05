@@ -95,8 +95,6 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
       response => {
         if (response && Array.isArray(response) && response.length) {
           this.tabInfos = response;
-          console.log('this.tabInfos', this.tabInfos);
-
         }
       }
     )
@@ -201,19 +199,70 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
   onNext() {
     if (this.slidingCounter != this.slindingList.length - 1) {
       this.slidingCounter++;
+      setTimeout(() => {
+        if(this.slidingCounter == 1) {
+          this.addValidators(<FormGroup>this.candidateForm.controls['educationExp']);
+        }else if(this.slidingCounter == 2) {
+          this.addValidators(<FormGroup>this.candidateForm.controls['skillSet']);
+          this.candidateForm.controls.skillSet['controls'].hands_on_experience.controls.map((val, index) => {
+          this.addValidators(<FormGroup>val);
+        })
+        }else if(this.slidingCounter == 3) {
+          this.addValidators(<FormGroup>this.candidateForm.controls['jobPref']);
+        }
+      }, 300);
     }
+  }
+
+  public removeValidators(form: FormGroup) {
+    if(form && form.controls) {
+      for (const key in form.controls) {
+        form.get(key).clearValidators();
+        form.get(key).updateValueAndValidity();
+      }
+    }
+  }
+
+  public addValidators(form: FormGroup) {
+    if(form && form.controls) {
+      for (const key in form.controls) {
+          form.get(key).setValidators(this.validationType[key]);
+          form.get(key).updateValueAndValidity();
+      }
+    }
+}
+
+  validationType = {
+    'experience': [Validators.required],
+    'sap_experience': [Validators.required],
+    'current_employer': [Validators.required],
+    'current_employer_role': [Validators.required],
+    'domains_worked': [Validators.required],
+    'skill_id': [Validators.required],
+    'exp_type': [Validators.required],
+    'skills': [Validators.required],
+    'programming_skills': [Validators.required],
+    'other_skills': [Validators.required],
+    'job_role': [Validators.required],
+    'willing_to_relocate': [Validators.required],
+    'travel': [Validators.required],
+    'availability': [Validators.required],
+    'remote_only': [Validators.required],
+    'job_type': [Validators.required],
   }
 
   onPrevious() {
     if (this.slidingCounter > 0) {
-      // console.log(this.slidingCounter);
-      // if(this.slidingCounter == 1) {
-      //   this.candidateForm.removeControl('educationExp');
-      // }else if(this.slidingCounter == 2) {
-      //   this.candidateForm.removeControl('skillSet');
-      // }else if(this.slidingCounter == 3) {
-      //   this.candidateForm.removeControl('jobPref');
-      // }
+      if(this.slidingCounter == 1) {
+        this.removeValidators(<FormGroup>this.candidateForm.controls['educationExp']);
+      }else if(this.slidingCounter == 2) {
+        this.removeValidators(<FormGroup>this.candidateForm.controls['skillSet']);
+        this.candidateForm.controls.skillSet['controls'].hands_on_experience.controls.map((val, index) => {
+          this.removeValidators(<FormGroup>val);
+        })
+      }else if(this.slidingCounter == 3) {
+        this.removeValidators(<FormGroup>this.candidateForm.controls['jobPref']);
+      }
       this.slidingCounter--;
     }
   }

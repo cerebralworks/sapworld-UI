@@ -15,6 +15,7 @@ export class ValidationService {
       mismatch: 'Password doesn\'t match.',
       range: `The field must contain atleast characters.`,
       inValidMobile: 'Invalid mobile number',
+      invalidUrl: 'Invalid url',
       noFreeEmail: "Please use your business email, we don't accept Gmail, Yahoo, Hotmail and Mailinator accounts."
     };
 
@@ -28,6 +29,14 @@ export class ValidationService {
     // (?=.*[0-9])       - Assert a string has at least one number
     // (?!.*\s)          - Spaces are not allowed
     return (control.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) ? '' : { invalidPassword: true };
+
+    // return (control.value.match(/^(?=.*\d)(?=.*[a-zA-Z!@#$%^&*])(?!.*\s).{8,100}$/)) ? '' : { invalidPassword: true };
+  }
+
+  public static urlValidator(control: AbstractControl): any {
+    if (!control.value) { return; }
+
+    return (control.value.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/)) ? '' : { invalidUrl: true };
 
     // return (control.value.match(/^(?=.*\d)(?=.*[a-zA-Z!@#$%^&*])(?!.*\s).{8,100}$/)) ? '' : { invalidPassword: true };
   }

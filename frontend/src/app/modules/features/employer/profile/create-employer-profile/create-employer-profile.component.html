@@ -23,7 +23,7 @@
         <div class="col-lg-4 col-md-6">
           <div class=" form-group">
             <label>Company Name</label>
-            <input formControlName="name" type="text" class="form-control" placeholder="Company Name" value="">
+            <input formControlName="name" type="text" class="form-control text-capitalize" placeholder="Company Name" value="">
             <app-control-messages [control]="f['name']"></app-control-messages>
           </div>
 
@@ -77,7 +77,7 @@
                 [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo+'?v='+ randomNum"
                 alt="upload-photo" class="img-fluid mx-auto rounded-circle border border-primary"
                 style="width:150px;height:150px;">
-              <input [style.top]="defaultProfilePic ? '-150px' : '0px'" type="file" class="upload-input" #companyImage
+              <input [style.top]="(defaultProfilePic || employerDetails?.photo) ? '-150px' : '0px'" type="file" class="upload-input" #companyImage
                 (change)="handleFileInput($event, CropImage);" />
               <!-- <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple=""> -->
               <label for="file-5">
@@ -113,15 +113,63 @@
         </div>
         <app-control-messages [control]="f['description']"></app-control-messages>
       </div>
+      <div class="row">
+				<div class="col-lg-4 col-md-6">
+					<h6 class="font-weight-bold clearfix cursor-pointer" (click)="show = !show">
+            {{"postYourResume.myLinks" | translate }}<i class="fas fa-caret-down pt-3 ml-3"></i>
+          </h6>
+				</div>
+
+				<div class="col-lg-12 col-md-6 mt-2" *ngIf="show || companyProfileInfo?.social_media_link?.length > 0" [@slideInOut]>
+					<div>
+						<div class="row mt-4 mb-5">
+							<div class="col-lg-4 col-md-6">
+								<div class="d-flex">
+									<div class="linkIcon in"><i class="fab fa-linkedin"></i></div>
+									<input formControlName="linkedin" type="text" class="form-control form-control-sm"
+                [placeholder]="'postYourResume.enterLinkedinUrl' | translate">
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="showhideswitch mt-2">
+									<input  formControlName="linkedinBoolen" (change)="onSetLinks('linkedin', $event?.target?.checked);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch5" >
+                  <label class="showhideswitch-label" for="myshowhideswitch5">
+                    <span class="showhideswitch-inner"></span>
+                    <span class="showhideswitch-switch"></span>
+                  </label>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-5">
+							<div class="col-lg-4 col-md-6">
+								<div class="d-flex">
+									<div class="linkIcon pf"><i class="fas fa-laptop-code"></i></div>
+									<input formControlName="portfolio" type="text" class="form-control form-control-sm"
+                [placeholder]="'postYourResume.enterPortfolioUrl' | translate">
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="showhideswitch mt-2">
+									<input formControlName="portfolioBoolen" (change)="onSetLinks('portfolio', $event?.target?.checked);" [value]="true" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch9" >
+                  <label class="showhideswitch-label" for="myshowhideswitch9">
+                    <span class="showhideswitch-inner"></span>
+                    <span class="showhideswitch-switch"></span>
+                  </label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
       <div class="row mt-5">
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <button type="button" class="btn btn-secondary btn-block btn-lg">Cancel</button>
+            <button type="button" [routerLink]="[ '/employer/profile' ]" class="btn btn-secondary btn-block btn-lg">Cancel</button>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <button type="submit" class="btn btn-theme-blue btn-block btn-lg">Submit</button>
+            <button [disabled]="!createCompanyForm.valid" type="submit" class="btn btn-theme-blue btn-block btn-lg">Submit</button>
           </div>
         </div>
       </div>

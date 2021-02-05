@@ -44,7 +44,7 @@ export class VerifyAccountComponent implements OnInit {
         this.verifyAccountSuccess = false;
         if(error && error.error && error.error.errors)
           this.formError = error.error.errors;
-          this.onCountDown();
+          // this.onCountDown();
 
         this.isLoading = false;
       }

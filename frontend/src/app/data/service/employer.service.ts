@@ -113,4 +113,20 @@ export class EmployerService extends CacheService {
     );
   };
 
+  getCompanyProfileInfo = (params: any): Observable<GetResponse> => {
+    return this.apiService.get('/api/employers/company-profile', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
+  photoUpdate = (params?) => {
+    return this.apiService.post('/api/employers/update-photo', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
 }
