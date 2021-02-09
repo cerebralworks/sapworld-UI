@@ -9,6 +9,7 @@ import { UserService } from '@data/service/user.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-employer-candidate-matches',
@@ -52,7 +53,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   };
   public skillItems: any;
   public selectedResumeUrl: any;
-  selectedResume: any;
+  public selectedResume: any;
+  public savedProfiles: any[] = [];
 
   constructor(
     public sharedService: SharedService,
@@ -63,7 +65,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private employerSharedService: EmployerSharedService,
     private employerService: EmployerService,
-    private location: Location
+    private location: Location,
+    private toastrService: ToastrService
   ) {
     this.experienceFilter = [
       {value: {min: 0, max: 1}, text: 'Freshers'},
@@ -149,8 +152,11 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   }
 
   onGetFilteredValue(resumeArray: any[]): any {
-    if(resumeArray && Array.isArray(resumeArray) && !this.utilsHelperService.isEmptyObj(this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1))) {
-      return this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1).file;
+    if(resumeArray && Array.isArray(resumeArray)) {
+      const filteredValue = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1);
+      if(!this.utilsHelperService.isEmptyObj(filteredValue)) {
+        return this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1).file;
+      }
     }
     return "";
   }
@@ -374,6 +380,22 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       this.currentUserInfo = item;
     }
     this.isOpenedSendMailModal = status;
+  }
+
+  onSaveProfile = (item) => {
+    if((item && item.id)) {
+      let requestParams: any = {};
+      requestParams.user_id = item.id;
+      requestParams.delete = 0
+      this.employerService.saveProfile(requestParams).subscribe(
+        response => {
+          this.savedProfiles.push(item.id);
+        }, error => {
+        }
+      )
+    }else {
+      this.toastrService.error('Something went wrong', 'Failed')
+    }
   }
 
 }

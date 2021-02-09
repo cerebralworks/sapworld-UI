@@ -71,7 +71,7 @@
   <div class="col-lg-4 caption">
     <ul class="list-group">
       <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
-      <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li>
+      <!-- <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li> -->
       <li class="list-group-item text-capitalize" *ngIf="fieldsExclude?.salary">{{"postJob.salary" | translate}}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
       <li class=" list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
@@ -83,8 +83,11 @@
   </div>
   <div class="col-lg-8 info">
     <ul class="list-group">
-    <li class=" list-group-item text-capitalize">{{jobInfo?.type > -1 ? sharedService.onGetJobType(jobInfo?.type) : '--'}}</li>
-    <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{jobInfo?.contract_duration}} months</li>
+    <li class=" list-group-item text-capitalize">
+      {{jobInfo?.type > -1 ? sharedService.onGetJobType(jobInfo?.type) : '--'}}
+      <span *ngIf="(jobInfo?.type == '6' || jobInfo?.type == 6)">({{jobInfo?.contract_duration}} months)</span>
+    </li>
+    <!-- <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{jobInfo?.contract_duration}} months</li> -->
     <li class="list-group-item text-capitalize" *ngIf="fieldsExclude?.salary">
       <ng-container *ngIf="jobInfo?.salary_type == 0">
         {{sharedService.onGetCurrencyCode(jobInfo?.salary_currency)?.symbol + jobInfo?.salary + '/hr'}}

@@ -149,7 +149,7 @@
         <div class="col-lg-4 caption">
           <ul class="list-group">
             <li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
-            <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li>
+            <!-- <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li> -->
             <li class="list-group-item text-capitalize">{{"postJob.salary" | translate}}</li>
             <li class="list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
             <li class="list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
@@ -161,8 +161,11 @@
         </div>
         <div class="col-lg-6 info">
           <ul class="list-group">
-            <li class="list-group-item text-capitalize">{{sharedService.onGetJobType(postJobForm?.value?.jobInfo?.type)}}</li>
-            <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{postJobForm?.value?.jobInfo?.contract_duration}} months</li>
+            <li class="list-group-item text-capitalize">
+              {{sharedService.onGetJobType(postJobForm?.value?.jobInfo?.type)}}
+              <span *ngIf="(postJobForm?.value?.jobInfo?.type == '6' || postJobForm?.value?.jobInfo?.type == 6)">({{postJobForm?.value?.jobInfo?.contract_duration}} months)</span>
+            </li>
+            <!-- <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{postJobForm?.value?.jobInfo?.contract_duration}} months</li> -->
             <li class="list-group-item text-capitalize">
               <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
                 {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
@@ -170,6 +173,9 @@
               </ng-container>
               <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
                 {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}
+              </ng-container>
+              <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
+                {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Monthly pay'}}
               </ng-container>
               <ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
                 --

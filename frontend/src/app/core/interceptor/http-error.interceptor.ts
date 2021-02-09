@@ -37,6 +37,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap(evt => {
         if (evt instanceof HttpResponse) {
+          const re = /company-profile/gi;
           if (evt.body && evt.body.success && evt.body.message) {
             this.toastrService.success(
               evt.body.message,
@@ -68,10 +69,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 
             } else {
-              if (err.error.error.message) {
-                this.toastrService.error(err.error.error.message, '');
-              } else if (err.error.err) {
-                this.toastrService.error(err.error.err.msg || err.error.err.message, '');
+              const re = /company-profile/gi;
+              if (req.url.search(re) === -1 ) {
+                if (err.error.error.message) {
+                  this.toastrService.error(err.error.error.message, '');
+                } else if (err.error.err) {
+                  this.toastrService.error(err.error.err.msg || err.error.err.message, '');
+                }
               }
             }
           } catch (e) {

@@ -129,4 +129,20 @@ export class EmployerService extends CacheService {
     );
   }
 
+  shortListUser = (params?) => {
+    return this.apiService.post('/api/jobpostings/applications/short-list-user', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  saveProfile = (params?) => {
+    return this.apiService.post('/api/employers/save-profile', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
 }

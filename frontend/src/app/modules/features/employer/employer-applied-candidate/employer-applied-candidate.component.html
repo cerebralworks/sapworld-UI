@@ -21,6 +21,7 @@
               <th scope="col">{{"dashboard.mobile" | translate}}</th>
               <th scope="col">{{"dashboard.email" | translate}}</th>
               <th scope="col">{{"postJob.location" | translate}}</th>
+              <th scope="col">{{"dashboard.shortlist" | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -34,12 +35,18 @@
                 <td class="text-capitalize">
                   {{item?.user?.current_employer_role ? item?.user?.current_employer_role : '--'}}
                 </td>
-                <td>{{item?.user?.phone ? item?.user?.phone : '--'}}</td>
+                <td>{{item?.user?.phone ? (item?.user?.phone | phone) : '--'}}</td>
                 <td>{{item?.user?.email ? item?.user?.email : '--'}}</td>
                 <td class="text-capitalize">
                   {{item?.user?.city ? item?.user?.city + ', ' : ''}}
                   {{item?.user?.state ? item?.user?.state + ', ' : ''}}
                   {{item?.user?.country ? item?.user?.country : ''}}
+                </td>
+                <td class="text-capitalize">
+                 <button type="button" class="btn btn-sm btn-primary" (click)="onShortListUser(item)">
+
+                   {{item?.short_listed ? 'Add' : 'Remove'}}
+                  </button>
                 </td>
               </tr>
             </ng-container>

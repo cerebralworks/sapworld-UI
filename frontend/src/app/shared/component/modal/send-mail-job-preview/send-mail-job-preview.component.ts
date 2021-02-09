@@ -60,6 +60,31 @@ export class SendMailJobPreviewComponent implements OnInit {
     }
   }
 
+  onShortListUser = () => {
+    this.shortListUser(() => {
+      this.onSendMail()
+    });
+  }
+
+  shortListUser = (callBack = () => {}) => {
+    if((this.jobInfo && this.jobInfo.id) && (this.userInfo && this.userInfo.id)) {
+      let requestParams: any = {};
+      requestParams.job_posting = this.jobInfo.id;
+      requestParams.user = this.userInfo.id;
+      requestParams.short_listed = true;
+
+      this.employerService.shortListUser(requestParams).subscribe(
+        response => {
+          this.onClickCloseBtn(false);
+          callBack();
+        }, error => {
+        }
+      )
+    }else {
+      this.toastrService.error('Something went wrong', 'Failed')
+    }
+  }
+
   onSendMail = () => {
     if((this.jobInfo && this.jobInfo.id) && (this.userInfo && this.userInfo.email)) {
       let requestParams: any = {};
@@ -68,7 +93,7 @@ export class SendMailJobPreviewComponent implements OnInit {
 
       this.employerService.sendMail(requestParams).subscribe(
         response => {
-          this.toastrService.success('Mail sent  successfully', 'Success')
+          this.toastrService.success('Mail sent successfully', 'Success')
           this.onClickCloseBtn(false);
         }, error => {
           this.toastrService.error('Something went wrong', 'Failed')

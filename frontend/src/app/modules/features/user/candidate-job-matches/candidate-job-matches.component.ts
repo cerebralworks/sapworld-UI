@@ -63,7 +63,7 @@ export class CandidateJobMatchesComponent implements OnInit {
     // if (this.page == 0) {
     //   requestParams.user_id = this.userInfo.id;
     // }
-    requestParams.job_id = this.jobId;
+    // requestParams.job_id = this.jobId;
     requestParams.page = this.page;
 
     this.userService.getUserScoring(requestParams).subscribe(

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-employer-applied-candidate',
@@ -27,7 +28,8 @@ export class EmployerAppliedCandidateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private employerSharedService: EmployerSharedService
+    private employerSharedService: EmployerSharedService,
+    private toastrService: ToastrService
   ) {
     this.route.queryParams.subscribe(params => {
       if(params && !this.utilsHelperService.isEmptyObj(params)) {
@@ -117,6 +119,29 @@ export class EmployerAppliedCandidateComponent implements OnInit {
         }, error => {
         }
       )
+  }
+
+  onShortListUser = (item) => {
+    if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
+      let requestParams: any = {};
+      requestParams.job_posting = this.selectedJob.id;
+      requestParams.user = item.user.id;
+      requestParams.short_listed = item.short_listed ? false : true;
+
+      this.employerService.shortListUser(requestParams).subscribe(
+        response => {
+          this.appliedJobs = this.appliedJobs.map((value) => {
+            if(value.id == item.id) {
+              value.short_listed = item?.short_listed ? false : true;
+            }
+            return value;
+          });
+        }, error => {
+        }
+      )
+    }else {
+      this.toastrService.error('Something went wrong', 'Failed')
+    }
   }
 
   onLoadMoreJob = () => {

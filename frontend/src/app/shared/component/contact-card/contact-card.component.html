@@ -42,7 +42,7 @@
         <h6>
           <a href="mailto:{{userInfo?.email}}">
           <i class="fas fa-envelope" *ngIf="userInfo?.email"></i> {{userInfo?.email}}</a>
-          <i class="fas fa-mobile" *ngIf="userInfo?.phone"></i> {{userInfo?.phone}}
+          <i class="fas fa-mobile" *ngIf="userInfo?.phone"></i> {{userInfo?.phone | phone}}
         </h6>
         <h6 *ngIf="userInfo?.social_media_link?.length">
           <a class="mr-1" *ngFor="let item of userInfo?.social_media_link" href="{{item.url}}" target="_blank">

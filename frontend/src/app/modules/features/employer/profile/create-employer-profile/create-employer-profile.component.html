@@ -22,6 +22,11 @@
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class=" form-group">
+            <label>First Name</label>
+            <input formControlName="firstName" type="text" class="form-control text-capitalize" placeholder="First Name" value="">
+
+          </div>
+          <div class=" form-group">
             <label>Company Name</label>
             <input formControlName="name" type="text" class="form-control text-capitalize" placeholder="Company Name" value="">
             <app-control-messages [control]="f['name']"></app-control-messages>
@@ -32,20 +37,33 @@
             <input formControlName="email_id" type="email" class="form-control" placeholder="username@mail.com" value="sapfi-department22@gmail.com">
             <app-control-messages [control]="f['email_id']"></app-control-messages>
           </div>
-          <div class=" form-group">
+          <!-- <div class=" form-group">
             <label>Address</label>
             <input formControlName="address" type="text" class="form-control" placeholder="Ex. Plot No/Street">
             <app-control-messages [control]="f['address']"></app-control-messages>
+          </div> -->
+
+          <div class=" form-group">
+            <label>{{"postYourResume.city" | translate}}</label>
+            <input appMarkAsterisk ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)"
+              formControlName="city" type="text" class="form-control text-capitalize"
+              [placeholder]="'postYourResume.city' | translate">
+              <app-control-messages [control]="f['city']"></app-control-messages>
           </div>
-          <div class="form-group">
-            <label>{{"postYourResume.state" | translate}}</label>
-            <input formControlName="state" type="text" class="form-control text-capitalize"
-              [placeholder]="'postYourResume.state' | translate">
-            <app-control-messages [control]="f['state']"></app-control-messages>
+          <div class=" form-group">
+            <label>{{"postYourResume.zipCode" | translate}}</label>
+            <input appMarkAsterisk numbersOnly formControlName="zipcode" type="text" class="form-control"
+              [placeholder]="'postYourResume.zipCode' | translate">
+              <!-- <app-control-messages [control]="f['zipcode']"></app-control-messages> -->
           </div>
 
         </div>
         <div class="col-lg-4 col-md-6">
+          <div class=" form-group">
+            <label>Last Name</label>
+            <input formControlName="lastName" type="text" class="form-control text-capitalize" placeholder="Last Name" value="">
+
+          </div>
           <div class="form-group">
             <label>Company Url</label>
             <input formControlName="website" type="text" class="form-control" placeholder="www.wipro.com">
@@ -56,19 +74,19 @@
             <input formControlName="contact" type="text" class="form-control" placeholder="+00 004 1234567">
             <app-control-messages [control]="f['contact']"></app-control-messages>
           </div>
-          <div class=" form-group">
-            <label>{{"postYourResume.city" | translate}}</label>
-            <input appMarkAsterisk ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)"
-              formControlName="city" type="text" class="form-control text-capitalize"
-              [placeholder]="'postYourResume.city' | translate">
+          <div class="form-group">
+            <label>{{"postYourResume.state" | translate}}</label>
+            <input formControlName="state" type="text" class="form-control text-capitalize"
+              [placeholder]="'postYourResume.state' | translate">
+            <app-control-messages [control]="f['state']"></app-control-messages>
           </div>
-          <app-control-messages [control]="f['city']"></app-control-messages>
-          <div class=" form-group">
-            <label>{{"postYourResume.zipCode" | translate}}</label>
-            <input appMarkAsterisk numbersOnly formControlName="zipcode" type="text" class="form-control"
-              [placeholder]="'postYourResume.zipCode' | translate">
+
+          <div class="form-group">
+            <label>{{"postJob.country" | translate}}</label>
+            <input appMarkAsterisk formControlName="country" type="text" class="form-control text-uppercase"
+              [placeholder]="'postYourResume.country' | translate">
+              <app-control-messages [control]="f['country']"></app-control-messages>
           </div>
-          <app-control-messages [control]="f['zipcode']"></app-control-messages>
         </div>
         <div class="col-lg-4 mt-4 mt-4" style="z-index: 1;">
           <div class="upload-box">
@@ -88,28 +106,12 @@
             </div>
           </div>
         </div>
-        <!-- <div class="col-lg-4 col-md-6 mt-4">
-          <div class="upload-box d-none d-lg-block">
-            <div class="box text-center">
-              <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple="">
-              <label for="file-5">
-                <i class="fas fa-image"></i>
-                <span>Upload Logo <br> (Drag and Drop)</span>
-              </label>
-            </div>
-          </div>
-        </div> -->
-        <div class="col-md-8 form-group">
-          <label>{{"postJob.country" | translate}}</label>
-          <input appMarkAsterisk formControlName="country" type="text" class="form-control text-uppercase"
-            [placeholder]="'postYourResume.country' | translate">
 
-        </div>
-        <app-control-messages [control]="f['country']"></app-control-messages>
+
         <div class="col-md-8 form-group">
-          <label>{{"postJob.jobDescription" | translate}}</label>
+          <label>{{"dashboard.description" | translate}}</label>
           <angular-editor appMarkAsterisk formControlName="description" [config]="editorConfig"
-            [placeholder]="'postJob.jobDescription' | translate"></angular-editor>
+            [placeholder]="'dashboard.description' | translate"></angular-editor>
         </div>
         <app-control-messages [control]="f['description']"></app-control-messages>
       </div>

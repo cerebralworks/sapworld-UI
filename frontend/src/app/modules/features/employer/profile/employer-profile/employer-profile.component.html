@@ -152,7 +152,7 @@
               <p class="mb-0">Phone Number</p>
               <ng-container *ngIf="companyProfileInfo?.contact; else elsePhoneTemplate">
                 <h5 *ngFor="let item of companyProfileInfo?.contact; let i=index">
-                  {{item ? item : ''}}
+                  {{item ? (item | phone) : ''}}
                 </h5>
               </ng-container>
               <ng-template #elsePhoneTemplate>

@@ -88,9 +88,14 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
           console.log(this.employerDetails);
 
           this.createCompanyForm.patchValue({
-            email_id: this.employerDetails.email
+            email_id: this.employerDetails.email,
+            name: this.employerDetails.company,
+            firstName: this.employerDetails.first_name,
+            lastName: this.employerDetails.last_name,
           })
           this.createCompanyForm.get('email_id').disable();
+          this.createCompanyForm.get('firstName').disable();
+          this.createCompanyForm.get('lastName').disable();
         }
       }
     )
@@ -172,10 +177,12 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
       email_id: ['', [Validators.required, ValidationService.emailValidator]],
       name: ['', Validators.required],
       city: ['', Validators.required],
+      firstName: [''],
+      lastName: [''],
       state: ['', Validators.required],
-      address: ['', Validators.required],
+      address: [''],
       country: ['', Validators.required],
-      zipcode: [null, Validators.required],
+      zipcode: [null],
       description: ['', Validators.compose([Validators.required, Validators.minLength(100)])],
       website: ['', Validators.compose([Validators.required, ValidationService.urlValidator])],
       contact: [null, Validators.required],

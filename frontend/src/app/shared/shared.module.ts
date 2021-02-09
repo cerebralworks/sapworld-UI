@@ -34,6 +34,7 @@ import { SharedUserProfileComponent } from './component/shared-user-profile/shar
 import { SharedJobProfileComponent } from './component/shared-job-profile/shared-job-profile.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-preview/job-preview.component';
+import { PhonePipe } from './pipes/phone.pipe';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-p
     AppPasswordDirective,
     SharedUserProfileComponent,
     SharedJobProfileComponent,
-    JobPreviewModalComponent
+    JobPreviewModalComponent,
+    PhonePipe
   ],
   imports: [
     CommonModule,
@@ -110,7 +112,8 @@ import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-p
     Ng2TelInputModule,
     NgxDocViewerModule,
     NgxDocViewerModule,
-    JobPreviewModalComponent
+    JobPreviewModalComponent,
+    PhonePipe
   ],
   providers: [ApiService]
 })

@@ -27,7 +27,9 @@ const routes = {
     resetPassword: '/accounts/reset-password',
     jobDelete: '/jobpostings/delete',
     updateCompanyProfile: '/employers/update-company-profile',
+    shortListUser: '/jobpostings/applications/short-list-user',
     sendMail: '/jobpostings/send-email',
+    saveProfile: '/employers/save-profile',
     jobPostingView: '/jobpostings/view',
     employerCompanyProfile: '/employers/company-profile',
 }

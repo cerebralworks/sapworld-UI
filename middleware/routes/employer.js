@@ -87,6 +87,17 @@ module.exports = (app, env, rp) => {
     requestCustom.get(`${serverRoutes.employerCompanyProfile}`, req, res, requestBody);
   });
 
+  app.post("/api/jobpostings/applications/short-list-user", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.post(`${serverRoutes.shortListUser}`, req, res, requestBody);
+  });
+
+  app.post("/api/employers/save-profile", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.post(`${serverRoutes.saveProfile}`, req, res, requestBody);
+  });
+
+
   app.post("/api/employers/update-photo", (req, res) => {
     var form = new IncomingForm();
     form.parse(req, function(err, fields, files) {
