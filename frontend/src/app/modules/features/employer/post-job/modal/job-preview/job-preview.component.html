@@ -22,7 +22,9 @@
                   <h6 class="text-capitalize">
                     {{postJobForm?.value?.jobInfo?.city ? postJobForm?.value?.jobInfo?.city + ', ' : ''}}
                     {{postJobForm?.value?.jobInfo?.state ? postJobForm?.value?.jobInfo?.state + ', ' : ''}}
-                    {{postJobForm?.value?.jobInfo?.country ? postJobForm?.value?.jobInfo?.country : ''}}
+                    <span class="text-uppercase">
+                      {{postJobForm?.value?.jobInfo?.country ? postJobForm?.value?.jobInfo?.country : ''}}
+                    </span>
                     <!-- {{postJobForm?.value?.jobInfo?.zipcode ? postJobForm?.value?.jobInfo?.zipcode + ', ' : ''}} -->
                   </h6>
                 </div>

@@ -4,6 +4,7 @@ import { CandidateProfile } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
@@ -29,7 +30,8 @@ export class SendMailJobPreviewComponent implements OnInit {
     private modalService: NgbModal,
     public router: Router,
     private employerService: EmployerService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
@@ -61,9 +63,14 @@ export class SendMailJobPreviewComponent implements OnInit {
   }
 
   onShortListUser = () => {
-    this.shortListUser(() => {
+    if(this.userInfo && this.utilsHelperService.isEmptyObj(this.userInfo.job_application) && !this.userInfo.job_application.short_listed) {
+      this.shortListUser(() => {
+        this.onSendMail()
+      });
+    }else {
       this.onSendMail()
-    });
+    }
+
   }
 
   shortListUser = (callBack = () => {}) => {

@@ -26,7 +26,9 @@
                   <td class="text-capitalize">
                     {{item?.job_posting?.city ? item?.job_posting?.city + ', ' : ''}}
                     {{item?.job_posting?.state ? item?.job_posting?.state + ', ' : ''}}
-                    {{item?.job_posting?.country ? item?.job_posting?.country : ''}}
+                    <span class="text-uppercase">
+                      {{item?.job_posting?.country ? item?.job_posting?.country : ''}}
+                    </span>
                   </td>
                   <td>{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}</td>
                   <td  class="text-capitalize" [ngClass]="{'text-success': item?.job_posting?.status == 1, 'text-danger': item?.job_posting?.status == 0}">{{item?.job_posting?.status == 1 ? 'Open' : 'Closed'}} </td>

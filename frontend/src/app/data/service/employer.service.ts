@@ -145,4 +145,12 @@ export class EmployerService extends CacheService {
     );
   }
 
+  savedProfiles = (params?) => {
+    return this.apiService.get('/api/employers/saved-profiles', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
 }

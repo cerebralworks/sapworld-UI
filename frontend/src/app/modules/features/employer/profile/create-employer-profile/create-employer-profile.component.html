@@ -28,7 +28,7 @@
           </div>
           <div class=" form-group">
             <label>Company Name</label>
-            <input formControlName="name" type="text" class="form-control text-capitalize" placeholder="Company Name" value="">
+            <input appMarkAsterisk formControlName="name" type="text" class="form-control text-capitalize" placeholder="Company Name" value="">
             <app-control-messages [control]="f['name']"></app-control-messages>
           </div>
 
@@ -52,7 +52,7 @@
           </div>
           <div class=" form-group">
             <label>{{"postYourResume.zipCode" | translate}}</label>
-            <input appMarkAsterisk numbersOnly formControlName="zipcode" type="text" class="form-control"
+            <input numbersOnly formControlName="zipcode" type="text" class="form-control"
               [placeholder]="'postYourResume.zipCode' | translate">
               <!-- <app-control-messages [control]="f['zipcode']"></app-control-messages> -->
           </div>
@@ -66,7 +66,7 @@
           </div>
           <div class="form-group">
             <label>Company Url</label>
-            <input formControlName="website" type="text" class="form-control" placeholder="www.wipro.com">
+            <input appMarkAsterisk formControlName="website" type="text" class="form-control" placeholder="www.wipro.com">
             <app-control-messages [control]="f['website']"></app-control-messages>
           </div>
           <div class="form-group">
@@ -76,7 +76,7 @@
           </div>
           <div class="form-group">
             <label>{{"postYourResume.state" | translate}}</label>
-            <input formControlName="state" type="text" class="form-control text-capitalize"
+            <input appMarkAsterisk formControlName="state" type="text" class="form-control text-capitalize"
               [placeholder]="'postYourResume.state' | translate">
             <app-control-messages [control]="f['state']"></app-control-messages>
           </div>
@@ -109,11 +109,12 @@
 
 
         <div class="col-md-8 form-group">
-          <label>{{"dashboard.description" | translate}}</label>
+          <label>{{"dashboard.aboutUs" | translate}}</label>
           <angular-editor appMarkAsterisk formControlName="description" [config]="editorConfig"
-            [placeholder]="'dashboard.description' | translate"></angular-editor>
+            [placeholder]="'dashboard.aboutUs' | translate"></angular-editor>
+            <app-control-messages [control]="f['description']"></app-control-messages>
         </div>
-        <app-control-messages [control]="f['description']"></app-control-messages>
+
       </div>
       <div class="row">
 				<div class="col-lg-4 col-md-6">

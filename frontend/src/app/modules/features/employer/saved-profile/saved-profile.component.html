@@ -12,189 +12,57 @@
         </form>
       </div>
     </div>
-    <div class="row mb-5">
-      <div class="col-lg-4">
-        <div class="card job-card sm">
-          <div class="card-body">
-            <a href="job-candidate-profile-view.html">
-              <h5 class="mb-0">Jacky Smith</h5>
-              <h5><small>Project Manager</small></h5>
-            </a>
-            <div class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
-            <div class="media">
-              <img src="assets/images/user-img.jpg" style="width:36px;">
-              <div class="media-body">
-                <h6>Austin, TX, USA</h6>
-                <h6>Permanent, Full Time, Remote</h6>
+    <ng-container *ngFor="let row of chunk(savedProfile, 3); let i = index">
+      <div class="row mb-5" >
+        <div class="col-lg-4" *ngFor="let item of row">
+          <div class="card job-card sm">
+            <div class="card-body">
+              <a href="job-candidate-profile-view.html">
+                <h5 class="text-capitalize mb-0">
+                  {{item?.first_name + ' ' + item?.last_name}}
+                </h5>
+                <h5 class="text-capitalize"><small *ngIf="item?.job_role">{{item?.job_role}}</small></h5>
+              </a>
+              <div class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
+              <div class="media">
+                <img style="width:36px;" [src]="item?.photo ? (savedProfileMeta?.photo?.path+'/'+ savedProfileMeta?.photo?.folder+'/'+savedProfileMeta?.photo?.sizes?.medium+'/'+item?.photo) : 'assets/images/user-img-icon.jpg'">
+                <div class="media-body">
+                  <h6 class="text-capitalize">
+                    {{item?.city ? item?.city : ''}}
+                    {{item?.state ? ', ' + item?.state : ''}}
+                    <span class="text-uppercase">
+                      {{item?.country ? ', ' + item?.country : ''}}
+                    </span>
+                  </h6>
+                  <h6 class="text-capitalize" *ngIf="(item?.job_type || item?.job_type == 0)">{{(item?.job_type || item?.job_type == 0) ? sharedService.onGetJobType(item?.job_type) : ''}}</h6>
+                </div>
               </div>
-            </div>
-            <div class="mt-1">
-              <span data-toggle="modal" data-target="#exampleModal">
-                <a
-                (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
-                <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate}}</a>
-              </span>
-              <span data-toggle="modal" data-target="#notes">
-                <a (click)="onToggleNotesViewModal(true)" class="btn btn-outline-green btn-sm" href="javascript:;">
-                <i class="fas fa-edit"></i>{{"home.notes" | translate}}</a>
-              </span>
+              <div class="mt-1">
+                <span data-toggle="modal" data-target="#exampleModal">
+                  <a
+                  [class.disabled]="!onGetFilteredValue(item?.doc_resume)"
+                  (click)="onGetFilteredValue(item?.doc_resume) && onToggleResumeForm(true, (savedProfileMeta?.doc_resume?.path + '/' + savedProfileMeta?.doc_resume?.folder + '/' + onGetFilteredValue(item?.doc_resume)))"
+                  class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
+                  <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate}}</a>
+                </span>
+                <span data-toggle="modal" data-target="#notes">
+                  <a (click)="onToggleNotesViewModal(true)" class="btn btn-outline-green btn-sm" href="javascript:;">
+                  <i class="fas fa-edit"></i>{{"home.notes" | translate}}</a>
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="card job-card sm">
-          <div class="card-body">
-            <a href="job-candidate-profile-view.html">
-              <h5 class="mb-0">Balasubramanian</h5>
-              <h5><small> Jr.Project Manager</small></h5>
-            </a>
-            <div class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
-            <div class="media">
-              <img src="assets/images/user-img2.jpg" style="width:36px;">
-              <div class="media-body">
-                <h6>Chennai, India</h6>
-                <h6>Contract, Part Time</h6>
-              </div>
-            </div>
-            <div class="mt-1">
-              <span data-toggle="modal" data-target="#exampleModal">
-                <a
-                (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
-                <i class="fas fa-file-alt"></i> Resume</a>
-              </span>
-              <span data-toggle="modal" data-target="#notes">
-                <a (click)="onToggleNotesViewModal(true)" class="btn btn-outline-green btn-sm" href="javascript:;">
-                <i class="fas fa-edit"></i>{{"home.notes" | translate}}</a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card job-card sm">
-          <div class="card-body">
-            <a href="job-candidate-profile-view.html">
-              <h5 class="mb-0">Sindhu Gangadharan</h5>
-              <h5><small>Sr.Project Manager</small></h5>
-            </a>
-            <div class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
-            <div class="media">
-              <img src="assets/images/user-img3.jpg" style="width:36px;">
-              <div class="media-body">
-                <h6>Chennai, India</h6>
-                <h6>Permanent</h6>
-              </div>
-            </div>
-            <div class="mt-1">
-              <span data-toggle="modal" data-target="#exampleModal">
-                <a
-                (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
-                <i class="fas fa-file-alt"></i> Resume</a>
-              </span>
-              <span data-toggle="modal" data-target="#addnotes">
-                <a (click)="onToggleAddNotesModal(true)" class="btn btn-outline-green btn-sm" href="javascript:;">
-                <i class="fas fa-edit"></i>{{"home.addNotes" | translate}}</a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-5">
-      <div class="col-lg-4">
-        <div class="card job-card sm">
-          <div class="card-body">
-            <a href="job-candidate-profile-view.html">
-              <h5 class="mb-0">Jacky Smith</h5>
-              <h5><small>Project Manager</small></h5>
-            </a>
-            <div class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
-            <div class="media">
-              <img src="assets/images/user-img4.jpg" style="width:36px;">
-              <div class="media-body">
-                <h6>Austin, TX, USA</h6>
-                <h6>Permanent, Full Time, Remote</h6>
-              </div>
-            </div>
-            <div class="mt-1">
-              <span data-toggle="modal" data-target="#exampleModal">
-                <a
-                (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
-                <i class="fas fa-file-alt"></i> Resume</a>
-              </span>
-              <span data-toggle="modal" data-target="#addnotes">
-                <a (click)="onToggleAddNotesModal(true)" class="btn btn-outline-green btn-sm" href="javascript:;">
-                <i class="fas fa-edit"></i>Add Notes</a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card job-card sm">
-          <div class="card-body">
-            <a href="job-candidate-profile-view.html">
-              <h5 class="mb-0">Balasubramanian</h5>
-              <h5><small> Jr.Project Manager</small></h5>
-            </a>
-            <div class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
-            <div class="media">
-              <img src="assets/images/user-img-icon.jpg" style="width:36px;">
-              <div class="media-body">
-                <h6>Chennai, India</h6>
-                <h6>Contract, Part Time</h6>
-              </div>
-            </div>
-            <div class="mt-1">
-              <span data-toggle="modal" data-target="#exampleModal">
-                <a
-                (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
-                <i class="fas fa-file-alt"></i> Resume</a>
-              </span>
-              <span data-toggle="modal" data-target="#addnotes">
-                <a (click)="onToggleAddNotesModal(true)" class="btn btn-outline-green btn-sm" href="javascript:;">
-                <i class="fas fa-edit"></i>Add Notes</a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card job-card sm">
-          <div class="card-body">
-            <a href="job-candidate-profile-view.html">
-              <h5 class="mb-0">Sindhu Gangadharan</h5>
-              <h5><small>Sr.Project Manager</small></h5>
-            </a>
-            <div class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
-            <div class="media">
-              <img src="assets/images/user-img-icon.jpg" style="width:36px;">
-              <div class="media-body">
-                <h6>Chennai, India</h6>
-                <h6>Permanent</h6>
-              </div>
-            </div>
-            <div class="mt-1">
-              <span data-toggle="modal" data-target="#exampleModal">
-                <a
-                (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
-                <i class="fas fa-file-alt"></i> Resume</a>
-              </span>
-              <span data-toggle="modal" data-target="#addnotes">
-                <a (click)="onToggleAddNotesModal(true)" class="btn btn-outline-green btn-sm" href="javascript:;">
-                <i class="fas fa-edit"></i>Add Notes</a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </ng-container>
+
+
   </div>
 </section>
 
 
 <app-resume-modal
+[url]="selectedResumeUrl"
 *ngIf="isOpenedResumeModal"
 [toggleResumeModal]="isOpenedResumeModal"
 (onEvent)="onToggleResumeForm($event)">

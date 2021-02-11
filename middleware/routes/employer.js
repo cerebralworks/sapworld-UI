@@ -97,6 +97,10 @@ module.exports = (app, env, rp) => {
     requestCustom.post(`${serverRoutes.saveProfile}`, req, res, requestBody);
   });
 
+  app.get("/api/employers/saved-profiles", (req, res) => {
+    let requestBody = { ...req.query };    
+    requestCustom.get(`${serverRoutes.savedProfiles}`, req, res, requestBody);
+  });
 
   app.post("/api/employers/update-photo", (req, res) => {
     var form = new IncomingForm();

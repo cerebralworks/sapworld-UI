@@ -60,7 +60,9 @@
                       <h6 class="text-capitalize">
                         {{item?.city ? item?.city + ', ' : ''}}
                         {{item?.state ? item?.state + ', ' : ''}}
-                        {{item?.country ? item?.country : ''}}
+                        <span class="text-uppercase">
+                          {{item?.country ? item?.country : ''}}
+                        </span>
                       </h6>
                       <h6>{{item?.experience ? item?.experience + ' Years Exp.' : ''}} <span *ngIf="item?.type">{{' , '}}</span>{{item?.type ? sharedService.onGetJobType(item?.type) : ''}} <span *ngIf="item?.remote" class="remote pl-2">Remote</span></h6>
                       <div class="mt-2">

@@ -41,7 +41,9 @@
                 <td class="text-capitalize">
                   {{item?.city ? item?.city + ', ' : ''}}
                   {{item?.state ? item?.state + ', ' : ''}}
-                  {{item?.country ? item?.country : ''}}
+                  <span class="text-uppercase">
+                    {{item?.country ? item?.country : ''}}
+                  </span>
                 </td>
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
                 <td class="text-center">

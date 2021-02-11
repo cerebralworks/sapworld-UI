@@ -37,7 +37,9 @@
         <h6 class="text-capitalize">
           {{userInfo?.city ? userInfo?.city : ''}}
           {{userInfo?.state ? ', ' + userInfo?.state : ''}}
-          {{userInfo?.country ? ', ' + userInfo?.country : ''}}
+          <span class="text-uppercase">
+            {{userInfo?.country ? ', ' + userInfo?.country : ''}}
+          </span>
         </h6>
         <h6>
           <a href="mailto:{{userInfo?.email}}">

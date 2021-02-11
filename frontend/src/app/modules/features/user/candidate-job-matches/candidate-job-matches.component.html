@@ -48,7 +48,9 @@
                       <h6 class="mb-0 text-capitalize">
                         {{matchingJob?.jobs?.city ? matchingJob?.jobs?.city : ''}}
                         {{matchingJob?.jobs?.state ? ', ' + matchingJob?.jobs?.state : ''}}
-                        {{matchingJob?.jobs?.country ? ', ' + matchingJob?.jobs?.country : ''}}
+                        <span class="text-uppercase">
+                          {{matchingJob?.jobs?.country ? ', ' + matchingJob?.jobs?.country : ''}}
+                        </span>
                       </h6>
                       <form class="form-inline">
                         <a href="#" class="mr-3" data-toggle="modal" data-target="#matchpostModal">

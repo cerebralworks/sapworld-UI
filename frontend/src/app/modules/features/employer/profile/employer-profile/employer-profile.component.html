@@ -13,7 +13,9 @@
               <h6>
                 {{companyProfileInfo?.city ? companyProfileInfo?.city : ''}}
                 {{companyProfileInfo?.state ? ', ' + companyProfileInfo?.state : ''}}
-                {{companyProfileInfo?.country ? ', ' + companyProfileInfo?.country : ''}}
+                <span class="text-uppercase">
+                  {{companyProfileInfo?.country ? ', ' + companyProfileInfo?.country : ''}}
+                </span>
               </h6>
               <h6>
                 {{companyProfileInfo?.website}}
@@ -91,7 +93,9 @@
                     <h5>
                       {{item?.city ? item?.city : ''}}
                       {{item?.state ? ', ' + item?.state : ''}}
-                      {{item?.country ? ', ' + item?.country : ''}}
+                      <span class="text-uppercase">
+                        {{item?.country ? ', ' + item?.country : ''}}
+                      </span>
                     </h5>
                     <h5><i class="far fa-clock"></i>
                       {{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}
@@ -144,7 +148,7 @@
           <div class="row  mb-3">
             <div class="col">
               <p class="mb-0">Email Address</p>
-              <h5>{{companyProfileInfo?.email_id ? companyProfileInfo?.email_id : '--'}}</h5>
+              <h5>{{companyProfileInfo?.email_id ? companyProfileInfo?.email_id : employerDetails?.email ? employerDetails?.email : '--'}}</h5>
             </div>
           </div>
           <div class="row  mb-3">

@@ -39,7 +39,9 @@
                   <h6 class="text-capitalize">
                     {{childForm?.value?.personalDetails?.city ? childForm?.value?.personalDetails?.city : ''}}
                     {{childForm?.value?.personalDetails?.state ? ', ' + childForm?.value?.personalDetails?.state : ''}}
-                    {{childForm?.value?.personalDetails?.country ? ', ' + childForm?.value?.personalDetails?.country : ''}}
+                    <span class="text-uppercase">
+                      {{childForm?.value?.personalDetails?.country ? ', ' + childForm?.value?.personalDetails?.country : ''}}
+                    </span>
                   </h6>
                   <h6>
                     <a href="mailto:{{userInfo?.email}}">

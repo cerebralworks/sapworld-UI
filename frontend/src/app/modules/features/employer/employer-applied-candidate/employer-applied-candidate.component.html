@@ -40,7 +40,9 @@
                 <td class="text-capitalize">
                   {{item?.user?.city ? item?.user?.city + ', ' : ''}}
                   {{item?.user?.state ? item?.user?.state + ', ' : ''}}
-                  {{item?.user?.country ? item?.user?.country : ''}}
+                  <span class="text-uppercase">
+                    {{item?.user?.country ? item?.user?.country : ''}}
+                  </span>
                 </td>
                 <td class="text-capitalize">
                  <button type="button" class="btn btn-sm btn-primary" (click)="onShortListUser(item)">

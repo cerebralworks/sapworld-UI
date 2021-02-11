@@ -30,6 +30,7 @@ const routes = {
     shortListUser: '/jobpostings/applications/short-list-user',
     sendMail: '/jobpostings/send-email',
     saveProfile: '/employers/save-profile',
+    savedProfiles: '/employers/saved-profiles',
     jobPostingView: '/jobpostings/view',
     employerCompanyProfile: '/employers/company-profile',
 }

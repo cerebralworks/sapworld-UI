@@ -42,7 +42,9 @@
                   <td class="text-capitalize">
                     {{item?.user?.city ? item?.user?.city + ', ' : ''}}
                     {{item?.user?.state ? item?.user?.state + ', ' : ''}}
-                    {{item?.user?.country ? item?.user?.country : ''}}
+                    <span class="text-uppercase">
+                      {{item?.user?.country ? item?.user?.country : ''}}
+                      </span>
                   </td>
                 </tr>
               </ng-container>

@@ -51,4 +51,5 @@ export interface CandidateProfile {
   travel: number;
   phone: any;
   email: string;
+  job_application: any
 }

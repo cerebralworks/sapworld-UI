@@ -155,6 +155,14 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
         requestParams.contact = this.createCompanyForm.value.contact
       }
 
+      if(requestParams && requestParams.website) {
+        const re = /http/gi;
+        if (requestParams.website.search(re) === -1 ) {
+          requestParams.website = `http://${requestParams.website}`
+        }
+      }
+
+
       this.employerService.updateCompanyProfile(requestParams).subscribe(
         response => {
           if (this.croppedFile) {
@@ -185,7 +193,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
       zipcode: [null],
       description: ['', Validators.compose([Validators.required, Validators.minLength(100)])],
       website: ['', Validators.compose([Validators.required, ValidationService.urlValidator])],
-      contact: [null, Validators.required],
+      contact: [null],
       latlng: [null, Validators.required],
       social_media_link: [null],
       linkedin: new FormControl(''),

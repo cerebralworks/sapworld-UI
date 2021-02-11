@@ -31,7 +31,9 @@
                   <h6 class="mb-0 text-capitalize">
                     {{postedJobsDetails?.city ? postedJobsDetails?.city : ''}}
                     {{postedJobsDetails?.state ? ', ' + postedJobsDetails?.state : ''}}
-                    {{postedJobsDetails?.country ? ', ' + postedJobsDetails?.country : ''}}
+                    <span class="text-uppercase">
+                      {{postedJobsDetails?.country ? ', ' + postedJobsDetails?.country : ''}}
+                    </span>
                   </h6>
                 </div>
                 <div class="pc-btn">
@@ -77,8 +79,10 @@
                         <h6 class="mb-0 text-capitalize">
                           {{matchingUsers?.profile?.city ? matchingUsers?.profile?.city : ''}}
                           {{matchingUsers?.profile?.state ? ', ' + matchingUsers?.profile?.state : ''}}
-                          {{matchingUsers?.profile?.country ? ', ' + matchingUsers?.profile?.country : ''}}
-                        </h6>
+                          <span class="text-uppercase">
+                            {{matchingUsers?.profile?.country ? ', ' + matchingUsers?.profile?.country : ''}}
+                          </span>
+                          </h6>
                         <form class="form-inline">
                           <a ref="javascript:;" (click)="onToggleResumeForm(true)" class="mr-3" data-toggle="modal" data-target="#resumeModal">
                             <small><i class="fas fa-file-alt"></i> Resume</small>

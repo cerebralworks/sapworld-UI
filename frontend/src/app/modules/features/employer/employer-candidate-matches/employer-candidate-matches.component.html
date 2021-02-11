@@ -54,10 +54,15 @@
                         <h5 class="text-capitalize">
                           <span>{{(item?.first_name ? item?.first_name : '') + ' ' + (item?.last_name ? item?.last_name : '')}}</span>
                           <small *ngIf="item?.job_role"> - {{item?.job_role}}</small>
+                          <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application)" class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;">Applied</span>
                         </h5>
+                        <!-- <h6> -->
+
+                        <!-- </h6> -->
                       </a>
                     </div>
                     <div class="col-lg-5 text-right mt-2">
+
                       <span data-toggle="modal" data-target="#exampleModal">
                         <a
                         [class.disabled]="!onGetFilteredValue(item?.doc_resume)"
@@ -79,7 +84,9 @@
                       <h6 class="text-capitalize">
                         {{item?.city ? item?.city : ''}}
                         {{item?.state ? ', ' + item?.state : ''}}
-                        {{item?.country ? ', ' + item?.country : ''}}
+                        <span class="text-uppercase">
+                          {{item?.country ? ', ' + item?.country : ''}}
+                        </span>
                       </h6>
                       <h6>{{item?.experience ? 'Total Years Exp: ' + item?.experience : ''}}
                         <span *ngIf="item?.sap_experience">, {{item?.sap_experience ? 'SAP Exp: ' + item?.sap_experience : ''}}</span>
