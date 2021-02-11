@@ -233,7 +233,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     }
 
     requestParams.additional_fields = 'job_application';
-    // requestParams.city = this.selectedJob.city;
+    requestParams.city = this.selectedJob.city;
 
     const removeEmpty = this.utilsHelperService.clean(requestParams)
 

@@ -58,12 +58,19 @@ export class CandidateJobMatchesComponent implements OnInit {
     }
   }
 
-  onGetUserScoringById = () => {
+  onViewOtherMatches = () => {
+    this.onGetUserScoringById(true);
+  }
+
+  onGetUserScoringById = (isMultipleMatch: boolean = false) => {
     let requestParams: any = {};
     // if (this.page == 0) {
     //   requestParams.user_id = this.userInfo.id;
     // }
-    // requestParams.job_id = this.jobId;
+    if (!isMultipleMatch) {
+      requestParams.job_id = this.jobId;
+    }
+
     requestParams.page = this.page;
 
     this.userService.getUserScoring(requestParams).subscribe(

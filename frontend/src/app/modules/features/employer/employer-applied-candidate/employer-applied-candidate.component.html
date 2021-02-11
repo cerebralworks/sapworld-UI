@@ -22,6 +22,7 @@
               <th scope="col">{{"dashboard.email" | translate}}</th>
               <th scope="col">{{"postJob.location" | translate}}</th>
               <th scope="col">{{"dashboard.shortlist" | translate}}</th>
+              <th scope="col">{{"dashboard.action" | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -46,8 +47,12 @@
                 </td>
                 <td class="text-capitalize">
                  <button type="button" class="btn btn-sm btn-primary" (click)="onShortListUser(item)">
-
-                   {{item?.short_listed ? 'Add' : 'Remove'}}
+                   {{item?.short_listed ? 'Remove' : 'Add'}}
+                  </button>
+                </td>
+                <td class="text-capitalize">
+                  <button  [routerLink]="['/employer/job-candidate-matches', item?.job_posting?.id, item?.user?.id]" type="button" class="btn btn-sm btn-secondary">
+                    View Score
                   </button>
                 </td>
               </tr>

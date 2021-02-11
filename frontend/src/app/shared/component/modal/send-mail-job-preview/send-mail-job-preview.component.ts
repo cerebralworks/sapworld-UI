@@ -63,12 +63,12 @@ export class SendMailJobPreviewComponent implements OnInit {
   }
 
   onShortListUser = () => {
-    if(this.userInfo && this.utilsHelperService.isEmptyObj(this.userInfo.job_application) && !this.userInfo.job_application.short_listed) {
+    if(this.userInfo && !this.utilsHelperService.isEmptyObj(this.userInfo.job_application)) {
+      this.onSendMail()
+    }else {
       this.shortListUser(() => {
         this.onSendMail()
       });
-    }else {
-      this.onSendMail()
     }
 
   }

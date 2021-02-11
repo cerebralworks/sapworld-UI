@@ -70,9 +70,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     )
   }
 
-  onGetJobScoringById = () => {
+  onGetJobScoringById = (isMultipleMatch: boolean = false) => {
     let requestParams: any = {};
-    if (this.page == 0) {
+    if (!isMultipleMatch) {
       requestParams.user_id = this.userId;
     }
     requestParams.id = this.jobId;
@@ -89,6 +89,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     )
   }
 
+  onViewOtherMatches = () => {
+    this.onGetJobScoringById(true);
+  }
+
   onChangeUser = (type) => {
     if (type == 'next') {
       const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? this.matchingUsers.meta.count : 0;
@@ -96,13 +100,13 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
 
       if(this.page > count) {
         this.page++;
-        this.onGetJobScoringById();
+        this.onGetJobScoringById(true);
       }
 
     } else if (type == 'prev' && this.page > 0) {
       this.page--;
       if (this.page <= 0) {
-        this.onGetJobScoringById();
+        this.onGetJobScoringById(true);
       }
 
     }
