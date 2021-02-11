@@ -73,7 +73,8 @@ export class SavedProfileComponent implements OnInit {
       requestParams.delete = 1;
       this.employerService.saveProfile(requestParams).subscribe(
         response => {
-          this.savedProfile.splice(index, 1)
+          this.savedProfile.splice(index, 1);
+          this.savedProfileMeta.total = this.savedProfileMeta.total-1;
         }, error => {
         }
       )

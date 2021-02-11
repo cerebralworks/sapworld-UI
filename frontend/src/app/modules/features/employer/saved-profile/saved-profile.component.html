@@ -69,7 +69,7 @@
     </ng-template>
 
 
-    <div class="d-flex justify-content-center" *ngIf="((savedProfileMeta?.count > 0 && savedProfileMeta?.total > 1) && (savedProfileMeta?.total != savedProfile?.length))">
+    <div class="d-flex justify-content-center" *ngIf="((savedProfileMeta?.count > 0 && savedProfileMeta?.total > 25) && (savedProfileMeta?.total != savedProfile?.length))">
       <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
         Load More
       </button>
