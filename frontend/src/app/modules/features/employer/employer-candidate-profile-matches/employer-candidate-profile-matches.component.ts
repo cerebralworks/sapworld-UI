@@ -20,7 +20,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   public isOpenedOtherPostModal: boolean = false;
   public jobId: string;
   public postedJobsDetails: any;
-  public page: number = 0;
+  public page: number = 1;
   public userId: string;
   public matchingUsers: any = {};
   public cusLoadsh: any = lodash;
@@ -95,20 +95,16 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
 
   onChangeUser = (type) => {
     if (type == 'next') {
-      const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? this.matchingUsers.meta.count : 0;
-      console.log('count', count);
+      const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? parseInt(this.matchingUsers.meta.count) : 0;
 
-      if(this.page > count) {
+      if(count > this.page) {
         this.page++;
         this.onGetJobScoringById(true);
       }
 
-    } else if (type == 'prev' && this.page > 0) {
+    } else if (type == 'prev' && this.page > 1) {
       this.page--;
-      if (this.page <= 0) {
-        this.onGetJobScoringById(true);
-      }
-
+      this.onGetJobScoringById(true);
     }
   }
 
@@ -162,13 +158,11 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   }
 
   onDiff = (arr1: any[] = [], arr2: any[] = []) => {
-    console.log(arr1, arr2);
 
     if (arr1 && arr1.length && arr2 && arr2.length) {
       let difference = arr1
         .filter(x => !arr2.includes(x))
         .concat(arr2.filter(x => !arr1.includes(x)));
-      console.log('difference', difference);
       return difference;
     }
     return [];
@@ -184,9 +178,6 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       lowerCaseUser = isString ? this.onLoweCase(this.matchingUsers.profile[field2]) : this.matchingUsers.profile[field2];
     }
 
-    console.log('lowerCaseJob', lowerCaseJob);
-    console.log('lowerCaseUser', lowerCaseUser);
-console.log(item);
 const itemMod = isString ? item.toLowerCase() : item;
     if (lowerCaseJob.includes(itemMod) && type == 'check') {
       return { type: 'check', class: 'text-green' }

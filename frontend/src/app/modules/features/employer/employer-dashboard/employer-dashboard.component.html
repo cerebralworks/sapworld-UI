@@ -37,20 +37,28 @@
 					  </li>
 					  <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'matches', tabNumber: 2})"
-            [ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}} <small>(59)</small></a>
+            [ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}}
+            <!-- <small>(59)</small> -->
+          </a>
 					  </li>
 					  <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'applicants', tabNumber: 3})"
-            [ngClass]="{'active': currentTabInfo.tabNumber == 3}" class="nav-link" href="javascript:;">{{"dashboard.applicants" | translate}} <small>(43)</small></a>
+            [ngClass]="{'active': currentTabInfo.tabNumber == 3}" class="nav-link" href="javascript:;">{{"dashboard.applicants" | translate}}
+            <!-- <small>(43)</small> -->
+          </a>
 					  </li>
 					  <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'shortlisted', tabNumber: 4})"
-            [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">{{"dashboard.shortlisted" | translate}} <small>(26)</small></a>
+            [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">{{"dashboard.shortlisted" | translate}}
+            <!-- <small>(26)</small> -->
+          </a>
             </li>
             <li class="nav-item">
               <a (click)="onTabChange({tabName: 'savedProfile', tabNumber: 5})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 5}"
-              class="nav-link" href="javascript:;">{{"dashboard.savedProfile" | translate}} <small>(6)</small></a>
+              class="nav-link" href="javascript:;">{{"dashboard.savedProfile" | translate}}
+              <!-- <small>(6)</small> -->
+            </a>
               </li>
 					</ul>
 				</div>

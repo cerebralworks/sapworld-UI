@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angula
 import { LoggedIn } from '@data/schema/account';
 import { GetResponse } from '@data/schema/response';
 import { AccountService } from '@data/service/account.service';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -22,6 +23,11 @@ export class JobDetailViewComponent implements OnInit {
   public industries: GetResponse;
   public loggedUserInfo: LoggedIn;
   public previousUrl: string;
+  public postedJobs: any[] = [];
+  public postedJobMeta: any = {};
+  public limit: number = 25;
+  public page: number = 1;
+  public validateSubscribe: number = 0;
 
   constructor(
     public employerService: EmployerService,
@@ -29,17 +35,29 @@ export class JobDetailViewComponent implements OnInit {
     public sharedService: SharedService,
     private accountService: AccountService,
     private location: Location,
-    public utilsHelperService: UtilsHelperService
+    public utilsHelperService: UtilsHelperService,
+    private employerSharedService: EmployerSharedService
   ) {
   }
 
   ngOnInit(): void {
     const jobId = this.route.snapshot.paramMap.get('id');
     if(jobId) {
-      this.onGetPostedJob(jobId);
+      this.onGetPostedJobDetails(jobId);
       this.onGetSkill();
       this.onGetIndustries();
     }
+
+    this.employerSharedService.getEmployerProfileDetails().subscribe(
+      details => {
+        if(details) {
+          if((details && details.id) && this.validateSubscribe == 0) {
+            // this.onGetPostedJob(details.id);
+            this.validateSubscribe ++;
+          }
+        }
+      }
+    )
 
     this.accountService
       .isCurrentUser()
@@ -52,7 +70,7 @@ export class JobDetailViewComponent implements OnInit {
     this.location.back();
   }
 
-  onGetPostedJob(jobId) {
+  onGetPostedJobDetails(jobId) {
     let requestParams: any = {};
     requestParams.expand = 'company';
     requestParams.id = jobId;
@@ -61,6 +79,24 @@ export class JobDetailViewComponent implements OnInit {
         if(response && response.details) {
           this.postedJobsDetails = response.details;
         }
+      }, error => {
+      }
+    )
+  }
+
+  onGetPostedJob(companyId) {
+    let requestParams: any = {};
+    requestParams.page = this.page;
+    requestParams.limit = this.limit;
+    requestParams.expand = 'company';
+    requestParams.company = companyId;
+    requestParams.sort = 'most_popular.desc';
+    this.employerService.getPostedJob(requestParams).subscribe(
+      response => {
+        if(response && response.items && response.items.length > 0) {
+          this.postedJobs = [...this.postedJobs, ...response.items];
+        }
+        this.postedJobMeta = { ...response.meta };
       }, error => {
       }
     )

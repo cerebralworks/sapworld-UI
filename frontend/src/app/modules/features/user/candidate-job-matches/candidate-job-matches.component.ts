@@ -19,7 +19,7 @@ export class CandidateJobMatchesComponent implements OnInit {
   public isOpenedJDModal: boolean = false;
   public userInfo: CandidateProfile;
   public jobId: string;
-  public page: number = 0;
+  public page: number = 1;
   public matchingJob: any = {};
   public cusLoadsh: any = lodash;
   public currentJobDetails: any;
@@ -89,17 +89,14 @@ export class CandidateJobMatchesComponent implements OnInit {
       const count = this.matchingJob && this.matchingJob.meta && this.matchingJob.meta.count ? this.matchingJob.meta.count : 0;
       console.log('count', count);
 
-      if(this.page > count) {
+      if(count > this.page) {
         this.page++;
-        this.onGetUserScoringById();
+        this.onGetUserScoringById(true);
       }
 
-    } else if (type == 'prev' && this.page > 0) {
+    } else if (type == 'prev' && this.page > 1) {
       this.page--;
-      if (this.page <= 0) {
-        this.onGetUserScoringById();
-      }
-
+      this.onGetUserScoringById(true);
     }
   }
 

@@ -32,7 +32,7 @@
         <app-shared-user-profile [fieldsExclude]="{clients_worked: true, job_role: true, willing_to_relocate: true}" [userInfo]="userInfo"></app-shared-user-profile>
       </div>
       <div class="col-lg-6">
-        <div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel">
+        <div id="carouselProfile" class="carousel slide job-info-container" data-interval="false" data-ride="carousel">
           <div class="carousel-inner">
           <!--Profile1-->
           <div class="carousel-item active">
@@ -78,7 +78,7 @@
                   SCORE <span>{{matchingJob?.score ? matchingJob?.score :
                     0}}/10</span>
                 </div>
-                <div class="col-lg-12 mt-3">
+                <div class="col-lg-12 mt-4">
                   <h6 class="font-weight-bold">&nbsp;</h6>
                 </div>
                 <!-- <div class="col-lg-12 mt-2">
@@ -381,7 +381,7 @@
           <!--//Profile1-->
           </div>
           <!--PrevNext-->
-          <div class="matchCount" style="top:-45px;">{{page+1}}/{{matchingJob?.meta?.count}}</div>
+          <div class="matchCount" style="top:-45px;">{{page}}/{{matchingJob?.meta?.count}}</div>
           <a (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
             data-slide="prev" style="top:-45px;">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

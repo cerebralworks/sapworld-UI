@@ -10,7 +10,7 @@
             </div>
             <div class="media-body">
               <h5 class="mt-0">{{employerDetails?.company ? employerDetails?.company : ''}}</h5>
-              <h6>
+              <h6 class="text-capitalize">
                 {{companyProfileInfo?.city ? companyProfileInfo?.city : ''}}
                 {{companyProfileInfo?.state ? ', ' + companyProfileInfo?.state : ''}}
                 <span class="text-uppercase">
@@ -90,7 +90,7 @@
                 <div class="col-lg-6" *ngFor="let item of postedJobs; let i=index">
                   <div class="company-jbcard">
                     <h4><a [routerLink]="['/employer/job-detail-view', item?.id]" href="javascript:;">{{item?.title}}</a></h4>
-                    <h5>
+                    <h5 class="text-capitalize">
                       {{item?.city ? item?.city : ''}}
                       {{item?.state ? ', ' + item?.state : ''}}
                       <span class="text-uppercase">

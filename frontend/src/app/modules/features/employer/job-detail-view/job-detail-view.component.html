@@ -43,7 +43,7 @@
                 <div class="media">
                   <div class="media-body">
                     <h6>{{postedJobsDetails?.company?.company ? postedJobsDetails?.company?.company : ''}}</h6>
-                    <h6>
+                    <h6 class="text-capitalize">
                       {{postedJobsDetails?.city ? postedJobsDetails?.city + ', ' : ''}}
                       {{postedJobsDetails?.state ? postedJobsDetails?.state + ', ' : ''}}
                       <!-- {{postedJobsDetails?.zipcode ? postedJobsDetails?.zipcode + ', ' : ''}} -->
@@ -61,37 +61,16 @@
         <app-shared-job-profile [jobInfo]="postedJobsDetails" [fieldsExclude]="{salary: true, visa_sponsorship: true, end_to_end_implementation: true}">
         </app-shared-job-profile>
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-4" *ngIf="postedJobs?.length && !postedJobs?.includes(postedJobsDetails?.id)">
         <div class="title">
           <h2>{{"dashboard.yourPostJobs" | translate }}</h2>
         </div>
         <div class="sidebar-widget text-left">
-          <div class="card">
-            <div class="card-body p-3">
-              <h5>Senior Officer - (SAP-MM)</h5>
-              <h6 class="mb-2">Matchings - 23</h6>
-              <h6>Applicants - 14</h6>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body p-3">
-              <h5>Financial Developer - (SAP-FSCM)</h5>
-              <h6 class="mb-2">Matchings - 26</h6>
-              <h6>Applicants - 17</h6>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body p-3">
-              <h5>Senior Officer - (SAP-MM)</h5>
-              <h6 class="mb-2">Matchings - 23</h6>
-              <h6>Applicants - 14</h6>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body p-3">
-              <h5>Financial Developer - (SAP-FSCM)</h5>
-              <h6 class="mb-2">Matchings - 26</h6>
-              <h6>Applicants - 17</h6>
+          <div class="card" *ngFor="let item of postedJobs; let i=index">
+            <div class="card-body p-3" *ngIf="item?.id != postedJobsDetails?.id">
+              <h5 class="text-capitalize">{{item?.title}}</h5>
+              <!-- <h6 class="mb-2">Matchings - 23</h6>
+              <h6>Applicants - 14</h6> -->
             </div>
           </div>
         </div>
