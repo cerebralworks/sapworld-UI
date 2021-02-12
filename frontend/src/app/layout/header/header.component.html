@@ -24,12 +24,12 @@
               <i class="fas fa-user-tie pr-1 align-middle"></i> {{"home.jobseeker" | translate}}
             </a>
           </li>
-          <li *ngIf="!router?.url?.includes('/agency')" class="nav-item mr-3 my-1">
+          <!-- <li *ngIf="!router?.url?.includes('/agency')" class="nav-item mr-3 my-1">
             <a (click)="onRedirectUrl('/auth/agency/login')" class="btn btn-outline-orange py-2 px-3"
               href="javascript:;">
               <i class="fas fa-briefcase"></i> {{"home.staffingAgency" | translate}}
             </a>
-          </li>
+          </li> -->
         </ul>
         <ul class="navbar-nav lang-icon">
           <li class="dropdown test-{{translateService.currentLang}}">

@@ -36,11 +36,16 @@ export class JobDetailViewComponent implements OnInit {
     private accountService: AccountService,
     private location: Location,
     public utilsHelperService: UtilsHelperService,
-    private employerSharedService: EmployerSharedService
+    private employerSharedService: EmployerSharedService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+
     const jobId = this.route.snapshot.paramMap.get('id');
     if(jobId) {
       this.onGetPostedJobDetails(jobId);
@@ -52,7 +57,7 @@ export class JobDetailViewComponent implements OnInit {
       details => {
         if(details) {
           if((details && details.id) && this.validateSubscribe == 0) {
-            // this.onGetPostedJob(details.id);
+            this.onGetPostedJob(details.id);
             this.validateSubscribe ++;
           }
         }
@@ -67,7 +72,12 @@ export class JobDetailViewComponent implements OnInit {
   }
 
   onRedirectBack = () => {
-    this.location.back();
+    if(this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
+      this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'postedJobs'}})
+    }else {
+      this.location.back();
+    }
+
   }
 
   onGetPostedJobDetails(jobId) {

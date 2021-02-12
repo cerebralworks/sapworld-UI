@@ -55,6 +55,10 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public selectedResumeUrl: any;
   public selectedResume: any;
   public savedProfiles: any[] = [];
+  public userListForCountry: any[] = [];
+  public userListForCountryMeta: any;
+  public countryCount: any = {};
+  public selectCountry: string = "";
 
   constructor(
     public sharedService: SharedService,
@@ -122,8 +126,6 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
         }
 
         this.queryParams = {...this.queryParams, ...urlQueryParams };
-        console.log(this.queryParams);
-
       }
     });
   }
@@ -149,6 +151,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
         }
       }
     )
+    // this.onGetCandidateListForCountry();
   }
 
   onGetFilteredValue(resumeArray: any[]): any {
@@ -175,6 +178,49 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       this.onGetCandidateList(this.selectedJob.id);
     }
 
+  }
+
+  onGetCandidateListForCountry() {
+    let requestParams: any = {...this.queryParams};
+    requestParams.page = this.page;
+    requestParams.limit = this.limit;
+    requestParams.status = 1;
+    requestParams.city = (this.selectedJob&& this.selectedJob.city )? this.selectedJob.city : '';
+    if(requestParams.job_types && requestParams.job_types.length) {
+      requestParams.job_types = requestParams.job_types.join(',')
+    }
+
+    const removeEmpty = this.utilsHelperService.clean(requestParams)
+
+    this.userService.getUsers(removeEmpty).subscribe(
+      response => {
+        if(response && response.items && response.items.length > 0) {
+          const userListForCountry = [...response.items];
+          userListForCountry.map((value, index) => {
+            if(value.country) {
+              this.userListForCountry.push(value.country);
+            }
+          });
+          this.userListForCountry.forEach((i) => { this.countryCount[i] = (this.countryCount[i]||0) + 1;});
+          this.userListForCountry = this.userListForCountry.filter( function( item, index, inputArray ) {
+            return inputArray.indexOf(item) == index;
+          });
+        }
+        this.userListForCountryMeta = { ...response.meta };
+      }, error => {
+      }
+    )
+  }
+
+  onChangeCountry = (item) => {
+    this.selectCountry = item;
+    this.userList = this.userList.filter((value) => {
+      if(value && value.country) {
+        return value.country.includes(item);
+      }
+
+    })
+    // this.selectedJob && this.selectedJob.id && this.onGetCandidateList(this.selectedJob.id);
   }
 
   onGetPostedJob(companyId) {
@@ -234,6 +280,10 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
     requestParams.additional_fields = 'job_application';
     requestParams.city = this.selectedJob.city;
+
+    if(this.selectCountry) {
+      requestParams.country = this.selectCountry;
+    }
 
     const removeEmpty = this.utilsHelperService.clean(requestParams)
 
