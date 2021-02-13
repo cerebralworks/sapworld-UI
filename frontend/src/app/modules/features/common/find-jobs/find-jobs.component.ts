@@ -45,8 +45,8 @@ export class FindJobsComponent extends CacheService implements OnInit {
   };
   public skillItems: any = {};
   public customParseInt: any = parseInt;
-  cityString: string;
-  skillString: any;
+  public cityString: string;
+  public skillString: any;
 
   constructor(
     public sharedService: SharedService,

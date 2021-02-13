@@ -30,7 +30,7 @@
               <ng-container *ngIf="shortListedJobs?.length; else elseTemplate">
                 <tr *ngFor="let item of shortListedJobs">
                   <td>
-                    <a class="text-capitalize" [routerLink]="['/employer/candidate-profile']"  href="javascript:;">
+                    <a class="text-capitalize"  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.user?.id, jobId: item?.job_posting?.id}"  href="javascript:;">
                       {{item?.user?.first_name + ' ' + item?.user?.last_name}}
                     </a>
                     </td>

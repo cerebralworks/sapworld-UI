@@ -38,8 +38,10 @@
                 </div>
                 <div class="pc-btn">
                   <a class="btn btn-outline-blue btn-sm mr-1"
-                    [routerLink]="['/employer/job-multiple-candidate-matches']" href="javascript:;">
-                    {{"dashboard.matches" | translate}}
+                  (click)="onViewOtherMatches()"
+                     href="javascript:;">
+                    <!-- {{"dashboard.matches" | translate}} -->
+                    View All Candidates
                   </a>
                   <a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right" href="javascript:;">
                     <i class="fas fa-file-alt"></i> JD</a>
@@ -87,7 +89,7 @@
                           <a ref="javascript:;" (click)="onToggleResumeForm(true)" class="mr-3" data-toggle="modal" data-target="#resumeModal">
                             <small><i class="fas fa-file-alt"></i> Resume</small>
                           </a>
-                          <a (click)="onViewOtherMatches()" href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+                          <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
                             <small><i class="fab fa-buffer"></i> View Other Matches</small>
                           </a>
                         </form>

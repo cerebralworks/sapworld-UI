@@ -52,7 +52,7 @@
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'applied', tabNumber: 4})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">
-              {{"dashboard.applied" | translate}}
+              {{"dashboard.jobsApplied" | translate}}
               <!-- <small>(12)</small> -->
             </a>
           </li>
@@ -65,7 +65,8 @@
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'resume', tabNumber: 6})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 6}" class="nav-link" href="javascript:;">
-              {{"dashboard.resume" | translate}}</a>
+              {{"dashboard.myResumes" | translate}}
+            </a>
           </li>
         </ul>
       </div>

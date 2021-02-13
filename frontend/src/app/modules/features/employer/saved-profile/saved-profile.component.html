@@ -21,7 +21,7 @@
             <div class="col-lg-4" *ngIf="!utilsHelperService.isEmptyObj(item)">
               <div class="card job-card sm" >
                 <div class="card-body">
-                  <a href="job-candidate-profile-view.html">
+                  <a  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.id, jobId: item?.job_posting?.id}">
                     <h5 class="text-capitalize mb-0">
                       {{item?.first_name + ' ' + item?.last_name}}
                     </h5>

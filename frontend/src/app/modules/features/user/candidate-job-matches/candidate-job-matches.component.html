@@ -53,7 +53,7 @@
                         </span>
                       </h6>
                       <form class="form-inline">
-                        <a  (click)="onViewOtherMatches()" href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+                        <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
                           <small><i class="fab fa-buffer"></i> View Other Matches</small>
                         </a>
                       </form>
@@ -381,6 +381,9 @@
           <!--//Profile1-->
           </div>
           <!--PrevNext-->
+          <a style="top:-45px;position: absolute;right: 85px;" (click)="onViewOtherMatches()" href="javascript:;" class="btn btn-sm btn-primary mr-3">
+            <small><i class="fab fa-buffer"></i> View All Jobs</small>
+          </a>{{matchingJob?.meta | json}}
           <div class="matchCount" style="top:-45px;">{{page}}/{{matchingJob?.meta?.count}}</div>
           <a (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
             data-slide="prev" style="top:-45px;">

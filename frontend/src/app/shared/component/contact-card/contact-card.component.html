@@ -25,7 +25,7 @@
             <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
           </a>
         </span>
-        <span  *ngIf="isMail">
+        <span  *ngIf="isMail && jobInfo?.id">
           <a (click)="onToggleSendMail(true)"  class="btn btn-outline-orange btn-sm ml-1" href="javascript:;">
           <i class="fas fa-paper-plane"></i> Send Mail</a>
         </span>

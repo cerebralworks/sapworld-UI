@@ -59,6 +59,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public userListForCountryMeta: any;
   public countryCount: any = {};
   public selectCountry: string = "";
+  public customObject: any = Object;
+  public tempQueryParams: any = {};
 
   constructor(
     public sharedService: SharedService,
@@ -152,6 +154,10 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       }
     )
     // this.onGetCandidateListForCountry();
+  }
+
+  ngDoCheck(): void {
+    this.tempQueryParams = {...this.queryParams}
   }
 
   onGetFilteredValue(resumeArray: any[]): any {

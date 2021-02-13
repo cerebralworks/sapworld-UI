@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '@shared/service/data.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -15,21 +16,29 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
     tabName: 'Profile',
     tabNumber: 1
   };
-  toggleResumeModal: boolean;
+  public toggleResumeModal: boolean;
   @ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
-  mbRef: NgbModalRef;
+  public mbRef: NgbModalRef;
+  public queryParams: any = {};
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dataService: DataService,
-    private modelService: NgbModal
+    private modelService: NgbModal,
+    private utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
+
+    this.route.queryParams.subscribe(params => {
+      if(params && !this.utilsHelperService.isEmptyObj(params)) {
+        this.queryParams = {...params}
+      }
+    });
 
     const activeTab = this.route.snapshot.queryParamMap.get('activeTab');
     if(activeTab) {
@@ -90,7 +99,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
   onTabChange = (tabInfo: tabInfo) => {
     this.currentTabInfo = tabInfo;
     const navigationExtras: NavigationExtras = {
-      queryParams: {activeTab: tabInfo.tabName}
+      queryParams: {...this.queryParams, activeTab: tabInfo.tabName}
     };
 
     this.router.navigate([], navigationExtras);
