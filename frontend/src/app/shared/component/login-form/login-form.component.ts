@@ -41,8 +41,10 @@ export class LoginFormComponent implements OnInit {
   login() {
     this.isLoading = true;
 
-    const userCredentials = this.loginForm.value;
+    let userCredentials = this.loginForm.value;
+
     if (this.loginForm.valid) {
+      userCredentials.username = userCredentials.username.toLowerCase();
       this.accountService.login(userCredentials).subscribe(
         response => {
           this.isLoading = false;

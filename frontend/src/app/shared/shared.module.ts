@@ -35,6 +35,8 @@ import { SharedJobProfileComponent } from './component/shared-job-profile/shared
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-preview/job-preview.component';
 import { PhonePipe } from './pipes/phone.pipe';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,8 @@ import { PhonePipe } from './pipes/phone.pipe';
     NgxSliderModule,
     PerfectScrollbarModule,
     Ng2TelInputModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    CarouselModule
   ],
   exports: [
     LoginFormComponent,
@@ -113,7 +116,8 @@ import { PhonePipe } from './pipes/phone.pipe';
     NgxDocViewerModule,
     NgxDocViewerModule,
     JobPreviewModalComponent,
-    PhonePipe
+    PhonePipe,
+    CarouselModule
   ],
   providers: [ApiService]
 })

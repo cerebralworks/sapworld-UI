@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -22,12 +23,15 @@ export class SavedProfileComponent implements OnInit {
   public savedProfileMeta: any;
   public selectedResumeUrl: string;
   public searchField: FormControl = new FormControl();
+  public employerDetails: any = {};
+  public validateSubscribe: number = 0;
 
   constructor(
     private employerService: EmployerService,
     public sharedService: SharedService,
     public utilsHelperService: UtilsHelperService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private employerSharedService: EmployerSharedService
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +45,15 @@ export class SavedProfileComponent implements OnInit {
       this.onGetSavedProfile(term);
     });
 
-
-    this.onGetSavedProfile()
+    this.employerSharedService.getEmployerProfileDetails().subscribe(
+      details => {
+        if (!this.utilsHelperService.isEmptyObj(details) && this.validateSubscribe == 0) {
+          this.employerDetails = details;
+          this.onGetSavedProfile();
+          this.validateSubscribe ++;
+        }
+      }
+    )
   }
 
   onGetSavedProfile = (searchString?: string) => {
@@ -50,6 +61,7 @@ export class SavedProfileComponent implements OnInit {
     requestParams.page = this.page;
     requestParams.limit = this.limit;
     requestParams.status = 1;
+    // requestParams.company = this.employerDetails.company;
 
     if (searchString) {
       requestParams.search = searchString;

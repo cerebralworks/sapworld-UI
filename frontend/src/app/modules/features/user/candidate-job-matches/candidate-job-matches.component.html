@@ -341,16 +341,16 @@
                     <span *ngIf="matchedElement && (matchingJob?.jobs?.work_authorization == userInfo?.work_authorization)">
                       <i class="fa fa-check-circle text-green small"></i>
                       {{(matchingJob?.jobs?.work_authorization || matchingJob?.jobs?.work_authorization ==
-                        0)
-                        ? (matchingJob?.jobs?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                        translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                        0) ? (matchingJob?.jobs?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
                     </span>
                     <span *ngIf="missingElement && (matchingJob?.jobs?.work_authorization != userInfo?.work_authorization)">
                       <i class="fa fa-times-circle text-danger small"></i>
                       {{(matchingJob?.jobs?.work_authorization || matchingJob?.jobs?.work_authorization ==
+                        0) ? (matchingJob?.jobs?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
+                      <!-- {{(matchingJob?.jobs?.work_authorization || matchingJob?.jobs?.work_authorization ==
                         0)
                         ? (matchingJob?.jobs?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                        translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                        translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}} -->
                     </span>
                   </li>
                   <li class="list-group-item">
@@ -383,7 +383,7 @@
           <!--PrevNext-->
           <a style="top:-45px;position: absolute;right: 85px;" (click)="onViewOtherMatches()" href="javascript:;" class="btn btn-sm btn-primary mr-3">
             <small><i class="fab fa-buffer"></i> View All Jobs</small>
-          </a>{{matchingJob?.meta | json}}
+          </a>
           <div class="matchCount" style="top:-45px;">{{page}}/{{matchingJob?.meta?.count}}</div>
           <a (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
             data-slide="prev" style="top:-45px;">

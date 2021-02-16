@@ -119,7 +119,7 @@ export class RegisterFormComponent implements OnInit {
     requestParams.first_name = userInfo.firstName;
     requestParams.last_name = userInfo.lastName;
     requestParams.company = userInfo.companyName;
-    requestParams.email = userInfo.email;
+    requestParams.email = userInfo.email ? userInfo.email.toLowerCase() : '';
     requestParams.password = userInfo.password;
     return requestParams;
   }

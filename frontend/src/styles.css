@@ -5,6 +5,8 @@
 }
 
 @import "~@ng-select/ng-select/themes/ant.design.theme.css";
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
 @keyframes modal-animation {
   0%   {transform: scale(0.5)}

@@ -99,7 +99,6 @@ export class AppComponent {
         if(this.employerProfileInfo && this.employerProfileInfo.details) {
           this.employerProfileInfo.details = {...this.employerProfileInfo.details, meta: this.employerProfileInfo.meta};
           this.employerSharedService.saveEmployerProfileDetails(this.employerProfileInfo.details);
-          // this.router.navigate([this.returnUserUrl]);
         }
 
       }, error => {
@@ -115,14 +114,8 @@ export class AppComponent {
         if(this.userProfileInfo && this.userProfileInfo.details) {
           this.userProfileInfo.details = {...this.userProfileInfo.details, meta: this.userProfileInfo.meta};
           this.userSharedService.saveUserProfileDetails(this.userProfileInfo.details);
-          // if () {
             if(this.userProfileInfo && this.userProfileInfo.details.profile_completed == false && this.validateCall == 0) {
               this.router.navigate(['/user/create-candidate']);
-            // }
-            // else {
-            //   this.router.navigate([this.returnUserUrl]);
-            // }
-
             this.validateCall++;
           }
         }
