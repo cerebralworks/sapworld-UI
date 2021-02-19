@@ -7,6 +7,7 @@ import { SharedService } from '@shared/service/shared.service';
 
 import * as lodash from 'lodash';
 import { CandidateProfile } from '@data/schema/create-candidate';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-employer-candidate-profile-matches',
@@ -14,7 +15,6 @@ import { CandidateProfile } from '@data/schema/create-candidate';
   styleUrls: ['./employer-candidate-profile-matches.component.css']
 })
 export class EmployerCandidateProfileMatchesComponent implements OnInit {
-
   public isOpenedJDModal: boolean = false;
   public isOpenedResumeModal: boolean = false;
   public isOpenedOtherPostModal: boolean = false;
@@ -29,6 +29,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   public matchedElement: boolean = true;
   public missingElement: boolean = true;
   public moreElement: boolean = true;
+  public isMultipleMatches: boolean = false;
+  public matchingUsersMeta: any = { count: 0 };
+  public matchingUsersNew: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +56,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     if (this.jobId && this.userId) {
       this.onGetPostedJob();
       this.onGetJobScoringById();
+      this.onGetJobScoringById(true, true);
     }
   }
 
@@ -70,7 +74,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     )
   }
 
-  onGetJobScoringById = (isMultipleMatch: boolean = false) => {
+  onGetJobScoringById = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
     let requestParams: any = {};
     if (!isMultipleMatch) {
       requestParams.user_id = this.userId;
@@ -80,8 +84,25 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
 
     this.employerService.getJobScoring(requestParams).subscribe(
       response => {
-        if (response && !this.utilsHelperService.isEmptyObj(response.profile)) {
+        if (response && !isCount) {
           this.matchingUsers = { ...response }
+        }
+        if (isCount) {
+          this.matchingUsersMeta = { ...response.meta }
+        }
+      }, error => {
+      }
+    )
+  }
+  onGetJobScoringByIdNew = () => {
+    let requestParams: any = {};
+    requestParams.id = this.jobId;
+    requestParams.page = this.page;
+
+    this.employerService.getJobScoring(requestParams).subscribe(
+      response => {
+        if (response) {
+          this.matchingUsersNew = { ...response };
         }
 
       }, error => {
@@ -90,21 +111,56 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   }
 
   onViewOtherMatches = () => {
-    this.onGetJobScoringById(true);
+    if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+      this.isMultipleMatches = true;
+      this.onGetJobScoringById(true);
+      this.page++;
+      setTimeout(() => {
+        this.onGetJobScoringByIdNew();
+      }, 300);
+    }
+
   }
 
   onChangeUser = (type) => {
+
+
     if (type == 'next') {
       const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? parseInt(this.matchingUsers.meta.count) : 0;
 
-      if(count > this.page) {
-        this.page++;
-        this.onGetJobScoringById(true);
+      if (count > this.page) {
+        if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+          this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
+          this.matchingUsers = { ...this.matchingUsers, profile: {} };
+          this.page++;
+          console.log(this.page);
+
+          this.onGetJobScoringById(true);
+          if(count > this.page) {
+            this.page++;
+            setTimeout(() => {
+              this.onGetJobScoringByIdNew();
+            }, 300);
+          };
+          // console.log(count, this.page, count > this.page);
+
+
+        }
       }
 
-    } else if (type == 'prev' && this.page > 1) {
-      this.page--;
-      this.onGetJobScoringById(true);
+    } else if (type == 'prev' && this.page > 2) {
+      if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+        this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
+        this.matchingUsers = { ...this.matchingUsers, profile: {} };
+        this.page--;
+        this.page <= 3 && this.page--;
+        this.onGetJobScoringByIdNew();
+        this.page--;
+        setTimeout(() => {
+
+          this.page >= 1 && this.onGetJobScoringById(true); this.page++;
+        }, 300);
+      }
     }
   }
 
@@ -178,7 +234,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       lowerCaseUser = isString ? this.onLoweCase(this.matchingUsers.profile[field2]) : this.matchingUsers.profile[field2];
     }
 
-const itemMod = isString ? item.toLowerCase() : item;
+    const itemMod = isString ? item.toLowerCase() : item;
     if (lowerCaseJob.includes(itemMod) && type == 'check') {
       return { type: 'check', class: 'text-green' }
     } else if (!lowerCaseUser.includes(itemMod) && type == 'info') {
@@ -211,8 +267,8 @@ const itemMod = isString ? item.toLowerCase() : item;
     return { type: '', class: '' }
   }
 
-  onToggleSendMail = (status,item?) => {
-    if(item && !this.utilsHelperService.isEmptyObj(item)) {
+  onToggleSendMail = (status, item?) => {
+    if (item && !this.utilsHelperService.isEmptyObj(item)) {
       this.currentUserInfo = item;
     }
     this.isOpenedSendMailModal = status;

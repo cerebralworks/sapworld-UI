@@ -18,7 +18,7 @@
 <section class="my-5">
   <div class="container container-big">
     <div class="row">
-      <div class="col-lg-6">
+      <div [ngClass]="(isMultipleMatches === true)?'col-lg-4':'col-lg-6'">
         <div class="row">
           <div class="col-lg-12">
             <div class="card profile-card border p-2">
@@ -56,608 +56,707 @@
         </app-shared-job-profile>
 
       </div>
-      <div class="col-lg-6">
+      <div [ngClass]="(isMultipleMatches === true)?'col-lg-8':'col-lg-6'">
         <div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel">
           <div class="carousel-inner">
             <!--Profile1-->
             <div class="carousel-item active">
-              <div class="row info-box">
-                <div class="col-lg-12">
-                  <div class="card profile-card">
-                    <div class="d-flex">
-                      <div class="pc-img">
-												<img
-                          [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
-											</div>
-                      <div class="pc-info">
-                        <a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
-                          <h5 class="text-capitalize">
-                            <span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
-                              + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
-                            <small *ngIf="matchingUsers?.profile?.job_role"> -
-                              {{matchingUsers?.profile?.job_role}}</small>
-                          </h5>
-                        </a>
-                        <h6 class="mb-0 text-capitalize">
-                          {{matchingUsers?.profile?.city ? matchingUsers?.profile?.city : ''}}
-                          {{matchingUsers?.profile?.state ? ', ' + matchingUsers?.profile?.state : ''}}
-                          <span class="text-uppercase">
-                            {{matchingUsers?.profile?.country ? ', ' + matchingUsers?.profile?.country : ''}}
+              <div class="row">
+                <div *ngIf="!utilsHelperService.isEmptyObj(matchingUsers?.profile)" [ngClass]="(isMultipleMatches === true)?'col-lg-6':'col-lg-12'" >
+                  <div class="row info-box">
+                    <div class="col-lg-12">
+                      <div class="card profile-card">
+                        <div class="d-flex">
+                          <div class="pc-img">
+                            <img
+                              [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
+                          </div>
+                          <div class="pc-info">
+                            <a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
+                              <h5 class="text-capitalize">
+                                <span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
+                                  + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
+                                <small *ngIf="matchingUsers?.profile?.job_role"> -
+                                  {{matchingUsers?.profile?.job_role}}</small>
+                              </h5>
+                            </a>
+                            <h6 class="mb-0 text-capitalize">
+                              {{matchingUsers?.profile?.city ? matchingUsers?.profile?.city : ''}}
+                              {{matchingUsers?.profile?.state ? ', ' + matchingUsers?.profile?.state : ''}}
+                              <span class="text-uppercase">
+                                {{matchingUsers?.profile?.country ? ', ' + matchingUsers?.profile?.country : ''}}
+                              </span>
+                              </h6>
+                            <form class="form-inline">
+                              <a ref="javascript:;" (click)="onToggleResumeForm(true)" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+                                <small><i class="fas fa-file-alt"></i> Resume</small>
+                              </a>
+                              <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+                                <small><i class="fab fa-buffer"></i> View Other Matches</small>
+                              </a>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="matchs-info" *ngIf="!isMultipleMatches">
+                        <button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+                        <button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-2"> Missing </button>
+                        <button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+                        <button (click)="onReset()" class="btn btn-sm btn-light ml-1">
+                        <i class="fas fa-sync"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-lg-12 info mt-3">
+                      <div class="score"
+                        [ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
+                        {{"dashboard.score" | translate}} <span>{{matchingUsers?.score ? matchingUsers?.score :
+                          0}}/10</span>
+                      </div>
+                      <ul class="list-group">
+                        <li class="list-group-item">
+                          <span class="matchTxt">
+                            <span *ngIf="matchedElement && (matchingUsers?.profile?.experience >= postedJobsDetails?.experience);">
+                              <i class="far fa-check-circle text-green small"></i>
+                              {{matchingUsers?.profile?.experience ? matchingUsers?.profile?.experience + ' Years' : '--'}}
+                            </span>
+                            <span  *ngIf="missingElement && (matchingUsers?.profile?.experience < postedJobsDetails?.experience);">
+                              <i class="far fa-times-circle text-danger small"></i>
+                              {{matchingUsers?.profile?.experience ? matchingUsers?.profile?.experience + ' Years' : '--'}}
+                            </span>
+     </span>
+                        </li>
+                        <li class="list-group-item">
+                          <span *ngIf="matchedElement && (matchingUsers?.profile?.sap_experience >= postedJobsDetails?.sap_experience)">
+                            <i class="far fa-check-circle text-green small"></i>
+                            {{matchingUsers?.profile?.sap_experience ? matchingUsers?.profile?.sap_experience + ' Years' :'--'}}
                           </span>
-                          </h6>
-                        <form class="form-inline">
-                          <a ref="javascript:;" (click)="onToggleResumeForm(true)" class="mr-3" data-toggle="modal" data-target="#resumeModal">
-                            <small><i class="fas fa-file-alt"></i> Resume</small>
-                          </a>
-                          <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
-                            <small><i class="fab fa-buffer"></i> View Other Matches</small>
-                          </a>
-                        </form>
+                          <span *ngIf="missingElement && (matchingUsers?.profile?.sap_experience < postedJobsDetails?.sap_experience)">
+                            <i class="far fa-check-circle text-green small"></i>
+                            {{matchingUsers?.profile?.sap_experience ? matchingUsers?.profile?.sap_experience + ' Years' :'--'}}
+                          </span>  </li>
+                        <li class="list-group-item text-capitalize">
+
+
+                          <ng-container *ngFor="let item of matchingUsers?.profile?.domains_worked; let first = first;">
+                            <span class="matchTxt text-capitalize" *ngIf="matchedElement && onChangeStringNumber('domain', 'domains_worked', item, 'check').type == 'check'">
+                              <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                              {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                            </span>
+                            <!-- <span *ngIf="((first && (matchedElement && !missingElement && !moreElement)) && !(onChangeStringNumber('domain', 'domains_worked', item, 'check').type == 'check'))">--</span> -->
+                          </ng-container>
+                          <ng-container *ngFor="let item of onChangeValue(matchingUsers?.profile?.domains_worked, postedJobsDetails?.domain); let first = first;">
+                            <span class="matchTxt text-capitalize" *ngIf="moreElement && (onChangeStringNumber('domain', 'domains_worked', item, 'close').type == 'close')">
+                              <i  class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                              {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                            </span>  </ng-container>
+                          <ng-container  *ngFor="let item of postedJobsDetails?.domain; let first = first;">
+                            <span class="matchTxt text-capitalize" *ngIf="missingElement && (onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info')">
+                              <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                              {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                            </span>  </ng-container>
+
+                        </li>
+                        <li class="list-group-item text-uppercase d-flex">
+                          <ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
+                            <ng-container *ngFor="let item of matchingUsers?.profile?.hands_on_experience; let i = index; let first = first;">
+                              <div class="text-center border-right pr-3"
+                                *ngIf="matchedElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'check', 'skill_id').type == 'check'">
+                                  {{utilsHelperService.onSplitTag(item.skill_name)}}
+                                  <br>
+                                <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                                ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                              </div>
+                            </ng-container>
+
+                            <ng-container
+                              *ngFor="let item of onChangeValue(matchingUsers?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience); let i = index; let first = first;">
+                              <div class="text-center border-right pr-3"
+                                *ngIf="moreElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
+                                  {{utilsHelperService.onSplitTag(item.skill_name)}}
+                                  <br>
+                                <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                                ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                              </div>
+                            </ng-container>
+
+                            <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index; let first = first;">
+                              <div class="text-center border-right pr-3"
+                                *ngIf="missingElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'info', 'skill_id').type == 'info'">
+                                  {{utilsHelperService.onSplitTag(item.skill_name)}}
+                                  <br>
+                                <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                                ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                              </div>
+                            </ng-container>
+
+                          </ng-container>
+                          <ng-template #elseHandsTemplate>
+                            <p>--</p>
+                          </ng-template>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-lg-12 border-top pt-3"> </div>
+                    <div class="col-lg-12 info">
+                      <ul class="list-group">
+                        <li class="list-group-item text-uppercase">
+                          <ng-container *ngIf="matchingUsers?.profile?.skills?.length; else elseSkillsTemplate">
+
+                            <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(matchingUsers?.profile?.skills, matchingUsers?.profile?.hands_on_experience, 'skill_id'); let first = first;">
+                              <span
+                                *ngIf="matchedElement && onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
+                                <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                                {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+
+                              </span>
+                            </ng-container>
+
+                            <ng-container
+                              *ngFor="let item of onChangeValue(matchingUsers?.profile?.skills, postedJobsDetails?.skills); let first = first;">
+                              <span
+                                *ngIf="moreElement && onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
+                                <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                                {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+
+                              </span>
+                            </ng-container>
+
+                            <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id'); let first = first;">
+                              <span
+                                *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
+                                <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                                {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+
+                              </span>
+                            </ng-container>
+                          </ng-container>
+                          <ng-template #elseSkillsTemplate>
+                            <p>--</p>
+                          </ng-template>
+                        </li>
+                        <li class="list-group-item text-capitalize">
+                          <ng-container *ngFor="let item of matchingUsers?.profile?.programming_skills; let first = first;let i = index;">
+                            <span
+                              *ngIf="matchedElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true).type == 'check'">
+                              <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
+                              {{item}}
+                            </span>
+                          </ng-container>
+
+                          <ng-container
+                            *ngFor="let item of onChangeValue(matchingUsers?.profile?.programming_skills, postedJobsDetails?.programming_skills); let first = first;let i = index;">
+                            <span
+                              *ngIf="moreElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
+                              <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
+                              {{item}}
+                            </span>
+                          </ng-container>
+
+                          <ng-container *ngFor="let item of postedJobsDetails?.programming_skills; let first = first;let i = index;">
+                            <span
+                              *ngIf="missingElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'info', true).type == 'info'">
+                              <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
+                              {{item}}
+                            </span>
+                          </ng-container>
+                        </li>
+                        <li class="list-group-item text-capitalize">
+                          <ng-container *ngFor="let item of matchingUsers?.profile?.other_skills; let first = first;let i = index;">
+                            <span
+                              *ngIf="matchedElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'check', true).type == 'check'">
+                              <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
+                              {{item}}
+                            </span>
+                          </ng-container>
+
+                          <ng-container
+                            *ngFor="let item of onChangeValue(matchingUsers?.profile?.other_skills, postedJobsDetails?.optinal_skills); let first = first;let i = index;">
+                            <span
+                              *ngIf="moreElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'close', true).type == 'close'">
+                              <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
+                              {{item}}s
+                            </span>
+                          </ng-container>
+
+                          <ng-container *ngFor="let item of postedJobsDetails?.optinal_skills; let first = first;let i = index;">
+                            <span
+                              *ngIf="missingElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'info', true).type == 'info'">
+                              <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
+                              {{item}}
+                            </span>
+                          </ng-container>
+                        </li>
+                        <li class="list-group-item text-capitalize">
+                          <ng-container *ngFor="let item of matchingUsers?.profile?.certification; let first = first;">
+                            <span
+                              *ngIf="matchedElement && onChangeStringNumber('certification', 'certification', item, 'check', true).type == 'check'">
+                              <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                              {{item}}
+                            </span>
+                          </ng-container>
+
+                          <ng-container
+                            *ngFor="let item of onChangeValue(matchingUsers?.profile?.certification, postedJobsDetails?.certification); let first = first;">
+                            <span
+                              *ngIf="moreElement && onChangeStringNumber('certification', 'certification', item, 'close', true).type == 'close'">
+                              <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                              {{item}}
+                            </span>
+                          </ng-container>
+
+                          <ng-container *ngFor="let item of postedJobsDetails?.certification; let first = first;">
+                            <span
+                              *ngIf="missingElement && onChangeStringNumber('certification', 'certification', item, 'info', true).type == 'info'">
+                              <i class="fa fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                              {{item}}
+                            </span> </ng-container>
+                          </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-lg-12 border-top pt-3"> </div>
+                    <div class="col-lg-12 info">
+                      <ul class="list-group">
+                        <li class="list-group-item text-capitalize">
+                          <span *ngIf="matchedElement && (matchingUsers?.profile?.job_type == postedJobsDetails?.type)">
+                            <i class="fa fa-check-circle text-green small"></i>
+                            {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
+                              sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
+                          </span>
+                          <span *ngIf="missingElement && (matchingUsers?.profile?.job_type != postedJobsDetails?.type)">
+                            <i class="fa fa-times-circle text-danger small"></i>
+                            {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
+                              sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
+                          </span>
+                        </li>
+                        <li class="list-group-item text-capitalize">
+                          <span *ngIf="matchedElement && (matchingUsers?.profile?.remote_only == postedJobsDetails?.remote)">
+                            <i class="fa fa-check-circle text-green small"></i>
+                            {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
+                          </span>
+                          <span *ngIf="missingElement && (matchingUsers?.profile?.remote_only != postedJobsDetails?.remote)">
+                            <i class="fa fa-times-circle text-danger small"></i>
+                            {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
+                          </span>
+                        </li>
+                        <li class="list-group-item">
+                          <span *ngIf="matchedElement && matchingUsers?.profile?.availability <= postedJobsDetails?.availability">
+                            <i class="fa fa-check-circle text-green small"></i>
+                            {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
+                              (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
+                              +
+                              ' Days') : '--'}}
+                          </span>
+                          <span *ngIf="missingElement && matchingUsers?.profile?.availability > postedJobsDetails?.availability">
+                            <i class="fa fa-times-circle text-danger small"></i>
+                            {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
+                              (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
+                              +
+                              ' Days') : '--'}}
+                          </span>
+                        </li>
+                        <li class="list-group-item">
+                          <span *ngIf="matchedElement && (matchingUsers?.profile?.travel >= postedJobsDetails?.travel_opportunity)">
+                            <i class="fa fa-check-circle text-green small"></i>
+                            {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
+                              matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
+                          </span>
+                          <span *ngIf="missingElement && (matchingUsers?.profile?.travel < postedJobsDetails?.travel_opportunity)">
+                          <i class="fa fa-times-circle text-danger small"></i>
+                          {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
+                            matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
+                          </span></li>
+                        <li class="list-group-item">
+                          <span *ngIf="matchedElement && (matchingUsers?.profile?.work_authorization == postedJobsDetails?.work_authorization)">
+                            <i class="fa fa-check-circle text-green small"></i>
+                            {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
+                              0)
+                              ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                              translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                          </span>
+                          <span *ngIf="missingElement && (matchingUsers?.profile?.work_authorization != postedJobsDetails?.work_authorization)">
+                            <i class="fa fa-times-circle text-danger small"></i>
+                            {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
+                              0)
+                              ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                              translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                          </span>
+                        </li>
+
+                        <li class="list-group-item">
+                          <span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)">
+                            <i class="fa fa-check-circle text-green small"></i>
+                            {{(matchingUsers?.profile?.end_to_end_implementation || matchingUsers?.profile?.end_to_end_implementation == 0) ?
+                              (matchingUsers?.profile?.end_to_end_implementation) : '--'}}
+                          </span>
+                           <span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation)">
+                            <i class="fa fa-times-circle text-danger small"></i>
+                            {{(matchingUsers?.profile?.end_to_end_implementation || matchingUsers?.profile?.end_to_end_implementation == 0) ?
+                              (matchingUsers?.profile?.end_to_end_implementation) : '--'}}
+                           </span>
+                        </li>
+                      </ul>
+
+                      <button (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="position: absolute;bottom: 15px; right: 15px;"> <i
+                          class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-lg-6" *ngIf="isMultipleMatches && !utilsHelperService.isEmptyObj(matchingUsersNew?.profile)">
+                    <div class="row info-box">
+                      <div class="col-lg-12">
+                        <div class="card profile-card">
+                          <div class="d-flex">
+                            <div class="pc-img">
+                              <img
+                                [src]="matchingUsersNew?.profile?.photo ? (matchingUsersNew?.meta?.photo?.path+'/'+ matchingUsersNew?.meta?.photo?.folder+'/'+matchingUsersNew?.meta?.photo?.sizes?.medium+'/'+matchingUsersNew?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
+                            </div>
+                            <div class="pc-info">
+                              <a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsersNew?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
+                                <h5 class="text-capitalize">
+                                  <span>{{(matchingUsersNew?.profile?.first_name ? matchingUsersNew?.profile?.first_name : '') + ' '
+                                    + (matchingUsersNew?.profile?.last_name ? matchingUsersNew?.profile?.last_name : '')}}</span>
+                                  <small *ngIf="matchingUsersNew?.profile?.job_role"> -
+                                    {{matchingUsersNew?.profile?.job_role}}</small>
+                                </h5>
+                              </a>
+                              <h6 class="mb-0 text-capitalize">
+                                {{matchingUsersNew?.profile?.city ? matchingUsersNew?.profile?.city : ''}}
+                                {{matchingUsersNew?.profile?.state ? ', ' + matchingUsersNew?.profile?.state : ''}}
+                                <span class="text-uppercase">
+                                  {{matchingUsersNew?.profile?.country ? ', ' + matchingUsersNew?.profile?.country : ''}}
+                                </span>
+                                </h6>
+                              <form class="form-inline">
+                                <a ref="javascript:;" (click)="onToggleResumeForm(true)" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+                                  <small><i class="fas fa-file-alt"></i> Resume</small>
+                                </a>
+                                <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+                                  <small><i class="fab fa-buffer"></i> View Other Matches</small>
+                                </a>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="matchs-info" *ngIf="!isMultipleMatches">
+                          <button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+                          <button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-2"> Missing </button>
+                          <button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+                          <button (click)="onReset()" class="btn btn-sm btn-light ml-1">
+                          <i class="fas fa-sync"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="col-lg-12 info mt-3">
+                        <div class="score"
+                          [ngClass]="{'score-txt-green': matchingUsersNew?.score >= 5, 'score-txt-orange': (matchingUsersNew?.score < 5 && matchingUsersNew?.score > 0), 'score-txt-red': (matchingUsersNew?.score == 0)}">
+                          {{"dashboard.score" | translate}} <span>{{matchingUsersNew?.score ? matchingUsersNew?.score :
+                            0}}/10</span>
+                        </div>
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <span class="matchTxt">
+                              <span *ngIf="matchedElement && (matchingUsersNew?.profile?.experience >= postedJobsDetails?.experience);">
+                                <i class="far fa-check-circle text-green small"></i>
+                                {{matchingUsersNew?.profile?.experience ? matchingUsersNew?.profile?.experience + ' Years' : '--'}}
+                              </span>
+                              <span  *ngIf="missingElement && (matchingUsersNew?.profile?.experience < postedJobsDetails?.experience);">
+                                <i class="far fa-times-circle text-danger small"></i>
+                                {{matchingUsersNew?.profile?.experience ? matchingUsersNew?.profile?.experience + ' Years' : '--'}}
+                              </span>
+       </span>
+                          </li>
+                          <li class="list-group-item">
+                            <span *ngIf="matchedElement && (matchingUsersNew?.profile?.sap_experience >= postedJobsDetails?.sap_experience)">
+                              <i class="far fa-check-circle text-green small"></i>
+                              {{matchingUsersNew?.profile?.sap_experience ? matchingUsersNew?.profile?.sap_experience + ' Years' :'--'}}
+                            </span>
+                            <span *ngIf="missingElement && (matchingUsersNew?.profile?.sap_experience < postedJobsDetails?.sap_experience)">
+                              <i class="far fa-check-circle text-green small"></i>
+                              {{matchingUsersNew?.profile?.sap_experience ? matchingUsersNew?.profile?.sap_experience + ' Years' :'--'}}
+                            </span>
+                          </li>
+                          <li class="list-group-item text-capitalize">
+
+
+                            <ng-container *ngFor="let item of matchingUsersNew?.profile?.domains_worked; let first = first;">
+                              <span class="matchTxt text-capitalize" *ngIf="matchedElement && onChangeStringNumber('domain', 'domains_worked', item, 'check').type == 'check'">
+                                <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                                {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                              </span>
+                            </ng-container>
+                            <ng-container *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.domains_worked, postedJobsDetails?.domain); let first = first;">
+                              <span class="matchTxt text-capitalize" *ngIf="moreElement && (onChangeStringNumber('domain', 'domains_worked', item, 'close').type == 'close')">
+                                <i  class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                                {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                              </span>
+                             </ng-container>
+                            <ng-container  *ngFor="let item of postedJobsDetails?.domain; let first = first;">
+                              <span class="matchTxt text-capitalize" *ngIf="missingElement && (onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info')">
+                                <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                                {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                              </span>
+                            </ng-container>
+
+                          </li>
+                          <li class="list-group-item text-uppercase d-flex">
+                            <ng-container *ngIf="matchingUsersNew?.profile?.hands_on_experience?.length; else elseHandsTemplate">
+                              <ng-container *ngFor="let item of matchingUsersNew?.profile?.hands_on_experience; let i = index; let first = first;">
+                                <div class="text-center border-right pr-3"
+                                  *ngIf="matchedElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'check', 'skill_id').type == 'check'">
+                                    {{utilsHelperService.onSplitTag(item.skill_name)}}
+                                    <br>
+                                  <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                                  ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                                </div>
+                              </ng-container>
+
+                              <ng-container
+                                *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience); let i = index; let first = first;">
+                                <div class="text-center border-right pr-3"
+                                  *ngIf="moreElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
+                                    {{utilsHelperService.onSplitTag(item.skill_name)}}
+                                    <br>
+                                  <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                                  ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                                </div>
+                              </ng-container>
+
+                              <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index; let first = first;">
+                                <div class="text-center border-right pr-3"
+                                  *ngIf="missingElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'info', 'skill_id').type == 'info'">
+                                    {{utilsHelperService.onSplitTag(item.skill_name)}}
+                                    <br>
+                                  <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                                  ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                                </div>
+                              </ng-container>
+
+                            </ng-container>
+                            <ng-template #elseHandsTemplate>
+                              <p>--</p>
+                            </ng-template>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="col-lg-12 border-top pt-3"> </div>
+                      <div class="col-lg-12 info">
+                        <ul class="list-group">
+                          <li class="list-group-item text-uppercase">
+                            <ng-container *ngIf="matchingUsersNew?.profile?.skills?.length; else elseSkillsTemplate">
+
+                              <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(matchingUsersNew?.profile?.skills, matchingUsersNew?.profile?.hands_on_experience, 'skill_id'); let first = first;">
+                                <span
+                                  *ngIf="matchedElement && onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
+                                  <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                                  {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+
+                                </span>
+                              </ng-container>
+
+                              <ng-container
+                                *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.skills, postedJobsDetails?.skills); let first = first;">
+                                <span
+                                  *ngIf="moreElement && onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
+                                  <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                                  {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+
+                                </span>
+                              </ng-container>
+
+                              <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id'); let first = first;">
+                                <span
+                                  *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
+                                  <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                                  {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+
+                                </span>
+                              </ng-container>
+                            </ng-container>
+                            <ng-template #elseSkillsTemplate>
+                              <p>--</p>
+                            </ng-template>
+                          </li>
+                          <li class="list-group-item text-capitalize">
+                            <ng-container *ngFor="let item of matchingUsersNew?.profile?.programming_skills; let first = first;let i = index;">
+                              <span
+                                *ngIf="matchedElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true).type == 'check'">
+                                <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
+                                {{item}}
+                              </span>
+                            </ng-container>
+
+                            <ng-container
+                              *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.programming_skills, postedJobsDetails?.programming_skills); let first = first;let i = index;">
+                              <span
+                                *ngIf="moreElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
+                                <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
+                                {{item}}
+                              </span>
+                            </ng-container>
+
+                            <ng-container *ngFor="let item of postedJobsDetails?.programming_skills; let first = first;let i = index;">
+                              <span
+                                *ngIf="missingElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'info', true).type == 'info'">
+                                <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
+                                {{item}}
+                              </span>
+                            </ng-container>
+                          </li>
+                          <li class="list-group-item text-capitalize">
+                            <ng-container *ngFor="let item of matchingUsersNew?.profile?.other_skills; let first = first;let i = index;">
+                              <span
+                                *ngIf="matchedElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'check', true).type == 'check'">
+                                <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
+                                {{item}}
+                              </span>
+                            </ng-container>
+
+                            <ng-container
+                              *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.other_skills, postedJobsDetails?.optinal_skills); let first = first;let i = index;">
+                              <span
+                                *ngIf="moreElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'close', true).type == 'close'">
+                                <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
+                                {{item}}s
+                              </span>
+                            </ng-container>
+
+                            <ng-container *ngFor="let item of postedJobsDetails?.optinal_skills; let first = first;let i = index;">
+                              <span
+                                *ngIf="missingElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'info', true).type == 'info'">
+                                <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
+                                {{item}}
+                              </span>
+                            </ng-container>
+                          </li>
+                          <li class="list-group-item text-capitalize">
+                            <ng-container *ngFor="let item of matchingUsersNew?.profile?.certification; let first = first;">
+                              <span
+                                *ngIf="matchedElement && onChangeStringNumber('certification', 'certification', item, 'check', true).type == 'check'">
+                                <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
+                                {{item}}
+                              </span>
+                            </ng-container>
+
+                            <ng-container
+                              *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.certification, postedJobsDetails?.certification); let first = first;">
+                              <span
+                                *ngIf="moreElement && onChangeStringNumber('certification', 'certification', item, 'close', true).type == 'close'">
+                                <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
+                                {{item}}
+                              </span>
+                            </ng-container>
+
+                            <ng-container *ngFor="let item of postedJobsDetails?.certification; let first = first;">
+                              <span
+                                *ngIf="missingElement && onChangeStringNumber('certification', 'certification', item, 'info', true).type == 'info'">
+                                <i class="fa fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
+                                {{item}}
+                              </span>
+                            </ng-container>
+                            </li>
+                        </ul>
+                      </div>
+
+                      <div class="col-lg-12 border-top pt-3"> </div>
+                      <div class="col-lg-12 info">
+                        <ul class="list-group">
+                          <li class="list-group-item text-capitalize">
+                            <span *ngIf="matchedElement && (matchingUsersNew?.profile?.job_type == postedJobsDetails?.type)">
+                              <i class="fa fa-check-circle text-green small"></i>
+                              {{(matchingUsersNew?.profile?.job_type || matchingUsersNew?.profile?.job_type == 0) ?
+                                sharedService.onGetJobType(matchingUsersNew?.profile?.job_type) : '--'}}
+                            </span>
+                            <span *ngIf="missingElement && (matchingUsersNew?.profile?.job_type != postedJobsDetails?.type)">
+                              <i class="fa fa-times-circle text-danger small"></i>
+                              {{(matchingUsersNew?.profile?.job_type || matchingUsersNew?.profile?.job_type == 0) ?
+                                sharedService.onGetJobType(matchingUsersNew?.profile?.job_type) : '--'}}
+                            </span>
+                          </li>
+                          <li class="list-group-item text-capitalize">
+                            <span *ngIf="matchedElement && (matchingUsersNew?.profile?.remote_only == postedJobsDetails?.remote)">
+                              <i class="fa fa-check-circle text-green small"></i>
+                              {{utilsHelperService.onGetYesOrNoValue(matchingUsersNew?.profile?.remote_only)}}
+                            </span>
+                            <span *ngIf="missingElement && (matchingUsersNew?.profile?.remote_only != postedJobsDetails?.remote)">
+                              <i class="fa fa-times-circle text-danger small"></i>
+                              {{utilsHelperService.onGetYesOrNoValue(matchingUsersNew?.profile?.remote_only)}}
+                            </span>
+
+                          </li>
+                          <li class="list-group-item">
+                            <span *ngIf="matchedElement && matchingUsersNew?.profile?.availability <= postedJobsDetails?.availability">
+                              <i class="fa fa-check-circle text-green small"></i>
+                              {{(matchingUsersNew?.profile?.availability || matchingUsersNew?.profile?.availability == 0) ?
+                                (matchingUsersNew?.profile?.availability == 0 ? 'Immediate' : matchingUsersNew?.profile?.availability
+                                +
+                                ' Days') : '--'}}
+                            </span>
+                            <span *ngIf="missingElement && matchingUsersNew?.profile?.availability > postedJobsDetails?.availability">
+                              <i class="fa fa-times-circle text-danger small"></i>
+                              {{(matchingUsersNew?.profile?.availability || matchingUsersNew?.profile?.availability == 0) ?
+                                (matchingUsersNew?.profile?.availability == 0 ? 'Immediate' : matchingUsersNew?.profile?.availability
+                                +
+                                ' Days') : '--'}}
+                            </span>
+                          </li>
+                          <li class="list-group-item">
+                            <span *ngIf="matchedElement && (matchingUsersNew?.profile?.travel >= postedJobsDetails?.travel_opportunity)">
+                              <i class="fa fa-check-circle text-green small"></i>
+                              {{(matchingUsersNew?.profile?.travel || matchingUsersNew?.profile?.travel == 0) ?
+                                matchingUsersNew?.profile?.travel == 0 ? 'No' : matchingUsersNew?.profile?.travel + '%' : '--'}}
+                            </span>
+                            <span *ngIf="missingElement && (matchingUsersNew?.profile?.travel < postedJobsDetails?.travel_opportunity)">
+                            <i class="fa fa-times-circle text-danger small"></i>
+                            {{(matchingUsersNew?.profile?.travel || matchingUsersNew?.profile?.travel == 0) ?
+                              matchingUsersNew?.profile?.travel == 0 ? 'No' : matchingUsersNew?.profile?.travel + '%' : '--'}}
+                            </span>
+                            <!-- <span *ngIf="((!matchedElement && (matchingUsersNew?.profile?.travel >= postedJobsDetails?.travel_opportunity)) || (!missingElement && (matchingUsersNew?.profile?.travel < postedJobsDetails?.travel_opportunity)))">--</span> -->
+                          </li>
+                          <li class="list-group-item">
+                            <span *ngIf="matchedElement && (matchingUsersNew?.profile?.work_authorization == postedJobsDetails?.work_authorization)">
+                              <i class="fa fa-check-circle text-green small"></i>
+                              {{(matchingUsersNew?.profile?.work_authorization || matchingUsersNew?.profile?.work_authorization ==
+                                0)
+                                ? (matchingUsersNew?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                                translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                            </span>
+                            <span *ngIf="missingElement && (matchingUsersNew?.profile?.work_authorization != postedJobsDetails?.work_authorization)">
+                              <i class="fa fa-times-circle text-danger small"></i>
+                              {{(matchingUsersNew?.profile?.work_authorization || matchingUsersNew?.profile?.work_authorization ==
+                                0)
+                                ? (matchingUsersNew?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                                translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                            </span>
+
+                          </li>
+
+                          <li class="list-group-item">
+                            <span *ngIf="matchedElement && (matchingUsersNew?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)">
+                              <i class="fa fa-check-circle text-green small"></i>
+                              {{(matchingUsersNew?.profile?.end_to_end_implementation || matchingUsersNew?.profile?.end_to_end_implementation == 0) ?
+                                (matchingUsersNew?.profile?.end_to_end_implementation) : '--'}}
+                            </span>
+                             <span *ngIf="missingElement && (matchingUsersNew?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation)">
+                              <i class="fa fa-times-circle text-danger small"></i>
+                              {{(matchingUsersNew?.profile?.end_to_end_implementation || matchingUsersNew?.profile?.end_to_end_implementation == 0) ?
+                                (matchingUsersNew?.profile?.end_to_end_implementation) : '--'}}
+                             </span>
+                          </li>
+                        </ul>
+
+                        <button (click)="onToggleSendMail(true, matchingUsersNew?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="position: absolute;bottom: 15px; right: 15px;"> <i
+                            class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
                       </div>
                     </div>
                   </div>
-
-                  <div class="matchs-info">
-                    <button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
-                    <button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-2"> Missing </button>
-                    <button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
-                    <button (click)="onReset()" class="btn btn-sm btn-light ml-1">
-                    <i class="fas fa-sync"></i>
-                    </button>
-                  </div>
-                </div>
-                <!-- <div class="col-lg-12">
-                  <div class="card profile-card">
-                    <div class="d-flex">
-                      <div class="pc-img">
-                        <img
-                          [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
-                      </div>
-                      <div class="pc-info">
-                        <a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
-                          <h5 class="text-capitalize">
-                            <span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
-                              + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
-                            <small *ngIf="matchingUsers?.profile?.job_role"> -
-                              {{matchingUsers?.profile?.job_role}}</small>
-                          </h5>
-                        </a>
-                        <form class="form-inline">
-                          <a (click)="onToggleResumeForm(true)" class="btn btn-outline-blue btn-sm mr-1"
-                            href="javascript:;" data-toggle="modal" data-target="#resumeModal">
-                            <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate}}
-                          </a>
-                          <a class="ml-auto border-bottom" href="javascript:;" style="width:170px;"
-                            (click)="onToggleOtherPostModal(true)">
-                            {{"dashboard.matchOtherPosts" | translate}}
-                          </a>
-                        </form>
-
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-                <div class="col-lg-12 info mt-3">
-                  <div class="score"
-                    [ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
-                    {{"dashboard.score" | translate}} <span>{{matchingUsers?.score ? matchingUsers?.score :
-                      0}}/10</span>
-                  </div>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      <span class="matchTxt">
-                        <span *ngIf="matchedElement && (matchingUsers?.profile?.experience >= postedJobsDetails?.experience);">
-                          <i class="far fa-check-circle text-green small"></i>
-                          {{matchingUsers?.profile?.experience ? matchingUsers?.profile?.experience + ' Years' : '--'}}
-                        </span>
-                        <span  *ngIf="missingElement && (matchingUsers?.profile?.experience < postedJobsDetails?.experience);">
-                          <i class="far fa-times-circle text-danger small"></i>
-                          {{matchingUsers?.profile?.experience ? matchingUsers?.profile?.experience + ' Years' : '--'}}
-                        </span>
-
-                        <!-- <span *ngIf="((!matchedElement && matchingUsers?.profile?.experience >= postedJobsDetails?.experience) || (!missingElement && (matchingUsers?.profile?.experience < postedJobsDetails?.experience)))">--</span> -->
-                      </span>
-                    </li>
-                    <li class="list-group-item">
-                      <span *ngIf="matchedElement && (matchingUsers?.profile?.sap_experience >= postedJobsDetails?.sap_experience)">
-                        <i class="far fa-check-circle text-green small"></i>
-                        {{matchingUsers?.profile?.sap_experience ? matchingUsers?.profile?.sap_experience + ' Years' :'--'}}
-                      </span>
-                      <span *ngIf="missingElement && (matchingUsers?.profile?.sap_experience < postedJobsDetails?.sap_experience)">
-                        <i class="far fa-check-circle text-green small"></i>
-                        {{matchingUsers?.profile?.sap_experience ? matchingUsers?.profile?.sap_experience + ' Years' :'--'}}
-                      </span>
-                      <!-- <span *ngIf="((!matchedElement && matchingUsers?.profile?.sap_experience >= postedJobsDetails?.sap_experience) || (!missingElement && (matchingUsers?.profile?.sap_experience < postedJobsDetails?.sap_experience)))">--</span> -->
-                    </li>
-                    <li class="list-group-item text-capitalize">
-
-                      <!-- <ng-container *ngFor="let item of matchingUsers?.profile?.domains_worked">
-                        <span class="text-green"
-                          *ngIf="onChangeStringNumber('domain', 'domains_worked', item, 'check').type == 'check'">
-                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
-                          <i class="far fa-check-circle ml-2"></i>
-                        </span>
-                      </ng-container> -->
-
-                      <!-- <ng-container
-                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.domains_worked, postedJobsDetails?.domain)">
-                        <span class="text-blue"
-                          *ngIf="onChangeStringNumber('domain', 'domains_worked', item, 'close').type == 'close'">
-                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
-                          <i class="fa fa-info-circle ml-2"></i>
-                        </span>
-                      </ng-container>
-
-                      <ng-container *ngFor="let item of postedJobsDetails?.domain">
-                        <span class="text-danger"
-                          *ngIf="onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info'">
-                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
-                          <i class="fa fa-times-circle ml-2"></i>
-                        </span>
-                      </ng-container> -->
-
-                      <ng-container *ngFor="let item of matchingUsers?.profile?.domains_worked; let first = first;">
-                        <span class="matchTxt text-capitalize" *ngIf="matchedElement && onChangeStringNumber('domain', 'domains_worked', item, 'check').type == 'check'">
-                          <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
-                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
-                        </span>
-                        <!-- <span *ngIf="((first && (matchedElement && !missingElement && !moreElement)) && !(onChangeStringNumber('domain', 'domains_worked', item, 'check').type == 'check'))">--</span> -->
-                      </ng-container>
-                      <ng-container *ngFor="let item of onChangeValue(matchingUsers?.profile?.domains_worked, postedJobsDetails?.domain); let first = first;">
-                        <span class="matchTxt text-capitalize" *ngIf="moreElement && (onChangeStringNumber('domain', 'domains_worked', item, 'close').type == 'close')">
-                          <i  class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
-                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
-                        </span>
-                        <!-- dfgd{{(onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info')}} -->
-                        <!-- <span *ngIf="(((onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info') && (moreElement && !matchedElement && !missingElement)))">--</span> -->
-                      </ng-container>
-                      <ng-container  *ngFor="let item of postedJobsDetails?.domain; let first = first;">
-                        <span class="matchTxt text-capitalize" *ngIf="missingElement && (onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info')">
-                          <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
-                          {{sharedService.onFindDomainFromSingleID(item)?.name}}
-                        </span>
-                        <!-- <span *ngIf="((first && (missingElement && !matchedElement && !moreElement)) && !(onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info'))">--</span> -->
-                      </ng-container>
-
-                    </li>
-                    <li class="list-group-item text-uppercase d-flex">
-                      <ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
-                        <ng-container *ngFor="let item of matchingUsers?.profile?.hands_on_experience; let i = index; let first = first;">
-                          <div class="text-center border-right pr-3"
-                            *ngIf="matchedElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'check', 'skill_id').type == 'check'">
-                              {{utilsHelperService.onSplitTag(item.skill_name)}}
-                              <br>
-                            <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
-                            ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
-                          </div>
-                        </ng-container>
-
-                        <ng-container
-                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience); let i = index; let first = first;">
-                          <div class="text-center border-right pr-3"
-                            *ngIf="moreElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
-                              {{utilsHelperService.onSplitTag(item.skill_name)}}
-                              <br>
-                            <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
-                            ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
-                          </div>
-                        </ng-container>
-
-                        <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index; let first = first;">
-                          <div class="text-center border-right pr-3"
-                            *ngIf="missingElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'info', 'skill_id').type == 'info'">
-                              {{utilsHelperService.onSplitTag(item.skill_name)}}
-                              <br>
-                            <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
-                            ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
-                          </div>
-                        </ng-container>
-
-                        <!-- <ng-container *ngFor="let item of matchingUsers?.profile?.hands_on_experience; let i = index">
-                          <div class="text-green border-right text-center d-flex"
-                            *ngIf="onChangeObj('hands_on_experience', 'hands_on_experience', item, 'check', 'skill_id').type == 'check'">
-                            <div [ngClass]="{'pl-2': i >= 1}" class="pr-2">
-                              {{utilsHelperService.onSplitTag(item.skill_name)}}<br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
-
-                            </div>
-                            <i class="far fa-check-circle ml-2 d-flex align-items-center"></i>
-                          </div>
-                        </ng-container>
-
-                        <ng-container
-                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience); let i = index">
-                          <div class="text-blue border-right text-center d-flex"
-                            *ngIf="onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
-                            <div [ngClass]="{'pl-2': i >= 1}" class="pr-2">
-                              {{utilsHelperService.onSplitTag(item.skill_name)}}<br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
-
-                            </div>
-                            <i class="fa fa-info-circle ml-2 d-flex align-items-center"></i>
-                          </div>
-                        </ng-container>
-
-                        <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index">
-                          <div class="text-danger border-right text-center d-flex"
-                            *ngIf="onChangeObj('hands_on_experience', 'hands_on_experience', item, 'info', 'skill_id').type == 'info'">
-                            <div [ngClass]="{'pl-2': i >= 1}" class="pr-2">
-                              {{utilsHelperService.onSplitTag(item.skill_name)}}<br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
-
-                            </div>
-                            <i class="fa fa-times-circle ml-2 d-flex align-items-center"></i>
-                          </div>
-                        </ng-container> -->
-                      </ng-container>
-                      <ng-template #elseHandsTemplate>
-                        <p>--</p>
-                      </ng-template>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="col-lg-12 border-top pt-3"> </div>
-                <div class="col-lg-12 info">
-                  <ul class="list-group">
-                    <li class="list-group-item text-uppercase">
-                      <ng-container *ngIf="matchingUsers?.profile?.skills?.length; else elseSkillsTemplate">
-                        <!-- <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(matchingUsers?.profile?.skills, matchingUsers?.profile?.hands_on_experience, 'skill_id')">
-                          <span class="text-green"
-                            *ngIf="onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
-
-                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
-                            <i class="far fa-check-circle ml-2"></i>
-                          </span>
-                        </ng-container>
-
-                        <ng-container
-                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.skills, postedJobsDetails?.skills)">
-                          <span class="text-blue"
-                            *ngIf="onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
-                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
-                            <i class="fa fa-info-circle ml-2"></i>
-                          </span>
-                        </ng-container>
-
-                        <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id')">
-                          <span class="text-danger"
-                            *ngIf="onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
-                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
-                            <i class="fa fa-times-circle ml-2"></i>
-                          </span>
-                        </ng-container> -->
-                        <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(matchingUsers?.profile?.skills, matchingUsers?.profile?.hands_on_experience, 'skill_id'); let first = first;">
-                          <span
-                            *ngIf="matchedElement && onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
-                            <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
-                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
-
-                          </span>
-                        </ng-container>
-
-                        <ng-container
-                          *ngFor="let item of onChangeValue(matchingUsers?.profile?.skills, postedJobsDetails?.skills); let first = first;">
-                          <span
-                            *ngIf="moreElement && onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
-                            <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
-                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
-
-                          </span>
-                        </ng-container>
-
-                        <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id'); let first = first;">
-                          <span
-                            *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
-                            <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
-                            {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
-
-                          </span>
-                        </ng-container>
-                      </ng-container>
-                      <ng-template #elseSkillsTemplate>
-                        <p>--</p>
-                      </ng-template>
-                    </li>
-                    <li class="list-group-item text-capitalize">
-                      <ng-container *ngFor="let item of matchingUsers?.profile?.programming_skills; let first = first;let i = index;">
-                        <span
-                          *ngIf="matchedElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true).type == 'check'">
-                          <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
-                          {{item}}
-                        </span>
-                      </ng-container>
-
-                      <ng-container
-                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.programming_skills, postedJobsDetails?.programming_skills); let first = first;let i = index;">
-                        <span
-                          *ngIf="moreElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
-                          <i class="far fa-times-info text-blue small" [ngClass]="{'ml-2': i != 1}"></i>
-                          {{item}}
-                        </span>
-                      </ng-container>
-
-                      <ng-container *ngFor="let item of postedJobsDetails?.programming_skills; let first = first;let i = index;">
-                        <span
-                          *ngIf="missingElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'info', true).type == 'info'">
-                          <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
-                          {{item}}
-                        </span>
-                      </ng-container>
-                      <!-- <ng-container *ngFor="let item of matchingUsers?.profile?.programming_skills">
-                        <span class="text-green"
-                          *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true).type == 'check'">
-                          {{item}}
-                          <i class="far fa-check-circle ml-2"></i>
-                        </span>
-                      </ng-container>
-
-                      <ng-container
-                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.programming_skills, postedJobsDetails?.programming_skills)">
-                        <span class="text-blue"
-                          *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
-                          {{item}}
-                          <i class="fa fa-info-circle ml-2"></i>
-                        </span>
-                      </ng-container>
-
-                      <ng-container *ngFor="let item of postedJobsDetails?.programming_skills">
-                        <span class="text-danger"
-                          *ngIf="onChangeStringNumber('programming_skills', 'programming_skills', item, 'info', true).type == 'info'">
-                          {{item}}
-                          <i class="fa fa-times-circle ml-2"></i>
-                        </span>
-                      </ng-container> -->
-                    </li>
-                    <li class="list-group-item text-capitalize">
-                      <ng-container *ngFor="let item of matchingUsers?.profile?.other_skills; let first = first;let i = index;">
-                        <span
-                          *ngIf="matchedElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'check', true).type == 'check'">
-                          <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
-                          {{item}}
-                        </span>
-                      </ng-container>
-
-                      <ng-container
-                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.other_skills, postedJobsDetails?.optinal_skills); let first = first;let i = index;">
-                        <span
-                          *ngIf="moreElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'close', true).type == 'close'">
-                          <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
-                          {{item}}s
-                        </span>
-                      </ng-container>
-
-                      <ng-container *ngFor="let item of postedJobsDetails?.optinal_skills; let first = first;let i = index;">
-                        <span
-                          *ngIf="missingElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'info', true).type == 'info'">
-                          <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
-                          {{item}}
-                        </span>
-                      </ng-container>
-                      <!-- <ng-container *ngFor="let item of matchingUsers?.profile?.other_skills">
-                        <span class="text-green"
-                          *ngIf="onChangeStringNumber('optinal_skills', 'other_skills', item, 'check', true).type == 'check'">
-                          {{item}}
-                          <i class="far fa-check-circle ml-2"></i>
-                        </span>
-                      </ng-container>
-
-                      <ng-container
-                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.other_skills, postedJobsDetails?.optinal_skills)">
-                        <span class="text-blue"
-                          *ngIf="onChangeStringNumber('optinal_skills', 'other_skills', item, 'close', true).type == 'close'">
-                          {{item}}
-                          <i class="fa fa-info-circle ml-2"></i>
-                        </span>
-                      </ng-container>
-
-                      <ng-container *ngFor="let item of postedJobsDetails?.optinal_skills">
-                        <span class="text-danger"
-                          *ngIf="onChangeStringNumber('optinal_skills', 'other_skills', item, 'info', true).type == 'info'">
-                          {{item}}
-                          <i class="fa fa-times-circle ml-2"></i>
-                        </span>
-                      </ng-container> -->
-                    </li>
-                    <li class="list-group-item text-capitalize">
-                      <ng-container *ngFor="let item of matchingUsers?.profile?.certification; let first = first;">
-                        <span
-                          *ngIf="matchedElement && onChangeStringNumber('certification', 'certification', item, 'check', true).type == 'check'">
-                          <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
-                          {{item}}
-                        </span>
-                      </ng-container>
-
-                      <ng-container
-                        *ngFor="let item of onChangeValue(matchingUsers?.profile?.certification, postedJobsDetails?.certification); let first = first;">
-                        <span
-                          *ngIf="moreElement && onChangeStringNumber('certification', 'certification', item, 'close', true).type == 'close'">
-                          <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
-                          {{item}}
-                        </span>
-                      </ng-container>
-
-                      <ng-container *ngFor="let item of postedJobsDetails?.certification; let first = first;">
-                        <span
-                          *ngIf="missingElement && onChangeStringNumber('certification', 'certification', item, 'info', true).type == 'info'">
-                          <i class="fa fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
-                          {{item}}
-                        </span>
-                        <!-- <span *ngIf="((!matchedElement && (matchingUsers?.profile?.work_authorization == postedJobsDetails?.work_authorization)) || (!missingElement && (matchingUsers?.profile?.work_authorization != postedJobsDetails?.work_authorization)))">--</span> -->
-                      </ng-container>
-                      </li>
-                      <!-- <li class="list-group-item">
-                        <span>
-                         <i *ngIf="matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation" class="fa fa-check-circle text-green small"></i>
-                         <i *ngIf="matchingUsers?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation" class="fa fa-times-circle text-danger small"></i>
-                         {{(matchingUsers?.profile?.end_to_end_implementation || matchingUsers?.profile?.end_to_end_implementation == 0) ?
-                           (matchingUsers?.profile?.end_to_end_implementation) : '--'}}
-                        </span>
-                      </li> -->
-                  </ul>
-                </div>
-
-                <div class="col-lg-12 border-top pt-3"> </div>
-                <div class="col-lg-12 info">
-                  <ul class="list-group">
-                    <li class="list-group-item text-capitalize">
-                      <span *ngIf="matchedElement && (matchingUsers?.profile?.job_type == postedJobsDetails?.type)">
-                        <i class="fa fa-check-circle text-green small"></i>
-                        {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
-                          sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
-                      </span>
-                      <span *ngIf="missingElement && (matchingUsers?.profile?.job_type != postedJobsDetails?.type)">
-                        <i class="fa fa-times-circle text-danger small"></i>
-                        {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
-                          sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
-                      </span>
-                      <!-- <span *ngIf="((!matchedElement && (matchingUsers?.profile?.job_type == postedJobsDetails?.type)) || (!missingElement && (matchingUsers?.profile?.job_type != postedJobsDetails?.type)))">--</span> -->
-
-
-                      <!-- <ng-container *ngIf="matchingUsers?.profile?.job_type == postedJobsDetails?.type">
-                        <span class="text-green">
-                          {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
-                          sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
-                          <i class="far fa-check-circle ml-2"></i>
-                        </span>
-                      </ng-container>
-                      <ng-container *ngIf="matchingUsers?.profile?.job_type != postedJobsDetails?.type">
-                        <span class="text-danger">
-                          {{(matchingUsers?.profile?.job_type || matchingUsers?.profile?.job_type == 0) ?
-                          sharedService.onGetJobType(matchingUsers?.profile?.job_type) : '--'}}
-                          <i class="far fa-times-circle ml-2"></i>
-                        </span>
-                      </ng-container> -->
-                    </li>
-                    <li class="list-group-item text-capitalize">
-                      <span *ngIf="matchedElement && (matchingUsers?.profile?.remote_only == postedJobsDetails?.remote)">
-                        <i class="fa fa-check-circle text-green small"></i>
-                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
-                      </span>
-                      <span *ngIf="missingElement && (matchingUsers?.profile?.remote_only != postedJobsDetails?.remote)">
-                        <i class="fa fa-times-circle text-danger small"></i>
-                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
-                      </span>
-                      <!-- <span *ngIf="((!matchedElement && (matchingUsers?.profile?.remote_only == postedJobsDetails?.remote)) || (!missingElement && (matchingUsers?.profile?.remote_only != postedJobsDetails?.remote)))">--</span> -->
-                      <!-- <span class="text-green" *ngIf="matchingUsers?.profile?.remote_only == postedJobsDetails?.remote">
-                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
-                        <i class="far fa-check-circle ml-2"></i>
-                      </span>
-                      <span class="text-danger"
-                        *ngIf="matchingUsers?.profile?.remote_only != postedJobsDetails?.remote">
-                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.remote_only)}}
-                        <i class="far fa-times-circle ml-2"></i>
-                      </span> -->
-                    </li>
-                    <li class="list-group-item">
-                      <span *ngIf="matchedElement && matchingUsers?.profile?.availability <= postedJobsDetails?.availability">
-                        <i class="fa fa-check-circle text-green small"></i>
-                        {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
-                          (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
-                          +
-                          ' Days') : '--'}}
-                      </span>
-                      <span *ngIf="missingElement && matchingUsers?.profile?.availability > postedJobsDetails?.availability">
-                        <i class="fa fa-times-circle text-danger small"></i>
-                        {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
-                          (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
-                          +
-                          ' Days') : '--'}}
-                      </span>
-                      <!-- <span *ngIf="((!matchedElement && (matchingUsers?.profile?.availability <= postedJobsDetails?.availability)) || (!missingElement && (matchingUsers?.profile?.availability > postedJobsDetails?.availability)))">--</span> -->
-
-
-                      <!-- <span class="text-green"
-                        *ngIf="matchingUsers?.profile?.availability >= postedJobsDetails?.availability">
-                        {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
-                        (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
-                        +
-                        ' Days') : '--'}}
-                        <i class="far fa-check-circle ml-2"></i>
-                      </span>
-                      <span class="text-danger"
-                        *ngIf="matchingUsers?.profile?.availability < postedJobsDetails?.availability">
-                        {{(matchingUsers?.profile?.availability || matchingUsers?.profile?.availability == 0) ?
-                        (matchingUsers?.profile?.availability == 0 ? 'Immediate' : matchingUsers?.profile?.availability
-                        +
-                        ' Days') : '--'}}
-                        <i class="far fa-times-circle ml-2"></i>
-                      </span> -->
-                    </li>
-                    <li class="list-group-item">
-                      <span *ngIf="matchedElement && (matchingUsers?.profile?.travel >= postedJobsDetails?.travel_opportunity)">
-                        <i class="fa fa-check-circle text-green small"></i>
-                        {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
-                          matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
-                      </span>
-                      <span *ngIf="missingElement && (matchingUsers?.profile?.travel < postedJobsDetails?.travel_opportunity)">
-                      <i class="fa fa-times-circle text-danger small"></i>
-                      {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
-                        matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
-                      </span>
-                      <!-- <span *ngIf="((!matchedElement && (matchingUsers?.profile?.travel >= postedJobsDetails?.travel_opportunity)) || (!missingElement && (matchingUsers?.profile?.travel < postedJobsDetails?.travel_opportunity)))">--</span> -->
-                    </li>
-                    <li class="list-group-item">
-                      <span *ngIf="matchedElement && (matchingUsers?.profile?.work_authorization == postedJobsDetails?.work_authorization)">
-                        <i class="fa fa-check-circle text-green small"></i>
-                        {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
-                          0)
-                          ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                          translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
-                      </span>
-                      <span *ngIf="missingElement && (matchingUsers?.profile?.work_authorization != postedJobsDetails?.work_authorization)">
-                        <i class="fa fa-times-circle text-danger small"></i>
-                        {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
-                          0)
-                          ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                          translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
-                      </span>
-                      <!-- <span *ngIf="((!matchedElement && (matchingUsers?.profile?.work_authorization == postedJobsDetails?.work_authorization)) || (!missingElement && (matchingUsers?.profile?.work_authorization != postedJobsDetails?.work_authorization)))">--</span> -->
-
-
-                      <!-- <span class="text-green"
-                        *ngIf="matchingUsers?.profile?.work_authorization == postedJobsDetails?.work_authorization">
-                        {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
-                        0)
-                        ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                        translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
-                        <i class="far fa-check-circle ml-2"></i>
-                      </span>
-                      <span class="text-danger"
-                        *ngIf="matchingUsers?.profile?.work_authorization != postedJobsDetails?.work_authorization">
-                        {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
-                        0)
-                        ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                        translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
-                        <i class="far fa-times-circle ml-2"></i>
-                      </span> -->
-                    </li>
-
-                    <!-- <li class="list-group-item">
-                      <span *ngIf="matchingUsers?.profile?.willing_to_relocate ">
-                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.willing_to_relocate)}}
-                      </span>
-                      <span>
-                        {{utilsHelperService.onGetYesOrNoValue(matchingUsers?.profile?.willing_to_relocate)}}
-                      </span>
-                    </li> -->
-                    <li class="list-group-item">
-                      <span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)">
-                        <i class="fa fa-check-circle text-green small"></i>
-                        {{(matchingUsers?.profile?.end_to_end_implementation || matchingUsers?.profile?.end_to_end_implementation == 0) ?
-                          (matchingUsers?.profile?.end_to_end_implementation) : '--'}}
-                      </span>
-                       <span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation)">
-                        <i class="fa fa-times-circle text-danger small"></i>
-                        {{(matchingUsers?.profile?.end_to_end_implementation || matchingUsers?.profile?.end_to_end_implementation == 0) ?
-                          (matchingUsers?.profile?.end_to_end_implementation) : '--'}}
-                       </span>
-                       <!-- <span *ngIf="((!matchedElement && (matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)) || (!missingElement && (matchingUsers?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation)))">--</span> -->
-
-                    </li>
-                  </ul>
-
-                  <button (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="position: absolute;bottom: 15px; right: 15px;"> <i
-                      class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
-                </div>
               </div>
+
             </div>
             <!--//Profile1-->
           </div>

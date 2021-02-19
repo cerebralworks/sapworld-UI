@@ -72,13 +72,13 @@
               </div>
 
               <!--Body Sec-->
-              <div class="col-lg-12 info mt-3">
+              <div class="col-lg-12 info mt-2">
                 <div class="score"
                 [ngClass]="{'score-txt-green': matchingJob?.score >= 5, 'score-txt-orange': (matchingJob?.score < 5 && matchingJob?.score > 0), 'score-txt-red': (matchingJob?.score == 0)}">
                   SCORE <span>{{matchingJob?.score ? matchingJob?.score :
                     0}}/10</span>
                 </div>
-                <div class="col-lg-12 mt-4">
+                <div class="col-lg-12 mt-1">
                   <h6 class="font-weight-bold">&nbsp;</h6>
                 </div>
                 <!-- <div class="col-lg-12 mt-2">
@@ -111,14 +111,14 @@
                         {{sharedService.onFindDomainFromSingleID(item)?.name}}
                       </span>
                     </ng-container>
-                    <ng-container *ngFor="let item of onChangeValue(matchingJob?.jobs?.domain, userInfo?.domains_worked); let first = first;">
+                    <!-- <ng-container *ngFor="let item of onChangeValue(matchingJob?.jobs?.domain, userInfo?.domains_worked); let first = first;">
                       <span class="matchTxt text-capitalize" *ngIf="moreElement && onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'info'">
                         <i  class="fa fa-info-circle text-blue small" [ngClass]="{'ml-2': !first}"></i>
                         {{sharedService.onFindDomainFromSingleID(item)?.name}}
                       </span>
-                    </ng-container>
+                    </ng-container> -->
                     <ng-container  *ngFor="let item of userInfo?.domains_worked; let first = first;">
-                      <span class="matchTxt text-capitalize" *ngIf="missingElement && onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'close'">
+                      <span class="matchTxt text-capitalize" *ngIf="missingElement && onChangeStringNumber('domains_worked', 'domain', item, 'close').type == 'close'">
                         <i  class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
                         {{sharedService.onFindDomainFromSingleID(item)?.name}}
                       </span>
@@ -136,7 +136,7 @@
                       </div>
                     </ng-container>
 
-                    <ng-container
+                    <!-- <ng-container
                       *ngFor="let item of onChangeValue(matchingJob?.jobs?.hands_on_experience, userInfo?.hands_on_experience); let i = index; let first = first;">
                       <div class="text-center border-right pr-3"
                         *ngIf="moreElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
@@ -145,7 +145,7 @@
                         <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
                         ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
                       </div>
-                    </ng-container>
+                    </ng-container> -->
 
                     <ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index; let first = first;">
                       <div class="text-center border-right pr-3"
@@ -177,7 +177,7 @@
                         </span>
                       </ng-container>
 
-                      <ng-container
+                      <!-- <ng-container
                         *ngFor="let item of onChangeValue(matchingJob?.jobs?.skills, userInfo?.skills); let first = first;">
                         <span
                           *ngIf="moreElement && onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
@@ -185,7 +185,7 @@
                           {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
 
                         </span>
-                      </ng-container>
+                      </ng-container> -->
 
                       <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let first = first;">
                         <span
@@ -209,14 +209,14 @@
                       </span>
                     </ng-container>
 
-                    <ng-container
+                    <!-- <ng-container
                       *ngFor="let item of onChangeValue(matchingJob?.jobs?.programming_skills, userInfo?.programming_skills); let i = index; let first = first;">
                       <span
                         *ngIf="moreElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
                         <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
                         {{item}}
                       </span>
-                    </ng-container>
+                    </ng-container> -->
 
                     <ng-container *ngFor="let item of userInfo?.programming_skills; let i = index; let first = first;">
                       <span
@@ -235,14 +235,14 @@
                       </span>
                     </ng-container>
 
-                    <ng-container
+                    <!-- <ng-container
                       *ngFor="let item of onChangeValue(matchingJob?.jobs?.optinal_skills, userInfo?.other_skills); let i = index; let first = first;">
                       <span
                         *ngIf="moreElement && onChangeStringNumber('other_skills', 'optinal_skills', item, 'close', true).type == 'close'">
                         <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
                         {{item}}
                       </span>
-                    </ng-container>
+                    </ng-container> -->
 
                     <ng-container *ngFor="let item of userInfo?.other_skills; let i = index; let first = first;">
                       <span
@@ -261,14 +261,14 @@
                       </span>
                     </ng-container>
 
-                    <ng-container
+                    <!-- <ng-container
                       *ngFor="let item of onChangeValue(matchingJob?.jobs?.certification, userInfo?.certification); let first = first;">
                       <span
                         *ngIf="moreElement && onChangeStringNumber('certification', 'certification', item, 'close', true).type == 'close'">
                         <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
                         {{item}}
                       </span>
-                    </ng-container>
+                    </ng-container> -->
 
                     <ng-container *ngFor="let item of userInfo?.certification; let first = first;">
                       <span
@@ -279,12 +279,12 @@
                     </ng-container>
                    </li>
                    <li class="list-group-item">
-                     <span *ngIf="matchedElement && (matchingJob?.jobs?.end_to_end_implementation >= userInfo?.end_to_end_implementation)">
+                     <span *ngIf="matchedElement && (matchingJob?.jobs?.end_to_end_implementation <= userInfo?.end_to_end_implementation)">
                       <i class="fa fa-check-circle text-green small"></i>
                       {{(matchingJob?.jobs?.end_to_end_implementation || matchingJob?.jobs?.end_to_end_implementation == 0) ?
                         (matchingJob?.jobs?.end_to_end_implementation) : '--'}}
                      </span>
-                     <span *ngIf="missingElement && (matchingJob?.jobs?.end_to_end_implementation < userInfo?.end_to_end_implementation)">
+                     <span *ngIf="missingElement && (matchingJob?.jobs?.end_to_end_implementation > userInfo?.end_to_end_implementation)">
                       <i class="fa fa-times-circle text-danger small"></i>
                       {{(matchingJob?.jobs?.end_to_end_implementation || matchingJob?.jobs?.end_to_end_implementation == 0) ?
                         (matchingJob?.jobs?.end_to_end_implementation) : '--'}}
