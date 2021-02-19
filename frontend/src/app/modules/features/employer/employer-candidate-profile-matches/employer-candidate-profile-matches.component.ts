@@ -224,14 +224,17 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     return [];
   }
 
-  onChangeStringNumber(field1, field2, item, type, isString: boolean = false) {
+  onChangeStringNumber(field1, field2, item, type, isString: boolean = false, isNew: boolean = false) {
     let lowerCaseJob = [];
     if (this.postedJobsDetails && this.postedJobsDetails[field1]) {
       lowerCaseJob = isString ? this.onLoweCase(this.postedJobsDetails[field1]) : this.postedJobsDetails[field1];
     }
     let lowerCaseUser = [];
-    if (this.matchingUsers && this.matchingUsers.profile && this.matchingUsers.profile[field2]) {
+    if (!isNew && this.matchingUsers && this.matchingUsers.profile && this.matchingUsers.profile[field2]) {
       lowerCaseUser = isString ? this.onLoweCase(this.matchingUsers.profile[field2]) : this.matchingUsers.profile[field2];
+    }
+    if (isNew && this.matchingUsersNew && this.matchingUsersNew.profile && this.matchingUsersNew.profile[field2]) {
+      lowerCaseUser = isString ? this.onLoweCase(this.matchingUsersNew.profile[field2]) : this.matchingUsersNew.profile[field2];
     }
 
     const itemMod = isString ? item.toLowerCase() : item;
@@ -245,14 +248,17 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     return { type: '', class: '' }
   }
 
-  onChangeObj(field1, field2, item, type, filterField) {
+  onChangeObj(field1, field2, item, type, filterField, isNew = false) {
     let lowerCaseJob = [];
     if (this.postedJobsDetails && this.postedJobsDetails[field1]) {
       lowerCaseJob = this.postedJobsDetails[field1]
     }
     let lowerCaseUser = [];
-    if (this.matchingUsers && this.matchingUsers.profile && this.matchingUsers.profile[field2]) {
+    if (!isNew && this.matchingUsers && this.matchingUsers.profile && this.matchingUsers.profile[field2]) {
       lowerCaseUser = this.matchingUsers.profile[field2]
+    }
+    if (isNew && this.matchingUsersNew && this.matchingUsersNew.profile && this.matchingUsersNew.profile[field2]) {
+      lowerCaseUser = this.matchingUsersNew.profile[field2]
     }
     let jobIndex = lowerCaseJob.findIndex(val => val[filterField] == item[filterField]);
 

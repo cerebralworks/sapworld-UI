@@ -484,19 +484,19 @@
 
 
                             <ng-container *ngFor="let item of matchingUsersNew?.profile?.domains_worked; let first = first;">
-                              <span class="matchTxt text-capitalize" *ngIf="matchedElement && onChangeStringNumber('domain', 'domains_worked', item, 'check').type == 'check'">
+                              <span class="matchTxt text-capitalize" *ngIf="matchedElement && onChangeStringNumber('domain', 'domains_worked', item, 'check', false, true).type == 'check'">
                                 <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
                                 {{sharedService.onFindDomainFromSingleID(item)?.name}}
                               </span>
                             </ng-container>
                             <ng-container *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.domains_worked, postedJobsDetails?.domain); let first = first;">
-                              <span class="matchTxt text-capitalize" *ngIf="moreElement && (onChangeStringNumber('domain', 'domains_worked', item, 'close').type == 'close')">
+                              <span class="matchTxt text-capitalize" *ngIf="moreElement && (onChangeStringNumber('domain', 'domains_worked', item, 'close', false, true).type == 'close')">
                                 <i  class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
                                 {{sharedService.onFindDomainFromSingleID(item)?.name}}
                               </span>
                              </ng-container>
                             <ng-container  *ngFor="let item of postedJobsDetails?.domain; let first = first;">
-                              <span class="matchTxt text-capitalize" *ngIf="missingElement && (onChangeStringNumber('domain', 'domains_worked', item, 'info').type == 'info')">
+                              <span class="matchTxt text-capitalize" *ngIf="missingElement && (onChangeStringNumber('domain', 'domains_worked', item, 'info', false, true).type == 'info')">
                                 <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
                                 {{sharedService.onFindDomainFromSingleID(item)?.name}}
                               </span>
@@ -507,7 +507,7 @@
                             <ng-container *ngIf="matchingUsersNew?.profile?.hands_on_experience?.length; else elseHandsTemplate">
                               <ng-container *ngFor="let item of matchingUsersNew?.profile?.hands_on_experience; let i = index; let first = first;">
                                 <div class="text-center border-right pr-3"
-                                  *ngIf="matchedElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'check', 'skill_id').type == 'check'">
+                                  *ngIf="matchedElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'check', 'skill_id', true).type == 'check'">
                                     {{utilsHelperService.onSplitTag(item.skill_name)}}
                                     <br>
                                   <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
@@ -518,7 +518,7 @@
                               <ng-container
                                 *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience); let i = index; let first = first;">
                                 <div class="text-center border-right pr-3"
-                                  *ngIf="moreElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
+                                  *ngIf="moreElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id', true).type == 'close'">
                                     {{utilsHelperService.onSplitTag(item.skill_name)}}
                                     <br>
                                   <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
@@ -528,7 +528,7 @@
 
                               <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index; let first = first;">
                                 <div class="text-center border-right pr-3"
-                                  *ngIf="missingElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'info', 'skill_id').type == 'info'">
+                                  *ngIf="missingElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'info', 'skill_id', true).type == 'info'">
                                     {{utilsHelperService.onSplitTag(item.skill_name)}}
                                     <br>
                                   <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
@@ -552,7 +552,7 @@
 
                               <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(matchingUsersNew?.profile?.skills, matchingUsersNew?.profile?.hands_on_experience, 'skill_id'); let first = first;">
                                 <span
-                                  *ngIf="matchedElement && onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
+                                  *ngIf="matchedElement && onChangeStringNumber('skills', 'skills', item, 'check', false, true).type == 'check'">
                                   <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
                                   {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
 
@@ -562,7 +562,7 @@
                               <ng-container
                                 *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.skills, postedJobsDetails?.skills); let first = first;">
                                 <span
-                                  *ngIf="moreElement && onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
+                                  *ngIf="moreElement && onChangeStringNumber('skills', 'skills', item, 'close', false, true).type == 'close'">
                                   <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
                                   {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
 
@@ -571,7 +571,7 @@
 
                               <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id'); let first = first;">
                                 <span
-                                  *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
+                                  *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info', false, true).type == 'info'">
                                   <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
                                   {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
 
@@ -585,7 +585,7 @@
                           <li class="list-group-item text-capitalize">
                             <ng-container *ngFor="let item of matchingUsersNew?.profile?.programming_skills; let first = first;let i = index;">
                               <span
-                                *ngIf="matchedElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true).type == 'check'">
+                                *ngIf="matchedElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true, true).type == 'check'">
                                 <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
                                 {{item}}
                               </span>
@@ -594,7 +594,7 @@
                             <ng-container
                               *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.programming_skills, postedJobsDetails?.programming_skills); let first = first;let i = index;">
                               <span
-                                *ngIf="moreElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
+                                *ngIf="moreElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true, true).type == 'close'">
                                 <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
                                 {{item}}
                               </span>
@@ -602,7 +602,7 @@
 
                             <ng-container *ngFor="let item of postedJobsDetails?.programming_skills; let first = first;let i = index;">
                               <span
-                                *ngIf="missingElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'info', true).type == 'info'">
+                                *ngIf="missingElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'info', true, true).type == 'info'">
                                 <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
                                 {{item}}
                               </span>
@@ -611,7 +611,7 @@
                           <li class="list-group-item text-capitalize">
                             <ng-container *ngFor="let item of matchingUsersNew?.profile?.other_skills; let first = first;let i = index;">
                               <span
-                                *ngIf="matchedElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'check', true).type == 'check'">
+                                *ngIf="matchedElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'check', true, true).type == 'check'">
                                 <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': i != 1}"></i>
                                 {{item}}
                               </span>
@@ -620,7 +620,7 @@
                             <ng-container
                               *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.other_skills, postedJobsDetails?.optinal_skills); let first = first;let i = index;">
                               <span
-                                *ngIf="moreElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'close', true).type == 'close'">
+                                *ngIf="moreElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'close', true, true).type == 'close'">
                                 <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': i != 1}"></i>
                                 {{item}}s
                               </span>
@@ -628,7 +628,7 @@
 
                             <ng-container *ngFor="let item of postedJobsDetails?.optinal_skills; let first = first;let i = index;">
                               <span
-                                *ngIf="missingElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'info', true).type == 'info'">
+                                *ngIf="missingElement && onChangeStringNumber('optinal_skills', 'other_skills', item, 'info', true, true).type == 'info'">
                                 <i class="far fa-times-circle text-danger small" [ngClass]="{'ml-2': i != 1}"></i>
                                 {{item}}
                               </span>
@@ -637,7 +637,7 @@
                           <li class="list-group-item text-capitalize">
                             <ng-container *ngFor="let item of matchingUsersNew?.profile?.certification; let first = first;">
                               <span
-                                *ngIf="matchedElement && onChangeStringNumber('certification', 'certification', item, 'check', true).type == 'check'">
+                                *ngIf="matchedElement && onChangeStringNumber('certification', 'certification', item, 'check', true, true).type == 'check'">
                                 <i class="far fa-check-circle text-green small" [ngClass]="{'ml-2': !first}"></i>
                                 {{item}}
                               </span>
@@ -646,7 +646,7 @@
                             <ng-container
                               *ngFor="let item of onChangeValue(matchingUsersNew?.profile?.certification, postedJobsDetails?.certification); let first = first;">
                               <span
-                                *ngIf="moreElement && onChangeStringNumber('certification', 'certification', item, 'close', true).type == 'close'">
+                                *ngIf="moreElement && onChangeStringNumber('certification', 'certification', item, 'close', true, true).type == 'close'">
                                 <i class="fa fa-info-circle text-blue" [ngClass]="{'ml-2': !first}"></i>
                                 {{item}}
                               </span>
@@ -654,7 +654,7 @@
 
                             <ng-container *ngFor="let item of postedJobsDetails?.certification; let first = first;">
                               <span
-                                *ngIf="missingElement && onChangeStringNumber('certification', 'certification', item, 'info', true).type == 'info'">
+                                *ngIf="missingElement && onChangeStringNumber('certification', 'certification', item, 'info', true, true).type == 'info'">
                                 <i class="fa fa-times-circle text-danger small" [ngClass]="{'ml-2': !first}"></i>
                                 {{item}}
                               </span>
