@@ -207,6 +207,11 @@ module.exports = (app, env, rp) => {
       })
   });
 
+  app.post("/api/accounts/update-password", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.post(`${serverRoutes.updateUserPassword}`, req, res, requestBody);
+  });
+
   /**
    * User is log out.
    */

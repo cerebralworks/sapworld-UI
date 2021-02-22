@@ -37,6 +37,7 @@ import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-p
 import { PhonePipe } from './pipes/phone.pipe';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     SharedUserProfileComponent,
     SharedJobProfileComponent,
     JobPreviewModalComponent,
-    PhonePipe
+    PhonePipe,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -117,7 +119,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     NgxDocViewerModule,
     JobPreviewModalComponent,
     PhonePipe,
-    CarouselModule
+    CarouselModule,
+    ChangePasswordComponent
   ],
   providers: [ApiService]
 })

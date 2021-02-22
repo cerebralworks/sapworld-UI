@@ -11,6 +11,7 @@ const routes = {
     userScoring: '/jobpostings/user-scoring',
     userView: '/users/view',
     userUpdate: "/users/update",
+    updateUserPassword: "/accounts/update-password",
     jobApply: "/jobpostings/apply",
     applicationsListForUser: "/jobpostings/applications/list-for-user",
     applicationsListForEmp: "/jobpostings/applications/list",

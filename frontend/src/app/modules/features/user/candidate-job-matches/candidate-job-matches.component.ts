@@ -27,6 +27,9 @@ export class CandidateJobMatchesComponent implements OnInit {
   public matchedElement: boolean = true;
   public missingElement: boolean = true;
   public moreElement: boolean = true;
+  isMultipleMatches: boolean;
+  matchingUsersMeta: any;
+  matchingJobNew: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +50,7 @@ export class CandidateJobMatchesComponent implements OnInit {
     )
     if (this.jobId) {
       this.onGetUserScoringById();
+      this.onGetUserScoringById(true, true);
     }
   }
 
@@ -59,14 +63,18 @@ export class CandidateJobMatchesComponent implements OnInit {
   }
 
   onViewOtherMatches = () => {
-    this.onGetUserScoringById(true);
+    if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+      this.isMultipleMatches = true;
+      this.onGetUserScoringById(true);
+      this.page++;
+      setTimeout(() => {
+        this.onGetUserScoringByIdNew();
+      }, 300);
+    }
   }
 
-  onGetUserScoringById = (isMultipleMatch: boolean = false) => {
+  onGetUserScoringById = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
     let requestParams: any = {};
-    // if (this.page == 0) {
-    //   requestParams.user_id = this.userInfo.id;
-    // }
     if (!isMultipleMatch) {
       requestParams.job_id = this.jobId;
     }
@@ -77,6 +85,25 @@ export class CandidateJobMatchesComponent implements OnInit {
       response => {
         if (response && !this.utilsHelperService.isEmptyObj(response.jobs)) {
           this.matchingJob = { ...response }
+        }
+        if (isCount) {
+          this.matchingUsersMeta = { ...response.meta }
+        }
+
+      }, error => {
+      }
+    )
+  }
+
+  onGetUserScoringByIdNew = () => {
+    let requestParams: any = {};
+    // requestParams.id = this.jobId;
+    requestParams.page = this.page;
+
+    this.userService.getUserScoring(requestParams).subscribe(
+      response => {
+        if (response) {
+          this.matchingJobNew = { ...response };
         }
 
       }, error => {

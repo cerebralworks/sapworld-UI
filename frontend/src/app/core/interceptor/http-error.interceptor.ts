@@ -37,12 +37,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap(evt => {
         if (evt instanceof HttpResponse) {
-          const re = /company-profile/gi;
+          const logout = /logout/gi;
+
           if (evt.body && evt.body.success && evt.body.message) {
-            this.toastrService.success(
-              evt.body.message,
-              ''
-            );
+            if (req.url.search(logout) === -1) {
+              this.toastrService.success(
+                evt.body.message,
+                ''
+              );
+            }
           }
         }
 
@@ -70,7 +73,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
             } else {
               const re = /company-profile/gi;
-              if (req.url.search(re) === -1 ) {
+              if (req.url.search(re) === -1) {
                 if (err.error.error.message) {
                   this.toastrService.error(err.error.error.message, '');
                 } else if (err.error.err) {

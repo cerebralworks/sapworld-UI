@@ -129,6 +129,15 @@ export class AccountService extends CacheService {
     );
   };
 
+  changePassword = (requestParams: any): Observable<any> => {
+    return this.apiService.post('/api/accounts/update-password', requestParams).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
+
   verify = (userCredentials: VerifyAccount): Observable<VerifyAccount> => {
     return this.apiService.post('/api/accounts/verify', userCredentials).pipe(
       map(data => {
