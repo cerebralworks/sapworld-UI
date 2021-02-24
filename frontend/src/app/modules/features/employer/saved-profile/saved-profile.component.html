@@ -30,7 +30,15 @@
                   <!-- <div [ngClass]="{'active': savedProfiles?.includes(item?.id)}" (click)="onSaveProfile(item)" class="save-icon" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div> -->
                   <div  (click)="onSaveProfile(item, i)" class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
                   <div class="media">
-                    <img style="width:36px;" [src]="item?.photo ? (savedProfileMeta?.photo?.path+'/'+ savedProfileMeta?.photo?.folder+'/'+savedProfileMeta?.photo?.sizes?.medium+'/'+item?.photo) : 'assets/images/user-img-icon.jpg'">
+                    <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" style="width:36px;" [src]="item?.photo ? (savedProfileMeta?.photo?.path+'/'+ savedProfileMeta?.photo?.folder+'/'+savedProfileMeta?.photo?.sizes?.medium+'/'+item?.photo) : 'assets/images/user-img-icon.jpg'">
+                    <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
+                      <ng-container *ngIf="item?.privacy_protection?.photo == true; else elsePhotoTemplate">
+                        <img  style="width:36px;" [src]="item?.photo ? savedProfileMeta?.photo?.path+'/'+ savedProfileMeta?.photo?.folder+'/'+savedProfileMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+                      </ng-container>
+                      <ng-template #elsePhotoTemplate>
+                        <img  style="width:36px;" [src]="'assets/images/user-lock.jpg'">
+                      </ng-template>
+                    </ng-container>
                     <div class="media-body">
                       <h6 class="text-capitalize">
                         {{item?.city ? item?.city : ''}}

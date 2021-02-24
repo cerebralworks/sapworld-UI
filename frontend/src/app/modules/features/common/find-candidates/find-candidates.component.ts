@@ -1,6 +1,7 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { AccountService } from '@data/service/account.service';
 import { UserService } from '@data/service/user.service';
 import { CacheService } from '@shared/service/cache.service';
 import { DataService } from '@shared/service/data.service';
@@ -45,6 +46,8 @@ export class FindCandidatesComponent extends CacheService implements OnInit {
   public customParseInt: any = parseInt;
   public cityString: string;
   public skillString: any;
+  public loggedUserInfo: any;
+  public randomNum: number;
 
   constructor(
     public sharedService: SharedService,
@@ -52,7 +55,8 @@ export class FindCandidatesComponent extends CacheService implements OnInit {
     private route: ActivatedRoute,
     public utilsHelperService: UtilsHelperService,
     private dataService: DataService,
-    private userService: UserService
+    private userService: UserService,
+    private accountService: AccountService
   ) {
     super();
     this.experienceFilter = [
@@ -114,6 +118,14 @@ export class FindCandidatesComponent extends CacheService implements OnInit {
   }
 
   ngOnInit(): void {
+    this.randomNum = Math.random();
+
+    this.accountService
+      .isCurrentUser()
+      .subscribe(response => {
+        this.loggedUserInfo = response;
+      });
+
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };

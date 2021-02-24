@@ -85,7 +85,15 @@
                     <div [ngClass]="{'active': savedProfiles?.includes(item?.id)}" (click)="onSaveProfile(item)" class="save-icon" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
                   </div>
                   <div class="media">
-                    <img [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo : 'assets/images/user-img-icon.jpg'">
+                    <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+                    <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
+                      <ng-container *ngIf="item?.privacy_protection?.photo == true; else elsePhotoTemplate">
+                        <img [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+                      </ng-container>
+                      <ng-template #elsePhotoTemplate>
+                        <img [src]="'assets/images/user-lock.jpg'">
+                      </ng-template>
+                    </ng-container>
                     <!-- <img src="assets/images/user-img.jpg"> -->
                     <div class="media-body">
                       <h6 class="text-capitalize">

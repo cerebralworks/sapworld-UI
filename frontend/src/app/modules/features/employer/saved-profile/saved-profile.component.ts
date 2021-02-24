@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
@@ -25,16 +26,20 @@ export class SavedProfileComponent implements OnInit {
   public searchField: FormControl = new FormControl();
   public employerDetails: any = {};
   public validateSubscribe: number = 0;
+  public loggedUserInfo: any;
+  public randomNum: number;
 
   constructor(
     private employerService: EmployerService,
     public sharedService: SharedService,
     public utilsHelperService: UtilsHelperService,
     private toastrService: ToastrService,
-    private employerSharedService: EmployerSharedService
+    private employerSharedService: EmployerSharedService,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
+    this.randomNum = Math.random();
 
     this.searchField.valueChanges.pipe(
       debounceTime(1000),
@@ -44,6 +49,12 @@ export class SavedProfileComponent implements OnInit {
       this.savedProfile = [];
       this.onGetSavedProfile(term);
     });
+
+    this.accountService
+      .isCurrentUser()
+      .subscribe(response => {
+        this.loggedUserInfo = response;
+      });
 
     this.employerSharedService.getEmployerProfileDetails().subscribe(
       details => {

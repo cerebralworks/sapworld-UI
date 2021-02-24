@@ -1,68 +1,14 @@
 <div *ngIf="!isDashboard">
-  <div class="row mb-5">
+  <div class="row mb-5" *ngFor="let item of profileSettings; let i=index">
     <div class="col-lg-4 col-md-6">
-      <h5>Profile Image</h5>
+      <h5>{{item.label}}</h5>
     </div>
     <div class="col-lg-3 col-md-6">
       <div class="showhideswitch">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch" checked>
-        <label class="showhideswitch-label" for="myshowhideswitch">
-          <span class="showhideswitch-inner"></span>
-          <span class="showhideswitch-switch"></span>
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="row mb-5">
-    <div class="col-lg-4 col-md-6">
-      <h5>Phone Number</h5>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="showhideswitch">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch1" checked>
-        <label class="showhideswitch-label" for="myshowhideswitch1">
-          <span class="showhideswitch-inner"></span>
-          <span class="showhideswitch-switch"></span>
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="row mb-5">
-    <div class="col-lg-4 col-md-6">
-      <h5>Email ID</h5>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="showhideswitch">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch2" checked>
-        <label class="showhideswitch-label" for="myshowhideswitch2">
-          <span class="showhideswitch-inner"></span>
-          <span class="showhideswitch-switch"></span>
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="row mb-5">
-    <div class="col-lg-4 col-md-6">
-      <h5>Current Employer</h5>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="showhideswitch">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch4">
-        <label class="showhideswitch-label" for="myshowhideswitch4">
-          <span class="showhideswitch-inner"></span>
-          <span class="showhideswitch-switch"></span>
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-md-6">
-      <h5>Currently Available for Opportunity </h5>
-    </div>
-    <div class="col-lg-3 col-md-6">
-      <div class="showhideswitch">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch4">
-        <label class="showhideswitch-label" for="myshowhideswitch4">
+        <input
+        [checked]="(item.field != 'opportunity' && currentProfileInfo?.privacy_protection[item?.field] == true) || (item.field == 'opportunity' && currentProfileInfo?.status == 7)"
+        (click)="onSetSettings(item, $event?.target?.checked)" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch_{{i}}">
+        <label class="showhideswitch-label" for="myshowhideswitch_{{i}}">
           <span class="showhideswitch-inner"></span>
           <span class="showhideswitch-switch"></span>
         </label>
@@ -78,7 +24,7 @@
     <h2>Profile Settings</h2>
   </div>
   <div class="sidebar-widget text-left">
-    <div class="row mb-4">
+    <!-- <div class="row mb-4">
       <div class="col-lg-6">
         <p>First Name</p>
       </div>
@@ -105,72 +51,18 @@
           </label>
         </div>
       </div>
-    </div>
-    <div class="row mb-4">
+    </div> -->
+    <div class="row mb-4" *ngFor="let item of profileSettings; let i=index">
       <div class="col-lg-6">
-        <p>Profile Image</p>
+        <h5>{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item.label}}</h5>
       </div>
       <div class="col-lg-6 clearfix">
         <div class="showhideswitch float-right">
-          <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch" checked>
-          <label class="showhideswitch-label" for="myshowhideswitch">
-            <span class="showhideswitch-inner"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-4">
-      <div class="col-lg-6">
-        <p>Phone Number</p>
-      </div>
-      <div class="col-lg-6 clearfix">
-        <div class="showhideswitch float-right">
-          <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch1" checked>
-          <label class="showhideswitch-label" for="myshowhideswitch1">
-            <span class="showhideswitch-inner"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-4">
-      <div class="col-lg-6">
-        <p>Email ID</p>
-      </div>
-      <div class="col-lg-6 clearfix">
-        <div class="showhideswitch float-right">
-          <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch2" checked>
-          <label class="showhideswitch-label" for="myshowhideswitch2">
-            <span class="showhideswitch-inner"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-4">
-      <div class="col-lg-6">
-        <p>Current Employer</p>
-      </div>
-      <div class="col-lg-6 clearfix">
-        <div class="showhideswitch float-right">
-          <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch4" checked>
-          <label class="showhideswitch-label" for="myshowhideswitch4">
-            <span class="showhideswitch-inner"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <p>Open to Opportunity </p>
-      </div>
-      <div class="col-lg-6 clearfix">
-        <div class="showhideswitch float-right">
-          <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch5">
-          <label class="showhideswitch-label" for="myshowhideswitch5">
-            <span class="showhideswitch-inner yesno"></span>
+          <input
+          [checked]="(item.field != 'opportunity' && currentProfileInfo?.privacy_protection[item?.field] == true) || (item.field == 'opportunity' && currentProfileInfo?.status == 7)"
+          (click)="onSetSettings(item, $event?.target?.checked)" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch_dash_{{i}}">
+          <label class="showhideswitch-label" for="myshowhideswitch_dash_{{i}}">
+            <span class="showhideswitch-inner" [ngClass]="{'yesno': item?.field == 'opportunity'}"></span>
             <span class="showhideswitch-switch"></span>
           </label>
         </div>

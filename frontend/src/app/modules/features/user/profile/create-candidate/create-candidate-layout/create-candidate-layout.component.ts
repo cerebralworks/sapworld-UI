@@ -302,6 +302,10 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
       candidateInfo.phone = candidateInfo.phone.e164Number
     }
 
+    if(this.userDetails && this.userDetails.privacy_protection) {
+      candidateInfo.privacy_protection = {...this.userDetails.privacy_protection}
+    }
+
     let tempSkill = [];
     if(candidateInfo && candidateInfo.hands_on_experience && Array.isArray(candidateInfo.hands_on_experience)) {
       candidateInfo.hands_on_experience.forEach((element: any) => {

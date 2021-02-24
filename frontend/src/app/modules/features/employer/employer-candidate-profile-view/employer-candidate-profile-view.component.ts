@@ -62,7 +62,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
     this.userService.profileView(requestParams).subscribe(
       response => {
         if(response && response.details) {
-          this.userDetails = response.details;
+          this.userDetails = {...response.details, meta: response.meta};
         }
       }, error => {
       }

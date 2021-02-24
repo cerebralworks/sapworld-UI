@@ -52,4 +52,5 @@ export interface CandidateProfile {
   phone: any;
   email: string;
   job_application: any
+  privacy_protection: any
 }

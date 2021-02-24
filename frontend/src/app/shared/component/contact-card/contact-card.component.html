@@ -32,7 +32,15 @@
       </div>
     </div>
     <div class="media">
-      <img [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+      <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+      <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
+        <ng-container *ngIf="userInfo?.privacy_protection?.photo == true; else elsePhotoTemplate">
+          <img [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+        </ng-container>
+        <ng-template #elsePhotoTemplate>
+          <img [src]="'assets/images/user-lock.jpg'">
+        </ng-template>
+      </ng-container>
       <div class="media-body">
         <h6 class="text-capitalize">
           {{userInfo?.city ? userInfo?.city : ''}}
@@ -41,11 +49,36 @@
             {{userInfo?.country ? ', ' + userInfo?.country : ''}}
           </span>
         </h6>
-        <h6>
+        <h6 *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
           <a href="mailto:{{userInfo?.email}}">
-          <i class="fas fa-envelope" *ngIf="userInfo?.email"></i> {{userInfo?.email}}</a>
+            <i class="fas fa-envelope" *ngIf="userInfo?.email"></i>
+            {{userInfo?.email}}
+          </a>
           <i class="fas fa-mobile" *ngIf="userInfo?.phone"></i> {{userInfo?.phone | phone}}
         </h6>
+        <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+          <ng-container *ngIf="userInfo?.privacy_protection?.email == true; else elseEmailTemplate">
+            <a href="mailto:{{userInfo?.email}}">
+              <i class="fas fa-envelope" *ngIf="userInfo?.email"></i>
+              {{userInfo?.email}}
+            </a>
+          </ng-container>
+          <ng-template #elseEmailTemplate>
+            <span class="text-capitalize">
+              <i class="fas fa-envelope"></i>
+              {{censorEmail(userInfo?.email)}}
+            </span>
+          </ng-template>
+          <ng-container *ngIf="userInfo?.privacy_protection?.phone == true; else elsePhoneTemplate">
+            <i class="fas fa-mobile" *ngIf="userInfo?.phone"></i> {{userInfo?.phone | phone}}
+          </ng-container>
+          <ng-template #elsePhoneTemplate>
+            <span class="text-capitalize">
+              <i class="fas fa-mobile"></i>
+              {{censorPhoneNumber(userInfo?.phone)}}
+            </span>
+          </ng-template>
+        </ng-container>
         <h6 *ngIf="userInfo?.social_media_link?.length">
           <a class="mr-1" *ngFor="let item of userInfo?.social_media_link" href="{{item.url}}" target="_blank">
             <ng-container [ngSwitch]="item?.media">
@@ -64,7 +97,18 @@
             </ng-container>
           </a>
         </h6>
-        <h6 class="mb-0 text-capitalize">{{userInfo?.current_employer}}</h6>
+        <h6 *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" class="mb-0 text-capitalize">{{userInfo?.current_employer}}</h6>
+        <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+          <ng-container *ngIf="userInfo?.privacy_protection?.current_employer == true; else elseEmpTemplate">
+            <h6 class="mb-0 text-capitalize">{{userInfo?.current_employer}}</h6>
+          </ng-container>
+          <ng-template #elseEmpTemplate>
+            <h6 class="mb-0 text-capitalize">
+              {{censorEmployer(userInfo?.current_employer)}}
+            </h6>
+          </ng-template>
+        </ng-container>
+
       </div>
     </div>
   </div>

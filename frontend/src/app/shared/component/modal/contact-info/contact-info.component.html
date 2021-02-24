@@ -8,13 +8,39 @@
   <div class="modal-body">
     <div class="mt-3">
       <div class="contactIcon"><i class="fas fa-phone-alt"></i> Phone </div>
-      <h5>
+      <h5  *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
         {{userInfo?.phone | phone}}
       </h5>
+      <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+        <ng-container *ngIf="userInfo?.privacy_protection?.phone == true; else elsePhoneTemplate">
+          <h5>
+            {{userInfo?.phone | phone}}
+          </h5>
+        </ng-container>
+        <ng-template #elsePhoneTemplate>
+          <span class="text-capitalize">
+            {{censorPhoneNumber(userInfo?.phone)}}
+          </span>
+        </ng-template>
+      </ng-container>
+
     </div>
     <div class="mt-4">
       <div class="contactIcon"><i class="fas fa-envelope"></i> Email </div>
-      <h5><a href="mailto:{{userInfo?.email}}">{{userInfo?.email}}</a></h5>
+      <h5>
+        <a *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" href="mailto:{{userInfo?.email}}">{{userInfo?.email}}</a>
+
+        <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+          <ng-container *ngIf="userInfo?.privacy_protection?.email == true; else elseEmailTemplate">
+            <a href="mailto:{{userInfo?.email}}">{{userInfo?.email}}</a>
+          </ng-container>
+          <ng-template #elseEmailTemplate>
+            <span class="text-capitalize">
+              {{censorEmail(userInfo?.email)}}
+            </span>
+          </ng-template>
+        </ng-container>
+      </h5>
     </div>
   </div>
   <div class="modal-footer">

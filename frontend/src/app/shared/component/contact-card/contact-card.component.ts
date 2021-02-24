@@ -1,7 +1,9 @@
 import { Component, DoCheck, Input, OnDestroy, OnInit } from '@angular/core';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
+import { AccountService } from '@data/service/account.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-contact-card',
@@ -25,13 +27,22 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public validateOnAPI: number = 0;
   public currentUserInfo: CandidateProfile;
   public isOpenedSendMailModal: boolean;
+  public accountUserSubscription: Subscription;
+  public loggedUserInfo: any;
 
   constructor(
-    public utilsHelperService: UtilsHelperService
+    public utilsHelperService: UtilsHelperService,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
     this.randomNum = Math.random();
+
+    this.accountUserSubscription = this.accountService
+      .isCurrentUser()
+      .subscribe(response => {
+        this.loggedUserInfo = response;
+      });
   }
 
   ngDoCheck(): void {
@@ -61,5 +72,40 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
     }
     this.isOpenedSendMailModal = status;
   }
+
+  censorWord = (str) => {
+    if(str && str.length) {
+      return str[0] + "*".repeat(str.length - 2) + str.slice(-1);
+    }
+
+  }
+
+ censorEmail = (email) => {
+   if(email && email.length) {
+    let arr = email.split("@");
+      return this.censorWord(arr[0]) + "@" + this.censorWord(arr[1]);
+   }
+   return "";
+ }
+
+ censorPhoneNumber = (str: string) => {
+  if(str && str.length) {
+    return str.slice(0, 2) + str.slice(2).replace(/.(?=...)/g, '*');
+  }
+  return "";
+ }
+
+ censorEmployer = (str: string) => {
+  if(str && str.length) {
+    var first = str.substring(0, 1);
+    var last = str.substring(str.length - 1);
+
+    let mask = str.substring(1, str.length - 1).replace(/.(?=)/g, '*');
+
+    return first + mask + last;
+  }
+  return "";
+ }
+
 
 }

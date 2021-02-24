@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
+import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UserService } from '@data/service/user.service';
@@ -61,6 +62,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public selectCountry: string = "";
   public customObject: any = Object;
   public tempQueryParams: any = {};
+  public loggedUserInfo: any;
+  public randomNum: number;
 
   constructor(
     public sharedService: SharedService,
@@ -72,7 +75,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     private employerSharedService: EmployerSharedService,
     private employerService: EmployerService,
     private location: Location,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private accountService: AccountService
   ) {
     this.experienceFilter = [
       {value: {min: 0, max: 1}, text: 'Freshers'},
@@ -134,6 +138,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
   validateSubscribe = 0;
   ngOnInit(): void {
+    this.randomNum = Math.random();
+
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
@@ -154,6 +160,13 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       }
     )
     // this.onGetCandidateListForCountry();
+
+    this.accountService
+      .isCurrentUser()
+      .subscribe(response => {
+        this.loggedUserInfo = response;
+      });
+
   }
 
   ngDoCheck(): void {
