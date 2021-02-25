@@ -369,22 +369,23 @@
                           {{(matchingUsers?.profile?.travel || matchingUsers?.profile?.travel == 0) ?
                             matchingUsers?.profile?.travel == 0 ? 'No' : matchingUsers?.profile?.travel + '%' : '--'}}
                           </span></li>
-                        <li class="list-group-item">
-                          <span *ngIf="matchedElement && (matchingUsers?.profile?.work_authorization == postedJobsDetails?.work_authorization)">
-                            <i class="fa fa-check-circle text-green small"></i>
-                            {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
-                              0)
-                              ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                              translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
-                          </span>
-                          <span *ngIf="missingElement && (matchingUsers?.profile?.work_authorization != postedJobsDetails?.work_authorization)">
-                            <i class="fa fa-times-circle text-danger small"></i>
-                            {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
-                              0)
-                              ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                              translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
-                          </span>
-                        </li>
+                          <li class="list-group-item">
+                            <span *ngIf="matchedElement && ((matchingUsers?.profile?.work_authorization == 0) && (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1))">
+                              <i class="fa fa-check-circle text-green small"></i>
+                              {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
+                                0)
+                                ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                                translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                            </span>
+                            <span *ngIf="missingElement && (matchingUsers?.profile?.work_authorization == 1)">
+                              <i class="fa fa-times-circle text-danger small"></i>
+                              {{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
+                                0)
+                                ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+                                translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+                            </span>
+
+                          </li>
 
                         <li class="list-group-item">
                           <span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)">
@@ -719,14 +720,14 @@
                             <!-- <span *ngIf="((!matchedElement && (matchingUsersNew?.profile?.travel >= postedJobsDetails?.travel_opportunity)) || (!missingElement && (matchingUsersNew?.profile?.travel < postedJobsDetails?.travel_opportunity)))">--</span> -->
                           </li>
                           <li class="list-group-item">
-                            <span *ngIf="matchedElement && (matchingUsersNew?.profile?.work_authorization == postedJobsDetails?.work_authorization)">
+                            <span *ngIf="matchedElement && ((matchingUsersNew?.profile?.work_authorization == 0) && (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1))">
                               <i class="fa fa-check-circle text-green small"></i>
                               {{(matchingUsersNew?.profile?.work_authorization || matchingUsersNew?.profile?.work_authorization ==
                                 0)
                                 ? (matchingUsersNew?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
                                 translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
                             </span>
-                            <span *ngIf="missingElement && (matchingUsersNew?.profile?.work_authorization != postedJobsDetails?.work_authorization)">
+                            <span *ngIf="missingElement && (matchingUsersNew?.profile?.work_authorization == 1)">
                               <i class="fa fa-times-circle text-danger small"></i>
                               {{(matchingUsersNew?.profile?.work_authorization || matchingUsersNew?.profile?.work_authorization ==
                                 0)
