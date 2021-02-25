@@ -80,22 +80,44 @@
           </ng-template>
         </ng-container>
         <h6 *ngIf="userInfo?.social_media_link?.length">
-          <a class="mr-1" *ngFor="let item of userInfo?.social_media_link" href="{{item.url}}" target="_blank">
-            <ng-container [ngSwitch]="item?.media">
-              <ng-container *ngSwitchCase="'youtube'">
-                <i class="fab fa-youtube-square"></i>
+          <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0); else elseTemplate">
+            <a class="mr-1" *ngFor="let item of userInfo?.social_media_link" href="{{item.url}}" target="_blank">
+              <ng-container [ngSwitch]="item?.media">
+                <ng-container *ngSwitchCase="'youtube'">
+                  <i class="fab fa-youtube-square"></i>
+                </ng-container>
+                <ng-container *ngSwitchCase="'portfolio'">
+                  <i class="fas fa-laptop-code"></i>
+                </ng-container>
+                <ng-container *ngSwitchCase="'blog'">
+                  <i class="fas fa-blog"></i>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <i class="fab fa-{{item.media}}"></i>
+                </ng-container>
               </ng-container>
-              <ng-container *ngSwitchCase="'portfolio'">
-                <i class="fas fa-laptop-code"></i>
-              </ng-container>
-              <ng-container *ngSwitchCase="'blog'">
-                <i class="fas fa-blog"></i>
-              </ng-container>
-              <ng-container *ngSwitchDefault>
-                <i class="fab fa-{{item.media}}"></i>
-              </ng-container>
+            </a>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ng-container  *ngFor="let item of userInfo?.social_media_link">
+              <a class="mr-1" href="{{item.url}}" target="_blank">
+                <ng-container *ngIf="item?.visibility == true" [ngSwitch]="item?.media">
+                  <ng-container *ngSwitchCase="'youtube'">
+                    <i class="fab fa-youtube-square"></i>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'portfolio'">
+                    <i class="fas fa-laptop-code"></i>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'blog'">
+                    <i class="fas fa-blog"></i>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    <i class="fab fa-{{item.media}}"></i>
+                  </ng-container>
+                </ng-container>
+              </a>
             </ng-container>
-          </a>
+          </ng-template>
         </h6>
         <h6 *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" class="mb-0 text-capitalize">{{userInfo?.current_employer}}</h6>
         <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">

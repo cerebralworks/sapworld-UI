@@ -1,14 +1,14 @@
-<div>
+<div [formGroup]="userLinksForm">
   <div class="row mb-5">
     <div class="col-lg-4 col-md-6">
       <div class="d-flex">
         <div class="linkIcon in"><i class="fab fa-linkedin"></i></div>
-        <input type="text" class="form-control form-control-sm" placeholder="Enter linkedin url">
+        <input formControlName="linkedin" type="text" class="form-control form-control-sm" placeholder="Enter linkedin url">
       </div>
     </div>
     <div class="col-lg-3 col-md-6">
       <div class="showhideswitch mt-2">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch5" checked>
+        <input formControlName="linkedinBoolen" (change)="onSetLinks('linkedin', $event?.target?.checked);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch5" checked>
         <label class="showhideswitch-label" for="myshowhideswitch5">
           <span class="showhideswitch-inner"></span>
           <span class="showhideswitch-switch"></span>
@@ -20,12 +20,12 @@
     <div class="col-lg-4 col-md-6">
       <div class="d-flex">
         <div class="linkIcon gh"><i class="fab fa-github"></i></div>
-        <input type="text" class="form-control form-control-sm" placeholder="Enter github url">
+        <input formControlName="github" type="text" class="form-control form-control-sm" placeholder="Enter github url">
       </div>
     </div>
     <div class="col-lg-3 col-md-6">
       <div class="showhideswitch mt-2">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch6" checked>
+        <input formControlName="githubBoolen" (change)="onSetLinks('github', $event?.target?.checked);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch6" checked>
         <label class="showhideswitch-label" for="myshowhideswitch6">
           <span class="showhideswitch-inner"></span>
           <span class="showhideswitch-switch"></span>
@@ -37,12 +37,12 @@
     <div class="col-lg-4 col-md-6">
       <div class="d-flex">
         <div class="linkIcon yt"><i class="fab fa-youtube-square"></i></div>
-        <input type="text" class="form-control form-control-sm" placeholder="Enter youtube url">
+        <input formControlName="youtube" type="text" class="form-control form-control-sm" placeholder="Enter youtube url">
       </div>
     </div>
     <div class="col-lg-3 col-md-6">
       <div class="showhideswitch mt-2">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch7" checked>
+        <input formControlName="youtubeBoolen" (change)="onSetLinks('youtube', $event?.target?.checked);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch7" checked>
         <label class="showhideswitch-label" for="myshowhideswitch7">
           <span class="showhideswitch-inner"></span>
           <span class="showhideswitch-switch"></span>
@@ -54,12 +54,12 @@
     <div class="col-lg-4 col-md-6">
       <div class="d-flex">
         <div class="linkIcon bl"><i class="fas fa-blog"></i></div>
-        <input type="text" class="form-control form-control-sm" placeholder="Enter blog url">
+        <input formControlName="blog" type="text" class="form-control form-control-sm" placeholder="Enter blog url">
       </div>
     </div>
     <div class="col-lg-3 col-md-6">
       <div class="showhideswitch mt-2">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch8" checked>
+        <input formControlName="blogBoolen" (change)="onSetLinks('blog', $event?.target?.checked);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch8" checked>
         <label class="showhideswitch-label" for="myshowhideswitch8">
           <span class="showhideswitch-inner"></span>
           <span class="showhideswitch-switch"></span>
@@ -71,12 +71,12 @@
     <div class="col-lg-4 col-md-6">
       <div class="d-flex">
         <div class="linkIcon pf"><i class="fas fa-laptop-code"></i></div>
-        <input type="text" class="form-control form-control-sm" placeholder="Enter portfolio url">
+        <input formControlName="portfolio" type="text" class="form-control form-control-sm" placeholder="Enter portfolio url">
       </div>
     </div>
     <div class="col-lg-3 col-md-6">
       <div class="showhideswitch mt-2">
-        <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch9" checked>
+        <input formControlName="portfolioBoolen" (change)="onSetLinks('portfolio', $event?.target?.checked);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch9" checked>
         <label class="showhideswitch-label" for="myshowhideswitch9">
           <span class="showhideswitch-inner"></span>
           <span class="showhideswitch-switch"></span>
