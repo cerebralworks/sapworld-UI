@@ -81,6 +81,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     }
     requestParams.id = this.jobId;
     requestParams.page = this.page;
+    requestParams.additional_fields = 'job_application';
 
     this.employerService.getJobScoring(requestParams).subscribe(
       response => {

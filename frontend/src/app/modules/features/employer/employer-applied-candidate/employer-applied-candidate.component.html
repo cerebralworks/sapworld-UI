@@ -45,11 +45,18 @@
                     {{item?.user?.country ? item?.user?.country : ''}}
                   </span>
                 </td>
-                <td class="text-capitalize">
+                <td class="text-center text-capitalize">
+                  <select class="form-control form-control-td" (change)="onShortListUser(item, $event?.target?.value)">
+                    <option [value]="null" [selected]="true" >Select</option>
+                    <option [value]="true" [selected]="item?.short_listed == true">Shortlist</option>
+                    <option [value]="false">Not a Fit</option>
+                  </select>
+                  </td>
+                <!-- <td class="text-capitalize">
                  <button type="button" class="btn btn-sm btn-primary" (click)="onShortListUser(item)">
                    {{item?.short_listed ? 'Remove' : 'Add'}}
                   </button>
-                </td>
+                </td> -->
                 <td class="text-capitalize">
                   <button  [routerLink]="['/employer/job-candidate-matches', item?.job_posting?.id, item?.user?.id]" type="button" class="btn btn-sm btn-secondary">
                     View Score

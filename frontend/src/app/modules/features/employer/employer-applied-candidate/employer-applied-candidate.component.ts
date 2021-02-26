@@ -21,6 +21,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
   public postedJobMeta: any;
   public postedJobs: any[] = [];
   public validateSubscribe: number = 0;
+  public shortlistModal: any = null;
 
   constructor(
     private employerService: EmployerService,
@@ -121,27 +122,30 @@ export class EmployerAppliedCandidateComponent implements OnInit {
       )
   }
 
-  onShortListUser = (item) => {
-    if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
-      let requestParams: any = {};
-      requestParams.job_posting = this.selectedJob.id;
-      requestParams.user = item.user.id;
-      requestParams.short_listed = item.short_listed ? false : true;
+  onShortListUser = (item, value) => {
+    if((value == 'true' || value == 'null')) {
+      if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
+        let requestParams: any = {};
+        requestParams.job_posting = this.selectedJob.id;
+        requestParams.user = item.user.id;
+        requestParams.short_listed = value == 'true' ? true : false;
 
-      this.employerService.shortListUser(requestParams).subscribe(
-        response => {
-          this.appliedJobs = this.appliedJobs.map((value) => {
-            if(value.id == item.id) {
-              value.short_listed = item?.short_listed ? false : true;
-            }
-            return value;
-          });
-        }, error => {
-        }
-      )
-    }else {
-      this.toastrService.error('Something went wrong, please try again', 'Failed')
+        this.employerService.shortListUser(requestParams).subscribe(
+          response => {
+            this.appliedJobs = this.appliedJobs.map((value) => {
+              if(value.id == item.id) {
+                value.short_listed = value == 'true' ? true : false;
+              }
+              return value;
+            });
+          }, error => {
+          }
+        )
+      }else {
+        this.toastrService.error('Something went wrong, please try again', 'Failed')
+      }
     }
+
   }
 
   onLoadMoreJob = () => {
