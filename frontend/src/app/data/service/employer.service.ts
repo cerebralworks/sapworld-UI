@@ -81,6 +81,14 @@ export class EmployerService extends CacheService {
     );
   };
 
+  changeJobStatus = (params: any): Observable<any> => {
+    return this.apiService.post('/api/jobpostings/change-status', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
   getJobScoring = (params?) => {
     return this.apiService.get('/api/jobpostings/job-scoring', params).pipe(
       map(data => {

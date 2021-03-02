@@ -21,6 +21,7 @@ const routes = {
     userResumeDelete: "/users/delete-resume",
     userChooseDefaultResume: "/users/choose-default-resume",
     jobPostingCreate: '/jobpostings/create',
+    changeJobStatus: '/jobpostings/change-status',
     jobPostingUpdate: '/jobpostings/update',
     skillTagList: '/skill-tags/list',
     forgotPassword: '/accounts/request-reset-password',

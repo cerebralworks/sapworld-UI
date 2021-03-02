@@ -25,6 +25,15 @@ module.exports = (app, env, rp) => {
     requestCustom.post(`${serverRoutes.jobPostingCreate}`, req, res, requestBody);
   });
 
+   /**
+   * Change Job Status
+   */
+  app.post("/api/jobpostings/change-status", (req, res) => {
+    let requestBody = { ...req.body };   
+    console.log(requestBody, `${serverRoutes.changeJobStatus}/${requestBody.id}`); 
+    requestCustom.post(`${serverRoutes.changeJobStatus}/${requestBody.id}`, req, res, requestBody);
+  });
+
   /**
    * Job Updating
    */

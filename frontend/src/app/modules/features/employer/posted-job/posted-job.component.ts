@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { JobPosting } from '@data/schema/post-job';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
   selector: 'app-posted-job',
@@ -16,13 +19,22 @@ export class PostedJobComponent implements OnInit {
   public postedJobMeta: any = {};
   public currentEmployerDetails: any = {};
   public isDeleteModalOpened: boolean = false;
-  currentJobDetails: any;
-  currentJobIndex: any;
+  public currentJobDetails: any;
+  public currentJobIndex: any;
+  public statusGlossary: any;
+  public mbRef: NgbModalRef;
+
+  @ViewChild('statusModal', { static: false }) deleteModal: TemplateRef<any>;
+  public currentValueOfStatus: any;
+  public currentValueOfJob: JobPosting;
+  isStatusValue: any;
 
   constructor(
     public employerService: EmployerService,
     private employerSharedService: EmployerSharedService,
-    private router: Router
+    private router: Router,
+    private modelService: NgbModal,
+    private utilsHelperService: UtilsHelperService
   ) { }
 
   validateSubscribe = 0;
@@ -44,7 +56,7 @@ export class PostedJobComponent implements OnInit {
     )
   }
 
-  onGetPostedJob(companyId) {
+  onGetPostedJob(companyId, statusValue?: number) {
     this.isLoading = true;
     let requestParams: any = {};
     requestParams.page = this.page;
@@ -52,9 +64,16 @@ export class PostedJobComponent implements OnInit {
     requestParams.expand = 'company';
     requestParams.company = companyId;
     requestParams.sort = 'created_at.desc';
+    if(statusValue != null) {
+      requestParams.status = statusValue;
+      this.postedJobs = [];
+    }
     this.employerService.getPostedJob(requestParams).subscribe(
       response => {
         if(response && response.items && response.items.length > 0) {
+          if(statusValue != null) {
+            this.postedJobs = [];
+          }
           this.postedJobs = [...this.postedJobs, ...response.items];
         }
         this.postedJobMeta = { ...response.meta }
@@ -64,6 +83,53 @@ export class PostedJobComponent implements OnInit {
         this.isLoading = false;
       }
     )
+  }
+
+  onSelectStatus = (value: number, job: any) => {
+    if (value && !this.utilsHelperService.isEmptyObj(job)) {
+      this.currentValueOfStatus = value;
+      this.currentValueOfJob = job;
+      this.mbRef = this.modelService.open(this.deleteModal, {
+        windowClass: 'modal-holder',
+        centered: true,
+        backdrop: 'static',
+        keyboard: false
+      });
+    }
+  }
+
+  onChangeStatus = () => {
+    let requestParams: any = {};
+    requestParams.id = this.currentValueOfJob.id;
+    requestParams.status = parseInt(this.currentValueOfStatus);
+    requestParams.status_glossary = this.statusGlossary;
+
+    this.employerService.changeJobStatus(requestParams).subscribe(
+      response => {
+        this.onStatusModelClose();
+      }, error => {
+      }
+    )
+  }
+
+  onStatusModelClose = () => {
+    this.statusGlossary = "";
+    this.mbRef.close();
+  }
+
+  onStatusModelSubmit = () => {
+    if(this.statusGlossary) {
+      this.onChangeStatus();
+    }
+  }
+
+  onGetChangedStatus = (value: number) => {
+    if(this.isStatusValue != value) {
+      this.isStatusValue = value;
+    }else {
+      this.isStatusValue = null;
+    }
+    this.onGetPostedJob(this.currentEmployerDetails.id, this.isStatusValue);
   }
 
   onDeleteJobConfirm = (item, index) => {

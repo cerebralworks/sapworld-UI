@@ -2,13 +2,13 @@
   <div class="container container-big">
     <div class="row mb-4">
       <div class="col-lg-12 text-right">
-        <button type="button" class="btn btn-sm btn-outline-success px-3 mr-1" onclick="location.href='#'">
+        <button type="button" [ngClass]="{'active': isStatusValue == 1}" class="btn btn-sm btn-outline-success px-3 mr-1" (click)="onGetChangedStatus(1)">
           {{"dashboard.active" | translate}}
         </button>
-        <button type="button" class="btn btn-sm btn-outline-warning px-3 mr-1">
+        <!-- <button type="button" class="btn btn-sm btn-outline-warning px-3 mr-1">
           {{"dashboard.paused" | translate}}
-        </button>
-        <button type="button" class="btn btn-sm btn-outline-danger px-3">
+        </button> -->
+        <button type="button" [ngClass]="{'closed': isStatusValue == 0}" class="btn btn-sm btn-outline-danger px-3" (click)="onGetChangedStatus(0)">
           {{"dashboard.closed" | translate}}
         </button>
       </div>
@@ -52,10 +52,11 @@
                 <td class="text-center"><a href="job-applied.html">0</a></td>
                 <td class="text-center"><a href="job-shortlisted.html">0</a></td>
                 <td class="text-center">
-                <select class="form-control form-control-td">
-                  <option [selected]="item.status == 1">Active</option>
-                  <option [selected]="item.status == 2">Pause</option>
-                  <option [selected]="item.status == 0">Closed</option>
+                <select (change)="onSelectStatus($event?.target?.value, item)" class="form-control form-control-td">
+                  <option disabled [selected]="true">Select</option>
+                  <option [value]="1" [selected]="item.status == 1">Active</option>
+                  <!-- <option [selected]="item.status == 2">Pause</option> -->
+                  <option [value]="0" [selected]="item.status == 0">Closed</option>
                 </select>
                 </td>
                 <td class="text-center">
@@ -91,3 +92,22 @@
 [toggleDeleteModal]="isDeleteModalOpened">
 
 </app-delete-modal>
+
+<ng-template #statusModal let-modal let-d="dismiss">
+  <div class="full-width">
+    <div class="modal-header bg-dblue text-white text-capitalize">
+      <h3 class="modal-title" id="exampleModalLabel">Reason for job status change</h3>
+    </div>
+    <div class="modal-body">
+      <textarea
+        name="description"
+        class="form-control form-control-solid"
+        [(ngModel)]="statusGlossary"
+      ></textarea>
+    </div>
+    <div class="modal-footer full-width">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onStatusModelClose()">Cancel</button>
+      <button type="button" [disabled]="!statusGlossary" class="btn btn-primary" data-dismiss="modal" (click)="onStatusModelSubmit()">Delete</button>
+    </div>
+  </div>
+</ng-template>
