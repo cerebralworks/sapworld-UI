@@ -18,7 +18,6 @@
 # dependencies
 /frontend/node_modules
 /middleware/node_modules
-/admin
 /admin/node_modules
 
 # profiling files
