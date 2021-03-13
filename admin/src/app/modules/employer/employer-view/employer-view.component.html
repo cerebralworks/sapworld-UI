@@ -1,0 +1,99 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Employer Details</h3>
+    </div>
+    <div style="display: flex;
+    align-items: center;
+    margin: 0.5rem;
+    margin-left: 0;">
+    <ng-container *ngIf="companyProfileInfo?.account?.status === 1; else elseTemplate">
+      <button (click)="onGetChangedStatus(0)" class="btn btn-danger">Deactivate</button>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <button (click)="onGetChangedStatus(1)" class="btn btn-success">Activate</button>
+    </ng-template>
+    </div>
+  </div>
+  <div class="card-body">
+    <!-- begin:Table -->
+    <div class="table-responsive angular-bootstrap-table">
+      <table class="table table-head-custom table-vertical-center overflow-hidden">
+        <thead>
+        </thead>
+        <tbody>
+          <ng-container>
+            <tr>
+              <th>First Name</th>
+              <td>{{companyProfileInfo?.first_name}}</td>
+            </tr>
+            <tr>
+              <th>Last Name</th>
+              <td>{{companyProfileInfo?.last_name}}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{companyProfileInfo?.email}}</td>
+            </tr>
+            <tr>
+              <th>Company</th>
+              <td>{{companyProfileInfo?.company}}</td>
+            </tr>
+            <tr>
+              <th>Created Date</th>
+              <td>{{companyProfileInfo?.created_at | date: 'MMM dd yyyy h:mm a'}}</td>
+            </tr>
+            <tr>
+              <th>Last Active</th>
+              <td>{{companyProfileInfo?.account?.last_active | date: 'MMM dd yyyy h:mm a'}}</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>
+                <span class="label label-lg label-inline" [class.label-light-danger]="companyProfileInfo?.account?.status === 0"
+                  [class.label-light-success]="companyProfileInfo?.account?.status === 1">
+                  <ng-container *ngIf="companyProfileInfo?.account?.status === 0">In Active</ng-container>
+                  <ng-container *ngIf="companyProfileInfo?.account?.status === 1">Active</ng-container>
+                </span>
+              </td>
+            </tr>
+          </ng-container>
+          <!-- <ng-template #elseTemplate>
+                  <tr>
+                      <td colspan="7">
+                          No record found
+                      </td>
+                  </tr>
+              </ng-template> -->
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #statusModal let-modal let-d="dismiss">
+  <div class="full-width">
+    <div class="modal-header bg-dblue text-white text-capitalize">
+      <h3 class="modal-title" id="exampleModalLabel">Reason for employer status change</h3>
+    </div>
+    <div class="modal-body">
+      <textarea
+        name="description"
+        class="form-control form-control-solid"
+        [(ngModel)]="statusGlossary"
+      ></textarea>
+    </div>
+    <div class="modal-footer full-width">
+      <button type="button" [disabled]="isLoading" class="btn btn-secondary" data-dismiss="modal" (click)="onStatusModelClose()">Cancel</button>
+      <button type="button" [disabled]="!statusGlossary || isLoading" class="btn btn-primary" data-dismiss="modal" (click)="onStatusModelSubmit()">
+        <span>Submit</span>
+        <ng-container *ngIf="isLoading">
+          <span class="spinner spinner-secondary ml-2"></span>
+        </ng-container>
+      </button>
+      
+    </div>
+  </div>
+</ng-template>

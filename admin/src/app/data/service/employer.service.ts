@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CacheService } from '@shared/service/cache.service';
+// import { CacheService } from '@shared/service/cache.service';
 import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import { ApiService } from '@shared/service/api.service';
+// import { ApiService } from '@shared/service/api.service';
 import { JobPosting } from '@data/schema/post-job';
 import { GetResponse, GetViewResponse } from '@data/schema/response';
+import { ApiService } from '@shared/services/api.service';
+import { CacheService } from '@shared/services/cache.service';
 
 
 @Injectable({
@@ -33,6 +35,14 @@ export class EmployerService extends CacheService {
     );
   };
 
+  getEmployers = (params: any): Observable<GetResponse> => {
+    return this.apiService.get('/api/employers/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
   getIndustries = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/industries/list', params).pipe(
       map(data => {
@@ -51,6 +61,14 @@ export class EmployerService extends CacheService {
 
   profile = (params?) => {
     return this.apiService.get('/api/employers/profile', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  profileView = (params?) => {
+    return this.apiService.get('/api/employers/view', params).pipe(
       map(data => {
         return data;
       })
@@ -83,6 +101,14 @@ export class EmployerService extends CacheService {
 
   changeJobStatus = (params: any): Observable<any> => {
     return this.apiService.post('/api/jobpostings/change-status', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
+  changeEmployerStatus = (params: any): Observable<any> => {
+    return this.apiService.post('/api/employers/change-status', params).pipe(
       map(data => {
         return data;
       })

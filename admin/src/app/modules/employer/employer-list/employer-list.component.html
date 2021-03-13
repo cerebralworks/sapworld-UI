@@ -1,0 +1,134 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">Employer list</h3>
+      </div>
+      <!-- <div class="card-toolbar">
+        <button type="button" class="btn btn-primary">New Customer</button>
+      </div> -->
+    </div>
+    <div class="card-body">
+      <!-- begin: Filtration form -->
+      <div class="form form-label-right">
+        <div class="form-group row">
+          <div class="col-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <select (change)="onFilterWithStatus($event?.target?.value);" class="form-control" name="status" placeholder="Filter by Status">
+                  <option value="">All</option>
+                  <option value="1">Active</option>
+                  <option value="0">In Active</option>
+                </select><small class="form-text text-muted"><b>Filter</b> by Status</small>
+              </div>
+              <div class="col-lg-6">
+                <input  [formControl]="searchField" type="text" class="form-control" name="searchText" placeholder="Search" value=""
+                  /><small class="form-text text-muted"><b>Search</b> in all fields</small>
+              </div>
+              <!-- <div class="col-lg-6">
+                <select class="form-control" placeholder="Filter by Type" name="type" formControlName="type">
+                  <option value="">All</option>
+                  <option value="1">Business</option>
+                  <option value="2">Individual</option>
+                </select>
+                <small class="form-text text-muted"><b>Filter</b> by Type</small>
+              </div> -->
+            </div>
+          </div>
+          <!-- <div class="col-lg-2">
+            <input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+              /><small class="form-text text-muted"><b>Search</b> in all fields</small>
+          </div> -->
+        </div>
+      </div>
+      <!-- end: Filtration form -->
+  
+      <!-- begin:Table -->
+      <div class="table-responsive angular-bootstrap-table">
+        <table class="table table-head-custom table-vertical-center overflow-hidden">
+          <thead>
+            <!-- <th class="selection-cell-header" data-row-selection="true">
+              <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectAllRows()"
+                  [checked]="grouping.checkAreAllRowsSelected()" /><span></span></label>
+            </th> -->
+            <th>
+              ID
+            </th>
+            <th>
+              FIRSTNAME
+            </th>
+            <th>
+              LASTNAME
+              <app-sort-icon column="lastName" [activeColumn]="sorting?.column" [activeDirection]="sorting?.direction"
+                (sort)="sort($event)"></app-sort-icon>
+            </th>
+            <th>
+              EMAIL
+              <app-sort-icon column="email" [activeColumn]="sorting?.column" [activeDirection]="sorting?.direction"
+                (sort)="sort($event)"></app-sort-icon>
+            </th>
+            <th>
+              COMPANY
+              <app-sort-icon column="gender" [activeColumn]="sorting?.column" [activeDirection]="sorting?.direction"
+                (sort)="sort($event)"></app-sort-icon>
+            </th>
+            <th>
+              STATUS
+              <app-sort-icon column="status" [activeColumn]="sorting?.column" [activeDirection]="sorting?.direction"
+                (sort)="sort($event)"></app-sort-icon>
+            </th>
+            <th>ACTIONS</th>
+          </thead>
+          <tbody>
+              <ng-container *ngIf="employerList?.meta?.total > 0; else elseTemplate">
+                <tr *ngFor="let item of employerList?.items; let i = index">
+                    <!-- <td class="selection-cell">
+                      <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(customer.id)"
+                          [checked]="grouping.isRowSelected(customer.id)" />
+                        <span></span>
+                      </label>
+                    </td> -->
+                    <td>{{ i+1 }}</td>
+                    <td>{{ item?.first_name }}</td>
+                    <td>{{ item?.last_name }}</td>
+                    <td>{{ item?.email }}</td>
+                    <td>{{ item?.company }}</td>
+                    <td>
+                      <span class="label label-lg label-inline" [class.label-light-danger]="item?.account?.status === 0"
+                        [class.label-light-success]="item?.account?.status === 1">
+                        <ng-container *ngIf="item?.account?.status === 0">In Active</ng-container>
+                        <ng-container *ngIf="item?.account?.status === 1">Active</ng-container>
+                      </span>
+                    </td>
+                    <td>  
+                      <a [routerLink]="['/employer/view', item?.id]" title="View Employer" class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                       >
+                        <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" cacheSVG="true"
+                          class="svg-icon svg-icon-md svg-icon-primary">
+                        </span>
+                      </a>
+                      <a title="Delete Employer" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                       >
+                        <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+                          class="svg-icon svg-icon-md svg-icon-danger">
+                        </span>
+                      </a>
+                    </td>
+                  </tr>
+              </ng-container>
+              <ng-template #elseTemplate>
+                  <tr>
+                      <td colspan="7">
+                          No record found
+                      </td>
+                  </tr>
+              </ng-template>
+              
+            
+          </tbody>
+        </table>
+      </div>
+      <!-- end: Table -->
+      <app-paginator *ngIf="employerList?.meta?.total > 0" class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+        [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
+    </div>
+  </div>

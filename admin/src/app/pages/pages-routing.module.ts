@@ -13,6 +13,27 @@ const routes: Routes = [
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
+        path: 'employer',
+        loadChildren: () =>
+          import('../modules/employer/employer.module').then(
+            (m) => m.EmployerModule
+          ),
+      },
+      {
+        path: 'user',
+        loadChildren: () =>
+          import('../modules/job-seeker/job-seeker.module').then(
+            (m) => m.JobSeekerModule
+          ),
+      },
+      {
+        path: 'common',
+        loadChildren: () =>
+          import('../modules/common/common.module').then(
+            (m) => m.CommonSharedModule
+          ),
+      },
+      {
         path: 'user-profile',
         loadChildren: () =>
           import('../modules/user-profile/user-profile.module').then(

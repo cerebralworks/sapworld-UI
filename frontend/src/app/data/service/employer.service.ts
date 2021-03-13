@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CacheService } from '@shared/service/cache.service';
+// import { CacheService } from '@shared/service/cache.service';
 import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { ApiService } from '@shared/service/api.service';
 import { JobPosting } from '@data/schema/post-job';
 import { GetResponse, GetViewResponse } from '@data/schema/response';
+import { CacheService } from '@shared/service/cache.service';
 
 
 @Injectable({

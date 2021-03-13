@@ -18,7 +18,7 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { FakeAPIService } from './_fake/fake-api.service';
 import { SplashScreenModule } from '@partials/layout/splash-screen/splash-screen.module';
 import { AccountService } from '@data/service/account.service';
-import { SharedModule } from './shared';
+import { SharedModule } from '@shared/shared.module';
 // #fake-end#
 
 function appInitializer(authService: AuthService) {

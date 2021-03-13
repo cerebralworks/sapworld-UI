@@ -17,6 +17,11 @@ module.exports = (app, env, rp) => {
     requestCustom.get(`${serverRoutes.skillTagList}`, req, res, requestBody);
   });
 
+  app.get("/api/employers/list", (req, res) => {
+    let requestBody = { ...req.query };    
+    requestCustom.get(`${serverRoutes.employerList}`, req, res, requestBody);
+  });
+
    /**
    * Job Posting
    */
@@ -29,9 +34,16 @@ module.exports = (app, env, rp) => {
    * Change Job Status
    */
   app.post("/api/jobpostings/change-status", (req, res) => {
-    let requestBody = { ...req.body };   
-    console.log(requestBody, `${serverRoutes.changeJobStatus}/${requestBody.id}`); 
+    let requestBody = { ...req.body };
     requestCustom.post(`${serverRoutes.changeJobStatus}/${requestBody.id}`, req, res, requestBody);
+  });
+
+  /**
+   * Change Employer Status
+   */
+   app.post("/api/employers/change-status", (req, res) => {
+    let requestBody = { ...req.body };
+    requestCustom.post(`${serverRoutes.changeEmployerStatus}/${requestBody.id}`, req, res, requestBody);
   });
 
   /**
@@ -94,6 +106,14 @@ module.exports = (app, env, rp) => {
   app.get("/api/employers/company-profile", (req, res) => {
     let requestBody = { ...req.query };    
     requestCustom.get(`${serverRoutes.employerCompanyProfile}`, req, res, requestBody);
+  });
+
+  app.get("/api/employers/view", (req, res) => {
+    let requestBody = { ...req.query };  
+    const employerID = requestBody.id;
+    if(employerID) {
+      requestCustom.get(`${serverRoutes.employerProfileView}/${employerID}`, req, res, requestBody);
+    }
   });
 
   app.post("/api/jobpostings/applications/short-list-user", (req, res) => {

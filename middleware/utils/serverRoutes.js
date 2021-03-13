@@ -22,8 +22,10 @@ const routes = {
     userChooseDefaultResume: "/users/choose-default-resume",
     jobPostingCreate: '/jobpostings/create',
     changeJobStatus: '/jobpostings/change-status',
+    changeEmployerStatus: '/employers/change-status',
     jobPostingUpdate: '/jobpostings/update',
     skillTagList: '/skill-tags/list',
+    employerList: '/employers/list',
     forgotPassword: '/accounts/request-reset-password',
     jobPostingList: '/jobpostings/list',
     resetPassword: '/accounts/reset-password',
@@ -34,6 +36,7 @@ const routes = {
     saveProfile: '/employers/save-profile',
     savedProfiles: '/employers/saved-profiles',
     jobPostingView: '/jobpostings/view',
+    employerProfileView: '/employers/view',
     employerCompanyProfile: '/employers/company-profile',
 }
 

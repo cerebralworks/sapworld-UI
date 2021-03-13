@@ -13,10 +13,13 @@ import { locale as jpLang } from './modules/i18n/vocabs/jp';
 import { locale as deLang } from './modules/i18n/vocabs/de';
 import { locale as frLang } from './modules/i18n/vocabs/fr';
 // import { SplashScreenService } from './_metronic/partials/layout/splash-screen/splash-screen.service';
-import { Router, NavigationEnd, NavigationError } from '@angular/router';
+import { Router, NavigationEnd, NavigationError, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SplashScreenService } from '@partials/layout/splash-screen/splash-screen.service';
-import { TableExtendedService } from './shared';
+import { TableExtendedService } from '@shared/services/table.extended.service';
+import { AccountService } from '@data/service/account.service';
+import { LoggedIn } from '@data/schema/account';
+// import { TableExtendedService } from './shared';
 // import { TableExtendedService } from '@shared/crud-table';
 // import { TableExtendedService } from './_metronic/shared/crud-table';
 @Component({
@@ -28,12 +31,14 @@ import { TableExtendedService } from './shared';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
+  public loggedInResponse: LoggedIn;
 
   constructor(
     private translationService: TranslationService,
     private splashScreenService: SplashScreenService,
     private router: Router,
-    private tableService: TableExtendedService
+    private tableService: TableExtendedService,
+    private accountService: AccountService
   ) {
     // register translations
     this.translationService.loadTranslations(
@@ -48,6 +53,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const routerSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.checkUserLoggedIn();
+      }
       if (event instanceof NavigationEnd) {
         // clear filtration paginations and others
         this.tableService.setDefaults();
@@ -65,6 +73,20 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     this.unsubscribe.push(routerSubscription);
   }
+
+  checkUserLoggedIn = () => {
+    this.accountService.checkUserloggedIn().subscribe(
+      response => {
+        this.loggedInResponse = response;
+        if(this.loggedInResponse && (this.loggedInResponse.isLoggedIn == false)) {
+          // this.validateCall = 0;
+        }
+        // this.getUserInfo();
+      },
+      error => {
+      }
+    );
+  };
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
