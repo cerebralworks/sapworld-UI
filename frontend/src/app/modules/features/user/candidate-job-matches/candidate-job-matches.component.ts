@@ -191,12 +191,9 @@ export class CandidateJobMatchesComponent implements OnInit {
     if (this.matchingJob && this.matchingJob.jobs && this.matchingJob.jobs[field2]) {
       lowerCaseUser = isString ? this.onLoweCase(this.matchingJob.jobs[field2]) : this.matchingJob.jobs[field2];
     }
-
     if (lowerCaseJob.includes(item.toLowerCase()) && type == 'check') {
       return { type: 'check', class: 'text-green' }
-    } else if (!lowerCaseUser.includes(item.toLowerCase()) && type == 'info') {
-      return { type: 'info', class: 'text-blue' }
-    } else if (!lowerCaseJob.includes(item?.toLowerCase()) && type == 'close') {
+    }else if (!lowerCaseJob.includes(item?.toLowerCase()) && type == 'close') {
       return { type: 'close', class: 'text-danger' }
     }
     return { type: '', class: '' }
@@ -218,9 +215,7 @@ export class CandidateJobMatchesComponent implements OnInit {
     // console.log('userIndex', userIndex);
     if (jobIndex > -1 && type == 'check') {
       return { type: 'check', class: 'text-green' }
-    } else if (userIndex == -1 && type == 'info') {
-      return { type: 'info', class: 'text-blue' }
-    } else if (jobIndex == -1 && type == 'close') {
+    } else if (userIndex == -1 && type == 'close') {
       return { type: 'close', class: 'text-danger' }
     }
     return { type: '', class: '' }

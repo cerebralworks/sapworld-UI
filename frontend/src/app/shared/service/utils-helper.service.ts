@@ -97,10 +97,20 @@ export class UtilsHelperService {
   }
 
   differenceByPropValArray<T>(arr1: T[], arr2: T[], propertyName: string): T[] {
+    console.log(arr1, arr2);
+
     if(arr1 && arr2 && Array.isArray(arr1) && Array.isArray(arr2)) {
       return arr1.filter(
-        (a: any): boolean =>
-          !arr2.find((b: T): boolean => parseInt(b[propertyName]) == parseInt(a))
+        (a: any): boolean => {
+          console.log('a', a);
+
+return !arr2.find((b: T): boolean => {
+  console.log('b', b);
+
+  return parseInt(b[propertyName]) == parseInt(a)
+})
+        }
+
       );
     }
     return [];
