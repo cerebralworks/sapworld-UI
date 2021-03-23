@@ -29,7 +29,7 @@
 								<div class="card-body">
 									<div class="row">
 										<div class="col-lg-7">
-											<h5>SAP ABAP Lead Consultant</h5>
+											<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
 										</div>
 										<div class="col-lg-5 text-right">
 											<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;"><i class="fas fa-file-alt"></i> Description</a>
@@ -37,9 +37,17 @@
 									</div>
 									<div class="media">
 										<div class="media-body">
-											<h6>Wipro Limited</h6>
-											<h6>Austin, TX, USA</h6>
-										</div>
+                      <h6>{{postedJobsDetails?.company?.company ? postedJobsDetails?.company?.company : ''}}</h6>
+                      <h6 class="text-capitalize">
+                        {{postedJobsDetails?.city ? postedJobsDetails?.city + ', ' : ''}}
+                        {{postedJobsDetails?.state ? postedJobsDetails?.state + ', ' : ''}}
+                        <!-- {{postedJobsDetails?.zipcode ? postedJobsDetails?.zipcode + ', ' : ''}} -->
+                        <span class="text-uppercase">
+                          {{postedJobsDetails?.country ? postedJobsDetails?.country : ''}}
+                          </span>
+
+                      </h6>
+                    </div>
 									</div>
 								</div>
 							</div>
