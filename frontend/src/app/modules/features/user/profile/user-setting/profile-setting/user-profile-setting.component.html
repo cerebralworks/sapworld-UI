@@ -6,7 +6,7 @@
     <div class="col-lg-3 col-md-6">
       <div class="showhideswitch">
         <input
-        [checked]="(item.field != 'opportunity' && currentProfileInfo?.privacy_protection[item?.field] == true) || (item.field == 'opportunity' && currentProfileInfo?.status == 7)"
+        [checked]="(currentProfileInfo?.privacy_protection && currentProfileInfo?.privacy_protection[item?.field] == true)"
         (click)="onSetSettings(item, $event?.target?.checked)" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch_{{i}}">
         <label class="showhideswitch-label" for="myshowhideswitch_{{i}}">
           <span class="showhideswitch-inner"></span>
@@ -54,12 +54,12 @@
     </div> -->
     <div class="row mb-4" *ngFor="let item of profileSettings; let i=index">
       <div class="col-lg-6">
-        <h5>{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item.label}}</h5>
+        <h5>{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item?.label}}</h5>
       </div>
       <div class="col-lg-6 clearfix">
         <div class="showhideswitch float-right">
           <input
-          [checked]="(item.field != 'opportunity' && currentProfileInfo?.privacy_protection[item?.field] == true) || (item.field == 'opportunity' && currentProfileInfo?.status == 7)"
+          [checked]="(currentProfileInfo?.privacy_protection && currentProfileInfo?.privacy_protection[item?.field] == true)"
           (click)="onSetSettings(item, $event?.target?.checked)" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch_dash_{{i}}">
           <label class="showhideswitch-label" for="myshowhideswitch_dash_{{i}}">
             <span class="showhideswitch-inner" [ngClass]="{'yesno': item?.field == 'opportunity'}"></span>

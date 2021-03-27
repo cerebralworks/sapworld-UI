@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { SharedService } from './shared.service';
 
@@ -24,7 +24,7 @@ export class UtilsHelperService {
       if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '') {
         delete obj[propName];
       }
-      if(Array.isArray(obj[propName]) && obj[propName].length == 0) {
+      if (Array.isArray(obj[propName]) && obj[propName].length == 0) {
         delete obj[propName];
       }
     }
@@ -49,7 +49,7 @@ export class UtilsHelperService {
   }
 
   onConvertArrayObjToString = (value: any[], field: string = 'name') => {
-    if ((!Array.isArray(value) || value.length==0)) return "--";
+    if ((!Array.isArray(value) || value.length == 0)) return "--";
     return value.map(s => s[field]).join(", ");
   }
 
@@ -61,7 +61,7 @@ export class UtilsHelperService {
     }
   }
 
-  onConvertArrayObjToAdditionalString = (value: any[], field: string = 'name', field2?:string) => {
+  onConvertArrayObjToAdditionalString = (value: any[], field: string = 'name', field2?: string) => {
     if (!Array.isArray(value) || value.length == 0) return "--";
     return value.map(s => {
       // let element = this.sharedService.onFindSkillsFromSingleID(s.skill_id);
@@ -81,9 +81,9 @@ export class UtilsHelperService {
   };
 
   onSplitTag = (string: string) => {
-    if(!string) return '--';
+    if (!string) return '--';
     const splitedString = string.split('-');
-    if(splitedString.length && splitedString[0]) {
+    if (splitedString.length && splitedString[0]) {
       return splitedString[0]
     }
     return '--';
@@ -97,18 +97,12 @@ export class UtilsHelperService {
   }
 
   differenceByPropValArray<T>(arr1: T[], arr2: T[], propertyName: string): T[] {
-    console.log(arr1, arr2);
-
-    if(arr1 && arr2 && Array.isArray(arr1) && Array.isArray(arr2)) {
+    if (arr1 && arr2 && Array.isArray(arr1) && Array.isArray(arr2)) {
       return arr1.filter(
         (a: any): boolean => {
-          console.log('a', a);
-
-return !arr2.find((b: T): boolean => {
-  console.log('b', b);
-
-  return parseInt(b[propertyName]) == parseInt(a)
-})
+          return !arr2.find((b: T): boolean => {
+            return parseInt(b[propertyName]) == parseInt(a)
+          })
         }
 
       );

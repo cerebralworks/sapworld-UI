@@ -105,7 +105,10 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
         response => {
           this.userInfo = response;
           if(this.userInfo && this.userInfo.id && this.validateInfo == 0) {
-            this.onGetCandidateInfo(this.userInfo.id);
+            // this.onGetCandidateInfo(this.userInfo.id);
+            this.candidateForm.patchValue({
+              ...this.userInfo
+            });
             this.validateInfo++;
           }
         }
@@ -157,28 +160,28 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
           }));
           this.validateOnForm++
     }
-    if(this.tabInfos && this.tabInfos.length && this.validateOnAPI == 0 && !this.utilsHelperService.isEmptyObj(this.userDetails)) {
+    if(this.tabInfos && this.tabInfos.length && this.validateOnAPI == 0 && !this.utilsHelperService.isEmptyObj(this.userInfo)) {
       let educationExpIndex = this.tabInfos.findIndex(val => val.tabNumber == 2);
 
       if(educationExpIndex == -1) {
-        if (this.userDetails && this.userDetails.education_qualification == null) {
-          delete this.userDetails.education_qualification;
+        if (this.userInfo && this.userInfo.education_qualification == null) {
+          delete this.userInfo.education_qualification;
         }
         this.candidateForm.patchValue({
           educationExp : {
-            ...this.userDetails
+            ...this.userInfo
           },
         });
       }
 
       let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
       if(skillSetIndex == -1) {
-        if (this.userDetails && this.userDetails.hands_on_experience == null) {
-          delete this.userDetails.hands_on_experience;
+        if (this.userInfo && this.userInfo.hands_on_experience == null) {
+          delete this.userInfo.hands_on_experience;
         }
         this.candidateForm.patchValue({
           skillSet : {
-            ...this.userDetails
+            ...this.userInfo
           },
         });
       }
@@ -187,7 +190,7 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
       if(jobPrefIndex == -1) {
         this.candidateForm.patchValue({
           jobPref : {
-            ...this.userDetails
+            ...this.userInfo
           },
         });
       }
@@ -302,8 +305,8 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
       candidateInfo.phone = candidateInfo.phone.e164Number
     }
 
-    if(this.userDetails && this.userDetails.privacy_protection) {
-      candidateInfo.privacy_protection = {...this.userDetails.privacy_protection}
+    if(this.userInfo && this.userInfo.privacy_protection) {
+      candidateInfo.privacy_protection = {...this.userInfo.privacy_protection}
     }
 
     let tempSkill = [];

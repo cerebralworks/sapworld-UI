@@ -31,7 +31,7 @@ export class UserProfileSettingComponent implements OnInit {
       {field: 'phone', label: 'Phone Numer'},
       {field: 'email', label: 'Email ID'},
       {field: 'current_employer', label: 'Current Employer'},
-      {field: 'opportunity', label: 'Currently Available For Opportunity'}
+      {field: 'available_for_opportunity', label: 'Currently Available For Opportunity'}
     ];
 
     this.userSharedService.getUserProfileDetails().subscribe(
@@ -54,24 +54,15 @@ export class UserProfileSettingComponent implements OnInit {
   }
 
   onSetSettings = (item: any, eventValue: boolean) => {
-    if(item && item.field == 'opportunity') {
-      this.privacyProtection.status = eventValue ? 7 : 1;
-      this.setPrivacy(this.privacyProtection, 'status');
-    }else {
-      this.privacyProtection[item.field] = eventValue;
-      this.setPrivacy(this.privacyProtection, 'privacy');
-    }
+    this.privacyProtection[item.field] = eventValue;
+    this.setPrivacy(this.privacyProtection);
   }
 
-  setPrivacy(privacyProtection, type: string) {
+  setPrivacy(privacyProtection) {
     if(this.currentProfileInfo && !this.utilsHelperService.isEmptyObj(this.currentProfileInfo)) {
       this.isLoading = true;
       let requestParams = {...this.currentProfileInfo};
-      if(type == 'status') {
-        requestParams.status = privacyProtection.status;
-      }else {
-        requestParams.privacy_protection = privacyProtection;
-      }
+      requestParams.privacy_protection = privacyProtection;
 
       this.userService.update(requestParams).subscribe(
         response => {
