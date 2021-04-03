@@ -283,6 +283,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     requestParams.page = this.page;
     requestParams.limit = this.limit;
     requestParams.status = 1;
+    requestParams.expand = 'is_saved_profile';
     // if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
       requestParams.skill_tags_filter_type = 1;
       requestParams.job_posting = jobId;
