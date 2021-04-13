@@ -57,8 +57,6 @@ export class JobInformationComponent implements OnInit {
         }
       });
       let latlngText: string = this.getPostedJobsDetails.latlng_text;
-      console.log(latlngText);
-
       if (latlngText) {
         const splitedString: any[] = latlngText.split(',');
         if (splitedString && splitedString.length) {

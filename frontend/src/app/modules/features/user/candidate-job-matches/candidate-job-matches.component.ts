@@ -8,6 +8,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 import * as lodash from 'lodash';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-candidate-job-matches',
@@ -27,9 +28,11 @@ export class CandidateJobMatchesComponent implements OnInit {
   public matchedElement: boolean = true;
   public missingElement: boolean = true;
   public moreElement: boolean = true;
-  isMultipleMatches: boolean;
-  matchingUsersMeta: any;
-  matchingJobNew: any;
+  public isMultipleMatches: boolean;
+  // public matchingUsersMeta: any;
+  public matchingJobNew: any;
+  private subscriptions: Subscription[] = [];
+  matchingJobMeta: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +42,7 @@ export class CandidateJobMatchesComponent implements OnInit {
     public utilsHelperService: UtilsHelperService,
     public sharedService: SharedService
   ) {
-   }
+  }
 
   ngOnInit(): void {
     this.jobId = this.route.snapshot.paramMap.get('id');
@@ -63,7 +66,7 @@ export class CandidateJobMatchesComponent implements OnInit {
   }
 
   onViewOtherMatches = () => {
-    if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+    if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
       this.isMultipleMatches = true;
       this.onGetUserScoringById(true);
       this.page++;
@@ -81,18 +84,25 @@ export class CandidateJobMatchesComponent implements OnInit {
 
     requestParams.page = this.page;
 
-    this.userService.getUserScoring(requestParams).subscribe(
+    const sb = this.userService.getUserScoring(requestParams).subscribe(
       response => {
-        if (response && !this.utilsHelperService.isEmptyObj(response.jobs)) {
+        // if (response && !this.utilsHelperService.isEmptyObj(response.jobs)) {
+        //   this.matchingJob = { ...response }
+        // }
+        // if (isCount) {
+        //   this.matchingUsersMeta = { ...response.meta }
+        // }
+        if (response && !isCount) {
           this.matchingJob = { ...response }
         }
         if (isCount) {
-          this.matchingUsersMeta = { ...response.meta }
+          this.matchingJobMeta = { ...response.meta }
         }
 
       }, error => {
       }
     )
+    this.subscriptions.push(sb);
   }
 
   onGetUserScoringByIdNew = () => {
@@ -100,7 +110,7 @@ export class CandidateJobMatchesComponent implements OnInit {
     // requestParams.id = this.jobId;
     requestParams.page = this.page;
 
-    this.userService.getUserScoring(requestParams).subscribe(
+    const sb = this.userService.getUserScoring(requestParams).subscribe(
       response => {
         if (response) {
           this.matchingJobNew = { ...response };
@@ -109,23 +119,54 @@ export class CandidateJobMatchesComponent implements OnInit {
       }, error => {
       }
     )
+    this.subscriptions.push(sb);
   }
 
   onChangeUser = (type) => {
+    const count = this.matchingJob && this.matchingJob.meta && this.matchingJob.meta.count ? this.matchingJob.meta.count : 0;
+
     if (type == 'next') {
-      const count = this.matchingJob && this.matchingJob.meta && this.matchingJob.meta.count ? this.matchingJob.meta.count : 0;
-      console.log('count', count);
+      if (count > this.page) {
+        if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
+          this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
+          this.matchingJob = { ...this.matchingJob, jobs: {} };
+          this.page++;
 
-      if(count > this.page) {
-        this.page++;
-        this.onGetUserScoringById(true);
+          this.onGetUserScoringById(true);
+          if (count > this.page) {
+            this.page++;
+            setTimeout(() => {
+              this.onGetUserScoringByIdNew();
+            }, 300);
+          };
+        }
       }
+    } else if (type == 'prev' && this.page > 2) {
+      if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
+        this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
+        this.matchingJob = { ...this.matchingJob, jobs: {} };
+        this.page--;
 
-    } else if (type == 'prev' && this.page > 1) {
-      this.page--;
-      this.onGetUserScoringById(true);
+        !this.isEven(this.page) && this.page--;
+        this.onGetUserScoringByIdNew();
+        if (count > this.page) {
+          this.page--;
+          setTimeout(() => {
+            this.onGetUserScoringById(true); this.page++;
+        }, 300);
+        }
+      }
     }
+
   }
+
+  isEven = (num) => {
+    if(num % 2 == 0) {
+      return true;
+    }
+
+    return false;
+}
 
   onRedirectBack = () => {
     this.location.back();
@@ -170,13 +211,10 @@ export class CandidateJobMatchesComponent implements OnInit {
   }
 
   onDiff = (arr1: any[] = [], arr2: any[] = []) => {
-    console.log(arr1, arr2);
-
     if (arr1 && arr1.length && arr2 && arr2.length) {
       let difference = arr1
         .filter(x => !arr2.includes(x))
         .concat(arr2.filter(x => !arr1.includes(x)));
-      console.log('difference', difference);
       return difference;
     }
     return [];
@@ -193,7 +231,7 @@ export class CandidateJobMatchesComponent implements OnInit {
     }
     if (lowerCaseJob.includes(item.toLowerCase()) && type == 'check') {
       return { type: 'check', class: 'text-green' }
-    }else if (!lowerCaseJob.includes(item?.toLowerCase()) && type == 'close') {
+    } else if (!lowerCaseJob.includes(item?.toLowerCase()) && type == 'close') {
       return { type: 'close', class: 'text-danger' }
     }
     return { type: '', class: '' }
@@ -209,10 +247,8 @@ export class CandidateJobMatchesComponent implements OnInit {
       lowerCaseUser = this.matchingJob.jobs[field2]
     }
     let jobIndex = lowerCaseJob.findIndex(val => val[filterField] == item[filterField]);
-    // console.log('jobIndex', jobIndex);
 
     let userIndex = lowerCaseUser.findIndex(val => val[filterField] == item[filterField])
-    // console.log('userIndex', userIndex);
     if (jobIndex > -1 && type == 'check') {
       return { type: 'check', class: 'text-green' }
     } else if (userIndex == -1 && type == 'close') {
@@ -222,7 +258,7 @@ export class CandidateJobMatchesComponent implements OnInit {
   }
 
   onToggleResumeSelectModal = (status, item?) => {
-    if(!this.utilsHelperService.isEmptyObj(item)) {
+    if (!this.utilsHelperService.isEmptyObj(item)) {
       this.currentJobDetails = item;
     }
     this.isOpenedResumeSelectModal = status;

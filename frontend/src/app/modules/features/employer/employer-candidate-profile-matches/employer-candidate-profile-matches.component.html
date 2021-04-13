@@ -88,7 +88,7 @@
                               </span>
                               </h6>
                             <form class="form-inline">
-                              <a ref="javascript:;" (click)="onToggleResumeForm(true)" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+                              <a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
                                 <small><i class="fas fa-file-alt"></i> Resume</small>
                               </a>
                               <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
@@ -432,7 +432,7 @@
                                 </span>
                                 </h6>
                               <form class="form-inline">
-                                <a ref="javascript:;" (click)="onToggleResumeForm(true)" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+                                <a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
                                   <small><i class="fas fa-file-alt"></i> Resume</small>
                                 </a>
                                 <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
@@ -779,8 +779,11 @@
   </div>
 </section>
 
-<app-resume-modal *ngIf="isOpenedResumeModal" [toggleResumeModal]="isOpenedResumeModal"
-  (onEvent)="onToggleResumeForm($event)">
+<app-resume-modal
+[url]="selectedResumeUrl"
+*ngIf="isOpenedResumeModal"
+[toggleResumeModal]="isOpenedResumeModal"
+(onEvent)="onToggleResumeForm($event)">
 </app-resume-modal>
 
 <app-job-description [isRichTextEnabled]="true" [description]="postedJobsDetails?.description" [toggleJDModal]="isOpenedJDModal" *ngIf="isOpenedJDModal" (onEvent)="onToggleJDModal($event)">

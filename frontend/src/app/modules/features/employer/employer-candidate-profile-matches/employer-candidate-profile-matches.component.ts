@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
@@ -8,13 +8,14 @@ import { SharedService } from '@shared/service/shared.service';
 import * as lodash from 'lodash';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-employer-candidate-profile-matches',
   templateUrl: './employer-candidate-profile-matches.component.html',
   styleUrls: ['./employer-candidate-profile-matches.component.css']
 })
-export class EmployerCandidateProfileMatchesComponent implements OnInit {
+export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestroy {
   public isOpenedJDModal: boolean = false;
   public isOpenedResumeModal: boolean = false;
   public isOpenedOtherPostModal: boolean = false;
@@ -32,6 +33,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   public isMultipleMatches: boolean = false;
   public matchingUsersMeta: any = { count: 0 };
   public matchingUsersNew: any;
+  public selectedResumeUrl: string;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -60,11 +63,15 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.length > 0 && this.subscriptions.forEach(sb => sb.unsubscribe());
+  }
+
   onGetPostedJob() {
     let requestParams: any = {};
     requestParams.expand = 'company';
     requestParams.id = this.jobId;
-    this.employerService.getPostedJobDetails(requestParams).subscribe(
+    const sb = this.employerService.getPostedJobDetails(requestParams).subscribe(
       response => {
         if (response && response.details) {
           this.postedJobsDetails = response.details;
@@ -72,6 +79,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       }, error => {
       }
     )
+    this.subscriptions.push(sb);
   }
 
   onGetJobScoringById = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
@@ -83,7 +91,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     requestParams.page = this.page;
     requestParams.additional_fields = 'job_application';
 
-    this.employerService.getJobScoring(requestParams).subscribe(
+    const sb = this.employerService.getJobScoring(requestParams).subscribe(
       response => {
         if (response && !isCount) {
           this.matchingUsers = { ...response }
@@ -94,13 +102,15 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       }, error => {
       }
     )
+    this.subscriptions.push(sb);
   }
   onGetJobScoringByIdNew = () => {
     let requestParams: any = {};
     requestParams.id = this.jobId;
     requestParams.page = this.page;
+    requestParams.additional_fields = 'job_application';
 
-    this.employerService.getJobScoring(requestParams).subscribe(
+    const sb = this.employerService.getJobScoring(requestParams).subscribe(
       response => {
         if (response) {
           this.matchingUsersNew = { ...response };
@@ -109,6 +119,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       }, error => {
       }
     )
+    this.subscriptions.push(sb);
   }
 
   onViewOtherMatches = () => {
@@ -124,46 +135,47 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
   }
 
   onChangeUser = (type) => {
-
-
+    const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? parseInt(this.matchingUsers.meta.count) : 0;
     if (type == 'next') {
-      const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? parseInt(this.matchingUsers.meta.count) : 0;
-
       if (count > this.page) {
         if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
           this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
           this.matchingUsers = { ...this.matchingUsers, profile: {} };
           this.page++;
-          console.log(this.page);
-
           this.onGetJobScoringById(true);
-          if(count > this.page) {
+          if (count > this.page) {
             this.page++;
             setTimeout(() => {
               this.onGetJobScoringByIdNew();
             }, 300);
           };
-          // console.log(count, this.page, count > this.page);
-
-
         }
       }
-
     } else if (type == 'prev' && this.page > 2) {
       if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
         this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
         this.matchingUsers = { ...this.matchingUsers, profile: {} };
         this.page--;
-        this.page <= 3 && this.page--;
-        this.onGetJobScoringByIdNew();
-        this.page--;
-        setTimeout(() => {
 
-          this.page >= 1 && this.onGetJobScoringById(true); this.page++;
+        !this.isEven(this.page) && this.page--;
+        this.onGetJobScoringByIdNew();
+        if (count > this.page) {
+          this.page--;
+          setTimeout(() => {
+            this.onGetJobScoringById(true); this.page++;
         }, 300);
+        }
       }
-    }
+      }
   }
+
+isEven = (num) => {
+    if(num % 2 == 0) {
+      return true;
+    }
+
+    return false;
+}
 
   onRedirectBack = () => {
     this.location.back();
@@ -173,7 +185,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
     this.isOpenedJDModal = status;
   }
 
-  onToggleResumeForm = (status) => {
+  onToggleResumeForm = (status, selectedResumeUrl?: string) => {
+    if (selectedResumeUrl) {
+      this.selectedResumeUrl = selectedResumeUrl;
+    }
     this.isOpenedResumeModal = status;
   }
 
@@ -279,6 +294,16 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit {
       this.currentUserInfo = item;
     }
     this.isOpenedSendMailModal = status;
+  }
+
+  onGetFilteredValue(resumeArray: any[]): any {
+    if (resumeArray && Array.isArray(resumeArray)) {
+      const filteredValue = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1);
+      if (!this.utilsHelperService.isEmptyObj(filteredValue)) {
+        return filteredValue.file;
+      }
+    }
+    return "";
   }
 
   onShowMatches = () => {

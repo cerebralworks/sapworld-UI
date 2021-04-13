@@ -125,8 +125,6 @@ export class UserLinksComponent implements OnInit {
   }
 
   onSetLinks = (fieldName, status) => {
-    console.log(this.userLinksForm.value[fieldName]);
-
     if (this.socialMediaLinks.length == 0) {
       this.socialMediaLinks.push(
         {

@@ -245,6 +245,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   onGetPostedJob(companyId) {
     let requestParams: any = {};
     requestParams.page = 1;
+    requestParams.status = 1;
     requestParams.limit = 1000;
     requestParams.expand = 'company';
     requestParams.company = companyId;
@@ -328,8 +329,6 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
   onFiltertByJobType = (fieldName, value) => {
     if(value != 'undefined') {
-      console.log(this.queryParams);
-
       let index = this.queryParams.job_types.indexOf(value);
       if(index > -1) {
         this.queryParams.job_types.splice(index, 1)

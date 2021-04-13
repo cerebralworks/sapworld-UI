@@ -119,8 +119,6 @@ export class MatchingJobComponent implements OnInit {
         }
 
         this.queryParams = {...this.queryParams, ...urlQueryParams };
-        console.log(this.queryParams);
-
       }
     });
   }
@@ -231,8 +229,6 @@ validateAPI = 0;
 
   onFiltertByJobType = (fieldName, value) => {
     if(value != 'undefined') {
-      console.log(this.queryParams);
-
       if(this.queryParams && Array.isArray(this.queryParams.type)) {
         let index = this.queryParams.type.indexOf(value);
         if(index > -1) {
@@ -271,8 +267,6 @@ validateAPI = 0;
   }
 
   onFiltertByExperience = (item) => {
-    console.log(item);
-
     if(item != 'undefined') {
       let index = this.minMaxExp.findIndex((element) => {
         return ((element.value.min == item.value.min) && (element.value.max == item.value.max))

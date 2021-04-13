@@ -85,7 +85,6 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
 
   onCheck = (event) => {
 console.log(event);
-
   }
 
   ngOnInit(): void {

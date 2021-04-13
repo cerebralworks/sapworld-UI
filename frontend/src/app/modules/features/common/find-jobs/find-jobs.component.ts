@@ -214,8 +214,6 @@ export class FindJobsComponent extends CacheService implements OnInit {
   }
 
   onFiltertByExperience = (item) => {
-    console.log(item);
-
     if(item != 'undefined') {
       let index = this.minMaxExp.findIndex((element) => {
         return ((element.value.min == item.value.min) && (element.value.max == item.value.max))

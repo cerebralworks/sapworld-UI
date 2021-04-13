@@ -85,7 +85,6 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
       details => {
         if (!this.utilsHelperService.isEmptyObj(details)) {
           this.employerDetails = details;
-          console.log(this.employerDetails);
 
           this.createCompanyForm.patchValue({
             email_id: this.employerDetails.email,
@@ -345,8 +344,6 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
   }
 
   onSetLinks = (fieldName, status) => {
-    console.log(this.createCompanyForm.value[fieldName]);
-
     if (this.socialMediaLinks.length == 0) {
       this.socialMediaLinks.push(
         {
@@ -372,10 +369,6 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
     this.createCompanyForm.patchValue({
       social_media_link: this.socialMediaLinks
     })
-    console.log(this.socialMediaLinks);
-
-
-    console.log(this.createCompanyForm.value[fieldName]);
 
   }
 

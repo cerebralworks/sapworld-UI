@@ -90,8 +90,6 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
         }
       })
     }
-    console.log(this.childForm.value.educationExp.education_qualification);
-
     // if(this.childForm && this.childForm.value.educationExp.education_qualification && Array.isArray(this.childForm.value.educationExp.education_qualification)) {
     // let remp =  this.childForm.value.educationExp.education_qualification.filter((val, index) => {
     //   if((val.degree == null || val.degree == '') && (val.field_of_study == null || val.field_of_study == '') && (val.year_of_completion == null || val.year_of_completion == '')) {
