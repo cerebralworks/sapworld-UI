@@ -66,17 +66,28 @@
   </div>
 
   <div class="row mt-2">
-    <div class="col-lg-9 ">
+    <div class="col-lg-6 ">
       <div class=" form-group">
         <label>{{"postYourResume.currentRole" | translate }}</label>
         <input appMarkAsterisk formControlName="current_employer_role" type="text" class="form-control text-capitalize" placeholder="Current Role">
         <app-control-messages [control]="f['current_employer_role']"></app-control-messages>
       </div>
     </div>
+    <div class="col-lg-4">
+      <div class=" form-group">
+        <label>{{"postYourResume.roleType" | translate }}</label>
+          <select appMarkAsterisk formControlName="employer_role_type" class="form-control text-capitalize">
+              <option  value="Technical">Technical</option>
+              <option  value="Functional">Functional</option>
+              <option  value="Technofuncational">Technofuncational</option>
+          </select>
+          <app-control-messages [control]="f['employer_role_type']"></app-control-messages>
+      </div>
+    </div>
   </div>
 
   <div class="row mt-2">
-    <div class="col-lg-9">
+    <div class="col-lg-10">
       <div class=" form-group">
         <label>{{"postYourResume.DomainsWorked" | translate }}</label>
         <!-- <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label"
@@ -101,7 +112,7 @@
     </div>
   </div>
 
-  <div class="row mt-2">
+  <!-- <div class="row mt-2">
     <div class="col-lg-9">
       <div class=" form-group">
         <label>{{"postYourResume.previousEmployers" | translate }}</label>
@@ -109,11 +120,10 @@
           bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
           formControlName="clients_worked">
         </ng-select>
-        <!-- <input type="text" class="form-control" placeholder="Ex. Microsoft, Google, Facebook, SAP"> -->
         <app-control-messages [control]="f['clients_worked']"></app-control-messages>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="row mt-2">
     <div class="col-lg-4">

@@ -7,6 +7,7 @@ let host = window.location.host;
 let hostName = host.split(':');
 const baseUrl = `${window.location.protocol}//${hostName[0]}`;
 const port = hostName[1];
+console.log(baseUrl);
 
 export const environment = {
   production: false,

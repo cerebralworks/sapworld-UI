@@ -1,180 +1,205 @@
 <ng-template #registerReviewModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Profile Preview</h5>
-    <!-- <button type="button" (click)="onClickCloseBtn(false)" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button> -->
+	<div class="modal-header">
+		<h5 class="modal-title" id="exampleModalLabel">Profile Preview</h5>
+		<!-- <button type="button" (click)="onClickCloseBtn(false)" class="close" data-dismiss="modal" aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button> -->
     </div>
     <div class="modal-body" style="height:550px; overflow-y:scroll;">
-      <div class="row">
-				<div class="col-lg-12">
-          <!-- <app-contact-card
-            [userInfo]="userInfo"
-            [isEdit]="false"
-            [isContactIcon]="false"
-            [isResume]="true"
-            >
-            </app-contact-card> -->
-					<div class="card job-card">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-lg-7">
+		<div class="row">
+			<div class="col-lg-12">
+			  <!-- <app-contact-card
+				[userInfo]="userInfo"
+				[isEdit]="false"
+				[isContactIcon]="false"
+				[isResume]="true"
+				>
+				</app-contact-card> -->
+				<div class="card job-card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-7">
+								<h5>
 									<a href="javascript:;" class="text-capitalize">
-                    {{childForm?.value?.personalDetails?.first_name + ' ' + childForm?.value?.personalDetails?.last_name}}
-                      <small  class="text-capitalize" *ngIf="childForm?.value?.educationExp?.current_employer_role">
-                        - {{childForm?.value?.educationExp?.current_employer_role}}
-                      </small>
+										{{childForm?.value?.personalDetails?.first_name + ' ' + childForm?.value?.personalDetails?.last_name}}
+										  <small  class="text-capitalize" *ngIf="childForm?.value?.educationExp?.current_employer_role">
+											- {{childForm?.value?.educationExp?.current_employer_role}}
+										  </small>
 									</a>
-								</div>
-								<div class="col-lg-5 text-right">
-									<span data-toggle="modal" data-target="#exampleModal">
-										<a class="btn btn-outline-blue btn-sm" href="#">
-										<i class="fas fa-file-alt"></i> Resume</a>
-									</span>
-								</div>
+									<small class="ml-2" type="button" data-toggle="modal" data-target="#contactModal"><i class="fas fa-address-card"></i> </small>
+								</h5>
 							</div>
-							<div class="media">
-								<img [src]="userPhotoInfo?.base64 ? convertToImage(userPhotoInfo?.base64) : 'assets/images/user-img-icon.jpg'">
-								<div class="media-body">
-                  <h6 class="text-capitalize">
-                    {{childForm?.value?.personalDetails?.city ? childForm?.value?.personalDetails?.city : ''}}
-                    {{childForm?.value?.personalDetails?.state ? ', ' + childForm?.value?.personalDetails?.state : ''}}
-                    <span class="text-uppercase">
-                      {{childForm?.value?.personalDetails?.country ? ', ' + childForm?.value?.personalDetails?.country : ''}}
-                    </span>
-                  </h6>
-                  <h6>
-                    <a href="mailto:{{userInfo?.email}}">
-                    <i class="fas fa-envelope" *ngIf="userInfo?.email"></i> {{userInfo?.email}}</a>
-                    <i class="fas fa-mobile" *ngIf="childForm?.value?.personalDetails?.phone"></i> {{childForm?.value?.personalDetails?.phone?.e164Number ? (childForm?.value?.personalDetails?.phone?.e164Number | phone) : childForm?.value?.personalDetails?.phone}}
-                  </h6>
-									<h6 *ngIf="childForm?.value?.personalDetails?.social_media_link?.length">
-                    <a class="mr-1" *ngFor="let item of childForm?.value?.personalDetails?.social_media_link" href="{{item.url}}" target="_blank">
-                      <ng-container [ngSwitch]="item?.media">
-                        <ng-container *ngSwitchCase="'youtube'">
-                          <i class="fab fa-youtube-square"></i>
-                        </ng-container>
-                        <ng-container *ngSwitchCase="'portfolio'">
-                          <i class="fas fa-laptop-code"></i>
-                        </ng-container>
-                        <ng-container *ngSwitchCase="'blog'">
-                          <i class="fas fa-blog"></i>
-                        </ng-container>
-                        <ng-container *ngSwitchDefault>
-                          <i class="fab fa-{{item.media}}"></i>
-                        </ng-container>
-                      </ng-container>
-                    </a>
-                  </h6>
-									<h6 class="mb-0 text-capitalize">{{childForm?.value?.educationExp?.current_employer}}</h6>
-								</div>
+							<div class="col-lg-5 text-right">
+								<span data-toggle="modal" data-target="#exampleModal">
+									<a class="btn btn-outline-blue btn-sm" href="#">
+									<i class="fas fa-file-alt"></i> Resume</a>
+								</span>
+							</div>
+						</div>
+						<div class="media">
+							<img [src]="userPhotoInfo?.base64 ? convertToImage(userPhotoInfo?.base64) : 'assets/images/user-img-icon.jpg'">
+							<div class="media-body">
+								<h6 class="text-capitalize">
+									{{childForm?.value?.personalDetails?.city ? childForm?.value?.personalDetails?.city : ''}}
+									{{childForm?.value?.personalDetails?.state ? ', ' + childForm?.value?.personalDetails?.state : ''}}
+									<span class="text-uppercase">
+										{{childForm?.value?.personalDetails?.country ? ', ' + childForm?.value?.personalDetails?.country : ''}}
+									</span>
+								</h6>
+								<h6>
+									<a href="mailto:{{userInfo?.email}}">
+									<i class="fas fa-envelope" *ngIf="userInfo?.email"></i> {{userInfo?.email}}</a>
+									<i class="fas fa-mobile" *ngIf="childForm?.value?.personalDetails?.phone"></i> {{childForm?.value?.personalDetails?.phone?.e164Number ? (childForm?.value?.personalDetails?.phone?.e164Number | phone) : childForm?.value?.personalDetails?.phone}}
+								</h6>
+								<h6 *ngIf="childForm?.value?.personalDetails?.social_media_link?.length">
+									<a class="mr-1" *ngFor="let item of childForm?.value?.personalDetails?.social_media_link" href="{{item.url}}" target="_blank">
+										<ng-container [ngSwitch]="item?.media">
+											<ng-container *ngSwitchCase="'youtube'">
+												<i class="fab fa-youtube-square"></i>
+											</ng-container>
+											<ng-container *ngSwitchCase="'portfolio'">
+												<i class="fas fa-laptop-code"></i>
+											</ng-container>
+											<ng-container *ngSwitchCase="'blog'">
+												<i class="fas fa-blog"></i>
+											</ng-container>
+											<ng-container *ngSwitchDefault>
+												<i class="fab fa-{{item.media}}"></i>
+											</ng-container>
+										</ng-container>
+									</a>
+								</h6>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row mt-3 info-box">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-					  <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfExperience" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"dashboard.domainsWorked" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postYourResume.handsOnExperience" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-            <li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.experience}} Years</li>
-            <li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.sap_experience}} Years</li>
-            <li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(childForm?.value?.educationExp?.domains_worked)}}</li>
-            <li class="list-group-item text-uppercase">
-              <p class="m-0 w-100 float-left" *ngFor="let item of childForm?.value?.skillSet?.hands_on_experience">
-                <span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
-                <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
-              </p>
-            </li>
-					</ul>
-				</div>
-
-				<div class="col-lg-12 border-top pt-3">	</div>
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-					  <li class="list-group-item lg-mh-40 text-capitalize">{{"dashboard.knowledgeOn" | translate }}</li>
-              <li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
-              <li class="list-group-item text-capitalize">{{"postYourResume.others" | translate }}</li>
-              <li class="list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
-              <li class="list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-					  <li class="list-group-item text-uppercase lg-mh-40">
-              <p class="m-0 w-100 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id')">
-                <span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
-              </p>
-            </li>
-            <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
-            <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}}</li>
-            <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.certification)}}</li>
-            <li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.end_to_end_implementation ? childForm?.value?.educationExp?.end_to_end_implementation : '--'}}</li>
-					</ul>
-				</div>
-
-				<div class="col-lg-12 border-top pt-3">	</div>
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-					  <li class="list-group-item text-capitalize">{{"postYourResume.previousEmployers" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postYourResume.rolesLookingFor" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.remote" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-					  <li class="list-group-item text-capitalize">
-              {{utilsHelperService.onConvertArrayToString(childForm?.value?.educationExp?.clients_worked)}}
-            </li>
-					  <li class="list-group-item text-capitalize">
-              {{sharedService.onGetJobType(childForm?.value?.jobPref?.job_type)}}
-            </li>
-					  <li class="list-group-item text-capitalize">
-              {{childForm?.value?.jobPref?.job_role ? childForm?.value?.jobPref?.job_role : '--'}}
-            </li>
-					  <li class="list-group-item text-capitalize">
-              {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}
-            </li>
-					</ul>
-				</div>
-
-				<div class="col-lg-12 border-top pt-3">	</div>
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-					  <li class="list-group-item">{{"postJob.availableIn" | translate }}</li>
-            <li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
-            <li class="list-group-item">{{"postJob.travel" | translate }}</li>
-            <li class="list-group-item">{{"postJob.willingToRelocate" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-					  <li class="list-group-item">
-              {{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + ' Days'}}
-            </li>
-            <li class="list-group-item">
-              {{childForm?.value?.jobPref?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" | translate) : ("postYourResume.iNeedVisaAponsorship" | translate)}}
-            </li>
-             <li class="list-group-item">
-              {{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}
-            </li>
-					  <li class="list-group-item">
-              {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.willing_to_relocate)}}
-            </li>
-					</ul>
+		</div>
+		<div class="row mt-3 info-box">
+			<div class="col-lg-12">
+				<div class="pj-title mb-3">
+					 <h6>Personal Details </h6>
 				</div>
 			</div>
-		  </div>
-		  <div class="modal-footer">
-			<button  (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Edit</button>
-			<button type="button" class="btn btn-theme-blue btn-sm" (click)="onRedirectDashboard()">Save & Close</button>
-		  </div>
+			<div class="col-lg-4 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"postJob.availableIn" | translate }}</li>
+					<li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
+					<li class="list-group-item">{{"postJob.travel" | translate }}</li>
+					<li class="list-group-item">{{"postJob.willingToRelocate" | translate }}</li>
+					<li class="list-group-item">{{"postJob.remote" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-8 info">
+				<ul class="list-group">
+					<li class="list-group-item">
+					  {{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + ' Days'}}
+					</li>
+					<li class="list-group-item">
+					  {{childForm?.value?.jobPref?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" | translate) : ("postYourResume.iNeedVisaAponsorship" | translate)}}
+					</li>
+					<li class="list-group-item">
+					  {{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}
+					</li>
+					<li class="list-group-item">
+					  {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.willing_to_relocate)}}
+					</li>
+					<li class="list-group-item">
+					  {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row mt-3 info-box">
+			<div class="col-lg-12">
+				<div class="pj-title mb-3">
+					 <h6>Personal Details </h6>
+				</div>
+			</div>
+			<div class="col-lg-4 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize">{{"postJob.totalYearsOfExperience" | translate }}</li>
+					<li class="list-group-item text-capitalize">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+					<li class="list-group-item text-capitalize">{{"dashboard.domainsWorked" | translate }}</li>
+					<li class="list-group-item text-capitalize">{{"postYourResume.handsOnExperience" | translate }}</li>
+					<li class="list-group-item lg-mh-40 text-capitalize">{{"dashboard.knowledgeOn" | translate }}</li>
+					<li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+					<li class="list-group-item text-capitalize">{{"postYourResume.others" | translate }}</li>
+					<li class="list-group-item text-capitalize">{{"postYourResume.previousEmployers" | translate}}</li>
+					<li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+					<li class="list-group-item text-capitalize">{{"postYourResume.rolesLookingFor" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-8 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.experience}} Years</li>
+					<li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.sap_experience}} Years</li>
+					<li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(childForm?.value?.educationExp?.domains_worked)}}</li>
+					<li class="list-group-item text-uppercase">
+						<p class="m-0 w-100 float-left" *ngFor="let item of childForm?.value?.skillSet?.hands_on_experience">
+							<span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
+							<span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
+						</p>
+					</li>
+					<li class="list-group-item text-uppercase lg-mh-40">
+						<p class="m-0 w-100 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id')">
+							<span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
+						</p>
+					</li>
+					<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
+					<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}}</li>
+					<li class="list-group-item text-capitalize">
+						{{utilsHelperService.onConvertArrayToString(childForm?.value?.educationExp?.clients_worked)}}
+					</li>
+					<li class="list-group-item text-capitalize">
+						{{sharedService.onGetJobType(childForm?.value?.jobPref?.job_type)}}
+					</li>
+					<li class="list-group-item text-capitalize">
+						{{childForm?.value?.jobPref?.job_role ? childForm?.value?.jobPref?.job_role : '--'}}
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row mt-3 info-box">
+			<div class="col-lg-12">
+				<div class="pj-title mb-3">
+					 <h6>{{"postJob.certification" | translate }}</h6>
+				</div>
+			</div>
+
+			<div class="col-lg-12" *ngIf="childForm.value.skillSet.certification">
+				<div class="media mb-2" *ngFor="let certification of childForm.value.skillSet.certification">
+					<img src="assets/images/certifications-icon.png" width="26px" class="mr-2" alt="SAP">
+					<div class="media-body">
+						<p class="my-2 small">{{certification}} </p>
+					 </div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="row mt-3 info-box">	
+				
+			<div class="col-lg-12">
+				<div class="pj-title mb-3 border-primary">
+					<h6 class="text-blue" role="button" (click)="show = !show"> Reference  <i class="fas fa-angle-down"></i></h6>
+				</div>
+				<div *ngIf="show" [@slideInOut] class="row mt-2" style="padding:0px;">
+					<div class="col-lg-4 p-1" *ngFor="let reference of childForm.value.personalDetails.reference " >
+						<div class="card job-card sm" style="min-height: 105px;">
+							<div class="card-body">
+								<p class="text-blue font-weight-bold mb-1">{{reference.name}}</p>
+								<p class="mb-1 hilight">{{reference.email}}</p>
+								<p class="mb-0">{{reference.company_name}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button  (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Edit</button>
+		<button type="button" class="btn btn-theme-blue btn-sm" (click)="onRedirectDashboard()">Save & Close</button>
+	</div>
 </ng-template>

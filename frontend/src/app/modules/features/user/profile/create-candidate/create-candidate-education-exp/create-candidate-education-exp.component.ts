@@ -84,11 +84,19 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
       if (this.savedUserDetails.education_qualification == null) {
         delete this.savedUserDetails.education_qualification;
       }
+	  
+	 
+      if (this.savedUserDetails.domains_worked != null) {
+        for(let i=0;i<this.savedUserDetails.domains_worked.length;i++){
+			this.savedUserDetails.domains_worked[i]=parseInt(this.savedUserDetails.domains_worked[i]);
+		}
+      }
       this.childForm.patchValue({
         educationExp: {
           ...this.savedUserDetails
         }
       })
+      
     }
     // if(this.childForm && this.childForm.value.educationExp.education_qualification && Array.isArray(this.childForm.value.educationExp.education_qualification)) {
     // let remp =  this.childForm.value.educationExp.education_qualification.filter((val, index) => {
@@ -106,6 +114,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
     this.childForm = this.parentF.form;
 
     this.childForm.addControl('educationExp', new FormGroup({
+      employer_role_type: new FormControl(null, Validators.required),
       education_qualification: new FormArray([this.formBuilder.group({
         degree: [''],
         field_of_study: [null],
@@ -116,7 +125,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
       current_employer: new FormControl('', Validators.required),
       current_employer_role: new FormControl('', Validators.required),
       domains_worked: new FormControl('', Validators.required),
-      clients_worked: new FormControl(''),
+      //clients_worked: new FormControl(''),
       end_to_end_implementation: new FormControl(null),
     }));
   }

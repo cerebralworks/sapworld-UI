@@ -156,6 +156,16 @@
     "iNeedVisaAponsorship": "Ich brauche Visa-Sponsoring",
     "arYouWillingToRelocate": "Sind Sie umzugsbereit",
     "onlyRemote": "Nur Remote",
-    "sapCategory": "SAP Kategorie"
+    "sapCategory": "SAP Kategorie",
+    "nationality": "Staatsangehörigkeit",
+    "previousemployers": "Previous Employers",
+    "selectcountry": "Frühere Arbeitgeber",
+    "othercountry": "Anderes Land",
+    "visatype": "Visa type",
+    "visatype": "Visumtyp",
+    "read": "Lesen",
+    "write": "Schreiben",
+    "speak": "Sprechen",
+    "addreference": "Füge Referenz hinzu"
   }
 }

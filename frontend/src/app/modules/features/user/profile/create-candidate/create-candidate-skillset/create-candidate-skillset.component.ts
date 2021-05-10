@@ -65,10 +65,21 @@ export class CreateCandidateSkillsetComponent implements OnInit {
               value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
               this.onDuplicate();
             });
+			
           }
+		  if (this.savedUserDetails.hands_on_experience != null) {
+			for(let i=0;i<this.savedUserDetails.hands_on_experience.length;i++){
+				this.savedUserDetails.hands_on_experience[i]['skill_id']=parseInt(this.savedUserDetails.hands_on_experience[i]['skill_id']);
+			}
+		  }
           this.savedUserDetails.skills = this.utilsHelperService.differenceByPropValArray(this.savedUserDetails.skills, this.savedUserDetails.hands_on_experience, 'skill_id')
 
         }
+		if (this.savedUserDetails.skills != null) {
+			for(let i=0;i<this.savedUserDetails.skills.length;i++){
+				this.savedUserDetails.skills[i]=parseInt(this.savedUserDetails.skills[i]);
+			}
+		  }
         if (this.savedUserDetails.hands_on_experience == null) {
           delete this.savedUserDetails.hands_on_experience;
         }

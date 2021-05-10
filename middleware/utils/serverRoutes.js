@@ -25,6 +25,8 @@ const routes = {
     changeEmployerStatus: '/employers/change-status',
     jobPostingUpdate: '/jobpostings/update',
     skillTagList: '/skill-tags/list',
+    countryList: '/country/list',
+    languageList: '/language/list',
     employerList: '/employers/list',
     forgotPassword: '/accounts/request-reset-password',
     jobPostingList: '/jobpostings/list',

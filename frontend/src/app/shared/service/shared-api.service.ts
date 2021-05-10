@@ -39,5 +39,33 @@ export class SharedApiService {
       }
     )
   }
+  
+  onGetLanguage(requestParams: any): any {
+    this.employerService.getLanguage(requestParams).subscribe(
+      response => {
+        if(response && response.items) {
+          this.dataService.setLanguageDataSource(response.items);
+        }else {
+          this.dataService.clearLanguageDataSource();
+        }
+      }, error => {
+        this.dataService.clearLanguageDataSource();
+      }
+    )
+  }
+  
+  onGetCountry(requestParams: any): any {
+    this.employerService.getCountry(requestParams).subscribe(
+      response => {
+        if(response && response.items) {
+          this.dataService.setCountryDataSource(response.items);
+        }else {
+          this.dataService.clearCountryDataSource();
+        }
+      }, error => {
+        this.dataService.clearCountryDataSource();
+      }
+    )
+  }
 
 }

@@ -5,6 +5,7 @@ import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormG
 import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { DataService } from '@shared/service/data.service';
+import { SharedApiService } from '@shared/service/shared-api.service';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,96 +15,192 @@ import { UserService } from '@data/service/user.service';
 import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
-  selector: 'app-create-candidate-personal-details',
-  templateUrl: './create-candidate-personal-details.component.html',
-  styleUrls: ['./create-candidate-personal-details.component.css'],
-  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({ height: '*', opacity: 0 })),
-      transition(':leave', [
-        style({ height: '*', opacity: 1 }),
+	selector: 'app-create-candidate-personal-details',
+	templateUrl: './create-candidate-personal-details.component.html',
+	styleUrls: ['./create-candidate-personal-details.component.css'],
+	viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
+	animations: [
+		trigger('slideInOut', [
+			state('in', style({ height: '*', opacity: 0 })),
+			transition(':leave', [
+			style({ height: '*', opacity: 1 }),
+			group([
+				animate(300, style({ height: 0 })),
+				animate('200ms ease-in-out', style({ 'opacity': '0' }))
+			])
+		]),
+		transition(':enter', [
+			style({ height: '0', opacity: 0 }),
+			group([
+				animate(300, style({ height: '*' })),
+				animate('400ms ease-in-out', style({ 'opacity': '1' }))
+			])
 
-        group([
-          animate(300, style({ height: 0 })),
-          animate('200ms ease-in-out', style({ 'opacity': '0' }))
-        ])
-
-      ]),
-      transition(':enter', [
-        style({ height: '0', opacity: 0 }),
-
-        group([
-          animate(300, style({ height: '*' })),
-          animate('400ms ease-in-out', style({ 'opacity': '1' }))
-        ])
-
-      ])
-    ])
+		])
+	])
   ]
 })
+
 export class CreateCandidatePersonalDetailsComponent implements OnInit {
-
-  @Input() currentTabInfo: tabInfo;
-  public childForm;
-  public show: boolean = false;
-  public userInfo: any = {};
-  public defaultProfilePic: string;
-  public mbRef: any;
-  public profilePicValue: any;
-  public profilePicAsEvent: any;
-  public previousProfilePic: string;
-  public imageChangedEvent: FileList;
-  public socialMediaLinks: any[] = [];
-  savedUserDetails: any;
-  randomNum: number;
-  @Input('userDetails')
-  set userDetails(inFo: any) {
-    this.savedUserDetails = inFo;
-  }
-  public tabInfos: tabInfo[];
-
-  @ViewChild('userImage', { static: false }) userImage: ElementRef;
-  croppedFile: any;
-  separateDialCode = false;
+	
+	//Variable Declaration
+	
+	@Input() currentTabInfo: tabInfo;
+	public childForm;
+	public show: boolean = false;
+	public userInfo: any = {};
+	public defaultProfilePic: string;
+	public mbRef: any;
+	public profilePicValue: any;
+	public profilePicAsEvent: any;
+	public previousProfilePic: string;
+	public imageChangedEvent: FileList;
+	public socialMediaLinks: any[] = [];
+	public nationality: any[] = [];
+	public othercountry: any[] = [];
+	public languageSource: any[] = [];
+	savedUserDetails: any;
+	othercountryValue: any;
+	randomNum: number;
+	@Input('userDetails')
+	set userDetails(inFo: any) {
+		this.savedUserDetails = inFo;
+	}
+	public tabInfos: tabInfo[];
+	public filteredValuesCountry: any[] = [];
+	@ViewChild('userImage', { static: false }) userImage: ElementRef;
+	croppedFile: any;
+	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
 	TooltipLabel = TooltipLabel;
 	CountryISO = CountryISO;
-  PhoneNumberFormat = PhoneNumberFormat;
+	PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-
-  constructor(
-    private parentF: FormGroupDirective,
-    public sharedService: SharedService,
-    private dataService: DataService,
-    private userSharedService: UserSharedService,
-    private toastrService: ToastrService,
-    private modalService: NgbModal,
-    private utilsHelperService: UtilsHelperService,
-    private userService: UserService,
-    private formBuilder: FormBuilder
-  ) { }
-
-  ngOnInit(): void {
-    this.randomNum = Math.random();
-    this.createForm();
-
-    this.dataService.getTabInfo().subscribe(
+	 
+	constructor(
+		private parentF: FormGroupDirective,
+		public sharedService: SharedService,
+		private dataService: DataService,
+		private userSharedService: UserSharedService,
+		private toastrService: ToastrService,
+		private modalService: NgbModal,
+		private utilsHelperService: UtilsHelperService,
+		private userService: UserService,
+		private SharedAPIService: SharedApiService,
+		private formBuilder: FormBuilder
+	) { }
+	
+	/**
+	**	When the page loads initally function calls
+	**/
+	
+	ngOnInit(): void {
+		
+		this.randomNum = Math.random();
+		this.createForm();
+		this.onGetCountry('');
+		this.onGetLanguage('');
+		
+		//To get the tab information
+		
+		this.dataService.getTabInfo().subscribe(response => {
+			if (response && Array.isArray(response) && response.length) {
+				this.tabInfos = response;
+			}
+		});
+		
+	this.dataService.getCountryDataSource().subscribe(
       response => {
+		  console.log(response);
         if (response && Array.isArray(response) && response.length) {
-          this.tabInfos = response;
+          this.nationality = response;
+			this.othercountry =  response.filter(function(a,b){
+				return a.id !="226"&&a.id !="225"&&a.id !="13"&&a.id !="99"&&a.id !="192"&&a.id !="38"&&a.id !="107"&&a.id !="129"
+			});
+			
         }
       }
-    )
+    );
+	this.dataService.getLanguageDataSource().subscribe(
+      response => {
+		  console.log(response);
+        if (response && Array.isArray(response) && response.length) {
+          this.languageSource = response;
+        }
+      }
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+	  setTimeout(async () => {
     if(this.childForm && this.savedUserDetails) {
+		if (this.savedUserDetails && this.savedUserDetails.language_known && Array.isArray(this.savedUserDetails.language_known)) {
+        if ((this.savedUserDetails.language_known.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.language_known && this.savedUserDetails.language_known.length)) {
+         this.t.removeAt(0);
+          this.savedUserDetails.language_known.map((value, index) => {
+            this.t.push(this.formBuilder.group({
+				language: [null, Validators.required],
+					read: [false],
+					write: [false],
+					speak: [false]
+			}));
+            this.onChangeLanguageValue(value.language, index);
+          });
+		  this.childForm.patchValue({
+			personalDetails: {
+				 language_known: this.savedUserDetails.language_known,
+			}
+		  });     
+	  }}
+    if(this.childForm && this.savedUserDetails) {
+		if (this.savedUserDetails && this.savedUserDetails.reference && Array.isArray(this.savedUserDetails.reference)) {
+        if ((this.savedUserDetails.reference.length == 1) || (this.r && this.r.length) !== (this.savedUserDetails.reference && this.savedUserDetails.reference.length)) {
+         this.r.removeAt(0);
+          this.savedUserDetails.reference.map((value, index) => {
+            this.r.push(this.formBuilder.group({
+				name: new FormControl(null, Validators.required),
+				email: new FormControl('', [ Validators.required,ValidationService.emailValidator]),
+				company_name: new FormControl(null, Validators.required)
+			}));
+            this.onChangeLanguageValueReference(value.name, index);
+          });
+		  this.childForm.patchValue({
+			personalDetails: {
+				 reference: this.savedUserDetails.reference,
+			}
+		  });
+	  }}
+	  }
       this.childForm.patchValue({
         personalDetails: {
-          ...this.savedUserDetails,
+			first_name:this.savedUserDetails.first_name,
+			  last_name: this.savedUserDetails.last_name,
+			  email: this.savedUserDetails.email,
+			  phone: this.savedUserDetails.phone,
+			  city: this.savedUserDetails.city,
+			  state: this.savedUserDetails.state,
+			  country: this.savedUserDetails.country,
+			  zipcode: this.savedUserDetails.zipcode,
+			  nationality: this.savedUserDetails.nationality,
+			  clients_worked: this.savedUserDetails.clients_worked,
+			  visa_type: this.savedUserDetails.visa_type,
+			  work_authorization: this.savedUserDetails.work_authorization,
+			  authorized_country: this.savedUserDetails.authorized_country,
         }
       });
+	  if(this.savedUserDetails.authorized_country!=null){		  
+		if(this.savedUserDetails.authorized_country.length){
+			for(let i=0;i<this.savedUserDetails.authorized_country.length;i++){
+				
+				for(let j=0;j<document.getElementsByClassName('btn-fltr').length;j++){
+					if(document.getElementsByClassName('btn-fltr').item(j)['id'] == this.savedUserDetails.authorized_country[i]){
+						document.getElementsByClassName('btn-fltr').item(j)['className'] = document.getElementsByClassName('btn-fltr').item(j)['className'] +' btn-fltr-active';
+					}
+				}
+			}
+		}
+	  }
+	  
       if(this.savedUserDetails && this.savedUserDetails.social_media_link && this.savedUserDetails.social_media_link.length > 0) {
         this.childForm.patchValue({
           personalDetails: {
@@ -153,6 +250,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         // })
       }
     }
+	  }); 
   }
 
   onFindMediaLinks = (mediaType: string, array: any[]) => {
@@ -178,6 +276,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       latlng: new FormControl({}, Validators.required),
       country: new FormControl('', Validators.required),
       zipcode: new FormControl(null, Validators.required),
+      clients_worked: new FormControl(null, Validators.required),
+      authorized_country: new FormControl(null),
+      visa_type: new FormControl(null, Validators.required),
+      nationality: new FormControl(null, Validators.required),
       social_media_link: new FormControl(null),
       linkedin: new FormControl(''),
       github: new FormControl(''),
@@ -189,6 +291,18 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       youtubeBoolen: new FormControl(false),
       blogBoolen: new FormControl(false),
       portfolioBoolen: new FormControl(false),
+      work_authorization: new FormControl(null),
+	  language_known: new FormArray([this.formBuilder.group({
+        language: [null, Validators.required],
+        read: new FormControl(false),
+        write: new FormControl(false),
+        speak: new FormControl(false)
+      })]),
+	  reference: new FormArray([this.formBuilder.group({
+        name: new FormControl(null, Validators.required),
+        email: new FormControl('', [Validators.required,ValidationService.emailValidator]),
+        company_name: new FormControl(null, Validators.required)
+      })]),
     }));
 
   }
@@ -328,5 +442,140 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     //   })
     // }
   }
+	onChangeLanguageValue(value,index){
+		if(value && index > -1) {
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['read'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['read'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['write'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['write'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].updateValueAndValidity();
+		}else {
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].setValidators(null)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['read'].setValidators(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['read'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['write'].setValidators(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['write'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].setValidators(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].updateValueAndValidity();
+		}
+	}
+	onChangeLanguageValueReference = (value, index) => {
+    
+    if(value && index > -1) {
+      this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators([Validators.required])
+      this.childForm.get('personalDetails.reference').controls[index].controls['name'].updateValueAndValidity();
+      this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators([Validators.required,ValidationService.emailValidator])
+      this.childForm.get('personalDetails.reference').controls[index].controls['email'].updateValueAndValidity();
+      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators([Validators.required])
+      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
+    }else {
+      this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators([Validators.required])
+      this.childForm.get('personalDetails.reference').controls[index].controls['name'].updateValueAndValidity();
+      this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators([Validators.required,ValidationService.emailValidator])
+      this.childForm.get('personalDetails.reference').controls[index].controls['email'].updateValueAndValidity();
+      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators([Validators.required])
+      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
+    }
+  }
+    onGetCountry(query) {
+		this.filteredValuesCountry = [];
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
 
-}
+		this.SharedAPIService.onGetCountry(requestParams);
+		 
+	  }
+	  
+	onGetLanguage(query) {
+		this.filteredValuesCountry = [];
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+
+		this.SharedAPIService.onGetLanguage(requestParams);
+	  }
+	  
+	onChangeFieldValue = (fieldName, value) => {
+		this.childForm.patchValue({
+		  personalDetails: {
+			[fieldName]: value,
+		  }
+		});
+	  }
+	  
+	
+	 get t() {
+    return this.f.language_known as FormArray;
+  }
+
+  onDuplicate = (index) => {
+   
+	 if(this.t.value[index]['language']=="" || this.t.value[index]['language']==null && ( this.t.value[index]['read']== false && this.t.value[index]['write']== false && this.t.value[index]['speak']== false) ){
+		  
+	  }else{
+		 this.t.push(this.formBuilder.group({
+			language: [null, Validators.required],
+				read: [false],
+				write: [false],
+				speak: [false]
+		}));
+	  }
+  }
+
+  onRemove = (index) => {
+    if (index == 0  && this.t.value.length==1) {
+      this.t.reset();
+    } else {
+      this.t.removeAt(index);
+    }
+  }
+	 get r() {
+    return this.f.reference as FormArray;
+  }
+
+  onDuplicateR = (index) => {
+	  if(this.r.value[index]['name']=="" || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == ""){
+		  
+	  }else{
+		this.r.push(this.formBuilder.group({
+			name: new FormControl(null, Validators.required),
+			email: new FormControl('', [ Validators.required,ValidationService.emailValidator]),
+			company_name: new FormControl(null, Validators.required)
+		}));
+	  }
+  }
+
+  onRemoveR = (index) => {
+	  if (index == 0  && this.r.value.length==1) {
+		this.r.reset();
+	  }else{
+		this.r.removeAt(index);
+    }
+  }
+  countryClick(value,clr){
+	  var temp = clr.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+		 
+		this.childForm.value.personalDetails.authorized_country.pop(clr.toElement.id);
+		  clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
+	  }else{
+		  clr.toElement.className = clr.toElement.className+' btn-fltr-active';
+
+		if(this.childForm.value.personalDetails.authorized_country==null){
+			this.childForm.value.personalDetails.authorized_country=[clr.toElement.id];
+		}else{
+			this.childForm.value.personalDetails.authorized_country.push(clr.toElement.id);
+		}
+	  }
+	  console.log(value);
+  }
+	}

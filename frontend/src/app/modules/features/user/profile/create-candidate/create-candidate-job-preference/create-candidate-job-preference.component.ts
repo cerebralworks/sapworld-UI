@@ -24,6 +24,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
   }
+  public othercountry: any[] = [];
+  
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
@@ -63,6 +65,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
         }
       }
     )
+	
+	this.dataService.getCountryDataSource().subscribe(
+      response => {
+		  console.log(response);
+        if (response && Array.isArray(response) && response.length) {
+			this.othercountry =  response.filter(function(a,b){
+				return a.id !="226"&&a.id !="225"&&a.id !="13"&&a.id !="99"&&a.id !="192"&&a.id !="38"&&a.id !="107"&&a.id !="129"
+			});
+			
+        }
+      }
+    );
+	
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -77,7 +92,18 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
               },
             });
           }
-
+			if(this.savedUserDetails.preferred_countries!=null){		  
+		if(this.savedUserDetails.preferred_countries.length){
+			for(let i=0;i<this.savedUserDetails.preferred_countries.length;i++){
+				
+				for(let j=0;j<document.getElementsByClassName('btn-fltr').length;j++){
+					if(document.getElementsByClassName('btn-fltr').item(j)['id'] == this.savedUserDetails.preferred_countries[i]){
+						document.getElementsByClassName('btn-fltr').item(j)['className'] = document.getElementsByClassName('btn-fltr').item(j)['className'] +' btn-fltr-active';
+					}
+				}
+			}
+		}
+	  }
           let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
           if(skillSetIndex == -1) {
             this.childForm.patchValue({
@@ -105,9 +131,10 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
       job_role: new FormControl('', Validators.required),
       willing_to_relocate: new FormControl(null, Validators.required),
       preferred_location: new FormControl(null),
-      work_authorization: new FormControl(null),
+      //work_authorization: new FormControl(null),
       travel: new FormControl(null, Validators.required),
-      availability: new FormControl(null, Validators.required),
+      preferred_countries : new FormControl(null, Validators.required),
+      availability : new FormControl(''),
       remote_only: new FormControl(false, Validators.required),
     }));
     // this.childForm.addControl('skillSet', new FormGroup({
@@ -166,5 +193,21 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
       }
     });
   }
+  countryClick(value,clr){
+	  var temp = clr.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+		 
+		this.childForm.value.jobPref.preferred_countries.pop(clr.toElement.id);
+		  clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
+	  }else{
+		  clr.toElement.className = clr.toElement.className+' btn-fltr-active';
 
+		if(this.childForm.value.jobPref.preferred_countries==null){
+			this.childForm.value.jobPref.preferred_countries=[clr.toElement.id];
+		}else{
+			this.childForm.value.jobPref.preferred_countries.push(clr.toElement.id);
+		}
+	  }
+	  console.log(value);
+  }
 }

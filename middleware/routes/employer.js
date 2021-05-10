@@ -16,6 +16,15 @@ module.exports = (app, env, rp) => {
     let requestBody = { ...req.query };    
     requestCustom.get(`${serverRoutes.skillTagList}`, req, res, requestBody);
   });
+  
+  app.get("/api/country/list", (req, res) => {
+    let requestBody = { ...req.query };    
+    requestCustom.get(`${serverRoutes.countryList}`, req, res, requestBody);
+  });
+  app.get("/api/language/list", (req, res) => {
+    let requestBody = { ...req.query };    
+    requestCustom.get(`${serverRoutes.languageList}`, req, res, requestBody);
+  });
 
   app.get("/api/employers/list", (req, res) => {
     let requestBody = { ...req.query };    

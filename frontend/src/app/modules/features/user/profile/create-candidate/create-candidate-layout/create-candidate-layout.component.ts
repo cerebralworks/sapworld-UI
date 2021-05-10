@@ -130,6 +130,7 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
             travel: new FormControl(null, Validators.required),
             availability: new FormControl(null, Validators.required),
             remote_only: new FormControl(false, Validators.required),
+            preferred_countries: new FormControl(null, Validators.required),
           }));
           this.candidateForm.addControl('skillSet', new FormGroup({
             hands_on_experience: new FormArray([this.formBuilder.group({
@@ -150,12 +151,12 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
               field_of_study: [''],
               year_of_completion: ['']
             })]),
+			employer_role_type: new FormControl(null, Validators.required),
             experience: new FormControl('', Validators.required),
             sap_experience: new FormControl('', Validators.required),
             current_employer: new FormControl('', Validators.required),
             current_employer_role: new FormControl('', Validators.required),
             domains_worked: new FormControl('', Validators.required),
-            clients_worked: new FormControl(''),
             end_to_end_implementation: new FormControl(null),
           }));
           this.validateOnForm++

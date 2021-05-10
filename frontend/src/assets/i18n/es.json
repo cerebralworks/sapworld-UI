@@ -156,6 +156,16 @@
     "iNeedVisaAponsorship": "Necesito patrocinio de visa",
     "arYouWillingToRelocate": "Estas dispuesta a reubicarte",
     "onlyRemote": "Solo remota",
-    "sapCategory": "SAP Categoría"
+    "sapCategory": "SAP Categoría",
+    "nationality": "Nacionalidad",
+    "previousemployers": "Empleadores anteriores",
+    "selectcountry": "Seleccione el país en el que está autorizado a trabajar",
+    "othercountry": "Otro país",
+    "visatype": "Tipo de visa",
+    "visatype": "Idiomas Conocido",
+    "read": "Leer",
+    "write": "Escribir",
+    "speak": "Hablar",
+    "addreference": "Añadir referencia"
   }
 }

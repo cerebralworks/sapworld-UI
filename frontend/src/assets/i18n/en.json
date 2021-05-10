@@ -157,6 +157,19 @@
     "iNeedVisaAponsorship": "I need visa sponsorship",
     "arYouWillingToRelocate": "Are you willing to relocate",
     "onlyRemote": "Only Remote",
-    "sapCategory": "SAP Category"
+    "sapCategory": "SAP Category",
+    "nationality": "Nationality",
+    "previousemployers": "Previous Employers",
+    "selectcountry": "Please select the country you are authorized to work",
+    "othercountry": "Other Country",
+    "visatype": "Visa type",
+    "languageknown": "Languages Known",
+    "read": "Read",
+    "write": "Write",
+    "speak": "Speak",
+    "addreference": "Add Reference",
+    "roleType": "Role Type",
+    "remote": "Remote"
+	
   }
 }

@@ -5,6 +5,8 @@ import { UtilsHelperService } from './utils-helper.service';
 @Injectable({ providedIn: 'root' })
 export class DataService {
   private skillTags = new BehaviorSubject<any>({});
+  private countryLists = new BehaviorSubject<any>({});
+  private languageLists = new BehaviorSubject<any>({});
   private industries = new BehaviorSubject<any>({});
   private userPhoto = new BehaviorSubject<any>({});
   private tabInfo = new BehaviorSubject<any>({});
@@ -20,6 +22,30 @@ export class DataService {
 
   getSkillDataSource(): Observable<any> {
     return this.skillTags.asObservable();
+  }
+  
+  setLanguageDataSource(data: {}) {
+    this.languageLists.next(data);
+  }
+
+  clearLanguageDataSource(): any {
+    this.languageLists.next({});
+  }
+
+  getLanguageDataSource(): Observable<any> {
+    return this.languageLists.asObservable();
+  }
+  
+  setCountryDataSource(data: {}) {
+    this.countryLists.next(data);
+  }
+
+  clearCountryDataSource(): any {
+    this.countryLists.next({});
+  }
+  
+  getCountryDataSource(): Observable<any> {
+    return this.countryLists.asObservable();
   }
 
   setIndustriesDataSource(data: {}) {

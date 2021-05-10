@@ -49,6 +49,22 @@ export class EmployerService extends CacheService {
       })
     );
   };
+  
+  getLanguage = (params: any): Observable<GetResponse> => {
+    return this.apiService.get('/api/language/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  
+  getCountry = (params: any): Observable<GetResponse> => {
+    return this.apiService.get('/api/country/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
 
   profile = (params?) => {
     return this.apiService.get('/api/employers/profile', params).pipe(

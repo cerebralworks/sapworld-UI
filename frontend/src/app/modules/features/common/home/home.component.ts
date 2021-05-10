@@ -35,6 +35,7 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
 
   @ViewChild('searchJob', { static: false }) searchJobs: ElementRef;
   public filteredValues: any[] = [];
+ 
   public selectedSkillItem: any;
   public isMenuOpen: boolean = false
 
@@ -150,6 +151,7 @@ console.log(event);
 
   getMovies(term: string = null): Observable<any> {
     this.filteredValues = [];
+    //this.filteredValuesCountry = [];
     let requestParams: any = {};
     requestParams.page = 1;
     requestParams.limit = 1000;
@@ -221,6 +223,8 @@ console.log(event);
     )
   }
 
+
+  
   onGetSkillTag(query) {
     this.filteredValues = [];
     let requestParams: any = {};

@@ -2296,4 +2296,24 @@ a:hover {
 .holds-the-iframe {
   background: url(../images/loading.gif)no-repeat center top;
 }
-
+.pj-title {
+    padding: 10px 0;
+    border-bottom: 1px solid #ffc0d8;
+}
+.pj-title h6{
+    margin: 0;
+    font-weight: 900;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    line-height: 0.6;
+}
+.sap-badge {
+    background: #ffeaa9;
+    padding: 4px 10px 2px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 75px;
+    color: #333;
+    display: inline-block;
+    margin: 3px 0;
+}
