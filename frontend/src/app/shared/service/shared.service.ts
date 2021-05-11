@@ -90,6 +90,7 @@ export class SharedService {
  }
 
  onFindDomainFromID = (arrayValues: Array<any>, returnVal: string = 'string') => {
+	 
   let industries;
   this.dataService.getIndustriesDataSource().subscribe(
     response => {
@@ -97,7 +98,9 @@ export class SharedService {
     }
   );
   if(industries && industries.items && Array.isArray(industries.items) && Array.isArray(arrayValues) && arrayValues.length > 0) {
-    const temp = industries.items.filter(r=> {
+  arrayValues = arrayValues.map(function(a,b){ return parseInt(a)});
+
+   const temp = industries.items.filter(r=> {
       return arrayValues.includes(r.id)
     });
 

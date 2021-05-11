@@ -113,7 +113,12 @@
     "iWillChooseWhileApplying": "Ich werde den Lebenslauf bei der Bewerbung auswählen",
     "startDate": "Anfangsdatum",
     "viewAll": "Alle ansehen",
-    "candidateViewJobs": "Kandidaten Jobs anzeigen"
+    "candidateViewJobs": "Kandidaten Jobs anzeigen",
+	"personalDetails":"Persönliche Daten",
+	"experienceAndSkills":"ERFAHRUNG UND FÄHIGKEITEN",
+	"certifications":"ZERTIFIZIERUNGEN",
+	"reference":"Referenz",
+	"others":"Andere"
   },
   "postYourResume": {
     "candidateRegistration": "Kandidaten Registrierung",

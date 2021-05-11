@@ -53,10 +53,10 @@
       </div>
     </div> -->
     <div class="row mb-4" *ngFor="let item of profileSettings; let i=index">
-      <div class="col-lg-6">
-        <h5>{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item?.label}}</h5>
+      <div class="col-lg-8">
+        <p >{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item?.label}}</p>
       </div>
-      <div class="col-lg-6 clearfix">
+      <div class="col-lg-4 clearfix">
         <div class="showhideswitch float-right">
           <input
           [checked]="(currentProfileInfo?.privacy_protection && currentProfileInfo?.privacy_protection[item?.field] == true)"

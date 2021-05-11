@@ -102,8 +102,8 @@
     "description": "Description",
     "yourPostJobs": "Your Post Jobs",
     "candidateMatches": "Candidate Matches",
-    "totalYearsOfExp": "Total Years of Exp",
-    "totalSapExp": "Total SAP Exp",
+    "totalYearsOfExp": "Total Years of Experience",
+    "totalSapExp": "Total SAP Experience",
     "knowledgeOn": "Knowledge on",
     "matchOtherPosts": "Match Other Posts",
     "score": "Score",
@@ -114,7 +114,12 @@
     "iWillChooseWhileApplying": "I will choose the resume while applying",
     "startDate": "Start Date",
     "viewAll": "View All",
-    "candidateViewJobs": "Candidate View Jobs"
+    "candidateViewJobs": "Candidate View Jobs",
+	"personalDetails":"Personal Details",
+	"experienceAndSkills":"EXPERIENCE AND SKILLS ",
+	"certifications":"CERTIFICATIONS",
+	"reference":"Reference",
+	"others":"Others"
   },
   "postYourResume": {
     "candidateRegistration": "Candidate Registration",

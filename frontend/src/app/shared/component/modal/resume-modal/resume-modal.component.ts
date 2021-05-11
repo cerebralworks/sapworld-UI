@@ -54,7 +54,7 @@ export class ResumeModalComponent implements OnInit {
     }
   }
 
-  resumeLoaded = (event) => {
+  resumeLoaded (event,value)  {
     console.log(event);
 
   }

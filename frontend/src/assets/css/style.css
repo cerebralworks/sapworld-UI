@@ -380,24 +380,55 @@ a:hover {
 	border:none;
 }
 .modal-header {
-    background: #11b771;
-    background: linear-gradient(180deg, #385edf 0%, #385edf 100%);
+    /*background: #11b771;
+    background: linear-gradient(180deg, #385edf 0%, #385edf 100%);*/
+	background: #ffffff!important;
+    border: none;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    border-radius: 1rem 1rem 0 0;
 }
 .modal-header .modal-title {
-    margin-bottom: 0;
+    /*margin-bottom: 0;
     line-height: 1.25;
     color: #fff;
     font-weight: 700;
+    font-size: 1rem;*/
+	margin-bottom: 0;
+    line-height: 1.25;
+    color: #385edf;
+    font-weight: 500;
     font-size: 1rem;
 }
 .modal-header .close {
-    float: right;
+   /* float: right;
     font-size: 1.25rem;
     font-weight: 800;
     line-height: 1;
     color: #fff;
     text-shadow: unset;
+    opacity: .85;*/
+	float: right;
+    font-size: 2.25rem;
+    font-weight: 200;
+    line-height: 1;
+    color: #999;
+    text-shadow: unset;
     opacity: .85;
+    padding: .4rem 1.5rem;
+}
+.modal-body .contactIcon {
+    width: fit-content;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #848484;
+}
+.modal-content {
+    border-radius: 1rem !important;
+    font-family: 'Open Sans', sans-serif !important;
+    border: none !important;
 }
 /*--Login--*/
 .login-header{
@@ -2316,4 +2347,43 @@ a:hover {
     color: #333;
     display: inline-block;
     margin: 3px 0;
+}
+
+.personal-info {
+    margin-right: 15px;
+    width: 20%;
+    text-align: center;
+    background: #0083a0;
+    padding: 8px 0;
+    border-radius: 10px;
+}
+.personal-info h6 {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.9rem;
+}
+.personal-info p {
+    margin-bottom: 0;
+    font-weight: 500;
+    color: #fff;
+    font-size: 0.7rem;
+}
+.rdn-radio {
+    padding: 0px 8px;
+    font-weight: 600;
+    min-width: 100px;
+    text-align: center;
+	margin-bottom: 10px;
+    font-size: 14px;
+    min-height: 26px;
+}
+.rdn-radio .custom-control {
+    padding-left: 2.5rem;
+}
+.lg-mh-40 .rdn-radio{
+    min-height: 40px;
+}
+.handsExp:hover {
+    overflow-x: scroll!important;
 }

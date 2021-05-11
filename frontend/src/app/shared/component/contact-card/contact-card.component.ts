@@ -4,6 +4,7 @@ import { JobPosting } from '@data/schema/post-job';
 import { AccountService } from '@data/service/account.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-card',
@@ -32,6 +33,7 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
 
   constructor(
     public utilsHelperService: UtilsHelperService,
+    private router: Router,
     private accountService: AccountService
   ) { }
 
@@ -107,5 +109,10 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   return "";
  }
 
+  onTabChange(){
+    const navigationExtras = {queryParams:{ activeTab: "matches"}}
+
+    this.router.navigate([], navigationExtras);
+  }
 
 }

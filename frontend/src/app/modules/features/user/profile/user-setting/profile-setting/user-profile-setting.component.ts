@@ -31,7 +31,8 @@ export class UserProfileSettingComponent implements OnInit {
       {field: 'phone', label: 'Phone Numer'},
       {field: 'email', label: 'Email ID'},
       {field: 'current_employer', label: 'Current Employer'},
-      {field: 'available_for_opportunity', label: 'Currently Available For Opportunity'}
+      {field: 'reference', label: 'Reference'},
+      {field: 'available_for_opportunity', label: 'Open to Opportunity'}
     ];
 
     this.userSharedService.getUserProfileDetails().subscribe(

@@ -1,0 +1,15 @@
+.job-card {
+	border-radius:10px;
+}
+.job-card:hover {
+    border-color: #11b771;
+    box-shadow: 5px 5px 5px rgb(17 183 113 / 0.15);
+    background: rgb(113 177 30 / 1%);
+}
+.job-card .card-body{
+	padding: 10px;
+}
+.job-card:hover .hilight {
+    border-bottom: 1px solid #ccc;
+    width: fit-content;
+}

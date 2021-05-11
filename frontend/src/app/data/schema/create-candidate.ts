@@ -35,6 +35,8 @@ export interface CandidateProfile {
   temp_extra_criteria: Array<any>;
   skills: Array<number>;
   programming_skills: Array<string>;
+  visa_type : Array<string>;
+  reference : Array<string>;
   optinal_skills: Array<string>;
   certification: Array<string>;
   work_authorization: number;
