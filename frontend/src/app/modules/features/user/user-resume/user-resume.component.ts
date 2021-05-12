@@ -14,17 +14,23 @@ import { ToastrService } from 'ngx-toastr';
 export class UserResumeComponent implements OnInit {
 
   public userSelectedResume: File;
+  public userSelectedCover: File;
   public userProfileInfo: any;
   public isOpenedResumeModal: boolean;
   public selectedResumeUrl: any;
   public mbRef: NgbModalRef;
 
   @ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
+  @ViewChild("coverTitleModal", { static: false }) coverTitleModal: TemplateRef<any>;
   @ViewChild('userResume', { static: false }) userResume: ElementRef;
+  @ViewChild('userCover', { static: false }) userCover: ElementRef;
 
   public currentResumeDetails: any;
+  public currentCoverDetails: any;
   public isDeleteModalOpened: boolean;
+  public isDeleteModalOpenedCover: boolean;
   public resumeForm: FormGroup;
+  public coverForm: FormGroup;
 
   constructor(
     private userService: UserService,
@@ -50,9 +56,12 @@ export class UserResumeComponent implements OnInit {
     this.resumeForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required])
     });
+    this.coverForm = this.formBuilder.group({
+      title: new FormControl('', [Validators.required])
+    });
   }
 
-  handleFileInput(event) {
+  handleFileInput(event,data) {
     let files: FileList = event.target.files;
     if (files && files.length > 0) {
       let allowedExtensions = ["doc", "docx", "pdf"];
@@ -69,8 +78,14 @@ export class UserResumeComponent implements OnInit {
         this.toastrService.error('Size Should be less than or equal to 3 MB');
         return;
       }
-      this.userSelectedResume = files[0];
-      this.onOpenResumeTitleModal();
+	  if(data=="cover"){
+		  this.userSelectedCover = files[0];
+		  this.onOpenCoverTitleModal();
+	  }else{
+		this.userSelectedResume = files[0];
+		  this.onOpenResumeTitleModal();
+	  }
+      
     }
 
   }
@@ -78,6 +93,12 @@ export class UserResumeComponent implements OnInit {
   onSaveResume = () => {
     if(this.resumeForm.valid) {
       this.onUserResumeUpdate();
+    }
+  }
+
+  onSaveCover = () => {
+    if(this.coverForm.valid) {
+      this.onUserCoverUpdate();
     }
   }
 
@@ -96,6 +117,48 @@ export class UserResumeComponent implements OnInit {
         this.onGetUserProfile(true);
         this.resumeForm.reset();
         this.userResume.nativeElement.value = null;
+      }, error => {
+      }
+    )
+  }
+
+  onUserCoverUpdate = () => {
+    const formData = new FormData();
+
+    formData.append('doc_cover', this.userSelectedCover, this.userSelectedCover.name);
+    formData.append('title', this.coverForm.value.title);
+    this.userService.coverUpdate(formData).subscribe(
+      response => {
+        this.modalService.dismissAll();
+        this.onGetUserProfile(true);
+        this.coverForm.reset();
+        this.userCover.nativeElement.value = null;
+      }, error => {
+      }
+    )
+  }
+
+  onDeleteCoverConfirm = (item, index) => {
+    this.currentCoverDetails = item;
+    this.isDeleteModalOpenedCover = true;
+  }
+
+  onDeleteCoverConfirmed = (status) => {
+    if (status == true) {
+      this.onDeleteUserCover();
+    } else {
+      this.isDeleteModalOpenedCover = false;
+    }
+  }
+
+  onDeleteUserCover = () => {
+    const formData = new FormData();
+
+    formData.append('file_key', this.currentCoverDetails.file);
+    this.userService.deleteCover(formData).subscribe(
+      response => {
+        this.isDeleteModalOpenedCover = false;
+        this.onGetUserProfile(true);
       }, error => {
       }
     )
@@ -178,6 +241,15 @@ export class UserResumeComponent implements OnInit {
 
   onOpenResumeTitleModal = () => {
     this.mbRef = this.modalService.open(this.resumeTitleModal, {
+      windowClass: 'modal-holder',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    });
+  }
+  
+  onOpenCoverTitleModal = () => {
+    this.mbRef = this.modalService.open(this.coverTitleModal, {
       windowClass: 'modal-holder',
       centered: true,
       backdrop: 'static',

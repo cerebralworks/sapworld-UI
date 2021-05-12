@@ -6,24 +6,25 @@
 	</div>
 	<div class="col-lg-12 d-flex mb-4">
 		<div class="personal-info">
-			<h6>{{userInfo?.availability == 0 ? 'Immediate' : userInfo?.availability + ' Days'}}</h6>
 			<p>{{"postJob.availableIn" | translate }}</p>
+			<h6>{{userInfo?.availability == 0 ? 'Immediate' : userInfo?.availability + ' Days'}}</h6>
+			
 		</div>
 		<div class="personal-info">
-			<h6>{{userInfo?.visa_type }}</h6>
 			<p>{{"postJob.workAuthorization" | translate }}</p>
+			<h6>{{userInfo?.visa_type }}</h6>
 		</div>
 		<div class="personal-info">
-			<h6>{{userInfo?.travel == 0 ? 'No' : userInfo?.travel + '%'}}</h6>
 			<p>{{"postJob.travel" | translate }}</p>
+			<h6>{{userInfo?.travel == 0 ? 'No' : userInfo?.travel + '%'}}</h6>
 		</div>
 		<div class="personal-info">
-			<h6>{{utilsHelperService.onGetYesOrNoValue(userInfo?.willing_to_relocate)}}</h6>
 			<p>{{"postJob.willingToRelocate" | translate }}</p>
+			<h6>{{utilsHelperService.onGetYesOrNoValue(userInfo?.willing_to_relocate)}}</h6>
 		</div>
 		<div class="personal-info">
-			<h6>{{utilsHelperService.onGetYesOrNoValue(userInfo?.remote_only)}}</h6>
 			<p>{{"postJob.remote" | translate }}</p>
+			<h6>{{utilsHelperService.onGetYesOrNoValue(userInfo?.remote_only)}}</h6>
 		</div>
 	</div>
 </div>
@@ -105,29 +106,6 @@
 			</div>
 		</div>
 	</div>
-</div> 
-<div class="row mt-3 info-box">
-	<div class="col-lg-12">
-		<div class="pj-title mb-3">
-			 <h6>{{"dashboard.others" | translate }}</h6>
-		</div>
-	</div> 			
-	<div class="col-lg-3 text-center">
-		<h6>Client Facing Role</h6>
-		<i class="fas fa-check text-green"></i>
-	</div>			
-	<div class="col-lg-3 text-center">
-		<h6>Handled Training</h6>
-		<i class="fas fa-check text-green"></i>
-	</div>				
-	<div class="col-lg-3 text-center">
-		<h6>Integration</h6>
-		<i class="fas fa-minus text-warning"></i>
-	</div>			
-	<div class="col-lg-3 text-center">
-		<h6>Data Migration</h6>
-		<i class="fas fa-check text-green"></i>
-	</div>	
 </div> 
 <div class="row mt-3 info-box">	
 	<div class="col-lg-12">

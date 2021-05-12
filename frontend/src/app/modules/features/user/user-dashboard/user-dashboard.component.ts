@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '@shared/service/data.service';
+import { UserSharedService } from '@data/service/user-shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
@@ -17,12 +18,14 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
     tabNumber: 1
   };
   public toggleResumeModal: boolean;
+  public dashboardView: boolean = false;
   @ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
   public mbRef: NgbModalRef;
   public queryParams: any = {};
 
   constructor(
     private route: ActivatedRoute,
+    private userSharedService: UserSharedService,
     private router: Router,
     private dataService: DataService,
     private modelService: NgbModal,
@@ -30,6 +33,18 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+	  this.userSharedService.getUserProfileDetails().subscribe(
+		  response => {
+			  if(response['phone'] ==undefined){
+				  
+			  }else if(response.phone == null  ){
+				this.dashboardView = false;
+				this.router.navigate(['/user/create-candidate']);
+			}else{
+				this.dashboardView = true; 
+			}
+		  }
+		)
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };

@@ -65,6 +65,22 @@ export class UserService extends CacheService {
     );
   }
 
+  coverUpdate = (params?) => {
+    return this.apiService.post('/api/users/update-doc-cover', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  deleteCover = (params?) => {
+    return this.apiService.post('/api/users/delete-cover', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
   chooseDefaultResume = (params?) => {
     return this.apiService.post('/api/users/choose-default-resume', params).pipe(
       map(data => {

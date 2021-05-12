@@ -13,7 +13,10 @@
     "apply": "Apply",
     "message": "Message",
     "default": "Default",
-    "addResume": "Add Resume"
+    "addResume": "Add Resume",
+    "resume": "Add Resume",
+    "coverLetter": "Covering Letter",
+    "addCover": "Add Letter"
   },
   "home": {
     "title": "Hire experts or be hired for any job, any time",
@@ -66,6 +69,7 @@
     "enterNumberOfPositions": "Enter Number of Positions",
     "availableIn": "Available In",
     "skills": "Skills",
+	"experienceAndSkills":"EXPERIENCE AND SKILLS ",
     "salary": "Salary"
   },
   "dashboard": {

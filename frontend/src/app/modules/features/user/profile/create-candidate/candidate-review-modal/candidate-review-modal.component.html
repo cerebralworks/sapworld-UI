@@ -81,83 +81,230 @@
 					 <h6>Personal Details </h6>
 				</div>
 			</div>
-			<div class="col-lg-4 caption">
-				<ul class="list-group">
-					<li class="list-group-item">{{"postJob.availableIn" | translate }}</li>
-					<li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
-					<li class="list-group-item">{{"postJob.travel" | translate }}</li>
-					<li class="list-group-item">{{"postJob.willingToRelocate" | translate }}</li>
-					<li class="list-group-item">{{"postJob.remote" | translate }}</li>
-				</ul>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item">{{"postJob.availableIn" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item">
+						  {{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + ' Days'}}
+						</li>
+					</ul>
+				</div>
 			</div>
-			<div class="col-lg-8 info">
-				<ul class="list-group">
-					<li class="list-group-item">
-					  {{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + ' Days'}}
-					</li>
-					<li class="list-group-item">
-					  {{childForm?.value?.jobPref?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" | translate) : ("postYourResume.iNeedVisaAponsorship" | translate)}}
-					</li>
-					<li class="list-group-item">
-					  {{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}
-					</li>
-					<li class="list-group-item">
-					  {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.willing_to_relocate)}}
-					</li>
-					<li class="list-group-item">
-					  {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}
-					</li>
-				</ul>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item">
+						 {{childForm?.value?.jobPref?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" | translate) : ("postYourResume.iNeedVisaAponsorship" | translate)}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item">{{"postJob.travel" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item">
+						   {{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item">{{"postJob.willingToRelocate" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item">
+						  {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.willing_to_relocate)}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item">{{"postJob.remote" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item">
+						   {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
+		
 		<div class="row mt-3 info-box">
 			<div class="col-lg-12">
 				<div class="pj-title mb-3">
-					 <h6>Personal Details </h6>
+					 <h6>{{"postJob.experienceAndSkills" | translate }}</h6>
 				</div>
 			</div>
-			<div class="col-lg-4 caption">
-				<ul class="list-group">
-					<li class="list-group-item text-capitalize">{{"postJob.totalYearsOfExperience" | translate }}</li>
-					<li class="list-group-item text-capitalize">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
-					<li class="list-group-item text-capitalize">{{"dashboard.domainsWorked" | translate }}</li>
-					<li class="list-group-item text-capitalize">{{"postYourResume.handsOnExperience" | translate }}</li>
-					<li class="list-group-item lg-mh-40 text-capitalize">{{"dashboard.knowledgeOn" | translate }}</li>
-					<li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
-					<li class="list-group-item text-capitalize">{{"postYourResume.others" | translate }}</li>
-					<li class="list-group-item text-capitalize">{{"postYourResume.previousEmployers" | translate}}</li>
-					<li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
-					<li class="list-group-item text-capitalize">{{"postYourResume.rolesLookingFor" | translate }}</li>
-				</ul>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postJob.totalYearsOfExperience" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item">
+						  {{childForm?.value?.educationExp?.experience}} Years
+						</li>
+					</ul>
+				</div>
 			</div>
-			<div class="col-lg-8 info">
-				<ul class="list-group">
-					<li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.experience}} Years</li>
-					<li class="list-group-item text-capitalize">{{childForm?.value?.educationExp?.sap_experience}} Years</li>
-					<li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(childForm?.value?.educationExp?.domains_worked)}}</li>
-					<li class="list-group-item text-uppercase">
-						<p class="m-0 w-100 float-left" *ngFor="let item of childForm?.value?.skillSet?.hands_on_experience">
-							<span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
-							<span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
-						</p>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item">
+						  {{childForm?.value?.educationExp?.sap_experience}} Years
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"dashboard.domainsWorked" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item">
+						  {{sharedService.onFindDomainFromID(childForm?.value?.educationExp?.domains_worked)}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postYourResume.handsOnExperience" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+					<li class="list-group-item text-uppercase d-flex handsExp">
+						<ng-container *ngIf="childForm?.value?.skillSet?.hands_on_experience?.length; else elseHandsTemplate">
+							<ng-container *ngFor="let item of childForm?.value?.skillSet?.hands_on_experience; let i = index" >
+								<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2">
+									{{item?.skill_id ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag) : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+								</div>
+							</ng-container>
+						</ng-container>
+						<ng-template #elseHandsTemplate>
+							<p>--</p>
+						</ng-template>
 					</li>
-					<li class="list-group-item text-uppercase lg-mh-40">
-						<p class="m-0 w-100 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id')">
-							<span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
-						</p>
-					</li>
-					<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
-					<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}}</li>
-					<li class="list-group-item text-capitalize">
-						{{utilsHelperService.onConvertArrayToString(childForm?.value?.educationExp?.clients_worked)}}
-					</li>
-					<li class="list-group-item text-capitalize">
-						{{sharedService.onGetJobType(childForm?.value?.jobPref?.job_type)}}
-					</li>
-					<li class="list-group-item text-capitalize">
-						{{childForm?.value?.jobPref?.job_role ? childForm?.value?.jobPref?.job_role : '--'}}
-					</li>
-				</ul>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"dashboard.knowledgeOn" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-uppercase ">
+							<small style="color: #000;font-size: 14px;font-weight: 600;" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id')">
+								{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
+							</small>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postYourResume.others" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postYourResume.previousEmployers" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">
+							{{utilsHelperService.onConvertArrayToString(childForm?.value?.personalDetails?.clients_worked)}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">
+							{{sharedService.onGetJobType(childForm?.value?.jobPref?.job_type)}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postYourResume.rolesLookingFor" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">
+							{{childForm?.value?.jobPref?.job_role ? childForm?.value?.jobPref?.job_role : '--'}}
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="row mt-3 info-box">
