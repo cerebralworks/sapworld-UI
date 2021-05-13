@@ -98,8 +98,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		
 		this.randomNum = Math.random();
 		this.createForm();
-		this.onGetCountry('');
-		this.onGetLanguage('');
 		
 		//To get the tab information
 		
@@ -278,7 +276,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       zipcode: new FormControl(null, Validators.required),
       clients_worked: new FormControl(null, Validators.required),
       authorized_country: new FormControl(null),
-      visa_type: new FormControl(null, Validators.required),
+      visa_type: new FormControl(null),
       nationality: new FormControl(null, Validators.required),
       social_media_link: new FormControl(null),
       linkedin: new FormControl(''),
@@ -481,28 +479,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
     }
   }
-    onGetCountry(query) {
-		this.filteredValuesCountry = [];
-		let requestParams: any = {};
-		requestParams.page = 1;
-		requestParams.limit = 1000;
-		requestParams.status = 1;
-		requestParams.search = query;
-
-		this.SharedAPIService.onGetCountry(requestParams);
-		 
-	  }
-	  
-	onGetLanguage(query) {
-		this.filteredValuesCountry = [];
-		let requestParams: any = {};
-		requestParams.page = 1;
-		requestParams.limit = 1000;
-		requestParams.status = 1;
-		requestParams.search = query;
-
-		this.SharedAPIService.onGetLanguage(requestParams);
-	  }
 	  
 	onChangeFieldValue = (fieldName, value) => {
 		this.childForm.patchValue({
@@ -519,7 +495,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 
   onDuplicate = (index) => {
    
-	 if(this.t.value[index]['language']=="" || this.t.value[index]['language']==null && ( this.t.value[index]['read']== false && this.t.value[index]['write']== false && this.t.value[index]['speak']== false) ){
+	 if(this.t.value[index]['language']=="" || this.t.value[index]['language']== null ){
 		  
 	  }else{
 		 this.t.push(this.formBuilder.group({
@@ -543,7 +519,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   }
 
   onDuplicateR = (index) => {
-	  if(this.r.value[index]['name']=="" || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == ""){
+	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
 		  
 	  }else{
 		this.r.push(this.formBuilder.group({

@@ -17,7 +17,9 @@ export class UserResumeComponent implements OnInit {
   public userSelectedCover: File;
   public userProfileInfo: any;
   public isOpenedResumeModal: boolean;
+  public isOpenedCoverModal: boolean;
   public selectedResumeUrl: any;
+  public selectedCoverUrl: any;
   public mbRef: NgbModalRef;
 
   @ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
@@ -237,6 +239,14 @@ export class UserResumeComponent implements OnInit {
     }
 
     this.isOpenedResumeModal = status;
+  }
+
+  onToggleCoverForm = (status, selectedCoverUrl?) => {
+    if (selectedCoverUrl) {
+      this.selectedCoverUrl = selectedCoverUrl;
+    }
+
+    this.isOpenedCoverModal = status;
   }
 
   onOpenResumeTitleModal = () => {

@@ -10,9 +10,11 @@
 			<h6>{{userInfo?.availability == 0 ? 'Immediate' : userInfo?.availability + ' Days'}}</h6>
 			
 		</div>
-		<div class="personal-info">
-			<p>{{"postJob.workAuthorization" | translate }}</p>
-			<h6>{{userInfo?.visa_type }}</h6>
+		<div *ngIf="userInfo.visa_type !=null">
+		<div class="personal-info" *ngIf="userInfo.visa_type.length !=0" >
+			<p *ngIf="userInfo.visa_type.length !=0">{{"postJob.workAuthorization" | translate }}</p>
+			<h6 *ngIf="userInfo.visa_type.length !=0">{{userInfo?.visa_type }}</h6>
+		</div>
 		</div>
 		<div class="personal-info">
 			<p>{{"postJob.travel" | translate }}</p>

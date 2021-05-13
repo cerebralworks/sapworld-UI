@@ -22,9 +22,12 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
 
   public isOpenedContactInfoModal: boolean;
   public isOpenedResumeModal: boolean;
+  public isOpenedCoverModal: boolean;
   public randomNum: number;
   public selectedResumeUrl: any;
+  public selectedCoverUrl: any;
   public selectedResume: any = {};
+  public selectedCover: any = {};
   public validateOnAPI: number = 0;
   public currentUserInfo: CandidateProfile;
   public isOpenedSendMailModal: boolean;
@@ -66,6 +69,13 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
       this.selectedResumeUrl = selectedResumeUrl;
     }
     this.isOpenedResumeModal = status;
+  }
+
+  onToggleCoverForm = (status, selectedCoverUrl?) => {
+    if (selectedCoverUrl) {
+      this.selectedCoverUrl = selectedCoverUrl;
+    }
+    this.isOpenedCoverModal = status;
   }
 
   onToggleSendMail = (status,item?) => {

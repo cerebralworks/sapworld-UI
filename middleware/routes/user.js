@@ -114,6 +114,58 @@ module.exports = (app, env, rp) => {
     });
   });
   
+
+  app.post("/api/users/update-doc-cover", (req, res) => {
+    var form = new IncomingForm();
+    form.parse(req, function(err, fields, files) {
+      var formData = fields;
+      if (files.doc_cover) {
+        formData.doc_cover = {
+          value: fs.createReadStream(files.doc_cover.path),
+          options: {
+            filename: files.doc_cover.name,
+            contentType: files.doc_cover.type,
+          },
+        };
+      }
+      let access_token = req.session.user && req.session.user.access_token;
+      var options = {
+        method: "POST",
+        uri: `${serverRoutes.userCoverUpdate}?access_token=${access_token}`,
+        formData: formData
+      };
+      rp(options)
+        .then(function(parsedBody) {
+          let responseData = JSON.parse(parsedBody);
+          res.status(200).json(responseData);
+        })
+        .catch(function(err) {
+          res.status(500).json({ err: err });
+        });
+    });
+  });
+
+  app.post("/api/users/delete-cover", (req, res) => {
+    var form = new IncomingForm();
+    form.parse(req, function(err, fields, files) {
+      var formData = fields;
+      let access_token = req.session.user && req.session.user.access_token;
+      var options = {
+        method: "POST",
+        uri: `${serverRoutes.userCoverDelete}?access_token=${access_token}`,
+        formData: formData
+      };
+      rp(options)
+        .then(function(parsedBody) {
+          let responseData = JSON.parse(parsedBody);
+          res.status(200).json(responseData);
+        })
+        .catch(function(err) {
+          res.status(500).json({ err: err });
+        });
+    });
+  });
+  
   app.post("/api/users/choose-default-resume", (req, res) => {
     var form = new IncomingForm();
     form.parse(req, function(err, fields, files) {

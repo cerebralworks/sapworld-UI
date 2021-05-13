@@ -43,15 +43,17 @@ export class ValidationService {
 
   public static emailValidator(control) {
     // RFC 2822 compliant regex
-    if (
-      control.value.match(
-        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-      )
-    ) {
-      return null;
-    } else {
-      return { invalidEmailAddress: true };
-    }
+	if(control.value){
+		if (control.value.match(
+			/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+		)) {
+			return null;
+		} else {
+			return { invalidEmailAddress: true };
+		}
+	} else {
+		return null;
+	}
   }
 
   public static pwdMatchValidator(frm: FormGroup) {

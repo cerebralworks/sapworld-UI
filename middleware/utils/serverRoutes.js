@@ -19,6 +19,8 @@ const routes = {
     employerPhotoUpdate: "/employers/update-photo",
     userResumeUpdate: "/users/update-doc-resume",
     userResumeDelete: "/users/delete-resume",
+    userCoverUpdate: "/users/update-doc-cover",
+    userCoverDelete: "/users/delete-cover",
     userChooseDefaultResume: "/users/choose-default-resume",
     jobPostingCreate: '/jobpostings/create',
     changeJobStatus: '/jobpostings/change-status',

@@ -1,0 +1,26 @@
+<ng-template #coverModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">View Cover</h5>
+    <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body" style="height:670px; overflow-y:scroll;">
+    <img *ngIf="!url" src="assets/images/JS-Project-Manager-Resume.jpg" class="img-fluid mx-auto"/>
+    <ngx-doc-viewer
+    *ngIf="url"
+    [url]="url"
+    [googleCheckContentLoaded]="true"
+    (loaded)="resumeLoaded($event,this)"
+    [googleCheckInterval]="3"
+    [googleMaxChecks]="50"
+    viewer="google" style="width:100%;height:150vh;">
+</ngx-doc-viewer>
+    </div>
+    <div class="modal-footer">
+    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+    <a [href]="(url ? url : 'javascript:;')">
+      <button type="button" class="btn btn-primary btn-sm" >Download Resume</button>
+    </a>
+    </div>
+</ng-template>

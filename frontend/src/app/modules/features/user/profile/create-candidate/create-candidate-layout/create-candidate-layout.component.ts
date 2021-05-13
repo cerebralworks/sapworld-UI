@@ -18,10 +18,10 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
   group([
-    query(':enter', [style({ transform: 'translateX(-100%)' }), animate('.3s ease-out', style({ transform: 'translateX(0%)' }))], {
+    query(':enter', [style({ transform: 'translateX(-100%)' }), animate('.0s ease-out', style({ transform: 'translateX(0%)' }))], {
       optional: true,
     }),
-    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.3s ease-out', style({ transform: 'translateX(100%)' }))], {
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.0s ease-out', style({ transform: 'translateX(2500%)' }))], {
       optional: true,
     }),
   ]),
@@ -30,10 +30,10 @@ const left = [
 const right = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
   group([
-    query(':enter', [style({ transform: 'translateX(100%)' }), animate('.3s ease-out', style({ transform: 'translateX(0%)' }))], {
+    query(':enter', [style({ transform: 'translateX(100%)' }), animate('.0s ease-out', style({ transform: 'translateX(0%)' }))], {
       optional: true,
     }),
-    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.3s ease-out', style({ transform: 'translateX(-100%)' }))], {
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.0s ease-out', style({ transform: 'translateX(-2500%)' }))], {
       optional: true,
     }),
   ]),
@@ -84,6 +84,8 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
+		this.onGetCountry('');
+		this.onGetLanguage('');
 
     this.dataService.getUserPhoto().subscribe(
       response => {
@@ -397,6 +399,28 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
     requestParams.search = '';
     this.sharedApiService.onGetIndustries(requestParams);
   }
+  
+  
+    onGetCountry(query) {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+
+		this.sharedApiService.onGetCountry(requestParams);
+		 
+	  }
+	  
+	onGetLanguage(query) {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+
+		this.sharedApiService.onGetLanguage(requestParams);
+	  }
 
   onGetCandidateInfo(userId) {
     let requestParams: any = {};

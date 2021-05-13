@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginFormComponent } from './component/login-form/login-form.component';
 import { RegisterFormComponent } from './component/modal/register-form/register-form.component';
 import { ResumeModalComponent } from './component/modal/resume-modal/resume-modal.component';
+import { CoverModalComponent } from './component/modal/cover-modal/cover-modal.component';
 import { JobDescriptionComponent } from './component/modal/job-description/job-description.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SendMailJobPreviewComponent } from './component/modal/send-mail-job-preview/send-mail-job-preview.component';
@@ -44,6 +45,7 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
     LoginFormComponent,
     RegisterFormComponent,
     ResumeModalComponent,
+    CoverModalComponent,
     JobDescriptionComponent,
     SendMailJobPreviewComponent,
     ForgotPasswordComponent,
@@ -86,6 +88,7 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
     LoginFormComponent,
     RegisterFormComponent,
     ResumeModalComponent,
+    CoverModalComponent,
     JobDescriptionComponent,
     SendMailJobPreviewComponent,
     ForgotPasswordComponent,

@@ -76,7 +76,11 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
         if ((this.savedUserDetails.education_qualification.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.education_qualification && this.savedUserDetails.education_qualification.length)) {
          this.t.removeAt(0);
           this.savedUserDetails.education_qualification.map((value, index) => {
-            this.onDuplicate();
+            this.t.push(this.formBuilder.group({
+				degree: [''],
+				field_of_study: [null],
+				year_of_completion: [null, [Validators.min(4)]]
+			  }));
             this.onChangeDegreeValue(value.degree, index);
           });
         }
@@ -196,8 +200,10 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
     }
   }
 
-  onDuplicate = () => {
-    if (this.t.length < 5) {
+  onDuplicate = (index) => {
+	  if(this.t.value[index]['field_of_study']== null ||this.t.value[index]['degree']== '' ||this.t.value[index]['year_of_completion']== null  ){
+		  
+	  }else if (this.t.length < 5) {
       this.t.push(this.formBuilder.group({
         degree: [''],
         field_of_study: [null],

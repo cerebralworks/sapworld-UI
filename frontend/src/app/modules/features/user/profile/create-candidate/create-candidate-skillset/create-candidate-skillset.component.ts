@@ -19,6 +19,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
   skillArray: any[] = [];
   public childForm;
   public skillItems: any[] = [];
+  public skillsItems: any[] = [];
+  public commonSkills: any[] = [];
   public userInfo: any;
   savedUserDetails: any;
   @Input('userDetails')
@@ -41,10 +43,14 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       response => {
         if (response && response.items) {
           this.skillItems = [...response.items];
+          this.skillsItems = [...response.items];
+          this.commonSkills = [...response.items];
         }
       },
       error => {
         this.skillItems = [];
+        this.skillsItems = [];
+        this.commonSkills = [];
       }
     )
 
@@ -63,13 +69,20 @@ export class CreateCandidateSkillsetComponent implements OnInit {
             this.t.removeAt(0);
             this.savedUserDetails.hands_on_experience.map((value, index) => {
               value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
-              this.onDuplicate();
+              this.t.push(this.formBuilder.group({
+				  skill_id: [null, Validators.required],
+				  skill_name: [''],
+				  experience: ['', [Validators.required,]],
+				  exp_type: ['years', [Validators.required]]
+				}));
             });
 			
           }
 		  if (this.savedUserDetails.hands_on_experience != null) {
 			for(let i=0;i<this.savedUserDetails.hands_on_experience.length;i++){
 				this.savedUserDetails.hands_on_experience[i]['skill_id']=parseInt(this.savedUserDetails.hands_on_experience[i]['skill_id']);
+				var temp_id = this.savedUserDetails['hands_on_experience'][i]["skill_id"]
+				this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != temp_id })
 			}
 		  }
           this.savedUserDetails.skills = this.utilsHelperService.differenceByPropValArray(this.savedUserDetails.skills, this.savedUserDetails.hands_on_experience, 'skill_id')
@@ -78,6 +91,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		if (this.savedUserDetails.skills != null) {
 			for(let i=0;i<this.savedUserDetails.skills.length;i++){
 				this.savedUserDetails.skills[i]=parseInt(this.savedUserDetails.skills[i]);
+				var temp_id =this.savedUserDetails.skills[i];
+				this.skillItems = this.skillItems.filter(function(a,b){ return a.id != temp_id })
 			}
 		  }
         if (this.savedUserDetails.hands_on_experience == null) {
@@ -98,7 +113,21 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       const skillName = (skillObj && skillObj.tag) ? skillObj.tag : '';
       if(skillName)
       (this.childForm.controls.skillSet.controls.hands_on_experience).controls[index].controls['skill_name'].setValue(skillName);
-    }
+		this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != skillId });
+	}
+  }
+
+  onSelectSkillsEvent = async (skillId) => {
+    if(skillId) {
+      this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
+	}
+  }
+
+  onRemoveSkillEvent = async (skillId) => {
+    if(skillId) {
+		var temp = this.commonSkills.filter(function(a,b){ return a.id == skillId });
+		this.skillItems.push(temp[0]);
+	}
   }
 
   createForm() {
@@ -127,16 +156,23 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     return this.f.hands_on_experience as FormArray;
   }
 
-  onDuplicate = () => {
+  onDuplicate = (index) => {
+	  if(this.t.value[index]['skill_id']== null ||this.t.value[index]['experience']== '' ){
+		  
+	  }else{
     this.t.push(this.formBuilder.group({
       skill_id: [null, Validators.required],
       skill_name: [''],
       experience: ['', [Validators.required,]],
       exp_type: ['years', [Validators.required]]
     }));
+	  }
   }
 
   onRemove = (index) => {
+	  var id = this.t.value[index]['skill_id'];
+	  var temp = this.commonSkills.filter(function(a,b){ return a.id ==id });
+	  this.skillsItems.push(temp[0]);
     if (index == 0) {
       this.t.reset();
     } else {
