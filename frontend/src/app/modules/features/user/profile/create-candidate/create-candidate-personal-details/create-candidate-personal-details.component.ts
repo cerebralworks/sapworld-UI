@@ -156,9 +156,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
          this.r.removeAt(0);
           this.savedUserDetails.reference.map((value, index) => {
             this.r.push(this.formBuilder.group({
-				name: new FormControl(null, Validators.required),
-				email: new FormControl('', [ Validators.required,ValidationService.emailValidator]),
-				company_name: new FormControl(null, Validators.required)
+				name: new FormControl(null),
+				email: new FormControl(''),
+				company_name: new FormControl(null)
 			}));
             this.onChangeLanguageValueReference(value.name, index);
           });
@@ -297,9 +297,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         speak: new FormControl(false)
       })]),
 	  reference: new FormArray([this.formBuilder.group({
-        name: new FormControl(null, Validators.required),
-        email: new FormControl('', [Validators.required,ValidationService.emailValidator]),
-        company_name: new FormControl(null, Validators.required)
+        name: new FormControl(null),
+        email: new FormControl(''),
+        company_name: new FormControl(null)
       })]),
     }));
 
@@ -464,18 +464,18 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	onChangeLanguageValueReference = (value, index) => {
     
     if(value && index > -1) {
-      this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators([Validators.required])
+      this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators(null)
       this.childForm.get('personalDetails.reference').controls[index].controls['name'].updateValueAndValidity();
-      this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators([Validators.required,ValidationService.emailValidator])
+      this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators('')
       this.childForm.get('personalDetails.reference').controls[index].controls['email'].updateValueAndValidity();
-      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators([Validators.required])
+      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators(null)
       this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
     }else {
-      this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators([Validators.required])
+      this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators(null)
       this.childForm.get('personalDetails.reference').controls[index].controls['name'].updateValueAndValidity();
-      this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators([Validators.required,ValidationService.emailValidator])
+      this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators('')
       this.childForm.get('personalDetails.reference').controls[index].controls['email'].updateValueAndValidity();
-      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators([Validators.required])
+      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators(null)
       this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
     }
   }
@@ -484,8 +484,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		this.childForm.patchValue({
 		  personalDetails: {
 			[fieldName]: value,
+			['visa_type']: null,
+			['authorized_country']: null,
 		  }
 		});
+		
 	  }
 	  
 	
@@ -523,9 +526,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  
 	  }else{
 		this.r.push(this.formBuilder.group({
-			name: new FormControl(null, Validators.required),
-			email: new FormControl('', [ Validators.required,ValidationService.emailValidator]),
-			company_name: new FormControl(null, Validators.required)
+			name: new FormControl(null),
+			email: new FormControl(''),
+			company_name: new FormControl(null)
 		}));
 	  }
   }

@@ -54,6 +54,9 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
     if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
       this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
     }
+    if(this.userInfo && this.userInfo.doc_cover && Array.isArray(this.userInfo.doc_cover)) {
+      this.selectedCover = this.userInfo.doc_cover[0];
+    }
   }
 
   ngOnDestroy(): void {

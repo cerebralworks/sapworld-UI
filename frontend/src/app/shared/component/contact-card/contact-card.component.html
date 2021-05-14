@@ -25,8 +25,13 @@
             <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
           </a>
         </span>
-		<a class="btn btn-outline-blue btn-sm mr-1" href="javascript:;" title="Edit"><i
-            class="fas fa-file-alt" ></i> Cover Lettter </a>
+        <span class="mr-1">
+          <a
+          [class.disabled]="!selectedCover?.file"
+          (click)="selectedCover?.file && onToggleCoverForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedCover?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> Cover Lettter
+          </a>
+        </span>
 		<a (click)="onTabChange()" style="margin-top: .25rem;" class="btn btn-outline-green btn-sm mr-1" href="javascript:;" title="Edit"><i
             class="fas fa-tasks" ></i> Matches </a>
         <span  *ngIf="isMail && jobInfo?.id">
@@ -154,6 +159,13 @@
 [toggleResumeModal]="isOpenedResumeModal"
 (onEvent)="onToggleResumeForm($event)">
 </app-resume-modal>
+
+<app-cover-modal
+*ngIf="isOpenedCoverModal"
+[url]="selectedCoverUrl"
+[toggleCoverModal]="isOpenedCoverModal"
+(onEvent)="onToggleCoverForm($event)">
+</app-cover-modal>
 
 <app-send-mail-job-preview
 *ngIf="isOpenedSendMailModal"

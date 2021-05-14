@@ -118,7 +118,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
     this.childForm = this.parentF.form;
 
     this.childForm.addControl('educationExp', new FormGroup({
-      employer_role_type: new FormControl(null, Validators.required),
+      employer_role_type: new FormControl(null),
       education_qualification: new FormArray([this.formBuilder.group({
         degree: [''],
         field_of_study: [null],

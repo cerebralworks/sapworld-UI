@@ -153,7 +153,7 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
               field_of_study: [''],
               year_of_completion: ['']
             })]),
-			employer_role_type: new FormControl(null, Validators.required),
+			employer_role_type: new FormControl(null),
             experience: new FormControl('', Validators.required),
             sap_experience: new FormControl('', Validators.required),
             current_employer: new FormControl('', Validators.required),
