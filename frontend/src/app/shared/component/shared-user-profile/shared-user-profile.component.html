@@ -116,7 +116,7 @@
 		</div>
 		<div *ngIf="show" [@slideInOut] class="row mt-2" style="padding:0px;">
 			<div class="col-lg-4 p-1" *ngFor="let reference of userInfo?.reference " >
-				<div class="card job-card sm" style="min-height: 105px;">
+				<div class="card job-card sm" style="min-height: 105px;" *ngIf="reference.name && reference.email && reference.company_name" >
 					<div class="card-body">
 						<p class="text-blue font-weight-bold mb-1">{{reference.name}}</p>
 						<p class="mb-1 hilight">{{reference.email}}</p>
