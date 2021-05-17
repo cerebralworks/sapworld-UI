@@ -28,7 +28,7 @@
       <div class="form-group">
         <label>Email</label>
         <div appMarkAsterisk class="input-with-icon">
-          <input type="text" class="form-control" [placeholder]="'Email Address'" formControlName="email">
+          <input type="text" style="text-transform: lowercase;" class="form-control" [placeholder]="'Email Address'" formControlName="email">
           <i class="fas fa-envelope"></i>
         </div>
         <small class="text-danger" *ngIf="formError?.length > 0 && formError[0]?.field == 'account'">

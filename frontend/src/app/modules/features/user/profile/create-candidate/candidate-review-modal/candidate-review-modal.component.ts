@@ -57,6 +57,8 @@ export class CandidateReviewModalComponent implements OnInit {
   public registerReviewModalSub: Subscription;
   public userInfo: any = {};
   public userPhotoInfo: any;
+	public nationality: any[] = [];
+	public languageSource: any[] = [];
 
   @ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
 
@@ -88,6 +90,24 @@ export class CandidateReviewModalComponent implements OnInit {
         this.userPhotoInfo = response;
       }
     )
+	
+	this.dataService.getCountryDataSource().subscribe(
+		response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.nationality = response;
+	
+        }
+      }
+    );
+	this.dataService.getLanguageDataSource().subscribe(
+      response => {
+		  console.log(response);
+        if (response && Array.isArray(response) && response.length) {
+          this.languageSource = response;
+        }
+      }
+    );
+	
   }
 
   ngAfterViewInit(): void {
@@ -121,5 +141,75 @@ export class CandidateReviewModalComponent implements OnInit {
   convertToImage(imageString: string): string {
     return this.utilsHelperService.convertToImageUrl(imageString);
   }
+	findCountry(value){
+		if(value){
+			if(this.nationality){
+				var temp = this.nationality.filter(function(a,b){
+					return a.id == value;
+				})
+				
+				if(temp.length !=0){
+					return temp[0]['nicename'];
+				}
+			}
+			
+		}
+		
+		return '--';
+	}
+	
+	findEducation(value){
+		if(value){
+			return this.utilsHelperService.onConvertArrayToString(value.map(function(a,b){return a.degree}));
+			
+		}
+		
+		return '--';
+	}
+	
+	findLanguageArray(value){
+		if(value){
+			value = value.map(function(a,b){
+				return a.language 
+			})
+			if(this.languageSource){
+				var array = this.languageSource.filter(f=>{ return value.includes(f.id)})
+
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['name'];
+					})
+					if(temp.length !=0){
+						return this.utilsHelperService.onConvertArrayToString(temp);
+					}
+				}
+			
+			}
+			
+		}
+		
+		return '--';
+	}
+	
+	findCountryArray(value){
+		if(value){
+			if(this.nationality){
+				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
+
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['nicename'];
+					})
+					if(temp.length !=0){
+						return this.utilsHelperService.onConvertArrayToString(temp);
+					}
+				}
+			
+			}
+			
+		}
+		
+		return '--';
+	}
 
 }

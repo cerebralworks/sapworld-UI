@@ -99,7 +99,7 @@ a:hover {
     background-color: #ffc107;
     border-color: #ffc107;
 }
-.btn-sm{font-size: 13px;height: 28px;}
+.btn-sm{font-size: 12px;height: 28px;}
 .sm-btn{width:36px;}
 .btn {border-radius: 7px!important;}
 .btn-group-lg>.btn, .btn-lg {
@@ -427,7 +427,7 @@ a:hover {
 }
 .modal-content {
     border-radius: 1rem !important;
-    font-family: 'Open Sans', sans-serif !important;
+    font-family: 'Nunito', sans-serif !important;
     border: none !important;
 }
 /*--Login--*/
@@ -1543,7 +1543,7 @@ a:hover {
     border-radius: 0;
     margin-bottom: 10px;
     color: #888;
-    font-size: 14px;
+    font-size: 13px;
     min-height: 26px;
     font-weight: 600;
 }
@@ -2386,4 +2386,12 @@ a:hover {
 }
 .handsExp:hover {
     overflow-x: scroll!important;
+}
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+    top: 14px !important;
+}
+.ng-select .ng-select-container {
+	min-height: 50px !important;
+    border: 2px solid #ccd1d6 !important;
+    border-radius: 10px !important;
 }

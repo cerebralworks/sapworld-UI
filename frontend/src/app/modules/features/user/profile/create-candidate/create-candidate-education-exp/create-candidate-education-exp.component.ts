@@ -17,10 +17,13 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   @Input() currentTabInfo: tabInfo;
 
   public eduArray: any[] = [];
+  public initialValue = 0 ;
   public childForm;
   public industryItems: any[] = [];
   public educations: any[] = [];
   public educationsSelectedArray: any[] = [];
+  public sapExpError: boolean = false;
+  public totalExpError: boolean = false;
   educationsSelectedValue: any;
   educationsSelectedIndex: number;
   userInfo: any;
@@ -113,7 +116,18 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
     // }
   });
   }
-
+	keyPress() {
+	if(this.childForm.value.educationExp.sap_experience !="" && this.childForm.value.educationExp.experience != ""){
+		if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience){
+			this.totalExpError = false;
+			this.sapExpError = false;
+		}else{
+			this.totalExpError = true;
+			this.sapExpError = true;
+		}
+	}
+    
+}
   createForm() {
     this.childForm = this.parentF.form;
 

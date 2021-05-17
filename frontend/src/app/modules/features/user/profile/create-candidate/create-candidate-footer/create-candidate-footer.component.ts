@@ -63,6 +63,34 @@ export class CreateCandidateFooterComponent implements OnInit {
 
   onTabChange = () => {
     if(this.btnType == 'next') {
+		if(this.currentTabInfo.tabNumber == 1 ){
+		if(this.createCandidateForm.value.personalDetails.authorized_country_select){
+			if(this.createCandidateForm.value.personalDetails.authorized_country){
+				var value = this.createCandidateForm.value.personalDetails.authorized_country_select
+				for(let i=0;i<value.length;i++){
+					var id = value[i];
+					 this.createCandidateForm.value.personalDetails.authorized_country.push(id);
+				}
+				var val= this.createCandidateForm.value.personalDetails.authorized_country;
+				val = val.filter((a, b) => val.indexOf(a) === b);
+				this.createCandidateForm.patchValue({
+					personalDetails:{
+						authorized_country:val
+					}
+				})
+				//this.createCandidateForm.value.personalDetails.authorized_country =val;
+				
+			}else{
+				var value = this.createCandidateForm.value.personalDetails.authorized_country_select
+				this.createCandidateForm.patchValue({
+					personalDetails:{
+						authorized_country:value
+					}
+				})
+
+			}
+		}
+		}
       let nextTabProgressor = {} as tabInfo;
       nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
       nextTabProgressor.tabName = this.onGetTabName(nextTabProgressor.tabNumber);
@@ -99,6 +127,32 @@ export class CreateCandidateFooterComponent implements OnInit {
 
   onToggleRegisterReview = (status) => {
     if(this.createCandidateForm.valid) {
+		if(this.createCandidateForm.value.personalDetails.authorized_country_select){
+			if(this.createCandidateForm.value.personalDetails.authorized_country){
+				var value = this.createCandidateForm.value.personalDetails.authorized_country_select
+				for(let i=0;i<value.length;i++){
+					var id = value[i];
+					 this.createCandidateForm.value.personalDetails.authorized_country.push(id);
+				}
+				var val= this.createCandidateForm.value.personalDetails.authorized_country;
+				val = val.filter((a, b) => val.indexOf(a) === b);
+				this.createCandidateForm.patchValue({
+					personalDetails:{
+						authorized_country:val
+					}
+				})
+				//this.createCandidateForm.value.personalDetails.authorized_country =val;
+				
+			}else{
+				var value = this.createCandidateForm.value.personalDetails.authorized_country_select
+				this.createCandidateForm.patchValue({
+					personalDetails:{
+						authorized_country:value
+					}
+				})
+
+			}
+		}
       this.onEnableJobPreviewModal.emit(status);
     }
   }

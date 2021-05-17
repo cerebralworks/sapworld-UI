@@ -5,6 +5,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '@shared/service/data.service';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -29,20 +30,29 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
     private router: Router,
     private dataService: DataService,
     private modelService: NgbModal,
+    private sharedApiService: SharedApiService,
     private utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
+	  this.onGetCountry('');
+	  this.onGetLanguage('');
 	  this.userSharedService.getUserProfileDetails().subscribe(
 		  response => {
-			  if(response['phone'] ==undefined){
-				  
-			  }else if(response.phone == null  ){
+			  if(response){
+			  if(response.profile_completed){
+			  if(response.profile_completed == false  ){
 				this.dashboardView = false;
 				this.router.navigate(['/user/create-candidate']);
 			}else{
 				this.dashboardView = true; 
-			}
+			  }
+			}else{
+				this.dashboardView = true; 
+			 }
+			 }else{
+				this.dashboardView = true; 
+			 }
 		  }
 		)
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
@@ -119,5 +129,26 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 
     this.router.navigate([], navigationExtras);
   }
+  
+  onGetCountry(query) {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+
+		this.sharedApiService.onGetCountry(requestParams);
+		 
+	  }
+	  
+	  onGetLanguage(query) {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+
+		this.sharedApiService.onGetLanguage(requestParams);
+	  }
 
 }

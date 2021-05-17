@@ -13,3 +13,8 @@
     border-bottom: 1px solid #ccc;
     width: fit-content;
 }
+.ul-value{
+	font-size: 14px;
+    min-height: 26px;
+	font-weight: 600;
+}

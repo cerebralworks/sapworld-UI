@@ -5,7 +5,7 @@
 		  <span aria-hidden="true">&times;</span>
 		</button> -->
     </div>
-    <div class="modal-body" style="height:550px; overflow-y:scroll;">
+    <div class="modal-body" style="height:550px; overflow-x:hidden; overflow-y:scroll;">
 		<div class="row">
 			<div class="col-lg-12">
 			  <!-- <app-contact-card
@@ -74,84 +74,159 @@
 					</div>
 				</div>
 			</div>
+		</div><div class="row mt-3 info-box">
+	<div class="col-lg-12">
+		<div class="pj-title mb-3">
+			 <h6>{{"dashboard.personalDetails" | translate }}</h6>
 		</div>
-		<div class="row mt-3 info-box">
-			<div class="col-lg-12">
-				<div class="pj-title mb-3">
-					 <h6>Personal Details </h6>
-				</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"dashboard.nationality" | translate }}</li>
+				</ul>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						<li class="list-group-item">{{"postJob.availableIn" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class="list-group-item">
-						  {{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + ' Days'}}
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						<li class="list-group-item">{{"postJob.workAuthorization" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class="list-group-item">
-						 {{childForm?.value?.jobPref?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" | translate) : ("postYourResume.iNeedVisaAponsorship" | translate)}}
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						<li class="list-group-item">{{"postJob.travel" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class="list-group-item">
-						   {{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						<li class="list-group-item">{{"postJob.willingToRelocate" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class="list-group-item">
-						  {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.willing_to_relocate)}}
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						<li class="list-group-item">{{"postJob.remote" | translate }}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class="list-group-item">
-						   {{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}
-						</li>
-					</ul>
-				</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize">{{this.findCountry(childForm?.value?.personalDetails?.nationality)}}</li>
+				</ul>
 			</div>
 		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"dashboard.relocation" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(userInfo?.willing_to_relocate)}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">
+					{{"dashboard.education" | translate }}
+				</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group ul-value">
+				{{this.findEducation(childForm?.value?.educationExp?.education_qualification)}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"dashboard.jobType" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group ul-value">
+					{{(childForm?.value?.jobPref?.job_type || childForm?.value?.jobPref?.job_type == 0) ? sharedService.onGetJobType(childForm?.value?.jobPref?.job_type) : '--'}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"dashboard.availability" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize">{{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + ' Days'}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6" >
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"dashboard.workAuthorisation" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group ul-value">
+					<li class="list-group-item" *ngIf="childForm?.value?.personalDetails?.work_authorization == 0 ">
+						 {{"postYourResume.iHaveWorkAuthorization" | translate }}
+						</li>
+						<li class="list-group-item" *ngIf="childForm?.value?.personalDetails?.work_authorization == 1 ">
+						 {{"postYourResume.iNeedVisaAponsorship" | translate }}
+						</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"postJob.travel" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize">{{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"postJob.remote" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"dashboard.workAuthorisationIn" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info ul-value">
+				{{this.findCountryArray(childForm?.value?.personalDetails?.authorized_country)}}				
+			</div>
+		</div>
+	</div>	
+	<div class="col-lg-6">
+		<div class="row">
+			<div class="col-lg-6 caption">
+				<ul class="list-group">
+					<li class="list-group-item">{{"dashboard.preferredLocation" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 info">
+				<ul class="list-group ul-value">
+				{{findCountryArray(childForm?.value?.jobPref?.preferred_countries)}}
+				</ul>
+			</div>
+		</div>
+	</div>	
+		
+</div>
 		
 		<div class="row mt-3 info-box">
 			<div class="col-lg-12">
@@ -281,20 +356,6 @@
 			<div class="col-lg-12 row">
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class="list-group-item text-capitalize">
-							{{sharedService.onGetJobType(childForm?.value?.jobPref?.job_type)}}
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"postYourResume.rolesLookingFor" | translate }}</li>
 					</ul>
 				</div>
@@ -318,7 +379,7 @@
 				<div class="media mb-2" *ngFor="let certification of childForm.value.skillSet.certification">
 					<img src="assets/images/certifications-icon.png" width="26px" class="mr-2" alt="SAP">
 					<div class="media-body">
-						<p class="my-2 small">{{certification}} </p>
+						<p class="my-1 h5" >{{certification}} </p>
 					 </div>
 				</div>
 			</div>
@@ -328,7 +389,7 @@
 		<div class="row mt-3 info-box" *ngIf="childForm?.value?.personalDetails?.reference">	
 				
 			<div class="col-lg-12"  *ngIf="childForm?.value?.personalDetails?.reference?.length !=0">
-				<div class="pj-title mb-3 border-primary">
+				<div class="pj-title mb-3 border-primary" *ngIf="childForm?.value?.personalDetails?.reference[0].name && childForm?.value?.personalDetails?.reference[0].email && childForm?.value?.personalDetails?.reference[0].company_name">
 					<h6 class="text-blue" role="button" (click)="show = !show"> Reference  <i class="fas fa-angle-down"></i></h6>
 				</div>
 				<div *ngIf="show" [@slideInOut] class="row mt-2" style="padding:0px;">

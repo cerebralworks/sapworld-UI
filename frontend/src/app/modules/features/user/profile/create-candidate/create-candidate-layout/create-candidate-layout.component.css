@@ -1,0 +1,8 @@
+.ng-select.ng-select-multiple  ::ng-deep .ng-select-container .ng-value-container .ng-placeholder {
+    top: 14px !important;
+}
+.ng-select  ::ng-deep .ng-select-container {
+	min-height: 50px !important;
+    border: 2px solid #ccd1d6 !important;
+    border-radius: 10px !important;
+}

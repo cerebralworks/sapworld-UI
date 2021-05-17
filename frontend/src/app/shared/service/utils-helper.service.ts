@@ -50,7 +50,7 @@ export class UtilsHelperService {
 
   onConvertArrayObjToString = (value: any[], field: string = 'name') => {
     if ((!Array.isArray(value) || value.length == 0)) return "--";
-    return value.map(s => s[field]).join(", ");
+    return value.map(s => this.capitalizeFirstLetter(s[field])).join(", ");
   }
 
   onGetYesOrNoValue = (value: boolean) => {
@@ -60,7 +60,9 @@ export class UtilsHelperService {
       return "No"
     }
   }
-
+	capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
   onConvertArrayObjToAdditionalString = (value: any[], field: string = 'name', field2?: string) => {
     if (!Array.isArray(value) || value.length == 0) return "--";
     return value.map(s => {

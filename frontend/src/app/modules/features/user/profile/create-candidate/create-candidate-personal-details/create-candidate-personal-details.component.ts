@@ -48,6 +48,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
 	public show: boolean = false;
+	public showAuthorization : boolean = true;
+	public invalidMobile: boolean = false;
 	public userInfo: any = {};
 	public defaultProfilePic: string;
 	public mbRef: any;
@@ -113,7 +115,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         if (response && Array.isArray(response) && response.length) {
           this.nationality = response;
 			this.othercountry =  response.filter(function(a,b){
-				return a.id !="226"&&a.id !="225"&&a.id !="13"&&a.id !="99"&&a.id !="192"&&a.id !="38"&&a.id !="107"&&a.id !="129"
+				return a.id !="226"&&a.id !="225"&&a.id !="13"&&a.id !="99"&&a.id !="192"&&a.id !="38"&&a.id !="107"&&a.id !="129"&&a.id !="73"
 			});
 			
         }
@@ -132,6 +134,26 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
 	  setTimeout(async () => {
     if(this.childForm && this.savedUserDetails) {
+		if(this.childForm.value.personalDetails.phone){
+			this.savedUserDetails.first_name=this.childForm.value.personalDetails.first_name;
+			this.savedUserDetails.last_name= this.childForm.value.personalDetails.last_name;
+			if(this.childForm.value.personalDetails.phone.number){
+			  this.savedUserDetails.phone= this.childForm.value.personalDetails.phone.number;
+			}
+			 this.savedUserDetails.city= this.childForm.value.personalDetails.city;
+			  this.savedUserDetails.state=this.childForm.value.personalDetails.state;
+			  this.savedUserDetails.country= this.childForm.value.personalDetails.country;
+			  this.savedUserDetails.zipcode=this.childForm.value.personalDetails.zipcode;
+			  this.savedUserDetails.nationality= this.childForm.value.personalDetails.nationality;
+			  this.savedUserDetails.clients_worked=this.childForm.value.personalDetails.clients_worked;
+			  this.savedUserDetails.visa_type=this.childForm.value.personalDetails.visa_type;
+			  this.savedUserDetails.work_authorization= this.childForm.value.personalDetails.work_authorization;
+			  if(this.childForm.value.personalDetails.authorized_country){
+				this.savedUserDetails.authorized_country= this.childForm.value.personalDetails.authorized_country;
+			  }
+			  this.savedUserDetails.language_known=this.childForm.value.personalDetails.language_known;
+			  this.savedUserDetails.reference=this.childForm.value.personalDetails.reference;
+		}
 		if (this.savedUserDetails && this.savedUserDetails.language_known && Array.isArray(this.savedUserDetails.language_known)) {
         if ((this.savedUserDetails.language_known.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.language_known && this.savedUserDetails.language_known.length)) {
          this.t.removeAt(0);
@@ -186,18 +208,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			  authorized_country: this.savedUserDetails.authorized_country,
         }
       });
-	  if(this.savedUserDetails.authorized_country!=null){		  
-		if(this.savedUserDetails.authorized_country.length){
-			for(let i=0;i<this.savedUserDetails.authorized_country.length;i++){
-				
-				for(let j=0;j<document.getElementsByClassName('btn-fltr').length;j++){
-					if(document.getElementsByClassName('btn-fltr').item(j)['id'] == this.savedUserDetails.authorized_country[i]){
-						document.getElementsByClassName('btn-fltr').item(j)['className'] = document.getElementsByClassName('btn-fltr').item(j)['className'] +' btn-fltr-active';
-					}
-				}
-			}
-		}
-	  }
 	  
       if(this.savedUserDetails && this.savedUserDetails.social_media_link && this.savedUserDetails.social_media_link.length > 0) {
         this.childForm.patchValue({
@@ -216,7 +226,28 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         })
       }
       this.childForm.get('personalDetails.email').disable();
-
+		
+	  if(this.savedUserDetails.authorized_country!=null){		  
+		if(this.savedUserDetails.authorized_country.length){
+			for(let i=0;i<this.savedUserDetails.authorized_country.length;i++){
+				var id = this.savedUserDetails.authorized_country[i]
+				if(document.getElementById(id)){
+					document.getElementById(id)['className'] =document.getElementById(id)['className']+' btn-fltr-active';
+				}
+			}
+			var value = this.savedUserDetails.authorized_country;
+			var temp = value.filter(function(a,b){
+				return a =="226" || a =="225" || a =="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"
+			});
+			this.childForm.patchValue({
+				personalDetails: {
+					authorized_country_select : temp
+				}
+			});
+		}
+		
+	  }
+			
       let latlngText: string = this.savedUserDetails.latlng_text;
       if (latlngText) {
         const splitedString: any[] = latlngText.split(',');
@@ -250,7 +281,25 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     }
 	  }); 
   }
-
+	
+	checkNumber(){
+		if(this.childForm.controls.personalDetails.controls.phone.status=="INVALID"){
+			if (this.childForm.controls.personalDetails.controls.phone.errors.required) {
+				this.invalidMobile = false;
+			}
+			if (this.childForm.controls.personalDetails.controls.phone.errors.validatePhoneNumber) {
+				if (this.childForm.controls.personalDetails.controls.phone.errors.validatePhoneNumber.valid == false ) {
+					this.invalidMobile = true;
+				}
+				if (this.childForm.controls.personalDetails.controls.phone.errors.validatePhoneNumber.valid == true ) {
+					this.invalidMobile = false;
+				}
+			}
+		}else{
+			this.invalidMobile = false;
+		}
+	}
+ 
   onFindMediaLinks = (mediaType: string, array: any[]) => {
     if(mediaType) {
       const link = array.find((val, index) => {
@@ -276,6 +325,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       zipcode: new FormControl(null, Validators.required),
       clients_worked: new FormControl(null, Validators.required),
       authorized_country: new FormControl(null),
+      authorized_country_select: new FormControl(null),
       visa_type: new FormControl(null),
       nationality: new FormControl(null, Validators.required),
       social_media_link: new FormControl(null),
@@ -311,6 +361,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 
   handleAddressChange = (event) => {
     const address = this.sharedService.fromGooglePlace(event);
+	if(event.geometry){
     this.childForm.patchValue({
       personalDetails: {
         city: address.city ? address.city : event.formatted_address,
@@ -322,6 +373,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         }
       }
     });
+	}
   };
 
   onSetLinks = (fieldName, status) => {
@@ -481,13 +533,23 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   }
 	  
 	onChangeFieldValue = (fieldName, value) => {
-		this.childForm.patchValue({
-		  personalDetails: {
-			[fieldName]: value,
-			['visa_type']: null,
-			['authorized_country']: null,
-		  }
-		});
+		if(value==0){
+			this.showAuthorization =true;
+			this.childForm.patchValue({
+			  personalDetails: {
+				[fieldName]: value,
+			  }
+			});
+		}else{
+			this.showAuthorization = false;
+			this.childForm.patchValue({
+			  personalDetails: {
+				[fieldName]: value,
+				['visa_type']: null,
+				['authorized_country']: null,
+			  }
+			});
+		}
 		
 	  }
 	  
@@ -544,15 +606,23 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	  var temp = clr.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		 
-		this.childForm.value.personalDetails.authorized_country.pop(clr.toElement.id);
+		this.childForm.value.personalDetails.authorized_country_select.pop(clr.toElement.id);
 		  clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
 	  }else{
 		  clr.toElement.className = clr.toElement.className+' btn-fltr-active';
 
-		if(this.childForm.value.personalDetails.authorized_country==null){
-			this.childForm.value.personalDetails.authorized_country=[clr.toElement.id];
+		if(this.childForm.value.personalDetails.authorized_country_select==null){
+			value =[clr.toElement.id];
+			this.childForm.patchValue({ 
+				personalDetails: { 
+					
+					authorized_country_select: value 
+					
+				} 
+			})
+
 		}else{
-			this.childForm.value.personalDetails.authorized_country.push(clr.toElement.id);
+			this.childForm.value.personalDetails.authorized_country_select.push(clr.toElement.id);
 		}
 	  }
 	  console.log(value);

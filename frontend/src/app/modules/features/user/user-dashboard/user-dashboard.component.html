@@ -102,7 +102,9 @@
       Please upload your resume. Click the below button to redirect resume upload page.
     </div>
     <div class="modal-footer full-width">
-      <button type="button" class="btn btn-primary"
+      <button type="button" class="btn btn-theme-orange"
+      (click)="mbRef?.close()">Close</button> 
+	  <button type="button" class="btn btn-primary"
       (click)="onTabChange({tabName: 'resume', tabNumber: 6});mbRef?.close()">Upload</button>
     </div>
   </div>

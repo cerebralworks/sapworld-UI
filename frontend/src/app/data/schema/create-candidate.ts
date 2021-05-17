@@ -25,21 +25,24 @@ export interface CandidateProfile {
   zipcode: number;
   availability: number;
   remote_only: boolean;
+  visa_sponsered: boolean;
   experience: number;
   sap_experience: number;
   latlng: string;
   location: string;
   domain: Array<number>;
   hands_on_experience: Array<any>;
+  hands_on_experience_secondary: Array<any>;
   extra_criteria: Array<any>;
   temp_extra_criteria: Array<any>;
   skills: Array<number>;
   programming_skills: Array<string>;
+  language_known: Array<string>;
   visa_type : Array<string>;
   reference : Array<string>;
   optinal_skills: Array<string>;
   certification: Array<string>;
-  work_authorization: number;
+  work_authorization:  Array<string>;
   visa_sponsorship: boolean;
   company: number;
   end_to_end_implementation: number;
@@ -56,4 +59,7 @@ export interface CandidateProfile {
   email: string;
   job_application: any
   privacy_protection: any
+  nationality: any
+  authorized_country: any
+  preferred_countries: any
 }

@@ -43,9 +43,19 @@ export class SharedService {
   }
 
   onGetJobType = (index?) => {
-     let jobTypeArray = ['Full Time', 'Part Time', 'Freelance', 'Internship', 'Temporary', 'Remote', 'Contract', 'Day Job'];
-     if(index > -1) { return jobTypeArray[index] }
-     return jobTypeArray;
+	  var temp=[];
+     let jobTypeArray = ['','Full Time', 'Part Time', 'Contract', 'Freelance', 'Internship', 'Temporary', 'Permanent', 'Onsite'];
+     if(index) {
+		 if(index.length !=0) {
+			 for(let i=0;i<index.length;i++){
+				 var id = index[i]
+				 temp.push(jobTypeArray[id]);
+			 }
+			 return temp;
+		}
+	 }
+	 
+     return temp;
   }
 
   onGetCurrency = (index?) => {
@@ -180,7 +190,7 @@ onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => 
   address.city = this.findTypeLongName(addr, "locality");
   address.state = this.findTypeLongName(addr, "administrative_area_level_1");
   address.zipcode = this.findTypeLongName(addr, "postal_code");
-  address.country = this.findTypeShortName(addr, "country");
+  address.country = this.findTypeLongName(addr, "country");
 
   address.validated = houseNumber != null && street != null && address.city != null && address.state != null && address.zipcode != null;
 
@@ -188,13 +198,22 @@ onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => 
 }
 
 private findTypeLongName(addr: gAddress, type: string): string {
+	if(addr.address_components){
   let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
-  return comp ? comp.long_name : null;
+	 return comp ? comp.long_name : null;
+	}else{
+		return null;
+	}
+
 }
 
 private findTypeShortName(addr: gAddress, type: string): string {
+	if(addr.address_components){
   let comp: gAddressComponent = addr.address_components.find((item: gAddressComponent) => item.types.indexOf(type) >= 0);
   return comp ? comp.short_name : null;
+	}else{
+		return null;
+	}
 }
 
 }

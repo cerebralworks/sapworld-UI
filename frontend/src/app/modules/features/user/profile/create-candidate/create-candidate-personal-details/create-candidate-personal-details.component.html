@@ -40,7 +40,7 @@
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
           <label>{{"postYourResume.mobileNumber" | translate }}</label>
-          <ngx-intl-tel-input
+          <ngx-intl-tel-input (ngModelChange)="checkNumber()"
           [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
           [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
@@ -50,6 +50,7 @@
         </ngx-intl-tel-input>
           <!-- <input ng2TelInput [ng2TelInputOptions]="{initialCountry: childForm?.value?.personalDetails?.country}" (countryChange)="onCountryChange($event)"  appMarkAsterisk numbersOnly formControlName="phone" type="text" class="form-control" placeholder="9876543210"> -->
           <app-control-messages [control]="f['phone']"></app-control-messages>
+		  <small *ngIf="invalidMobile"class="text-danger">Invalid mobile number</small>
         </div>
       </div>
     </div>
@@ -133,16 +134,16 @@
 			</div>
 		  </div>
 		</div>
-		<div class="col-lg-4 col-md-6" *ngIf="childForm?.value?.personalDetails?.work_authorization == '0'">
+		<div class="col-lg-4 col-md-6" *ngIf="showAuthorization">
 			<div class=" form-group">
 				<label>{{"postYourResume.visatype" | translate }}</label>
-				<ng-select id="visa_type" [addTag]="true" addTagText="Add prevoiusemployers " bindValue="label" bindLabel="label" placeholder="Ex. H1B, H2B" appendTo="body" multiple="true" formControlName="visa_type">
+				<ng-select id="visa_type" [addTag]="true" addTagText="Add Visa Types " bindValue="label" bindLabel="label" placeholder="Ex. H1B, H2B" appendTo="body" multiple="true" formControlName="visa_type">
 				</ng-select>
 				<app-control-messages [control]="f['visa_type']"></app-control-messages>	
 			</div>
 		</div>	
 	  </div>
-	  <div class="row mt-2" *ngIf="childForm?.value?.personalDetails?.work_authorization == '0'" >
+	  <div class="row mt-2" *ngIf="showAuthorization" >
 		<div class="col-lg-12 col-md-6">
 			<div class=" form-group">
 				<label>{{"postYourResume.selectcountry" | translate }} </label>
@@ -161,7 +162,7 @@
 			</div>
 		</div>
 	</div>
-	  <div class="row mt-2" *ngIf="childForm?.value?.personalDetails?.work_authorization == '0'" >
+	  <div class="row mt-2" *ngIf="showAuthorization" >
 		<div class="col-lg-10 col-md-6">
 			<div class=" form-group">
 				<label>{{"postYourResume.othercountry" | translate }} </label> 

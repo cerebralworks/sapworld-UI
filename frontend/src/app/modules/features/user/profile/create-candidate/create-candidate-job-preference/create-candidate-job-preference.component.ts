@@ -18,6 +18,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
   public availabilityArray: { id: number; text: string; }[];
   public travelArray: { id: number; text: string; }[];
   public userInfo: any;
+  public job_type_error: boolean = false;
   public savedUserDetails: any;
   public tabInfos: tabInfo[];
   @Input('userDetails')
@@ -70,9 +71,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
       response => {
 		  console.log(response);
         if (response && Array.isArray(response) && response.length) {
-			this.othercountry =  response.filter(function(a,b){
-				return a.id !="226"&&a.id !="225"&&a.id !="13"&&a.id !="99"&&a.id !="192"&&a.id !="38"&&a.id !="107"&&a.id !="129"
-			});
+			this.othercountry =  response;
 			
         }
       }
@@ -82,6 +81,48 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout(async () => {
+		if (this.childForm && this.savedUserDetails) {
+			if(this.childForm.value.personalDetails.authorized_country){
+				
+			if(this.childForm.value.personalDetails.authorized_country.length !=0){
+				var id = this.childForm.value.personalDetails.authorized_country;
+				this.othercountry= this.othercountry.filter(t=>{return id.includes(t.id)})
+
+			}
+		}
+		if(this.savedUserDetails.job_type!=null){		  
+		if(this.savedUserDetails.job_type.length !=0){
+			for(let i=0;i<this.savedUserDetails.job_type.length;i++){
+				
+				for(let j=0;j<document.getElementsByClassName('btn-fltr').length;j++){
+					if(document.getElementsByClassName('btn-fltr').item(j)['id'] == this.savedUserDetails.job_type[i]){
+						document.getElementsByClassName('btn-fltr').item(j)['className'] = document.getElementsByClassName('btn-fltr').item(j)['className'] +' btn-fltr-active';
+					}
+				}
+			}
+		}else{
+			this.childForm.patchValue({ 
+				jobPref: { 
+					
+					job_type: ["1"] 
+					
+				} 
+			})
+			document.getElementById("1")['className'] = document.getElementById("1")['className'] +' btn-fltr-active';
+			// this.savedUserDetails.job_type =["1"];
+		}
+	  }else{
+		  this.childForm.patchValue({ 
+				jobPref: { 
+					
+					job_type: ["1"] 
+					
+				} 
+			});
+			document.getElementById("1")['className'] = document.getElementById("1")['className'] +' btn-fltr-active';
+		  //this.savedUserDetails.job_type =["1"];
+	  }
+		}
       if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
         if(this.tabInfos && this.tabInfos.length) {
           let educationExpIndex = this.tabInfos.findIndex(val => val.tabNumber == 2);
@@ -113,9 +154,16 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
             });
           }
         }
+	  
         this.childForm.patchValue({
           jobPref: {
             ...this.savedUserDetails
+          },
+        });
+        this.childForm.patchValue({
+          jobPref: {
+            visa_sponsered: this.savedUserDetails.visa_sponsered,
+            remote_only: this.savedUserDetails.remote_only,
           },
         });
 
@@ -127,7 +175,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
     this.childForm = this.parentF.form;
 
     this.childForm.addControl('jobPref', new FormGroup({
-      job_type: new FormControl('', Validators.required),
+      job_type: new FormControl(null),
       job_role: new FormControl('', Validators.required),
       willing_to_relocate: new FormControl(null, Validators.required),
       preferred_location: new FormControl(null),
@@ -136,6 +184,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
       preferred_countries : new FormControl(null, Validators.required),
       availability : new FormControl(''),
       remote_only: new FormControl(false, Validators.required),
+      visa_sponsered: new FormControl(false, Validators.required),
     }));
     // this.childForm.addControl('skillSet', new FormGroup({
     //   hands_on_experience: new FormArray([this.formBuilder.group({
@@ -203,10 +252,49 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		  clr.toElement.className = clr.toElement.className+' btn-fltr-active';
 
 		if(this.childForm.value.jobPref.preferred_countries==null){
-			this.childForm.value.jobPref.preferred_countries=[clr.toElement.id];
+			value =[clr.toElement.id];
+			this.childForm.patchValue({ 
+				jobPref: { 
+					
+					preferred_countries: value 
+					
+				} 
+			})
 		}else{
 			this.childForm.value.jobPref.preferred_countries.push(clr.toElement.id);
 		}
+	  }
+	  console.log(value);
+  }
+  jobClick(value,clr){
+	  var temp = clr.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+		 if(this.childForm.value.jobPref.job_type){
+				this.childForm.value.jobPref.job_type.pop(clr.toElement.id);
+				if(this.childForm.value.jobPref.job_type.length==0){
+					this.job_type_error = true;					
+				}
+		 }else{
+			 this.job_type_error = true;
+		 }
+		  clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
+	  }else{
+		  clr.toElement.className = clr.toElement.className+' btn-fltr-active';
+
+		if(this.childForm.value.jobPref.job_type==null){
+			value =[clr.toElement.id];
+			this.childForm.patchValue({ 
+				jobPref: { 
+					
+					job_type: value 
+					
+				} 
+			})
+			
+		}else{
+			this.childForm.value.jobPref.job_type.push(clr.toElement.id);
+		}
+		this.job_type_error = false;
 	  }
 	  console.log(value);
   }

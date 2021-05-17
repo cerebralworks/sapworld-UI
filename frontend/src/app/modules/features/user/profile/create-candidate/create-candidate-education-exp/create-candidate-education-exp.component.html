@@ -27,8 +27,9 @@
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
           <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
-          <input  (change)="onChangeCompletionValue($event?.target?.value, i)" numbersOnly formControlName="year_of_completion" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.yearOfCompletion' | translate">
+          <input maxlength="4" (change)="onChangeCompletionValue($event?.target?.value, i)" numbersOnly formControlName="year_of_completion" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.yearOfCompletion' | translate">
           <app-control-messages [control]="ticket['controls']['year_of_completion']"></app-control-messages>
+		 
         </div>
       </div>
       <div class="col-lg-2 col-md-4 d-flex justify-content-center align-items-center">
@@ -45,15 +46,17 @@
     <div class="col-lg-3 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.totalYearsOfExperience" | translate }}</label>
-        <input appMarkAsterisk numbersOnly formControlName="experience" type="text" class="form-control w-40 text-center" placeholder="+8">
+        <input (ngModelChange)="keyPress()" appMarkAsterisk numbersOnly formControlName="experience" type="text" class="form-control w-40 text-center" placeholder="+8">
         <app-control-messages [control]="f['experience']"></app-control-messages>
+		 <small *ngIf="totalExpError"  class="text-danger">Total is greater than SAP Experience</small>
       </div>
     </div>
     <div class="col-lg-3 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.totalYearsOfSapExperience" | translate }}</label>
-        <input appMarkAsterisk numbersOnly formControlName="sap_experience" type="text" class="form-control w-50 text-center"  placeholder="+5">
+        <input (ngModelChange)="keyPress()" appMarkAsterisk numbersOnly formControlName="sap_experience" type="text" class="form-control w-50 text-center"  placeholder="+5">
         <app-control-messages [control]="f['sap_experience']"></app-control-messages>
+		 <small *ngIf="sapExpError" class="text-danger">SAP is not greater than Total Experience</small>
       </div>
     </div>
     <div class="col-lg-4 col-md-6">

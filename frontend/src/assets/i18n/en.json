@@ -70,6 +70,7 @@
     "availableIn": "Available In",
     "skills": "Skills",
 	"experienceAndSkills":"EXPERIENCE AND SKILLS ",
+	"visaSponsered":"Show me visa sponsered jobs",
     "salary": "Salary"
   },
   "dashboard": {
@@ -123,7 +124,16 @@
 	"experienceAndSkills":"EXPERIENCE AND SKILLS ",
 	"certifications":"CERTIFICATIONS",
 	"reference":"Reference",
-	"others":"Others"
+	"others":"Others Skills",
+	"nationality":"Nationality",
+	"relocation":"Relocation",
+	"jobType":"Job type looking for",
+	"availability":"Availability",
+	"workAuthorisation":"Work Authorisation",
+	"workAuthorisationIn":"Authorised to work in",
+	"preferredLocation":"Preferred Location",
+	"languageKnown":"Language Known",
+	"education":"Education"
   },
   "postYourResume": {
     "candidateRegistration": "Candidate Registration",

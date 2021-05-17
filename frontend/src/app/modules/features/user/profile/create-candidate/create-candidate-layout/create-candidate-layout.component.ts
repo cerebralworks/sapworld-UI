@@ -124,7 +124,7 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 
     if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
       this.candidateForm.addControl('jobPref', new FormGroup({
-            job_type: new FormControl('', Validators.required),
+            job_type: new FormControl(null),
             job_role: new FormControl('', Validators.required),
             willing_to_relocate: new FormControl(null, Validators.required),
             preferred_location: new FormControl(null),
@@ -132,10 +132,17 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
             travel: new FormControl(null, Validators.required),
             availability: new FormControl(null, Validators.required),
             remote_only: new FormControl(false, Validators.required),
+            visa_sponsered: new FormControl(false, Validators.required),
             preferred_countries: new FormControl(null, Validators.required),
           }));
           this.candidateForm.addControl('skillSet', new FormGroup({
             hands_on_experience: new FormArray([this.formBuilder.group({
+              skill_id: [null, Validators.required],
+              skill_name: ['dasdasd'],
+              experience: ['', [Validators.required,]],
+              exp_type: ['years', [Validators.required]]
+            })]),
+			hands_on_experience_secondary: new FormArray([this.formBuilder.group({
               skill_id: [null, Validators.required],
               skill_name: ['dasdasd'],
               experience: ['', [Validators.required,]],
@@ -181,6 +188,9 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
       if(skillSetIndex == -1) {
         if (this.userInfo && this.userInfo.hands_on_experience == null) {
           delete this.userInfo.hands_on_experience;
+        }
+        if (this.userInfo && this.userInfo.hands_on_experience_secondary == null) {
+          delete this.userInfo.hands_on_experience_secondary;
         }
         this.candidateForm.patchValue({
           skillSet : {
@@ -253,8 +263,6 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
     'willing_to_relocate': [Validators.required],
     'travel': [Validators.required],
     'availability': [Validators.required],
-    'remote_only': [Validators.required],
-    'job_type': [Validators.required],
   }
 
   onPrevious() {
@@ -315,6 +323,19 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
     let tempSkill = [];
     if(candidateInfo && candidateInfo.hands_on_experience && Array.isArray(candidateInfo.hands_on_experience)) {
       candidateInfo.hands_on_experience.forEach((element: any) => {
+        if(element && element.skill_id && element.skill_id) {
+          tempSkill.push(element.skill_id)
+        }
+      });
+    }
+
+    if(Array.isArray(tempSkill) && Array.isArray(candidateInfo.skills)) {
+      candidateInfo.skills = lodash.uniq([...tempSkill, ...candidateInfo.skills]);
+    }
+
+    tempSkill = [];
+    if(candidateInfo && candidateInfo.hands_on_experience_secondary && Array.isArray(candidateInfo.hands_on_experience_secondary)) {
+      candidateInfo.hands_on_experience_secondary.forEach((element: any) => {
         if(element && element.skill_id && element.skill_id) {
           tempSkill.push(element.skill_id)
         }
