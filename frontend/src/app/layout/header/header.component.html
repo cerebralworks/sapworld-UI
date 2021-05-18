@@ -13,14 +13,14 @@
       </select> -->
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          <li *ngIf="!router?.url?.includes('/employer')" class="nav-item mr-3 my-1">
-            <a (click)="onRedirectUrl('/auth/employer/login')" class="btn btn-outline-blue py-2 px-3"
+          <li *ngIf="!router?.url?.includes('/employer') " class="nav-item mr-3 my-1">
+            <a [class.disabled]="router?.url?.includes('/verify')"  (click)="onRedirectUrl('/auth/employer/login')" class="btn btn-outline-blue py-2 px-3"
               href="javascript:;">
               <i class="fas fa-handshake pr-1 align-middle"></i> {{"home.employer" | translate}}
             </a>
           </li>
           <li *ngIf="!router?.url?.includes('/user')" class="nav-item mr-3 my-1">
-            <a (click)="onRedirectUrl('/auth/user/login')" class="btn btn-outline-green py-2 px-3" href="javascript:;">
+            <a  [class.disabled]="router?.url?.includes('/verify')"  (click)="onRedirectUrl('/auth/user/login')" class="btn btn-outline-green py-2 px-3" href="javascript:;">
               <i class="fas fa-user-tie pr-1 align-middle"></i> {{"home.jobseeker" | translate}}
             </a>
           </li>

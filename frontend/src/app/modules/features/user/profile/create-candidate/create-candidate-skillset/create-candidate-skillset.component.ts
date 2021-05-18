@@ -19,6 +19,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
   skillArray: any[] = [];
   public childForm;
   public skillItems: any[] = [];
+  public skillItemsSecondary: any[] = [];
   public skillsItems: any[] = [];
   public commonSkills: any[] = [];
   public userInfo: any;
@@ -43,12 +44,14 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       response => {
         if (response && response.items) {
           this.skillItems = [...response.items];
+          this.skillItemsSecondary = [...response.items];
           this.skillsItems = [...response.items];
           this.commonSkills = [...response.items];
         }
       },
       error => {
         this.skillItems = [];
+        this.skillItemsSecondary = [];
         this.skillsItems = [];
         this.commonSkills = [];
       }
@@ -141,12 +144,14 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       if(skillName)
       (this.childForm.controls.skillSet.controls.hands_on_experience).controls[index].controls['skill_name'].setValue(skillName);
 		this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != skillId });
+		this.skillItemsSecondary = this.skillItemsSecondary.filter(function(a,b){ return a.id != skillId });
 	}
   }
 
   onSelectSkillsEvent = async (skillId) => {
     if(skillId) {
       this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
+      this.skillItemsSecondary = this.skillItemsSecondary.filter(function(a,b){ return a.id != skillId });
 	}
   }
 
@@ -154,6 +159,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     if(skillId) {
 		var temp = this.commonSkills.filter(function(a,b){ return a.id == skillId });
 		this.skillItems.push(temp[0]);
+		this.skillItemsSecondary.push(temp[0]);
 	}
   }
 
@@ -164,6 +170,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       if(skillName)
       (this.childForm.controls.skillSet.controls.hands_on_experience_secondary).controls[index].controls['skill_name'].setValue(skillName);
 		this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != skillId });
+		this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
 	}
   }
 
@@ -217,6 +224,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	  var temp = this.commonSkills.filter(function(a,b){ return a.id ==id });
 	  if(temp.length !=0){
 		this.skillsItems.push(temp[0]);
+		this.skillItemsSecondary.push(temp[0]);
 	  }
     if (index == 0) {
       this.t.reset();
@@ -247,6 +255,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	  var temp = this.commonSkills.filter(function(a,b){ return a.id ==id });
 	  if(temp.length !=0){
 		this.skillsItems.push(temp[0]);
+		this.skillItems.push(temp[0]);
 	  }
     if (index == 0) {
       this.ts.reset();
