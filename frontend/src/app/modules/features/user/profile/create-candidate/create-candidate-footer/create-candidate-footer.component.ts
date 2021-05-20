@@ -17,6 +17,7 @@ export class CreateCandidateFooterComponent implements OnInit {
   @Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
   @Input() createCandidateForm: FormGroup;
   public savedUserDetails: any;
+  public nextBtnValidate: boolean =false ;
   public userInfo: any;
   tabInfos: any[];
   @Input('userDetails')

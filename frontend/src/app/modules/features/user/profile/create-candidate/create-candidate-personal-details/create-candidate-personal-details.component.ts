@@ -151,6 +151,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			  if(this.childForm.value.personalDetails.authorized_country){
 				this.savedUserDetails.authorized_country= this.childForm.value.personalDetails.authorized_country;
 			  }
+			  if(this.childForm.value.personalDetails.authorized_country_select){
+				var selected_authorized_country_select = this.childForm.value.personalDetails.authorized_country_select;
+				for(let i=0;i<selected_authorized_country_select.length;i++){
+					var id=selected_authorized_country_select[i];
+					this.savedUserDetails.authorized_country.push(id);
+				}
+			  }
 			  this.savedUserDetails.language_known=this.childForm.value.personalDetails.language_known;
 			  this.savedUserDetails.reference=this.childForm.value.personalDetails.reference;
 		}
