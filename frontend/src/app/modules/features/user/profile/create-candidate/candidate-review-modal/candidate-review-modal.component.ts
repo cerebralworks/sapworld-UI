@@ -8,36 +8,12 @@ import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
-import { trigger, style, animate, transition, state, group } from '@angular/animations';
 
 @Component({
   selector: 'app-candidate-review-modal',
   templateUrl: './candidate-review-modal.component.html',
   styleUrls: ['./candidate-review-modal.component.css'],
-  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({ height: '*', opacity: 0 })),
-      transition(':leave', [
-        style({ height: '*', opacity: 1 }),
-
-        group([
-          animate(300, style({ height: 0 })),
-          animate('200ms ease-in-out', style({ 'opacity': '0' }))
-        ])
-
-      ]),
-      transition(':enter', [
-        style({ height: '0', opacity: 0 }),
-
-        group([
-          animate(300, style({ height: '*' })),
-          animate('400ms ease-in-out', style({ 'opacity': '1' }))
-        ])
-
-      ])
-    ])
-  ]
+  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
 export class CandidateReviewModalComponent implements OnInit {
 
@@ -101,7 +77,6 @@ export class CandidateReviewModalComponent implements OnInit {
     );
 	this.dataService.getLanguageDataSource().subscribe(
       response => {
-		  console.log(response);
         if (response && Array.isArray(response) && response.length) {
           this.languageSource = response;
         }

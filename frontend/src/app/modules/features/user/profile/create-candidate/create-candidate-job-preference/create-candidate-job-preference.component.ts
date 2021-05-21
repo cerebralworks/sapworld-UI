@@ -69,7 +69,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	
 	this.dataService.getCountryDataSource().subscribe(
       response => {
-		  console.log(response);
         if (response && Array.isArray(response) && response.length) {
 			this.othercountry =  response;
 			
@@ -255,7 +254,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			value =[clr.toElement.id];
 			this.childForm.patchValue({ 
 				jobPref: { 
-					
 					preferred_countries: value 
 					
 				} 

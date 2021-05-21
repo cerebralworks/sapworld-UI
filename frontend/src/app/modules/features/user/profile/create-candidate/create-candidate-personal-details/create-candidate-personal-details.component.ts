@@ -111,7 +111,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		
 	this.dataService.getCountryDataSource().subscribe(
       response => {
-		  console.log(response);
         if (response && Array.isArray(response) && response.length) {
           this.nationality = response;
 			this.othercountry =  response.filter(function(a,b){
@@ -123,7 +122,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     );
 	this.dataService.getLanguageDataSource().subscribe(
       response => {
-		  console.log(response);
         if (response && Array.isArray(response) && response.length) {
           this.languageSource = response;
         }
