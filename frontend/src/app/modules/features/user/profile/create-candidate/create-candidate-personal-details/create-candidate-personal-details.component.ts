@@ -237,16 +237,21 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			for(let i=0;i<this.savedUserDetails.authorized_country.length;i++){
 				var id = this.savedUserDetails.authorized_country[i]
 				if(document.getElementById(id)){
-					document.getElementById(id)['className'] =document.getElementById(id)['className']+' btn-fltr-active';
+					document.getElementById(id)['className'] ='btn btn-fltr btn-fltr-active';
 				}
 			}
 			var value = this.savedUserDetails.authorized_country;
 			var temp = value.filter(function(a,b){
 				return a =="226" || a =="225" || a =="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"
 			});
+			var tempData = value.filter(function(a,b){
+				return a !="226" && a !="225" && a !="13" && a =="99" && a =="192" && a =="38" && a =="107" && a =="129" && a =="73"
+			});
+			this.savedUserDetails.authorized_country = tempData;
 			this.childForm.patchValue({
 				personalDetails: {
-					authorized_country_select : temp
+					authorized_country_select : temp,
+					authorized_country : tempData
 				}
 			});
 		}

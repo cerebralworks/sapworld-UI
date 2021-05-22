@@ -91,7 +91,15 @@ export class CreateCandidateFooterComponent implements OnInit {
 
 			}
 		}
-		}
+		if(this.createCandidateForm.value.jobPref !=null &&this.createCandidateForm.value.jobPref !=undefined  ){
+		if(this.createCandidateForm.value.jobPref.preferred_countries){
+		var intersection = this.createCandidateForm.value.personalDetails.authorized_country.filter(element => this.createCandidateForm.value.jobPref.preferred_countries.includes(element));
+		this.createCandidateForm.patchValue({
+			preferred_countries:{
+					authorized_country:intersection
+				}
+			})
+		}}}
       let nextTabProgressor = {} as tabInfo;
       nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
       nextTabProgressor.tabName = this.onGetTabName(nextTabProgressor.tabNumber);

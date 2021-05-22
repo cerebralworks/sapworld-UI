@@ -1,46 +1,39 @@
 <div class="row mt-5">
-  <div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber > 1">
-    <div class="form-group">
-      <button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">
-        {{"common.previous" | translate }}
-      </button>
-    </div>
-  </div>
+	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber > 1">
+		<div class="form-group">
+			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">
+				{{"common.previous" | translate }}
+			</button>
+		</div>
+	</div>
 
-  <div class="col-lg-2 col-md-6">
-    <div class="form-group">
-      <button [disabled]="(!createCandidateForm.controls.personalDetails.valid && !userInfo?.profile_completed)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 1" type="button"
-        class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
-        {{userInfo?.profile_completed ? 'Update & Next' : ("common.next" | translate) }}
-      </button>
-      <button [disabled]="(!createCandidateForm.controls.educationExp.valid && !userInfo?.profile_completed)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 2" type="button"
-        class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
-        {{userInfo?.profile_completed ? 'Update & Next' : ("common.next" | translate) }}
-      </button>
-      <button [disabled]="(!createCandidateForm.controls.skillSet.valid && !userInfo?.profile_completed)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 3" type="button"
-        class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
-        {{userInfo?.profile_completed ? 'Update & Next' : ("common.next" | translate) }}
-      </button>
-      <button  [disabled]="(!createCandidateForm.valid && !userInfo?.profile_completed)" *ngIf="currentTabInfo.tabNumber == 4" type="button" class="btn btn-theme-green btn-block btn-lg btnSubmit"
-        (click)="onToggleRegisterReview(true)">
-        {{"common.submit" | translate }}
-      </button>
-    </div>
-  </div>
-  <div class="col-lg-2 col-md-6" *ngIf="((currentTabInfo.tabNumber != 4) && userInfo?.profile_completed)">
-    <div class="form-group">
-      <button [disabled]="(!createCandidateForm.valid && !userInfo?.profile_completed)" (click)="onToggleRegisterReview(true)" type="button"
-      class="btn btn-theme-blue btn-block btn-lg btnNext">
-      Update
-      <!-- {{"common.next" | translate }} -->
-    </button>
-    </div>
-  </div>
+	<div class="col-lg-2 col-md-6">
+		<div class="form-group">
+			<button [disabled]="(!createCandidateForm.controls.personalDetails.valid && !userInfo?.profile_completed)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 1" type="button"
+				class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
+				{{userInfo?.profile_completed ? 'Update & Next' : ("common.next" | translate) }}
+			</button>
+			<button [disabled]="(!createCandidateForm.controls.educationExp.valid && !userInfo?.profile_completed)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 2" type="button"
+				class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
+				{{userInfo?.profile_completed ? 'Update & Next' : ("common.next" | translate) }}
+			</button>
+			<button [disabled]="(!createCandidateForm.controls.skillSet.valid && !userInfo?.profile_completed)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 3" type="button"
+				class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
+				{{userInfo?.profile_completed ? 'Update & Next' : ("common.next" | translate) }}
+			</button>
+			<button  [disabled]="(!createCandidateForm.valid && !userInfo?.profile_completed)" *ngIf="currentTabInfo.tabNumber == 4" type="button" class="btn btn-theme-green btn-block btn-lg btnSubmit"
+				(click)="onToggleRegisterReview(true)">
+				{{"common.submit" | translate }}
+			</button>
+		</div>
+	</div>
+	<div class="col-lg-2 col-md-6" *ngIf="((currentTabInfo.tabNumber != 4) && userInfo?.profile_completed)">
+		<div class="form-group">
+			<button [disabled]="(!createCandidateForm.valid && !userInfo?.profile_completed)" (click)="onToggleRegisterReview(true)" type="button"
+				class="btn btn-theme-blue btn-block btn-lg btnNext">
+				Update
+			</button>
+		</div>
+	</div>
 </div>
 
-
-<!-- <app-candidate-review-modal
-*ngIf="isOpenedRegisterReviewModal"
-[toggleRegisterReviewModal]="isOpenedRegisterReviewModal"
-(onEvent)="onToggleRegisterReview($event)"
-></app-candidate-review-modal> -->

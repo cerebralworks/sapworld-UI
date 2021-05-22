@@ -134,14 +134,6 @@
 			</div>
 		  </div>
 		</div>
-		<div class="col-lg-4 col-md-6" *ngIf="showAuthorization">
-			<div class=" form-group">
-				<label>{{"postYourResume.visatype" | translate }}</label>
-				<ng-select id="visa_type" [addTag]="true" addTagText="Add Visa Types " bindValue="label" bindLabel="label" placeholder="Ex. H1B, H2B" appendTo="body" multiple="true" formControlName="visa_type">
-				</ng-select>
-				<app-control-messages [control]="f['visa_type']"></app-control-messages>	
-			</div>
-		</div>	
 	  </div>
 	  <div class="row mt-2" *ngIf="showAuthorization" >
 		<div class="col-lg-12 col-md-6">
@@ -192,7 +184,14 @@
 				<app-control-messages [control]="f['othercountry']"></app-control-messages>									  
 			</div>
 		</div>				
-		
+		<div class="col-lg-4 col-md-6" *ngIf="showAuthorization">
+			<div class=" form-group">
+				<label>{{"postYourResume.visatype" | translate }}</label>
+				<ng-select id="visa_type" [addTag]="true" addTagText="Add Visa Types " bindValue="label" bindLabel="label" placeholder="Ex. H1B, H2B" appendTo="body" multiple="true" formControlName="visa_type">
+				</ng-select>
+				<app-control-messages [control]="f['visa_type']"></app-control-messages>	
+			</div>
+		</div>	
 	</div>
 	 <div class="row mt-5">
 		<div class="col-lg-12 col-md-6">

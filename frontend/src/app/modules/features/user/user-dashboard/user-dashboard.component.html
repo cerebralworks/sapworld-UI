@@ -75,22 +75,22 @@
 </section>
 <!-- //Nav Tab Section -->
 
-<app-user-profile *ngIf="currentTabInfo.tabNumber == 1">
+<app-user-profile *ngIf="currentTabInfo.tabNumber == 1 && dashboardView">
 </app-user-profile>
 
-<app-matching-job *ngIf="currentTabInfo.tabNumber == 2">
+<app-matching-job *ngIf="currentTabInfo.tabNumber == 2 && dashboardView">
 </app-matching-job>
 
 <!-- <app-visa-sponsored *  ngIf="currentTabInfo.tabNumber == 3">
 </app-visa-sponso red> -->
 
-<app-applied-job *ngIf="currentTabInfo.tabNumber == 4">
+<app-applied-job *ngIf="currentTabInfo.tabNumber == 4 && dashboardView">
 </app-applied-job>
 
   <!-- <app-shortlisted-job *ngIf="currentTabInfo.tabNumber == 5">
   </app-shortlisted-job> -->
 
-<app-user-resume *ngIf="currentTabInfo.tabNumber == 6">
+<app-user-resume *ngIf="currentTabInfo.tabNumber == 6 && dashboardView">
 </app-user-resume>
 
 <ng-template *ngIf="toggleResumeModal" #deleteModal let-modal let-d="dismiss">

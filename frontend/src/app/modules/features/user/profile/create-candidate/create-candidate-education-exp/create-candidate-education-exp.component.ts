@@ -76,7 +76,15 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
     setTimeout( async () => {
     if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
       if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
-        if ((this.savedUserDetails.education_qualification.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.education_qualification && this.savedUserDetails.education_qualification.length)) {
+        if(this.savedUserDetails.education_qualification.length == 0){
+			this.t.removeAt(0);
+			this.t.push(this.formBuilder.group({
+				degree: [''],
+				field_of_study: [null],
+				year_of_completion: [null, [Validators.min(4)]]
+			  }));
+            this.onChangeDegreeValue('', 1);
+		}else if ((this.savedUserDetails.education_qualification.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.education_qualification && this.savedUserDetails.education_qualification.length)) {
          this.t.removeAt(0);
           this.savedUserDetails.education_qualification.map((value, index) => {
             this.t.push(this.formBuilder.group({
@@ -169,12 +177,14 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
     }else {
+		if(this.childForm.get('educationExp.education_qualification').controls[index] != undefined && this.childForm.get('educationExp.education_qualification').controls[index] != null){
       this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
       this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
       this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
       this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+    }
     }
   }
 
