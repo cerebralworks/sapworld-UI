@@ -27,6 +27,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
   }
+	public requestParams: any;	
+	public searchCallback = (search: string, item) => true; 
 
   constructor(
     private parentF: FormGroupDirective,
@@ -34,10 +36,13 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private userSharedService: UserSharedService,
+		private SharedAPIService: SharedApiService,
     public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
+	   /* this.requestParams = {'Enter the oninit':'CreateCandidateSkillsetComponent'};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
     this.createForm();
     this.dataService.getSkillDataSource().subscribe(
       response => {
@@ -59,10 +64,15 @@ export class CreateCandidateSkillsetComponent implements OnInit {
         this.userInfo = response;
       }
     )
+	this.requestParams = {'Exist the oninit':'CreateCandidateSkillsetComponent'};
+				this.SharedAPIService.onSaveLogs(this.requestParams);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+	  
     setTimeout(async () => {
+		/* this.requestParams = {'Enter the ngOnChanges':'CreateCandidateSkillsetComponent'};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
       if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
         if (this.savedUserDetails && this.savedUserDetails.hands_on_experience && Array.isArray(this.savedUserDetails.hands_on_experience)) {
           if ((this.savedUserDetails.hands_on_experience.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.hands_on_experience && this.savedUserDetails.hands_on_experience.length)) {
@@ -104,16 +114,40 @@ export class CreateCandidateSkillsetComponent implements OnInit {
           }
         });
       }
+	  /* this.requestParams = {'Exist the ngOnChanges':'CreateCandidateSkillsetComponent'};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
     });
   }
-
+	indexOfFilter(hasIndex) {
+      
+	  if(this.t.value.filter(function(a,b){ return a.skill_id == hasIndex }).length !=0 ){
+		  return false;
+	  }else{
+		 return true;
+	  }
+       
+	}
   onSelectSkillEvent = async (skillId, index) => {
     if(skillId) {
       const skillObj = this.sharedService.onFindSkillsFromSingleID(skillId);
       const skillName = (skillObj && skillObj.tag) ? skillObj.tag : '';
       if(skillName)
+		  var statusSkill = false;
+		if(this.t.value){
+			if(this.t.value.length !=null && this.t.value.length !=undefined && this.t.value.length !=0  ){
+				var tempLen = this.t.value.filter(function(a,b){ return a.skill_id == skillId});
+				if(this.t.value.filter(function(a,b){ return a.skill_id == skillId}).length!=1){
+					statusSkill = true;
+					this.t.value[index]['skill_id']="";
+					(this.childForm.controls.skillSet.controls.hands_on_experience).controls[index].controls['skill_id'].setValue('');
+				}
+
+			}
+		}
+		if(statusSkill ==false){
       (this.childForm.controls.skillSet.controls.hands_on_experience).controls[index].controls['skill_name'].setValue(skillName);
 		this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != skillId });
+		}
 	}
   }
 
@@ -122,7 +156,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
 	}
   }
-
+  
   onRemoveSkillEvent = async (skillId) => {
     if(skillId) {
 		var temp = this.commonSkills.filter(function(a,b){ return a.id == skillId });

@@ -3,11 +3,34 @@ import { CandidateProfile } from '@data/schema/create-candidate';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { DataService } from '@shared/service/data.service';
-
+import { trigger, style, animate, transition, state, group } from '@angular/animations';
 @Component({
 	selector: 'app-shared-user-profile',
 	templateUrl: './shared-user-profile.component.html',
-	styleUrls: ['./shared-user-profile.component.css']
+	styleUrls: ['./shared-user-profile.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({ height: '*', opacity: 0 })),
+      transition(':leave', [
+        style({ height: '*', opacity: 1 }),
+
+        group([
+          animate(300, style({ height: 0 })),
+          animate('200ms ease-in-out', style({ 'opacity': '0' }))
+        ])
+
+      ]),
+      transition(':enter', [
+        style({ height: '0', opacity: 0 }),
+
+        group([
+          animate(300, style({ height: '*' })),
+          animate('400ms ease-in-out', style({ 'opacity': '1' }))
+        ])
+
+      ])
+    ])
+  ]
 })
 
 export class SharedUserProfileComponent implements OnInit {
@@ -57,8 +80,11 @@ export class SharedUserProfileComponent implements OnInit {
 	
 	findEducation(value){
 		if(value){
-			return this.utilsHelperService.onConvertArrayToString(value.map(function(a,b){return a.degree}));
-			
+			if(value.length!=0){
+				return this.utilsHelperService.onConvertArrayToString(value.map(function(a,b){return a.degree}));
+			}else{
+				return '--';
+			}
 		}
 		
 		return '--';

@@ -5,6 +5,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 @Component({
   selector: 'app-create-candidate-education-exp',
@@ -32,17 +33,19 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
   }
-
+	public requestParams: any;	
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private userSharedService: UserSharedService,
+		private SharedAPIService: SharedApiService,
     public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
+	  //console.log({'Entering the oninit':'educationExp'})
     this.createForm();
 
     this.educations = [
@@ -70,13 +73,25 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
         }
       }
     )
+	console.log({'Exist the oninit':'educationExp'})
   }
 
   ngOnChanges(changes): void {
     setTimeout( async () => {
+		/* this.requestParams = {'Entering the onChange':'educationExp'};
+			this.SharedAPIService.onSaveLogs(this.requestParams);
+			console.log(this.requestParams); */
     if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
       if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
-        if ((this.savedUserDetails.education_qualification.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.education_qualification && this.savedUserDetails.education_qualification.length)) {
+        if(this.savedUserDetails.education_qualification.length == 0){
+			this.t.removeAt(0);
+			this.t.push(this.formBuilder.group({
+				degree: [''],
+				field_of_study: [null],
+				year_of_completion: [null, [Validators.min(4)]]
+			  }));
+            this.onChangeDegreeValue('', 1);
+		}else if ((this.savedUserDetails.education_qualification.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.education_qualification && this.savedUserDetails.education_qualification.length)) {
          this.t.removeAt(0);
           this.savedUserDetails.education_qualification.map((value, index) => {
             this.t.push(this.formBuilder.group({
@@ -114,6 +129,9 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
     //   }
     //  });
     // }
+	/* this.requestParams = {'Exist the onChange':'educationExp'};
+			this.SharedAPIService.onSaveLogs(this.requestParams);
+			console.log(this.requestParams); */
   });
   }
 	keyPress() {
@@ -169,12 +187,14 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
     }else {
+		if(this.childForm.get('educationExp.education_qualification').controls[index] != undefined && this.childForm.get('educationExp.education_qualification').controls[index] != null){
       this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
       this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
       this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
       this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+    }
     }
   }
 

@@ -40,19 +40,16 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	  this.userSharedService.getUserProfileDetails().subscribe(
 		  response => {
 			  if(response){
-			  if(response.profile_completed){
-			  if(response.profile_completed == false  ){
-				this.dashboardView = false;
-				this.router.navigate(['/user/create-candidate']);
-			}else{
-				this.dashboardView = true; 
-			  }
-			}else{
-				this.dashboardView = true; 
-			 }
-			 }else{
-				this.dashboardView = true; 
-			 }
+				if(response.profile_completed){
+					if(response.profile_completed == false  ){
+						this.dashboardView = false;
+						this.router.navigate(['/user/create-candidate']);
+					}else{
+						this.dashboardView = true; 
+					}
+				}
+			}
+			
 		  }
 		)
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
