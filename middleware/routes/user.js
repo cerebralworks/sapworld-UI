@@ -3,7 +3,17 @@ module.exports = (app, env, rp) => {
   const serverRoutes = require("../utils/serverRoutes");
   const IncomingForm = require("formidable").IncomingForm;
   const fs = require("fs");
+  
 
+   /**
+   * User crm for restaurant
+   */
+  app.post("/api/logs", (req, res) => {
+	  let requestBody = JSON.stringify(req.body);  
+	  fs.appendFileSync("./logs/logs.json",requestBody);
+		res.status(200).json('saved');
+  });
+  
    /**
    * User crm for restaurant
    */
