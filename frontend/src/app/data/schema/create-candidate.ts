@@ -32,7 +32,6 @@ export interface CandidateProfile {
   location: string;
   domain: Array<number>;
   hands_on_experience: Array<any>;
-  hands_on_experience_secondary: Array<any>;
   extra_criteria: Array<any>;
   temp_extra_criteria: Array<any>;
   skills: Array<number>;

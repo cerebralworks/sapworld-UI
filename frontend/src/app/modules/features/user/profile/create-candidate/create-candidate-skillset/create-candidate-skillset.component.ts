@@ -88,30 +88,6 @@ export class CreateCandidateSkillsetComponent implements OnInit {
           this.savedUserDetails.skills = this.utilsHelperService.differenceByPropValArray(this.savedUserDetails.skills, this.savedUserDetails.hands_on_experience, 'skill_id')
 
         }
-		if (this.savedUserDetails && this.savedUserDetails.hands_on_experience_secondary && Array.isArray(this.savedUserDetails.hands_on_experience_secondary)) {
-          if ((this.savedUserDetails.hands_on_experience_secondary.length == 1) || (this.ts && this.ts.length) !== (this.savedUserDetails.hands_on_experience_secondary && this.savedUserDetails.hands_on_experience_secondary.length)) {
-            this.ts.removeAt(0);
-            this.savedUserDetails.hands_on_experience_secondary.map((value, index) => {
-              value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
-              this.ts.push(this.formBuilder.group({
-				  skill_id: [null, Validators.required],
-				  skill_name: [''],
-				  experience: ['', [Validators.required,]],
-				  exp_type: ['years', [Validators.required]]
-				}));
-            });
-			
-          }
-		  if (this.savedUserDetails.hands_on_experience_secondary != null) {
-			for(let i=0;i<this.savedUserDetails.hands_on_experience_secondary.length;i++){
-				this.savedUserDetails.hands_on_experience_secondary[i]['skill_id']=parseInt(this.savedUserDetails.hands_on_experience_secondary[i]['skill_id']);
-				var temp_id = this.savedUserDetails['hands_on_experience_secondary'][i]["skill_id"]
-				this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != temp_id })
-			}
-		  }
-          this.savedUserDetails.skills = this.utilsHelperService.differenceByPropValArray(this.savedUserDetails.skills, this.savedUserDetails.hands_on_experience_secondary, 'skill_id')
-
-        }
 		if (this.savedUserDetails.skills != null) {
 			for(let i=0;i<this.savedUserDetails.skills.length;i++){
 				this.savedUserDetails.skills[i]=parseInt(this.savedUserDetails.skills[i]);
@@ -121,9 +97,6 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		  }
         if (this.savedUserDetails.hands_on_experience == null) {
           delete this.savedUserDetails.hands_on_experience;
-        }
-        if (this.savedUserDetails.hands_on_experience_secondary == null) {
-          delete this.savedUserDetails.hands_on_experience_secondary;
         }
         this.childForm.patchValue({
           skillSet: {
@@ -164,6 +137,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       if(skillName)
       (this.childForm.controls.skillSet.controls.hands_on_experience_secondary).controls[index].controls['skill_name'].setValue(skillName);
 		this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != skillId });
+		this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
 	}
   }
 
@@ -172,12 +146,6 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 
     this.childForm.addControl('skillSet', new FormGroup({
       hands_on_experience: new FormArray([this.formBuilder.group({
-        skill_id: [null, Validators.required],
-        skill_name: [''],
-        experience: ['', [Validators.required,]],
-        exp_type: ['years', [Validators.required]]
-      })]),
-      hands_on_experience_secondary: new FormArray([this.formBuilder.group({
         skill_id: [null, Validators.required],
         skill_name: [''],
         experience: ['', [Validators.required,]],
@@ -225,34 +193,5 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     }
   }
   
-  get ts() {
-    return this.f.hands_on_experience_secondary as FormArray;
-  }
-
-  onDuplicates = (index) => {
-	  if(this.ts.value[index]['skill_id']== null ||this.t.value[index]['experience']== '' ){
-		  
-	  }else{
-    this.ts.push(this.formBuilder.group({
-      skill_id: [null, Validators.required],
-      skill_name: [''],
-      experience: ['', [Validators.required,]],
-      exp_type: ['years', [Validators.required]]
-    }));
-	  }
-  }
-
-  onRemoves = (index) => {
-	  var id = this.ts.value[index]['skill_id'];
-	  var temp = this.commonSkills.filter(function(a,b){ return a.id ==id });
-	  if(temp.length !=0){
-		this.skillsItems.push(temp[0]);
-	  }
-    if (index == 0) {
-      this.ts.reset();
-    } else {
-      this.ts.removeAt(index);
-    }
-  }
 
 }

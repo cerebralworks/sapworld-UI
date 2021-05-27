@@ -111,7 +111,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		
 	this.dataService.getCountryDataSource().subscribe(
       response => {
-		  console.log(response);
         if (response && Array.isArray(response) && response.length) {
           this.nationality = response;
 			this.othercountry =  response.filter(function(a,b){
@@ -123,7 +122,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     );
 	this.dataService.getLanguageDataSource().subscribe(
       response => {
-		  console.log(response);
         if (response && Array.isArray(response) && response.length) {
           this.languageSource = response;
         }
@@ -150,6 +148,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			  this.savedUserDetails.work_authorization= this.childForm.value.personalDetails.work_authorization;
 			  if(this.childForm.value.personalDetails.authorized_country){
 				this.savedUserDetails.authorized_country= this.childForm.value.personalDetails.authorized_country;
+			  }
+			  if(this.childForm.value.personalDetails.authorized_country_select){
+				var selected_authorized_country_select = this.childForm.value.personalDetails.authorized_country_select;
+				for(let i=0;i<selected_authorized_country_select.length;i++){
+					var id=selected_authorized_country_select[i];
+					this.savedUserDetails.authorized_country.push(id);
+				}
 			  }
 			  this.savedUserDetails.language_known=this.childForm.value.personalDetails.language_known;
 			  this.savedUserDetails.reference=this.childForm.value.personalDetails.reference;

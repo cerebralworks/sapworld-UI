@@ -3,7 +3,6 @@
   <div class="row mt-5">
     <div class="col-lg-12 col-md-6">
       <label>{{"postYourResume.handsOnExperience" | translate }}</label>
-	  <p class="text-secondary mb-0 font-weight-bold">Primary </p>
       <div appMarkAsterisk></div>
     </div>
   </div>
@@ -53,62 +52,6 @@
           <button type="button" class="btn btn-outline-danger"
             style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
           <button *ngIf="last" (click)="onDuplicate(i)" type="button" class="btn btn-outline-green ml-2"
-            style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
-        </div>
-      </ng-container>
-    </div>
-  <div class="row">
-    <div class="col-lg-12 col-md-6">
-	  <p class="text-secondary mb-0 font-weight-bold">Secondary </p>
-      <div appMarkAsterisk></div>
-    </div>
-  </div>
-    <div class="row mt-2" *ngFor="let ticket of ts.controls; let i = index; let last = last">
-      <ng-container [formGroup]="ticket">
-        <div class="col-lg-5 col-md-8">
-          <ngx-select
-          class="text-capitalize"
-          (select)="onSelectSkillEvents($event, i)"
-          [placeholder]="'Select Skills'"
-          [items]="skillItems"
-          formControlName="skill_id"
-          optionValueField="id"
-          optionTextField="tag"
-          autoClearSearch="true"
-          noResultsFound="No results found"
-           >
-           <ng-template ngx-select-option-selected let-option let-text="text">
-            {{option?.text ? option?.text?.split('-')[0] : ''}}
-          </ng-template>
-
-          <ng-template ngx-select-option let-option let-text="text">
-              {{option?.text}}
-          </ng-template>
-
-          <ng-template ngx-select-option-not-found>
-              Nothing found
-          </ng-template>
-           </ngx-select>
-          <app-control-messages [control]="ticket['controls']['skill_id']"></app-control-messages>
-        </div>
-
-        <div class="col-lg-2 col-md-4">
-          <div class="input-group mb-3">
-            <input numbersOnly formControlName="experience" type="text" class="form-control" placeholder="Exp">
-            <div class="input-group-append ">
-              <select formControlName="exp_type" class="input-group-text" id="basic-addon2">
-                <option value="years">Yrs</option>
-                <option value="months">Mon</option>
-              </select>
-            </div>
-            <app-control-messages [control]="ticket['controls']['experience']"></app-control-messages>
-          </div>
-
-        </div>
-        <div class="col-lg-2 col-md-4">
-          <button type="button" class="btn btn-outline-danger"
-            style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemoves(i)"><i class="fas fa-times"></i></button>
-          <button *ngIf="last" (click)="onDuplicates(i)" type="button" class="btn btn-outline-green ml-2"
             style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
         </div>
       </ng-container>
