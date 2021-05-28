@@ -93,7 +93,8 @@
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postYourResume.nationality" | translate }} </label>  <select appMarkAsterisk formControlName="nationality" class="form-control">
+				<label>{{"postYourResume.nationality" | translate }} </label> 
+				<select appMarkAsterisk formControlName="nationality" class="form-control" (change)="onChangeCountry($event.target.value)">
 					<option value="-1">Please Select {{"postYourResume.nationality" | translate }}</option>
 					<option *ngFor="let name of nationality" value={{name.id}}>{{name.nicename}}</option>
 				  </select>		
@@ -164,6 +165,7 @@
 					[multiple]="true"
 					[items]="othercountry"
 					formControlName="authorized_country"
+					(remove)="onRemoveCountryEvent($event)"
 					optionValueField="id"
 					optionTextField="nicename"
 					autoClearSearch="true"

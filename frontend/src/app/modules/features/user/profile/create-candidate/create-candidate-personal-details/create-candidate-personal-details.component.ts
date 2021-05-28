@@ -318,7 +318,44 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			this.invalidMobile = false;
 		}
 	}
- 
+	onChangeCountry(a){
+		if(a!='-1'){
+			if(a =="226" || a =="225" || a =="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"){
+				document.getElementById(a).className = 'btn btn-fltr btn-fltr-active';
+				if(this.childForm.value.personalDetails.authorized_country_select==null){
+					var value =[a];
+					this.childForm.patchValue({ 
+							personalDetails: { 
+					
+								authorized_country_select: value 
+					
+							} 
+						})
+
+				}else{
+					this.childForm.value.personalDetails.authorized_country_select.push(a);
+				}
+			}else{
+				var tempCountryVal = this.childForm.value.personalDetails.authorized_country;
+				if(tempCountryVal){
+					if(tempCountryVal.length){
+						tempCountryVal.push(a);
+					}else{
+						tempCountryVal=[a];
+					}
+				}else{
+					tempCountryVal=[a];
+				}
+				this.childForm.patchValue({personalDetails: {authorized_country:[],}});
+				this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
+			}
+		}
+	}
+	onRemoveCountryEvent(id){
+		if(this.childForm.value.personalDetails.nationality == id){
+			this.onChangeCountry(id);
+		}
+	}
   onFindMediaLinks = (mediaType: string, array: any[]) => {
     if(mediaType) {
       const link = array.find((val, index) => {

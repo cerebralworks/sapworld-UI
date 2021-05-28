@@ -59,6 +59,6 @@ export interface CandidateProfile {
   job_application: any
   privacy_protection: any
   nationality: any
-  authorized_country: any
+  authorized_country: any[];
   preferred_countries: any
 }
