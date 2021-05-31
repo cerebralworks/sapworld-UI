@@ -227,7 +227,7 @@
 				<ng-container *ngIf="userInfo?.skills?.length; else elseSkillsTemplate">
 					<li class=" text-uppercase m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 						<span class="text-wrap-custom float-left" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">
-							{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
+							{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}
 						</span>
 					</li>
 				</ng-container>
