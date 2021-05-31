@@ -305,6 +305,13 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		if(candidateInfo && candidateInfo.phone && candidateInfo.phone.e164Number) {
 			candidateInfo.phone = candidateInfo.phone.e164Number
 		}
+		if(candidateInfo && candidateInfo['work_authorization'] ) {
+			if(this.candidateForm.value.personalDetails['work_authorization']==1){
+			candidateInfo.authorized_country = [candidateInfo.nationality];
+			candidateInfo.preferred_countries = [candidateInfo.nationality];
+			candidateInfo.visa_type = null;}
+			
+		}
 
 		if(this.userInfo && this.userInfo.privacy_protection) {
 			candidateInfo.privacy_protection = {...this.userInfo.privacy_protection}

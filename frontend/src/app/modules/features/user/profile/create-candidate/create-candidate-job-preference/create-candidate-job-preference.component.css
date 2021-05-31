@@ -9,14 +9,14 @@
     font-size: 12px;
 }
 .btn-fltr:hover {
-    background-color: #ffffff;
-    border-color: #ffd3e2;
-    box-shadow: 3px 3px 3px 2px #dfdfdf;
-    color: #ff2972;
+    background-color: #4caf50;
+    border-color: #4caf50;
+    box-shadow: 3px 3px 3px 2px #4caf5057;
+    color: #ffffff;
 }
 .btn-fltr-active {
-    background-color: #ffffff;
-    border-color: #ffd3e2;
-    box-shadow: 3px 3px 3px 2px #dfdfdf;
-    color: #ff2972;
+    background-color: #4caf50;
+    border-color: #4caf50;
+    box-shadow: 3px 3px 3px 2px #4caf5057;
+    color: #ffffff;
 }

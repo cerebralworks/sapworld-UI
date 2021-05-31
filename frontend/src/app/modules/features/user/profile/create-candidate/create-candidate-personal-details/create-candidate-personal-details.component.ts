@@ -591,6 +591,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	onChangeFieldValue = (fieldName, value) => {
 		if(value==0){
 			this.showAuthorization =true;
+			this.childForm.get('personalDetails').controls['visa_type'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
 			this.childForm.patchValue({
 			  personalDetails: {
 				[fieldName]: value,
@@ -598,6 +600,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			});
 		}else{
 			this.showAuthorization = false;
+			
+			this.childForm.get('personalDetails').controls['visa_type'].setValidators(null)
+			this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
 			this.childForm.patchValue({
 			  personalDetails: {
 				[fieldName]: value,
@@ -683,4 +688,14 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	  }
 	  console.log(value);
   }
+  
+  indexOfFilter(hasIndex) {
+      
+	  if(this.t.value.filter(function(a,b){ return a.language == hasIndex }).length !=0 ){
+		  return false;
+	  }else{
+		 return true;
+	  }
+       
+	}
 	}

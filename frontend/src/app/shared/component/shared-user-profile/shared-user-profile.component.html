@@ -84,8 +84,11 @@
 				</ul>
 			</div>
 			<div class="col-lg-6 info">
-				<ul class="list-group ul-value">
+				<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 0 ">
 					{{utilsHelperService.onConvertArrayToString(userInfo?.visa_type)}}
+				</ul>
+				<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 1 ">
+					{{"postYourResume.iNeedVisaAponsorship" | translate }}
 				</ul>
 			</div>
 		</div>
@@ -220,18 +223,18 @@
 	</div>
 	<div class="col-lg-8 info">
 		<ul class="list-group">
-			<li class="list-group-item text-uppercase">
+			<!-- <li class="list-group-item text-uppercase"> -->
 				<ng-container *ngIf="userInfo?.skills?.length; else elseSkillsTemplate">
-					<span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
+					<li class=" text-uppercase m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 						<span class="text-wrap-custom float-left" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">
 							{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
 						</span>
-					</span>
+					</li>
 				</ng-container>
 				<ng-template #elseSkillsTemplate>
-					<p>--</p>
+					<li>--</li>
 				</ng-template>
-			</li>
+			<!-- </li> -->
 		</ul>
 	</div>
 </div>	
