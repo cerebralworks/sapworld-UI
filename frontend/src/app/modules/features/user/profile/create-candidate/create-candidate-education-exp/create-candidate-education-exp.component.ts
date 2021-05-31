@@ -5,6 +5,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 @Component({
   selector: 'app-create-candidate-education-exp',
@@ -32,17 +33,19 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   set userDetails(inFo: any) {
     this.savedUserDetails = inFo;
   }
-
+	public requestParams: any;	
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private userSharedService: UserSharedService,
+		private SharedAPIService: SharedApiService,
     public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
+	  //console.log({'Entering the oninit':'educationExp'})
     this.createForm();
 
     this.educations = [
@@ -70,10 +73,14 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
         }
       }
     )
+	console.log({'Exist the oninit':'educationExp'})
   }
 
   ngOnChanges(changes): void {
     setTimeout( async () => {
+		/* this.requestParams = {'Entering the onChange':'educationExp'};
+			this.SharedAPIService.onSaveLogs(this.requestParams);
+			console.log(this.requestParams); */
     if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
       if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
         if(this.savedUserDetails.education_qualification.length == 0){
@@ -122,6 +129,9 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
     //   }
     //  });
     // }
+	/* this.requestParams = {'Exist the onChange':'educationExp'};
+			this.SharedAPIService.onSaveLogs(this.requestParams);
+			console.log(this.requestParams); */
   });
   }
 	keyPress() {

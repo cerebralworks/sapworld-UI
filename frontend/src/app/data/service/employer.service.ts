@@ -178,4 +178,11 @@ export class EmployerService extends CacheService {
     );
   }
 
+  savelogs = (params?) => {
+    return this.apiService.post('/api/logs', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
 }

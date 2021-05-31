@@ -5,14 +5,14 @@
 				<label>{{"postJob.jobType" | translate }}</label>
 				<div appMarkAsterisk class="mt-2"></div>
 				<div class="pt-2">
-					<button type="button" class="btn btn-fltr" id="1"  (click)="jobClick('Full Time',$event);">Full Time</button>
-					<button type="button" class="btn btn-fltr" id="2"  (click)="jobClick('Part Time ',$event);">Part Time</button>
-					<button type="button" class="btn btn-fltr" id="3"  (click)="jobClick('Contract',$event);">Contract</button>
-					<button type="button" class="btn btn-fltr" id="4"  (click)="jobClick('Freelance',$event);">Freelance</button>
-					<button type="button" class="btn btn-fltr" id="5"  (click)="jobClick('Internship',$event);">Internship</button>
-					<button type="button" class="btn btn-fltr" id="6"  (click)="jobClick('Temporary',$event);">Temporary </button>
+					<button type="button" class="btn btn-fltr jobtype" id="01"  (click)="jobClick('Full Time',$event);">Full Time</button>
+					<button type="button" class="btn btn-fltr jobtype" id="02"  (click)="jobClick('Part Time ',$event);">Part Time</button>
+					<button type="button" class="btn btn-fltr jobtype" id="03"  (click)="jobClick('Contract',$event);">Contract</button>
+					<button type="button" class="btn btn-fltr jobtype" id="04"  (click)="jobClick('Freelance',$event);">Freelance</button>
+					<button type="button" class="btn btn-fltr jobtype" id="05"  (click)="jobClick('Internship',$event);">Internship</button>
+					<!-- <button type="button" class="btn btn-fltr" id="6"  (click)="jobClick('Temporary',$event);">Temporary </button>
 					<button type="button" class="btn btn-fltr" id="7"  (click)="jobClick('Permanent',$event);">Permanent</button>
-					<button type="button" class="btn btn-fltr" id="8"  (click)="jobClick('Onsite',$event);">Onsite</button>
+					<button type="button" class="btn btn-fltr" id="8"  (click)="jobClick('Onsite',$event);">Onsite</button> -->
 				</div>
 			</div>
 			<small *ngIf="job_type_error" class="text-danger">Please Select the job type </small>
@@ -97,7 +97,7 @@
 				<label>Please choose the job of preferred countries</label>
 				<div class="pt-2">
 					<a *ngFor="let country of othercountry">
-						<button type="button" class="btn btn-fltr" id={{country.id}} (click)="countryClick(country.nicename,$event);">{{country.nicename}}</button>
+						<button type="button" class="btn btn-fltr country" id={{country.id}} (click)="countryClick(country.nicename,$event);">{{country.nicename}}</button>
 					</a>
 				</div>
 			</div>

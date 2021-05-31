@@ -49,7 +49,7 @@ const right = [
 		]),
 	],
 })
-export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
+export class CreateCandidateLayoutComponent implements OnInit {
 
 	public currentTabInfo: tabInfo = {tabNumber: 1, tabName: 'Personal Detail'};
 	public currentProgessor: tabProgressor;
@@ -62,14 +62,15 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 	public userPhotoInfo: any;
 	public userDetails: any;
 	public userInfo: any;
+	public requestParams: any;
 	public tabInfos: tabInfo[];
-
+	
 	constructor(
 		private formBuilder: FormBuilder,
 		private modalService: NgbModal,
 		public router: Router,
 		private route: ActivatedRoute,
-		private sharedApiService: SharedApiService,
+		private SharedAPIService: SharedApiService,
 		private userService: UserService,
 		private dataService: DataService,
 		private toastrService: ToastrService,
@@ -79,6 +80,7 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 
 	validateInfo = 0;
 	ngOnInit(): void {
+		 console.log({'Enter the oninit':'CreateCandidateLayoutComponent'})
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
@@ -105,12 +107,49 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
             this.validateInfo++;
           }
         })
+		this.ngAfterViewInitCheck();
+		 console.log({'Exist the oninit':'CreateCandidateLayoutComponent'})
 	}
 
 	validateOnAPI = 0;
 	validateOnForm = 0;
-	ngDoCheck(): void {
+	ngAfterViewInitCheck(){
+		console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
+		if(this.tabInfos && this.tabInfos.length &&  !this.utilsHelperService.isEmptyObj(this.userInfo)) {
+			
+				if (this.userInfo && this.userInfo.education_qualification == null) {
+					delete this.userInfo.education_qualification;
+				}
+				this.candidateForm.patchValue({
+					educationExp : {
+						...this.userInfo
+					},
+				});
+			
+				if (this.userInfo && this.userInfo.hands_on_experience == null) {
+				  delete this.userInfo.hands_on_experience;
+				}
+				this.candidateForm.patchValue({
+					skillSet : {
+						...this.userInfo
+					},
+				});
+				if (this.userInfo && this.userInfo.visa_sponsered == null) {
+					this.userInfo.visa_sponsered = false;
+				}
+				this.candidateForm.patchValue({
+					jobPref : {
+						...this.userInfo
+					},
+				});
+			
+		}
+		console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
 
+	}
+	
+	ngAfterViewInit(): void {
+		console.log({'Enter the ngAfterViewInit':'CreateCandidateLayoutComponent'})
 		if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
 			this.candidateForm.addControl('jobPref', new FormGroup({
 				job_type: new FormControl(null),
@@ -120,7 +159,7 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 				travel: new FormControl(null, Validators.required),
 				availability: new FormControl(null, Validators.required),
 				remote_only: new FormControl(false, Validators.required),
-				visa_sponsered: new FormControl(false, Validators.required),
+				visa_sponsered: new FormControl(false),
 				preferred_countries: new FormControl(null),
 			}));
 			this.candidateForm.addControl('skillSet', new FormGroup({
@@ -151,44 +190,14 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 				end_to_end_implementation: new FormControl(null),
 			}));
 			this.validateOnForm++
+			this.ngAfterViewInitCheck();
 		}
-		if(this.tabInfos && this.tabInfos.length && this.validateOnAPI == 0 && !this.utilsHelperService.isEmptyObj(this.userInfo)) {
-			let educationExpIndex = this.tabInfos.findIndex(val => val.tabNumber == 2);
-			if(educationExpIndex == -1) {
-				if (this.userInfo && this.userInfo.education_qualification == null) {
-					delete this.userInfo.education_qualification;
-				}
-				this.candidateForm.patchValue({
-					educationExp : {
-						...this.userInfo
-					},
-				});
-			}
-			let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
-			if(skillSetIndex == -1) {
-				if (this.userInfo && this.userInfo.hands_on_experience == null) {
-				  delete this.userInfo.hands_on_experience;
-				}
-				this.candidateForm.patchValue({
-					skillSet : {
-						...this.userInfo
-					},
-				});
-			}
-			let jobPrefIndex = this.tabInfos.findIndex(val => val.tabNumber == 4);
-			if(jobPrefIndex == -1) {
-				this.candidateForm.patchValue({
-					jobPref : {
-						...this.userInfo
-					},
-				});
-			}
-			this.validateOnAPI++
-		}
+		console.log({'Exist the ngAfterViewInit':'CreateCandidateLayoutComponent'})
 
 	}
 
 	onNext() {
+		//console.log({'Enter the onNext':'CreateCandidateLayoutComponent'})
 		if (this.slidingCounter != this.slindingList.length - 1) {
 			this.slidingCounter++;
 			setTimeout(() => {
@@ -204,6 +213,7 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 				}
 			 }, 300);
 		}
+		//console.log({'Exist the onNext':'CreateCandidateLayoutComponent'})
 	}
 
 	public removeValidators(form: FormGroup) {
@@ -242,6 +252,9 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 	}
 
 	onPrevious() {
+		//this.requestParams = {'Enter the onPrevious':'CreateCandidateLayoutComponent'};
+	// this.SharedAPIService.onSaveLogs(this.requestParams);
+	 // console.log(this.requestParams);
 		if (this.slidingCounter > 0) {
 			if(this.slidingCounter == 1) {
 				this.removeValidators(<FormGroup>this.candidateForm.controls['educationExp']);
@@ -255,6 +268,9 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 			}
 			this.slidingCounter--;
 		}
+		//this.requestParams = {'Exist the onPrevious':'CreateCandidateLayoutComponent'};
+	// this.SharedAPIService.onSaveLogs(this.requestParams);
+	 // console.log(this.requestParams)
 	}
 
 	onHeaderTabChange = (currentTabInfo: tabInfo) => {
@@ -288,6 +304,13 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
 
 		if(candidateInfo && candidateInfo.phone && candidateInfo.phone.e164Number) {
 			candidateInfo.phone = candidateInfo.phone.e164Number
+		}
+		if(candidateInfo && candidateInfo['work_authorization'] ) {
+			if(this.candidateForm.value.personalDetails['work_authorization']==1){
+			candidateInfo.authorized_country = [candidateInfo.nationality];
+			candidateInfo.preferred_countries = [candidateInfo.nationality];
+			candidateInfo.visa_type = null;}
+			
 		}
 
 		if(this.userInfo && this.userInfo.privacy_protection) {
@@ -362,7 +385,13 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
   }
 
   onToggleRegisterReview = (status) => {
+	 /*  this.requestParams = {'Enter the onToggleRegisterReview':'CreateCandidateLayoutComponent'};
+	 this.SharedAPIService.onSaveLogs(this.requestParams);
+	  console.log(this.requestParams) */
     this.isOpenedRegisterReviewModal = status;
+	 /* console.log({'Exist the onToggleRegisterReview':'CreateCandidateLayoutComponent'})
+	 this.requestParams = {'Exist the onToggleRegisterReview':'CreateCandidateLayoutComponent'};
+	 this.SharedAPIService.onSaveLogs(this.requestParams); */
   }
 
   private buildForm(): void {
@@ -371,47 +400,47 @@ export class CreateCandidateLayoutComponent implements OnInit, DoCheck {
   }
 
   onGetSkill = () => {
-    let requestParams: any = {};
-    requestParams.page = 1;
-    requestParams.limit = 1000;
-    requestParams.search = '';
-    this.sharedApiService.onGetSkill(requestParams);
+    this.requestParams = {};
+    this.requestParams.page = 1;
+    this.requestParams.limit = 1000;
+    this.requestParams.search = '';
+    this.SharedAPIService.onGetSkill(this.requestParams);
   }
 
   onGetIndustries = () => {
-    let requestParams: any = {};
-    requestParams.page = 1;
-    requestParams.limit = 1000;
-    requestParams.search = '';
-    this.sharedApiService.onGetIndustries(requestParams);
+    this.requestParams = {};
+    this.requestParams.page = 1;
+    this.requestParams.limit = 1000;
+    this.requestParams.search = '';
+    this.SharedAPIService.onGetIndustries(this.requestParams);
   }
   
   
     onGetCountry(query) {
-		let requestParams: any = {};
-		requestParams.page = 1;
-		requestParams.limit = 1000;
-		requestParams.status = 1;
-		requestParams.search = query;
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 1000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
 
-		this.sharedApiService.onGetCountry(requestParams);
+		this.SharedAPIService.onGetCountry(this.requestParams);
 		 
 	  }
 	  
 	onGetLanguage(query) {
-		let requestParams: any = {};
-		requestParams.page = 1;
-		requestParams.limit = 1000;
-		requestParams.status = 1;
-		requestParams.search = query;
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 1000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
 
-		this.sharedApiService.onGetLanguage(requestParams);
+		this.SharedAPIService.onGetLanguage(this.requestParams);
 	  }
 
   onGetCandidateInfo(userId) {
-    let requestParams: any = {};
-    requestParams.id = userId;
-    this.userService.profileView(requestParams).subscribe(
+    this.requestParams = {};
+    this.requestParams.id = userId;
+    this.userService.profileView(this.requestParams).subscribe(
       response => {
         if(response && response.details) {
           this.userDetails = {...response.details, meta: response.meta};

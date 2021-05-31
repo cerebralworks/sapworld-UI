@@ -84,8 +84,11 @@
 				</ul>
 			</div>
 			<div class="col-lg-6 info">
-				<ul class="list-group ul-value">
+				<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 0 ">
 					{{utilsHelperService.onConvertArrayToString(userInfo?.visa_type)}}
+				</ul>
+				<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 1 ">
+					{{"postYourResume.iNeedVisaAponsorship" | translate }}
 				</ul>
 			</div>
 		</div>
@@ -152,25 +155,51 @@
 			 <h6>{{"dashboard.experienceAndSkills" | translate }}</h6>
 		</div>
 	</div>
+</div>
+<div class="row">
 	<div class="col-lg-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"dashboard.totalYearsOfExp" | translate }}</li>
-			<li class="list-group-item">{{"dashboard.totalSapExp" | translate }}</li>
-			<li class="list-group-item">{{"dashboard.domainsWorked" | translate }}</li>
-			<li class="list-group-item" style="min-height: 46px;">{{"postYourResume.handsOnExperience" | translate }}</li>
-			<li class="list-group-item">{{"dashboard.knowledgeOn" | translate }}</li>
-			<li class="list-group-item">{{"postJob.programmingSkills" | translate }}</li>
-			<li class="list-group-item">{{"postYourResume.others" | translate }}</li>
-			<li class="list-group-item" *ngIf="!fieldsExclude?.clients_worked">{{"postYourResume.previousEmployers" | translate}}</li>
-			<li class="list-group-item">{{"dashboard.languageKnown" | translate}}</li>
-     
 		</ul>
 	</div>
 	<div class="col-lg-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize">{{userInfo?.experience ? userInfo?.experience + ' Years' : '--'}}</li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item">{{"dashboard.totalSapExp" | translate }}</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
 			<li class="list-group-item text-capitalize">{{userInfo?.sap_experience ? userInfo?.sap_experience + ' Years': '--'}} </li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item">{{"dashboard.domainsWorked" | translate }}</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
 			<li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(userInfo?.domains_worked)}}</li>
+		</ul>
+	</div>
+</div>	
+<div class="row">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item" style="min-height: 46px;">{{"postYourResume.handsOnExperience" | translate }}</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
 			<li class="list-group-item text-uppercase d-flex handsExp">
 				<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 					<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
@@ -183,29 +212,84 @@
 					<p>--</p>
 				</ng-template>
 			</li>
-			<li class="list-group-item text-uppercase">
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item">{{"dashboard.knowledgeOn" | translate }}</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
+			<!-- <li class="list-group-item text-uppercase"> -->
 				<ng-container *ngIf="userInfo?.skills?.length; else elseSkillsTemplate">
-					<span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
+					<li class=" text-uppercase m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 						<span class="text-wrap-custom float-left" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">
 							{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
 						</span>
-					</span>
+					</li>
 				</ng-container>
 				<ng-template #elseSkillsTemplate>
-					<p>--</p>
+					<li>--</li>
 				</ng-template>
-			</li>
+			<!-- </li> -->
+		</ul>
+	</div>
+</div>	
+<div class="row">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item">{{"postJob.programmingSkills" | translate }}</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
 			<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item">{{"postYourResume.others" | translate }}</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
 			<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+		</ul>
+	</div>
+</div>	
+<div class="row">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item" *ngIf="!fieldsExclude?.clients_worked">{{"postYourResume.previousEmployers" | translate}}</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
 			<li class="list-group-item text-capitalize"  *ngIf="!fieldsExclude?.clients_worked">
 				{{utilsHelperService.onConvertArrayToString(userInfo?.clients_worked)}}
 			</li>
+		</ul>
+	</div>
+</div>	
+<div class="row">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item">{{"dashboard.languageKnown" | translate}}</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
 			<li class="list-group-item text-capitalize">
 				{{findLanguageArray(userInfo?.language_known)}}
 			</li>
 		</ul>
 	</div>
-</div>
+</div>	
 <div class="row mt-3 info-box" *ngIf="userInfo?.certification">
 	<div class="col-lg-12" *ngIf="userInfo?.certification.length !=0">
 		<div class="pj-title mb-3">

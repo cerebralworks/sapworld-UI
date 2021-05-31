@@ -21,11 +21,11 @@
           noResultsFound="No results found"
            >
            <ng-template ngx-select-option-selected let-option let-text="text">
-            {{option?.text ? option?.text?.split('-')[0] : ''}}
+           {{option?.text ? option?.text?.split('-')[0] : ''}}
           </ng-template>
 
           <ng-template ngx-select-option let-option let-text="text">
-              {{option?.text}}
+              <span *ngIf="indexOfFilter(option?.value) ==true " >{{option?.text}}</span>
           </ng-template>
 
           <ng-template ngx-select-option-not-found>

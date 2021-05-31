@@ -78,7 +78,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	CountryISO = CountryISO;
 	PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-	 
+	public requestParams: any;		 
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
@@ -97,7 +97,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-		
+		/* this.requestParams = {'Enter the oninit':'personalComponent'};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
 		this.randomNum = Math.random();
 		this.createForm();
 		
@@ -127,10 +128,15 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         }
       }
     );
+	/* this.requestParams = {'Exist the oninit':'personalComponent'};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+	 
 	  setTimeout(async () => {
+		 /*  this.requestParams = {'Enter the ngOnChanges':'personalComponent'};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
     if(this.childForm && this.savedUserDetails) {
 		if(this.childForm.value.personalDetails.phone){
 			this.savedUserDetails.first_name=this.childForm.value.personalDetails.first_name;
@@ -245,7 +251,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 				return a =="226" || a =="225" || a =="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"
 			});
 			var tempData = value.filter(function(a,b){
-				return a !="226" && a !="225" && a !="13" && a =="99" && a =="192" && a =="38" && a =="107" && a =="129" && a =="73"
+				return a !="226" || a !="225" || a !="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"
 			});
 			this.savedUserDetails.authorized_country = tempData;
 			this.childForm.patchValue({
@@ -289,10 +295,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         // })
       }
     }
+	/* this.requestParams = {'Exist the onchange':'personalComponent'};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
 	  }); 
   }
 	
 	checkNumber(){
+		
 		if(this.childForm.controls.personalDetails.controls.phone.status=="INVALID"){
 			if (this.childForm.controls.personalDetails.controls.phone.errors.required) {
 				this.invalidMobile = false;
@@ -309,7 +318,44 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			this.invalidMobile = false;
 		}
 	}
- 
+	onChangeCountry(a){
+		if(a!='-1'){
+			if(a =="226" || a =="225" || a =="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"){
+				document.getElementById(a).className = 'btn btn-fltr btn-fltr-active';
+				if(this.childForm.value.personalDetails.authorized_country_select==null){
+					var value =[a];
+					this.childForm.patchValue({ 
+							personalDetails: { 
+					
+								authorized_country_select: value 
+					
+							} 
+						})
+
+				}else{
+					this.childForm.value.personalDetails.authorized_country_select.push(a);
+				}
+			}else{
+				var tempCountryVal = this.childForm.value.personalDetails.authorized_country;
+				if(tempCountryVal){
+					if(tempCountryVal.length){
+						tempCountryVal.push(a);
+					}else{
+						tempCountryVal=[a];
+					}
+				}else{
+					tempCountryVal=[a];
+				}
+				this.childForm.patchValue({personalDetails: {authorized_country:[],}});
+				this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
+			}
+		}
+	}
+	onRemoveCountryEvent(id){
+		if(this.childForm.value.personalDetails.nationality == id){
+			this.onChangeCountry(id);
+		}
+	}
   onFindMediaLinks = (mediaType: string, array: any[]) => {
     if(mediaType) {
       const link = array.find((val, index) => {
@@ -545,6 +591,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	onChangeFieldValue = (fieldName, value) => {
 		if(value==0){
 			this.showAuthorization =true;
+			this.childForm.get('personalDetails').controls['visa_type'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
 			this.childForm.patchValue({
 			  personalDetails: {
 				[fieldName]: value,
@@ -552,6 +600,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			});
 		}else{
 			this.showAuthorization = false;
+			
+			this.childForm.get('personalDetails').controls['visa_type'].setValidators(null)
+			this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
 			this.childForm.patchValue({
 			  personalDetails: {
 				[fieldName]: value,
@@ -637,4 +688,14 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	  }
 	  console.log(value);
   }
+  
+  indexOfFilter(hasIndex) {
+      
+	  if(this.t.value.filter(function(a,b){ return a.language == hasIndex }).length !=0 ){
+		  return false;
+	  }else{
+		 return true;
+	  }
+       
+	}
 	}

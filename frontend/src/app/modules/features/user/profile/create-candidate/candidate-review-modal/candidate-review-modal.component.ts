@@ -8,6 +8,8 @@ import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
+import { SharedApiService } from '@shared/service/shared-api.service';
+
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
 @Component({
   selector: 'app-candidate-review-modal',
@@ -58,7 +60,8 @@ export class CandidateReviewModalComponent implements OnInit {
 	public userPhotoInfo: any;
 	public nationality: any[] = [];
 	public languageSource: any[] = [];
-
+	public requestParams: any;
+	
 	@ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
 
 	constructor(
@@ -71,11 +74,14 @@ export class CandidateReviewModalComponent implements OnInit {
 		public route: ActivatedRoute,
 		public utilsHelperService: UtilsHelperService,
 		private userSharedService: UserSharedService,
+		private SharedAPIService: SharedApiService,
 		private dataService: DataService
 	) { }
 
 	ngOnInit(): void {
-		
+		/* this.requestParams = {'Entering the onInit':'ReviewComponent'};
+	 this.SharedAPIService.onSaveLogs(this.requestParams);
+	  console.log(this.requestParams); */
 		this.childForm = this.parentF.form;
 		this.jobId = this.route.snapshot.queryParamMap.get('id');
 		this.userSharedService.getUserProfileDetails().subscribe(
@@ -98,10 +104,16 @@ export class CandidateReviewModalComponent implements OnInit {
 			  this.languageSource = response;
 			}
 		});
+		/* this.requestParams = {'Exist the onInit':'ReviewComponent'};
+	 this.SharedAPIService.onSaveLogs(this.requestParams);
+	  console.log(this.requestParams); */
 	}
 
 	ngAfterViewInit(): void {
 		if (this.toggleRegisterReviewModal) {
+			/* this.requestParams = {'Entering the toggleRegisterReviewModal':'reviewComponent'};
+			this.SharedAPIService.onSaveLogs(this.requestParams);
+			console.log(this.requestParams); */
 			this.mbRef = this.modalService.open(this.registerReviewModal, {
 				windowClass: 'modal-holder',
 				size: 'lg',
@@ -109,12 +121,21 @@ export class CandidateReviewModalComponent implements OnInit {
 				backdrop: 'static',
 				keyboard: false
 			});
+			/* this.requestParams = {'Exist the toggleRegisterReviewModal':'reviewComponent'};
+			this.SharedAPIService.onSaveLogs(this.requestParams);
+			console.log(this.requestParams); */
 		}
 	}
 
 	ngOnDestroy(): void {
+		/* this.requestParams = {'Enter the ngOnDestroy':'reviewComponent'};
+			this.SharedAPIService.onSaveLogs(this.requestParams);
+			console.log(this.requestParams); */
 		this.onClickCloseBtn(false);
 		this.registerReviewModalSub && this.registerReviewModalSub.unsubscribe();
+		/* this.requestParams = {'Exist the ngOnDestroy':'reviewComponent'};
+			this.SharedAPIService.onSaveLogs(this.requestParams);
+			console.log(this.requestParams); */
 	}
 
 	onClickCloseBtn(status){
@@ -148,12 +169,16 @@ export class CandidateReviewModalComponent implements OnInit {
 	}
 	
 	findEducation(value){
+		if(value){
 		if(value.length!=0 && value.length!=null && value.length!=undefined){
 			return this.utilsHelperService.onConvertArrayToString(value.map(function(a,b){return a.degree}));
 		}else{
 			return '--';
 		}
+		
+		}
 		return '--';
+		
 	}
 	
 	findLanguageArray(value){

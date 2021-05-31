@@ -40,7 +40,7 @@
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
           <label>{{"postYourResume.mobileNumber" | translate }}</label>
-          <ngx-intl-tel-input (ngModelChange)="checkNumber()"
+          <ngx-intl-tel-input appMarkAsterisk (ngModelChange)="checkNumber()"
           [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
           [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
@@ -93,7 +93,8 @@
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postYourResume.nationality" | translate }} </label>  <select appMarkAsterisk formControlName="nationality" class="form-control">
+				<label>{{"postYourResume.nationality" | translate }} </label> 
+				<select appMarkAsterisk formControlName="nationality" class="form-control" (change)="onChangeCountry($event.target.value)">
 					<option value="-1">Please Select {{"postYourResume.nationality" | translate }}</option>
 					<option *ngFor="let name of nationality" value={{name.id}}>{{name.nicename}}</option>
 				  </select>		
@@ -164,6 +165,7 @@
 					[multiple]="true"
 					[items]="othercountry"
 					formControlName="authorized_country"
+					(remove)="onRemoveCountryEvent($event)"
 					optionValueField="id"
 					optionTextField="nicename"
 					autoClearSearch="true"
@@ -187,7 +189,7 @@
 		<div class="col-lg-4 col-md-6" *ngIf="showAuthorization">
 			<div class=" form-group">
 				<label>{{"postYourResume.visatype" | translate }}</label>
-				<ng-select id="visa_type" [addTag]="true" addTagText="Add Visa Types " bindValue="label" bindLabel="label" placeholder="Ex. H1B, H2B" appendTo="body" multiple="true" formControlName="visa_type">
+				<ng-select appMarkAsterisk id="visa_type" [addTag]="true" addTagText="Add Visa Types " bindValue="label" bindLabel="label" placeholder="Ex. H1B, H2B" appendTo="body" multiple="true" formControlName="visa_type">
 				</ng-select>
 				<app-control-messages [control]="f['visa_type']"></app-control-messages>	
 			</div>
@@ -217,7 +219,7 @@
 				  </ng-template>
 
 				  <ng-template ngx-select-option let-option let-text="text">
-					  {{option?.text}}
+					   <span *ngIf="indexOfFilter(option?.value) ==true " >{{option?.text}}</span>
 				  </ng-template>
 
 				  <ng-template ngx-select-option-not-found>

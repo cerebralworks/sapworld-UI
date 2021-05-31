@@ -4,6 +4,7 @@ import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 @Component({
 	selector: 'app-create-candidate-job-preference',
@@ -26,12 +27,13 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		this.savedUserDetails = inFo;
 	}
 	public othercountry: any[] = [];
-  
+ 	public requestParams: any;	 
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
 		private formBuilder: FormBuilder,
 		private userSharedService: UserSharedService,
+		private SharedAPIService: SharedApiService,
 		private dataService: DataService
 	) { }
 	
@@ -40,7 +42,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-    
+		/* this.requestParams = {'Enter the ngOnInit':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
 		this.createForm();
 
 		this.availabilityArray = [
@@ -77,7 +80,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				this.othercountry =  response;
 			}
 		});
-	
+		/* this.requestParams = {'Exist the ngOnInit':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
 	}
 	
 	/**
@@ -87,11 +91,18 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout(async () => {
+			/* this.requestParams = {'Enter the ngOnChanges':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
 			if (this.childForm && this.savedUserDetails) {
 				if(this.childForm.value.personalDetails.authorized_country){
 					if(this.childForm.value.personalDetails.authorized_country.length !=0){
 						var id = this.childForm.value.personalDetails.authorized_country;
+						var idVals = this.childForm.value.personalDetails.nationality
+						id.push(idVals);
 						this.othercountry = this.othercountry.filter(t=>{return id.includes(t.id)})
+						if(document.getElementById(idVals)){
+								//document.getElementById(idVals).className='btn btn-fltr country btn-fltr-active';
+							}
 					}else{
 						this.othercountry =[];
 					}
@@ -99,27 +110,27 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				if(this.savedUserDetails.job_type!=null){		  
 					if(this.savedUserDetails.job_type.length !=0){
 						for(let i=0;i<this.savedUserDetails.job_type.length;i++){
-							for(let j=0;j<document.getElementsByClassName('btn-fltr').length;j++){
-								if(document.getElementsByClassName('btn-fltr').item(j)['id'] == this.savedUserDetails.job_type[i]){
-									document.getElementsByClassName('btn-fltr').item(j)['className'] = document.getElementsByClassName('btn-fltr').item(j)['className'] +' btn-fltr-active';
+							for(let j=0;j<document.getElementsByClassName('jobtype').length;j++){
+								if(document.getElementsByClassName('jobtype').item(j)['id'] == this.savedUserDetails.job_type[i]){
+									document.getElementsByClassName('jobtype').item(j)['className'] = document.getElementsByClassName('jobtype').item(j)['className'] +' btn-fltr-active';
 								}
 							}
 						}
 					}else{
 						this.childForm.patchValue({ 
 							jobPref: { 
-								job_type: ["1"] 
+								job_type: ["01"] 
 							} 
 						})
-						document.getElementById("1")['className'] = document.getElementById("1")['className'] +' btn-fltr-active';
+						document.getElementById("01")['className'] = document.getElementById("01")['className'] +' btn-fltr-active';
 					}
 				}else{
 					this.childForm.patchValue({ 
 						jobPref: { 
-							job_type: ["1"] 
+							job_type: ["01"] 
 						} 
 					});
-					document.getElementById("1")['className'] = document.getElementById("1")['className'] +' btn-fltr-active';
+					document.getElementById("01")['className'] = document.getElementById("01")['className'] +' btn-fltr-active';
 				}
 			}
 			if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
@@ -128,8 +139,20 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					if(educationExpIndex == -1) {
 						if(this.childForm.value.jobPref.preferred_countries){
 							var intersection = this.childForm.value.personalDetails.authorized_country.filter(element => this.childForm.value.jobPref.preferred_countries.includes(element));
-							this.savedUserDetails.preferred_countries = intersection ;
+							var idVals = this.childForm.value.personalDetails.nationality;
+							intersection.push(idVals) ;
+							this.savedUserDetails.preferred_countries = intersection;
+							if(document.getElementById(idVals)){
+								document.getElementById(idVals).className='btn btn-fltr country btn-fltr-active';
+							}
 						}
+						if(this.savedUserDetails.preferred_countries!=null || this.savedUserDetails.preferred_countries !=undefined){
+							var idVals = this.childForm.value.personalDetails.nationality;
+							this.savedUserDetails.preferred_countries = [idVals];
+							if(document.getElementById(idVals)){
+								document.getElementById(idVals).className='btn btn-fltr country btn-fltr-active';
+							}
+						} 
 						this.childForm.patchValue({
 								educationExp : {
 									...this.savedUserDetails
@@ -139,14 +162,17 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						if(this.savedUserDetails.preferred_countries!=null){		  
 							if(this.savedUserDetails.preferred_countries.length){
 								for(let i=0;i<this.savedUserDetails.preferred_countries.length;i++){
-									for(let j=0;j<document.getElementsByClassName('btn-fltr').length;j++){
-										if(document.getElementsByClassName('btn-fltr').item(j)['id'] == this.savedUserDetails.preferred_countries[i]){
-											document.getElementsByClassName('btn-fltr').item(j)['className'] = 'btn btn-fltr btn-fltr-active';
+									for(let j=0;j<document.getElementsByClassName('country').length;j++){
+										if(document.getElementsByClassName('country').item(j)['id'] == this.savedUserDetails.preferred_countries[i]){
+											document.getElementsByClassName('country').item(j)['className'] = 'btn btn-fltr country btn-fltr-active';
+										}else{
+											//document.getElementsByClassName('country').item(j)['className'] = 'btn btn-fltr country';
 										}
 									}
 								}
 							}
 						}
+						
 					let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
 					if(skillSetIndex == -1) {
 						this.childForm.patchValue({
@@ -169,6 +195,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					},
 				});
 			}
+			/* this.requestParams = {'Exist the ngOnChanges':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
 		});
 	}
 
@@ -177,7 +205,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	**/
 	
 	createForm() {
-	  
+	  /* this.requestParams = {'Enter the createForm':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				this.SharedAPIService.onSaveLogs(this.requestParams); */
 		this.childForm = this.parentF.form;
 
 		this.childForm.addControl('jobPref', new FormGroup({
@@ -191,6 +220,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			remote_only: new FormControl(false, Validators.required),
 			visa_sponsered: new FormControl(false, Validators.required),
 		}));
+		 this.requestParams = {'Exist the createForm':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
 
 	get f() {
@@ -222,7 +253,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	**/
 	
 	countryClick(value,clr){
-		
+		 //this.requestParams = {'Enter the countryClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				//this.SharedAPIService.onSaveLogs(this.requestParams);
 		var temp = clr.toElement.className.split(' ');
 		if(temp[temp.length-1]=='btn-fltr-active'){
 			this.childForm.value.jobPref.preferred_countries.pop(clr.toElement.id);
@@ -240,6 +272,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				this.childForm.value.jobPref.preferred_countries.push(clr.toElement.id);
 			}
 		}
+		 //this.requestParams = {'Exist the countryClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
 	
 	/** 
@@ -247,6 +281,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	**/
 	
 	jobClick(value,clr){
+		 //this.requestParams = {'Enter the jobClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	  var temp = clr.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		 if(this.childForm.value.jobPref.job_type){
@@ -273,6 +309,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			}
 			this.job_type_error = false;
 		}
+		// this.requestParams = {'Exist the jobClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
+				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
 	
 }

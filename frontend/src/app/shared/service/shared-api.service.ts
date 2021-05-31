@@ -67,5 +67,15 @@ export class SharedApiService {
       }
     )
   }
+  
+  onSaveLogs(requestParams: any): any {
+    this.employerService.savelogs(requestParams).subscribe(
+      response => {
+        
+      }, error => {
+		  
+      }
+    )
+  }
 
 }
