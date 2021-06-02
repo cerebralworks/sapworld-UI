@@ -47,6 +47,9 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     this.dataService.getSkillDataSource().subscribe(
       response => {
         if (response && response.items) {
+		 for(let i=0;i<response.items.length;i++){
+			  response['items'][i]['tags'] =response['items'][i]['tag']+' -- '+response['items'][i]['long_tag'];
+		  } 
           this.skillItems = [...response.items];
           this.skillsItems = [...response.items];
           this.commonSkills = [...response.items];
@@ -118,9 +121,9 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
     });
   }
-	indexOfFilter(hasIndex) {
-      
-	  if(this.t.value.filter(function(a,b){ return a.skill_id == hasIndex }).length !=0 ){
+	indexOfFilter(hasIndex,indexvalue) {
+      var tempArray = this.t.value;
+	  if(tempArray.filter(function(a,b){ return a.skill_id == hasIndex }).length !=0 ){
 		  return false;
 	  }else{
 		 return true;

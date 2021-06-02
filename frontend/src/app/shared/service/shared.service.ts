@@ -54,6 +54,9 @@ export class SharedService {
      //let jobTypeArray = ['','', '', '', '', '', 'Temporary', 'Permanent', 'Onsite'];
      if(index) {
 		 if(index.length !=0) {
+			 var index = index.filter(function(elem, index, self) {
+				return index === self.indexOf(elem);
+			})
 			 for(let i=0;i<index.length;i++){
 				 var id = index[i];
 				 var datas = jobTypeArray.filter(function(a,b){ return a.id == id });
