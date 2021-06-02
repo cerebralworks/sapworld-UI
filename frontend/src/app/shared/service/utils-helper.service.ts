@@ -84,6 +84,7 @@ export class UtilsHelperService {
 
   onSplitTag = (string: string) => {
     if (!string) return '--';
+	return string;
     const splitedString = string.split('-');
     if (splitedString.length && splitedString[1]) {
       return splitedString[1]
