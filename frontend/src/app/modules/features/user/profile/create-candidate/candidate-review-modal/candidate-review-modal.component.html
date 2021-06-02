@@ -299,7 +299,7 @@
 						
 							<small style="color: #000;font-size: 14px;font-weight: 600;" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id')">
 							<li class=" text-uppercase m-0 float-left" >
-								{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
+								{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}
 							</li>
 							</small>
 						
