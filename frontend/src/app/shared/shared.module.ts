@@ -39,6 +39,7 @@ import { PhonePipe } from './pipes/phone.pipe';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
     ChangePasswordComponent
   ],
   imports: [
+    NgbModule,
     CommonModule,
     RouterModule,
     FormsModule,

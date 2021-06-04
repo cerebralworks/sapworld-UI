@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component,ViewEncapsulation, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -8,6 +8,7 @@ import { trigger, style, animate, transition, state, group } from '@angular/anim
 	selector: 'app-shared-user-profile',
 	templateUrl: './shared-user-profile.component.html',
 	styleUrls: ['./shared-user-profile.component.css'],
+	encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('slideInOut', [
       state('in', style({ height: '*', opacity: 0 })),

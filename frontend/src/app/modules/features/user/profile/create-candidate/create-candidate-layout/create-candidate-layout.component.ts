@@ -116,7 +116,25 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	ngAfterViewInitCheck(){
 		console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
 		if(this.tabInfos && this.tabInfos.length &&  !this.utilsHelperService.isEmptyObj(this.userInfo)) {
-			
+				if (this.candidateForm.controls.educationExp !=undefined && this.userInfo && this.userInfo.education_qualification && Array.isArray(this.userInfo.education_qualification)) {
+					if(this.userInfo.education_qualification.length == 0){
+						this.candidateForm.controls.educationExp['controls']['education_qualification'].removeAt(0);
+						this.candidateForm.controls.educationExp['controls']['education_qualification'].push(this.formBuilder.group({
+							degree: [''],
+							field_of_study: [null],
+							year_of_completion: [null, [Validators.min(4)]]
+						  }));
+					}else if ((this.userInfo.education_qualification.length == 1) || (this.candidateForm.controls.educationExp['controls']['education_qualification'] && this.candidateForm.controls.educationExp['controls']['education_qualification'].length) !== (this.userInfo.education_qualification && this.userInfo.education_qualification.length)) {
+					 this.candidateForm.controls.educationExp['controls']['education_qualification'].removeAt(0);
+					  this.userInfo.education_qualification.map((value, index) => {
+						this.candidateForm.controls.educationExp['controls']['education_qualification'].push(this.formBuilder.group({
+							degree: [''],
+							field_of_study: [null],
+							year_of_completion: [null, [Validators.min(4)]]
+						  }));
+					  });
+					}
+				  }
 				if (this.userInfo && this.userInfo.education_qualification == null) {
 					delete this.userInfo.education_qualification;
 				}
@@ -125,7 +143,19 @@ export class CreateCandidateLayoutComponent implements OnInit {
 						...this.userInfo
 					},
 				});
-			
+				if (this.candidateForm.controls.skillSet !=undefined && this.userInfo && this.userInfo.hands_on_experience && Array.isArray(this.userInfo.hands_on_experience)) {
+					if ((this.userInfo.hands_on_experience.length == 1) || (this.candidateForm.controls.skillSet['controls']['hands_on_experience'] && this.candidateForm.controls.skillSet['controls']['hands_on_experience'].length) !== (this.userInfo.hands_on_experience && this.userInfo.hands_on_experience.length)) {
+					this.candidateForm.controls.skillSet['controls']['hands_on_experience'].removeAt(0);
+				this.userInfo.hands_on_experience.map((value, index) => {
+				  value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
+				  this.candidateForm.controls.skillSet['controls']['hands_on_experience'].push(this.formBuilder.group({
+					  skill_id: [null, Validators.required],
+					  skill_name: [''],
+					  experience: ['', [Validators.required,]],
+					  exp_type: ['years', [Validators.required]]
+					}));
+				});
+				}}
 				if (this.userInfo && this.userInfo.hands_on_experience == null) {
 				  delete this.userInfo.hands_on_experience;
 				}
@@ -147,7 +177,6 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
 
 	}
-	
 	ngAfterViewInit(): void {
 		console.log({'Enter the ngAfterViewInit':'CreateCandidateLayoutComponent'})
 		if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
@@ -341,7 +370,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			this.onUserUpdate(candidateInfo);
 		}
 	}
-
+    
 	randomString(length, chars) {
 		var result = '';
 		for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component,ViewEncapsulation, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ControlContainer, FormBuilder, FormGroupDirective } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
@@ -15,6 +15,7 @@ import { trigger, style, animate, transition, state, group } from '@angular/anim
   selector: 'app-candidate-review-modal',
   templateUrl: './candidate-review-modal.component.html',
   styleUrls: ['./candidate-review-modal.component.css'],
+	encapsulation: ViewEncapsulation.None,
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
   animations: [
     trigger('slideInOut', [

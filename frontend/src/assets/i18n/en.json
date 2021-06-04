@@ -15,7 +15,7 @@
     "default": "Default",
     "addResume": "Add Resume",
     "resume": "Add Resume",
-    "coverLetter": "Covering Letter",
+    "coverLetter": "Cover Letter",
     "addCover": "Add Letter"
   },
   "home": {
@@ -94,7 +94,7 @@
     "filter": "Filter",
     "resume": "Resume",
     "jobsApplied": "Jobs Applied",
-    "myResumes": "My Resumes",
+    "myResumes": "ATTACHMENT",
     "mail": "Mail",
     "candidateName": "Candidate Name",
     "position": "Position",

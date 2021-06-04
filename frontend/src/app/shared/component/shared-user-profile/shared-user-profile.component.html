@@ -197,14 +197,15 @@
 		<ul class="list-group">
 			<li class="list-group-item" style="min-height: 46px;">{{"postYourResume.handsOnExperience" | translate }}</li>
 		</ul>
+		
 	</div>
 	<div class="col-lg-8 info">
 		<ul class="list-group">
-			<li class="list-group-item text-uppercase d-flex handsExp">
+			<li class="list-group-item text-uppercase d-flex handsExps skills">
 				<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 					<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
-						<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2">
-							{{item?.skill_id ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag) : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+						<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
+							{{item?.skill_id ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag) : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
 						</div>
 					</ng-container>
 				</ng-container>
@@ -223,18 +224,18 @@
 	</div>
 	<div class="col-lg-8 info">
 		<ul class="list-group">
-			<!-- <li class="list-group-item text-uppercase"> -->
+			 <li class="list-group-item text-uppercase"> 
 				<ng-container *ngIf="userInfo?.skills?.length; else elseSkillsTemplate">
-					<li class=" text-uppercase m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
-						<span class="text-wrap-custom float-left" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">
-							{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag): '--'}}
+					<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
+						<span style="cursor: pointer;" class="text-wrap-custom float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-class"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
+							{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}
 						</span>
-					</li>
+					</small>
 				</ng-container>
 				<ng-template #elseSkillsTemplate>
 					<li>--</li>
 				</ng-template>
-			<!-- </li> -->
+			</li> 
 		</ul>
 	</div>
 </div>	
