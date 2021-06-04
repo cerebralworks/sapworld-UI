@@ -7,9 +7,10 @@ const routes: Routes = [];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: "enabled",
-      useHash: true,
-    }),
+    scrollPositionRestoration: "enabled",
+    useHash: true,
+    relativeLinkResolution: 'legacy'
+}),
     LayoutModule
   ],
   exports: [RouterModule]

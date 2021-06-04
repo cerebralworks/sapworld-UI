@@ -219,7 +219,29 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			  authorized_country: this.savedUserDetails.authorized_country,
         }
       });
-	  
+		if(this.savedUserDetails.work_authorization==0){
+			this.showAuthorization =true;
+			this.childForm.get('personalDetails').controls['visa_type'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
+			this.childForm.patchValue({
+			  personalDetails: {
+				['work_authorization']: this.savedUserDetails.work_authorization,
+			  }
+			});
+		}else{
+			this.showAuthorization = false;
+			
+			this.childForm.get('personalDetails').controls['visa_type'].setValidators(null)
+			this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
+			this.childForm.patchValue({
+			  personalDetails: {
+				['work_authorization']: this.savedUserDetails.work_authorization,
+				['visa_type']: null,
+			  }
+			});
+		}
+		
+  
       if(this.savedUserDetails && this.savedUserDetails.social_media_link && this.savedUserDetails.social_media_link.length > 0) {
         this.childForm.patchValue({
           personalDetails: {
@@ -321,33 +343,35 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	onChangeCountry(a){
 		if(a!='-1'){
 			if(a =="226" || a =="225" || a =="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"){
-				document.getElementById(a).className = 'btn btn-fltr btn-fltr-active';
-				if(this.childForm.value.personalDetails.authorized_country_select==null){
-					var value =[a];
-					this.childForm.patchValue({ 
-							personalDetails: { 
-					
-								authorized_country_select: value 
-					
-							} 
-						})
+				if(document.getElementById(a)){
+					document.getElementById(a).className = 'btn btn-fltr btn-fltr-active';
+					if(this.childForm.value.personalDetails.authorized_country_select==null){
+						var value =[a];
+						this.childForm.patchValue({ 
+								personalDetails: { 
+						
+									authorized_country_select: value 
+						
+								} 
+							})
 
+					}else{
+						this.childForm.value.personalDetails.authorized_country_select.push(a);
+					}
 				}else{
-					this.childForm.value.personalDetails.authorized_country_select.push(a);
-				}
-			}else{
-				var tempCountryVal = this.childForm.value.personalDetails.authorized_country;
-				if(tempCountryVal){
-					if(tempCountryVal.length){
-						tempCountryVal.push(a);
+					var tempCountryVal = this.childForm.value.personalDetails.authorized_country;
+					if(tempCountryVal){
+						if(tempCountryVal.length){
+							tempCountryVal.push(a);
+						}else{
+							tempCountryVal=[a];
+						}
 					}else{
 						tempCountryVal=[a];
 					}
-				}else{
-					tempCountryVal=[a];
+					this.childForm.patchValue({personalDetails: {authorized_country:[],}});
+					this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
 				}
-				this.childForm.patchValue({personalDetails: {authorized_country:[],}});
-				this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
 			}
 		}
 	}
@@ -593,6 +617,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			this.showAuthorization =true;
 			this.childForm.get('personalDetails').controls['visa_type'].setValidators([Validators.required])
 		  this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
+			this.onChangeCountry(this.childForm.value.personalDetails.nationality);
 			this.childForm.patchValue({
 			  personalDetails: {
 				[fieldName]: value,
@@ -603,11 +628,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			
 			this.childForm.get('personalDetails').controls['visa_type'].setValidators(null)
 			this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
+			this.onChangeCountry(this.childForm.value.personalDetails.nationality);
 			this.childForm.patchValue({
 			  personalDetails: {
 				[fieldName]: value,
 				['visa_type']: null,
-				['authorized_country']: null,
 			  }
 			});
 		}
