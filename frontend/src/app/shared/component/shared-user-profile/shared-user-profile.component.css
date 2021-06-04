@@ -3,3 +3,39 @@
     min-height: 26px;
 	font-weight: 600;
 }
+.my-custom-class .tooltip-inner {
+    color: #000;
+    background: #fff;
+    background-color: #fff;
+	border:1px solid #000;
+}
+  .my-custom-class .arrow::before {
+      border-top-color: #000;
+}
+.my-custom-class .tooltip.show {
+    opacity: 10 !important;
+}
+.tooltip.show {
+    opacity: 10 !important;
+}
+.my-custom-classes .tooltip-inner {
+    color: #000;
+    background: #fff;
+    background-color: #fff;
+	border:1px solid #000;
+}
+  .my-custom-classes .arrow::before {
+      border-top-color: #000;
+}
+.knldge{
+	cursor:pointer;
+	font-size: 14px;
+    font-weight: 600;
+}
+
+.skils-short:last-child {
+  border-right: none !important;
+}
+.handsExps:hover{
+		overflow-x:auto !important;
+	}

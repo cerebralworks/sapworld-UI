@@ -12,7 +12,7 @@ import { CreateCandidateJobPreferenceComponent } from './create-candidate-job-pr
 import { CandidateReviewModalComponent } from './candidate-review-modal/candidate-review-modal.component';
 import { Ng2TelInputModule } from 'ng2-tel-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 const routes: Routes = [
   {
     path: '',
@@ -32,6 +32,7 @@ const routes: Routes = [
     CreateCandidateJobPreferenceComponent,
     CandidateReviewModalComponent],
   imports: [
+    NgbModule,
     CommonModule,
     SharedModule,
     NgxIntlTelInputModule,
