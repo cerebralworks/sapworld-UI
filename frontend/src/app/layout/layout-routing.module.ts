@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('@modules/features/features.module.ts').then(m => m.FeaturesModule)
+          import('@modules/features/features.module').then(m => m.FeaturesModule)
       },
     ]
   }

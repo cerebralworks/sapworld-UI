@@ -97,6 +97,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			}
 		})
 		this.buildForm();
+		this.createFormData();
 		this.userSharedService.getUserProfileDetails().subscribe(
         response => {
           this.userInfo = response;
@@ -179,6 +180,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	}
 	ngAfterViewInit(): void {
 		console.log({'Enter the ngAfterViewInit':'CreateCandidateLayoutComponent'})
+		this.createFormData();
+		console.log({'Exist the ngAfterViewInit':'CreateCandidateLayoutComponent'})
+	}
+	
+	createFormData(){
 		if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
 			this.candidateForm.addControl('jobPref', new FormGroup({
 				job_type: new FormControl(null),
@@ -221,10 +227,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			this.validateOnForm++
 			this.ngAfterViewInitCheck();
 		}
-		console.log({'Exist the ngAfterViewInit':'CreateCandidateLayoutComponent'})
-
 	}
-
 	onNext() {
 		//console.log({'Enter the onNext':'CreateCandidateLayoutComponent'})
 		if (this.slidingCounter != this.slindingList.length - 1) {
@@ -365,9 +368,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 
 		if (this.candidateForm.valid) {
 			if(this.userPhotoInfo && this.userPhotoInfo.photoBlob) {
-				this.onUserPhotoUpdate();
+				this.onUserPhotoUpdate(candidateInfo);
+			}else{
+				this.onUserUpdate(candidateInfo);
 			}
-			this.onUserUpdate(candidateInfo);
+			
 		}
 	}
     
@@ -377,15 +382,15 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		return result;
 	}
 
-	onUserPhotoUpdate = () => {
+	onUserPhotoUpdate = (candidateInfo) => {
 		const formData = new FormData();
 		var rString = this.randomString(40, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 		formData.append('photo' , this.userPhotoInfo.photoBlob, ((this.userPhotoInfo && this.userPhotoInfo.photoBlob && this.userPhotoInfo.photoBlob.name) ? this.userPhotoInfo.photoBlob.name : rString));
 		this.userService.photoUpdate(formData).subscribe(
 		response => {
-		
+			this.onUserUpdate(candidateInfo);
 		}, error => {
-		
+			this.onUserUpdate(candidateInfo);
 		})
 	}
 
