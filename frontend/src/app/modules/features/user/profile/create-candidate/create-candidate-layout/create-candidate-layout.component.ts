@@ -168,6 +168,25 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				if (this.userInfo && this.userInfo.visa_sponsered == null) {
 					this.userInfo.visa_sponsered = false;
 				}
+				if(this.candidateForm.controls.jobPref){
+					if(this.userInfo.preferred_locations.length == 0){
+						this.candidateForm.controls.jobPref['controls']['preferred_locations'].removeAt(0);
+						this.candidateForm.controls.jobPref['controls']['preferred_locations'].push(this.formBuilder.group({
+							city: [''],
+							state: [''],
+							country: ['']
+						  }));
+					}else if ((this.userInfo.preferred_locations.length == 1) || (this.candidateForm.controls.jobPref['controls']['preferred_locations'] && this.candidateForm.controls.jobPref['controls']['preferred_locations'].length) !== (this.userInfo.preferred_locations && this.userInfo.preferred_locations.length)) {
+					 this.candidateForm.controls.jobPref['controls']['preferred_locations'].removeAt(0);
+					  this.userInfo.preferred_locations.map((value, index) => {
+						this.candidateForm.controls.jobPref['controls']['preferred_locations'].push(this.formBuilder.group({
+							city: [''],
+							state: [''],
+							country: ['']
+						  }));
+					  });
+					}
+				}
 				this.candidateForm.patchValue({
 					jobPref : {
 						...this.userInfo
@@ -191,11 +210,17 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				job_role: new FormControl(''),
 				willing_to_relocate: new FormControl(null, Validators.required),
 				preferred_location: new FormControl(null),
+				preferred_countries: new FormControl(null),
+				preferred_locations : new FormArray([this.formBuilder.group({
+					city: [''],
+					state: [''],
+					country: ['']
+				  })]),
 				travel: new FormControl(null, Validators.required),
 				availability: new FormControl(null, Validators.required),
 				remote_only: new FormControl(false, Validators.required),
 				visa_sponsered: new FormControl(false),
-				preferred_countries: new FormControl(null),
+				//preferred_countries: new FormControl(null),
 			}));
 			this.candidateForm.addControl('skillSet', new FormGroup({
 				hands_on_experience: new FormArray([this.formBuilder.group({

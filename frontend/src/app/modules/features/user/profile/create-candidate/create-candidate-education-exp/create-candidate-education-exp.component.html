@@ -9,7 +9,7 @@
             <option [value]="''">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}
             </option>
             <ng-container *ngFor="let education of educations; let i = index">
-              <option [style.display]="educationsSelectedArray?.includes(education) ? 'none' : 'block'" [value]="education">
+              <option [style.display]="educationsSelectedArrayCheck(education,ticket) ? 'none' : 'block'" [value]="education">
                 {{education}}
               </option>
             </ng-container>

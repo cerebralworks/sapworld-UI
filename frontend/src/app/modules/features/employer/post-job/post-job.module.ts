@@ -5,6 +5,7 @@ import { PostJobLayoutComponent } from './post-job-layout/post-job-layout.compon
 import { PostJobHeaderComponent } from './post-job-header/post-job-header.component';
 import { PostJobFooterComponent } from './post-job-footer/post-job-footer.component';
 import { JobInformationComponent } from './job-information/job-information.component';
+import { OtherPreferenceComponent } from './other-preference/other-preference.component';
 import { RequirementCriteriaComponent } from './requirement-criteria/requirement-criteria.component';
 import { JobPreviewComponent } from './modal/job-preview/job-preview.component';
 import { SharedModule } from '@shared/shared.module';
@@ -23,6 +24,7 @@ const routes: Routes = [
     PostJobHeaderComponent,
     PostJobFooterComponent,
     JobInformationComponent,
+    OtherPreferenceComponent,
     RequirementCriteriaComponent,
     JobPreviewComponent
   ],

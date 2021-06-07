@@ -1,12 +1,22 @@
 <div formGroupName="jobInfo">
   <div class="row mt-5">
-    <div class="col-lg-8 col-md-6">
+    <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.jobTitle" | translate}}</label>
         <input appMarkAsterisk formControlName="title" type="text" class="form-control text-capitalize" [placeholder]="'postJob.jobTitle' | translate"/>
       </div>
       <app-control-messages [control]="f['title']"></app-control-messages>
     </div>
+	<div class="col-lg-4 col-md-6">
+		<div class=" form-group">
+			<label>Job Role</label>															 
+			<select class="form-control" name="job-role">
+				<option>Technical </option>											
+				<option>Functional  </option>
+				<option>Technofuncational </option>
+			</select>
+		</div>
+	</div>
   </div>
   <div class="row mt-2">
     <div class="col-lg-4 col-md-6">
@@ -30,6 +40,12 @@
       </div>
       <app-control-messages [control]="f['type']"></app-control-messages>
     </div>
+	<div class="col-lg-4 col-md-6">
+									<div class=" form-group">
+										<label>Duration <small>(in months)</small></label>
+										<input type="text" class="form-control" placeholder="Ex: 6 months">
+									</div>
+								</div>	
     <div class="col-lg-4 col-md-6" *ngIf="isContractDuration || childForm?.value?.jobInfo?.type == '6'">
       <div class=" form-group">
         <label>Duration<small>(in months)</small></label>
@@ -37,7 +53,7 @@
         <app-control-messages [control]="f['contract_duration']"></app-control-messages>
       </div>
     </div>
-    <div class="col-lg-5 col-md-6 d-flex">
+    <div class="col-lg-4 col-md-6 d-flex">
       <div class=" form-group w-50">
         <label>{{"postJob.pay" | translate}}</label>
         <select appMarkAsterisk formControlName="salary_type" class="form-control" name="job-type">
@@ -136,4 +152,85 @@
       <app-control-messages [control]="f['description']"></app-control-messages>
     </div>
   </div>
+  <div class="row mt-2">
+								<div class="col-md-12 mb-2">
+									 <label>Perks & Benefits</label>
+								</div>
+								<div class="col-md-3">
+									<h6>Health & Wellness</h6>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB1a">
+									  <label class="custom-control-label" for="customCheckPB1a">Dental Insurance</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB1b">
+									  <label class="custom-control-label" for="customCheckPB1b">Vision Insurance</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB1c">
+									  <label class="custom-control-label" for="customCheckPB1c">Health Insurance</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB1d">
+									  <label class="custom-control-label" for="customCheckPB1d">Life Insurance</label>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<h6>Paid Time Off</h6>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB2a">
+									  <label class="custom-control-label" for="customCheckPB2a">PTO / Vacation Policy</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB2b">
+									  <label class="custom-control-label" for="customCheckPB2b">Paid Holidays</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB2c">
+									  <label class="custom-control-label" for="customCheckPB2c">Maternity / Paternity Leave</label>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<h6>Financial Benefits</h6>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB3a">
+									  <label class="custom-control-label" for="customCheckPB3a">401K / Retirement Plan</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB3b">
+									  <label class="custom-control-label" for="customCheckPB3b">Performance Bonus</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB3c">
+									  <label class="custom-control-label" for="customCheckPB3c">Tuition Reimbursement</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB3d">
+									  <label class="custom-control-label" for="customCheckPB3d">Employee Stock Purchase Plan</label>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<h6>Office Perks</h6>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB4a">
+									  <label class="custom-control-label" for="customCheckPB4a">Free Food</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB4b">
+									  <label class="custom-control-label" for="customCheckPB4b">Work From Home Policy</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB4c">
+									  <label class="custom-control-label" for="customCheckPB4c">Pet-Friendly</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB4d">
+									  <label class="custom-control-label" for="customCheckPB4d">Company Social Outings</label>
+									</div>
+									<div class="custom-control custom-checkbox mb-2">
+									  <input type="checkbox" class="custom-control-input" id="customCheckPB4e">
+									  <label class="custom-control-label" for="customCheckPB4e">Unique Office Space</label>
+									</div>
+								</div>
+							</div>
 </div>

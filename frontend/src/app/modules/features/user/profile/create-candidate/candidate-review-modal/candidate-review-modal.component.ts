@@ -220,5 +220,22 @@ export class CandidateReviewModalComponent implements OnInit {
 		}
 		return '--';
 	}
+	
+	filterPrefered(value){
+		if(value){
+			if(value.length !=0){
+				var temp = value.map(function(a,b){
+					return a['country'];
+				})
+				if(temp.length !=0){
+					temp =temp.filter(function(item, pos, self) {
+						return self.indexOf(item) == pos;
+					})
+					return this.utilsHelperService.onConvertArrayToString(temp);
+				}
+			}
+		}
+		return '--';
+	}
 
 }
