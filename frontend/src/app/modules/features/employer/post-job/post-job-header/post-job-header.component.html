@@ -13,4 +13,11 @@
     {{"postJob.requirementCriteria" | translate}}
     </a>
   </li>
+  <li class="nav-item" [ngClass]="{'active': currentTabInfo.tabNumber == 3}">
+    <a
+    (click)="onTabChange({tabName: 'Other Prefernece', tabNumber: 3})"
+    href="javascript:;" class="nav-link" [ngClass]="{'active': currentTabInfo.tabNumber == 3}">
+    Other Prefernece
+    </a>
+  </li>
 </ul>

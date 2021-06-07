@@ -42,7 +42,7 @@
 				</ul>
 			</div>
 			<div class="col-lg-6 info">
-				<ul class="list-group ul-value">
+				<ul class="list-group ul-value text-capitalize">
 				{{this.findEducation(userInfo?.education_qualification)}}
 				</ul>
 			</div>
@@ -142,7 +142,7 @@
 			</div>
 			<div class="col-lg-6 info">
 				<ul class="list-group ul-value">
-				{{findCountryArray(userInfo?.preferred_countries)}}
+				{{filterPrefered(userInfo?.preferred_locations )}}
 				</ul>
 			</div>
 		</div>
@@ -287,6 +287,20 @@
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize">
 				{{findLanguageArray(userInfo?.language_known)}}
+			</li>
+		</ul>
+	</div>
+</div>	
+<div class="row" *ngIf="userInfo?.end_to_end_implementation">
+	<div class="col-lg-4 caption">
+		<ul class="list-group">
+			<li class="list-group-item">End to End Implementation</li>
+		</ul>
+	</div>
+	<div class="col-lg-8 info">
+		<ul class="list-group">
+			<li class="list-group-item text-capitalize">
+				{{userInfo?.end_to_end_implementation}}
 			</li>
 		</ul>
 	</div>

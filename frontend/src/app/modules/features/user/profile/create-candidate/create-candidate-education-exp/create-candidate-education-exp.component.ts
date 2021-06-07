@@ -173,7 +173,17 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   get t() {
     return this.f.education_qualification as FormArray;
   }
-
+	educationsSelectedArrayCheck(value,index){
+		if(value==index['value']['degree']){
+			return false;
+		}else{
+			if(this.t.value.filter(function(a,b){ return a.degree ==value}).length==0){
+				return false;
+			}else{
+				return true;
+			}
+		}
+	}
   onChangeDegreeValue = (value, index) => {
     this.educationsSelectedValue = value;
     if (!this.educationsSelectedArray.includes(this.educationsSelectedValue)) {

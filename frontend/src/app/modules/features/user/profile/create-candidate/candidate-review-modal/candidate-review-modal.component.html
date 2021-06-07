@@ -109,7 +109,7 @@
 						</ul>
 					</div>
 					<div class="col-lg-6 info">
-						<ul class="list-group ul-value">
+						<ul class="list-group ul-value text-capitalize">
 						{{this.findEducation(childForm?.value?.educationExp?.education_qualification)}}
 						</ul>
 					</div>
@@ -210,8 +210,8 @@
 						</ul>
 					</div>
 					<div class="col-lg-6 info">
-						<ul class="list-group ul-value">
-						{{findCountryArray(childForm?.value?.jobPref?.preferred_countries)}}
+						<ul class="list-group ul-value text-capitalize">
+						{{this.filterPrefered(childForm?.value?.jobPref?.preferred_locations)}}
 						</ul>
 					</div>
 				</div>
@@ -359,6 +359,34 @@
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">
 							{{childForm?.value?.jobPref?.job_role ? childForm?.value?.jobPref?.job_role : '--'}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"dashboard.languageKnown" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">
+							{{findLanguageArray(childForm?.value?.personalDetails?.language_known)}}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">End to End Implementation</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">
+							{{childForm?.value?.educationExp?.end_to_end_implementation ? childForm?.value?.educationExp?.end_to_end_implementation : '--'}}
 						</li>
 					</ul>
 				</div>

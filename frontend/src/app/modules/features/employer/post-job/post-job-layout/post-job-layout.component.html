@@ -34,6 +34,12 @@
             *ngIf="currentTabInfo.tabNumber == 2"
             [currentTabInfo]="currentTabInfo">
             </app-requirement-criteria>
+			
+            <app-other-preference
+            [postedJobsDetails]="postedJobsDetails"
+            *ngIf="currentTabInfo.tabNumber == 3"
+            [currentTabInfo]="currentTabInfo">
+            </app-other-preference>
 
           </div>
 

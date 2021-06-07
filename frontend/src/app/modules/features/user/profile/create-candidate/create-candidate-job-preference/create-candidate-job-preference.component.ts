@@ -94,17 +94,23 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			/* this.requestParams = {'Enter the ngOnChanges':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
 			if (this.childForm && this.savedUserDetails) {
-				if(this.childForm.value.personalDetails.authorized_country){
-					if(this.childForm.value.personalDetails.authorized_country.length !=0){
-						var id = this.childForm.value.personalDetails.authorized_country;
-						var idVals = this.childForm.value.personalDetails.nationality
-						id.push(idVals);
-						this.othercountry = this.othercountry.filter(t=>{return id.includes(t.id)})
-						if(document.getElementById(idVals)){
-								//document.getElementById(idVals).className='btn btn-fltr country btn-fltr-active';
-							}
-					}else{
-						this.othercountry =[];
+				if(this.savedUserDetails.preferred_locations!=null){
+					if(this.savedUserDetails.preferred_locations.length == 0){
+						this.t.removeAt(0);
+						this.t.push(this.formBuilder.group({
+							city: [''],
+							state: [''],
+							country: ['']
+						  }));
+					}else if ((this.savedUserDetails.preferred_locations.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.preferred_locations && this.savedUserDetails.preferred_locations.length)) {
+					 this.t.removeAt(0);
+					  this.savedUserDetails.preferred_locations.map((value, index) => {
+						this.t.push(this.formBuilder.group({
+							city: [''],
+							state: [''],
+							country: ['']
+						  }));
+					  });
 					}
 				}
 				if(this.savedUserDetails.job_type!=null){		  
@@ -137,40 +143,15 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				if(this.tabInfos && this.tabInfos.length) {
 					let educationExpIndex = this.tabInfos.findIndex(val => val.tabNumber == 2);
 					if(educationExpIndex == -1) {
-						if(this.childForm.value.jobPref.preferred_countries){
-							var intersection = this.childForm.value.personalDetails.authorized_country.filter(element => this.childForm.value.jobPref.preferred_countries.includes(element));
-							var idVals = this.childForm.value.personalDetails.nationality;
-							intersection.push(idVals) ;
-							this.savedUserDetails.preferred_countries = intersection;
-							if(document.getElementById(idVals)){
-								document.getElementById(idVals).className='btn btn-fltr country btn-fltr-active';
-							}
-						}
-						if(this.savedUserDetails.preferred_countries!=null || this.savedUserDetails.preferred_countries !=undefined){
-							var idVals = this.childForm.value.personalDetails.nationality;
-							this.savedUserDetails.preferred_countries = [idVals];
-							if(document.getElementById(idVals)){
-								document.getElementById(idVals).className='btn btn-fltr country btn-fltr-active';
-							}
-						} 
+						
+						var idVals = this.childForm.value.personalDetails.nationality;
+						this.savedUserDetails.preferred_countries = [idVals];
+							
 						this.childForm.patchValue({
 								educationExp : {
 									...this.savedUserDetails
 								},
 							});
-						}
-						if(this.savedUserDetails.preferred_countries!=null){		  
-							if(this.savedUserDetails.preferred_countries.length){
-								for(let i=0;i<this.savedUserDetails.preferred_countries.length;i++){
-									for(let j=0;j<document.getElementsByClassName('country').length;j++){
-										if(document.getElementsByClassName('country').item(j)['id'] == this.savedUserDetails.preferred_countries[i]){
-											document.getElementsByClassName('country').item(j)['className'] = 'btn btn-fltr country btn-fltr-active';
-										}else{
-											//document.getElementsByClassName('country').item(j)['className'] = 'btn btn-fltr country';
-										}
-									}
-								}
-							}
 						}
 						
 					let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
@@ -215,7 +196,12 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			willing_to_relocate: new FormControl(null, Validators.required),
 			preferred_location: new FormControl(null),
 			travel: new FormControl(null, Validators.required),
-			preferred_countries : new FormControl(null, Validators.required),
+			preferred_countries: new FormControl(null, Validators.required),
+			preferred_locations : new FormArray([this.formBuilder.group({
+				city: [''],
+				state: [''],
+				country: ['']
+			  })]),
 			availability : new FormControl(''),
 			remote_only: new FormControl(false, Validators.required),
 			visa_sponsered: new FormControl(false, Validators.required),
@@ -241,6 +227,26 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	}
 
 	onChangeFieldValue = (fieldName, value) => {
+		if(fieldName=='remote_only'){ 
+			this.childForm.patchValue({
+				jobPref: {
+					travel: 0
+				}
+			});
+			
+		}
+		if(fieldName=='willing_to_relocate'){ 
+		if(value==false){
+			for(let i=0;i<this.t.value.length;){
+				this.t.removeAt(i);
+			}
+			this.t.push(this.formBuilder.group({
+				city: [''],
+				state: [''],
+				country: ['']
+			}));
+		}
+		}
 		this.childForm.patchValue({
 			jobPref: {
 				[fieldName]: value,
@@ -313,4 +319,44 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
 	
+  get t() {
+    return this.f.preferred_locations as FormArray;
+  }
+  
+  
+  onDuplicate = (index) => {
+	  if(this.t.value[index]['city']!=null && this.t.value[index]['state']!=null && this.t.value[index]['country']!=null && this.t.value[index]['city']!='' && this.t.value[index]['state']!='' && this.t.value[index]['country']!=''){ 
+      this.t.push(this.formBuilder.group({
+        city: [''],
+        state: [''],
+        country: ['']
+      }));
+	  }
+  }
+
+  onRemove = (index) => {
+    let removedValue = this.t.value[index];
+ 
+    if (index == 0 && this.t.length == 1) {
+      this.t.removeAt(0);
+      this.t.push(this.formBuilder.group({
+         city: [''],
+        state: [''],
+        country: ['']
+      }));
+    } else {
+      this.t.removeAt(index);
+
+    }
+  }
+  handleAddressChange = (event,ticket) => {
+    const address = this.sharedService.fromGooglePlace(event);
+	if(event.geometry){
+    ticket.patchValue({
+        city: address.city ? address.city : event.formatted_address,
+        state: address.state,
+        country: address.country
+    });
+	}
+  };
 }
