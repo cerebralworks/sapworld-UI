@@ -1,266 +1,247 @@
 <div formGroupName="requirement">
-  <div class="row mt-5 ">
-    <div class="col-lg-4 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.totalYearsOfExperience" | translate }}(Min)</label>
-        <input appMarkAsterisk numbersOnly formControlName="experience" type="text" class="form-control w-25 text-center" value="8+">
-        <app-control-messages [control]="f['experience']"></app-control-messages>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.totalYearsOfSapExperience" | translate }}(Min)</label>
-        <input appMarkAsterisk numbersOnly formControlName="sap_experience" type="text" class="form-control w-25 text-center" value="5+">
-        <app-control-messages [control]="f['sap_experience']"></app-control-messages>
-      </div>
-    </div><div class="col-lg-4 col-md-6">
-									<div class=" form-group">
-										<label>Education </label>					 
-										<select class="form-control w-75 " name="job-type">
-											<option selected="" disabled="">Select Degree</option>
-											<option>Bachelors</option>
-											<option>Diploma</option>
-											<option>Masters</option>
-											<option>Doctorate</option>
-										</select>
-									</div>
-								</div>
-  </div>
+	<div class="row mt-5 ">
+		<div class="col-lg-4 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.totalYearsOfExperience" | translate }}(Min)</label>
+				<input appMarkAsterisk numbersOnly formControlName="experience" type="text" class="form-control w-25 text-center" value="8+">
+				<app-control-messages [control]="f['experience']"></app-control-messages>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.totalYearsOfSapExperience" | translate }}(Min)</label>
+				<input appMarkAsterisk numbersOnly formControlName="sap_experience" type="text" class="form-control w-25 text-center" value="5+">
+				<app-control-messages [control]="f['sap_experience']"></app-control-messages>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.education" | translate }}</label>	
+				<ngx-select
+					[placeholder]="'Select Degree'"
+					class="text-capitalize"
+					[items]="educationItems"
+					[multiple]="true"
+					autoClearSearch="true"
+					noResultsFound="No results found"
+					formControlName="education"
+					optionValueField="text"
+					optionTextField="text"
+				></ngx-select>
+			</div>
+		</div>
+	</div>
 
-  <div class="row mt-2">
-    <div class="col-lg-12 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.domainExperience" | translate }}</label>
-        <ngx-select
-        appMarkAsterisk
-        [placeholder]="'Select Domain'"
-        class="text-capitalize"
-        [items]="industriesItems"
-        [multiple]="true"
-        autoClearSearch="true"
-        noResultsFound="No results found"
-        formControlName="domain"
-        optionValueField="id"
-        optionTextField="name"
-         ></ngx-select>
-        <app-control-messages [control]="f['domain']"></app-control-messages>
-      </div>
-    </div>
-  </div>
+	<div class="row mt-2">
+		<div class="col-lg-12 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.domainExperience" | translate }}</label>
+				<ngx-select
+					appMarkAsterisk
+					[placeholder]="'Select Domain'"
+					class="text-capitalize"
+					[items]="industriesItems"
+					[multiple]="true"
+					autoClearSearch="true"
+					noResultsFound="No results found"
+					formControlName="domain"
+					optionValueField="id"
+					optionTextField="name"
+				></ngx-select>
+				<app-control-messages [control]="f['domain']"></app-control-messages>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-lg-12 col-md-6">
+			<label>{{"postJob.handsOnWith" | translate }} </label>
+			<div appMarkAsterisk></div>
+		</div>
+	</div>
+	<div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
+		<ng-container [formGroup]="ticket">
+			<div class="col-lg-6 col-md-8">
+				<ngx-select
+					(select)="onSelectSkillEvent($event, i)"
+					[placeholder]="'Select SAP Skills'"
+					class="text-capitalize"
+					appMarkAsterisk
+					[items]="skillItems"
+					formControlName="skill_id"
+					optionValueField="id"
+					optionTextField="tags"
+					autoClearSearch="true"
+					noResultsFound="No results found"
+				>
+					<ng-template ngx-select-option-selected let-option let-text="text">
+						{{option?.text ? option?.text?.split('--')[0] : ''}}
+					</ng-template>
 
-  <div class="row mt-2">
-    <div class="col-lg-12 col-md-6">
-      <label>{{"postJob.handsOnWith" | translate }} </label>
-      <div appMarkAsterisk></div>
-    </div>
-  </div>
-  <div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
-    <ng-container [formGroup]="ticket">
-      <div class="col-lg-6 col-md-8">
-        <ngx-select
-        (select)="onSelectSkillEvent($event, i)"
-        [placeholder]="'Select SAP Skills'"
-        class="text-capitalize"
-        appMarkAsterisk
-        [items]="skillItems"
-        formControlName="skill_id"
-        optionValueField="id"
-        optionTextField="tag"
-        autoClearSearch="true"
-        noResultsFound="No results found"
-         >
-         <ng-template ngx-select-option-selected let-option let-text="text">
-          {{option?.text ? option?.text?.split('-')[0] : ''}}
-        </ng-template>
+					<ng-template ngx-select-option let-option let-text="text">
+						<span *ngIf="indexOfFilter(option?.value,i) ==true " >{{option?.text}}</span>
+					</ng-template>
 
-        <ng-template ngx-select-option let-option let-text="text">
-            {{option?.text}}
-        </ng-template>
+					<ng-template ngx-select-option-not-found>
+						Nothing found
+					</ng-template>
+				</ngx-select>
+				<app-control-messages [control]="ticket['controls']['skill_id']"></app-control-messages>
+			</div>
+			<div class="col-lg-2 col-md-4">
+				<div class="input-group mb-3">
+					<input numbersOnly formControlName="experience" type="text" class="form-control" placeholder="Exp">
+					<div class="input-group-append ">
+						<select formControlName="exp_type" class="input-group-text" id="basic-addon2">
+							<option value="years">Yrs</option>
+							<option value="months">Mon</option>
+						</select>
+					</div>
+					<app-control-messages [control]="ticket['controls']['experience']"></app-control-messages>
+				</div>
+			</div>
+			<div class="col-lg-2 col-md-4">
+				<button type="button" class="btn btn-outline-danger"
+					style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
+				<button *ngIf="last" (click)="onDuplicate()" type="button" class="btn btn-outline-green ml-2"
+					style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
+			</div>
+		</ng-container>
+	</div>
+	<div class="row mt-3">
+		<div class="col-lg-9 col-md-6">
+			<div class=" form-group">
+				<label>{{"dashboard.knowledgeOn" | translate }} </label>
+				<ngx-select
+					class="text-capitalize"
+					[placeholder]="'Select Other SAP Skills'"
+					(select)="onSelectSkillsEvent($event)"
+					(remove)="onRemoveSkillEvent($event)"
+					[multiple]="true"
+					appMarkAsterisk
+					[items]="skillsItems"
+					formControlName="skills"
+					optionValueField="id"
+					optionTextField="tags"
+					autoClearSearch="true"
+					noResultsFound="No results found"
+					>
+					 <ng-template ngx-select-option-selected let-option let-text="text">
+					  {{option?.text ? option?.text?.split('--')[0] : ''}}
+					</ng-template>
 
-        <ng-template ngx-select-option-not-found>
-            Nothing found
-        </ng-template>
-         </ngx-select>
-        <app-control-messages [control]="ticket['controls']['skill_id']"></app-control-messages>
-      </div>
+					<ng-template ngx-select-option let-option let-text="text">
+						{{option?.text}}
+					</ng-template>
 
-      <div class="col-lg-2 col-md-4">
-        <div class="input-group mb-3">
-          <input numbersOnly formControlName="experience" type="text" class="form-control" placeholder="Exp">
-          <div class="input-group-append ">
-            <select formControlName="exp_type" class="input-group-text" id="basic-addon2">
-              <option value="years">Yrs</option>
-              <option value="months">Mon</option>
-            </select>
-          </div>
-          <app-control-messages [control]="ticket['controls']['experience']"></app-control-messages>
-        </div>
-
-      </div>
-      <div class="col-lg-2 col-md-4">
-        <button type="button" class="btn btn-outline-danger"
-          style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
-        <button *ngIf="last" (click)="onDuplicate()" type="button" class="btn btn-outline-green ml-2"
-          style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
-      </div>
-    </ng-container>
-  </div>
-  <div class="row mt-3">
-    <div class="col-lg-9 col-md-6">
-      <div class=" form-group">
-        <label>{{"dashboard.knowledgeOn" | translate }} </label>
-        <ngx-select
-        class="text-capitalize"
-        [placeholder]="'Select Other SAP Skills'"
-        [multiple]="true"
-        appMarkAsterisk
-        [items]="skillItems"
-        formControlName="skills"
-        optionValueField="id"
-        optionTextField="tag"
-        autoClearSearch="true"
-        noResultsFound="No results found"
-         >
-         <ng-template ngx-select-option-selected let-option let-text="text">
-          {{option?.text ? option?.text?.split('-')[0] : ''}}
-        </ng-template>
-
-        <ng-template ngx-select-option let-option let-text="text">
-            {{option?.text}}
-        </ng-template>
-
-        <ng-template ngx-select-option-not-found>
-            Nothing found
-        </ng-template>
-         <!-- <ng-template ngx-select-option-selected ngx-select-option let-option let-text="text">
-          {{option?.text ? option?.text?.split('-')[0] : ''}}
-        </ng-template> -->
-        </ngx-select>
-        <!-- <ng-select class="text-uppercase" id="knowledgeOnOtherSapSkills" appMarkAsterisk (change)="onChangeSelectSkillEvent($event)" addTagText="Add Other Skill" bindLabel="tag" placeholder="Select item" appendTo="body" multiple="true"
-          formControlName="skills">
-          <ng-option  *ngFor="let item of skillArray?.items" [value]="item">{{item?.tag ? item?.tag?.split('-')[0] : ''}}</ng-option>
-        </ng-select> -->
-        <app-control-messages [control]="f['skills']"></app-control-messages>
-        <!-- <input type="text" class="form-control" value="SAP Mobility, SAP FICO, SAP BODS" data-role="tagsinput"> -->
-      </div>
-    </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-lg-9 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.programmingSkills" | translate }}</label>
-        <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. Javascript, Php" appendTo="body" multiple="true"
-          formControlName="programming_skills">
-        </ng-select>
-        <app-control-messages [control]="f['programming_skills']"></app-control-messages>
-        <!-- <input type="text" class="form-control" value="Python, JAVA, Microsoft BI, Angular" data-role="tagsinput"> -->
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.endToEndImplementation" | translate }} </label>
-        <input numbersOnly type="text" class="form-control w-25" formControlName="end_to_end_implementation">
-      </div>
-    </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-lg-9 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.niceToHave" | translate }} </label>
-        <ng-select id="niceToHave" [addTag]="true"  addTagText="Add Nice To Have" bindValue="label" bindLabel="label" placeholder="Ex. Docker, Azure" appendTo="body" multiple="true"
-          formControlName="optinal_skills">
-        </ng-select>
-        <app-control-messages [control]="f['optinal_skills']"></app-control-messages>
-      </div>
-    </div>
-    
-  </div>
-  <div class="row mt-2">
-    <div class="col-lg-12 col-md-6">
-      <div class=" form-group">
-      </div>
-      <div class=" form-group">
-        <label class="font-weight-bold">{{"postJob.workAuthorization" | translate }} </label>
-        <div appMarkAsterisk class="mt-2">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input (change)="onChangeFieldValue('work_authorization', 0)" [value]="0" formControlName="work_authorization" type="radio" id="customRadioInline5"
-              name="work_authorization" class="custom-control-input">
-            <label class="custom-control-label"
-              for="customRadioInline5">{{"postJob.shouldBeACitizenPr" | translate }}</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input (change)="onChangeFieldValue('work_authorization', 1)" [value]="1" formControlName="work_authorization" type="radio" id="customRadioInline6"
-              name="work_authorization" class="custom-control-input">
-            <label class="custom-control-label"
-              for="customRadioInline6">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input (change)="onChangeFieldValue('work_authorization', 1)" [value]="1" formControlName="work_authorization" type="radio" id="customRadioInline6"
-              name="work_authorization" class="custom-control-input">
-            <label class="custom-control-label"
-              for="customRadioInline6">Should be a Citizen / PR / Authorized to Work</label>
-          </div>
-        </div>
-      </div>
-      <app-control-messages [control]="f['work_authorization']"></app-control-messages>
-    </div>
-
-    
-  </div>
-  <div class="row mt-3">
-  <div class="col-lg-2 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.travel" | translate }} </label>
-        <select appMarkAsterisk formControlName="travel_opportunity" class="form-control">
-          <option [value]="null">{{"common.select" | translate }}</option>
-          <option *ngFor="let travel of travelArray; let i = index" [value]="travel?.id">
-            {{travel?.text}}
-          </option>
-        </select>
-        <app-control-messages [control]="f['travel']"></app-control-messages>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-6" style="margin-top: 42px;">
-      <label class="font-weight-bold">{{"postJob.visaSponsorship" | translate }} </label>
-    </div>
-    <div class="col-lg-2 col-md-6" style="margin-top: 42px;">
-      <div class=" form-group">
-        <div class="showhideswitch">
-          <input formControlName="visa_sponsorship" type="checkbox" name="visa_sponsorship"
-            class="showhideswitch-checkbox" id="myshowhideswitch5">
-          <label class="showhideswitch-label" for="myshowhideswitch5">
-            <span class="showhideswitch-inner yesno"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-6" style="margin-top: 42px;">
-      <label class="font-weight-bold">Need References</label>
-    </div>
-    <div class="col-lg-2 col-md-6" style="margin-top: 42px;">
-      <div class=" form-group">
-        <div class="showhideswitch">
-          <input formControlName="visa_sponsorship" type="checkbox" name="visa_sponsorship"
-            class="showhideswitch-checkbox" id="myshowhideswitch5">
-          <label class="showhideswitch-label" for="myshowhideswitch5">
-            <span class="showhideswitch-inner yesno"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
+					<ng-template ngx-select-option-not-found>
+						Nothing found
+					</ng-template>
+				</ngx-select>
+				<app-control-messages [control]="f['skills']"></app-control-messages>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-lg-9 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.programmingSkills" | translate }}</label>
+				<ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. Javascript, Php" appendTo="body" multiple="true"
+					formControlName="programming_skills">
+				</ng-select>
+				<app-control-messages [control]="f['programming_skills']"></app-control-messages>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.endToEndImplementation" | translate }} </label>
+				<input numbersOnly type="text" class="form-control w-25" formControlName="end_to_end_implementation">
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-lg-9 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.niceToHave" | translate }} </label>
+				<ng-select id="niceToHave" [addTag]="true"  addTagText="Add Nice To Have" bindValue="label" bindLabel="label" placeholder="Ex. Docker, Azure" appendTo="body" multiple="true"
+					formControlName="optinal_skills">
+				</ng-select>
+				<app-control-messages [control]="f['optinal_skills']"></app-control-messages>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-lg-12 col-md-6">
+			<div class=" form-group"></div>
+			<div class=" form-group">
+				<label class="font-weight-bold">{{"postJob.workAuthorization" | translate }} </label>
+				<div appMarkAsterisk class="mt-2">
+					<div class="custom-control custom-radio custom-control-inline">
+						<input (change)="onChangeFieldValue('work_authorization', 0)" [value]="0" formControlName="work_authorization" type="radio" id="customRadioInline5"
+							name="work_authorization" class="custom-control-input">
+						<label class="custom-control-label"
+							for="customRadioInline5">{{"postJob.shouldBeACitizenPr" | translate }}</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input (change)="onChangeFieldValue('work_authorization', 1)" [value]="1" formControlName="work_authorization" type="radio" id="customRadioInline6"
+							name="work_authorization" class="custom-control-input">
+						<label class="custom-control-label"
+							for="customRadioInline6">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input (change)="onChangeFieldValue('work_authorization', 2)" [value]="2" formControlName="work_authorization" type="radio" id="customRadioInline7"
+							name="work_authorization" class="custom-control-input">
+						<label class="custom-control-label"
+							for="customRadioInline7">Should be a Citizen / PR / Authorized to Work</label>
+					</div>
+				</div>
+			</div>
+			<app-control-messages [control]="f['work_authorization']"></app-control-messages>
+		</div>
+	</div>
+	<div class="row mt-3">
+		<div class="col-lg-2 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.travel" | translate }} </label>
+				<select appMarkAsterisk formControlName="travel_opportunity" class="form-control">
+					<option [value]="null">{{"common.select" | translate }}</option>
+					<option *ngFor="let travel of travelArray; let i = index" [value]="travel?.id">
+						{{travel?.text}}
+					</option>
+				</select>
+				<app-control-messages [control]="f['travel']"></app-control-messages>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-6" style="margin-top: 42px;">
+			<label class="font-weight-bold">{{"postJob.visaSponsorship" | translate }} </label>
+		</div>
+		<div class="col-lg-2 col-md-6" style="margin-top: 42px;">
+			<div class=" form-group">
+				<div class="showhideswitch">
+					<input formControlName="visa_sponsorship" type="checkbox" name="visa_sponsorship"
+						class="showhideswitch-checkbox" id="myshowhideswitch5">
+					<label class="showhideswitch-label" for="myshowhideswitch5">
+						<span class="showhideswitch-inner yesno"></span>
+						<span class="showhideswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-6" style="margin-top: 42px;">
+			<label class="font-weight-bold">Need References</label>
+		</div>
+		<div class="col-lg-2 col-md-6" style="margin-top: 42px;">
+			<div class=" form-group">
+				<div class="showhideswitch">
+					<input formControlName="need_reference" type="checkbox" name="need_reference"
+						class="showhideswitch-checkbox" id="myshowhideswitch6">
+					<label class="showhideswitch-label" for="myshowhideswitch6">
+						<span class="showhideswitch-inner yesno"></span>
+						<span class="showhideswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<!-- <div class="col-lg-6 col-md-6">
-      <div class=" form-group">
-        <label>{{"postJob.certification" | translate }} </label>
-        <ng-select id="certification" [addTag]="true" addTagText="Add Certification" bindValue="label" bindLabel="label" placeholder="Ex. AWS, CCNA" appendTo="body" multiple="true"
-          formControlName="certification">
-        </ng-select>
-        <app-control-messages [control]="f['certification']"></app-control-messages>
-      </div>
-    </div>
 
-	-->
 

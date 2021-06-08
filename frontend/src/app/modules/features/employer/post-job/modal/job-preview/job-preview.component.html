@@ -1,328 +1,915 @@
 <ng-template #jobPreviewModal let-modal>
-  <div formGroupName="jobPrev">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">{{"postJob.jobPreview" | translate }} </h5>
-      <!-- <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">×</span>
-      </button> -->
-    </div>
-    <div class="modal-body" style="height:550px; overflow-y:scroll;">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card job-card">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-12 text-capitalize">
-                  <h5>{{postJobForm?.value?.jobInfo?.title}}</h5>
-                </div>
-              </div>
-              <div class="media">
-                <div class="media-body">
-                  <h6 class="text-capitalize">{{profileInfo?.details?.company}}</h6>
-                  <h6 class="text-capitalize">
-                    {{postJobForm?.value?.jobInfo?.city ? postJobForm?.value?.jobInfo?.city + ', ' : ''}}
-                    {{postJobForm?.value?.jobInfo?.state ? postJobForm?.value?.jobInfo?.state + ', ' : ''}}
-                    <span class="text-uppercase">
-                      {{postJobForm?.value?.jobInfo?.country ? postJobForm?.value?.jobInfo?.country : ''}}
-                    </span>
-                    <!-- {{postJobForm?.value?.jobInfo?.zipcode ? postJobForm?.value?.jobInfo?.zipcode + ', ' : ''}} -->
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-3 info-box">
-        <!-- <div class="col-lg-12 text-right">
-          <h6>Choose Mandatory Requirement <span class="required-asterisk">*</span></h6>
-        </div> -->
-        <div class="col-lg-4 caption">
-          <ul class="list-group">
-            <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfExperience" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.handsOnWith" | translate }}</li>
-          </ul>
-        </div>
-        <div class="col-lg-6 info">
-          <ul class="list-group">
-            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.experience}} Years</li>
-            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.sap_experience}} Years</li>
-            <li class="list-group-item text-capitalize">{{onFindDomainFromID(postJobForm?.value?.requirement?.domain)}}</li>
-            <li class="list-group-item text-uppercase">
-              <p class="m-0 w-100 float-left" *ngFor="let item of postJobForm?.value?.requirement?.hands_on_experience">
-                <span class="text-wrap-custom float-left">{{item?.skill_id ? onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
-                <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
-              </p>
-              <!-- {{onConvertArrayObjToAdditionalString(postJobForm?.value?.requirement?.hands_on_experience, 'domain', 'tag')}} -->
-            </li>
-          </ul>
-        </div>
-        <!-- <div class="col-lg-2 caption">
-          <ul class="list-group">
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'experience')" class="custom-control-input" id="select1">
-                <label class="custom-control-label" for="select1">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'sap_experience')" class="custom-control-input" id="select2">
-                <label class="custom-control-label" for="select2">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'domain')" class="custom-control-input" id="select3">
-                <label class="custom-control-label" for="select3">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'hands_on_experience')" class="custom-control-input" id="select4">
-                <label class="custom-control-label" for="select4">&nbsp;</label>
-              </div>
-            </li>
-          </ul>
-        </div> -->
+	<div formGroupName="jobPrev">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">{{"postJob.jobPreview" | translate }} </h5>
+			<!-- <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+			</button> -->
+		</div>
+		<div class="modal-body" style="height:550px; overflow-y:scroll;">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card job-card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-12 text-capitalize">
+								<h5>{{postJobForm?.value?.jobInfo?.title}}</h5>
+							</div>
+						</div>
+						<div class="media">
+							<div class="media-body">
+								<h6 class="text-capitalize">{{profileInfo?.details?.company}}</h6>
+								<h6 class="text-capitalize">
+									{{postJobForm?.value?.jobInfo?.city ? postJobForm?.value?.jobInfo?.city + ', ' : ''}}
+									{{postJobForm?.value?.jobInfo?.state ? postJobForm?.value?.jobInfo?.state + ', ' : ''}}
+									<span class="text-uppercase">
+										{{postJobForm?.value?.jobInfo?.country ? postJobForm?.value?.jobInfo?.country : ''}}
+									</span>
+								</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3 info-box">
+			<div class="offset-lg-8 col-lg-4 text-center">
+					<div class="d-flex">
+					<div class="rdn-radio">Required</div>
+					<div class="rdn-radio">Desired</div>
+					<div class="rdn-radio">Nice to have</div>
+				</div>	
+			</div>
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.totalYearsOfExperience" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{postJobForm?.value?.requirement?.experience}} Years</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio5A" name="customRadioR5" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio5A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio5B" name="customRadioR5" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio5B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio5C" name="customRadioR5" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio5C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{postJobForm?.value?.requirement?.sap_experience}} Years</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio6A" name="customRadioR6" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio6A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio6B" name="customRadioR6" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio6B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio6C" name="customRadioR6" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio6C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.domainExperience" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{onFindDomainFromID(postJobForm?.value?.requirement?.domain)}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio7A" name="customRadioR7" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio7A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio7B" name="customRadioR7" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio7B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio7C" name="customRadioR7" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio7C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.handsOnWith" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item text-uppercase">
+						<p class="m-0 w-100 float-left" *ngFor="let item of postJobForm?.value?.requirement?.hands_on_experience">
+							<span class="text-wrap-custom float-left">{{item?.skill_id ? onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}({{item?.experience + ' ' + item?.exp_type}})</span>
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio8A" name="customRadioR8" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio8A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio8B" name="customRadioR8" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio8B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio8C" name="customRadioR8" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio8C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"dashboard.knowledgeOn" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item text-uppercase">
+						<ng-container *ngIf="postJobForm?.value?.requirement?.skills.length; else elseSkillsTemplate">
+							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.skills">
+								<span class="float-left">{{item ? onFindSkillsFromSingleID(item)?.tag : '--'}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
+							</small>
+						</ng-container>
+						<ng-template #elseSkillsTemplate>
+							<li>--</li>
+						</ng-template>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio9A" name="customRadioR9" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio9A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio9B" name="customRadioR9" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio9B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio9C" name="customRadioR9" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio9C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"dashboard.programmingSkills" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item text-uppercase">
+						<ng-container *ngIf="postJobForm?.value?.requirement?.programming_skills.length; else elseSkillsTemplate">
+							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.programming_skills">
+								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
+							</small>
+						</ng-container>
+						<ng-template #elseSkillsTemplate>
+							<li>--</li>
+						</ng-template>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio10A" name="customRadioR10" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio10A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio10B" name="customRadioR10" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio10B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio10C" name="customRadioR10" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio10C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>			
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"dashboard.otherSkills" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item text-uppercase">
+						<ng-container *ngIf="postJobForm?.value?.requirement?.optinal_skills.length; else elseSkillsTemplate">
+							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.optinal_skills">
+								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
+							</small>
+						</ng-container>
+						<ng-template #elseSkillsTemplate>
+							<li>--</li>
+						</ng-template>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio11A" name="customRadioR11" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio11A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio11B" name="customRadioR11" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio11B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio11C" name="customRadioR11" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio11C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-lg-12 border-top pt-3">	</div>			
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.certification"  | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item text-uppercase">
+						<ng-container *ngIf="postJobForm?.value?.otherPref?.certification.length; else elseSkillsTemplate">
+							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification">
+								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
+							</small>
+						</ng-container>
+						<ng-template #elseSkillsTemplate>
+							<li>--</li>
+						</ng-template>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio12A" name="customRadioR12" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio12A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio12B" name="customRadioR12" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio12B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio12C" name="customRadioR12" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio12C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>						
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.jobType"  | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					{{postJobForm?.value?.jobInfo?.type }}
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio13A" name="customRadioR13" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio13A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio13B" name="customRadioR13" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio13B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio13C" name="customRadioR13" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio13C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>						
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.jobRole"  | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					{{postJobForm?.value?.jobInfo?.employer_role_type}}
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio14A" name="customRadioR14" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio14A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio14B" name="customRadioR14" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio14B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio14C" name="customRadioR14" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio14C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>					
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.availability"  | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					{{postJobForm?.value?.jobInfo?.availability}}
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio15A" name="customRadioR15" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio15A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio15B" name="customRadioR15" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio15B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio15C" name="customRadioR15" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio15C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>		
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.availability"  | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 0">{{"postJob.shouldBeACitizenPr" | translate }}</li>
+					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 1">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</li>
+					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 2">Should be a Citizen / PR / Authorized to Work</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio16A" name="customRadioR16" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio16A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio16B" name="customRadioR16" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio16B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio16C" name="customRadioR16" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio16C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>		
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">Client Facing Role </li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.facing_role == '0'">Required</li>
+					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.facing_role == '1'">Not Required</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio17A" name="customRadioR17" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio17A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio17B" name="customRadioR17" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio17B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio17C" name="customRadioR17" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio17C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>		
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">Training Experience </li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.training_experience == '0'">Required</li>
+					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.training_experience == '1'">Not Required</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio18A" name="customRadioR18" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio18A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio18B" name="customRadioR18" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio18B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio18C" name="customRadioR18" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio18C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>		
+		<div class="col-lg-12 border-top pt-3">	</div>		
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.endToEndImplementation" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item">{{postJobForm?.value?.requirement?.end_to_end_implementation}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio19A" name="customRadioR19" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio19A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio19B" name="customRadioR19" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio19B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio19C" name="customRadioR19" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio19C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>			
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.education" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item">{{postJobForm?.value?.requirement?.education}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio20A" name="customRadioR20" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio20A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio20B" name="customRadioR20" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio20B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio20C" name="customRadioR20" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio20C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>			
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.travelRequired" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item">{{(postJobForm?.value?.requirement?.travel_opportunity || postJobForm?.value?.requirement?.travel_opportunity==0) ? (postJobForm?.value?.requirement?.travel_opportunity == 0 ? 'No' : postJobForm?.value?.requirement?.travel_opportunity + '%') : '--'}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio21A" name="customRadioR21" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio21A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio21B" name="customRadioR21" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio21B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio21C" name="customRadioR21" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio21C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>				
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.remote" | translate}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item">{{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio22A" name="customRadioR22" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio22A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio22B" name="customRadioR22" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio22B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio22C" name="customRadioR22" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio22C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>				
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.languageknown" | translate}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item">{{postJobForm?.value?.otherPref?.language}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio23A" name="customRadioR23" class="custom-control-input" checked>
+									<label class="custom-control-label" for="customRadio23A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" id="customRadio23B" name="customRadioR23" class="custom-control-input">
+									<label class="custom-control-label" for="customRadio23B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" id="customRadio23C" name="customRadioR23" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio23C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>		
+		<div class="col-lg-12 border-top pt-3"> </div>
 
-        <div class="col-lg-12 border-top pt-3"> </div>
-        <div class="col-lg-4 caption">
-          <ul class="list-group">
-            <li class="list-group-item text-capitalize lg-mh-40">{{"dashboard.knowledgeOn" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.niceToHave" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
-          </ul>
-        </div>
-        <div class="col-lg-6 info">
-          <ul class="list-group">
-            <li class="list-group-item text-uppercase lg-mh-40">
-              <p class="m-0 w-100 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id')">
-                <span class="text-wrap-custom float-left">{{item ? onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
-              </p>
-              <!-- {{onConvertArrayObjToString(postJobForm?.value?.requirement?.skills, 'tag')}}  -->
-            </li>
-            <li class="list-group-item text-capitalize">{{onConvertArrayToString(postJobForm?.value?.requirement?.programming_skills)}} </li>
-            <li class="list-group-item text-capitalize">{{onConvertArrayToString(postJobForm?.value?.requirement?.optinal_skills)}}</li>
-            <li class="list-group-item text-capitalize">{{onConvertArrayToString(postJobForm?.value?.requirement?.certification)}}</li>
-            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.end_to_end_implementation}}</li>
-          </ul>
-        </div>
-        <!-- <div class="col-lg-2 caption">
-          <ul class="list-group">
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'skills')" class="custom-control-input" id="select5">
-                <label class="custom-control-label" for="select5">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'programming_skills')" class="custom-control-input" id="select6">
-                <label class="custom-control-label" for="select6">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'optinal_skills')" class="custom-control-input" id="select7">
-                <label class="custom-control-label" for="select7">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'certification')" class="custom-control-input" id="select8">
-                <label class="custom-control-label" for="select8">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'end_to_end_implementation')" class="custom-control-input" id="select9">
-                <label class="custom-control-label" for="select9">&nbsp;</label>
-              </div>
-            </li>
-          </ul>
-        </div> -->
-        <div class="col-lg-12 border-top pt-3"> </div>
+        <div class="col-lg-12 mb-3">
+			<h6>{{"postJob.jobDescription" | translate}}</h6>
+			<p style="word-break: break-all;"[innerHTML]="postJobForm?.value?.jobInfo?.description"></p>
+		</div>	
+        <div class="col-lg-12 mb-3">
+			<h6>{{"postJob.salary" | translate}}</h6>
+			<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
+				{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
+		    </ng-container>
+			<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
+				{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}
+			</ng-container>
+			<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
+				{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Monthly pay'}}
+			</ng-container>
+			<ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
+				--
+			</ng-container>
+		</div>	
 
-        <div class="col-lg-4 caption">
-          <ul class="list-group">
-            <li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
-            <!-- <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li> -->
-            <li class="list-group-item text-capitalize">{{"postJob.salary" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
-            <!-- <li class="list-group-item text-capitalize">{{"postJob.willingToRelocate" | translate}}</li> -->
-            <li class="list-group-item text-capitalize">{{"postJob.workAuthorization" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.visaSponsorship" | translate }}</li>
-          </ul>
-        </div>
-        <div class="col-lg-6 info">
-          <ul class="list-group">
-            <li class="list-group-item text-capitalize">
-              {{sharedService.onGetJobType(postJobForm?.value?.jobInfo?.type)}}
-              <span *ngIf="(postJobForm?.value?.jobInfo?.type == '6' || postJobForm?.value?.jobInfo?.type == 6)">({{postJobForm?.value?.jobInfo?.contract_duration}} months)</span>
-            </li>
-            <!-- <li class="list-group-item text-capitalize" *ngIf="postJobForm?.value?.jobInfo?.type == '6'">{{postJobForm?.value?.jobInfo?.contract_duration}} months</li> -->
-            <li class="list-group-item text-capitalize">
-              <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
-                {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
-
-              </ng-container>
-              <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
-                {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}
-              </ng-container>
-              <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
-                {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Monthly pay'}}
-              </ng-container>
-              <ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
-                --
-              </ng-container>
-              <!-- <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
-                {{sharedService.onGetCurrency(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
-              </ng-container>
-              <ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
-                {{sharedService.onGetCurrency(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}
-              </ng-container>
-              <ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
-                --
-              </ng-container> -->
-            </li>
-            <li class="list-group-item text-capitalize">{{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}}</li>
-            <li class="list-group-item text-capitalize">
-              {{(postJobForm?.value?.jobInfo?.availability || postJobForm?.value?.jobInfo?.availability == 0) ? (postJobForm?.value?.jobInfo?.availability == 0 ? 'Immediate' : postJobForm?.value?.jobInfo?.availability + ' Days') : '--'}}</li>
-            <li class="list-group-item text-capitalize">
-              {{(postJobForm?.value?.requirement?.travel_opportunity || postJobForm?.value?.requirement?.travel_opportunity==0) ? (postJobForm?.value?.requirement?.travel_opportunity == 0 ? 'No' : postJobForm?.value?.requirement?.travel_opportunity + '%') : '--'}}
-            </li>
-            <!-- <li class="list-group-item text-capitalize">{{postJobForm?.value?.jobInfo?.certification}}</li> -->
-            <li class="list-group-item text-capitalize">{{postJobForm?.value?.requirement?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
-            <li class="list-group-item text-capitalize">{{onGetYesOrNoValue(postJobForm?.value?.requirement?.visa_sponsorship)}}</li>
-          </ul>
-        </div>
-        <!-- <div class="col-lg-2 caption">
-          <ul class="list-group">
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'type')" class="custom-control-input" id="select10">
-                <label class="custom-control-label" for="select10">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'remote')" class="custom-control-input" id="select11">
-                <label class="custom-control-label" for="select11">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'availability')" class="custom-control-input" id="select12">
-                <label class="custom-control-label" for="select12">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'travel_opportunity')" class="custom-control-input" id="select13">
-                <label class="custom-control-label" for="select13">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'work_authorization')" class="custom-control-input" id="select14">
-                <label class="custom-control-label" for="select14">&nbsp;</label>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, 'visa_sponsorship')" class="custom-control-input" id="select15">
-                <label class="custom-control-label" for="select15">&nbsp;</label>
-              </div>
-            </li>
-          </ul>
-        </div> -->
-
-        <!-- <div class="col-lg-12 border-top pt-3"> </div> -->
-        <ng-container *ngIf="childForm?.value?.jobPrev?.extra_criteria?.length > 0">
-          <div class="col-lg-4 caption">
-            <ul class="list-group">
-              <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
-              class="list-group-item text-capitalize">{{extra_criteria?.title}}</li>
-            </ul>
-          </div>
-          <div class="col-lg-6 info">
-            <ul class="list-group">
-              <li
-              *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
-              class="list-group-item text-capitalize">{{extra_criteria?.value}}</li></ul>
-          </div>
-          <!-- <div class="col-lg-2 caption">
-            <ul class="list-group">
-              <li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
-               class="list-group-item">
-                <div class="custom-control custom-checkbox mr-sm-2">
-                  <input type="checkbox" checked (change)="onAddOrRemoveMustMatch($event?.target?.checked, extra_criteria.title)" class="custom-control-input" id="select_extra_{{i}}">
-                  <label class="custom-control-label" for="select_extra_{{i}}">&nbsp;</label>
-                </div>
-              </li>
-            </ul>
-          </div> -->
-        </ng-container>
-
-        <div class="col-lg-12 border-top pt-3"> </div>
-
-        <div class="col-lg-12">
-          <h6>{{"postJob.jobDescription" | translate}}</h6>
-          <p [innerHTML]="postJobForm?.value?.jobInfo?.description"></p>
-        </div>
-      </div>
-    </div>
+		<div class="row mt-2">
+		<div class="col-md-12 mb-2">
+			<h6>{{"postJob.perksBenfits" | translate}}</h6>
+			<div class="d-flex" >
+				<div class="mr-5">
+					<p class="font-weight-bold mb-2">{{"postJob.healthWellness" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.dental == true" >{{"postJob.dentalInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.vision == true" >{{"postJob.visionInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.health == true" >{{"postJob.healthInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.life == true" >{{"postJob.lifeInsurance" | translate}}</p>
+				</div>
+				<div class="mr-5">
+					<p class="font-weight-bold mb-2">{{"postJob.paidTimeOff" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.vacation_policy == true" >{{"postJob.vacationPolicy" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.paid_holidays == true" >{{"postJob.paidHolidays" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.maternity == true" >{{"postJob.maternity" | translate}}</p>
+				</div>
+				<div class="mr-5">
+					<p class="font-weight-bold mb-2">{{"postJob.financialBenefits" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.retirement_plan == true" >{{"postJob.retirementPlan" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.performance_bonus == true" >{{"postJob.performanceBonus" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.tuition_reimbursement == true" >{{"postJob.tuitionReimbursement" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.purchase_plan == true" >{{"postJob.purchasePlan" | translate}}</p>
+				</div>
+				<div class="mr-5">
+					<p class="font-weight-bold mb-2">Office Perks</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.free_food == true" >{{"postJob.freeFood" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.home_policy == true" >{{"postJob.homePolicy" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.pet_friendly == true" >{{"postJob.petFriendly" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.social_outings == true" >{{"postJob.socialOutings" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.office_space == true" >{{"postJob.officeSpace" | translate}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
     <div class="modal-footer">
-      <div class="form-inline mr-auto">
-        <div class="form-group mr-2">
-          <label>{{"postJob.enterNumberOfPositions" | translate}}</label>
-        </div>
-        <div appMarkAsterisk class="form-group">
-          <input style="width: 100px !important;" numbersOnly formControlName="number_of_positions" class="form-control form-control-sm w-50" type="text" placeholder="Numbers"/>
-          <app-control-messages [control]="f['number_of_positions']"></app-control-messages>
-        </div>
-      </div>
+		<div class="form-inline mr-auto">
+			<div class="form-group mr-2">
+				<label>{{"postJob.enterNumberOfPositions" | translate}}</label>
+			</div>
+			<div appMarkAsterisk class="form-group">
+				<input style="width: 100px !important;" numbersOnly formControlName="number_of_positions" class="form-control form-control-sm w-50" type="text" placeholder="Numbers"/>
+				<app-control-messages [control]="f['number_of_positions']"></app-control-messages>
+			</div>
+		</div>
 
-      <button (click)="onOpenCriteriaModal()" type="button" class="btn btn-theme-green" data-toggle="modal"
-        data-target="#addCriteria">Add Another Criteria</button>
-      <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
-        data-dismiss="modal">Edit</button>
-      <button [disabled]="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
-        {{jobId ? 'Update & Close' : 'Save & Close'}}
-      </button>
-    </div>
-  </div>
+		<button (click)="onOpenCriteriaModal()" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add Another Criteria</button>
+		<button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
+			data-dismiss="modal">Edit</button>
+		<button [disabled]="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
+			{{jobId ? 'Update & Close' : 'Save & Close'}}
+		</button>
+	</div>
+</div>
+</div>
 </ng-template>
 
 <ng-template *ngIf="isOpenCriteriaModal" #criteriaModal let-modal>
 
-  <div *ngIf="t?.controls?.length > 0">
-    <ng-container [formGroup]="t?.controls[0]">
-    <div class="modal-header">
-      <h5 class="modal-title" id="addCriteria">Add Another Criteria</h5>
-      <button  (click)="onCloseCriteriaModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body" style="min-height:250px;">
-      <input formControlName="title" class="form-control mt-4" type="text" placeholder="Title">
-      <app-control-messages [control]="t?.controls[0]['controls']['title']"></app-control-messages>
-      <input formControlName="value" class="form-control mt-4" type="text" placeholder="Requirement">
-      <app-control-messages [control]="t?.controls[0]['controls']['value']"></app-control-messages>
-    </div>
-    <div class="modal-footer">
-      <button (click)="onCloseCriteriaModal()" type="button" class="btn btn-secondary "
-        data-dismiss="modal">Close</button>
-      <button [disabled]="(childForm?.value?.jobPrev?.temp_extra_criteria[0].title == '') || (childForm?.value?.jobPrev?.temp_extra_criteria[0].value == '')" (click)="onAddExtraCriteria()" type="button" class="btn btn-theme-blue"
-        data-dismiss="modal">Add</button>
-    </div>
-    </ng-container>
-  </div>
+	<div *ngIf="t?.controls?.length > 0">
+		<ng-container [formGroup]="t?.controls[0]">
+			<div class="modal-header">
+				<h5 class="modal-title" id="addCriteria">Add Another Criteria</h5>
+				<button  (click)="onCloseCriteriaModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" style="min-height:250px;">
+				<input formControlName="title" class="form-control mt-4" type="text" placeholder="Title">
+				<app-control-messages [control]="t?.controls[0]['controls']['title']"></app-control-messages>
+				<input formControlName="value" class="form-control mt-4" type="text" placeholder="Requirement">
+				<app-control-messages [control]="t?.controls[0]['controls']['value']"></app-control-messages>
+			</div>
+			<div class="modal-footer">
+				<button (click)="onCloseCriteriaModal()" type="button" class="btn btn-secondary "
+					data-dismiss="modal">Close</button>
+				<button [disabled]="(childForm?.value?.jobPrev?.temp_extra_criteria[0].title == '') || (childForm?.value?.jobPrev?.temp_extra_criteria[0].value == '')" (click)="onAddExtraCriteria()" type="button" class="btn btn-theme-blue"
+					data-dismiss="modal">Add</button>
+			</div>
+		</ng-container>
+	</div>
+	
 </ng-template>

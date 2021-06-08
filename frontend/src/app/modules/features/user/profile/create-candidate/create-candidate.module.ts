@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,6 +13,8 @@ import { CandidateReviewModalComponent } from './candidate-review-modal/candidat
 import { Ng2TelInputModule } from 'ng2-tel-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MaterialModule } from '@shared/material.module';
+
 const routes: Routes = [
   {
     path: '',
@@ -35,9 +37,11 @@ const routes: Routes = [
     NgbModule,
     CommonModule,
     SharedModule,
+	MaterialModule,
     NgxIntlTelInputModule,
     RouterModule.forChild(routes)
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   exports: [RouterModule]
 })
 export class CreateCandidateModule { }

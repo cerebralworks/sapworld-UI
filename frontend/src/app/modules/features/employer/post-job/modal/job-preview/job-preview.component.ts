@@ -67,7 +67,7 @@ export class JobPreviewComponent implements OnInit {
       this.jobPreviewModalRef = this.modalService.open(this.jobPreviewModal, {
         windowClass: 'modal-holder',
         centered: true,
-        size: 'lg',
+        size: 'xl',
         backdrop: 'static',
         keyboard: false
       });

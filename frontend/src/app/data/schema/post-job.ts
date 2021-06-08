@@ -1,10 +1,11 @@
 export interface JobPosting {
   id: number;
   title: string;
-  type: number | string;
+  type: string;
+  employer_role_type: string;
   description: string;
   salary_type: number;
-  salary_currency: number;
+  salary_currency: string;
   salary: number;
   city: string;
   state: string;
@@ -16,11 +17,18 @@ export interface JobPosting {
   sap_experience: number;
   latlng: string;
   location: string;
-  domain: Array<number>;
+  health_wellness: string;
+  paid_off: string;
+  financial_benefits: string;
+  office_perks: string;
+  language: string;
+  facing_role: string;
+  training_experience: string;
+  domain: Array<any>;
   hands_on_experience: Array<any>;
   extra_criteria: Array<any>;
   temp_extra_criteria: Array<any>;
-  skills: Array<number>;
+  skills: Array<any>;
   programming_skills: Array<string>;
   optinal_skills: Array<string>;
   certification: Array<string>;

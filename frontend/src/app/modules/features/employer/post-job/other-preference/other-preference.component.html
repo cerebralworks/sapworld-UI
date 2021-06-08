@@ -1,62 +1,75 @@
-							<div class="row mt-5">	
-								<div class="col-lg-4 col-md-6">
-									<div class=" form-group">
-										<label class="font-weight-bold">Client Facing Role  </label>
-										 <div class="mt-2">
-											 <div class="custom-control custom-radio custom-control-inline">
-											  <input type="radio" id="customRadioInline5" name="customRadioInline2" class="custom-control-input">
-											  <label class="custom-control-label" for="customRadioInline5">Required</label>
-											</div>
-											<div class="custom-control custom-radio custom-control-inline">
-											  <input type="radio" id="customRadioInline6" name="customRadioInline2" class="custom-control-input">
-											  <label class="custom-control-label" for="customRadioInline6">Not Required</label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>							
-							<div class="row mt-4">	
-								<div class="col-lg-4 col-md-6">
-									<div class=" form-group">
-										<label class="font-weight-bold">Training Experience </label>
-										 <div class="mt-2">
-											 <div class="custom-control custom-radio custom-control-inline">
-											  <input type="radio" id="customRadioInline7" name="customRadioInline3" class="custom-control-input">
-											  <label class="custom-control-label" for="customRadioInline7">Required</label>
-											</div>
-											<div class="custom-control custom-radio custom-control-inline">
-											  <input type="radio" id="customRadioInline8" name="customRadioInline3" class="custom-control-input">
-											  <label class="custom-control-label" for="customRadioInline8">Not Required</label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>							
-							<div class="row mt-4">		
-								<div class="col-lg-6 col-md-6">
-									<div class=" form-group">
-										<label class="font-weight-bold">Certification </label>
-									   <input type="text" class="form-control" value="CCNA, AWSC" data-role="tagsinput">
-									</div>
-								</div>
-							</div>					
-							<div class="row mt-4">	
-								<div class="col-lg-6 col-md-6">									
-									<div class=" form-group">
-										<label class="font-weight-bold">Languages Proficiency in</label>					 
-										<select class="form-control selectpicker" multiple>
-										  <option>English </option>
-										  <option>Spanish </option>
-										  <option>French </option>
-										  <option>German  </option>
-										  <option>Russian </option>
-										  <option>Chinese </option>
-										  <option>Japanese </option>
-										  <option>Arabic </option>
-										  <option>Hindi </option>
-										  <option>Bengali </option>
-										</select>
-
-									</div>
-								</div>
-							</div>	
+<div formGroupName="otherPref">
+	<div class="row mt-5">	
+		<div class="col-lg-4 col-md-6">
+			<div class=" form-group">
+				<label class="font-weight-bold" appMarkAsterisk>Client Facing Role  </label>
+				 <div class="mt-2">
+					 <div class="custom-control custom-radio custom-control-inline">
+						  <input type="radio" id="customRadioInline5"  value="0" formControlName="facing_role" name="facing_role" class="custom-control-input">
+						  <label class="custom-control-label" for="customRadioInline5">Required</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" id="customRadioInline6"  value="1" formControlName="facing_role" name="facing_role"  class="custom-control-input">
+						<label class="custom-control-label" for="customRadioInline6">Not Required</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>							
+	<div class="row mt-4">	
+		<div class="col-lg-4 col-md-6">
+			<div class=" form-group">
+				<label class="font-weight-bold" appMarkAsterisk>Training Experience </label>
+				<div class="mt-2">
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" value="0" formControlName="training_experience" id="customRadioInline7" name="training_experience" class="custom-control-input">
+						<label class="custom-control-label" for="customRadioInline7">Required</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" value="1" formControlName="training_experience" id="customRadioInline8" name="training_experience" class="custom-control-input">
+						<label class="custom-control-label" for="customRadioInline8">Not Required</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>							
+	<div class="row mt-4">		
+		<div class="col-lg-6 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.certification" | translate }} </label>
+				<ng-select id="certification" [addTag]="true" addTagText="Add Certification" bindValue="label" bindLabel="label" placeholder="Ex. AWS, CCNA" appendTo="body" multiple="true"
+					formControlName="certification">
+				</ng-select>
+				<app-control-messages [control]="f['certification']"></app-control-messages>
+			</div>
+		</div>
+	</div>					
+	<div class="row mt-4">	
+		<div class="col-lg-6 col-md-6">									
+			<div class=" form-group">
+				<label class="font-weight-bold" appMarkAsterisk >Languages Proficiency in</label>					 
+				<ngx-select
+				  class="text-capitalize"
+				  [placeholder]="'Select Language'"
+				  [items]="languageSource"
+				  formControlName="language"
+				[multiple]="true"
+				  optionValueField="id"
+				  optionTextField="name"
+				  autoClearSearch="true"
+				  noResultsFound="No results found"
+				   >
+				   <ng-template ngx-select-option-selected let-option let-text="text">
+					{{option?.text ? option?.text?.split('-')[0] : ''}}
+				  </ng-template>
+					  <ng-template ngx-select-option let-option let-text="text">
+					   <span >{{option?.text}}</span>
+				  </ng-template>
+					  <ng-template ngx-select-option-not-found>
+					  Nothing found
+				  </ng-template>
+				</ngx-select>
+			</div>
+		</div>
+	</div>	
+</div>	

@@ -6,16 +6,17 @@ import { EmployerService } from '@data/service/employer.service';
 import { JobPosting } from '@data/schema/post-job';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 import * as lodash from 'lodash';
 
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
   group([
-    query(':enter', [style({ transform: 'translateX(-100%)' }), animate('.6s ease-out', style({ transform: 'translateX(0%)' }))], {
+    query(':enter', [style({ transform: 'translateX(-100%)' }), animate('.1s ease-out', style({ transform: 'translateX(0%)' }))], {
       optional: true,
     }),
-    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.6s ease-out', style({ transform: 'translateX(100%)' }))], {
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.1s ease-out', style({ transform: 'translateX(100%)' }))], {
       optional: true,
     }),
   ]),
@@ -56,16 +57,20 @@ export class PostJobLayoutComponent implements OnInit {
   public formError: any;
   public postedJobsDetails: JobPosting;
   public jobId: string;
+	public requestParams: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
     private modalService: NgbModal,
     public router: Router,
+		private SharedAPIService: SharedApiService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+		this.onGetCountry('');
+		this.onGetLanguage('');
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
@@ -117,6 +122,7 @@ export class PostJobLayoutComponent implements OnInit {
     this.isLoading = true;
     let jobInfo: JobPosting = {
       ...this.postJobForm.value.jobInfo,
+      ...this.postJobForm.value.otherPref,
       ...this.postJobForm.value.requirement,
       ...this.postJobForm.value.jobPrev
     };
@@ -210,5 +216,24 @@ export class PostJobLayoutComponent implements OnInit {
       }
     )
   }
+onGetCountry(query) {
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 1000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
 
+		this.SharedAPIService.onGetCountry(this.requestParams);
+		 
+	  }
+	  
+	onGetLanguage(query) {
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 1000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
+
+		this.SharedAPIService.onGetLanguage(this.requestParams);
+	  }
 }

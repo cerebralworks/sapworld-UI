@@ -1,3 +1,5 @@
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+
 import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { tabInfo } from '@data/schema/create-candidate';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
@@ -13,7 +15,7 @@ import { ImageCropperComponent, ImageCroppedEvent, base64ToFile } from 'ngx-imag
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { UserService } from '@data/service/user.service';
 import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-
+import {MatChipInputEvent} from '@angular/material/chips';
 @Component({
 	selector: 'app-create-candidate-personal-details',
 	templateUrl: './create-candidate-personal-details.component.html',
@@ -44,7 +46,16 @@ import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 
 export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	
 	//Variable Declaration
-	
+	  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  visa_types = [ ];
+  employers = [ ];
+
+
+  
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
 	public show: boolean = false;
@@ -91,6 +102,77 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		private SharedAPIService: SharedApiService,
 		private formBuilder: FormBuilder
 	) { }
+	
+	add(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.visa_types.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.visa_types.push(value);
+			this.childForm.patchValue({
+			  personalDetails: {
+				['visa_type']: this.visa_types,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	remove(visa): void {
+		
+		const index = this.visa_types.indexOf(visa);
+
+		if (index >= 0) {
+			this.visa_types.splice(index, 1);
+			this.childForm.patchValue({
+			  personalDetails: {
+				['visa_type']: this.visa_types,
+			  }
+			});
+		}
+	}
+	addEmplyee(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.employers.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.employers.push(value);
+			this.childForm.patchValue({
+			  personalDetails: {
+				['clients_worked']: this.employers,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	removeEmplyee(employer): void {
+		
+		const index = this.employers.indexOf(employer);
+
+		if (index >= 0) {
+			this.employers.splice(index, 1);
+			this.childForm.patchValue({
+			  personalDetails: {
+				['clients_worked']: this.employers,
+			  }
+			});
+		}
+	}
 	
 	/**
 	**	When the page loads initally function calls
@@ -149,8 +231,16 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			  this.savedUserDetails.country= this.childForm.value.personalDetails.country;
 			  this.savedUserDetails.zipcode=this.childForm.value.personalDetails.zipcode;
 			  this.savedUserDetails.nationality= this.childForm.value.personalDetails.nationality;
-			  this.savedUserDetails.clients_worked=this.childForm.value.personalDetails.clients_worked;
-			  this.savedUserDetails.visa_type=this.childForm.value.personalDetails.visa_type;
+			  if(this.childForm.value.personalDetails.visa_type){
+				  var splits =this.childForm.value.personalDetails.visa_type;
+				  this.savedUserDetails.visa_type=splits;
+				  this.visa_types = splits;
+			  }
+			  if(this.childForm.value.personalDetails.clients_worked){
+				  var splits =this.childForm.value.personalDetails.clients_worked;
+				  this.savedUserDetails.clients_worked=splits;
+				  this.employers = splits;
+			  }
 			  this.savedUserDetails.work_authorization= this.childForm.value.personalDetails.work_authorization;
 			  if(this.childForm.value.personalDetails.authorized_country){
 				this.savedUserDetails.authorized_country= this.childForm.value.personalDetails.authorized_country;
@@ -164,6 +254,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			  }
 			  this.savedUserDetails.language_known=this.childForm.value.personalDetails.language_known;
 			  this.savedUserDetails.reference=this.childForm.value.personalDetails.reference;
+		}else{
+			if(this.savedUserDetails.visa_type){
+				  this.visa_types =this.savedUserDetails.visa_type;
+			  }
+			if(this.savedUserDetails.clients_worked){
+				  this.employers =this.savedUserDetails.clients_worked;
+			  }
 		}
 		if (this.savedUserDetails && this.savedUserDetails.language_known && Array.isArray(this.savedUserDetails.language_known)) {
         if ((this.savedUserDetails.language_known.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.language_known && this.savedUserDetails.language_known.length)) {
@@ -195,6 +292,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			}));
             this.onChangeLanguageValueReference(value.name, index);
           });
+		   
 		  this.childForm.patchValue({
 			personalDetails: {
 				 reference: this.savedUserDetails.reference,

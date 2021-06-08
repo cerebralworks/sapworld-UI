@@ -56,3 +56,9 @@
     box-shadow: 3px 3px 3px 2px #4caf5057;
     color: #ffffff;
 }
+.example-chip-list{
+	display:block !important;
+}
+mat-form-field .mat-form-field-empty.mat-form-field-label, .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    display: none !important;
+}
