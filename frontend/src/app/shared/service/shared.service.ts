@@ -69,7 +69,7 @@ export class SharedService {
 		}
 	 }
 	 
-     return temp;
+     return jobTypeArray;
   }
 
   onGetCurrency = (index?) => {

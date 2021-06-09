@@ -17,8 +17,8 @@ export class PostJobHeaderComponent implements OnInit {
   }
 
   onTabChange = (currentTabInfo: tabInfo) => {
-    this.currentTabInfo = currentTabInfo;
-    this.onTabChangeEvent.emit(currentTabInfo);
+    //this.currentTabInfo = currentTabInfo;
+   // this.onTabChangeEvent.emit(currentTabInfo);
   }
 
 }

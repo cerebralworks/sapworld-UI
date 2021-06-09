@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 @Component({
   selector: 'app-employer-dashboard',
@@ -20,6 +21,7 @@ export class EmployerDashboardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
      private router: Router,
+    private sharedApiService: SharedApiService,
      private utilsHelperService: UtilsHelperService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
@@ -34,6 +36,8 @@ export class EmployerDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+	  this.onGetCountry('');
+	  this.onGetLanguage('');
     const activeTab = this.route.snapshot.queryParamMap.get('activeTab');
     if(activeTab) {
       switch (activeTab) {
@@ -71,5 +75,24 @@ export class EmployerDashboardComponent implements OnInit {
   onToggleSendMail = (status) => {
     this.isOpenedSendMailModal = status;
   }
+onGetCountry(query) {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
 
+		this.sharedApiService.onGetCountry(requestParams);
+		 
+	  }
+	  
+	  onGetLanguage(query) {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+
+		this.sharedApiService.onGetLanguage(requestParams);
+	  }
 }

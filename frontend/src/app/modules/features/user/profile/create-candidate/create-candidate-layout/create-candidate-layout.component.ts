@@ -169,6 +169,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					this.userInfo.visa_sponsered = false;
 				}
 				if(this.candidateForm.controls.jobPref){
+					if(this.userInfo.preferred_locations){
 					if(this.userInfo.preferred_locations.length == 0){
 						this.candidateForm.controls.jobPref['controls']['preferred_locations'].removeAt(0);
 						this.candidateForm.controls.jobPref['controls']['preferred_locations'].push(this.formBuilder.group({
@@ -186,7 +187,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 						  }));
 					  });
 					}
-				}
+				}}
 				this.candidateForm.patchValue({
 					jobPref : {
 						...this.userInfo

@@ -101,17 +101,36 @@
 			  <app-control-messages [control]="f['nationality']"></app-control-messages>							  
 			</div>
 		</div>				
-		<div class="col-lg-4 col-md-6">
+		<!-- <div class="col-lg-4 col-md-6">
 			<div class=" form-group">
 				<label>{{"postYourResume.previousemployers" | translate }}</label>
 				<ng-select appMarkAsterisk id="clients_worked" [addTag]="true" addTagText="Add Previous Employer" bindValue="label"
 				  bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
 				  formControlName="clients_worked">
 				</ng-select>
-				<!-- <input type="text" class="form-control" placeholder="Ex. Microsoft, Google, Facebook, SAP"> -->
 				<app-control-messages [control]="f['clients_worked']"></app-control-messages>
 				
 			</div>
+		</div>	 -->
+		<div class="col-lg-6 col-md-12" >	
+			<div class=" form-group">
+				<label >{{"postYourResume.previousemployers" | translate }}</label>
+				<mat-form-field appMarkAsterisk class="example-chip-list" >
+					
+					<mat-chip-list #chipList aria-label="Previous Employer">
+						<mat-chip *ngFor="let employer of employers" [selectable]="selectable"
+							[removable]="removable" (removed)="removeEmplyee(employer)">
+							{{employer}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipList"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="addEmplyee($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
 		</div>	
 	</div>
 	  <div class="row mt-2">
@@ -186,13 +205,33 @@
 				<app-control-messages [control]="f['othercountry']"></app-control-messages>									  
 			</div>
 		</div>				
-		<div class="col-lg-4 col-md-6" *ngIf="showAuthorization">
+		<!-- <div class="col-lg-4 col-md-6" *ngIf="showAuthorization">
 			<div class=" form-group">
 				<label>{{"postYourResume.visatype" | translate }}</label>
 				<ng-select appMarkAsterisk id="visa_type" [addTag]="true" addTagText="Add Visa Types " bindValue="label" bindLabel="label" placeholder="Ex. H1B, H2B" appendTo="body" multiple="true" formControlName="visa_type">
 				</ng-select>
 				<app-control-messages [control]="f['visa_type']"></app-control-messages>	
 			</div>
+		</div> -->
+		<div class="col-lg-6 col-md-12" *ngIf="showAuthorization">	
+			<div class=" form-group">
+				<label >{{"postYourResume.visatype" | translate }}</label>
+				<mat-form-field appMarkAsterisk class="example-chip-list" >
+					
+					<mat-chip-list #chipList aria-label="Visa Type">
+						<mat-chip *ngFor="let visa_type of visa_types" [selectable]="selectable"
+							[removable]="removable" (removed)="remove(visa_type)">
+							{{visa_type}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipList"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
 		</div>	
 	</div>
 	 <div class="row mt-5">
@@ -392,6 +431,7 @@
     </div>
 	
   </div>
+
 
 
   <ng-template #CropImage let-modal let-d="dismiss">

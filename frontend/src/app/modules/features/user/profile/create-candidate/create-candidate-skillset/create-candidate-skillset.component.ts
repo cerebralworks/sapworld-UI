@@ -97,7 +97,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 				var temp_id = this.savedUserDetails['hands_on_experience'][i]["skill_id"]
 				this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != temp_id })
 			}
-		  }
+		  } 
           this.savedUserDetails.skills = this.utilsHelperService.differenceByPropValArray(this.savedUserDetails.skills, this.savedUserDetails.hands_on_experience, 'skill_id')
 
         }
