@@ -200,17 +200,19 @@ export class JobInformationComponent implements OnInit {
 	
 	handleAddressChange = (event) => {
 		const address = this.sharedService.fromGooglePlace(event);
-		this.childForm.patchValue({
-			jobInfo: {
-				city: address.city ? address.city : event.formatted_address,
-				state: address.state,
-				country: address.country,
-				latlng: {
-				  "lat": event.geometry.location.lat(),
-				  "lng": event.geometry.location.lng()
+		if(event.geometry){
+			this.childForm.patchValue({
+				jobInfo: {
+					city: address.city ? address.city : event.formatted_address,
+					state: address.state,
+					country: address.country,
+					latlng: {
+					  "lat": event.geometry.location.lat(),
+					  "lng": event.geometry.location.lng()
+					}
 				}
-			}
-		});
+			});
+		}
 	};
 
 }

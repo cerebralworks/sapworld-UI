@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { Component,ViewEncapsulation, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
@@ -7,12 +7,14 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
+import { DataService } from '@shared/service/data.service';
 
 @Component({
   selector: 'app-job-preview',
   templateUrl: './job-preview.component.html',
   styleUrls: ['./job-preview.component.css'],
-  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
+  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
+	encapsulation: ViewEncapsulation.None
 })
 export class JobPreviewComponent implements OnInit {
 
@@ -37,13 +39,15 @@ export class JobPreviewComponent implements OnInit {
   public getPostedJobsDetails: JobPosting;
   public industriesItems: any[] = [];
   public skillItems: any[] = [];
+  public languageSource: any[] = [];
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
   @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
   public mustMacthObj: any = {};
+  public MacthObj: any = {};
   public jobId:string;
 
-  constructor(
+  constructor(private dataService: DataService,
     private modalService: NgbModal,
     public router: Router,
     private parentF: FormGroupDirective,
@@ -56,7 +60,13 @@ export class JobPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.jobId = this.route.snapshot.queryParamMap.get('id');
-
+this.dataService.getLanguageDataSource().subscribe(
+      response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.languageSource = response;
+        }
+      }
+    );
     this.onGetProfile();
     this.onGetIndustries();
     this.onGetSkill()
@@ -172,10 +182,33 @@ export class JobPreviewComponent implements OnInit {
       work_authorization: true,
       visa_sponsorship: true
     }
+	
+    this.MacthObj = {
+      experience: new FormControl('0', Validators.required),
+      sap_experience: new FormControl('0', Validators.required),
+      domain: new FormControl('0', Validators.required),
+      hands_on_experience: new FormControl('0', Validators.required),
+      skills: new FormControl('0', Validators.required),
+      programming_skills: new FormControl('0', Validators.required),
+      optinal_skills: new FormControl('0', Validators.required),
+      certification: new FormControl('0', Validators.required),
+      type: new FormControl('0', Validators.required),
+      employer_role_type: new FormControl('0', Validators.required),
+      availability: new FormControl('0', Validators.required),
+      work_authorization: new FormControl('0', Validators.required),
+      facing_role: new FormControl('0', Validators.required),
+      training_experience: new FormControl('0', Validators.required),
+      end_to_end_implementation: new FormControl('0', Validators.required),
+      education: new FormControl('0', Validators.required),
+      travel_opportunity: new FormControl('0', Validators.required),
+      remote: new FormControl('0', Validators.required),
+      language: new FormControl('0', Validators.required),
+    }
 
     this.childForm.addControl('jobPrev', new FormGroup({
       number_of_positions: new FormControl(null, Validators.required),
       must_match: new FormControl(this.mustMacthObj),
+	  match_select: new FormGroup(this.MacthObj),
       extra_criteria: new FormArray([]),
       temp_extra_criteria: new FormArray([]),
     }));
@@ -373,5 +406,38 @@ export class JobPreviewComponent implements OnInit {
       }
     )
   }
+  
+  handleChange(event){
+	  console.log(event);
+	  if(event.target.value=='0'){
+		  
+	  }else if(event.target.value=='1'){
+		  
+	  }else if(event.target.value=='2'){
+		  
+	  }
+  }
+findLanguageArray(value){
+		if(value){
+			value = value.map(function(a,b){
+				return a 
+			})
+			if(this.languageSource){
+				var array = this.languageSource.filter(f=>{ return value.includes(f.id)})
 
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['name'];
+					})
+					if(temp.length !=0){
+						return this.utilsHelperService.onConvertArrayToString(temp);
+					}
+				}
+			
+			}
+			
+		}
+		
+		return '--';
+	}
 }

@@ -9,6 +9,7 @@ import { OtherPreferenceComponent } from './other-preference/other-preference.co
 import { RequirementCriteriaComponent } from './requirement-criteria/requirement-criteria.component';
 import { JobPreviewComponent } from './modal/job-preview/job-preview.component';
 import { SharedModule } from '@shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    NgbModule,
     RouterModule.forChild(routes),
     SharedModule
   ],

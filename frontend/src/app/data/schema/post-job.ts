@@ -12,7 +12,7 @@ export interface JobPosting {
   country: string;
   zipcode: number;
   availability: number;
-  remote: boolean;
+  remote: any;
   experience: number;
   sap_experience: number;
   latlng: string;
@@ -25,6 +25,7 @@ export interface JobPosting {
   facing_role: string;
   training_experience: string;
   domain: Array<any>;
+  education: Array<any>;
   hands_on_experience: Array<any>;
   extra_criteria: Array<any>;
   temp_extra_criteria: Array<any>;

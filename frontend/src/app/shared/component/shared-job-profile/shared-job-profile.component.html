@@ -1,136 +1,390 @@
-<div class="row mt-3 info-box">
-  <!-- <div class="col-lg-12 mt-2">
-    <h6 class="font-weight-bold">&nbsp;</h6>
-  </div> -->
-  <div class="col-lg-4 caption">
-    <ul class="list-group">
-      <li class=" list-group-item text-capitalize">{{"dashboard.totalYearsOfExp" | translate }}</li>
-      <li class=" list-group-item text-capitalize">{{"dashboard.totalSapExp" | translate }}</li>
-      <li class=" list-group-item text-capitalize">{{"dashboard.domainsWorked" | translate }}</li>
-      <li class=" list-group-item text-capitalize">{{"postJob.handsOnExp" | translate }}</li>
-    </ul>
-  </div>
-  <div class="col-lg-8 info">
-    <ul class="list-group">
-      <li class="list-group-item text-capitalize">{{jobInfo?.experience ? jobInfo?.experience + ' Years' : ''}} </li>
-      <li class="list-group-item text-capitalize">{{jobInfo?.sap_experience ? jobInfo?.sap_experience + ' Years' : ''}}</li>
-      <li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(jobInfo?.domain)}}</li>
-      <li class="list-group-item text-uppercase d-flex">
-        <!-- <p class="m-0 w-100 float-left" *ngFor="let item of jobInfo?.hands_on_experience">
-          <span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
-          <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
-        </p> -->
-        <ng-container *ngIf="jobInfo?.hands_on_experience?.length; else elseHandsTemplate">
-          <ng-container *ngFor="let item of jobInfo?.hands_on_experience; let i = index" >
-            <div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2">
-              {{item?.skill_id ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag) : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
-            </div>
-          </ng-container>
-        </ng-container>
+<div class="row  info-box">
+	<div class="col-lg-12">
+		<div class="accordion mt-3 ">
+			<div class="pj-title " >
+				<h6 class="mb-0" type="button">
+					Required Skills
+				 </h6>
+			</div>
+			<div class="row  mt-3  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize ">{{"postJob.totalYearsOfExperience" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize ">{{jobInfo?.experience}} Years</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize ">{{jobInfo?.sap_experience}} Years</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize ">{{sharedService.onFindDomainFromID(jobInfo?.domain)}}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize ">{{"postJob.handsOnWith" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-uppercase d-flex handsExps">
+							<ng-container *ngIf="jobInfo?.hands_on_experience?.length; else elseHandsTemplate">
+							  <ng-container *ngFor="let item of jobInfo?.hands_on_experience; let i = index" >
+								<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2"   tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
+								  {{item?.skill_id ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag) : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+								</div>
+							  </ng-container>
+							</ng-container>
+							<ng-template #elseHandsTemplate>
+							  <p>--</p>
+							</ng-template>
+						 </li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize" >{{"dashboard.knowledgeOn" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-uppercase">
+							<ng-container *ngIf="jobInfo?.skills?.length; else elseSkillsTemplate">
+							  <span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo?.skills, jobInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
+								<span style="cursor: pointer;" class="text-wrap-custom float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-class"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
+								{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
+								</span>
+							  </span>
+							</ng-container>
 
-        <ng-template #elseHandsTemplate>
-          <p>--</p>
-        </ng-template>
-      </li>
+							<ng-template #elseSkillsTemplate>
+							  <p>--</p>
+							</ng-template>
+						  </li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+							<li class=" list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(jobInfo?.programming_skills)}}  </li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"dashboard.otherSkills" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+							<li class=" list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(jobInfo?.optinal_skills)}}</li>
+					 </ul>
+				</div>
+			</div>
+		</div>
+		<div class="accordion">
+			<div class="pj-title " >
+				<h6 class="mb-0" type="button">
+					{{"dashboard.desiredSkills" | translate }}
+				 </h6>
+			</div>
+			<div class="row  mt-3  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(jobInfo?.certification)}}</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+							{{sharedService.onGetJobType([jobInfo?.type]) }}
+							
+						<span *ngIf="(jobInfo?.type == '6' || jobInfo?.type == '03')">({{jobInfo?.contract_duration}} months)</span>
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.jobRole" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+							{{jobInfo?.employer_role_type }}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.availability" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+							{{jobInfo?.availability }}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.workAuthorisation" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" >
+							{{"postJob.shouldBeACitizenPr" | translate }}
+						</li>
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" >
+							{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+						</li>
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
+							{{"postJob.shouldBeACitizenPrWork" | translate }}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.clientFacing" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.facing_role == '0'">
+							{{"postJob.required" | translate}}
+						</li>
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.facing_role == '1'">
+							{{"postJob.notRequired" | translate}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.trainingExperience" | translate}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.training_experience == '0'">
+							{{"postJob.required" | translate}}
+						</li>
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.training_experience == '1'">
+							{{"postJob.notRequired" | translate}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+		</div>
+		<div class="accordion">
+			<div class="pj-title " >
+				<h6 class="mb-0" type="button">
+					{{"dashboard.otherPreferences" | translate }}
+				 </h6>
+			</div>
+			<div class="row  mt-3  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">{{jobInfo?.end_to_end_implementation}}</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.education" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">{{jobInfo?.education}}</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row  info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{(jobInfo?.travel_opportunity || jobInfo?.travel_opportunity==0) ? (jobInfo?.travel_opportunity == 0 ? 'No' : jobInfo?.travel_opportunity + '%') : '--'}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.remote" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.remote)}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row   info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.languageknown" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{findLanguageArray(jobInfo?.language)}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row   info-box">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.salary" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize" >
+						  <ng-container *ngIf="jobInfo?.salary_type == 0">
+							{{sharedService.onGetCurrencyCode(jobInfo?.salary_currency)?.symbol + jobInfo?.salary + '/hr'}}
 
-    </ul>
-  </div>
+						  </ng-container>
+						  <ng-container *ngIf="jobInfo?.salary_type ==1">
+							{{sharedService.onGetCurrencyCode(jobInfo?.salary_currency)?.symbol + jobInfo?.salary + ' Annual pay'}}
 
-  <div class="col-lg-12 border-top pt-3">	</div>
-  <div class="col-lg-4 caption">
-    <ul class="list-group">
-      <li class=" list-group-item text-capitalize" *ngIf="sharedService.onFindSkillsFromID(jobInfo?.skills, 'obj')?.length">{{"dashboard.knowledgeOn" | translate }}</li>
-      <li class=" list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
-      <li class=" list-group-item text-capitalize">{{"postJob.niceToHave" | translate }}</li>
-      <li class=" list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
-    </ul>
-  </div>
-  <div class="col-lg-8 info">
-    <ul class="list-group">
-      <li class=" list-group-item text-uppercase">
-        <ng-container *ngIf="jobInfo?.skills?.length; else elseSkillsTemplate">
-          <span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo?.skills, jobInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
-            <span class="text-wrap-custom float-left"
-            *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))">
-            {{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
-            </span>
-          </span>
-        </ng-container>
-
-        <ng-template #elseSkillsTemplate>
-          <p>--</p>
-        </ng-template>
-      </li>
-      <li class=" list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(jobInfo?.programming_skills)}}  </li>
-      <li class=" list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(jobInfo?.optinal_skills)}}</li>
-      <li class=" list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(jobInfo?.certification)}}</li>
-    </ul>
-  </div>
-
-  <div class="col-lg-12 border-top pt-3">	</div>
-  <div class="col-lg-4 caption">
-    <ul class="list-group">
-      <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
-      <!-- <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li> -->
-      <li class="list-group-item text-capitalize" *ngIf="fieldsExclude?.salary">{{"postJob.salary" | translate}}</li>
-      <li class=" list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
-      <li class=" list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
-      <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
-      <li class=" list-group-item text-capitalize">{{"postJob.workAuthorization" | translate }}</li>
-      <li class=" list-group-item text-capitalize"  *ngIf="fieldsExclude?.visa_sponsorship">{{"postJob.visaSponsorship" | translate }}</li>
-      <li class=" list-group-item text-capitalize"  *ngIf="fieldsExclude?.end_to_end_implementation">{{"postJob.endToEndImplementation" | translate }}</li>
-    </ul>
-  </div>
-  <div class="col-lg-8 info">
-    <ul class="list-group">
-    <li class=" list-group-item text-capitalize">
-      {{jobInfo?.type > -1 ? sharedService.onGetJobType(jobInfo?.type) : '--'}}
-      <span *ngIf="(jobInfo?.type == '6' || jobInfo?.type == 6)">({{jobInfo?.contract_duration}} months)</span>
-    </li>
-    <!-- <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{jobInfo?.contract_duration}} months</li> -->
-    <li class="list-group-item text-capitalize" *ngIf="fieldsExclude?.salary">
-      <ng-container *ngIf="jobInfo?.salary_type == 0">
-        {{sharedService.onGetCurrencyCode(jobInfo?.salary_currency)?.symbol + jobInfo?.salary + '/hr'}}
-
-      </ng-container>
-      <ng-container *ngIf="jobInfo?.salary_type ==1">
-        {{sharedService.onGetCurrencyCode(jobInfo?.salary_currency)?.symbol + jobInfo?.salary + ' Annual pay'}}
-
-      </ng-container>
-      <ng-container  *ngIf="jobInfo?.salary_type < 0">
-        --
-      </ng-container>
-    </li>
-    <li class=" list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(jobInfo?.remote)}}</li>
-    <li class=" list-group-item text-capitalize">
-      {{(jobInfo?.availability || jobInfo?.availability == 0) ? (jobInfo.availability == 0 ? 'Immediate' : jobInfo?.availability + ' Days') : '--'}}
-    </li>
-    <li class=" list-group-item text-capitalize">
-      {{(jobInfo?.travel_opportunity || jobInfo?.travel_opportunity==0) ? (jobInfo?.travel_opportunity == 0 ? 'No' : jobInfo?.travel_opportunity + '%') : '--'}}</li>
-     <li class=" list-group-item text-capitalize">{{jobInfo?.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)}}</li>
-    <li class=" list-group-item text-capitalize"  *ngIf="fieldsExclude?.visa_sponsorship">{{utilsHelperService.onGetYesOrNoValue(jobInfo?.visa_sponsorship)}}</li>
-    <li class=" list-group-item text-capitalize"  *ngIf="fieldsExclude?.end_to_end_implementation">{{jobInfo?.end_to_end_implementation}}</li>
-    </ul>
-  </div>
-
-  <div class="col-lg-4 caption">
-    <ul class="list-group">
-      <li *ngFor="let item of jobInfo?.extra_criteria | keyvalue; let i=index"
-      class=" list-group-item text-capitalize">{{item?.value?.title ? item?.value?.title : '--'}}</li>
-     </ul>
-  </div>
-  <div class="col-lg-8 info">
-    <ul class="list-group">
-      <li *ngFor="let item of jobInfo?.extra_criteria; let i=index"
-      class=" list-group-item text-capitalize">{{item?.value ? item?.value : '--'}}</li>
-    </ul>
-  </div>
-
-  <div *ngIf="isDescrition" class="col-lg-12 border-top pt-3">	</div>
-
-  <div  *ngIf="isDescrition" class="col-lg-12">
-    <h6>Job Description</h6>
-    <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
-  </div>
-
+						  </ng-container>
+						  <ng-container  *ngIf="jobInfo?.salary_type < 0">
+							--
+						  </ng-container>
+						</li>
+					 </ul>
+				</div>
+			</div>
+		</div>
+		<div class="accordion" *ngIf="jobInfo?.extra_criteria">
+			<div class="pj-title " >
+				<h6 class="mb-0" type="button">
+					{{"postJob.extraCriteria" | translate}}
+				 </h6>
+			</div>
+			<div class="row  mt-3    info-box" *ngFor="let item of jobInfo?.extra_criteria | keyvalue; let i=index" >
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{item?.value?.title ? item?.value?.title : '--'}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize" >
+						  {{item?.value?.value ? item?.value?.value : '--'}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+		</div>
+		<div class="accordion">
+			<div class="pj-title " >
+				<h6 class="mb-0" type="button">
+					{{"postJob.perksBenfits" | translate}}
+				 </h6>
+			</div>
+			<div class="d-flex mt-3 " >
+				<div class="mr-3">
+					<p class="font-weight-bold mb-2">{{"postJob.healthWellness" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.dental == true" >{{"postJob.dentalInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.vision == true" >{{"postJob.visionInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.health == true" >{{"postJob.healthInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.life == true" >{{"postJob.lifeInsurance" | translate}}</p>
+				</div>
+				<div class="mr-3">
+					<p class="font-weight-bold mb-2">{{"postJob.paidTimeOff" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.vacation_policy == true" >{{"postJob.vacationPolicy" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.paid_holidays == true" >{{"postJob.paidHolidays" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.maternity == true" >{{"postJob.maternity" | translate}}</p>
+				</div>
+				<div class="mr-3" *ngIf="jobInfo?.financial_benefits">
+					<p class="font-weight-bold mb-2">{{"postJob.financialBenefits" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.retirement_plan == true" >{{"postJob.retirementPlan" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.performance_bonus == true" >{{"postJob.performanceBonus" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.tuition_reimbursement == true" >{{"postJob.tuitionReimbursement" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.purchase_plan == true" >{{"postJob.purchasePlan" | translate}}</p>
+				</div>
+				<div class="mr-3">
+					<p class="font-weight-bold mb-2">Office Perks</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.free_food == true" >{{"postJob.freeFood" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.home_policy == true" >{{"postJob.homePolicy" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.pet_friendly == true" >{{"postJob.petFriendly" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.social_outings == true" >{{"postJob.socialOutings" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.office_space == true" >{{"postJob.officeSpace" | translate}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
