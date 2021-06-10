@@ -212,6 +212,7 @@ onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => 
 	  
   }
   address.state = this.findTypeLongName(addr, "administrative_area_level_1");
+  address.stateShort = this.findTypeShortName(addr, "administrative_area_level_1");
   address.zipcode = this.findTypeLongName(addr, "postal_code");
   address.country = this.findTypeLongName(addr, "country");
 
