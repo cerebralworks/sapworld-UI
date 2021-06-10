@@ -10,6 +10,7 @@ import { RequirementCriteriaComponent } from './requirement-criteria/requirement
 import { JobPreviewComponent } from './modal/job-preview/job-preview.component';
 import { SharedModule } from '@shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MaterialModule } from '@shared/material.module';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     NgbModule,
     RouterModule.forChild(routes),
     SharedModule

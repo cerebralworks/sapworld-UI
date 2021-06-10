@@ -202,6 +202,15 @@ onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => 
   address.street = address.street ? address.street : street;
 
   address.city = this.findTypeLongName(addr, "locality");
+  if(address.city==null){
+	  if(addr.formatted_address){
+		  var splits = addr.formatted_address.split(',');
+		  if(splits[0]){
+			  address.city =splits[0];
+		  }
+	  }
+	  
+  }
   address.state = this.findTypeLongName(addr, "administrative_area_level_1");
   address.zipcode = this.findTypeLongName(addr, "postal_code");
   address.country = this.findTypeLongName(addr, "country");

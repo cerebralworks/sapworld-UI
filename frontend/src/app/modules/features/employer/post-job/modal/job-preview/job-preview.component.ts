@@ -8,6 +8,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '@shared/service/data.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-job-preview',
@@ -49,6 +50,7 @@ export class JobPreviewComponent implements OnInit {
 
   constructor(private dataService: DataService,
     private modalService: NgbModal,
+	private sanitizer: DomSanitizer,
     public router: Router,
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
@@ -185,24 +187,24 @@ this.dataService.getLanguageDataSource().subscribe(
 	
     this.MacthObj = {
       experience: new FormControl('0', Validators.required),
-      sap_experience: new FormControl('0', Validators.required),
-      domain: new FormControl('0', Validators.required),
+      sap_experience: new FormControl(''),
+      domain: new FormControl(''),
       hands_on_experience: new FormControl('0', Validators.required),
-      skills: new FormControl('0', Validators.required),
-      programming_skills: new FormControl('0', Validators.required),
-      optinal_skills: new FormControl('0', Validators.required),
-      certification: new FormControl('0', Validators.required),
+      skills: new FormControl(''),
+      programming_skills: new FormControl(''),
+      optinal_skills: new FormControl(''),
+      certification: new FormControl(''),
       type: new FormControl('0', Validators.required),
-      employer_role_type: new FormControl('0', Validators.required),
+      employer_role_type: new FormControl(''),
       availability: new FormControl('0', Validators.required),
       work_authorization: new FormControl('0', Validators.required),
-      facing_role: new FormControl('0', Validators.required),
-      training_experience: new FormControl('0', Validators.required),
-      end_to_end_implementation: new FormControl('0', Validators.required),
-      education: new FormControl('0', Validators.required),
-      travel_opportunity: new FormControl('0', Validators.required),
-      remote: new FormControl('0', Validators.required),
-      language: new FormControl('0', Validators.required),
+      facing_role: new FormControl(''),
+      training_experience: new FormControl(''),
+      end_to_end_implementation: new FormControl(''),
+      education: new FormControl(''),
+      travel_opportunity: new FormControl(''),
+      remote: new FormControl(''),
+      language: new FormControl(''),
     }
 
     this.childForm.addControl('jobPrev', new FormGroup({

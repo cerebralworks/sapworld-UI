@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild 
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-job-description',
@@ -22,6 +23,7 @@ export class JobDescriptionComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
+	private sanitizer: DomSanitizer,
     public router: Router
   ) { }
 

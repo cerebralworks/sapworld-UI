@@ -5,8 +5,10 @@
       <div class="col-lg-10">
         <div class="company-info">
           <div class="media">
-            <div class="media-head">
+            <div class="media-head" *ngIf="employerDetails?.photo !='default.png'">
               <img (error)="updateUrl($event)" src="employerDetails?.photo" [src]="employerDetails?.photo ? (employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
+            </div>
+			<div style="padding: 30px;" class="media-head" *ngIf="employerDetails?.photo =='default.png'">
             </div>
             <div class="media-body">
               <h5 class="mt-0">{{employerDetails?.company ? employerDetails?.company : ''}}</h5>
@@ -74,7 +76,7 @@
           <div class="tab-pane fade show active" id="company" role="tabpanel" aria-labelledby="company-tab">
             <h6>Description</h6>
             <ng-container *ngIf="companyProfileInfo?.description; else elseDesTemplate">
-              <div [innerHTML]="companyProfileInfo?.description">
+              <div style="word-break: break-all;" [innerHTML]="companyProfileInfo?.description">
               </div>
             </ng-container>
             <ng-template #elseDesTemplate>

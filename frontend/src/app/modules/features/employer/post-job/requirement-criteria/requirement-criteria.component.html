@@ -142,7 +142,48 @@
 		</div>
 	</div>
 	<div class="row mt-2">
-		<div class="col-lg-9 col-md-6">
+		<div class="col-lg-9 col-md-12" >	
+			<div class=" form-group">
+				<label >{{"postJob.programmingSkills" | translate }}</label>
+				<mat-form-field appMarkAsterisk class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipList aria-label="programmingSkills">
+						<mat-chip *ngFor="let programmingSkill of programming_skills" [selectable]="selectable"
+							[removable]="removable" (removed)="remove(programmingSkill)">
+							{{programmingSkill}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipList"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>	
+		<div class="col-lg-9 col-md-12" >	
+			<div class=" form-group">
+				<label >{{"postJob.niceToHave" | translate }}</label>
+				<mat-form-field appMarkAsterisk class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipLists aria-label="niceToHave">
+						<mat-chip *ngFor="let optinal_skill of optinal_skills" [selectable]="selectable"
+							[removable]="removable" (removed)="removeOptional(optinal_skill)">
+							{{optinal_skill}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipLists"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="addOptional($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>	
+	
+		<!-- <div class="col-lg-9 col-md-6">
 			<div class=" form-group">
 				<label>{{"postJob.programmingSkills" | translate }}</label>
 				<ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. Javascript, Php" appendTo="body" multiple="true"
@@ -150,7 +191,7 @@
 				</ng-select>
 				<app-control-messages [control]="f['programming_skills']"></app-control-messages>
 			</div>
-		</div>
+		</div> -->
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
 				<label>{{"postJob.endToEndImplementation" | translate }} </label>
@@ -158,7 +199,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row mt-2">
+	<!-- <div class="row mt-2">
 		<div class="col-lg-9 col-md-6">
 			<div class=" form-group">
 				<label>{{"postJob.niceToHave" | translate }} </label>
@@ -168,7 +209,7 @@
 				<app-control-messages [control]="f['optinal_skills']"></app-control-messages>
 			</div>
 		</div>
-	</div>
+	</div> -->	
 	<div class="row mt-2">
 		<div class="col-lg-12 col-md-6">
 			<div class=" form-group"></div>

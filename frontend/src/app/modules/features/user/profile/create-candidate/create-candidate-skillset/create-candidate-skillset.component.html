@@ -93,7 +93,27 @@
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-lg-9 col-md-6">
+	<div class="col-lg-9 col-md-12" >	
+			<div class=" form-group">
+				<label >{{"postJob.programmingSkills" | translate }}</label>
+				<mat-form-field appMarkAsterisk class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipList aria-label="programmingSkills">
+						<mat-chip *ngFor="let programmingSkill of programmingSkills" [selectable]="selectable"
+							[removable]="removable" (removed)="remove(programmingSkill)">
+							{{programmingSkill}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipList"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>	
+    <!-- <div class="col-lg-9 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.programmingSkills" | translate }}</label>
         <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. Javascript, Php" appendTo="body" multiple="true"
@@ -101,10 +121,30 @@
         </ng-select>
         <app-control-messages [control]="f['programming_skills']"></app-control-messages>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="row mt-2">
-    <div class="col-lg-9 col-md-6">
+  <div class="col-lg-9 col-md-12" >	
+			<div class=" form-group">
+				<label >{{"postYourResume.others" | translate }}</label>
+				<mat-form-field appMarkAsterisk class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipLists aria-label="othersSkills">
+						<mat-chip *ngFor="let othersSkill of othersSkills" [selectable]="selectable"
+							[removable]="removable" (removed)="removeOthersSkills(othersSkill)">
+							{{othersSkill}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipLists"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="addOthersSkills($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>
+    <!-- <div class="col-lg-9 col-md-6">
       <div class=" form-group">
         <label>{{"postYourResume.others" | translate }}</label>
         <ng-select appMarkAsterisk id="othersSkills" [addTag]="true" addTagText="Add Other Skill" bindValue="label" bindLabel="label" placeholder="Ex. Docker, Azure" appendTo="body" multiple="true"
@@ -112,16 +152,36 @@
         </ng-select>
         <app-control-messages [control]="f['other_skills']"></app-control-messages>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="row mt-2">
-    <div class="col-lg-9 col-md-6">
+	<div class="col-lg-9 col-md-12" >	
+			<div class=" form-group">
+				<label >{{"postJob.certification" | translate }}</label>
+				<mat-form-field class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipListss aria-label="certification">
+						<mat-chip *ngFor="let certifications of certification" [selectable]="selectable"
+							[removable]="removable" (removed)="removeCertification(certifications)">
+							{{certifications}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipListss"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="addCertification($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>
+    <!-- <div class="col-lg-9 col-md-6">
       <div class=" form-group">
         <label>{{"postJob.certification" | translate }} </label>
         <ng-select id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label" bindLabel="label" placeholder="Ex. AWS, CCNA" appendTo="body" multiple="true"
           formControlName="certification">
         </ng-select>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

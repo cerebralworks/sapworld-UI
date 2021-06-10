@@ -34,10 +34,12 @@ export const textEditorConfig: AngularEditorConfig = {
       tag: 'h1',
     },
   ],
-  uploadUrl: 'v1/image',
+ // uploadUrl: 'v1/image',
   uploadWithCredentials: false,
   sanitize: true,
   toolbarPosition: 'top',
-  toolbarHiddenButtons: [
+  toolbarHiddenButtons: [/* [
+  'insertImage'
+  ] */
   ]
 };

@@ -1,3 +1,4 @@
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -8,6 +9,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { DataService } from '@shared/service/data.service';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 @Component({
   selector: 'app-other-preference',
@@ -20,6 +22,12 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	/**
 	**	Variable Declaration
 	**/
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = true;
+	readonly separatorKeysCodes = [ENTER, COMMA] as const;
+	certification = [ ];
 	
 	@Input() currentTabInfo: tabInfo;
 	@Input('postedJobsDetails')
@@ -45,7 +53,42 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 		private dataService: DataService,
 		public utilsHelperService: UtilsHelperService
 	) { }
+	
+	add(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
 
+		if (value) {
+			const index = this.certification.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.certification.push(value);
+			this.childForm.patchValue({
+			  otherPref: {
+				['certification']: this.certification,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	remove(visa): void {
+		
+		const index = this.certification.indexOf(visa);
+
+		if (index >= 0) {
+			this.certification.splice(index, 1);
+			this.childForm.patchValue({
+			  otherPref: {
+				['certification']: this.certification,
+			  }
+			});
+		}
+	}
 	/**
 	**	When the intial component calls
 	** 	Create form
@@ -71,6 +114,9 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
 			if(this.childForm && this.getPostedJobsDetails) {
+				if (this.getPostedJobsDetails.certification != null) {
+					this.certification = this.getPostedJobsDetails.certification;
+				}
 				this.childForm.patchValue({
 					otherPref : {
 						...this.getPostedJobsDetails

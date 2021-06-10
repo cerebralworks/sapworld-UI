@@ -33,8 +33,28 @@
 			</div>
 		</div>
 	</div>							
-	<div class="row mt-4">		
-		<div class="col-lg-6 col-md-6">
+	<div class="row mt-4">
+		<div class="col-lg-6 col-md-12" >	
+			<div class=" form-group">
+				<label >{{"postJob.certification" | translate }}</label>
+				<mat-form-field class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipLists aria-label="certification">
+						<mat-chip *ngFor="let certifications of certification" [selectable]="selectable"
+							[removable]="removable" (removed)="remove(certifications)">
+							{{certifications}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipLists"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>			
+		<!-- <div class="col-lg-6 col-md-6">
 			<div class=" form-group">
 				<label>{{"postJob.certification" | translate }} </label>
 				<ng-select id="certification" [addTag]="true" addTagText="Add Certification" bindValue="label" bindLabel="label" placeholder="Ex. AWS, CCNA" appendTo="body" multiple="true"
@@ -42,7 +62,7 @@
 				</ng-select>
 				<app-control-messages [control]="f['certification']"></app-control-messages>
 			</div>
-		</div>
+		</div> -->
 	</div>					
 	<div class="row mt-4">	
 		<div class="col-lg-6 col-md-6">									

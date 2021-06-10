@@ -262,9 +262,7 @@
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.programming_skills.length; else elseSkillsTemplate">
-							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.programming_skills">
-								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
-							</small>
+							{{postJobForm?.value?.requirement?.programming_skills}}
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 							<li>--</li>
@@ -309,9 +307,10 @@
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.optinal_skills.length; else elseSkillsTemplate">
-							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.optinal_skills">
+							<!-- <small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.optinal_skills">
 								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
-							</small>
+							</small> -->
+							{{postJobForm?.value?.requirement?.optinal_skills}}
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 							<li>--</li>
@@ -357,9 +356,10 @@
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase">
 						<ng-container *ngIf="postJobForm?.value?.otherPref?.certification.length; else elseSkillsTemplate">
-							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification">
+							<!-- <small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification">
 								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
-							</small>
+							</small> -->
+							{{postJobForm?.value?.otherPref?.certification}}
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 							<li>--</li>
@@ -443,7 +443,9 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
+					<li class="list-group-item ">
 					{{postJobForm?.value?.jobInfo?.employer_role_type}}
+					</li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
@@ -481,7 +483,9 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
+					<li class="list-group-item ">
 					{{postJobForm?.value?.jobInfo?.availability}}
+					</li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
@@ -824,7 +828,7 @@
 		<ng-container *ngIf="childForm?.value?.jobPrev?.extra_criteria?.length > 0">
 			<div class="col-lg-12 border-top pt-3"> </div>
 			<div class="col-lg-12 mb-3">
-				<h6>Extra Criteria</h6>
+				<h6 class="font-weight-bold mb-2" >Extra Criteria</h6>
 			</div>	
 			<div class="row info-box">
 				<div class="col-lg-4 caption">
@@ -843,12 +847,12 @@
         </ng-container>
 		<div class="col-lg-12 border-top pt-3"> </div>
 
-        <div class="col-lg-12 mb-3">
-			<h6>{{"postJob.jobDescription" | translate}}</h6>
-			<p style="word-break: break-all;"[innerHTML]="postJobForm?.value?.jobInfo?.description"></p>
+        <div class="col-lg-12 mb-4">
+			<h6 class="font-weight-bold mb-2" >{{"postJob.jobDescription" | translate}}</h6>
+			<p style="word-break: break-all;"[innerHTML]="sanitizer.bypassSecurityTrustHtml(postJobForm?.value?.jobInfo?.description)"></p>
 		</div>	
-        <div class="col-lg-12 mb-3">
-			<h6>{{"postJob.salary" | translate}}</h6>
+        <div class="col-lg-12 mb-4">
+			<h6 class="font-weight-bold mb-2" >{{"postJob.salary" | translate}}</h6>
 			<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
 				{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
 		    </ng-container>

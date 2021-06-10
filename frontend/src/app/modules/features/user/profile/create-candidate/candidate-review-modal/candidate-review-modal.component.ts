@@ -225,7 +225,7 @@ export class CandidateReviewModalComponent implements OnInit {
 		if(value){
 			if(value.length !=0){
 				var temp = value.map(function(a,b){
-					return a['country'];
+					return a['city'];
 				})
 				if(temp.length !=0){
 					temp =temp.filter(function(item, pos, self) {

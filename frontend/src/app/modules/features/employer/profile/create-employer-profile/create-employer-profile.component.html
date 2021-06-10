@@ -71,8 +71,17 @@
           </div>
           <div class="form-group">
             <label>Phone Number</label>
-            <input formControlName="contact" type="text" class="form-control" placeholder="+00 004 1234567">
+			<ngx-intl-tel-input appMarkAsterisk (ngModelChange)="checkNumber()"
+			  [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
+			  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+			  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+			  [selectedCountryISO]="CountryISO.UnitedStates" [tooltipField]="TooltipLabel.Name"
+			  [phoneValidation]="true" [separateDialCode]="separateDialCode"
+			  [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="contact">
+			</ngx-intl-tel-input>
+            <!-- <input formControlName="contact" type="text" class="form-control" placeholder="+00 004 1234567"> -->
             <app-control-messages [control]="f['contact']"></app-control-messages>
+			<small *ngIf="invalidMobile"class="text-danger">Invalid mobile number</small>
           </div>
           <div class="form-group">
             <label>{{"postYourResume.state" | translate}}</label>
@@ -91,11 +100,11 @@
         <div class="col-lg-4 mt-4 mt-4" style="z-index: 1;">
           <div class="upload-box">
             <div class="box text-center upload-image">
-              <img *ngIf="(defaultProfilePic || employerDetails?.photo)"
+              <img *ngIf="(defaultProfilePic || employerDetails?.photo !='default.png')"
                 [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo+'?v='+ randomNum"
                 alt="upload-photo" class="img-fluid mx-auto rounded-circle border border-primary"
                 style="width:150px;height:150px;">
-              <input [style.top]="(defaultProfilePic || employerDetails?.photo) ? '-150px' : '0px'" type="file" class="upload-input" #companyImage
+              <input [style.top]="(defaultProfilePic || employerDetails?.photo) ? '-150px' : '-150px'" type="file" class="upload-input" #companyImage
                 (change)="handleFileInput($event, CropImage);" />
               <!-- <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple=""> -->
               <label for="file-5">
@@ -172,7 +181,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <button [disabled]="!createCompanyForm.valid" type="submit" class="btn btn-theme-blue btn-block btn-lg">Submit</button>
+            <button [disabled]="!createCompanyForm.valid && !invalidMobile" type="submit" class="btn btn-theme-blue btn-block btn-lg">Submit</button>
           </div>
         </div>
       </div>
