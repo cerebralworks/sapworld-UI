@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class EmployerSharedService {
 
   private employerProfileDetails: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private employerCompanyDetails: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor() { }
 
@@ -20,6 +21,18 @@ export class EmployerSharedService {
 
   clearEmployerProfileDetails() {
     this.employerProfileDetails.next({});
+  }
+  
+  saveEmployerCompanyDetails(details) {
+    this.employerCompanyDetails.next(details);
+  }
+
+  getEmployerCompanyDetails() {
+    return this.employerCompanyDetails.asObservable();
+  }
+
+  clearEmployerCompanyDetails() {
+    this.employerCompanyDetails.next({});
   }
 
 }

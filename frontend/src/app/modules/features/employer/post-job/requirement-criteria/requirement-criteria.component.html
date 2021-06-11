@@ -21,7 +21,6 @@
 					[placeholder]="'Select Degree'"
 					class="text-capitalize"
 					[items]="educationItems"
-					[multiple]="true"
 					autoClearSearch="true"
 					noResultsFound="No results found"
 					formControlName="education"
@@ -164,7 +163,7 @@
 		</div>	
 		<div class="col-lg-9 col-md-12" >	
 			<div class=" form-group">
-				<label >{{"postJob.niceToHave" | translate }}</label>
+				<label >{{"dashboard.otherSkills" | translate }}</label>
 				<mat-form-field appMarkAsterisk class="example-chip-list" style="width: 100%;" >
 					
 					<mat-chip-list #chipLists aria-label="niceToHave">

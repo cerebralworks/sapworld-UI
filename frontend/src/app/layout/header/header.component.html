@@ -71,7 +71,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-          <a class="btn btn-outline-blue btn-sm" [routerLink]="['/employer/post-job']" routerLinkActive="router-link-active" ><i class="fab fa-telegram-plane"></i> Post  Job</a>
+          <a  [class.disabled]="!currentCompanyDetails?.contact"  class="btn btn-outline-blue btn-sm" [routerLink]="['/employer/post-job']" routerLinkActive="router-link-active" ><i class="fab fa-telegram-plane"></i> Post  Job</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-2">

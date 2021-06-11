@@ -104,10 +104,12 @@
                 [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo+'?v='+ randomNum"
                 alt="upload-photo" class="img-fluid mx-auto rounded-circle border border-primary"
                 style="width:150px;height:150px;">
-              <input [style.top]="(defaultProfilePic || employerDetails?.photo) ? '-150px' : '-150px'" type="file" class="upload-input" #companyImage
+              <input  *ngIf="employerDetails?.photo =='default.png'" [style.top]="(defaultProfilePic || employerDetails?.photo) ? '0px' : '0px'" type="file" class="upload-input" #companyImage
+                (change)="handleFileInput($event, CropImage);" />
+              <input  *ngIf="(defaultProfilePic || employerDetails?.photo !='default.png')" [style.top]="(defaultProfilePic || employerDetails?.photo) ? '-150px' : '-150px'" type="file" class="upload-input" #companyImage
                 (change)="handleFileInput($event, CropImage);" />
               <!-- <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple=""> -->
-              <label for="file-5">
+              <label for="file-5" *ngIf="employerDetails?.photo =='default.png'" >
                 <i class="fas fa-user-tie"></i>
                 <span>{{"postYourResume.uploadPhoto" | translate }} <br> ({{"postYourResume.dragAndDrop" | translate
                   }})</span>
@@ -196,8 +198,8 @@
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"
         (click)="mbRef.close('Closed from Close button')">
-        <span>Close</span>
-        <i class="fas fa-times right ml-2"></i>
+        <!-- <span>Close</span> -->
+        <i class="fas fa-times right ml-2" style="font-size: 30px;"></i>
       </button>
     </div>
     <div class="modal-body">

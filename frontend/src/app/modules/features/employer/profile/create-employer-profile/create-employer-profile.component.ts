@@ -2,7 +2,7 @@ import { animate, group, state, style, transition, trigger } from '@angular/anim
 import { Component, DoCheck, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { textEditorConfig } from '@config/rich-editor';
+import { textEditorConfig } from '@config/richProfile-editor';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UserService } from '@data/service/user.service';
@@ -157,7 +157,9 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 		let requestParams: any = {};
 		this.employerService.getCompanyProfileInfo(requestParams).subscribe(
 		(response: any) => {
+			this.employerSharedService.saveEmployerCompanyDetails(response.details);
 			this.companyProfileInfo = { ...response.details };
+			
 				if (!this.utilsHelperService.isEmptyObj(this.companyProfileInfo)) {
 					this.companyProfileInfo.contact = this.companyProfileInfo.contact[0];
 					this.createCompanyForm.patchValue({
@@ -187,6 +189,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 				}
 			}, error => {
 				this.companyProfileInfo = {};
+				this.employerSharedService.clearEmployerCompanyDetails();
 			}
 		)
 	}
@@ -233,20 +236,28 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 					requestParams.website = `http://${requestParams.website}`
 				}
 			}
-			
-			this.employerService.updateCompanyProfile(requestParams).subscribe(
-				response => {
-					if (this.croppedFile) {
-						this.onUserPhotoUpdate(() => {
+			if (this.croppedFile) {
+				this.onUserPhotoUpdate(() => {
+					this.employerService.updateCompanyProfile(requestParams).subscribe(
+						response => {
+							
+							this.employerSharedService.saveEmployerCompanyDetails(response.details);
 							this.router.navigate(['/employer/profile'])
-						});
-					} else {
+						}, error => {
+							this.toastrService.error('Something went wrong', 'Failed')
+						}
+					)
+				});
+			}else{
+				this.employerService.updateCompanyProfile(requestParams).subscribe(
+					response => {
 						this.router.navigate(['/employer/profile'])
+					}, error => {
+						this.toastrService.error('Something went wrong', 'Failed')
 					}
-				}, error => {
-					this.toastrService.error('Something went wrong', 'Failed')
-				}
-			)
+				)
+			}
+			
 		}
 	}
 

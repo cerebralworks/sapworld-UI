@@ -43,7 +43,8 @@
                     <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)" class="btn btn-outline-green btn-sm" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches', id: postedJobsDetails?.id}" href="javascript:;" title="Matches"><i class="fas fa-tasks"></i> {{"dashboard.matches" | translate}}</a>
                   </div>
                 </div>
-                <div class="media">
+				<div class="row">
+                <div class="media col-lg-6">
                   <div class="media-body">
                     <h6>{{postedJobsDetails?.company?.company ? postedJobsDetails?.company?.company : ''}}</h6>
                     <h6 class="text-capitalize">
@@ -57,6 +58,22 @@
                     </h6>
                   </div>
                 </div>
+				<div class="col-lg-6" style="text-align: right;">
+							 <h6 class="font-weight-bold " style="font-size: 13px;">{{"postJob.salary" | translate}}</h6>
+							<ng-container *ngIf="postedJobsDetails?.salary_type == 0">
+								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + '/hr'}}</h6>
+							</ng-container>
+							<ng-container *ngIf="postedJobsDetails?.salary_type ==1">
+								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' Annual pay'}}</h6>
+							</ng-container>
+							<ng-container *ngIf="postedJobsDetails?.salary_type ==2">
+								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' Monthly pay'}}</h6>
+							</ng-container>
+							<ng-container  *ngIf="postedJobsDetails?.salary_type < 0">
+								--
+							</ng-container>
+						</div>
+					</div>
               </div>
             </div>
           </div>
