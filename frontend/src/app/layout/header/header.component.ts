@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   public loggedUserInfo: AccountLogin;
   public accountUserSubscription: Subscription;
   public currentEmployerDetails: any = {};
+  public currentCompanyDetails: any = {};
   public currentUserDetails: any = {};
   public randomNum: number;
 
@@ -48,6 +49,15 @@ export class HeaderComponent implements OnInit {
           if(details) {
             this.currentEmployerDetails = details;
           }
+        }
+      )
+      this.employerSharedService.getEmployerCompanyDetails().subscribe(
+        details => {
+          if(details) {
+            this.currentCompanyDetails = details;
+          }
+        }, error => {
+          console.log(error);
         }
       )
       this.userSharedService.getUserProfileDetails().subscribe(

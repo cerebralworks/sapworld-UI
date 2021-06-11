@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EmployerService } from '@data/service/employer.service';
 import { DataService } from './data.service';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class SharedApiService {
 
   constructor(
     private employerService: EmployerService,
+	private employerSharedService: EmployerSharedService,
     private dataService: DataService
   ) { }
 
@@ -64,6 +66,20 @@ export class SharedApiService {
         }
       }, error => {
         this.dataService.clearCountryDataSource();
+      }
+    )
+  }
+  
+  onGetCompanyDetails(requestParams: any): any {
+    this.employerService.getCompanyProfileInfo(requestParams).subscribe(
+      response => {
+        if(response && response['details']) {
+          this.employerSharedService.saveEmployerCompanyDetails(response['details']);
+        }else {
+          this.employerSharedService.clearEmployerCompanyDetails();
+        }
+      }, error => {
+        this.employerSharedService.clearEmployerCompanyDetails();
       }
     )
   }

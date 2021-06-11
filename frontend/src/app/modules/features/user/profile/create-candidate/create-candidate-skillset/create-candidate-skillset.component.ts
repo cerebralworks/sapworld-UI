@@ -1,3 +1,4 @@
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
@@ -6,6 +7,7 @@ import { DataService } from '@shared/service/data.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 @Component({
   selector: 'app-create-candidate-skillset',
@@ -15,6 +17,15 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 })
 export class CreateCandidateSkillsetComponent implements OnInit {
 
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = true;
+	readonly separatorKeysCodes = [ENTER, COMMA] as const;
+	certification = [ ];
+	othersSkills = [ ];
+	programmingSkills = [ ];
+	
   @Input() currentTabInfo: tabInfo;
   skillArray: any[] = [];
   public childForm;
@@ -71,6 +82,114 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 				this.SharedAPIService.onSaveLogs(this.requestParams);
   }
 
+	add(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.programmingSkills.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.programmingSkills.push(value);
+			this.childForm.patchValue({
+			  skillSet: {
+				['programming_skills']: this.programmingSkills,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	remove(data): void {
+		
+		const index = this.programmingSkills.indexOf(data);
+
+		if (index >= 0) {
+			this.programmingSkills.splice(index, 1);
+			this.childForm.patchValue({
+			  skillSet: {
+				['programming_skills']: this.programmingSkills,
+			  }
+			});
+		}
+	}
+	
+	addOthersSkills(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.othersSkills.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.othersSkills.push(value);
+			this.childForm.patchValue({
+			  skillSet: {
+				['other_skills']: this.othersSkills,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	removeOthersSkills(data): void {
+		
+		const index = this.othersSkills.indexOf(data);
+
+		if (index >= 0) {
+			this.othersSkills.splice(index, 1);
+			this.childForm.patchValue({
+			  skillSet: {
+				['other_skills']: this.othersSkills,
+			  }
+			});
+		}
+	}
+	addCertification(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.certification.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.certification.push(value);
+			this.childForm.patchValue({
+			  skillSet: {
+				['certification']: this.certification,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	removeCertification(data): void {
+		
+		const index = this.certification.indexOf(data);
+
+		if (index >= 0) {
+			this.certification.splice(index, 1);
+			this.childForm.patchValue({
+			  skillSet: {
+				['certification']: this.certification,
+			  }
+			});
+		}
+	}
+
+
   ngOnChanges(changes: SimpleChanges): void {
 	  
     setTimeout(async () => {
@@ -111,6 +230,15 @@ export class CreateCandidateSkillsetComponent implements OnInit {
         if (this.savedUserDetails.hands_on_experience == null) {
           delete this.savedUserDetails.hands_on_experience;
         }
+		if (this.savedUserDetails.programming_skills != null) {
+			this.programmingSkills = this.savedUserDetails.programming_skills;
+		}
+		if (this.savedUserDetails.other_skills != null) {
+			this.othersSkills = this.savedUserDetails.other_skills;
+		}
+		if (this.savedUserDetails.certification != null) {
+			this.certification = this.savedUserDetails.certification;
+		}
         this.childForm.patchValue({
           skillSet: {
             ...this.savedUserDetails

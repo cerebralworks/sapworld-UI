@@ -175,6 +175,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 						this.candidateForm.controls.jobPref['controls']['preferred_locations'].push(this.formBuilder.group({
 							city: [''],
 							state: [''],
+							stateShort: [''],
 							country: ['']
 						  }));
 					}else if ((this.userInfo.preferred_locations.length == 1) || (this.candidateForm.controls.jobPref['controls']['preferred_locations'] && this.candidateForm.controls.jobPref['controls']['preferred_locations'].length) !== (this.userInfo.preferred_locations && this.userInfo.preferred_locations.length)) {
@@ -183,6 +184,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 						this.candidateForm.controls.jobPref['controls']['preferred_locations'].push(this.formBuilder.group({
 							city: [''],
 							state: [''],
+							stateShort: [''],
 							country: ['']
 						  }));
 					  });
@@ -215,6 +217,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				preferred_locations : new FormArray([this.formBuilder.group({
 					city: [''],
 					state: [''],
+					stateShort: [''],
 					country: ['']
 				  })]),
 				travel: new FormControl(null, Validators.required),

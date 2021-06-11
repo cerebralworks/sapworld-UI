@@ -8,6 +8,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '@shared/service/data.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-job-preview',
@@ -28,11 +29,9 @@ export class JobPreviewComponent implements OnInit {
   }
 
   public mbRef: NgbModalRef;
-  public criteriaModalRef: NgbModalRef;
   public jobPreviewModalRef: NgbModalRef;
   public jdSub: Subscription;
   public childForm;
-  public isOpenCriteriaModal: boolean;
   public industries: any;
   public profileInfo: any;
   public mustMacthArray: any[] = [];
@@ -42,13 +41,13 @@ export class JobPreviewComponent implements OnInit {
   public languageSource: any[] = [];
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
-  @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
   public mustMacthObj: any = {};
   public MacthObj: any = {};
   public jobId:string;
 
   constructor(private dataService: DataService,
     private modalService: NgbModal,
+	private sanitizer: DomSanitizer,
     public router: Router,
     private parentF: FormGroupDirective,
     private formBuilder: FormBuilder,
@@ -93,7 +92,7 @@ this.dataService.getLanguageDataSource().subscribe(
             ...this.getPostedJobsDetails
           }
         });
-        this.setCriteriaValue(this.getPostedJobsDetails.extra_criteria)
+        
       }
     });
   }
@@ -128,39 +127,7 @@ this.dataService.getLanguageDataSource().subscribe(
     this.postJob.next();
   }
 
-  onCloseCriteriaModal() {
-    this.clearFormArray(this.childForm.get('jobPrev.temp_extra_criteria'));
-    this.criteriaModalRef.close();
-    this.isOpenCriteriaModal = false;
-  }
 
-  clearFormArray = (formArray: FormArray) => {
-    while (formArray.length !== 0) {
-      formArray.removeAt(0)
-    }
-  }
-
-  onOpenCriteriaModal = () => {
-    this.isOpenCriteriaModal = true;
-    if (this.isOpenCriteriaModal) {
-      setTimeout(() => {
-        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
-          windowClass: 'modal-holder',
-          centered: true,
-          backdrop: 'static',
-          keyboard: false
-        });
-        this.onCreateExtraCriteriaField();
-      }, 300);
-    }
-  }
-
-  onCreateExtraCriteriaField = () => {
-    this.t.push(this.formBuilder.group({
-      title: ['', Validators.required],
-      value: ['', [Validators.required]]
-    }));
-  }
 
   createForm() {
     this.childForm = this.parentF.form;
@@ -185,32 +152,30 @@ this.dataService.getLanguageDataSource().subscribe(
 	
     this.MacthObj = {
       experience: new FormControl('0', Validators.required),
-      sap_experience: new FormControl('0', Validators.required),
-      domain: new FormControl('0', Validators.required),
+      sap_experience: new FormControl(''),
+      domain: new FormControl(''),
       hands_on_experience: new FormControl('0', Validators.required),
-      skills: new FormControl('0', Validators.required),
-      programming_skills: new FormControl('0', Validators.required),
-      optinal_skills: new FormControl('0', Validators.required),
-      certification: new FormControl('0', Validators.required),
+      skills: new FormControl(''),
+      programming_skills: new FormControl(''),
+      optinal_skills: new FormControl(''),
+      certification: new FormControl(''),
       type: new FormControl('0', Validators.required),
-      employer_role_type: new FormControl('0', Validators.required),
+      employer_role_type: new FormControl(''),
       availability: new FormControl('0', Validators.required),
       work_authorization: new FormControl('0', Validators.required),
-      facing_role: new FormControl('0', Validators.required),
-      training_experience: new FormControl('0', Validators.required),
-      end_to_end_implementation: new FormControl('0', Validators.required),
-      education: new FormControl('0', Validators.required),
-      travel_opportunity: new FormControl('0', Validators.required),
-      remote: new FormControl('0', Validators.required),
-      language: new FormControl('0', Validators.required),
+      facing_role: new FormControl(''),
+      training_experience: new FormControl(''),
+      end_to_end_implementation: new FormControl(''),
+      education: new FormControl(''),
+      travel_opportunity: new FormControl(''),
+      remote: new FormControl(''),
+      language: new FormControl(''),
     }
 
     this.childForm.addControl('jobPrev', new FormGroup({
       number_of_positions: new FormControl(null, Validators.required),
       must_match: new FormControl(this.mustMacthObj),
 	  match_select: new FormGroup(this.MacthObj),
-      extra_criteria: new FormArray([]),
-      temp_extra_criteria: new FormArray([]),
     }));
 
   }
@@ -219,13 +184,6 @@ this.dataService.getLanguageDataSource().subscribe(
     return this.childForm.controls.jobPrev.controls;
   }
 
-  get t() {
-    return this.f.temp_extra_criteria as FormArray;
-  }
-
-  get tEX() {
-    return this.f.extra_criteria as FormArray;
-  }
 
   onAddOrRemoveMustMatch = (checked, fieldName) => {
     this.mustMacthObj = { ...this.mustMacthObj, [fieldName]: checked };
@@ -269,26 +227,6 @@ this.dataService.getLanguageDataSource().subscribe(
     return obj[prop];
   }
 
-  setCriteriaValue(items: any[] = []) {
-    items.forEach((element, index) => {
-      this.tEX.push(this.formBuilder.group({
-      title: [element.title],
-      value: [element.value]
-      }));
-    });
-  }
-
-  onAddExtraCriteria = () => {
-    const jobPrev = this.childForm.value.jobPrev.temp_extra_criteria;
-    if(jobPrev && Array.isArray(jobPrev) && jobPrev.length > 0) {
-      this.tEX.push(this.formBuilder.group({
-        title: [jobPrev[0].title],
-        value: [jobPrev[0].value]
-      }));
-      this.onAddOrRemoveMustMatch(true, jobPrev[0].title ? jobPrev[0].title.toLowerCase() : '');
-      this.onCloseCriteriaModal();
-    }
-  }
 
   onGetProfile() {
     this.employerService.profile().subscribe(

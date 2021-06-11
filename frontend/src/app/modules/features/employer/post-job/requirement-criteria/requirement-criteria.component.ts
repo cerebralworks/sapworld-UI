@@ -1,3 +1,5 @@
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +9,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 @Component({
   selector: 'app-requirement-criteria',
@@ -19,6 +22,13 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	/**
 	**	Variable Declaration
 	**/
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = true;
+	readonly separatorKeysCodes = [ENTER, COMMA] as const;
+	programming_skills = [ ];
+	optinal_skills = [ ];
 	
 	@Input() currentTabInfo: tabInfo;
 	@Input('postedJobsDetails')
@@ -51,7 +61,78 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		private sharedService: SharedService,
 		public utilsHelperService: UtilsHelperService
 	) { }
+	
+	add(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
 
+		if (value) {
+			const index = this.programming_skills.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.programming_skills.push(value);
+			this.childForm.patchValue({
+			  requirement: {
+				['programming_skills']: this.programming_skills,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	remove(visa): void {
+		
+		const index = this.programming_skills.indexOf(visa);
+
+		if (index >= 0) {
+			this.programming_skills.splice(index, 1);
+			this.childForm.patchValue({
+			  requirement: {
+				['programming_skills']: this.programming_skills,
+			  }
+			});
+		}
+	}
+	addOptional(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.optinal_skills.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.optinal_skills.push(value);
+			this.childForm.patchValue({
+			  requirement: {
+				['optinal_skills']: this.optinal_skills,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	removeOptional(employer): void {
+		
+		const index = this.optinal_skills.indexOf(employer);
+
+		if (index >= 0) {
+			this.optinal_skills.splice(index, 1);
+			this.childForm.patchValue({
+			  requirement: {
+				['optinal_skills']: this.optinal_skills,
+			  }
+			});
+		}
+	}
+	
 	/**
 	**	When the intial component calls
 	** 	Create form
@@ -105,6 +186,12 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 					for(let i=0;i<this.getPostedJobsDetails.domain.length;i++){
 						this.getPostedJobsDetails.domain[i]=parseInt(this.getPostedJobsDetails.domain[i]);
 					}
+				}
+				if (this.getPostedJobsDetails.programming_skills != null) {
+					this.programming_skills = this.getPostedJobsDetails.programming_skills;
+				}
+				if (this.getPostedJobsDetails.optinal_skills != null) {
+					this.optinal_skills = this.getPostedJobsDetails.optinal_skills;
 				}
 				this.childForm.patchValue({
 					requirement : {

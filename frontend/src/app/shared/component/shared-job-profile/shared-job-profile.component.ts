@@ -17,6 +17,9 @@ export class SharedJobProfileComponent implements OnInit {
   @Input() isDescrition: boolean = false;
   @Input() fieldsExclude: JobPosting;
 	public languageSource=[];
+	public required: boolean = false;
+	public desired: boolean = false;
+	public optional: boolean = false;
   constructor(private dataService: DataService,
     public sharedService: SharedService,
     private sharedApiService: SharedApiService,
@@ -26,11 +29,30 @@ export class SharedJobProfileComponent implements OnInit {
   ngOnInit(): void {
 	  this.onGetCountry('');
 	  this.onGetLanguage('');
+	  
 	  this.dataService.getLanguageDataSource().subscribe(
       response => {
         if (response && Array.isArray(response) && response.length) {
           this.languageSource = response;
         }
+		var arr = [];
+		  if(this.jobInfo){
+			  if(this.jobInfo.match_select){
+				Object.keys(this.jobInfo.match_select).forEach(key => {
+					arr.push(this.jobInfo.match_select[key]) 
+				});
+				var requiredFilter = arr.filter(function(a,b){return a=='0'});
+				var desiredFilter = arr.filter(function(a,b){return a=='1'});
+				var optionalFilter = arr.filter(function(a,b){return a=='2' || a=='' });
+				if(requiredFilter.length>0){
+					this.required =true;
+				}if(desiredFilter.length>0){
+					this.desired=true;
+				}if(optionalFilter.length>0){
+					this.optional =true;
+				}
+			  }
+		  }
       }
     );
   }

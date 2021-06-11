@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { AppComponent } from 'src/app/app.component';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 @Component({
   selector: 'app-login-form',
@@ -26,6 +27,7 @@ export class LoginFormComponent implements OnInit {
     public router: Router,
     private route: ActivatedRoute,
     private accountService: AccountService,
+	private SharedAPIService: SharedApiService,
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +58,15 @@ export class LoginFormComponent implements OnInit {
 			  }
             
           }else if (response.isLoggedIn && response.role.includes(1)) {
-            this.router.navigate([this.returnEmployerUrl]);
+			  if(response['verified']==true){
+				  let requestParams: any = {};
+				  this.SharedAPIService.onGetCompanyDetails(requestParams);
+				  this.router.navigate([this.returnEmployerUrl]);
+			  }else{
+				  
+				  this.router.navigate(['/employer/create-profile']);
+			  }
+            
           }
         }, error => {
           this.isLoading = false;

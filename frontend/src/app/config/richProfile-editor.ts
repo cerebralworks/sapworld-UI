@@ -38,8 +38,9 @@ export const textEditorConfig: AngularEditorConfig = {
   uploadWithCredentials: false,
   sanitize: true,
   toolbarPosition: 'top',
-  toolbarHiddenButtons: [/* [
-  'insertImage'
-  ] */
+  toolbarHiddenButtons: [[
+  'insertImage',
+    'insertVideo'
+  ] 
   ]
 };

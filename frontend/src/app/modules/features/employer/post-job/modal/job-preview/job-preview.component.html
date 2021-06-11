@@ -16,7 +16,8 @@
 								<h5>{{postJobForm?.value?.jobInfo?.title}}</h5>
 							</div>
 						</div>
-						<div class="media">
+						<div class="row">
+						<div class="media col-lg-6">
 							<div class="media-body">
 								<h6 class="text-capitalize">{{profileInfo?.details?.company}}</h6>
 								<h6 class="text-capitalize">
@@ -27,6 +28,22 @@
 									</span>
 								</h6>
 							</div>
+						</div>
+						<div class="col-lg-6" style="text-align: right;">
+							 <h6 class="font-weight-bold " style="font-size: 13px;">{{"postJob.salary" | translate}}</h6>
+							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
+								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}</h6>
+							</ng-container>
+							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
+								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}</h6>
+							</ng-container>
+							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
+								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Monthly pay'}}</h6>
+							</ng-container>
+							<ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
+								--
+							</ng-container>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -262,9 +279,7 @@
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.programming_skills.length; else elseSkillsTemplate">
-							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.programming_skills">
-								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
-							</small>
+							{{postJobForm?.value?.requirement?.programming_skills}}
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 							<li>--</li>
@@ -309,9 +324,10 @@
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.optinal_skills.length; else elseSkillsTemplate">
-							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.optinal_skills">
+							<!-- <small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.optinal_skills">
 								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
-							</small>
+							</small> -->
+							{{postJobForm?.value?.requirement?.optinal_skills}}
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 							<li>--</li>
@@ -357,9 +373,10 @@
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase">
 						<ng-container *ngIf="postJobForm?.value?.otherPref?.certification.length; else elseSkillsTemplate">
-							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification">
+							<!-- <small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification">
 								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
-							</small>
+							</small> -->
+							{{postJobForm?.value?.otherPref?.certification}}
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 							<li>--</li>
@@ -443,7 +460,9 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
+					<li class="list-group-item ">
 					{{postJobForm?.value?.jobInfo?.employer_role_type}}
+					</li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
@@ -481,7 +500,9 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
+					<li class="list-group-item ">
 					{{postJobForm?.value?.jobInfo?.availability}}
+					</li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
@@ -819,50 +840,29 @@
 					</li>
 				</ul>
 			</div>
-		</div>		
-		</div>		
-		<ng-container *ngIf="childForm?.value?.jobPrev?.extra_criteria?.length > 0">
-			<div class="col-lg-12 border-top pt-3"> </div>
-			<div class="col-lg-12 mb-3">
-				<h6>Extra Criteria</h6>
-			</div>	
-			<div class="row info-box">
-				<div class="col-lg-4 caption">
+		</div>	
+		<ng-container *ngIf="childForm?.value?.otherPref?.extra_criteria?.length > 0">
+			<div class="row info-box" *ngFor="let extra_criteria of childForm?.value?.otherPref?.extra_criteria; let i = index">
+				<div class="col-lg-3 caption">
 					<ul class="list-group">
-						<li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
-							class="list-group-item text-capitalize">{{extra_criteria?.title}}</li>
+						<li class="list-group-item text-capitalize">{{extra_criteria?.title}}</li>
 					</ul>
 				</div>
-				<div class="col-lg-6 info">
+				<div class="col-lg-5 info">
 					<ul class="list-group">
-						<li *ngFor="let extra_criteria of childForm?.value?.jobPrev?.extra_criteria; let i = index"
-						class="list-group-item text-capitalize">{{extra_criteria?.value}}</li>
+						<li class="list-group-item text-capitalize">{{extra_criteria?.value}}</li>
 					</ul>
 				</div>
 			</div>
-        </ng-container>
+		</ng-container>		
+		</div>		
+		
 		<div class="col-lg-12 border-top pt-3"> </div>
 
-        <div class="col-lg-12 mb-3">
-			<h6>{{"postJob.jobDescription" | translate}}</h6>
-			<p style="word-break: break-all;"[innerHTML]="postJobForm?.value?.jobInfo?.description"></p>
+        <div class="col-lg-12 mb-4">
+			<h6 class="font-weight-bold mb-2" >{{"postJob.jobDescription" | translate}}</h6>
+			<p style="word-break: break-all;"[innerHTML]="sanitizer.bypassSecurityTrustHtml(postJobForm?.value?.jobInfo?.description)"></p>
 		</div>	
-        <div class="col-lg-12 mb-3">
-			<h6>{{"postJob.salary" | translate}}</h6>
-			<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
-				{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}
-		    </ng-container>
-			<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
-				{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}
-			</ng-container>
-			<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
-				{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Monthly pay'}}
-			</ng-container>
-			<ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
-				--
-			</ng-container>
-		</div>	
-
 		<div class="row mt-2">
 		<div class="col-md-12 mb-2">
 			<h6>{{"postJob.perksBenfits" | translate}}</h6>
@@ -909,9 +909,6 @@
 				<app-control-messages [control]="f['number_of_positions']"></app-control-messages>
 			</div>
 		</div>
-
-		<button (click)="onOpenCriteriaModal()" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add Another Criteria</button>
 		<button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
 			data-dismiss="modal">Edit</button>
 		<button [disabled]="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
@@ -922,29 +919,3 @@
 </div>
 </ng-template>
 
-<ng-template *ngIf="isOpenCriteriaModal" #criteriaModal let-modal>
-
-	<div *ngIf="t?.controls?.length > 0">
-		<ng-container [formGroup]="t?.controls[0]">
-			<div class="modal-header">
-				<h5 class="modal-title" id="addCriteria">Add Another Criteria</h5>
-				<button  (click)="onCloseCriteriaModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body" style="min-height:250px;">
-				<input formControlName="title" class="form-control mt-4" type="text" placeholder="Title">
-				<app-control-messages [control]="t?.controls[0]['controls']['title']"></app-control-messages>
-				<input formControlName="value" class="form-control mt-4" type="text" placeholder="Requirement">
-				<app-control-messages [control]="t?.controls[0]['controls']['value']"></app-control-messages>
-			</div>
-			<div class="modal-footer">
-				<button (click)="onCloseCriteriaModal()" type="button" class="btn btn-secondary "
-					data-dismiss="modal">Close</button>
-				<button [disabled]="(childForm?.value?.jobPrev?.temp_extra_criteria[0].title == '') || (childForm?.value?.jobPrev?.temp_extra_criteria[0].value == '')" (click)="onAddExtraCriteria()" type="button" class="btn btn-theme-blue"
-					data-dismiss="modal">Add</button>
-			</div>
-		</ng-container>
-	</div>
-	
-</ng-template>

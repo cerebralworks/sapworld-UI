@@ -100,6 +100,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						this.t.push(this.formBuilder.group({
 							city: [''],
 							state: [''],
+							stateShort: [''],
 							country: ['']
 						  }));
 					}else if ((this.savedUserDetails.preferred_locations.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.preferred_locations && this.savedUserDetails.preferred_locations.length)) {
@@ -108,6 +109,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						this.t.push(this.formBuilder.group({
 							city: [''],
 							state: [''],
+							stateShort: [''],
 							country: ['']
 						  }));
 					  });
@@ -200,6 +202,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			preferred_locations : new FormArray([this.formBuilder.group({
 				city: [''],
 				state: [''],
+				stateShort: [''],
 				country: ['']
 			  })]),
 			availability : new FormControl(''),
@@ -243,6 +246,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			this.t.push(this.formBuilder.group({
 				city: [''],
 				state: [''],
+				stateShort: [''],
 				country: ['']
 			}));
 		}
@@ -329,6 +333,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
       this.t.push(this.formBuilder.group({
         city: [''],
         state: [''],
+        stateShort: [''],
         country: ['']
       }));
 	  }
@@ -342,6 +347,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
       this.t.push(this.formBuilder.group({
          city: [''],
         state: [''],
+        stateShort: [''],
         country: ['']
       }));
     } else {
@@ -355,6 +361,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
     ticket.patchValue({
         city: address.city ? address.city : event.formatted_address,
         state: address.state,
+        stateShort: address.stateShort,
         country: address.country
     });
 	}

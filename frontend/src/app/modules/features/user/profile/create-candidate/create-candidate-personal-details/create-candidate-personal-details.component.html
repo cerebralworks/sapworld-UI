@@ -19,9 +19,10 @@
           <div class="box text-center upload-image">
             <img *ngIf="(defaultProfilePic || savedUserDetails?.photo)" [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : savedUserDetails?.meta?.photo?.path+'/'+ savedUserDetails?.meta?.photo?.folder+'/'+savedUserDetails?.meta?.photo?.sizes?.medium+'/'+savedUserDetails?.photo+'?v='+ randomNum" alt="upload-photo" class="img-fluid mx-auto rounded-circle border border-primary"
                                     style="width:150px;height:150px;">
-            <input [style.top]="defaultProfilePic ? '-150px' : '-150px'" type="file"  class="upload-input" #userImage (change)="handleFileInput($event, CropImage);" />
+            <input *ngIf="(defaultProfilePic || savedUserDetails?.photo)" [style.top]="defaultProfilePic ? '-150px' : '-150px'" type="file"  class="upload-input" #userImage (change)="handleFileInput($event, CropImage);" />
+			<input *ngIf="(!defaultProfilePic && !savedUserDetails?.photo)" [style.top]="defaultProfilePic ? '0px' : '0px'" type="file"  class="upload-input" #userImage (change)="handleFileInput($event, CropImage);" />
             <!-- <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple=""> -->
-            <label for="file-5">
+            <label for="file-5" *ngIf="(!defaultProfilePic && !savedUserDetails?.photo)" >
               <i class="fas fa-user-tie"></i>
               <span>{{"postYourResume.uploadPhoto" | translate }} <br> ({{"postYourResume.dragAndDrop" | translate }})</span>
             </label>

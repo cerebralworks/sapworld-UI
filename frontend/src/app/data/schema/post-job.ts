@@ -25,6 +25,7 @@ export interface JobPosting {
   facing_role: string;
   training_experience: string;
   domain: Array<any>;
+  match_select: Array<any>;
   education: Array<any>;
   hands_on_experience: Array<any>;
   extra_criteria: Array<any>;
