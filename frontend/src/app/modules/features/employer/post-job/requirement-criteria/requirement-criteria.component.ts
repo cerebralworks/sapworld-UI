@@ -169,9 +169,18 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		setTimeout( async () => {
 			if(this.childForm && this.getPostedJobsDetails) {
 				if(this.getPostedJobsDetails && this.getPostedJobsDetails.hands_on_experience && Array.isArray(this.getPostedJobsDetails.hands_on_experience)) {
-					this.t.removeAt(0);
+					
+					for(let i=0;i<=this.t.value.length;i++){
+						this.t.removeAt(0);
+						i=0;
+					}
 					this.getPostedJobsDetails.hands_on_experience.map((value, index) => {
-						this.onDuplicate();
+						this.t.push(this.formBuilder.group({
+							skill_id: [null, Validators.required],
+							skill_name: [''],
+							experience: ['', [Validators.required,]],
+							exp_type: ['years', [Validators.required]]
+						}));
 					});
 					this.getPostedJobsDetails.skills = this.utilsHelperService.differenceByPropValArray(this.getPostedJobsDetails.skills, this.getPostedJobsDetails.hands_on_experience, 'skill_id')
 				}
@@ -198,6 +207,13 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 						...this.getPostedJobsDetails
 					}
 				});
+			}else{
+				if (this.childForm.value.requirement.programming_skills != null) {
+					this.programming_skills = this.childForm.value.requirement.programming_skills;
+				}
+				if (this.childForm.value.requirement.optinal_skills != null) {
+					this.optinal_skills = this.childForm.value.requirement.optinal_skills;
+				}
 			}
 		});
 	}
@@ -403,13 +419,17 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	**	create a new hands_on_experience
 	**/
 	
-	onDuplicate = () => {
-		this.t.push(this.formBuilder.group({
-			skill_id: [null, Validators.required],
-			skill_name: [''],
-			experience: ['', [Validators.required,]],
-			exp_type: ['years', [Validators.required]]
-		}));
+	onDuplicate = (index) => {
+		if(this.t.value[index]['skill_id']== null ||this.t.value[index]['skill_name']== '' || this.t.value[index]['experience']== '' ){
+		  
+		}else{
+			this.t.push(this.formBuilder.group({
+				skill_id: [null, Validators.required],
+				skill_name: [''],
+				experience: ['', [Validators.required,]],
+				exp_type: ['years', [Validators.required]]
+			}));
+		}
 	}
 
 	/**
@@ -449,7 +469,12 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	setHandOnWithValue(items: any) {
 		this.t.removeAt(0);
 		items.forEach((element, index) => {
-			this.onDuplicate();
+			this.t.push(this.formBuilder.group({
+				skill_id: [null, Validators.required],
+				skill_name: [''],
+				experience: ['', [Validators.required,]],
+				exp_type: ['years', [Validators.required]]
+			}));
 			(this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['skill_id'].setValue(element.skill_id);
 			(this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['experience'].setValue(element.experience);
 			(this.childForm.controls.requirement.controls.hands_on_experience).controls[index].controls['exp_type'].setValue(element.exp_type);

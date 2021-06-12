@@ -17,7 +17,13 @@ export class EmployerService extends CacheService {
   constructor(private apiService: ApiService) {
     super();
   }
-
+	update = (params?) => {
+    return this.apiService.post('/api/employers/update', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
   jobUpdate = (jobInfo: JobPosting): Observable<JobPosting> => {
     return this.apiService.post('/api/jobpostings/update', jobInfo).pipe(
       map(data => {

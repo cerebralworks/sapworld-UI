@@ -254,6 +254,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			  }
 			  this.savedUserDetails.language_known=this.childForm.value.personalDetails.language_known;
 			  this.savedUserDetails.reference=this.childForm.value.personalDetails.reference;
+				
+				if(this.savedUserDetails.social_media_link){
+					this.savedUserDetails.social_media_link = this.savedUserDetails.social_media_link.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
+				}
+				this.socialMediaLinks = this.savedUserDetails.social_media_link;
 		}else{
 			if(this.savedUserDetails.visa_type){
 				  this.visa_types =this.savedUserDetails.visa_type;
@@ -261,6 +266,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			if(this.savedUserDetails.clients_worked){
 				  this.employers =this.savedUserDetails.clients_worked;
 			  }
+			  if(this.savedUserDetails.social_media_link){
+					this.savedUserDetails.social_media_link = this.savedUserDetails.social_media_link.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
+				}
+			  this.socialMediaLinks = this.savedUserDetails.social_media_link;
 		}
 		if (this.savedUserDetails && this.savedUserDetails.language_known && Array.isArray(this.savedUserDetails.language_known)) {
         if ((this.savedUserDetails.language_known.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.language_known && this.savedUserDetails.language_known.length)) {
@@ -555,7 +564,16 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   };
 
   onSetLinks = (fieldName, status) => {
-    if(this.socialMediaLinks.length == 0) {
+	  if(this.socialMediaLinks==null || undefined){
+		  this.socialMediaLinks=[
+        {
+          "media": fieldName,
+          "url": this.childForm.value.personalDetails[fieldName],
+          "visibility": status
+        }
+      ];
+	  }else if(this.socialMediaLinks.length == 0) {
+		
       this.socialMediaLinks.push(
         {
           "media": fieldName,
@@ -564,7 +582,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         }
       )
     }else {
-      let findInex = this.socialMediaLinks.findIndex(val => ((val.media == fieldName) && (val.visibility == true)))
+		this.socialMediaLinks = this.socialMediaLinks.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
+      let findInex = this.socialMediaLinks.findIndex(val => ((val.media == fieldName) ))
       if(findInex > -1) {
         this.socialMediaLinks[findInex].visibility = status;
       }else {

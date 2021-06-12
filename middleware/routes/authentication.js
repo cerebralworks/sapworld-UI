@@ -45,6 +45,7 @@ module.exports = (app, env, rp) => {
     rp(options)
       .then(function(parsedBody) {
         let responseBody = { ...parsedBody };
+        let responseBodys = { ...parsedBody };
         req.session.isLoggedIn = true;
         req.session.user = parsedBody;
         let date = new Date();
@@ -53,6 +54,9 @@ module.exports = (app, env, rp) => {
         req.session.role = parsedBody.types;
         req.session.save();
         responseBody = {};
+		if(responseBodys.verified !=null && responseBodys.verified !=undefined){
+			responseBody.verified = responseBodys.verified
+		}
         responseBody.isLoggedIn = req.session.isLoggedIn
           ? req.session.isLoggedIn
           : false;

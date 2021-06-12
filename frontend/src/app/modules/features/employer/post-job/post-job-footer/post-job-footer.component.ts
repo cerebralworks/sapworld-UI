@@ -33,11 +33,11 @@ export class PostJobFooterComponent implements OnInit {
   }
 
   onNext = () => {
-    if(this.postJobForm.controls && this.postJobForm.controls.requirement && this.postJobForm.controls.requirement['controls']) {
+    /* if(this.postJobForm.controls && this.postJobForm.controls.requirement && this.postJobForm.controls.requirement['controls']) {
       for (let key in this.postJobForm.controls.requirement['controls']) {
         this.removeError(this.postJobForm.controls.requirement['controls'][key], 'required')
       }
-    }
+    } */
 
     this.btnType = 'next';
     this.onTabChange();
@@ -66,6 +66,17 @@ export class PostJobFooterComponent implements OnInit {
   }
 
   onTabChange = () => {
+	  if(this.btnType == 'next' && this.currentTabInfo.tabNumber==1&&this.postJobForm.controls.jobInfo.valid){
+		  let nextTabProgressor = {} as tabInfo;
+		  nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
+		  nextTabProgressor.tabName = this.onGetTabName(nextTabProgressor.tabNumber);
+		  this.onTabChangeEvent.emit(nextTabProgressor);
+	  }else if(this.btnType == 'next' && this.currentTabInfo.tabNumber==2&&this.postJobForm.controls.requirement.valid){
+		  let nextTabProgressor = {} as tabInfo;
+		  nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
+		  nextTabProgressor.tabName = this.onGetTabName(nextTabProgressor.tabNumber);
+		  this.onTabChangeEvent.emit(nextTabProgressor);
+	  }
     if(this.btnType == 'next' && this.postJobForm.valid) {
       let nextTabProgressor = {} as tabInfo;
       nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
@@ -115,7 +126,7 @@ export class PostJobFooterComponent implements OnInit {
   }
 
   onToggleJobPreviewModal = (status) => {
-    if(this.postJobForm.valid) {
+    if(this.postJobForm.valid || this.postJobForm.controls.otherPref.valid ) {
       this.onEnableJobPreviewModal.emit(status);
     }
   }

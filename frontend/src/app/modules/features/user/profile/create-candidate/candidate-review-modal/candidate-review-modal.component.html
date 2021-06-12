@@ -45,16 +45,16 @@
 									<a class="mr-1" *ngFor="let item of childForm?.value?.personalDetails?.social_media_link" href="{{item.url}}" target="_blank">
 										<ng-container [ngSwitch]="item?.media">
 											<ng-container *ngSwitchCase="'youtube'">
-												<i class="fab fa-youtube-square"></i>
+												<i class="fab fa-youtube-square" *ngIf="item?.visibility"></i>
 											</ng-container>
 											<ng-container *ngSwitchCase="'portfolio'">
-												<i class="fas fa-laptop-code"></i>
+												<i class="fas fa-laptop-code" *ngIf="item?.visibility"></i>
 											</ng-container>
 											<ng-container *ngSwitchCase="'blog'">
-												<i class="fas fa-blog"></i>
+												<i class="fas fa-blog" *ngIf="item?.visibility"></i>
 											</ng-container>
 											<ng-container *ngSwitchDefault>
-												<i class="fab fa-{{item.media}}"></i>
+												<i class="fab fa-{{item.media}}" *ngIf="item?.visibility" ></i>
 											</ng-container>
 										</ng-container>
 									</a>
