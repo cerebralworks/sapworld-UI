@@ -241,7 +241,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 					this.employerService.updateCompanyProfile(requestParams).subscribe(
 						response => {
 							
-							this.employerSharedService.saveEmployerCompanyDetails(response.details);
+							this.employerSharedService.saveEmployerCompanyDetails(response.details[0]);
 							this.router.navigate(['/employer/profile'])
 						}, error => {
 							this.toastrService.error('Something went wrong', 'Failed')
@@ -251,6 +251,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			}else{
 				this.employerService.updateCompanyProfile(requestParams).subscribe(
 					response => {
+						this.employerSharedService.saveEmployerCompanyDetails(response.details[0]);
 						this.router.navigate(['/employer/profile'])
 					}, error => {
 						this.toastrService.error('Something went wrong', 'Failed')

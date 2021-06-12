@@ -47,7 +47,6 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
     ngSelect: NgSelectComponent;
     @ViewChild('myselect') myselect;
     optionsSelect:Array<any>;
-  @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
 
 	constructor(
 		private parentF: FormGroupDirective,
@@ -123,12 +122,30 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 				if (this.getPostedJobsDetails.certification != null) {
 					this.certification = this.getPostedJobsDetails.certification;
 				}
+				if (this.getPostedJobsDetails.extra_criteria != null) {
+					for(let i=0;i<=this.t.value.length;i++){
+						this.t.removeAt(0);
+						i=0;
+					}
+					if(this.getPostedJobsDetails.extra_criteria.length==0){
+						this.t.push(this.formBuilder.group({
+							title: [null],
+							value: [null]
+						}));
+					}else{
+					this.getPostedJobsDetails.extra_criteria.map((value, index) => {
+						this.t.push(this.formBuilder.group({
+							title: [null],
+							value: [null]
+						}));
+					});
+					}
+				}
 				this.childForm.patchValue({
 					otherPref : {
 						...this.getPostedJobsDetails
 					}
 				});
-				this.setCriteriaValue(this.getPostedJobsDetails.extra_criteria)
 			}
 		});
 	}
@@ -140,11 +157,14 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	createForm() {
 		this.childForm = this.parentF.form;
 		this.childForm.addControl('otherPref', new FormGroup({
-			facing_role: new FormControl('0', Validators.required),
-			training_experience: new FormControl('0', Validators.required),
+			facing_role: new FormControl(null),
+			training_experience: new FormControl(null),
 			certification: new FormControl(null),
 			language: new FormControl(null, Validators.required),
-			extra_criteria: new FormArray([]),
+			extra_criteria: new FormArray([this.formBuilder.group({
+				title: [null],
+				value: [null]
+			})]),
 			temp_extra_criteria: new FormArray([]),
 		}));
 
@@ -153,82 +173,43 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	get f() {
 		return this.childForm.controls.otherPref.controls;
 	}
+	
+	  get t() {
+		return this.f.extra_criteria as FormArray;
+	  }
+	  
+	get tEX() {
+		return this.f.temp_extra_criteria as FormArray;
+	}
 
-  onCloseCriteriaModal() {
-    this.clearFormArray(this.childForm.get('otherPref.temp_extra_criteria'));
-    this.criteriaModalRef.close();
-    this.isOpenCriteriaModal = false;
-  }
+	/**
+	**	create a new hands_on_experience
+	**/
+	
+	onDuplicate = (index) => {
+		if(this.t.value[index]['title']== null ||this.t.value[index]['title']== '' || this.t.value[index]['value']== null ||this.t.value[index]['value']== '' ){
+		  
+	  }else{
+		this.t.push(this.formBuilder.group({
+			title: [null, Validators.required],
+			value: [null, Validators.required]
+		}));
+	  }
+	}
+	
+	/**
+	**	Remove the hands_on_experience
+	**/
+	
+	onRemove = (index) => {
+		if(index == 0 &&this.t.value.length==1) {
+			this.t.reset();
+			this.t.controls[index]['controls']['title'].setValidators(null);
+			this.t.controls[index]['controls']['value'].updateValueAndValidity();
+		}else {
+			this.t.removeAt(index);
+		}
+	}
 
-  clearFormArray = (formArray: FormArray) => {
-    while (formArray.length !== 0) {
-      formArray.removeAt(0)
-    }
-  }
 
-  onOpenCriteriaModal = () => {
-    this.isOpenCriteriaModal = true;
-    if (this.isOpenCriteriaModal) {
-      setTimeout(() => {
-        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
-          windowClass: 'modal-holder',
-          centered: true,
-          backdrop: 'static',
-          keyboard: false
-        });
-        this.onCreateExtraCriteriaField();
-      }, 300);
-    }
-  }
-
-  onCreateExtraCriteriaField = () => {
-    this.t.push(this.formBuilder.group({
-      title: ['', Validators.required],
-      value: ['', [Validators.required]]
-    }));
-  }
-  
-  get t() {
-    return this.f.temp_extra_criteria as FormArray;
-  }
-
-  get tEX() {
-    return this.f.extra_criteria as FormArray;
-  }
-  
-  
-  setCriteriaValue(items: any[] = []) {
-    items.forEach((element, index) => {
-      this.tEX.push(this.formBuilder.group({
-      title: [element.title],
-      value: [element.value]
-      }));
-    });
-  }
-
-  onAddExtraCriteria = () => {
-    const otherPref = this.childForm.value.otherPref.temp_extra_criteria;
-    if(otherPref && Array.isArray(otherPref) && otherPref.length > 0) {
-      this.tEX.push(this.formBuilder.group({
-        title: [otherPref[0].title],
-        value: [otherPref[0].value]
-      }));
-      this.onCloseCriteriaModal();
-    }
-  }
-
-  onConvertArrayToString = (value: any[]) => {
-    if (!Array.isArray(value)) return "--";
-    return value.join(", ");
-  }
-
-  onConvertArrayObjToString = (value: any[], field: string = 'name') => {
-    if (!Array.isArray(value)) return "--";
-    return value.map(s => s[field]).join(', ');
-  }
-  onRemove = (index) => {
-    let removedValue = this.t.value[index];
-      this.tEX.removeAt(index);
-
-  }
 }

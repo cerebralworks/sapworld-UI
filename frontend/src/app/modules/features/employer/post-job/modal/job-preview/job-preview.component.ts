@@ -1,3 +1,5 @@
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+
 import { Component,ViewEncapsulation, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +11,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '@shared/service/data.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 @Component({
   selector: 'app-job-preview',
@@ -18,7 +21,19 @@ import { DomSanitizer } from '@angular/platform-browser';
 	encapsulation: ViewEncapsulation.None
 })
 export class JobPreviewComponent implements OnInit {
-
+	
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = true;
+	readonly separatorKeysCodes = [ENTER, COMMA] as const;
+	certification = [ ];
+	public educationItems = [
+			{  text: 'Bachelors' },
+			{  text: 'Diploma' },
+			{  text: 'Masters' },
+			{ text: 'Doctorate' }
+		];
   @Input() toggleJobPreviewModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
   @Input() postJobForm: FormGroup;
@@ -30,10 +45,13 @@ export class JobPreviewComponent implements OnInit {
 
   public mbRef: NgbModalRef;
   public jobPreviewModalRef: NgbModalRef;
+  public criteriaModalRef: NgbModalRef;
+  public isOpenCriteriaModal: boolean;
   public jdSub: Subscription;
   public childForm;
   public industries: any;
   public profileInfo: any;
+  public isShow: boolean=false;
   public mustMacthArray: any[] = [];
   public getPostedJobsDetails: JobPosting;
   public industriesItems: any[] = [];
@@ -41,9 +59,16 @@ export class JobPreviewComponent implements OnInit {
   public languageSource: any[] = [];
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
+  @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
   public mustMacthObj: any = {};
   public MacthObj: any = {};
   public jobId:string;
+  
+  public jobtype: boolean =false;
+  public education: boolean =false;
+  public clientfacing: boolean =false;
+  public training: boolean =false;
+  public certificationBoolean: boolean =false;
 
   constructor(private dataService: DataService,
     private modalService: NgbModal,
@@ -83,7 +108,57 @@ this.dataService.getLanguageDataSource().subscribe(
       this.createForm();
     }
   }
-
+	
+	checkValidator(){
+		if(!this.postJobForm?.value?.otherPref?.training_experience || this.postJobForm?.value?.otherPref?.training_experience==''){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].updateValueAndValidity();
+		}else{
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].updateValueAndValidity();
+		
+		}
+		if(!this.postJobForm?.value?.requirement?.education || this.postJobForm?.value?.requirement?.education=='' ){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].updateValueAndValidity();
+		
+		}else{
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].updateValueAndValidity();
+		
+		
+		}
+		if(!this.postJobForm?.value?.otherPref?.facing_role || this.postJobForm?.value?.otherPref?.facing_role=='' ){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].updateValueAndValidity();
+		
+		}else{
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].updateValueAndValidity();
+		}
+		if(!this.postJobForm?.value?.jobInfo?.employer_role_type || this.postJobForm?.value?.jobInfo?.employer_role_type==''){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].updateValueAndValidity();
+		}else{
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].updateValueAndValidity();
+		}
+		if(!this.postJobForm?.value?.otherPref?.employer_role_type || this.postJobForm?.value?.otherPref?.employer_role_type==''){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].updateValueAndValidity();
+		
+		}else{
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].updateValueAndValidity();
+		
+		
+		}
+	}
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout( async () => {
       if(this.childForm && this.getPostedJobsDetails) {
@@ -92,7 +167,20 @@ this.dataService.getLanguageDataSource().subscribe(
             ...this.getPostedJobsDetails
           }
         });
-        
+		
+		if(this.postJobForm.value.otherPref.extra_criteria){
+			var extra = this.postJobForm.value.otherPref.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
+			for(let i=0;i<extra.length;i++){
+				this.postJobForm.controls.jobPrev['controls']['match_select']['addControl'](extra[i]['title'],new FormControl('0', Validators.required));
+			}
+			this.isShow =true;
+			if(extra.length==0){
+				this.isShow =false;
+			}
+			
+		}
+	  this.checkValidator();
+		
       }
     });
   }
@@ -152,7 +240,7 @@ this.dataService.getLanguageDataSource().subscribe(
 	
     this.MacthObj = {
       experience: new FormControl('0', Validators.required),
-      sap_experience: new FormControl(''),
+      sap_experience: new FormControl('0', Validators.required),
       domain: new FormControl(''),
       hands_on_experience: new FormControl('0', Validators.required),
       skills: new FormControl(''),
@@ -177,6 +265,7 @@ this.dataService.getLanguageDataSource().subscribe(
       must_match: new FormControl(this.mustMacthObj),
 	  match_select: new FormGroup(this.MacthObj),
     }));
+	this.checkValidator();
 
   }
 
@@ -346,7 +435,6 @@ this.dataService.getLanguageDataSource().subscribe(
   }
   
   handleChange(event){
-	  console.log(event);
 	  if(event.target.value=='0'){
 		  
 	  }else if(event.target.value=='1'){
@@ -378,4 +466,126 @@ findLanguageArray(value){
 		
 		return '--';
 	}
+	
+	
+	add(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.certification.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.certification.push(value);
+			this.postJobForm.patchValue({
+			  otherPref: {
+				['certification']: this.certification,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	remove(visa): void {
+		
+		const index = this.certification.indexOf(visa);
+
+		if (index >= 0) {
+			this.certification.splice(index, 1);
+			this.postJobForm.patchValue({
+			  otherPref: {
+				['certification']: this.certification,
+			  }
+			});
+		}
+	}
+	
+	closeAdd(){
+		this.criteriaModalRef.close();
+		
+		if(this.jobtype==true){
+			this.postJobForm.patchValue({
+			  jobInfo : {
+				employer_role_type:''
+			  }
+			});
+		}else if(this.education==true){
+			this.postJobForm.patchValue({
+			  requirement : {
+				education:''
+			  }
+			});
+		}else if(this.clientfacing==true){
+			this.postJobForm.patchValue({
+			  otherPref : {
+				facing_role:''
+			  }
+			});
+		}else if(this.training==true){
+			this.postJobForm.patchValue({
+			  otherPref : {
+				training_experience:''
+			  }
+			});
+		}else if(this.certificationBoolean==true){
+			this.postJobForm.patchValue({
+			  otherPref : {
+				certification:''
+			  }
+			});
+		}
+		this.jobtype==false;
+		this.certificationBoolean==false;
+		this.training==false;
+		this.clientfacing==false;
+		this.education==false;
+	}
+	closeSave(){
+		this.checkValidator();
+		this.criteriaModalRef.close();
+		if(this.jobtype==true){
+			
+			this.jobtype=false;
+		}else if(this.education==true){
+			
+			this.education=false;
+		}else if(this.clientfacing==true){
+			
+			this.clientfacing=false;
+		}else if(this.training==true){
+			
+			this.training=false;
+		}else if(this.certificationBoolean==true){
+			
+			this.certificationBoolean=false;
+		}
+	}
+	onOpenCriteriaModal = (value) => {
+		if(value == 'jobtype'){
+			this.jobtype=true;
+		}else if(value == 'education'){
+			this.education=true;
+		}else if(value == 'clientfacing'){
+			this.clientfacing=true;
+		}else if(value == 'training'){
+			this.training=true;
+		}else if(value == 'certification'){
+			this.certificationBoolean=true;
+		}
+    this.isOpenCriteriaModal = true;
+    if (this.isOpenCriteriaModal) {
+      setTimeout(() => {
+        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
+          windowClass: 'modal-holder',
+          centered: true,
+          backdrop: 'static',
+          keyboard: false
+        });
+      }, 300);
+    }
+  }
 }

@@ -20,6 +20,8 @@ export class SharedJobProfileComponent implements OnInit {
 	public required: boolean = false;
 	public desired: boolean = false;
 	public optional: boolean = false;
+	public nice: boolean = false;
+	public IsShown: boolean = false;
   constructor(private dataService: DataService,
     public sharedService: SharedService,
     private sharedApiService: SharedApiService,
@@ -43,15 +45,30 @@ export class SharedJobProfileComponent implements OnInit {
 				});
 				var requiredFilter = arr.filter(function(a,b){return a=='0'});
 				var desiredFilter = arr.filter(function(a,b){return a=='1'});
-				var optionalFilter = arr.filter(function(a,b){return a=='2' || a=='' });
+				var niceFilter = arr.filter(function(a,b){return a=='2' });
+				var optionalFilter = arr.filter(function(a,b){return a=='' });
 				if(requiredFilter.length>0){
 					this.required =true;
 				}if(desiredFilter.length>0){
 					this.desired=true;
+				}if(niceFilter.length>0){
+					this.nice =true;
 				}if(optionalFilter.length>0){
 					this.optional =true;
 				}
+				
 			  }
+			  if(this.jobInfo.health_wellness && this.jobInfo.paid_off && this.jobInfo.office_perks){
+			  if(this.jobInfo.health_wellness['life'] == true || this.jobInfo.health_wellness['health']  == true 
+			  || this.jobInfo.health_wellness['vision'] == true || this.jobInfo.health_wellness['dental'] == true
+			  || this.jobInfo.paid_off['maternity'] == true ||  this.jobInfo.paid_off['paid_holidays'] == true 
+			  || this.jobInfo.paid_off['vacation_policy'] == true || this.jobInfo.financial_benefits['purchase_plan'] == true 
+			  || this.jobInfo.financial_benefits['tuition_reimbursement'] == true || this.jobInfo.financial_benefits['performance_bonus'] == true 
+			  || this.jobInfo.financial_benefits['retirement_plan'] == true || this.jobInfo.office_perks['office_space'] == true || 
+			  this.jobInfo.office_perks['social_outings'] == true || this.jobInfo.office_perks['pet_friendly'] == true || 
+			  this.jobInfo.office_perks['home_policy'] == true || this.jobInfo.office_perks['free_food'] == true){
+				  this.IsShown=true;
+			  }}
 		  }
       }
     );
@@ -100,4 +117,5 @@ onGetCountry(query) {
 
 		this.sharedApiService.onGetLanguage(requestParams);
 	  }
+	  
 }

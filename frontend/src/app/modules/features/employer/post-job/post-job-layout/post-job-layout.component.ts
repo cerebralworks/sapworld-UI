@@ -147,9 +147,10 @@ export class PostJobLayoutComponent implements OnInit {
     if(Array.isArray(tempSkill) && Array.isArray(jobInfo.skills)) {
       jobInfo.skills = lodash.uniq([...tempSkill, ...jobInfo.skills]);
     }
-
-
-    delete jobInfo.temp_extra_criteria;
+	if(jobInfo.extra_criteria){
+	jobInfo.extra_criteria = jobInfo.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
+	}
+   delete jobInfo.temp_extra_criteria;
 
     if (this.postJobForm.valid) {
       if(this.jobId) {

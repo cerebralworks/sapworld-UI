@@ -2,9 +2,9 @@
 	<div formGroupName="jobPrev">
 		<div class="modal-header">
 			<h5 class="modal-title" id="exampleModalLabel">{{"postJob.jobPreview" | translate }} </h5>
-			<!-- <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
-			</button> -->
+			</button> 
 		</div>
 		<div class="modal-body" style="height:550px; overflow-y:scroll;" >
 		<div class="row">
@@ -38,7 +38,7 @@
 								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}</h6>
 							</ng-container>
 							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
-								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Monthly pay'}}</h6>
+								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/ month'}}</h6>
 							</ng-container>
 							<ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
 								--
@@ -74,19 +74,19 @@
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio5A" name="experience" formControlName="experience" class="custom-control-input" >
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio5A" name="experience" formControlName="experience" class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio5A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio5B" name="experience" formControlName="experience" class="custom-control-input">
+									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio5B" name="experience" formControlName="experience" class="custom-control-input">
 									<label class="custom-control-label" for="customRadio5B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio5C" name="experience" formControlName="experience" class="custom-control-input">
+								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio5C" name="experience" formControlName="experience" class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio5C">&nbsp;</label>
 								</div>
 							</div>
@@ -112,19 +112,19 @@
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio6A" name="sap_experience" formControlName="sap_experience"  class="custom-control-input" >
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio6A" name="sap_experience" formControlName="sap_experience"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio6A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio6B" name="sap_experience" formControlName="sap_experience"  class="custom-control-input">
+									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio6B" name="sap_experience" formControlName="sap_experience"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio6B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio6C" name="sap_experience" formControlName="sap_experience"  class="custom-control-input">
+								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio6C" name="sap_experience" formControlName="sap_experience"  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio6C">&nbsp;</label>
 								</div>
 							</div>
@@ -150,19 +150,19 @@
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio7A" name="domain" formControlName="domain"  class="custom-control-input" >
+									<input type="radio"  (change)="handleChange($event)"   value="0"  id="customRadio7A" name="domain" formControlName="domain"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio7A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio7B" name="domain" formControlName="domain"  class="custom-control-input">
+									<input type="radio"  (change)="handleChange($event)"   value="1"  id="customRadio7B" name="domain" formControlName="domain"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio7B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="3"  id="customRadio7C" name="domain" formControlName="domain"  class="custom-control-input">
+								  <input type="radio"  (change)="handleChange($event)"   value="2"  id="customRadio7C" name="domain" formControlName="domain"  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio7C">&nbsp;</label>
 								</div>
 							</div>
@@ -199,19 +199,19 @@
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio8A" name="hands_on_experience" formControlName="hands_on_experience"  class="custom-control-input" >
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio8A" name="hands_on_experience" formControlName="hands_on_experience"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio8A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio8B" name="hands_on_experience" formControlName="hands_on_experience"  class="custom-control-input">
+									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio8B" name="hands_on_experience" formControlName="hands_on_experience"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio8B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio8C" name="hands_on_experience" formControlName="hands_on_experience"  class="custom-control-input">
+								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio8C" name="hands_on_experience" formControlName="hands_on_experience"  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio8C">&nbsp;</label>
 								</div>
 							</div>
@@ -371,32 +371,57 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
-					<li class="list-group-item text-uppercase">
-						<ng-container *ngIf="postJobForm?.value?.otherPref?.certification.length; else elseSkillsTemplate">
-							<!-- <small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification">
+					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.otherPref?.certification">
+							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification">
 								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
-							</small> -->
-							{{postJobForm?.value?.otherPref?.certification}}
-						</ng-container>
-						<ng-template #elseSkillsTemplate>
-							<li>--</li>
-						</ng-template>
+							</small> 
+							<button *ngIf="postJobForm?.value?.otherPref?.certification.length==0" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button>
 					</li>
+					<li class="list-group-item text-uppercase" *ngIf="!postJobForm?.value?.otherPref?.certification">
+					<button style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4" *ngIf="!postJobForm?.value?.otherPref?.certification || postJobForm?.value?.otherPref?.certification=='' ">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
 							<div class="rdn-radio">
-								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio12A" name="certification" formControlName="certification"  class="custom-control-input" >
+								<div class="custom-control custom-radio" >
+									<input type="radio" disabled  (change)="handleChange($event)"   value="0"  id="customRadio12A" name="certification" formControlName="certification"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio12A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio12B" name="certification" formControlName="certification"  class="custom-control-input">
+									<input type="radio" disabled  (change)="handleChange($event)"   value="1"  id="customRadio12B" name="certification" formControlName="certification"  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio12B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" disabled  (change)="handleChange($event)"   value="2"  id="customRadio12C" name="certification" formControlName="certification"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio12C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4" *ngIf="postJobForm?.value?.otherPref?.certification && postJobForm?.value?.otherPref?.certification!='' ">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio"   (change)="handleChange($event)"   value="0"  id="customRadio12A" name="certification" formControlName="certification"  class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio12A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio"  (change)="handleChange($event)"   value="1"  id="customRadio12B" name="certification" formControlName="certification"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio12B">&nbsp;</label>
 								</div>
 							 </div>
@@ -431,19 +456,19 @@
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio13A" name="type" formControlName="type"  class="custom-control-input" >
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio13A" name="type" formControlName="type"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio13A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio13B" name="type" formControlName="type"  class="custom-control-input">
+									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio13B" name="type" formControlName="type"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio13B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio13C" name="type" formControlName="type"  class="custom-control-input">
+								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio13C" name="type" formControlName="type"  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio13C">&nbsp;</label>
 								</div>
 							</div>
@@ -460,30 +485,59 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
-					<li class="list-group-item ">
+					<li class="list-group-item " *ngIf="postJobForm?.value?.jobInfo?.employer_role_type && postJobForm?.value?.jobInfo?.employer_role_type !='' ">
 					{{postJobForm?.value?.jobInfo?.employer_role_type}}
 					</li>
+					<li class="list-group-item " *ngIf="!postJobForm?.value?.jobInfo?.employer_role_type || postJobForm?.value?.jobInfo?.employer_role_type =='' ">
+					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('jobtype')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4" *ngIf="!postJobForm?.value?.jobInfo?.employer_role_type || postJobForm?.value?.jobInfo?.employer_role_type==''">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio14A" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input" >
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio14A" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio14A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio14B" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input">
+									<input type="radio"  disabled (change)="handleChange($event)"   value="1"  id="customRadio14B" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio14B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio14C" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input">
+								  <input type="radio" (change)="handleChange($event)"  disabled  value="2"  id="customRadio14C" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio14C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4" *ngIf="postJobForm?.value?.jobInfo?.employer_role_type && postJobForm?.value?.jobInfo?.employer_role_type!=''">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio"  (change)="handleChange($event)"   value="0"  id="customRadio14A" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio14A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio"   (change)="handleChange($event)"   value="1"  id="customRadio14B" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio14B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" (change)="handleChange($event)"  value="2"  id="customRadio14C" name="employer_role_type" formControlName="employer_role_type"  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio14C">&nbsp;</label>
 								</div>
 							</div>
@@ -501,7 +555,7 @@
 			<div class="col-lg-5 info">
 				<ul class="list-group">
 					<li class="list-group-item ">
-					{{postJobForm?.value?.jobInfo?.availability}}
+					{{postJobForm?.value?.jobInfo?.availability}} days
 					</li>
 				</ul>
 			</div>
@@ -511,19 +565,19 @@
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio15A" name="availability" formControlName="availability"  class="custom-control-input" >
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio15A" name="availability" formControlName="availability"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio15A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio15B" name="availability" formControlName="availability"  class="custom-control-input">
+									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio15B" name="availability" formControlName="availability"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio15B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio15C" name="availability"  formControlName="availability" class="custom-control-input">
+								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio15C" name="availability"  formControlName="availability" class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio15C">&nbsp;</label>
 								</div>
 							</div>
@@ -551,19 +605,19 @@
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio16A" name="work_authorization" formControlName="work_authorization"  class="custom-control-input" >
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio16A" name="work_authorization" formControlName="work_authorization"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio16A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio16B" name="work_authorization" formControlName="work_authorization"  class="custom-control-input">
+									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio16B" name="work_authorization" formControlName="work_authorization"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio16B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio16C" name="work_authorization" formControlName="work_authorization"  class="custom-control-input">
+								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio16C" name="work_authorization" formControlName="work_authorization"  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio16C">&nbsp;</label>
 								</div>
 							</div>
@@ -584,25 +638,51 @@
 					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.facing_role == '1'">{{"postJob.notRequired" | translate}}</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4" *ngIf="!postJobForm?.value?.otherPref?.facing_role || postJobForm?.value?.otherPref?.facing_role=='' ">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio17A" name="facing_role" formControlName="facing_role"  class="custom-control-input" >
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio17A" name="facing_role" formControlName="facing_role"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio17A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio17B" name="facing_role" formControlName="facing_role"  class="custom-control-input">
+									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio17B" name="facing_role" formControlName="facing_role"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio17B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio17C" name="facing_role" formControlName="facing_role"  class="custom-control-input">
+								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio17C" name="facing_role" formControlName="facing_role"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio17C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4" *ngIf="postJobForm?.value?.otherPref?.facing_role && postJobForm?.value?.otherPref?.facing_role !='' ">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio"  (change)="handleChange($event)"   value="0"  id="customRadio17A" name="facing_role" formControlName="facing_role"  class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio17A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio"  (change)="handleChange($event)"   value="1"  id="customRadio17B" name="facing_role" formControlName="facing_role"  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio17B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio"  (change)="handleChange($event)"   value="2"  id="customRadio17C" name="facing_role" formControlName="facing_role"  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio17C">&nbsp;</label>
 								</div>
 							</div>
@@ -623,7 +703,33 @@
 					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.training_experience == '1'">{{"postJob.notRequired" | translate}}</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4" *ngIf="!postJobForm?.value?.otherPref?.training_experience || postJobForm?.value?.otherPref?.training_experience==''">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio18A" name="training_experience" formControlName="training_experience"  class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio18A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" disabled  (change)="handleChange($event)"   value="1"  id="customRadio18B" name="training_experience" formControlName="training_experience"  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio18B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio"  disabled (change)="handleChange($event)"   value="2"  id="customRadio18C" name="training_experience" formControlName="training_experience"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio18C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4" *ngIf="postJobForm?.value?.otherPref?.training_experience && postJobForm?.value?.otherPref?.training_experience!=''">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
@@ -697,7 +803,10 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
-					<li class="list-group-item">{{postJobForm?.value?.requirement?.education}}</li>
+					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.education && postJobForm?.value?.requirement?.education !='' ">{{postJobForm?.value?.requirement?.education}}</li>
+					<li class="list-group-item " *ngIf="!postJobForm?.value?.requirement?.education || postJobForm?.value?.requirement?.education =='' ">
+					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('education')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
@@ -706,19 +815,19 @@
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio20A" name="education" formControlName="education"  class="custom-control-input" >
+									<input type="radio"  disabled="{{!postJobForm?.value?.requirement?.education || postJobForm?.value?.requirement?.education==''}} "  (change)="handleChange($event)"   value="0"  id="customRadio20A" name="education" formControlName="education"  class="custom-control-input" >
 									<label class="custom-control-label" for="customRadio20A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio20B" name="education" formControlName="education"  class="custom-control-input">
+									<input type="radio"  disabled="{{!postJobForm?.value?.requirement?.education || postJobForm?.value?.requirement?.education==''}} "  (change)="handleChange($event)"   value="1"  id="customRadio20B" name="education" formControlName="education"  class="custom-control-input">
 									<label class="custom-control-label" for="customRadio20B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio20C" name="education" formControlName="education"  class="custom-control-input">
+								  <input type="radio"  disabled="{{!postJobForm?.value?.requirement?.education || postJobForm?.value?.requirement?.education=='' }}"  (change)="handleChange($event)"   value="2"  id="customRadio20C" name="education" formControlName="education"  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio20C">&nbsp;</label>
 								</div>
 							</div>
@@ -841,7 +950,7 @@
 				</ul>
 			</div>
 		</div>	
-		<ng-container *ngIf="childForm?.value?.otherPref?.extra_criteria?.length > 0">
+		<ng-container *ngIf="childForm?.value?.otherPref?.extra_criteria?.length > 0  && isShow">
 			<div class="row info-box" *ngFor="let extra_criteria of childForm?.value?.otherPref?.extra_criteria; let i = index">
 				<div class="col-lg-3 caption">
 					<ul class="list-group">
@@ -853,14 +962,40 @@
 						<li class="list-group-item text-capitalize">{{extra_criteria?.value}}</li>
 					</ul>
 				</div>
+				<div class="col-lg-4" >
+					<ul class="list-group">
+						<li class="list-group-item border-0 p-0 m-0 ">							
+							<div class="d-flex">
+								<div class="rdn-radio">
+									<div class="custom-control custom-radio">
+										<input type="radio" (change)="handleChange($event)"   value="0"  id="{{extra_criteria?.title}}A" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input" >
+										<label class="custom-control-label" for="{{extra_criteria?.title}}A">&nbsp;</label>
+									</div>
+								 </div>
+								 <div class="rdn-radio">
+									<div class="custom-control custom-radio">
+										<input type="radio"  (change)="handleChange($event)"   value="1"  id="{{extra_criteria?.title}}B" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input">
+										<label class="custom-control-label" for="{{extra_criteria?.title}}B">&nbsp;</label>
+									</div>
+								 </div>
+								 <div class="rdn-radio">
+									<div class="custom-control custom-radio">
+									  <input type="radio" (change)="handleChange($event)"   value="2"  id="{{extra_criteria?.title}}C" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input">
+									  <label class="custom-control-label" for="{{extra_criteria?.title}}C">&nbsp;</label>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</ng-container>		
 		</div>		
 		
 		<div class="col-lg-12 border-top pt-3"> </div>
-
+		<h6 class="font-weight-bold mb-2" >{{"postJob.jobDescription" | translate}}</h6>
         <div class="col-lg-12 mb-4">
-			<h6 class="font-weight-bold mb-2" >{{"postJob.jobDescription" | translate}}</h6>
+			
 			<p style="word-break: break-all;"[innerHTML]="sanitizer.bypassSecurityTrustHtml(postJobForm?.value?.jobInfo?.description)"></p>
 		</div>	
 		<div class="row mt-2">
@@ -911,7 +1046,10 @@
 		</div>
 		<button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
 			data-dismiss="modal">Edit</button>
-		<button [disabled]="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
+		<button *ngIf="!postJobForm.valid" disabled="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
+			{{jobId ? 'Update & Close' : 'Save & Close'}}
+		</button>
+		<button *ngIf="postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
 			{{jobId ? 'Update & Close' : 'Save & Close'}}
 		</button>
 	</div>
@@ -919,3 +1057,71 @@
 </div>
 </ng-template>
 
+
+<ng-template *ngIf="isOpenCriteriaModal" #criteriaModal let-modal>
+	<div class="modal-header">
+			<button (click)="closeAdd()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+			</button> 
+		</div>
+		<div class="modal-body"  *ngIf="jobtype">
+			<div formGroupName="jobInfo">
+				<div class="col-lg-12 col-md-12">
+					<div class=" form-group">
+						<label>{{"postYourResume.roleType" | translate }}</label>
+						<select formControlName="employer_role_type" class="form-control text-capitalize">
+							<option value="" selected="" >Select Role Type</option>
+							<option  value="Technical">Technical</option>
+							<option  value="Functional">Functional</option>
+							<option  value="Technofunctional">Technofunctional</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>							
+	<div class="modal-body"  *ngIf="certificationBoolean">
+		<div class="col-lg-12 col-md-12" formGroupName="otherPref">	
+			<div class=" form-group">
+				<label >{{"postJob.certification" | translate }}</label>
+				<mat-form-field class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipLists aria-label="certification">
+						<mat-chip *ngFor="let certifications of certification" [selectable]="selectable"
+							[removable]="removable" (removed)="remove(certifications)">
+							{{certifications}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder=""
+							[matChipInputFor]="chipLists"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>		
+	</div>	
+	<div class="modal-body"  *ngIf="education">
+		<div class="col-lg-12 col-md-6" formGroupName="requirement">
+			<div class=" form-group">
+				<label>{{"postJob.education" | translate }}</label>	
+				<ngx-select
+					[placeholder]="'Select Degree'"
+					class="text-capitalize"
+					[items]="educationItems"
+					autoClearSearch="true"
+					noResultsFound="No results found"
+					formControlName="education"
+					optionValueField="text"
+					optionTextField="text"
+				></ngx-select>
+			</div>
+			</div>
+			</div>
+		<div class="modal-footer">
+			<button (click)="closeSave()" type="button" class="btn btn-theme-blue">
+				save
+			</button>
+		</div>
+	
+</ng-template>
