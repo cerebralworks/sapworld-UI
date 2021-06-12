@@ -372,19 +372,15 @@
 			<div class="col-lg-5 info">
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.otherPref?.certification">
-						<ng-container *ngIf="postJobForm?.value?.otherPref?.certification.length; else elseSkillsTemplate">
 							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification">
 								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
 							</small> 
-						</ng-container>
-						<ng-template #elseSkillsTemplate>
-							<li *ngIf="postJobForm?.value?.otherPref?.certification.length && !postJobForm?.value?.otherPref?.certification ">
-							<button style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button></li>
-						</ng-template>
-						<button *ngIf="postJobForm?.value?.otherPref?.certification =='' || !postJobForm?.value?.otherPref?.certification " style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
+							<button *ngIf="postJobForm?.value?.otherPref?.certification.length==0" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">Add </button>
 					</li>
+					<li class="list-group-item text-uppercase" *ngIf="!postJobForm?.value?.otherPref?.certification">
+					<button style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4" *ngIf="!postJobForm?.value?.otherPref?.certification || postJobForm?.value?.otherPref?.certification=='' ">
