@@ -157,11 +157,18 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 		let requestParams: any = {};
 		this.employerService.getCompanyProfileInfo(requestParams).subscribe(
 		(response: any) => {
-			this.employerSharedService.saveEmployerCompanyDetails(response.details);
+			
+			  this.employerSharedService.saveEmployerCompanyDetails(response.details);
 			this.companyProfileInfo = { ...response.details };
+				if(this.companyProfileInfo.social_media_link){
+					this.companyProfileInfo.social_media_link = this.companyProfileInfo.social_media_link.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
+				}
+			  this.socialMediaLinks = this.companyProfileInfo.social_media_link;
 			
 				if (!this.utilsHelperService.isEmptyObj(this.companyProfileInfo)) {
-					this.companyProfileInfo.contact = this.companyProfileInfo.contact[0];
+					if(this.companyProfileInfo.contact){
+						this.companyProfileInfo.contact = this.companyProfileInfo.contact[0];
+					}
 					this.createCompanyForm.patchValue({
 						...this.companyProfileInfo
 					})
@@ -280,7 +287,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			zipcode: [null],
 			description: ['', Validators.compose([Validators.required, Validators.minLength(100)])],
 			website: ['', Validators.compose([Validators.required, ValidationService.urlValidator])],
-			contact: ['', Validators.required],
+			contact: [''],
 			latlng: [null, Validators.required],
 			social_media_link: [null],
 			linkedin: new FormControl(''),
@@ -485,14 +492,23 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	**/
 	
 	onSetLinks = (fieldName, status) => {
-		if (this.socialMediaLinks.length == 0) {
+		if(this.socialMediaLinks==null || undefined){
+		  this.socialMediaLinks=[
+        {
+          "media": fieldName,
+          "url": this.createCompanyForm.value[fieldName],
+          "visibility": status
+        }
+      ];
+	  }else if (this.socialMediaLinks.length == 0) {
 			this.socialMediaLinks.push({
 			  "media": fieldName,
 			  "url": this.createCompanyForm.value[fieldName],
 			  "visibility": status
 			})
 		} else {
-			let findInex = this.socialMediaLinks.findIndex(val => ((val.media == fieldName) && (val.visibility == true)))
+			this.socialMediaLinks = this.socialMediaLinks.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
+			let findInex = this.socialMediaLinks.findIndex(val => ((val.media == fieldName)))
 			if (findInex > -1) {
 				this.socialMediaLinks[findInex].visibility = status;
 			} else {

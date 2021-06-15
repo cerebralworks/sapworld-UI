@@ -1,5 +1,5 @@
 import { Component,ViewEncapsulation, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ControlContainer, FormBuilder, FormGroupDirective } from '@angular/forms';
+import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -46,6 +46,9 @@ export class CandidateReviewModalComponent implements OnInit {
 	@Input() toggleRegisterReviewModal: boolean;
 	@Output() onEvent = new EventEmitter<boolean>();
 	public show: boolean = false;
+	public isOpenCriteriaModal: boolean = false;
+	public jobtype: boolean = false;
+	public end_to_end_implementation: boolean = false;
 	@Output() createCandidate: EventEmitter<any> = new EventEmitter();
 	public savedUserDetails: any;
 	public jobId: string;
@@ -56,6 +59,7 @@ export class CandidateReviewModalComponent implements OnInit {
 
 	public childForm;
 	public mbRef: NgbModalRef;
+	public criteriaModalRef: NgbModalRef;
 	public registerReviewModalSub: Subscription;
 	public userInfo: any = {};
 	public userPhotoInfo: any;
@@ -64,7 +68,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	public requestParams: any;
 	
 	@ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
-
+@ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
 	constructor(
 		private modalService: NgbModal,
 		public router: Router,
@@ -241,5 +245,49 @@ export class CandidateReviewModalComponent implements OnInit {
 		}
 		return '--';
 	}
-
+	
+	closeAdd(){
+		if(this.jobtype == true){
+			this.childForm.patchValue({
+				educationExp: {
+				  employer_role_type:''
+				}
+			  })
+		}else if(this.end_to_end_implementation == true){
+			this.childForm.patchValue({
+				educationExp: {
+				  end_to_end_implementation:null
+				}
+			  })
+		}
+		this.jobtype = false;
+		this.end_to_end_implementation = false;
+		this.criteriaModalRef.close();
+	}
+	
+	closeSave(){
+		
+		this.jobtype = false;
+		this.end_to_end_implementation = false;
+		this.criteriaModalRef.close();
+		
+	}
+	onOpenCriteriaModal = (value) => {
+		if(value=='jobtype'){
+			this.jobtype = true;
+		}else if(value=='end_to_end_implementation'){
+			this.end_to_end_implementation = true;
+		}
+    this.isOpenCriteriaModal = true;
+    if (this.isOpenCriteriaModal) {
+      setTimeout(() => {
+        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
+          windowClass: 'modal-holder',
+          centered: true,
+          backdrop: 'static',
+          keyboard: false
+        });
+      }, 300);
+    }
+  }
 }

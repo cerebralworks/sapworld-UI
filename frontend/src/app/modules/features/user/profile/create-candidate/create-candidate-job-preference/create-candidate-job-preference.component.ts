@@ -1,10 +1,12 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { Component,ViewChild,ElementRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 @Component({
 	selector: 'app-create-candidate-job-preference',
@@ -14,6 +16,14 @@ import { SharedApiService } from '@shared/service/shared-api.service';
 })
 export class CreateCandidateJobPreferenceComponent implements OnInit {
 
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = true;
+	readonly separatorKeysCodes = [ENTER, COMMA] as const;
+	address = [ ];
+	
+@ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
 	public availabilityArray: { id: number; text: string; }[];
@@ -84,6 +94,21 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
 	}
 	
+	
+	add(event: MatChipInputEvent): void {
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	remove(data): void {
+		
+		const index = this.address.indexOf(data);
+
+		if (index >= 0) {
+			this.address.splice(index, 1);
+		}
+	}
+	
 	/**
 	**	When the module after loading the contents the ngOnChanges calls
 	**  To validate the form and inserting the form data
@@ -103,6 +128,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 							stateShort: [''],
 							country: ['']
 						  }));
+						  this.address=[];
 					}else if ((this.savedUserDetails.preferred_locations.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.preferred_locations && this.savedUserDetails.preferred_locations.length)) {
 					 this.t.removeAt(0);
 					  this.savedUserDetails.preferred_locations.map((value, index) => {
@@ -114,6 +140,15 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						  }));
 					  });
 					}
+					var tempData =[];
+				if(this.t.value){
+						 tempData = this.savedUserDetails.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
+						 tempData = tempData.map(function(a,b){ 
+				a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+				return a.city+'-'+a.stateShort });
+					}
+				  
+				this.address=tempData;
 				}
 				if(this.savedUserDetails.job_type!=null){		  
 					if(this.savedUserDetails.job_type.length !=0){
@@ -328,15 +363,13 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
   }
   
   
-  onDuplicate = (index) => {
-	  if(this.t.value[index]['city']!=null && this.t.value[index]['state']!=null && this.t.value[index]['country']!=null && this.t.value[index]['city']!='' && this.t.value[index]['state']!='' && this.t.value[index]['country']!=''){ 
+  onDuplicate = () => {
       this.t.push(this.formBuilder.group({
         city: [''],
         state: [''],
         stateShort: [''],
         country: ['']
       }));
-	  }
   }
 
   onRemove = (index) => {
@@ -350,20 +383,43 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
         stateShort: [''],
         country: ['']
       }));
+	  this.address=[];
     } else {
       this.t.removeAt(index);
+	  var tempData =[];
+		if(this.t.value){
+			 tempData = this.t.value.filter(function(a,b){ return a.city!=''||a.country!=''});
+		}
+	  tempData = tempData.map(function(a,b){ 
+	a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+	return a.city+'-'+a.stateShort });
+	this.address=tempData;
 
     }
   }
-  handleAddressChange = (event,ticket) => {
+  handleAddressChange = (event) => {
     const address = this.sharedService.fromGooglePlace(event);
 	if(event.geometry){
-    ticket.patchValue({
+		var tempData =[];
+		if(this.t.value){
+			 tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateShort!=''});
+		}
+		
+		var datas:any = {
         city: address.city ? address.city : event.formatted_address,
         state: address.state,
         stateShort: address.stateShort,
         country: address.country
-    });
-	}
+    };
+	this.chipsInput.nativeElement.value='';
+	if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
+	this.onDuplicate();
+	tempData.push(datas);
+	this.t.patchValue(tempData);
+	tempData = tempData.map(function(a,b){ 
+	a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+	return a.city+'-'+a.stateShort });
+	this.address=tempData;
+	}}
   };
 }

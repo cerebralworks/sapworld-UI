@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { tabInfo } from '@data/schema/create-candidate';
 import { trigger, transition, query, style, animate, group } from '@angular/animations';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { JobPosting } from '@data/schema/post-job';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -207,11 +207,48 @@ export class PostJobLayoutComponent implements OnInit {
     requestParams.id = jobId;
     this.employerService.getPostedJobDetails(requestParams).subscribe(
       response => {
+		  this.postJobForm.addControl('requirement', new FormGroup({
+			experience: new FormControl(null, Validators.required),
+			education: new FormControl(null),
+			sap_experience: new FormControl(null, Validators.required),
+			domain: new FormControl(null, Validators.required),
+			hands_on_experience: new FormArray([this.formBuilder.group({
+				skill_id: [null, Validators.required],
+				skill_name: [''],
+				experience: ['', [Validators.required,]],
+				exp_type: ['years', [Validators.required]]
+			})]),
+			skills: new FormControl(null, Validators.required),
+			programming_skills: new FormControl(null),
+			optinal_skills: new FormControl(null),
+			work_authorization: new FormControl(null, Validators.required),
+			authorized_to_work: new FormControl(null),
+			visa_sponsorship: new FormControl(false, Validators.required),
+			need_reference: new FormControl(false, Validators.required),
+			travel_opportunity: new FormControl(null, Validators.required),
+			end_to_end_implementation: new FormControl(null)
+		}));
         if(response && response.details) {
           this.postedJobsDetails = response.details;
           this.postJobForm.patchValue({
             ...this.postedJobsDetails
           });
+		  
+		if (this.postedJobsDetails.skills != null) {
+			for(let i=0;i<this.postedJobsDetails.skills.length;i++){
+				this.postedJobsDetails.skills[i]=parseInt(this.postedJobsDetails.skills[i]);
+			}
+		}
+		if (this.postedJobsDetails.domain != null) {
+			for(let i=0;i<this.postedJobsDetails.domain.length;i++){
+				this.postedJobsDetails.domain[i]=parseInt(this.postedJobsDetails.domain[i]);
+			}
+		}
+		  this.postJobForm.patchValue({
+					requirement : {
+						...this.postedJobsDetails
+					}
+				});
         }
       }, error => {
       }

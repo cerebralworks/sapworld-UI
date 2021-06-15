@@ -92,8 +92,32 @@
 		</div> -->
 	</div>
 	<div *ngIf="childForm?.value?.jobPref?.willing_to_relocate">
-	<h6 class="font-weight-bold mt-4">{{"postYourResume.preferredLocation" | translate }}</h6>
-	<div class="row mt-3" *ngFor="let ticket of t.controls; let i = index; let last = last">
+	<!-- <h6 class="font-weight-bold mt-4">{{"postYourResume.preferredLocation" | translate }}</h6> -->
+	<div class="row mt-3">
+	<div class="col-lg-9 col-md-12" >	
+			<div class=" form-group">
+				<label >{{"postYourResume.preferredLocation" | translate }}</label>
+				<mat-form-field class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipList aria-label="address">
+						<mat-chip *ngFor="let addresss of address;let i=index;" [selectable]="selectable"
+							[removable]="removable" (removed)="onRemove(i)">
+							{{addresss}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder="" #chipsInput
+						(onAddressChange)="handleAddressChange($event)"
+						ngx-google-places-autocomplete
+							[matChipInputFor]="chipList"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>	
+		</div>	
+	<!-- <div class="row mt-3" *ngFor="let ticket of t.controls; let i = index; let last = last">
 		<ng-container [formGroup]="ticket">
 		  <div class="col-lg-4 col-md-6">
 			<div class=" form-group">
@@ -118,7 +142,7 @@
           style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
       </div>
 		</ng-container>
-  </div>
+  </div> -->
   </div>
 	<div class="row mt-2">
 		<!-- <div class="col-lg-12 col-md-6" *ngIf="childForm?.value?.personalDetails?.work_authorization == 0 ">

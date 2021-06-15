@@ -33,6 +33,8 @@
     "addNotes": "Add Notes"
   },
   "postJob": {
+    "authorizedToWork": "Authorized To Work",
+	"extraCriteria":"Extra Criteria",
 	"extraCriteria":"Extra Criteria",
 	"education":"Education",
 	"workAuthorisation":"Work Authorisation",
@@ -104,7 +106,7 @@
     "availableIn": "Available In",
     "skills": "Skills",
 	"experienceAndSkills":"EXPERIENCE AND SKILLS ",
-	"visaSponsered":"Show me visa sponsered jobs",
+	"visaSponsered":"Show me visa Sponsored jobs",
     "salary": "Pay"
   },
   "dashboard": {
@@ -175,6 +177,7 @@
   },
   "postYourResume": {
     "candidateRegistration": "Candidate Registration",
+    "authorizedToWork": "Authorized To Work",
     "personalDetails": "Personal Details",
     "educationExperience": "Education & Experience",
     "skillsets": "Skillsets",
