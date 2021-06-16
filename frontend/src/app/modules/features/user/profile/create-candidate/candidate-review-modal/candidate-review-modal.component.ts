@@ -65,6 +65,7 @@ separateDialCode = false;
 	public show: boolean = false;
 	public invalidMobile: boolean = false;
 	public isOpenCriteriaModal: boolean = false;
+	public isCheckModel: boolean = false;
 	public jobtype: boolean = false;
 	public end_to_end_implementation: boolean = false;
 	public certificationBoolean: boolean = false;
@@ -84,6 +85,7 @@ separateDialCode = false;
 	public childForm;
 	public mbRef: NgbModalRef;
 	public criteriaModalRef: NgbModalRef;
+	public checkModalRef: NgbModalRef;
 	public registerReviewModalSub: Subscription;
 	public userInfo: any = {};
 	public userPhotoInfo: any;
@@ -102,6 +104,7 @@ separateDialCode = false;
 	
 	@ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
 @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
+@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
 //@ViewChild('chipsInput', { static: false })chipsInput: ElementRef; //chipsInput: ElementRef<HTMLInputElement>;
 	constructor(
 		private modalService: NgbModal,
@@ -405,7 +408,31 @@ separateDialCode = false;
 	}
   }
   
+  openCheckPopup(){
+		this.isCheckModel = true;
+		if (this.isCheckModel) {
+		setTimeout(() => {
+        this.checkModalRef = this.modalService.open(this.checkModal, {
+          windowClass: 'modal-holder',
+          centered: true,
+          backdrop: 'static',
+          keyboard: false
+        });
+      }, 300);
+		}
+  }
   
+  cancelCheck(){
+	 this.checkModalRef.close();
+	  this.closeAdd(); 
+	  
+  }
+  
+  closeSaveCheck(){
+	  
+	this.checkModalRef.close();
+	  this.closeSave();
+  }
   
   get f() {
     return this.childForm.controls.educationExp.controls;

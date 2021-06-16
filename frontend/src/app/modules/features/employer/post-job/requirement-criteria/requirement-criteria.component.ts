@@ -162,6 +162,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		  { id: 100, text: '100%' },
 		];
 		this.educationItems = [
+			{  text: 'High School' },
 			{  text: 'Bachelors' },
 			{  text: 'Diploma' },
 			{  text: 'Masters' },
@@ -349,8 +350,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			skills: new FormControl(null, Validators.required),
 			programming_skills: new FormControl(null),
 			optinal_skills: new FormControl(null),
-			work_authorization: new FormControl(null, Validators.required),
-			authorized_to_work: new FormControl(null),
+			work_authorization: new FormControl(null),
 			visa_sponsorship: new FormControl(false, Validators.required),
 			need_reference: new FormControl(false, Validators.required),
 			travel_opportunity: new FormControl(null, Validators.required),
@@ -496,15 +496,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	**/
 	
 	onChangeFieldValue = (fieldName, value) => {
-		if(fieldName=='work_authorization'){
-			if(value!=2){
-				this.childForm.patchValue({
-					requirement: {
-						authorized_to_work: null,
-					}
-				});
-			}
-		}
+		
 		this.childForm.patchValue({
 			requirement: {
 				fieldName: value,

@@ -479,7 +479,7 @@
 				<div class="pj-title mb-3 border-primary" *ngIf="childForm?.value?.personalDetails?.reference?.length !=0 && !childForm?.value?.personalDetails?.reference[0].name || !childForm?.value?.personalDetails?.reference[0].email || !childForm?.value?.personalDetails?.reference[0].company_name" >
 					<h6 class="text-blue" role="button" > Reference  <i class="fas fa-angle-down"></i></h6>
 				</div>
-				<div class="row mt-2" style="padding:0px;" *ngIf="childForm?.value?.personalDetails?.reference?.length !=0 && !childForm?.value?.personalDetails?.reference[0].name || !childForm?.value?.personalDetails?.reference[0].email || !childForm?.value?.personalDetails?.reference[0].company_name" >
+				<div class="mt-2" style="padding:0px;" *ngIf="childForm?.value?.personalDetails?.reference?.length !=0 && !childForm?.value?.personalDetails?.reference[0].name || !childForm?.value?.personalDetails?.reference[0].email || !childForm?.value?.personalDetails?.reference[0].company_name" >
 					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('reference')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">Add </button>
 				</div>
@@ -491,7 +491,7 @@
 				<div class="pj-title mb-3 border-primary" >
 					<h6 class="text-blue" role="button" (click)="show = !show"> Reference  <i class="fas fa-angle-down"></i></h6>
 				</div>
-				<div class="row mt-2" style="padding:0px;">
+				<div class="mt-2" style="padding:0px;">
 					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('reference')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">Add </button>
 				</div>
@@ -506,7 +506,7 @@
 
 <ng-template *ngIf="isOpenCriteriaModal" #criteriaModal let-modal>
 	<div class="modal-header">
-			<button (click)="closeAdd()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<button (click)="openCheckPopup()" type="button" class="close" aria-label="Close">
 					<span aria-hidden="true">×</span>
 			</button> 
 		</div>
@@ -649,7 +649,7 @@
 					  <div></div>
 					</div>
 				  </div> 	
-					<div class=" mt-2" *ngFor="let ticket of r.controls; let i = index; let last = last">
+					<div class="row mt-2" *ngFor="let ticket of r.controls; let i = index; let last = last">
 					<ng-container [formGroup]="ticket">
 						<div class="col-lg-3 col-md-6">
 							<label>Name</label>
@@ -703,6 +703,21 @@
 		<div class="modal-footer">
 			<button (click)="closeSave()" type="button" class="btn btn-theme-blue">
 				save
+			</button>
+		</div>
+	
+</ng-template>
+
+<ng-template *ngIf="isCheckModel" #checkModal let-modal>
+		<div class="modal-body" style="text-align: center;">
+			<h5 >Do you want to Save ? </h5>
+		</div>
+		<div class="modal-footer" style="justify-content: center;">
+			<button (click)="cancelCheck()" style="width: 25%;" type="button" class="btn btn-outline-orange">
+				No
+			</button>
+			<button (click)="closeSaveCheck()" style="width: 25%;" type="button" class="btn btn-outline-green">
+				Yes
 			</button>
 		</div>
 	

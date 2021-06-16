@@ -29,6 +29,7 @@ export class JobPreviewComponent implements OnInit {
 	readonly separatorKeysCodes = [ENTER, COMMA] as const;
 	certification = [ ];
 	public educationItems = [
+			{  text: 'High School' },
 			{  text: 'Bachelors' },
 			{  text: 'Diploma' },
 			{  text: 'Masters' },
@@ -46,7 +47,9 @@ export class JobPreviewComponent implements OnInit {
   public mbRef: NgbModalRef;
   public jobPreviewModalRef: NgbModalRef;
   public criteriaModalRef: NgbModalRef;
+	public checkModalRef: NgbModalRef;
   public isOpenCriteriaModal: boolean;
+  public isCheckModel: boolean;
   public jdSub: Subscription;
   public childForm;
   public industries: any;
@@ -62,6 +65,8 @@ export class JobPreviewComponent implements OnInit {
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
   @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
+  @ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
+
   public mustMacthObj: any = {};
   public MacthObj: any = {};
   public jobId:string;
@@ -71,7 +76,7 @@ export class JobPreviewComponent implements OnInit {
   public clientfacing: boolean =false;
   public training: boolean =false;
   public certificationBoolean: boolean =false;
-  public authorized_to_work: boolean =false;
+  public work_authorization: boolean =false;
 
   constructor(private dataService: DataService,
     private modalService: NgbModal,
@@ -142,22 +147,16 @@ this.dataService.getLanguageDataSource().subscribe(
 		
 		
 		}
-		if(!this.postJobForm?.value?.requirement?.authorized_to_work || this.postJobForm?.value?.requirement?.authorized_to_work=='' ){
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].setValidators(null);
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].setValue('');
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].updateValueAndValidity();
+		if(!this.postJobForm?.value?.requirement?.work_authorization || this.postJobForm?.value?.requirement?.work_authorization=='' ){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
 		
 		}else{
-			if(this.postJobForm?.value?.requirement?.authorized_to_work.length==0){
-				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].setValidators(null);
-				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].setValue('');
-				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].updateValueAndValidity();
 			
-			}else{
-				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
-				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].updateValueAndValidity();
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
 			
-			}
 		}
 		if(!this.postJobForm?.value?.otherPref?.facing_role || this.postJobForm?.value?.otherPref?.facing_role=='' ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValidators(null);
@@ -293,13 +292,12 @@ this.dataService.getLanguageDataSource().subscribe(
       hands_on_experience: new FormControl('0', Validators.required),
       skills: new FormControl(''),
       programming_skills: new FormControl(''),
-      authorized_to_work: new FormControl(''),
       optinal_skills: new FormControl(''),
       certification: new FormControl(''),
       type: new FormControl('0', Validators.required),
       employer_role_type: new FormControl(''),
       availability: new FormControl('0', Validators.required),
-      work_authorization: new FormControl('0', Validators.required),
+      work_authorization: new FormControl(''),
       facing_role: new FormControl(''),
       training_experience: new FormControl(''),
       end_to_end_implementation: new FormControl(''),
@@ -588,10 +586,10 @@ findLanguageArray(value){
 			  }
 			});
 			this.certification=[];
-		}else if(this.authorized_to_work==true){
+		}else if(this.work_authorization==true){
 			this.postJobForm.patchValue({
 			  requirement : {
-				authorized_to_work:''
+				work_authorization:''
 			  }
 			});
 		}
@@ -600,7 +598,7 @@ findLanguageArray(value){
 		this.training==false;
 		this.clientfacing==false;
 		this.education==false;
-		this.authorized_to_work==false;
+		this.work_authorization==false;
 	}
 	closeSave(){
 		this.checkValidator();
@@ -620,9 +618,9 @@ findLanguageArray(value){
 		}else if(this.certificationBoolean==true){
 			
 			this.certificationBoolean=false;
-		}else if(this.authorized_to_work==true){
+		}else if(this.work_authorization==true){
 			
-			this.authorized_to_work=false;
+			this.work_authorization=false;
 		}
 	}
 	onOpenCriteriaModal = (value) => {
@@ -636,11 +634,21 @@ findLanguageArray(value){
 			this.training=true;
 		}else if(value == 'certification'){
 			this.certificationBoolean=true;
-		}else if(value == 'authorized_to_work'){
-			this.authorized_to_work=true;
+		}else if(value == 'work_authorization'){
+			this.work_authorization=true;
 		}
     this.isOpenCriteriaModal = true;
-    if (this.isOpenCriteriaModal) {
+    if (this.isOpenCriteriaModal && this.work_authorization == true) {
+      setTimeout(() => {
+        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
+          windowClass: 'modal-holder',
+		  size: 'lg',
+          centered: true,
+          backdrop: 'static',
+          keyboard: false
+        });
+      }, 300);
+    }else if (this.isOpenCriteriaModal) {
       setTimeout(() => {
         this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
           windowClass: 'modal-holder',
@@ -651,4 +659,45 @@ findLanguageArray(value){
       }, 300);
     }
   }
+  
+  openCheckPopup(){
+		this.isCheckModel = true;
+		if (this.isCheckModel) {
+		setTimeout(() => {
+        this.checkModalRef = this.modalService.open(this.checkModal, {
+          windowClass: 'modal-holder',
+          centered: true,
+          backdrop: 'static',
+          keyboard: false
+        });
+      }, 300);
+		}
+  }
+  
+  cancelCheck(){
+	 this.checkModalRef.close();
+	  this.closeAdd(); 
+	  
+  }
+  
+  closeSaveCheck(){
+	  
+	this.checkModalRef.close();
+	  this.closeSave();
+  }
+  
+  
+	/**
+	**	To change the fields type value
+	**/
+	
+	onChangeFieldValue = (fieldName, value) => {
+		
+		this.postJobForm.patchValue({
+			requirement: {
+				fieldName: value,
+			}
+		});
+	}
+  
 }

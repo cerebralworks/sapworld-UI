@@ -189,20 +189,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.authorized_to_work=='0' && jobInfo?.work_authorization == 2 ">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.authorizedToWork" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{findCountry(jobInfo?.authorized_to_work)}}
-						</li>
-					 </ul>
-				</div>
-			</div>
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.facing_role=='0'">
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
@@ -524,20 +510,6 @@
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
 							{{"postJob.shouldBeACitizenPrWork" | translate }}
-						</li>
-					 </ul>
-				</div>
-			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.authorized_to_work=='1' && jobInfo?.work_authorization == 2">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.authorizedToWork" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2 && jobInfo?.work_authorization == 2" >
-							{{findCountry(jobInfo?.authorized_to_work)}}
 						</li>
 					 </ul>
 				</div>
@@ -867,20 +839,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.authorized_to_work=='2' && jobInfo?.work_authorization == 2">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.authorizedToWork" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{findCountry(jobInfo?.authorized_to_work)}}
-						</li>
-					 </ul>
-				</div>
-			</div>
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.facing_role=='2'">
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
@@ -1178,20 +1136,6 @@
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
 							{{"postJob.shouldBeACitizenPrWork" | translate }}
-						</li>
-					 </ul>
-				</div>
-			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.authorized_to_work=='' && jobInfo?.work_authorization == 2">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.authorizedToWork" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{findCountry(jobInfo?.authorized_to_work)}}
 						</li>
 					 </ul>
 				</div>
