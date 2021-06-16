@@ -181,7 +181,7 @@
       <div class="col-lg-6 clearfix">
         <div class="showhideswitch float-right">
           <input
-          [checked]="(employerDetails?.privacy_protection && currentProfileInfo?.privacy_protection[item?.field] == true)"
+          [checked]="(employerDetails?.privacy_protection && privacyProtection[item?.field] == true)"
           (click)="onSetSettings(item, $event?.target?.checked)" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch_dash_{{i}}">
           <label class="showhideswitch-label" for="myshowhideswitch_dash_{{i}}">
             <span class="showhideswitch-inner" [ngClass]="{'yesno': item?.field == 'opportunity'}"></span>

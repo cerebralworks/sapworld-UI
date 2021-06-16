@@ -6,7 +6,9 @@
           <a  href="javascript:;" class="text-capitalize">
             {{userInfo?.first_name + ' ' + userInfo?.last_name}}
             <small  class="text-capitalize" *ngIf="userInfo?.current_employer_role">
-              - {{userInfo?.current_employer_role}}
+            <span class="text-uppercase" style="font-weight: 700;font-size: 15px;color: #465666;">
+            {{userInfo?.current_employer}}
+          </span>  - {{userInfo?.current_employer_role}}
             </small>
           </a>
 
@@ -55,7 +57,7 @@
         <h6 class="text-capitalize">
           {{userInfo?.city ? userInfo?.city : ''}}
           {{userInfo?.state ? ', ' + userInfo?.state : ''}}
-          <span class="text-uppercase">
+          <span class="text-capitalize">
             {{userInfo?.country ? ', ' + userInfo?.country : ''}}
           </span>
         </h6>

@@ -114,6 +114,7 @@ export class JobInformationComponent implements OnInit {
 			zipcode: new FormControl(null, Validators.required),
 			availability: new FormControl(null, Validators.required),
 			remote: new FormControl(null, Validators.required),
+			willing_to_relocate: new FormControl(null, Validators.required),
 			health_wellness: new FormGroup({
 			  dental: new FormControl(false),
 			  vision: new FormControl(false),

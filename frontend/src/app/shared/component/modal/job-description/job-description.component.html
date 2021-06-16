@@ -10,7 +10,7 @@
       <p style="word-break: break-all;" *ngIf="isRichTextEnabled" [innerHTML]="sanitizer.bypassSecurityTrustHtml(description)"></p>
     </div>
     <div class="modal-footer">
-    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+    <!-- <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button> -->
     <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-theme-blue btn-sm" data-dismiss="modal">Ok</button>
     </div>
 </ng-template>

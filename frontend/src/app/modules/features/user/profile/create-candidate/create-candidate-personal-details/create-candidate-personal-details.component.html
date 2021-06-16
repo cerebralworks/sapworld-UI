@@ -41,7 +41,7 @@
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
           <label>{{"postYourResume.mobileNumber" | translate }}</label>
-          <ngx-intl-tel-input appMarkAsterisk (ngModelChange)="checkNumber()"
+          <ngx-intl-tel-input (ngModelChange)="checkNumber()"
           [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
           [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"

@@ -37,6 +37,7 @@ export interface JobPosting {
   certification: Array<string>;
   work_authorization: number;
   visa_sponsorship: boolean;
+  willing_to_relocate: boolean;
   company: any;
   end_to_end_implementation: number;
   contract_duration: number;

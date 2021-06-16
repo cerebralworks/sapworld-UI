@@ -33,6 +33,7 @@
     "addNotes": "Add Notes"
   },
   "postJob": {
+    "relocate": "Relocation",
     "authorizedToWork": "Authorized To Work",
 	"extraCriteria":"Extra Criteria",
 	"extraCriteria":"Extra Criteria",
@@ -198,6 +199,7 @@
     "enterPortfolioUrl": "Enter portfolio url",
     "show": "Show",
     "uploadPhoto": "Upload Photo",
+    "uploadPhotoCompany": "Edit/Change Logo",
     "dragAndDrop": "Drag and Drop",
     "education": "Education",
     "degree": "Degree",

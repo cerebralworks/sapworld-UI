@@ -40,6 +40,8 @@
 									<a href="mailto:{{userInfo?.email}}">
 									<i class="fas fa-envelope" *ngIf="userInfo?.email"></i> {{userInfo?.email}}</a>
 									<i class="fas fa-mobile" *ngIf="childForm?.value?.personalDetails?.phone"></i> {{childForm?.value?.personalDetails?.phone?.e164Number ? (childForm?.value?.personalDetails?.phone?.e164Number | phone) : childForm?.value?.personalDetails?.phone}}
+									<i class="fas fa-mobile" *ngIf="!childForm?.value?.personalDetails?.phone"></i> <button *ngIf="!childForm?.value?.personalDetails?.phone" style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('mobileNumber')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button>
 								</h6>
 								<h6 *ngIf="childForm?.value?.personalDetails?.social_media_link?.length">
 									<a class="mr-1" *ngFor="let item of childForm?.value?.personalDetails?.social_media_link" href="{{item.url}}" target="_blank">
@@ -109,8 +111,10 @@
 						</ul>
 					</div>
 					<div class="col-lg-6 info">
-						<ul class="list-group ul-value text-capitalize">
-						{{this.findEducation(childForm?.value?.educationExp?.education_qualification)}}
+						<ul class="list-group ul-value text-capitalize" *ngIf="childForm?.value?.educationExp?.education_qualification">
+						<li class="list-group-item" *ngIf="this.findEducation(childForm?.value?.educationExp?.education_qualification) !=''">{{this.findEducation(childForm?.value?.educationExp?.education_qualification)}}</li>
+						<li class="list-group-item" *ngIf="this.findEducation(childForm?.value?.educationExp?.education_qualification) ==''"><button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('education')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 						</ul>
 					</div>
 				</div>
@@ -202,7 +206,7 @@
 					</div>
 				</div>
 			</div>	
-			<div class="col-lg-6">
+			<div class="col-lg-6" *ngIf="childForm?.value?.jobPref?.willing_to_relocate">
 				<div class="row">
 					<div class="col-lg-6 caption">
 						<ul class="list-group">
@@ -210,8 +214,12 @@
 						</ul>
 					</div>
 					<div class="col-lg-6 info">
-						<ul class="list-group ul-value text-capitalize">
+						<ul class="list-group ul-value text-capitalize" *ngIf="this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) !='' ">
 						{{this.filterPrefered(childForm?.value?.jobPref?.preferred_locations)}}
+						</ul>
+						<ul class="list-group ul-value text-capitalize" *ngIf="this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) =='' ">
+						<li class="list-group-item" ><button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('preferredLocation')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 						</ul>
 					</div>
 				</div>
@@ -357,11 +365,11 @@
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.jobPref?.job_role">
+						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.jobPref?.job_role && childForm?.value?.jobPref?.job_role!=''">
 							{{childForm?.value?.jobPref?.job_role ? childForm?.value?.jobPref?.job_role : '--'}}
 						</li>
 						<li class="list-group-item text-capitalize" *ngIf="!childForm?.value?.jobPref?.job_role || childForm?.value?.jobPref?.job_role ==''">
-							<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('jobtype')" type="button" class="btn btn-theme-green" data-toggle="modal"
+							<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('job_role')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">Add </button>
 						</li>
 					</ul>
@@ -418,18 +426,34 @@
 			</div>
 		</div>
 		<div class="row mt-3 info-box" *ngIf="childForm?.value?.skillSet?.certification">
-			<div class="col-lg-12" *ngIf="childForm?.value?.skillSet?.certification?.length != 0 ">
+			<div class="col-lg-12" >
 				<div class="pj-title mb-3">
 					 <h6>{{"postJob.certification" | translate }}</h6>
 				</div>
 			</div>
-			<div class="col-lg-12" *ngIf="childForm.value.skillSet.certification">
+			<div class="col-lg-12" *ngIf="childForm.value.skillSet.certification && childForm?.value?.skillSet?.certification?.length != 0 ">
 				<div class="media mb-2" *ngFor="let certification of childForm.value.skillSet.certification">
 					<img src="assets/images/certifications-icon.png" width="26px" class="mr-2" alt="SAP">
 					<div class="media-body">
 						<p class="my-1 h5" >{{certification}} </p>
 					</div>
 				</div>
+			</div>
+			
+			<div class="col-lg-12" *ngIf="childForm?.value?.skillSet?.certification?.length == 0 ">
+				<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('certificationBoolean')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button>
+			</div>
+		</div>
+		<div class="row mt-3 info-box" *ngIf="!childForm?.value?.skillSet?.certification">
+			<div class="col-lg-12">
+				<div class="pj-title mb-3">
+					 <h6>{{"postJob.certification" | translate }}</h6>
+				</div>
+			</div>
+			<div class="col-lg-12" >
+				<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('certificationBoolean')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button>
 			</div>
 		</div>
 		
@@ -450,6 +474,27 @@
 						</div>
 					</div>
 				</div>
+			</div>		
+			<div class="col-lg-12" >
+				<div class="pj-title mb-3 border-primary" *ngIf="childForm?.value?.personalDetails?.reference?.length !=0 && !childForm?.value?.personalDetails?.reference[0].name || !childForm?.value?.personalDetails?.reference[0].email || !childForm?.value?.personalDetails?.reference[0].company_name" >
+					<h6 class="text-blue" role="button" > Reference  <i class="fas fa-angle-down"></i></h6>
+				</div>
+				<div class="mt-2" style="padding:0px;" *ngIf="childForm?.value?.personalDetails?.reference?.length !=0 && !childForm?.value?.personalDetails?.reference[0].name || !childForm?.value?.personalDetails?.reference[0].email || !childForm?.value?.personalDetails?.reference[0].company_name" >
+					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('reference')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button>
+				</div>
+			</div>	
+		</div>
+		<div class="row mt-3 info-box" *ngIf="!childForm?.value?.personalDetails?.reference">	
+				
+			<div class="col-lg-12">
+				<div class="pj-title mb-3 border-primary" >
+					<h6 class="text-blue" role="button" (click)="show = !show"> Reference  <i class="fas fa-angle-down"></i></h6>
+				</div>
+				<div class="mt-2" style="padding:0px;">
+					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('reference')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button>
+				</div>
 			</div>	
 		</div>
 	</div>
@@ -461,7 +506,7 @@
 
 <ng-template *ngIf="isOpenCriteriaModal" #criteriaModal let-modal>
 	<div class="modal-header">
-			<button (click)="closeAdd()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<button (click)="openCheckPopup()" type="button" class="close" aria-label="Close">
 					<span aria-hidden="true">×</span>
 			</button> 
 		</div>
@@ -490,10 +535,189 @@
 				</div>
 			</div>
 		</div>	
+		<div class="modal-body"  *ngIf="education">
+		<div formGroupName="educationExp">
+		  <h6 class="font-weight-bold mt-4">{{"postYourResume.education" | translate }}</h6>
+		  <div class="row mt-3" *ngFor="let ticket of t.controls; let i = index; let last = last">
+			<ng-container [formGroup]="ticket">
+			  <div class="col-lg-3 col-md-5">
+				<div class=" form-group">
+				  <label>{{"postYourResume.degree" | translate }} </label>
+				  <select (change)="onChangeDegreeValue($event?.target?.value, i)" formControlName="degree" class="form-control text-capitalize">
+					<option [value]="''">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}
+					</option>
+					<ng-container *ngFor="let education of educations; let i = index">
+					  <option [style.display]="educationsSelectedArrayCheck(education,ticket) ? 'none' : 'block'" [value]="education">
+						{{education}}
+					  </option>
+					</ng-container>
+				  </select>
+				  <app-control-messages [control]="ticket['controls']['degree']"></app-control-messages>
+				</div>
+			  </div>
+			  <div class="col-lg-4 col-md-5">
+				<div class=" form-group">
+				  <label>{{"postYourResume.fieldOfStudy" | translate }}</label>
+				  <input (change)="onChangeStudyValue($event?.target?.value, i)" formControlName="field_of_study" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.fieldOfStudy' | translate">
+				  <app-control-messages [control]="ticket['controls']['field_of_study']"></app-control-messages>
+				</div>
+			  </div>
+			  <div class="col-lg-3 col-md-5">
+				<div class=" form-group">
+				  <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
+				  <input maxlength="4" (change)="onChangeCompletionValue($event?.target?.value, i)" numbersOnly formControlName="year_of_completion" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.yearOfCompletion' | translate">
+				  <app-control-messages [control]="ticket['controls']['year_of_completion']"></app-control-messages>
+				 
+				</div>
+			  </div>
+			  <div class="col-lg-2 col-md-4 d-flex justify-content-center align-items-center">
+				<button type="button" class="btn btn-outline-danger"
+				  style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
+				<button *ngIf="last" (click)="onDuplicate(i)" type="button" class="btn btn-outline-green ml-2"
+				  style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
+			  </div>
+			</ng-container>
+		  </div>
+		  </div>
+		  </div>
+		<div class="modal-body"  *ngIf="certificationBoolean">
+			<div formGroupName="skillSet">
+				<div class="col-lg-12 col-md-12" >	
+					<div class=" form-group">
+						<label >{{"postJob.certification" | translate }}</label>
+						<mat-form-field class="example-chip-list" style="width: 100%;" >
+							
+							<mat-chip-list #chipListss aria-label="certification">
+								<mat-chip *ngFor="let certifications of certification" [selectable]="selectable"
+									[removable]="removable" (removed)="removeCertification(certifications)">
+									{{certifications}}
+									<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+								</mat-chip>
+								<input placeholder=""
+									[matChipInputFor]="chipListss"
+									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+									[matChipInputAddOnBlur]="addOnBlur"
+									(matChipInputTokenEnd)="addCertification($event)">
+							</mat-chip-list>
+						</mat-form-field>
+					</div>	
+				</div>
+			</div>
+		</div>	
+		<div class="modal-body"  *ngIf="preferredLocation">
+			<div formGroupName="jobPref">
+				<div class="col-lg-12 col-md-12" >	
+						<div class=" form-group">
+							<label >{{"postYourResume.preferredLocation" | translate }}</label>
+							<mat-form-field class="example-chip-list" style="width: 100%;" >
+								
+								<mat-chip-list #chipLists aria-label="address">
+									<mat-chip *ngFor="let addresss of address;let i=index;" [selectable]="selectable"
+										[removable]="removable" (removed)="onRemoves(i)">
+										{{addresss}}
+										<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+									</mat-chip>
+									<input placeholder="" #chipsInput
+									(onAddressChange)="handleAddressChange($event)"
+									ngx-google-places-autocomplete
+										[matChipInputFor]="chipLists"
+										[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+										[matChipInputAddOnBlur]="addOnBlur"
+										(matChipInputTokenEnd)="add($event)">
+								</mat-chip-list>
+							</mat-form-field>
+						</div>	
+					</div>	
+			</div>
+		</div>	
+		<div class="modal-body"  *ngIf="job_role">
+			<div formGroupName="jobPref">
+				<div class="col-lg-12 col-md-12">
+					<div class=" form-group">
+						<label>{{"postYourResume.rolesLookingFor" | translate }}</label>
+						<input formControlName="job_role" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.rolesLookingFor' | translate">
+						<app-control-messages [control]="f['job_role']"></app-control-messages>
+					</div>
+				</div>
+			</div>
+		</div>		
+		<div class="modal-body"  *ngIf="reference">
+			<div formGroupName="personalDetails">
+				<div class="row mt-5">
+					<div class="col-lg-12 col-md-6">
+					  <label>{{"postYourResume.addreference" | translate }}</label>
+					  <div></div>
+					</div>
+				  </div> 	
+					<div class="row mt-2" *ngFor="let ticket of r.controls; let i = index; let last = last">
+					<ng-container [formGroup]="ticket">
+						<div class="col-lg-3 col-md-6">
+							<label>Name</label>
+							<input  formControlName="name" type="text" class="form-control text-capitalize" placeholder="Please Enter the Name">
+							<app-control-messages [control]="ticket['controls']['name']"></app-control-messages>
+					  </div>
+					  <div class="col-lg-3 col-md-6">
+							<label>Email</label>
+							<input formControlName="email" type="email"  class="form-control text-lowercase" placeholder="Please Enter the E-mail">
+							<app-control-messages [control]="ticket['controls']['email']"></app-control-messages>
+					  </div>
+					  <div class="col-lg-4 col-md-6">
+							<label>Company Name</label>
+							<input  formControlName="company_name" type="text" class="form-control text-capitalize" placeholder="Please Enter the Company Name">
+							<app-control-messages [control]="ticket['controls']['company_name']"></app-control-messages>
+					  </div>
+				   
+					<div class="col-lg-2 col-md-6" style="margin-top:30px;">
+					  <button type="button" class="btn btn-outline-danger" 
+						style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemoveR(i)"><i class="fas fa-times"></i></button>
+					  <button *ngIf="last" (click)="onDuplicateR(i)" type="button" class="btn btn-outline-green "
+						style="margin-left: 5px;line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
+					</div>
+				  </ng-container>
+				</div>
+				
+			  </div>
+			</div>
+		<div class="modal-body"  *ngIf="mobileNumber">
+			<div formGroupName="personalDetails">
+				<div class="col-lg-12 col-md-12">
+        <div class=" form-group">
+          <label>{{"postYourResume.mobileNumber" | translate }}</label>
+          <ngx-intl-tel-input (ngModelChange)="checkNumber()"
+          [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.UnitedStates" [tooltipField]="TooltipLabel.Name"
+          [phoneValidation]="true" [separateDialCode]="separateDialCode"
+          [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone">
+        </ngx-intl-tel-input><br/>
+          <!-- <input ng2TelInput [ng2TelInputOptions]="{initialCountry: childForm?.value?.personalDetails?.country}" (countryChange)="onCountryChange($event)"  appMarkAsterisk numbersOnly formControlName="phone" type="text" class="form-control" placeholder="9876543210"> -->
+		  <small *ngIf="invalidMobile"class="text-danger">Invalid mobile number</small>
+        </div>
+      </div>
+				
+			  </div>
+			</div>
+			
 			
 		<div class="modal-footer">
 			<button (click)="closeSave()" type="button" class="btn btn-theme-blue">
 				save
+			</button>
+		</div>
+	
+</ng-template>
+
+<ng-template *ngIf="isCheckModel" #checkModal let-modal>
+		<div class="modal-body" style="text-align: center;">
+			<h5 >Do you want to Save ? </h5>
+		</div>
+		<div class="modal-footer" style="justify-content: center;">
+			<button (click)="cancelCheck()" style="width: 25%;" type="button" class="btn btn-outline-orange">
+				No
+			</button>
+			<button (click)="closeSaveCheck()" style="width: 25%;" type="button" class="btn btn-outline-green">
+				Yes
 			</button>
 		</div>
 	

@@ -128,6 +128,22 @@
 			</div>
 			<app-control-messages [control]="f['remote']"></app-control-messages>
 		</div>
+		<div class="col-lg-4 col-md-6">
+			<div class=" form-group">
+				<label>{{"postJob.relocate" | translate}} </label>
+				<div appMarkAsterisk class="mt-2">
+					<div class="custom-control custom-radio custom-control-inline">
+						<input [value]="true" id="remote_PJ_Y1" formControlName="willing_to_relocate" type="radio" class="custom-control-input">
+						<label class="custom-control-label" for="remote_PJ_Y1">{{"common.yes" | translate}}</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input [value]="false" id="remote_PJ_N1" formControlName="willing_to_relocate" type="radio" class="custom-control-input">
+						<label class="custom-control-label" for="remote_PJ_N1">{{"common.no" | translate}}</label>
+					</div>
+				</div>
+			</div>
+			<app-control-messages [control]="f['willing_to_relocate']"></app-control-messages>
+		</div>
 	</div>
 	<div class="row mt-2">
 		<div class="col-md-12">

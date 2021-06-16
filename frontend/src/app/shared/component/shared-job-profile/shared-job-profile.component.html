@@ -189,20 +189,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.authorized_to_work=='0' && jobInfo?.work_authorization == 2 ">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.authorizedToWork" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{findCountry(jobInfo?.authorized_to_work)}}
-						</li>
-					 </ul>
-				</div>
-			</div>
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.facing_role=='0'">
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
@@ -285,6 +271,20 @@
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize">
 						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.remote)}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row info-box" *ngIf="jobInfo?.match_select?.willing_to_relocate=='0'">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.relocate" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.willing_to_relocate)}}
 						</li>
 					 </ul>
 				</div>
@@ -514,20 +514,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.authorized_to_work=='1' && jobInfo?.work_authorization == 2">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.authorizedToWork" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2 && jobInfo?.work_authorization == 2" >
-							{{findCountry(jobInfo?.authorized_to_work)}}
-						</li>
-					 </ul>
-				</div>
-			</div>
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.facing_role=='1'">
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
@@ -610,6 +596,20 @@
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize">
 						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.remote)}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row info-box" *ngIf="jobInfo?.match_select?.willing_to_relocate=='1'">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.relocate" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.willing_to_relocate)}}
 						</li>
 					 </ul>
 				</div>
@@ -839,20 +839,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.authorized_to_work=='2' && jobInfo?.work_authorization == 2">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.authorizedToWork" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{findCountry(jobInfo?.authorized_to_work)}}
-						</li>
-					 </ul>
-				</div>
-			</div>
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.facing_role=='2'">
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
@@ -935,6 +921,20 @@
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize">
 						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.remote)}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row info-box" *ngIf="jobInfo?.match_select?.willing_to_relocate=='2' ">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.relocate" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.willing_to_relocate)}}
 						</li>
 					 </ul>
 				</div>
@@ -1140,20 +1140,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.authorized_to_work=='' && jobInfo?.work_authorization == 2">
-				<div class="col-lg-4 caption">
-					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.authorizedToWork" | translate}}</li>
-					</ul>
-				</div>
-				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{findCountry(jobInfo?.authorized_to_work)}}
-						</li>
-					 </ul>
-				</div>
-			</div>
 			<div class="row  info-box" *ngIf="jobInfo.facing_role && jobInfo?.match_select?.facing_role==''">
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
@@ -1236,6 +1222,20 @@
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize">
 						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.remote)}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			<div class="row info-box" *ngIf="jobInfo?.match_select?.willing_to_relocate=='' && jobInfo?.willing_to_relocate ">
+				<div class="col-lg-4 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"postJob.relocate" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-8 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{utilsHelperService.onGetYesOrNoValue(jobInfo?.willing_to_relocate)}}
 						</li>
 					 </ul>
 				</div>

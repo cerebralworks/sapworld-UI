@@ -30,19 +30,20 @@
 							</div>
 						</div>
 						<div class="col-lg-6" style="text-align: right;">
-							 <h6 class="font-weight-bold " style="font-size: 13px;">{{"postJob.salary" | translate}}</h6>
 							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
-								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/hr'}}</h6>
+								<h6 class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / hr'}}</h6>
 							</ng-container>
 							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
-								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' Annual pay'}}</h6>
+								<h6 class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / Annual '}}</h6>
 							</ng-container>
 							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
-								<h6 class="text-capitalize" style="font-size: 13px;">{{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + '/ month'}}</h6>
+								<h6 class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / month'}}</h6>
 							</ng-container>
 							<ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
 								--
 							</ng-container>
+							<h6 class="text-capitalize job-cardh6">{{"postJob.remote" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}} </h6>
+							<h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.willing_to_relocate)}} </h6>
 						</div>
 						</div>
 					</div>
@@ -594,13 +595,16 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
-					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 0">{{"postJob.shouldBeACitizenPr" | translate }}</li>
-					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 1">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</li>
-					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 2">{{"postJob.shouldBeACitizenPrWork" | translate }}</li>
+					<li class="list-group-item" *ngIf=" postJobForm?.value?.requirement?.work_authorization && postJobForm?.value?.requirement?.work_authorization != '' && postJobForm?.value?.requirement?.work_authorization == 0">{{"postJob.shouldBeACitizenPr" | translate }}</li>
+					<li class="list-group-item" *ngIf=" postJobForm?.value?.requirement?.work_authorization && postJobForm?.value?.requirement?.work_authorization != '' &&postJobForm?.value?.requirement?.work_authorization == 1">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</li>
+					<li class="list-group-item" *ngIf=" postJobForm?.value?.requirement?.work_authorization && postJobForm?.value?.requirement?.work_authorization != '' &&postJobForm?.value?.requirement?.work_authorization == 2">{{"postJob.shouldBeACitizenPrWork" | translate }}</li>
+					<li class="list-group-item" *ngIf="!postJobForm?.value?.requirement?.work_authorization || postJobForm?.value?.requirement?.work_authorization == ''">
+					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('work_authorization')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
-				<ul class="list-group">
+				<ul class="list-group" *ngIf="!postJobForm?.value?.requirement?.work_authorization || postJobForm?.value?.requirement?.work_authorization == ''" >
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
 							<div class="rdn-radio">
@@ -624,103 +628,32 @@
 						</div>
 					</li>
 				</ul>
-			</div>
-		</div>		
-		<div class="row info-box" *ngIf="postJobForm?.value?.requirement?.work_authorization == 2" >
-			<div class="col-lg-3 caption">
-				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.authorizedToWork"  | translate }}</li>
-				</ul>
-			</div>
-			<div class="col-lg-5 info">
-				<ul class="list-group" *ngIf="postJobForm?.value?.requirement?.authorized_to_work">
-					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 2 && postJobForm?.value?.requirement?.authorized_to_work.length ==0 ">
-					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('authorized_to_work')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button></li>
-					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 2  && postJobForm?.value?.requirement?.authorized_to_work.length !=0 ">{{findCountry(postJobForm?.value?.requirement?.authorized_to_work)}}</li>
-				</ul>
-				<ul class="list-group" *ngIf="!postJobForm?.value?.requirement?.authorized_to_work">
-					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.work_authorization == 2"><button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('authorized_to_work')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button></li>
-				</ul>
-			</div>
-			<div class="col-lg-4" *ngIf="!postJobForm?.value?.requirement?.authorized_to_work">
-				<ul class="list-group">
+				<ul class="list-group" *ngIf=" (postJobForm?.value?.requirement?.work_authorization && postJobForm?.value?.requirement?.work_authorization != '' ) && postJobForm?.value?.requirement?.work_authorization  == 0 || postJobForm?.value?.requirement?.work_authorization == 2 || postJobForm?.value?.requirement?.work_authorization == 1">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio01A" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input" >
-									<label class="custom-control-label" for="customRadio01A">&nbsp;</label>
+									<input type="radio"  (change)="handleChange($event)"   value="0"  id="customRadio16A" name="work_authorization" formControlName="work_authorization"  class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio16A">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio01B" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input">
-									<label class="custom-control-label" for="customRadio01B">&nbsp;</label>
+									<input type="radio"  (change)="handleChange($event)"   value="1"  id="customRadio16B" name="work_authorization" formControlName="work_authorization"  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio16B">&nbsp;</label>
 								</div>
 							 </div>
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
-								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio01C" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input">
-								  <label class="custom-control-label" for="customRadio01C">&nbsp;</label>
+								  <input type="radio"  (change)="handleChange($event)"   value="2"  id="customRadio16C" name="work_authorization" formControlName="work_authorization"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio16C">&nbsp;</label>
 								</div>
 							</div>
 						</div>
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="postJobForm?.value?.requirement?.authorized_to_work">
-				<ul class="list-group" *ngIf="postJobForm?.value?.requirement?.authorized_to_work.length ==0 ">
-					<li class="list-group-item border-0 p-0 m-0 ">							
-						<div class="d-flex">
-							<div class="rdn-radio">
-								<div class="custom-control custom-radio">
-									<input type="radio" disabled (change)="handleChange($event)"   value="0"  id="customRadio01A" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input" >
-									<label class="custom-control-label" for="customRadio01A">&nbsp;</label>
-								</div>
-							 </div>
-							 <div class="rdn-radio">
-								<div class="custom-control custom-radio">
-									<input type="radio" disabled (change)="handleChange($event)"   value="1"  id="customRadio01B" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input">
-									<label class="custom-control-label" for="customRadio01B">&nbsp;</label>
-								</div>
-							 </div>
-							 <div class="rdn-radio">
-								<div class="custom-control custom-radio">
-								  <input type="radio" disabled (change)="handleChange($event)"   value="2"  id="customRadio01C" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input">
-								  <label class="custom-control-label" for="customRadio01C">&nbsp;</label>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-				<ul class="list-group" *ngIf="postJobForm?.value?.requirement?.authorized_to_work.length !=0 ">
-					<li class="list-group-item border-0 p-0 m-0 ">							
-						<div class="d-flex">
-							<div class="rdn-radio">
-								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio01A" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input" >
-									<label class="custom-control-label" for="customRadio01A">&nbsp;</label>
-								</div>
-							 </div>
-							 <div class="rdn-radio">
-								<div class="custom-control custom-radio">
-									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio01B" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input">
-									<label class="custom-control-label" for="customRadio01B">&nbsp;</label>
-								</div>
-							 </div>
-							 <div class="rdn-radio">
-								<div class="custom-control custom-radio">
-								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio01C" name="authorized_to_work" formControlName="authorized_to_work"  class="custom-control-input">
-								  <label class="custom-control-label" for="customRadio01C">&nbsp;</label>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>		
+		</div>				
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
@@ -731,6 +664,9 @@
 				<ul class="list-group">
 					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.facing_role == '0'">{{"postJob.required" | translate}}</li>
 					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.facing_role == '1'">{{"postJob.notRequired" | translate}}</li>
+					<li class="list-group-item" *ngIf="!postJobForm?.value?.otherPref?.facing_role || postJobForm?.value?.otherPref?.facing_role=='' ">
+					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('clientfacing')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4" *ngIf="!postJobForm?.value?.otherPref?.facing_role || postJobForm?.value?.otherPref?.facing_role=='' ">
@@ -796,6 +732,9 @@
 				<ul class="list-group">
 					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.training_experience == '0'">{{"postJob.required" | translate}}</li>
 					<li class="list-group-item" *ngIf="postJobForm?.value?.otherPref?.training_experience == '1'">{{"postJob.notRequired" | translate}}</li>
+					<li class="list-group-item" *ngIf="!postJobForm?.value?.otherPref?.training_experience || postJobForm?.value?.otherPref?.training_experience=='' ">
+					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('training')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">Add </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4" *ngIf="!postJobForm?.value?.otherPref?.training_experience || postJobForm?.value?.otherPref?.training_experience==''">
@@ -1006,6 +945,44 @@
 					</li>
 				</ul>
 			</div>
+		</div>					
+		<div class="row info-box">
+			<div class="col-lg-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"postJob.relocate" | translate}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info">
+				<ul class="list-group">
+					<li class="list-group-item">{{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.willing_to_relocate)}}</li>
+				</ul>
+			</div>
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" (change)="handleChange($event)"   value="0"  id="customRadio220A" name="willing_to_relocate" formControlName="willing_to_relocate"  class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio220A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" (change)="handleChange($event)"   value="1"  id="customRadio220B" name="willing_to_relocate" formControlName="willing_to_relocate"  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio220B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" (change)="handleChange($event)"   value="2"  id="customRadio220C" name="willing_to_relocate" formControlName="willing_to_relocate"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio220C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
 		</div>				
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
@@ -1155,7 +1132,7 @@
 
 <ng-template *ngIf="isOpenCriteriaModal" #criteriaModal let-modal>
 	<div class="modal-header">
-			<button (click)="closeAdd()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<button (click)="openCheckPopup()" type="button" class="close" aria-label="Close">
 					<span aria-hidden="true">×</span>
 			</button> 
 		</div>
@@ -1213,41 +1190,85 @@
 			</div>
 			</div>
 			</div>
-	<div class="modal-body"  *ngIf="authorized_to_work && this.postJobForm.value.requirement.work_authorization == 2">
-		<div class="col-lg-12 col-md-6" formGroupName="requirement">
-			<div class=" form-group">
-				<label>{{"postYourResume.authorizedToWork" | translate }}</label>	
-				<ngx-select
-					class="text-capitalize"
-					[placeholder]="'Other Country'"
-					[multiple]="true"
-					[items]="authorized_country"
-					formControlName="authorized_to_work"
-					optionValueField="id"
-					optionTextField="nicename"
-					autoClearSearch="true"
-					noResultsFound="No results found"
-				>
-				<ng-template ngx-select-option-selected let-option let-text="text">
-				  {{option?.text ? option?.text?.split('-')[0] : ''}}
-				</ng-template>
-
-				<ng-template ngx-select-option let-option let-text="text">
-					{{option?.text}}
-				</ng-template>
-
-				<ng-template ngx-select-option-not-found>
-					Nothing found
-				</ng-template>
-				</ngx-select>
-			</div>
+	<div class="modal-body"  *ngIf="work_authorization">
+			<div class=" form-group"  formGroupName="requirement" >
+				<label class="font-weight-bold">{{"postJob.workAuthorization" | translate }} </label>
+				<div class="mt-2">
+					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
+						<input (change)="onChangeFieldValue('work_authorization', 0)" value="0" formControlName="work_authorization" type="radio" id="customRadioInline05"
+							name="work_authorization" class="custom-control-input">
+						<label class="custom-control-label"
+							for="customRadioInline05">{{"postJob.shouldBeACitizenPr" | translate }}</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
+						<input (change)="onChangeFieldValue('work_authorization', 1)" value="1" formControlName="work_authorization" type="radio" id="customRadioInline06"
+							name="work_authorization" class="custom-control-input">
+						<label class="custom-control-label"
+							for="customRadioInline06">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
+						<input (change)="onChangeFieldValue('work_authorization', 2)" value="2" formControlName="work_authorization" type="radio" id="customRadioInline07"
+							name="work_authorization" class="custom-control-input">
+						<label class="custom-control-label"
+							for="customRadioInline07">Should be a Citizen / PR / Authorized to Work</label>
+					</div>
+				</div>
 			</div>
 	
+			</div>
+			<div class="modal-body"  *ngIf="clientfacing">
+				<div class="col-lg-12 col-md-12" formGroupName="otherPref" >
+					<div class=" form-group">
+						<label class="font-weight-bold" >Client Facing Role  </label>
+						 <div class="mt-2">
+							 <div class="custom-control custom-radio custom-control-inline">
+								  <input type="radio" id="customRadioInline55"  value="0" formControlName="facing_role" name="facing_role" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadioInline55">Required</label>
+							</div>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input type="radio" id="customRadioInline66"  value="1" formControlName="facing_role" name="facing_role"  class="custom-control-input">
+								<label class="custom-control-label" for="customRadioInline66">Not Required</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body"  *ngIf="training">
+				<div class="col-lg-12 col-md-12" formGroupName="otherPref" >
+					<div class=" form-group">
+						<label class="font-weight-bold" >Training Experience   </label>
+						 <div class="mt-2">
+							 <div class="custom-control custom-radio custom-control-inline">
+								  <input type="radio" id="customRadioInline555"  value="0" formControlName="training_experience" name="training_experience" class="custom-control-input">
+								  <label class="custom-control-label" for="customRadioInline555">Required</label>
+							</div>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input type="radio" id="customRadioInline666"  value="1" formControlName="training_experience" name="training_experience"  class="custom-control-input">
+								<label class="custom-control-label" for="customRadioInline666">Not Required</label>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 		<div class="modal-footer">
 			<button (click)="closeSave()" type="button" class="btn btn-theme-blue">
 				save
+			</button>
+		</div>
+	
+</ng-template>
+
+<ng-template *ngIf="isCheckModel" #checkModal let-modal>
+		<div class="modal-body" style="text-align: center;">
+			<h5 >Do you want to Save ? </h5>
+		</div>
+		<div class="modal-footer" style="justify-content: center;">
+			<button (click)="cancelCheck()" style="width: 25%;" type="button" class="btn btn-outline-orange">
+				No
+			</button>
+			<button (click)="closeSaveCheck()" style="width: 25%;" type="button" class="btn btn-outline-green">
+				Yes
 			</button>
 		</div>
 	
