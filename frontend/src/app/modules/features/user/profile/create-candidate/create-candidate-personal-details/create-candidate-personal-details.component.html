@@ -41,7 +41,7 @@
       <div class="col-lg-4 col-md-6">
         <div class=" form-group">
           <label>{{"postYourResume.mobileNumber" | translate }}</label>
-          <ngx-intl-tel-input appMarkAsterisk (ngModelChange)="checkNumber()"
+          <ngx-intl-tel-input (ngModelChange)="checkNumber()"
           [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
           [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
@@ -161,15 +161,13 @@
 			<div class=" form-group">
 				<label>{{"postYourResume.selectcountry" | translate }} </label>
 				<div class="pt-2">
+					<button type="button" class="btn btn-fltr" id="254" (click)="countryClick('Europe',$event);">Europe</button>
 					<button type="button" class="btn btn-fltr" id="226" (click)="countryClick('United States',$event);">United States</button>
 					<button type="button" class="btn btn-fltr" id="225"  (click)="countryClick('United Kingdom',$event);">United Kingdom</button>
 					<button type="button" class="btn btn-fltr" id="13"  (click)="countryClick('Australia',$event);">Australia</button>
-					<button type="button" class="btn btn-fltr" id="99"  (click)="countryClick('India',$event);">India</button>
-					<button type="button" class="btn btn-fltr" id="192"  (click)="countryClick('Singapore',$event);">Singapore</button>
-					<button type="button" class="btn btn-fltr" id="73"  (click)="countryClick('France',$event);">France</button>
+					<button type="button" class="btn btn-fltr" id="153"  (click)="countryClick('New Zealand',$event);"> New Zealand </button>
 					<button type="button" class="btn btn-fltr" id="38"  (click)="countryClick('Canada',$event);">Canada</button>
-					<button type="button" class="btn btn-fltr" id="107"  (click)="countryClick('Japan',$event);">Japan</button>
-					<button type="button" class="btn btn-fltr" id="129"  (click)="countryClick('Malaysia',$event);">Malaysia</button>
+					<button type="button" class="btn btn-fltr" id="192"  (click)="countryClick('Singapore',$event);">Singapore</button>
 					<!-- <button type="button" class="btn btn-fltr bg-light">Others</button> -->
 				</div>
 			</div>

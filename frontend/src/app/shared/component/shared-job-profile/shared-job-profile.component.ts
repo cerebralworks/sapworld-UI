@@ -17,6 +17,7 @@ export class SharedJobProfileComponent implements OnInit {
   @Input() isDescrition: boolean = false;
   @Input() fieldsExclude: JobPosting;
 	public languageSource=[];
+	public nationality=[];
 	public required: boolean = false;
 	public desired: boolean = false;
 	public optional: boolean = false;
@@ -31,7 +32,14 @@ export class SharedJobProfileComponent implements OnInit {
   ngOnInit(): void {
 	  this.onGetCountry('');
 	  this.onGetLanguage('');
-	  
+	  this.dataService.getCountryDataSource().subscribe(
+		response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.nationality = response;
+	
+        }
+      }
+    );
 	  this.dataService.getLanguageDataSource().subscribe(
       response => {
         if (response && Array.isArray(response) && response.length) {
@@ -97,6 +105,27 @@ export class SharedJobProfileComponent implements OnInit {
 		
 		return '--';
 	}
+	findCountry(value){
+		if(value){
+			if(this.nationality){
+				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
+
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['nicename'];
+					})
+					if(temp.length !=0){
+						return this.utilsHelperService.onConvertArrayToString(temp);
+					}
+				}
+			
+			}
+			
+		}
+		
+		return '--';
+	}
+	
 onGetCountry(query) {
 		let requestParams: any = {};
 		requestParams.page = 1;

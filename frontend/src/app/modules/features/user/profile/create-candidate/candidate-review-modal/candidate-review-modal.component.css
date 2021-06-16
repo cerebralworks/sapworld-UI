@@ -50,3 +50,6 @@
 .handsExps:hover{
 		overflow-x:auto !important;
 	}
+.pac-container {
+    z-index: 99999 !important;
+}

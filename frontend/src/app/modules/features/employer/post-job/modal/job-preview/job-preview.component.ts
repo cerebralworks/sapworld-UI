@@ -57,6 +57,8 @@ export class JobPreviewComponent implements OnInit {
   public industriesItems: any[] = [];
   public skillItems: any[] = [];
   public languageSource: any[] = [];
+  public nationality: any[] = [];
+  public authorized_country: any[] = [];
 
   @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
   @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
@@ -69,6 +71,7 @@ export class JobPreviewComponent implements OnInit {
   public clientfacing: boolean =false;
   public training: boolean =false;
   public certificationBoolean: boolean =false;
+  public authorized_to_work: boolean =false;
 
   constructor(private dataService: DataService,
     private modalService: NgbModal,
@@ -88,6 +91,15 @@ this.dataService.getLanguageDataSource().subscribe(
       response => {
         if (response && Array.isArray(response) && response.length) {
           this.languageSource = response;
+        }
+      }
+    );
+	this.dataService.getCountryDataSource().subscribe(
+		response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.nationality = response;
+          this.authorized_country = response;
+	
         }
       }
     );
@@ -129,6 +141,23 @@ this.dataService.getLanguageDataSource().subscribe(
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].updateValueAndValidity();
 		
 		
+		}
+		if(!this.postJobForm?.value?.requirement?.authorized_to_work || this.postJobForm?.value?.requirement?.authorized_to_work=='' ){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].updateValueAndValidity();
+		
+		}else{
+			if(this.postJobForm?.value?.requirement?.authorized_to_work.length==0){
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].setValidators(null);
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].setValue('');
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].updateValueAndValidity();
+			
+			}else{
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['authorized_to_work'].updateValueAndValidity();
+			
+			}
 		}
 		if(!this.postJobForm?.value?.otherPref?.facing_role || this.postJobForm?.value?.otherPref?.facing_role=='' ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValidators(null);
@@ -215,7 +244,26 @@ this.dataService.getLanguageDataSource().subscribe(
     this.postJob.next();
   }
 
+	findCountry(value){
+		if(value){
+			if(this.nationality){
+				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
 
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['nicename'];
+					})
+					if(temp.length !=0){
+						return this.utilsHelperService.onConvertArrayToString(temp);
+					}
+				}
+			
+			}
+			
+		}
+		
+		return '--';
+	}
 
   createForm() {
     this.childForm = this.parentF.form;
@@ -245,6 +293,7 @@ this.dataService.getLanguageDataSource().subscribe(
       hands_on_experience: new FormControl('0', Validators.required),
       skills: new FormControl(''),
       programming_skills: new FormControl(''),
+      authorized_to_work: new FormControl(''),
       optinal_skills: new FormControl(''),
       certification: new FormControl(''),
       type: new FormControl('0', Validators.required),
@@ -257,6 +306,7 @@ this.dataService.getLanguageDataSource().subscribe(
       education: new FormControl(''),
       travel_opportunity: new FormControl(''),
       remote: new FormControl(''),
+      willing_to_relocate: new FormControl(''),
       language: new FormControl(''),
     }
 
@@ -537,12 +587,20 @@ findLanguageArray(value){
 				certification:''
 			  }
 			});
+			this.certification=[];
+		}else if(this.authorized_to_work==true){
+			this.postJobForm.patchValue({
+			  requirement : {
+				authorized_to_work:''
+			  }
+			});
 		}
 		this.jobtype==false;
 		this.certificationBoolean==false;
 		this.training==false;
 		this.clientfacing==false;
 		this.education==false;
+		this.authorized_to_work==false;
 	}
 	closeSave(){
 		this.checkValidator();
@@ -562,6 +620,9 @@ findLanguageArray(value){
 		}else if(this.certificationBoolean==true){
 			
 			this.certificationBoolean=false;
+		}else if(this.authorized_to_work==true){
+			
+			this.authorized_to_work=false;
 		}
 	}
 	onOpenCriteriaModal = (value) => {
@@ -575,6 +636,8 @@ findLanguageArray(value){
 			this.training=true;
 		}else if(value == 'certification'){
 			this.certificationBoolean=true;
+		}else if(value == 'authorized_to_work'){
+			this.authorized_to_work=true;
 		}
     this.isOpenCriteriaModal = true;
     if (this.isOpenCriteriaModal) {

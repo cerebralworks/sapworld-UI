@@ -197,7 +197,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         if (response && Array.isArray(response) && response.length) {
           this.nationality = response;
 			this.othercountry =  response.filter(function(a,b){
-				return a.id !="226"&&a.id !="225"&&a.id !="13"&&a.id !="99"&&a.id !="192"&&a.id !="38"&&a.id !="107"&&a.id !="129"&&a.id !="73"
+				return a.id !="226"&&a.id !="254"&&a.id !="225"&&a.id !="13"&&a.id !="153"&&a.id !="192"&&a.id !="38"
 			});
 			
         }
@@ -220,12 +220,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		 /*  this.requestParams = {'Enter the ngOnChanges':'personalComponent'};
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
     if(this.childForm && this.savedUserDetails) {
-		if(this.childForm.value.personalDetails.phone){
+		if(this.childForm.value.personalDetails.country){
 			this.savedUserDetails.first_name=this.childForm.value.personalDetails.first_name;
 			this.savedUserDetails.last_name= this.childForm.value.personalDetails.last_name;
+			if(this.childForm.value.personalDetails.phone){
 			if(this.childForm.value.personalDetails.phone.number){
 			  this.savedUserDetails.phone= this.childForm.value.personalDetails.phone.number;
-			}
+			}}
 			 this.savedUserDetails.city= this.childForm.value.personalDetails.city;
 			  this.savedUserDetails.state=this.childForm.value.personalDetails.state;
 			  this.savedUserDetails.country= this.childForm.value.personalDetails.country;
@@ -377,10 +378,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			}
 			var value = this.savedUserDetails.authorized_country;
 			var temp = value.filter(function(a,b){
-				return a =="226" || a =="225" || a =="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"
+				return a =="226" ||a =="254" || a =="225" || a =="13" || a =="153" || a =="192" || a =="38" 
 			});
 			var tempData = value.filter(function(a,b){
-				return a !="226" || a !="225" || a !="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"
+				return a !="226" ||a !="254" || a !="225" || a !="13" || a =="153" || a =="192" || a =="38" 
 			});
 			this.savedUserDetails.authorized_country = tempData;
 			this.childForm.patchValue({
@@ -449,7 +450,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	}
 	onChangeCountry(a){
 		if(a!='-1'){
-			if(a =="226" || a =="225" || a =="13" || a =="99" || a =="192" || a =="38" || a =="107" || a =="129" || a =="73"){
+			if(a =="226" ||a =="254" || a =="225" || a =="13" || a =="153" || a =="192" || a =="38" ){
 				if(document.getElementById(a)){
 					document.getElementById(a).className = 'btn btn-fltr btn-fltr-active';
 					if(this.childForm.value.personalDetails.authorized_country_select==null){
@@ -504,7 +505,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       first_name: new FormControl('', Validators.required),
       last_name: new FormControl('', Validators.required),
       email: new FormControl(''),
-      phone: new FormControl('', [Validators.required]),
+      phone: new FormControl(''),
       city: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
       latlng: new FormControl({}, Validators.required),

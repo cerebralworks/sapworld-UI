@@ -20,3 +20,6 @@
     box-shadow: 3px 3px 3px 2px #4caf5057;
     color: #ffffff;
 }
+mat-form-field .mat-chip-list-wrapper input.mat-input-element, .mat-chip-list-wrapper .mat-standard-chip {
+    text-transform: capitalize !important;
+}

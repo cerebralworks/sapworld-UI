@@ -294,8 +294,17 @@ a:hover {
 }
 .custom-radio .custom-control-input:checked ~ .custom-control-label::before,
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #385edf;
-  border-color: #385edf;
+  background-color: #ffffff;
+  border-color: #11b771;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+    background-image: url(../images/green-check.svg);
+}
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+    background-image: url(../images/green-radio-dot.svg);
+}
+.custom-radio .custom-control-input:disabled:checked~.custom-control-label::before {
+    background-color: rgb(255 255 255 / 50%);
 }
 .upload-box{
 	width: 180px;

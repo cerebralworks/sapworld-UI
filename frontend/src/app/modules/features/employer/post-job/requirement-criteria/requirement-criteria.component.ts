@@ -5,6 +5,7 @@ import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormG
 import { ActivatedRoute } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
+import { DataService } from '@shared/service/data.service';
 import { EmployerService } from '@data/service/employer.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
@@ -40,6 +41,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	public skillItems: any[] = [];
 	public skillsItems: any[] = [];
 	public commonSkills: any[] = [];
+	public authorized_country: any[] = [];
 	public childForm;
 	public isLoading: boolean;
 	public industriesItems: any[] = [];
@@ -57,6 +59,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		private parentF: FormGroupDirective,
 		private formBuilder: FormBuilder,
 		private employerService: EmployerService,
+		private dataService: DataService,
 		private route: ActivatedRoute,
 		private sharedService: SharedService,
 		public utilsHelperService: UtilsHelperService
@@ -144,7 +147,13 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		this.createForm();
 		this.onGetIndustries();
 		this.onGetSkill();
-
+		this.dataService.getCountryDataSource().subscribe(
+		  response => {
+			if (response && Array.isArray(response) && response.length) {
+			  this.authorized_country = response;
+			}
+		  }
+		);
 		this.travelArray = [
 		  { id: 0, text: 'No' },
 		  { id: 25, text: '25%' },
@@ -341,6 +350,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			programming_skills: new FormControl(null),
 			optinal_skills: new FormControl(null),
 			work_authorization: new FormControl(null, Validators.required),
+			authorized_to_work: new FormControl(null),
 			visa_sponsorship: new FormControl(false, Validators.required),
 			need_reference: new FormControl(false, Validators.required),
 			travel_opportunity: new FormControl(null, Validators.required),
@@ -486,6 +496,15 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	**/
 	
 	onChangeFieldValue = (fieldName, value) => {
+		if(fieldName=='work_authorization'){
+			if(value!=2){
+				this.childForm.patchValue({
+					requirement: {
+						authorized_to_work: null,
+					}
+				});
+			}
+		}
 		this.childForm.patchValue({
 			requirement: {
 				fieldName: value,
