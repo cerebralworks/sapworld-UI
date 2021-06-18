@@ -162,18 +162,18 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					}else{
 						this.childForm.patchValue({ 
 							jobPref: { 
-								job_type: ["01"] 
+								job_type: ["1001"] 
 							} 
 						})
-						document.getElementById("01")['className'] = document.getElementById("01")['className'] +' btn-fltr-active';
+						document.getElementById("1001")['className'] = document.getElementById("1001")['className'] +' btn-fltr-active';
 					}
 				}else{
 					this.childForm.patchValue({ 
 						jobPref: { 
-							job_type: ["01"] 
+							job_type: ["1001"] 
 						} 
 					});
-					document.getElementById("01")['className'] = document.getElementById("01")['className'] +' btn-fltr-active';
+					document.getElementById("1001")['className'] = document.getElementById("1001")['className'] +' btn-fltr-active';
 				}
 			}
 			if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {

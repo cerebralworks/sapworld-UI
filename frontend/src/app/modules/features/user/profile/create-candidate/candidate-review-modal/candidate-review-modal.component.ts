@@ -81,7 +81,7 @@ separateDialCode = false;
 	set userDetails(inFo: any) {
 		this.savedUserDetails = inFo;
 	}
-
+	public idValueGet='';
 	public childForm;
 	public mbRef: NgbModalRef;
 	public criteriaModalRef: NgbModalRef;
@@ -105,7 +105,7 @@ separateDialCode = false;
 	@ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
 @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
 @ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
-//@ViewChild('chipsInput', { static: false })chipsInput: ElementRef; //chipsInput: ElementRef<HTMLInputElement>;
+@ViewChild('chipsInput', { static: false })chipsInput: ElementRef; //chipsInput: ElementRef<HTMLInputElement>;
 	constructor(
 		private modalService: NgbModal,
 		public router: Router,
@@ -316,11 +316,10 @@ separateDialCode = false;
 				}
 			  });
 		}else if(this.preferredLocation == true){
-			this.childForm.patchValue({
-				jobPref: {
-				  preferred_locations:[]
-				}
-			  });
+			for(let i=0;i<=this.ts.length;i++){
+				this.ts.removeAt(0);
+				i=0;
+			}
 			  this.address=[];
 		}else if(this.reference == true){
 			this.childForm.patchValue({
@@ -345,6 +344,7 @@ separateDialCode = false;
 			  });
 		}
 		this.reference = false;
+		this.preferredLocation = false;
 		this.jobtype = false;
 		this.job_role = false;
 		this.end_to_end_implementation = false;
@@ -410,6 +410,48 @@ separateDialCode = false;
   
   openCheckPopup(){
 		this.isCheckModel = true;
+		if(this.jobtype == true){
+			if(this.childForm.value.employer_role_type=='' ||this.childForm.value.employer_role_type==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			} 
+		}else if(this.end_to_end_implementation == true){
+			if( this.childForm.value.educationExp.end_to_end_implementation==''  || this.childForm.value.educationExp.end_to_end_implementation==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.education == true){
+			if( this.childForm.value.educationExp.education_qualification==''  || this.childForm.value.educationExp.education_qualification==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.certificationBoolean == true){
+			  if(this.certification.length==0){
+				  this.closeAdd();
+				this.isCheckModel = false;
+			  }
+		}else if(this.job_role == true){
+			  if( this.childForm.value.jobPref.job_role==''  || this.childForm.value.jobPref.job_role==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.preferredLocation == true){
+			  if(this.address.length==0){
+				  this.closeAdd();
+				this.isCheckModel = false;
+			  }
+		}else if(this.reference == true){
+			  if(this.childForm.value.personalDetails.reference.length==0  || this.childForm.value.personalDetails.reference[0]['name']==null || this.childForm.value.personalDetails.reference[0]['name']==''){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.mobileNumber == true){
+			  if( this.childForm.value.personalDetails.phone==''  || this.childForm.value.personalDetails.phone==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}
+		
 		if (this.isCheckModel) {
 		setTimeout(() => {
         this.checkModalRef = this.modalService.open(this.checkModal, {
@@ -424,7 +466,7 @@ separateDialCode = false;
   
   cancelCheck(){
 	 this.checkModalRef.close();
-	  this.closeAdd(); 
+	  
 	  
   }
   
@@ -583,6 +625,7 @@ separateDialCode = false;
 	}
 	add(event: MatChipInputEvent): void {
 		// Clear the input value
+		this.idValueGet = event.chipInput.id;
 		event.chipInput!.clear();
 	}
 
@@ -648,8 +691,8 @@ separateDialCode = false;
         country: address.country
     };
 	//this.chipsInput.nativeElement.value='';
-	if(document.getElementById('mat-chip-list-input-3')){
-	document.getElementById('mat-chip-list-input-3')['value']='';
+	if(document.getElementById(this.idValueGet)){
+	document.getElementById(this.idValueGet)['value']='';
 	}
 	if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
 	this.onDuplicates();

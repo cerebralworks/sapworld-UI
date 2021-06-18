@@ -447,7 +447,7 @@
 				<ul class="list-group">
 					<li class="list-group-item">
 						{{sharedService.onGetJobType([postJobForm?.value?.jobInfo?.type]) }}
-						<span *ngIf="(postJobForm?.value?.jobInfo?.type == '6' || postJobForm?.value?.jobInfo?.type == '03')">({{postJobForm?.value?.jobInfo?.contract_duration}} months)</span>
+						<span *ngIf="(postJobForm?.value?.jobInfo?.type == '1006' || postJobForm?.value?.jobInfo?.type == '1002')">({{postJobForm?.value?.jobInfo?.contract_duration}} months)</span>
 					</li>
 				</ul>
 			</div>
@@ -1252,6 +1252,9 @@
 			</div>
 			
 		<div class="modal-footer">
+			<button (click)="closeAdd()" type="button" class="btn btn-theme-orange">
+				close
+			</button>
 			<button (click)="closeSave()" type="button" class="btn btn-theme-blue">
 				save
 			</button>

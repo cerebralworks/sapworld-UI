@@ -45,7 +45,7 @@ export class UtilsHelperService {
 
   onConvertArrayToString = (value: any[]) => {
     if (!Array.isArray(value)) return "--";
-    return value.join(", ");
+    return value.filter(function(a,b){return a!=''}).join(", ");
   }
 
   onConvertArrayObjToString = (value: any[], field: string = 'name') => {

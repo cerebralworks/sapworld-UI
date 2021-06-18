@@ -1,6 +1,6 @@
 <section class="my-5">
   <div class="container">
-    <div class="row mb-5">
+    <div class="row mb-4">
       <!-- <div class="col-lg-12 mb-3">
         <div class="clearfix">
           <div *ngFor="let item of userListForCountry; let i=index" class="alert alert-find alert-dismissible" role="alert">
@@ -17,6 +17,104 @@
         </div>
       </div>
     </div>
+	<div class="row mb-2">
+		<div class="col-lg-12">	
+			<h6>
+			  <a data-toggle="collapse" href="#collapseRDN" role="button" aria-expanded="true" aria-controls="collapseRDN" style="color:#ff2972;" class="">
+				<i class="fas fa-filter" style="text-shadow: 2px 1px 1px #b2b2b2;margin-right: 5px;font-size: 16px;"></i> Show me profiles matching the most in
+			 </a>
+			</h6>
+		</div>
+	</div>
+	<div class="row collapse" id="collapseRDN" style="background: rgb(250, 250, 250); padding-top: 10px; margin: 5px 0px 15px; border-radius: 7px;">
+		<div class="col-lg-4">
+			<div class="custom-control custom-radio border-bottom pb-1">
+				<input type="radio" id="customRadioZ1" name="customRadioZ1" class="custom-control-input">
+				<label class="custom-control-label" for="customRadioZ1">Required</label>
+			</div>
+			<div class="py-2">
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.experience=='0'" >{{"postJob.totalYearsOfExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.sap_experience=='0'">{{"postJob.totalYearsOfSapExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.domain=='0'">{{"postJob.domainExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.hands_on_experience=='0'">{{"postJob.handsOnWith" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.skills=='0'">{{"dashboard.knowledgeOn" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.programming_skills=='0'" >{{"postJob.programmingSkills" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.optinal_skills=='0'">{{"dashboard.otherSkills" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.certification=='0'">{{"postJob.certification" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.type=='0'">{{"postJob.jobType" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.employer_role_type=='0'">{{"postJob.jobRole" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.availability=='0'">{{"postJob.availability" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.work_authorization=='0'">{{"postJob.workAuthorisation" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.facing_role=='0'">{{"postJob.clientFacing" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.training_experience=='0'">{{"postJob.trainingExperience" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.end_to_end_implementation=='0'">{{"postJob.endToEndImplementation" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.education=='0'">{{"postJob.education" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.travel_opportunity=='0'">{{"postJob.travelRequired" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.remote=='0'">{{"postJob.remote" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.willing_to_relocate=='0'">{{"postJob.relocate" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.language=='0'">{{"postJob.languageknown" | translate }}</button>
+			</div>
+		</div>
+		<div class="col-lg-4">	
+			<div class="custom-control custom-radio border-bottom pb-1">
+				<input type="radio" id="customRadioZ2" name="customRadioZ1" class="custom-control-input">
+				<label class="custom-control-label" for="customRadioZ2">Desired</label>
+			</div>
+			<div class="py-2">
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.experience=='1'" >{{"postJob.totalYearsOfExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.sap_experience=='1'">{{"postJob.totalYearsOfSapExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.domain=='1'">{{"postJob.domainExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.hands_on_experience=='1'">{{"postJob.handsOnWith" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.skills=='1'">{{"dashboard.knowledgeOn" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.programming_skills=='1'" >{{"postJob.programmingSkills" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.optinal_skills=='1'">{{"dashboard.otherSkills" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.certification=='1'">{{"postJob.certification" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.type=='1'">{{"postJob.jobType" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.employer_role_type=='1'">{{"postJob.jobRole" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.availability=='1'">{{"postJob.availability" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.work_authorization=='1'">{{"postJob.workAuthorisation" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.facing_role=='1'">{{"postJob.clientFacing" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.training_experience=='1'">{{"postJob.trainingExperience" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.end_to_end_implementation=='1'">{{"postJob.endToEndImplementation" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.education=='1'">{{"postJob.education" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.travel_opportunity=='1'">{{"postJob.travelRequired" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.remote=='1'">{{"postJob.remote" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.willing_to_relocate=='1'">{{"postJob.relocate" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.language=='1'">{{"postJob.languageknown" | translate }}</button>
+			
+			
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="custom-control custom-radio border-bottom pb-1">
+				<input type="radio" id="customRadioZ3" name="customRadioZ1" class="custom-control-input">
+				<label class="custom-control-label" for="customRadioZ3">Nice to have</label>
+			</div>
+			<div class="py-2">
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.experience=='2'" >{{"postJob.totalYearsOfExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.sap_experience=='2'">{{"postJob.totalYearsOfSapExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.domain=='2'">{{"postJob.domainExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.hands_on_experience=='2'">{{"postJob.handsOnWith" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.skills=='2'">{{"dashboard.knowledgeOn" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.programming_skills=='2'" >{{"postJob.programmingSkills" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.optinal_skills=='2'">{{"dashboard.otherSkills" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.certification=='2'">{{"postJob.certification" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.type=='2'">{{"postJob.jobType" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.employer_role_type=='2'">{{"postJob.jobRole" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.availability=='2'">{{"postJob.availability" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.work_authorization=='2'">{{"postJob.workAuthorisation" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.facing_role=='2'">{{"postJob.clientFacing" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.training_experience=='2'">{{"postJob.trainingExperience" | translate}}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.end_to_end_implementation=='2'">{{"postJob.endToEndImplementation" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.education=='2'">{{"postJob.education" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.travel_opportunity=='2'">{{"postJob.travelRequired" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.remote=='2'">{{"postJob.remote" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.willing_to_relocate=='2'">{{"postJob.relocate" | translate }}</button>
+				<button type="button" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.language=='2'">{{"postJob.languageknown" | translate }}</button>
+			
+			</div>
+		</div>
+	</div>
     <div class="row">
       <div class="col-lg-8 col-md-7">
         <!-- <div class="row">
@@ -99,7 +197,7 @@
                       <h6 class="text-capitalize">
                         {{item?.city ? item?.city : ''}}
                         {{item?.state ? ', ' + item?.state : ''}}
-                        <span class="text-uppercase">
+                        <span>
                           {{item?.country ? ', ' + item?.country : ''}}
                         </span>
                       </h6>
@@ -111,8 +209,8 @@
                        Availability: {{(item?.availability || item?.availability == 0) ? (item?.availability == 0 ? 'Immediate' : item?.availability + ' Days') : '--'}}
                       </h6>
                       <div class="mt-2">
-                        <ng-container *ngFor="let itemSub of item?.hands_on_experience">
-                          <span *ngIf="itemSub?.skill_id" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub?.skill_id)?.tag)}}</span>
+                        <ng-container *ngFor="let itemSub of item?.skills">
+                          <span *ngIf="itemSub" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub)?.tag)}}</span>
                         </ng-container>
                       </div>
                     </div>
@@ -205,8 +303,8 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let item of sharedService.onGetJobType(); let i=index">
                   <div class="custom-control custom-checkbox">
-                    <input [value]="i" [checked]="queryParams?.job_types?.includes(i)" (change)="onFiltertByJobType('job_types', i)" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
-                    <label class="custom-control-label" for="customCheck_{{i}}">{{item}} </label>
+                    <input [value]="item.id" [checked]="queryParams?.job_types?.includes(item.id)" (change)="onFiltertByJobType('job_types', item.id)" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
+                    <label class="custom-control-label" for="customCheck_{{i}}">{{item.text}} </label>
                   </div>
                 </li>
               </ul>
@@ -260,7 +358,7 @@
 
 <app-send-mail-job-preview
 *ngIf="isOpenedSendMailModal"
-[jobInfo]="selectedJob"
+[selectedJob]="selectedJob"
 [userInfo]="currentUserInfo"
 [toggleSendMailModal]="isOpenedSendMailModal"
 (onEvent)="onToggleSendMail($event)">

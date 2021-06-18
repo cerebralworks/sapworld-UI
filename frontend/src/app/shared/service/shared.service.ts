@@ -45,15 +45,21 @@ export class SharedService {
   onGetJobType = (index?) => {
 	  var temp=[];
 	  let jobTypeArray = [
-		{id: '01', text: 'Full Time'},
-		{id: '02', text: 'Part Time'},
-		{id: '03', text: 'Contract'},
-		{id: '04', text: 'Freelance'},
-		{id: '05', text: 'Internship'},
+		{id: 1000, text: 'Full Time'},
+		{id: 1001, text: 'Part Time'},
+		{id: 1002, text: 'Contract'},
+		{id: 1003, text: 'Freelance'},
+		{id: 1004, text: 'Internship'},
 	  ];
      //let jobTypeArray = ['','', '', '', '', '', 'Temporary', 'Permanent', 'Onsite'];
      if(index) {
-		 if(index.length !=0) {
+		 if(typeof index === 'string' || ((!!index && typeof index === 'object') && Object.prototype.toString.call(index) === '[object String]')){
+			var datas = jobTypeArray.filter(function(a,b){ return a.id == index });
+				if(datas.length!=0){
+					 return datas[0]['text'];
+				 }
+				 return '';
+		 }else if(index.length !=0) {
 			 var index = index.filter(function(elem, index, self) {
 				return index === self.indexOf(elem);
 			})
