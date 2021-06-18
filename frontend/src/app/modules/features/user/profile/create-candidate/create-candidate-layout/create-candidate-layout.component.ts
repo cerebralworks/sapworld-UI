@@ -84,6 +84,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
+		this.buildForm();
+		this.createFormData();
 		this.onGetCountry('');
 		this.onGetLanguage('');
 		this.dataService.getUserPhoto().subscribe(
@@ -96,8 +98,6 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				this.tabInfos = response;
 			}
 		})
-		this.buildForm();
-		this.createFormData();
 		this.userSharedService.getUserProfileDetails().subscribe(
         response => {
           this.userInfo = response;
@@ -203,6 +203,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	ngAfterViewInit(): void {
 		console.log({'Enter the ngAfterViewInit':'CreateCandidateLayoutComponent'})
 		this.createFormData();
+		this.ngAfterViewInitCheck();
 		console.log({'Exist the ngAfterViewInit':'CreateCandidateLayoutComponent'})
 	}
 	
@@ -256,6 +257,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			this.validateOnForm++
 			this.ngAfterViewInitCheck();
 		}
+		this.ngAfterViewInitCheck();
 	}
 	onNext() {
 		//console.log({'Enter the onNext':'CreateCandidateLayoutComponent'})

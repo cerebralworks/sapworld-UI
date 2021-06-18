@@ -593,12 +593,12 @@ findLanguageArray(value){
 			  }
 			});
 		}
-		this.jobtype==false;
-		this.certificationBoolean==false;
-		this.training==false;
-		this.clientfacing==false;
-		this.education==false;
-		this.work_authorization==false;
+		this.jobtype=false;
+		this.certificationBoolean=false;
+		this.training=false;
+		this.clientfacing=false;
+		this.education=false;
+		this.work_authorization=false;
 	}
 	closeSave(){
 		this.checkValidator();
@@ -662,6 +662,40 @@ findLanguageArray(value){
   
   openCheckPopup(){
 		this.isCheckModel = true;
+		if(this.jobtype==true){
+			if(this.postJobForm.value.jobInfo.employer_role_type=='' || this.postJobForm.value.jobInfo.employer_role_type==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.education==true){
+			if(this.postJobForm.value.requirement.education=='' || this.postJobForm.value.requirement.education==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.clientfacing==true){
+			
+			if(this.postJobForm.value.otherPref.facing_role=='' || this.postJobForm.value.otherPref.facing_role==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.training==true){
+			
+			if(this.postJobForm.value.otherPref.training_experience=='' || this.postJobForm.value.otherPref.training_experience==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.certificationBoolean==true){
+			if(this.certification.length==0){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.work_authorization==true){
+			if(this.postJobForm.value.requirement.work_authorization=='' || this.postJobForm.value.requirement.work_authorization==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+			 
+		}
 		if (this.isCheckModel) {
 		setTimeout(() => {
         this.checkModalRef = this.modalService.open(this.checkModal, {
@@ -676,7 +710,7 @@ findLanguageArray(value){
   
   cancelCheck(){
 	 this.checkModalRef.close();
-	  this.closeAdd(); 
+	  //this.closeAdd(); 
 	  
   }
   

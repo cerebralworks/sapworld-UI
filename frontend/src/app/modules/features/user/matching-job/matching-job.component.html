@@ -58,14 +58,14 @@
                       <h6 class="text-capitalize">
                         {{item?.city ? item?.city + ', ' : ''}}
                         {{item?.state ? item?.state + ', ' : ''}}
-                        <span class="text-uppercase">
+                        <span >
                           {{item?.country ? item?.country : ''}}
                         </span>
                       </h6>
                       <h6>{{item?.experience ? item?.experience + ' Years Exp.' : ''}} <span *ngIf="item?.type">{{' , '}}</span>{{item?.type ? sharedService.onGetJobType(item?.type) : ''}} <span *ngIf="item?.remote" class="remote pl-2">Remote</span></h6>
                       <div class="mt-2">
-                        <ng-container *ngFor="let itemSub of item?.hands_on_experience">
-                          <span *ngIf="itemSub.skill_id" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub?.skill_id)?.tag)}}</span>
+                        <ng-container *ngFor="let itemSub of item?.skills">
+                          <span *ngIf="itemSub" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub)?.tag)}}</span>
                         </ng-container>
                       </div>
                     </div>
@@ -118,8 +118,8 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let item of sharedService.onGetJobType(); let i=index">
                   <div class="custom-control custom-checkbox">
-                    <input [value]="i" [checked]="queryParams?.type?.includes(i)" (change)="onFiltertByJobType('type', i)" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
-                    <label class="custom-control-label" for="customCheck_{{i}}">{{item}} </label>
+                    <input [value]="item.id" [checked]="queryParams?.type?.includes(item.id)" (change)="onFiltertByJobType('type', item.id)" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
+                    <label class="custom-control-label" for="customCheck_{{i}}">{{item.text}} </label>
                   </div>
                 </li>
               </ul>

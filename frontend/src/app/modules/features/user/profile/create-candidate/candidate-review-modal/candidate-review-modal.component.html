@@ -214,10 +214,10 @@
 						</ul>
 					</div>
 					<div class="col-lg-6 info">
-						<ul class="list-group ul-value text-capitalize" *ngIf="this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) !='' ">
+						<ul class="list-group ul-value text-capitalize" *ngIf="this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) !='' &&this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) !='--' ">
 						{{this.filterPrefered(childForm?.value?.jobPref?.preferred_locations)}}
 						</ul>
-						<ul class="list-group ul-value text-capitalize" *ngIf="this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) =='' ">
+						<ul class="list-group ul-value text-capitalize" *ngIf="this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) =='' ||this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) =='--' ">
 						<li class="list-group-item" ><button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('preferredLocation')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">Add </button></li>
 						</ul>
@@ -618,7 +618,7 @@
 										<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 									</mat-chip>
 									<input placeholder="" #chipsInput
-									(onAddressChange)="handleAddressChange($event)"
+									(onAddressChange)="handleAddressChange($event,id)"
 									ngx-google-places-autocomplete
 										[matChipInputFor]="chipLists"
 										[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -701,6 +701,9 @@
 			
 			
 		<div class="modal-footer">
+			<button (click)="closeAdd()" type="button" class="btn btn-theme-orange">
+				close
+			</button>
 			<button (click)="closeSave()" type="button" class="btn btn-theme-blue">
 				save
 			</button>

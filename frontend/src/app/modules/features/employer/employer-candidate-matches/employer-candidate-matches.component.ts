@@ -291,7 +291,11 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     // }else {
     //   requestParams.skill_tags_filter_type = 0;
     // }
-
+	if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
+      requestParams.skill_tags_filter_type = 1;
+     }else {
+      requestParams.skill_tags_filter_type = 0;
+    }
     if(!this.route.snapshot.queryParamMap.get('min_experience')) {
       requestParams.min_experience = this.selectedJob.sap_experience;
     }
@@ -301,9 +305,18 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
     requestParams.additional_fields = 'job_application';
     requestParams.city = this.selectedJob.city;
-
+/* 
     if(this.selectCountry) {
       requestParams.country = this.selectCountry;
+    } */
+    if(this.selectedJob.country) {
+      requestParams.country = this.selectedJob.country;
+    }
+    if(this.selectedJob.work_authorization && this.selectedJob.work_authorization !='' ) {
+      requestParams.work_authorization = this.selectedJob.work_authorization;
+	  if(this.selectedJob.work_authorization==2){
+		  requestParams.work_authorization =1;
+	  }
     }
 
     const removeEmpty = this.utilsHelperService.clean(requestParams)
