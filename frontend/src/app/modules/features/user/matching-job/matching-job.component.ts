@@ -169,12 +169,43 @@ validateAPI = 0;
     requestParams.limit = this.limit;
     requestParams.expand = 'company';
 
-    if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == false) {
-      requestParams.city = this.userInfo.city;
+    if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true) {
+      requestParams.city = [this.userInfo.city];
+	  if(this.userInfo && this.userInfo.preferred_locations) {
+			if(this.userInfo.preferred_locations.length !=0) {
+				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.city});
+					tempData[tempData.length]=this.userInfo.city;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.city = tempData.join(',');
+					}
+				}
+			}
+	  }
     }
-    if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == false) {
-      requestParams.country = this.userInfo.country;
+    if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true) {
+      requestParams.country = [this.userInfo.country];
+	  if(this.userInfo && this.userInfo.preferred_locations) {
+			if(this.userInfo.preferred_locations.length !=0) {
+				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.country});
+					tempData[tempData.length]=this.userInfo.country;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.country = tempData.join(',');
+					}
+				}
+			}
+	  }
     }
+    
     if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length) {
       requestParams.skills = this.userInfo.skills.join(',')
     }
@@ -194,6 +225,13 @@ validateAPI = 0;
 
     if(requestParams.type && requestParams.type.length) {
       requestParams.type = requestParams.type.join(',')
+    }else{
+		if(this.userInfo && this.userInfo.job_type) {
+			requestParams.type = this.userInfo.job_type;
+			if(requestParams.type && requestParams.type.length) {
+			  requestParams.type = requestParams.type.join(',')
+			}
+		}
     }
 
 
