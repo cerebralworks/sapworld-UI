@@ -40,4 +40,9 @@
     border-color: #ffd3e2;
     box-shadow: 3px 3px 3px 2px #dfdfdf;
     color: #ff2972;
+}.btn-fltr-active {
+    background-color: #ffffff;
+    border-color: #ffd3e2;
+    box-shadow: 3px 3px 3px 2px #dfdfdf;
+    color: #ff2972;
 }

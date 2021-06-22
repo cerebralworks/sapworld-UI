@@ -227,12 +227,27 @@ export class PostJobLayoutComponent implements OnInit {
 			travel_opportunity: new FormControl(null, Validators.required),
 			end_to_end_implementation: new FormControl(null)
 		}));
+		
         if(response && response.details) {
           this.postedJobsDetails = response.details;
           this.postJobForm.patchValue({
             ...this.postedJobsDetails
           });
-		  
+		  if(this.postedJobsDetails && this.postedJobsDetails.hands_on_experience && Array.isArray(this.postedJobsDetails.hands_on_experience)) {
+					
+					for(let i=0;i<=this.postJobForm.controls.requirement['controls']['hands_on_experience'].length;i++){
+						this.postJobForm.controls.requirement['controls']['hands_on_experience'].removeAt(0);
+						i=0;
+					}
+					this.postedJobsDetails.hands_on_experience.map((value, index) => {
+						this.postJobForm.controls.requirement['controls']['hands_on_experience'].push(this.formBuilder.group({
+							skill_id: [null, Validators.required],
+							skill_name: [''],
+							experience: ['', [Validators.required,]],
+							exp_type: ['years', [Validators.required]]
+						}));
+					});
+				}
 		if (this.postedJobsDetails.skills != null) {
 			for(let i=0;i<this.postedJobsDetails.skills.length;i++){
 				this.postedJobsDetails.skills[i]=parseInt(this.postedJobsDetails.skills[i]);
