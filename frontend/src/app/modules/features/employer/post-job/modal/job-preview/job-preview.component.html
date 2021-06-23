@@ -595,16 +595,16 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
-					<li class="list-group-item" *ngIf=" postJobForm?.value?.requirement?.work_authorization && postJobForm?.value?.requirement?.work_authorization != '' && postJobForm?.value?.requirement?.work_authorization == 0">{{"postJob.shouldBeACitizenPr" | translate }}</li>
-					<li class="list-group-item" *ngIf=" postJobForm?.value?.requirement?.work_authorization && postJobForm?.value?.requirement?.work_authorization != '' &&postJobForm?.value?.requirement?.work_authorization == 1">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</li>
-					<li class="list-group-item" *ngIf=" postJobForm?.value?.requirement?.work_authorization && postJobForm?.value?.requirement?.work_authorization != '' &&postJobForm?.value?.requirement?.work_authorization == 2">{{"postJob.shouldBeACitizenPrWork" | translate }}</li>
-					<li class="list-group-item" *ngIf="!postJobForm?.value?.requirement?.work_authorization || postJobForm?.value?.requirement?.work_authorization == ''">
+					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 0">{{"postJob.shouldBeACitizenPr" | translate }}</li>
+					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 1">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</li>
+					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 2">{{"postJob.shouldBeACitizenPrWork" | translate }}</li>
+					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization != 0 && postJobForm?.value?.requirement?.work_authorization == ''">
 					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('work_authorization')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">Add </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
-				<ul class="list-group" *ngIf="!postJobForm?.value?.requirement?.work_authorization || postJobForm?.value?.requirement?.work_authorization == ''" >
+				<ul class="list-group" *ngIf="  postJobForm?.value?.requirement?.work_authorization != 0 &&  postJobForm?.value?.requirement?.work_authorization == ''" >
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
 							<div class="rdn-radio">
@@ -628,7 +628,7 @@
 						</div>
 					</li>
 				</ul>
-				<ul class="list-group" *ngIf=" (postJobForm?.value?.requirement?.work_authorization && postJobForm?.value?.requirement?.work_authorization != '' ) && postJobForm?.value?.requirement?.work_authorization  == 0 || postJobForm?.value?.requirement?.work_authorization == 2 || postJobForm?.value?.requirement?.work_authorization == 1">
+				<ul class="list-group" *ngIf=" postJobForm?.value?.requirement?.work_authorization  == 0 || postJobForm?.value?.requirement?.work_authorization == 2 || postJobForm?.value?.requirement?.work_authorization == 1">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
 							<div class="rdn-radio">

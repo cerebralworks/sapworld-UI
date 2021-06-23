@@ -77,6 +77,7 @@ export class JobPreviewComponent implements OnInit {
   public training: boolean =false;
   public certificationBoolean: boolean =false;
   public work_authorization: boolean =false;
+  public ShowData: boolean =false;
 
   constructor(private dataService: DataService,
     private modalService: NgbModal,
@@ -208,7 +209,11 @@ this.dataService.getLanguageDataSource().subscribe(
 			
 		}
 	  this.checkValidator();
-		
+		if(this.postJobForm.value.requirement.work_authorization ==''){
+			this.ShowData = true;
+		}else{
+			this.ShowData = false;
+		}
       }
     });
   }
