@@ -564,7 +564,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			}
 		}if(clr.target.id == 'language') {
 			  if( this.selectedJob &&  this.selectedJob.language) {
-					this.queryParams.language = this.selectedJob.language;
+					this.queryParams.language = this.selectedJob.language.join(',');
 			}
 		}if(clr.target.id == 'education') {
 			  if( this.selectedJob &&  this.selectedJob.education) {
