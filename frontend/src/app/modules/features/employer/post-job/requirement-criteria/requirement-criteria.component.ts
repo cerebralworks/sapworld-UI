@@ -177,8 +177,14 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
-			if(this.childForm && this.getPostedJobsDetails) {
-				if(this.getPostedJobsDetails && this.getPostedJobsDetails.hands_on_experience && Array.isArray(this.getPostedJobsDetails.hands_on_experience)) {
+			 if(this.childForm && this.getPostedJobsDetails) {
+				if (this.childForm.value.requirement.optinal_skills != null) {
+					this.optinal_skills = this.childForm.value.requirement.optinal_skills;
+				}
+				if (this.childForm.value.requirement.programming_skills  != null) {
+					this.programming_skills = this.childForm.value.requirement.programming_skills;
+				}
+				/*if(this.getPostedJobsDetails && this.getPostedJobsDetails.hands_on_experience && Array.isArray(this.getPostedJobsDetails.hands_on_experience)) {
 					
 					for(let i=0;i<=this.t.value.length;i++){
 						this.t.removeAt(0);
@@ -216,7 +222,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 					requirement : {
 						...this.getPostedJobsDetails
 					}
-				});
+				});*/
 			}else{
 				if (this.childForm.value.requirement.programming_skills != null) {
 					this.programming_skills = this.childForm.value.requirement.programming_skills;
@@ -224,7 +230,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				if (this.childForm.value.requirement.optinal_skills != null) {
 					this.optinal_skills = this.childForm.value.requirement.optinal_skills;
 				}
-			}
+			} 
 		});
 	}
 

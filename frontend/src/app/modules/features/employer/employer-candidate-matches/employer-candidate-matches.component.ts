@@ -332,6 +332,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		}
         this.userMeta = { ...response.meta };
       }, error => {
+		  this.userList = [];
       }
     )
   }
@@ -450,7 +451,48 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     const navigationExtras: NavigationExtras = {
       queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
     };
-
+	
+	if(this.queryParams.domain){
+			delete this.queryParams.domain;			
+		  }
+		  if(this.queryParams.skills){
+			  document.getElementById('skills').className="btn btn-fltr";
+			delete this.queryParams.skills;			
+		  }if(this.queryParams.programming_skills){
+			  document.getElementById('programming_skills').className="btn btn-fltr";
+			delete this.queryParams.programming_skills;			
+		  }if( this.queryParams.optinal_skills){
+			  document.getElementById('optinal_skills').className="btn btn-fltr";
+			delete this.queryParams.optinal_skills;			
+		  }if( this.queryParams.employer_role_type){
+			  document.getElementById('employer_role_type').className="btn btn-fltr";
+			delete this.queryParams.employer_role_type;			
+		  }if( this.queryParams.certification){
+			  document.getElementById('certification').className="btn btn-fltr";
+			delete this.queryParams.certification;			
+		  }if( this.queryParams.end_to_end_implementation){
+			  document.getElementById('end_to_end_implementation').className="btn btn-fltr";
+			delete this.queryParams.end_to_end_implementation;			
+		  }if( this.queryParams.availability){
+			  document.getElementById('availability').className="btn btn-fltr";
+			delete this.queryParams.availability;			
+		  }if( this.queryParams.travel_opportunity){
+			  document.getElementById('travel_opportunity').className="btn btn-fltr";
+			delete this.queryParams.travel_opportunity;			
+		  }if( this.queryParams.remote){
+			  document.getElementById('remote').className="btn btn-fltr";
+			delete this.queryParams.remote;			
+		  }if( this.queryParams.willing_to_relocate){
+			  document.getElementById('willing_to_relocate').className="btn btn-fltr";
+			delete this.queryParams.willing_to_relocate;			
+		  }if( this.queryParams.language){
+			  document.getElementById('language').className="btn btn-fltr";
+			delete this.queryParams.language;			
+		  }if(this.queryParams.education){
+			  document.getElementById('education').className="btn btn-fltr";
+			delete this.queryParams.education;			
+		  }
+		  this.onGetCandidateList(this.selectedJob.id);
     this.router.navigate([], navigationExtras);
     // this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
   }
