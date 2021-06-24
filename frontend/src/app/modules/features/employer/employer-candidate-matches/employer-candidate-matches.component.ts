@@ -189,12 +189,20 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
   onSetJob = (item) =>{
 	  this.resetData();
+	  this.clearFilters();
     this.selectedJob = item;
     if(this.selectedJob && this.selectedJob.id) {
       this.userList = [];
-      const removeEmpty = this.utilsHelperService.clean(this.queryParams);
-      let url = this.router.createUrlTree(['/employer/dashboard'], {queryParams: {...removeEmpty, id: this.selectedJob.id}, relativeTo: this.route}).toString();
-      this.location.go(url);
+     // const removeEmpty = this.utilsHelperService.clean(this.queryParams);
+     // let url = this.router.createUrlTree(['/employer/dashboard'], {queryParams: {...removeEmpty, id: this.selectedJob.id}, relativeTo: this.route}).toString();
+      //this.location.go(url);
+	  const navigationExtras: NavigationExtras = {
+      queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
+    };
+	
+	
+		  this.onGetCandidateList(this.selectedJob.id);
+		this.router.navigate([], navigationExtras);
       this.onGetCandidateList(this.selectedJob.id);
     }
 
@@ -452,7 +460,14 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
     };
 	
-	if(this.queryParams.domain){
+	
+		  this.onGetCandidateList(this.selectedJob.id);
+    this.router.navigate([], navigationExtras);
+    // this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
+  }
+  
+  clearFilters(){
+	  if(this.queryParams.domain){
 			delete this.queryParams.domain;			
 		  }
 		  if(this.queryParams.skills){
@@ -492,9 +507,6 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			  document.getElementById('education').className="btn btn-fltr";
 			delete this.queryParams.education;			
 		  }
-		  this.onGetCandidateList(this.selectedJob.id);
-    this.router.navigate([], navigationExtras);
-    // this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
   }
 
   onToggleResumeForm = (status, selectedResumeUrl?) => {

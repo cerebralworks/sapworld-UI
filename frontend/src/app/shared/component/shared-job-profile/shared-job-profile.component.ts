@@ -1,4 +1,4 @@
-import { Component,ViewEncapsulation, Input, OnInit } from '@angular/core';
+import { Component,ViewEncapsulation,OnChanges, Input, OnInit } from '@angular/core';
 import { JobPosting } from '@data/schema/post-job';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -11,7 +11,7 @@ import { SharedApiService } from '@shared/service/shared-api.service';
   styleUrls: ['./shared-job-profile.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
-export class SharedJobProfileComponent implements OnInit {
+export class SharedJobProfileComponent implements OnInit,OnChanges {
 
   @Input() jobInfo: JobPosting;
   @Input() isDescrition: boolean = false;
@@ -81,7 +81,45 @@ export class SharedJobProfileComponent implements OnInit {
       }
     );
   }
-  
+  ngOnChanges(changes): void {
+    setTimeout( async () => {
+		var arr = [];
+		if(this.jobInfo){
+			  if(this.jobInfo.match_select){
+				Object.keys(this.jobInfo.match_select).forEach(key => {
+					arr.push(this.jobInfo.match_select[key]) 
+				});
+				var requiredFilter = arr.filter(function(a,b){return a=='0'});
+				var desiredFilter = arr.filter(function(a,b){return a=='1'});
+				var niceFilter = arr.filter(function(a,b){return a=='2' });
+				var optionalFilter = arr.filter(function(a,b){return a=='' });
+				if(requiredFilter.length>0){
+					this.required =true;
+				}if(desiredFilter.length>0){
+					this.desired=true;
+				}if(niceFilter.length>0){
+					this.nice =true;
+				}if(optionalFilter.length>0){
+					this.optional =true;
+				}
+				
+			  }
+			  if(this.jobInfo.health_wellness && this.jobInfo.paid_off && this.jobInfo.office_perks){
+			  if(this.jobInfo.health_wellness['life'] == true || this.jobInfo.health_wellness['health']  == true 
+			  || this.jobInfo.health_wellness['vision'] == true || this.jobInfo.health_wellness['dental'] == true
+			  || this.jobInfo.paid_off['maternity'] == true ||  this.jobInfo.paid_off['paid_holidays'] == true 
+			  || this.jobInfo.paid_off['vacation_policy'] == true || this.jobInfo.financial_benefits['purchase_plan'] == true 
+			  || this.jobInfo.financial_benefits['tuition_reimbursement'] == true || this.jobInfo.financial_benefits['performance_bonus'] == true 
+			  || this.jobInfo.financial_benefits['retirement_plan'] == true || this.jobInfo.office_perks['office_space'] == true || 
+			  this.jobInfo.office_perks['social_outings'] == true || this.jobInfo.office_perks['pet_friendly'] == true || 
+			  this.jobInfo.office_perks['home_policy'] == true || this.jobInfo.office_perks['free_food'] == true){
+				  this.IsShown=true;
+			  }}
+		  }
+		
+	});
+	  
+  }
 	findLanguageArray(value){
 		if(value){
 			value = value.map(function(a,b){
