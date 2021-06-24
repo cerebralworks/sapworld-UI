@@ -212,7 +212,8 @@ validateAPI = 0;
 
     if(this.queryParams && this.queryParams.skills && this.queryParams.skills.length) {
       const tempSkill = (this.queryParams && this.queryParams.skills) ? this.queryParams.skills.split(',') : [];
-      const tempSkillsMerged = [...this.userInfo.skills, ...tempSkill];
+      //const tempSkillsMerged = [...this.userInfo.skills, ...tempSkill];
+      const tempSkillsMerged = [...tempSkill];
       if(tempSkillsMerged && tempSkillsMerged.length) {
         const removedDuplicates = tempSkillsMerged.filter( function( item, index, inputArray ) {
           return inputArray.indexOf(item) == index;
