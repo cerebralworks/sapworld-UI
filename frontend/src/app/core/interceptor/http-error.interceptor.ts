@@ -75,14 +75,24 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               const re = /company-profile/gi;
               if (req.url.search(re) === -1) {
                 if (err.error.error.message) {
-                  this.toastrService.error(err.error.error.message, '');
+					if(err.error.error.message =='Forbidden Access! :: IP Logged'){
+						this.accountService.logout();
+						location.reload();
+					}else{
+						this.toastrService.error(err.error.error.message, '');
+					}
                 } else if (err.error.err) {
-                  this.toastrService.error(err.error.err.msg || err.error.err.message, '');
+					if(err.error.err.msg =='Forbidden Access! :: IP Logged' || err.error.err.message =='Forbidden Access! :: IP Logged'){
+						this.accountService.logout();
+						location.reload();
+					}else{
+						this.toastrService.error(err.error.err.msg || err.error.err.message, '');
+					}
                 }
               }
             }
           } catch (e) {
-            this.toastrService.error('An error occurred', '');
+            //this.toastrService.error('An error occurred', '');
           }
         } else {
           // Handle Client Error (Angular Error, ReferenceError...)

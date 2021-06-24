@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy,OnChanges, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedService } from '@shared/service/shared.service';
+import { DataService } from '@shared/service/data.service';
 
 import * as lodash from 'lodash';
 import { CandidateProfile } from '@data/schema/create-candidate';
@@ -15,7 +16,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './employer-candidate-profile-matches.component.html',
   styleUrls: ['./employer-candidate-profile-matches.component.css']
 })
-export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestroy {
+export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestroy,OnChanges {
   public isOpenedJDModal: boolean = false;
   public isOpenedResumeModal: boolean = false;
   public isOpenedOtherPostModal: boolean = false;
@@ -35,8 +36,17 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   public matchingUsersNew: any;
   public selectedResumeUrl: string;
   private subscriptions: Subscription[] = [];
+  
+  public languageSource=[];
+	public nationality=[];
+	public required: boolean = true;
+	public desired: boolean = true;
+	public optional: boolean = true;
+	public nice: boolean = true;
+	public IsValidate: boolean = false;
 
   constructor(
+	private dataService: DataService,
     private route: ActivatedRoute,
     private employerService: EmployerService,
     private location: Location,
@@ -61,6 +71,21 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
       this.onGetJobScoringById();
       this.onGetJobScoringById(true, true);
     }
+	this.dataService.getCountryDataSource().subscribe(
+		response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.nationality = response;
+	
+        }
+      }
+    );
+	  this.dataService.getLanguageDataSource().subscribe(
+      response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.languageSource = response;
+        }
+		}
+    );
   }
 
   ngOnDestroy(): void {
@@ -82,6 +107,40 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
     this.subscriptions.push(sb);
   }
 
+  ngOnChanges(changes): void {
+    setTimeout( async () => {
+		var arr = [];
+		if(this.postedJobsDetails){
+			  if(this.postedJobsDetails.match_select){
+				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
+					arr.push(this.postedJobsDetails.match_select[key]) 
+				});
+				var requiredFilter = arr.filter(function(a,b){return a=='0'});
+				var desiredFilter = arr.filter(function(a,b){return a=='1'});
+				var niceFilter = arr.filter(function(a,b){return a=='2' });
+				var optionalFilter = arr.filter(function(a,b){return a=='' });
+				if(requiredFilter.length>0){
+					this.required =true;
+				}if(desiredFilter.length>0){
+					this.desired=true;
+				}else{
+					this.desired=false;
+				}if(niceFilter.length>0){
+					this.nice =true;
+				}else{
+					this.nice =false;
+				}if(optionalFilter.length>0){
+					this.optional =true;
+				}else{
+					this.optional =false;
+				}
+				
+			  }
+		  }
+		
+	});
+	  
+  }
   onGetJobScoringById = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
     let requestParams: any = {};
     if (!isMultipleMatch) {
@@ -123,14 +182,17 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   }
 
   onViewOtherMatches = () => {
+	  if(this.IsValidate==false){
     if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
       this.isMultipleMatches = true;
       this.onGetJobScoringById(true);
       this.page++;
       setTimeout(() => {
+		  this.IsValidate =true;
         this.onGetJobScoringByIdNew();
       }, 300);
     }
+	  }
 
   }
 
@@ -330,4 +392,88 @@ isEven = (num) => {
     this.missingElement = true;
   }
 
+findLanguageArray(value){
+		if(value){
+			
+			if(this.languageSource){
+				var array = this.languageSource.filter(function(a,b){ return a.id == value})
+
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['name'];
+					})
+					if(temp.length !=0){
+						return this.utilsHelperService.onConvertArrayToString(temp);
+					}
+				}
+			
+			}
+			
+		}
+		
+		return '--';
+	}
+	findCountry(value){
+		if(value){
+			if(this.nationality){
+				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
+
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['nicename'];
+					})
+					if(temp.length !=0){
+						return this.utilsHelperService.onConvertArrayToString(temp);
+					}
+				}
+			
+			}
+			
+		}
+		
+		return '--';
+	}
+	
+	checkType(array,value,education){
+		
+		if(array && value){
+			if(array.length!=0 && array.length!= undefined){
+				if(education == 'education'){
+					if(array.filter(function(a,b){ return a.degree!=value}).length !=0){
+						return true;
+					}
+				}else if(array.filter(function(a,b){ return a!=value}).length !=0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	checkLanMatch(array,value){
+		
+		if(array && value){
+			if(array.length!=0 && array.length!= undefined){
+				if(array.filter(function(a,b){ return a==value}).length !=0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	checkLanExtra(array,value,language){
+		
+		if(array && value){
+			if(array.length!=0 && array.length!= undefined){
+				if(language =='language'){
+					if(array.filter(function(a,b){ return a.language!=value}).length !=0){
+						return true;
+					}
+				}else if(array.filter(function(a,b){ return a!=value}).length !=0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 }
