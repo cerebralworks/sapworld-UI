@@ -226,7 +226,7 @@
 								  {{sharedService.onGetJobType(item)}}
 								</span>
 							</ng-container>
-							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.job_type,postedJobsDetails?.type)">
+							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.job_type,postedJobsDetails?.type,'type')">
 								<i class="fa fa-times text-danger "  ></i>
 								  {{sharedService.onGetJobType(postedJobsDetails.type)}}
 							</span>
@@ -680,7 +680,7 @@
 								  {{sharedService.onGetJobType(item)}}
 								</span>
 							</ng-container>
-							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.job_type,postedJobsDetails?.type)">
+							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.job_type,postedJobsDetails?.type,'type')">
 								<i class="fa fa-times text-danger "  ></i>
 								  {{sharedService.onGetJobType(postedJobsDetails.type)}}
 							</span>
@@ -1133,7 +1133,7 @@
 								  {{sharedService.onGetJobType(item)}}
 								</span>
 							</ng-container>
-							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.job_type,postedJobsDetails?.type)">
+							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.job_type,postedJobsDetails?.type,'type')">
 								<i class="fa fa-times text-danger "  ></i>
 								  {{sharedService.onGetJobType(postedJobsDetails.type)}}
 							</span>
@@ -1587,7 +1587,7 @@
 								  {{sharedService.onGetJobType(item)}}
 								</span>
 							</ng-container>
-							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.job_type,postedJobsDetails?.type)">
+							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.job_type,postedJobsDetails?.type,'type')">
 								<i class="fa fa-times text-danger "  ></i>
 								  {{sharedService.onGetJobType(postedJobsDetails.type)}}
 							</span>

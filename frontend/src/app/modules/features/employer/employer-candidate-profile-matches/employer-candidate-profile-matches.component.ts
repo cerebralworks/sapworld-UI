@@ -380,6 +380,8 @@ isEven = (num) => {
 		  document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.matchedElement = true;
 	  }
+	  event.target.childNodes['0'].className=''
+
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
@@ -399,6 +401,8 @@ isEven = (num) => {
 		  document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.missingElement = true;
 	  }
+	  event.target.childNodes['0'].className=''
+
 	  if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
@@ -419,6 +423,8 @@ isEven = (num) => {
 		  document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.moreElement = true;
 	  }
+	  event.target.childNodes['0'].className=''
+
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
