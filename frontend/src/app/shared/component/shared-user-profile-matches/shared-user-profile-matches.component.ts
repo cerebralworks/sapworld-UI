@@ -236,6 +236,12 @@ findLanguageArray(value){
 				if(education == 'education'){
 					if(array.filter(function(a,b){ return a.degree.toLocaleLowerCase()==value.toLocaleLowerCase()}).length ==0 ){
 						return true;
+					}else{
+						return false;
+					}
+				}if(education == 'type'){
+					if(array.filter(function(a,b){ return a.toLocaleLowerCase()==value.toLocaleLowerCase()}).length ==0 ){
+						return true;
 					}
 				}else if(array.filter(function(a,b){ return a!=value}).length !=0){
 					return true;
@@ -285,12 +291,14 @@ findLanguageArray(value){
   onShowMatches = (event) => {
 	  var temp = event.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
-		    document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light';
+		    event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light';
 			this.matchedElement = false;
 	 }else{
-		  document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.matchedElement = true;
 	  }
+	  event.target.childNodes['0'].className=''
+
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
@@ -304,12 +312,14 @@ findLanguageArray(value){
   onShowMissing = (event) => {
 	  var temp = event.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
-		  document.getElementById('missBtnVal').className = 'missBtn btn-sm btn btn-fltr btn-light';
+		  event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
 			this.missingElement = false;
 	 }else{
-		  document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  event.target.className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.missingElement = true;
 	  }
+	  event.target.childNodes['0'].className=''
+
 	  if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
@@ -324,12 +334,14 @@ findLanguageArray(value){
   onShowMore = (event) => {
 	  var temp = event.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
-		  document.getElementById('moreBtnVal').className = 'moreBtn btn-sm btn btn-fltr btn-light';
+		  event.target.className = 'moreBtn btn-sm btn btn-fltr btn-light';
 			this.moreElement = false;
 	 }else{
-		  document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  event.target.className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.moreElement = true;
 	  }
+	  event.target.childNodes['0'].className=''
+
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
