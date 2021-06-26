@@ -594,7 +594,7 @@ findLanguageArray(value){
 		}else if(this.work_authorization==true){
 			this.postJobForm.patchValue({
 			  requirement : {
-				work_authorization:''
+				work_authorization:null
 			  }
 			});
 		}

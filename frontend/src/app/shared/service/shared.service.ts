@@ -30,6 +30,8 @@ export class SharedService {
     requestParams.search = '';
     sharedApiService.onGetSkill(requestParams);
     sharedApiService.onGetIndustries(requestParams);
+   // sharedApiService.onGetCountry(requestParams);
+   // sharedApiService.onGetLanguage(requestParams);
    }
 
   getCurrentRoleFromUrl = () => {
