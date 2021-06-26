@@ -15,6 +15,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 
   @Input() jobInfo: JobPosting;
   @Input() isDescrition: boolean = false;
+  @Input() isMultipleMatches: boolean = false;
   @Input() fieldsExclude: JobPosting;
 	public languageSource=[];
 	public nationality=[];

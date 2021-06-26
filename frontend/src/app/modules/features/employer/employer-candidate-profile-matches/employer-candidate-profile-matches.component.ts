@@ -190,6 +190,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
       setTimeout(() => {
 		  this.IsValidate =true;
         this.onGetJobScoringByIdNew();
+		this.missingElement = true;
+    this.matchedElement = true;
+    this.moreElement = true;
       }, 300);
     }
 	  }
@@ -368,28 +371,72 @@ isEven = (num) => {
     return "";
   }
 
-  onShowMatches = () => {
-    this.matchedElement = true;
-    this.missingElement = false;
-    this.moreElement = false;
+  onShowMatches = (event) => {
+	  var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+		    document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light';
+			this.matchedElement = false;
+	 }else{
+		  document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  this.matchedElement = true;
+	  }
+    if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
+		this.missingElement = true;
+		this.matchedElement = true;
+		this.moreElement = true;
+		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  }
   }
 
-  onShowMissing = () => {
-    this.missingElement = true;
-    this.matchedElement = false;
-    this.moreElement = false;
+  onShowMissing = (event) => {
+	  var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+		  document.getElementById('missBtnVal').className = 'missBtn btn-sm btn btn-fltr btn-light';
+			this.missingElement = false;
+	 }else{
+		  document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  this.missingElement = true;
+	  }
+	  if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
+		this.missingElement = true;
+		this.matchedElement = true;
+		this.moreElement = true;
+		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  }
+    
   }
 
-  onShowMore = () => {
-    this.moreElement = true;
-    this.matchedElement = false;
-    this.missingElement = false;
+  onShowMore = (event) => {
+	  var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+		  document.getElementById('moreBtnVal').className = 'moreBtn btn-sm btn btn-fltr btn-light';
+			this.moreElement = false;
+	 }else{
+		  document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  this.moreElement = true;
+	  }
+    if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
+		this.missingElement = true;
+		this.matchedElement = true;
+		this.moreElement = true;
+		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  }
   }
 
   onReset = () => {
+	 
     this.moreElement = true;
     this.matchedElement = true;
     this.missingElement = true;
+		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
   }
 
 findLanguageArray(value){

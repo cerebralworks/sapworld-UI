@@ -34,6 +34,11 @@
   },
   "postJob": {
     "relocate": "Relocation",
+    "endToEndImplementationShort": "End To End Imp.",
+    "workAuthorisationShort": "Work Auth.",
+    "handsOnWithShort": "Hands on Exp.",
+    "totalYearsOfSapExperienceShort": "Total SAP Exp.",
+    "shorttotalYearsOfExperience": "Total Years of Exp.",
     "authorizedToWork": "Authorized To Work",
 	"extraCriteria":"Extra Criteria",
 	"extraCriteria":"Extra Criteria",

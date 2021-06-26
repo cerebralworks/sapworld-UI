@@ -10,3 +10,26 @@
   color: #dc3545;
   border: 1px solid #dc3545;
 }
+.btn-fltr {
+    color: #212529;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 2px 2px 2px 1px #dfdfdf;
+    margin-right: 10px;
+    margin-bottom: 14px;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+.btn-fltr:hover {
+
+    box-shadow: 3px 3px 3px 2px #4caf5057;
+    color: #000;
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
+.btn-fltr-active {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    box-shadow: 3px 3px 3px 2px #4caf5057;
+    color: #000;
+}
