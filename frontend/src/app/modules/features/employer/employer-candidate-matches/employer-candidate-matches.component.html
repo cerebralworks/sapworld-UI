@@ -376,7 +376,7 @@
 
 <app-send-mail-job-preview
 *ngIf="isOpenedSendMailModal"
-[selectedJob]="selectedJob"
+[jobInfo]="selectedJob"
 [userInfo]="currentUserInfo"
 [toggleSendMailModal]="isOpenedSendMailModal"
 (onEvent)="onToggleSendMail($event)">

@@ -35,10 +35,10 @@
             <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
           </a>
         </span>
-		<a (click)="onTabChange()" style="margin-top: .25rem;" class="btn btn-outline-green btn-sm mr-1" href="javascript:;" title="Edit"><i
+		<a *ngIf="!isMail" (click)="onTabChange()" style="margin-top: .25rem;" class="btn btn-outline-green btn-sm mr-1" href="javascript:;" title="Edit"><i
             class="fas fa-tasks" ></i> Matches </a>
         <span  *ngIf="isMail && jobInfo?.id">
-          <a (click)="onToggleSendMail(true)"  class="btn btn-outline-orange btn-sm ml-1" href="javascript:;">
+          <a (click)="onToggleSendMail(true)"  class="btn btn-outline-orange btn-sm " href="javascript:;">
           <i class="fas fa-paper-plane"></i> Send Mail</a>
         </span>
       </div>

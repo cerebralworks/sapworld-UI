@@ -30,8 +30,8 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
   ) { }
 
   ngOnInit(): void {
-	  this.onGetCountry('');
-	  this.onGetLanguage('');
+	  //this.onGetCountry('');
+	  //this.onGetLanguage('');
 	  this.dataService.getCountryDataSource().subscribe(
 		response => {
         if (response && Array.isArray(response) && response.length) {
@@ -117,7 +117,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 			  }}
 		  }
 		
-	});
+	}, 0);
 	  
   }
 	findLanguageArray(value){

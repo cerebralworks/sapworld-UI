@@ -6,6 +6,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { UserService } from '@data/service/user.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-employer-candidate-profile-view',
@@ -25,6 +26,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     public sharedService: SharedService,
+    private location: Location,
     public utilsHelperService: UtilsHelperService,
     private employerService: EmployerService
   ) {
@@ -41,7 +43,9 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
       this.onGetPostedJob();
     }
   }
-
+onRedirectBack = () => {
+    this.location.back();
+  }
   onGetPostedJob() {
     let requestParams: any = {};
     requestParams.expand = 'company';
