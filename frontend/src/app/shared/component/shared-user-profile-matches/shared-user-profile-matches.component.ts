@@ -276,10 +276,10 @@ findLanguageArray(value){
 		if(array && value){
 			if(array.length!=0 && array.length!= undefined){
 				if(language =='language'){
-					if(array.filter(function(a,b){ return a.language!=value}).length !=0){
+					if(array.filter(function(a,b){ return a.language==value}).length ==0){
 						return true;
 					}
-				}else if(array.filter(function(a,b){ return a!=value}).length !=0){
+				}else if(array.filter(function(a,b){ return a==value}).length ==0){
 					return true;
 				}
 			}
@@ -297,7 +297,9 @@ findLanguageArray(value){
 		  event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.matchedElement = true;
 	  }
-	  event.target.childNodes['0'].className=''
+	   if(event.target.childNodes['0']){
+		event.target.childNodes['0'].className='';
+	  }
 
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
@@ -318,7 +320,9 @@ findLanguageArray(value){
 		  event.target.className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.missingElement = true;
 	  }
-	  event.target.childNodes['0'].className=''
+	   if(event.target.childNodes['0']){
+		event.target.childNodes['0'].className='';
+	  }
 
 	  if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
@@ -340,7 +344,9 @@ findLanguageArray(value){
 		  event.target.className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.moreElement = true;
 	  }
-	  event.target.childNodes['0'].className=''
+	  if(event.target.childNodes['0']){
+		event.target.childNodes['0'].className='';
+	  }
 
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;

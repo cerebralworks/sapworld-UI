@@ -17,7 +17,9 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   @Input() isEdit: boolean;
   @Input() isResume?: boolean;
   @Input() isMail?: boolean = false;
+  @Input() isMatchesView?: boolean = true;
   @Input() isContactIcon?: boolean = true;
+  @Input() isMultipleMatches?: boolean = false;
   @Input() jobInfo?: JobPosting;
 
   public isOpenedContactInfoModal: boolean;

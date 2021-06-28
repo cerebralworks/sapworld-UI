@@ -4,6 +4,7 @@ import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-candidate-job-view',
@@ -20,6 +21,7 @@ export class CandidateJobViewComponent implements OnInit {
     private route: ActivatedRoute,
     private employerService: EmployerService,
     public utilsHelperService: UtilsHelperService,
+    private location: Location,
     public sharedService: SharedService
   ) {
     this.jobId = this.route.snapshot.paramMap.get('id');
@@ -45,7 +47,9 @@ export class CandidateJobViewComponent implements OnInit {
       }
     )
   }
-
+onRedirectBack = () => {
+    this.location.back();
+  }
   onToggleJDModal = (status) => {
     this.isOpenedJDModal = status;
   }

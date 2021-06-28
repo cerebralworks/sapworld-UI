@@ -343,18 +343,31 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	  }else{
 			clr.toElement.className = clr.toElement.className+' btn-fltr-active';
 			if(this.childForm.value.jobPref.job_type==null){
-				value =[clr.toElement.id];
+				/* value =[clr.toElement.id];
 				this.childForm.patchValue({ 
 					jobPref: { 
 						job_type: value 
 					} 
-				})
+				}) */
 			
 			}else{
-				this.childForm.value.jobPref.job_type.push(clr.toElement.id);
+				//this.childForm.value.jobPref.job_type.push(clr.toElement.id);
 			}
+			 
 			this.job_type_error = false;
 		}
+		var CalVal =document.getElementsByClassName('btn-fltr-active');
+			var tempCal=[];
+			for(let i=0;i<CalVal.length;i++){
+				if(CalVal[i]['id']){
+					tempCal.push(CalVal[i]['id']);
+				}
+			}
+			this.childForm.patchValue({ 
+					jobPref: { 
+						job_type: tempCal 
+					} 
+				})
 		// this.requestParams = {'Exist the jobClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
 				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
