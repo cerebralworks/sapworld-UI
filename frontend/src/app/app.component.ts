@@ -9,6 +9,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent {
     private employerService?: EmployerService,
     private userService?: UserService,
     private accountService?: AccountService,
+    private sharedApiService?: SharedApiService,
     private router?: Router,
     private employerSharedService?: EmployerSharedService,
     private userSharedService?: UserSharedService,
@@ -87,11 +89,22 @@ export class AppComponent {
   getUserInfo = () => {
     if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(1))){
       this.onGetEmployerProfile();
+      this.getCommonData();
+	  
     }else if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(0))) {
       this.onGetUserProfile();
+      this.getCommonData();
     }
   }
 
+getCommonData(){
+	let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.limit = 1000;
+    requestParams.search = '';
+    this.sharedApiService.onGetCountry(requestParams);
+    this.sharedApiService.onGetLanguage(requestParams);
+}
   onGetEmployerProfile() {
     this.employerService.profile().subscribe(
       response => {

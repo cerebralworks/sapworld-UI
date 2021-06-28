@@ -32,8 +32,10 @@ import { ClickOutsideDirective } from './directives/clickOutside.directive';
 import { AppPasswordDirective } from './directives/app-password.directive';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { SharedUserProfileComponent } from './component/shared-user-profile/shared-user-profile.component';
+import { SharedUserProfileJobMatchesComponent } from './component/shared-user-profile-job-matches/shared-user-profile-job-matches.component';
 import { SharedUserProfileMatchesComponent } from './component/shared-user-profile-matches/shared-user-profile-matches.component';
 import { SharedJobProfileComponent } from './component/shared-job-profile/shared-job-profile.component';
+import { SharedJobProfileMatchesComponent } from './component/shared-job-profile-matches/shared-job-profile-matches.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-preview/job-preview.component';
 import { PhonePipe } from './pipes/phone.pipe';
@@ -65,6 +67,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SharedUserProfileComponent,
     SharedUserProfileMatchesComponent,
     SharedJobProfileComponent,
+    SharedJobProfileMatchesComponent,
+    SharedUserProfileJobMatchesComponent,
     JobPreviewModalComponent,
     PhonePipe,
     ChangePasswordComponent
@@ -122,6 +126,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SharedUserProfileComponent,
     SharedUserProfileMatchesComponent,
     SharedJobProfileComponent,
+    SharedJobProfileMatchesComponent,
+    SharedUserProfileJobMatchesComponent,
     Ng2TelInputModule,
     NgxDocViewerModule,
     NgxDocViewerModule,

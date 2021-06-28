@@ -24,6 +24,7 @@ export class CandidateJobMatchesComponent implements OnInit {
   public matchingJob: any = {};
   public cusLoadsh: any = lodash;
   public currentJobDetails: any;
+  public description: any;
   public isOpenedResumeSelectModal: boolean;
   public matchedElement: boolean = true;
   public missingElement: boolean = true;
@@ -114,6 +115,7 @@ export class CandidateJobMatchesComponent implements OnInit {
       response => {
         if (response) {
           this.matchingJobNew = { ...response };
+          this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
         }
 
       }, error => {
@@ -157,6 +159,7 @@ export class CandidateJobMatchesComponent implements OnInit {
         }
       }
     }
+	this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
 
   }
 
@@ -172,8 +175,9 @@ export class CandidateJobMatchesComponent implements OnInit {
     this.location.back();
   }
 
-  onToggleJDModal = (status) => {
+  onToggleJDModal = (status,description) => {
     this.isOpenedJDModal = status;
+	this.description = description;
   }
 
 
@@ -264,28 +268,53 @@ export class CandidateJobMatchesComponent implements OnInit {
     this.isOpenedResumeSelectModal = status;
   }
 
-  onShowMatches = () => {
-    this.matchedElement = true;
-    this.missingElement = false;
-    this.moreElement = false;
+  onShowMatches = (event) => {
+    var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+		    event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light';
+			this.matchedElement = false;
+	 }else{
+		  event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  this.matchedElement = true;
+	  }
+	   if(event.target.childNodes['0']){
+		event.target.childNodes['0'].className='';
+	  }
+
+    if(this.missingElement == false && this.matchedElement == false ){
+		this.missingElement = true;
+		this.matchedElement = true;
+		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  }
   }
 
-  onShowMissing = () => {
-    this.missingElement = true;
-    this.matchedElement = false;
-    this.moreElement = false;
+  onShowMissing = (event) => {
+    var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+		    event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
+			this.missingElement = false;
+	 }else{
+		  event.target.className = 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  this.missingElement = true;
+	  }
+	   if(event.target.childNodes['0']){
+		event.target.childNodes['0'].className='';
+	  }
+
+    if(this.missingElement == false && this.matchedElement == false ){
+		this.missingElement = true;
+		this.matchedElement = true;
+		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  }
   }
 
-  onShowMore = () => {
-    this.moreElement = true;
-    this.matchedElement = false;
-    this.missingElement = false;
-  }
 
   onReset = () => {
-    this.moreElement = true;
-    this.matchedElement = true;
-    this.missingElement = true;
+    
+		this.missingElement = true;
+		this.matchedElement = true;
   }
 
 }
