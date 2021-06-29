@@ -7,6 +7,7 @@ import { JobPosting } from '@data/schema/post-job';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 import * as lodash from 'lodash';
 
@@ -65,7 +66,8 @@ export class PostJobLayoutComponent implements OnInit {
     private modalService: NgbModal,
     public router: Router,
 		private SharedAPIService: SharedApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+		public utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
@@ -253,6 +255,7 @@ export class PostJobLayoutComponent implements OnInit {
 				this.postedJobsDetails.skills[i]=parseInt(this.postedJobsDetails.skills[i]);
 			}
 		}
+		this.postedJobsDetails.skills = this.utilsHelperService.differenceByPropValArray(this.postedJobsDetails.skills, this.postedJobsDetails.hands_on_experience, 'skill_id')
 		if (this.postedJobsDetails.domain != null) {
 			for(let i=0;i<this.postedJobsDetails.domain.length;i++){
 				this.postedJobsDetails.domain[i]=parseInt(this.postedJobsDetails.domain[i]);

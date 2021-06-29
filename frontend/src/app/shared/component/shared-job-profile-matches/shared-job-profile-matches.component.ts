@@ -165,7 +165,7 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 		
 		if(array && value){
 			if(array.length!=0 && array.length!= undefined){
-				if(array.filter(function(a,b){ return a==value}).length !=0){
+				if(array.filter(function(a,b){ return a.language==value}).length !=0){
 					return true;
 				}
 			}
@@ -177,7 +177,7 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 		if(array && value){
 			if(array.length!=0 && array.length!= undefined){
 				if(language =='language'){
-					if(array.filter(function(a,b){ return a.language!=value}).length !=0){
+					if(array.filter(function(a,b){ return a.language==value}).length ==0){
 						return true;
 					}
 				}else if(array.filter(function(a,b){ return a!=value}).length !=0){
@@ -254,8 +254,8 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
       lowerCaseJob = this.userInfo[field1]
     }
     let lowerCaseUser = [];
-    if (this.matchingJob && this.matchingJob.jobs && this.matchingJob.jobs[field2]) {
-      lowerCaseUser = this.matchingJob.jobs[field2]
+    if (this.userInfo && this.userInfo && this.userInfo[field2]) {
+      lowerCaseUser = this.userInfo[field2]
     }
     let jobIndex = lowerCaseJob.findIndex(val => val[filterField] == item[filterField]);
 
