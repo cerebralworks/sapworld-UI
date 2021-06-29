@@ -271,7 +271,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div><!-- 
 			<div *ngIf="postedJobsDetails?.match_select?.remote=='0'">
 				<div class="row">
 					<div class="col-lg-4 caption">
@@ -299,7 +299,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div *ngIf="postedJobsDetails?.match_select?.language=='0'">
 				<div class="row">
 					<div class="col-lg-4 caption">
@@ -601,7 +601,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div><!-- 
 			<div *ngIf="postedJobsDetails?.match_select?.remote=='1'">
 				<div class="row">
 					<div class="col-lg-4 caption">
@@ -629,7 +629,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div *ngIf="postedJobsDetails?.match_select?.language=='1'">
 				<div class="row">
 					<div class="col-lg-4 caption">
@@ -919,7 +919,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div><!-- 
 			<div *ngIf="postedJobsDetails?.match_select?.remote=='2'">
 				<div class="row">
 					<div class="col-lg-4 caption">
@@ -947,7 +947,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div *ngIf="postedJobsDetails?.match_select?.language=='2'">
 				<div class="row">
 					<div class="col-lg-4 caption">
@@ -1077,7 +1077,7 @@
 					</div>
 				</div>
 			</div>
-			<div  *ngIf="postedJobsDetails?.match_select?.optinal_skills==''">
+			<div  *ngIf="postedJobsDetails?.match_select?.optinal_skills=='' && postedJobsDetails?.optinal_skills">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1091,7 +1091,7 @@
 					</div>
 				</div>					
 			</div>
-			<div  *ngIf="postedJobsDetails?.match_select?.certification==''">
+			<div  *ngIf="postedJobsDetails?.match_select?.certification=='' && postedJobsDetails?.certification">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1105,7 +1105,7 @@
 					</div>
 				</div>	
 			</div>
-			<div  *ngIf="postedJobsDetails?.match_select?.type==''">
+			<div  *ngIf="postedJobsDetails?.match_select?.type=='' && postedJobsDetails?.type">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1119,7 +1119,7 @@
 					</div>
 				</div>
 			</div>
-			<div  *ngIf="postedJobsDetails?.match_select?.employer_role_type==''">
+			<div  *ngIf="postedJobsDetails?.match_select?.employer_role_type=='' && postedJobsDetails?.employer_role_type">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1133,7 +1133,7 @@
 					</div>
 				</div>				
 			</div>
-			<div *ngIf="postedJobsDetails?.match_select?.availability==''">
+			<div *ngIf="postedJobsDetails?.match_select?.availability=='' && postedJobsDetails?.availability">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1147,7 +1147,7 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="postedJobsDetails?.match_select?.work_authorization==''">
+			<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='' || postedJobsDetails?.work_authorization ">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1165,7 +1165,7 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="postedJobsDetails?.match_select?.facing_role==''">
+			<div *ngIf="postedJobsDetails?.match_select?.facing_role=='' && postedJobsDetails?.facing_role ">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1178,7 +1178,7 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="postedJobsDetails?.match_select?.training_experience==''">
+			<div *ngIf="postedJobsDetails?.match_select?.training_experience=='' && postedJobsDetails?.training_experience ">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1191,7 +1191,7 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation==''">
+			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation==''  && postedJobsDetails?.end_to_end_implementation">
 				<div class="row" *ngIf="userInfo?.end_to_end_implementation">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1224,7 +1224,7 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="postedJobsDetails?.match_select?.travel_opportunity==''">
+			<div *ngIf="postedJobsDetails?.match_select?.travel_opportunity=='' && postedJobsDetails?.travel_opportunity ">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1237,7 +1237,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div><!-- 
 			<div *ngIf="postedJobsDetails?.match_select?.remote==''">
 				<div class="row">
 					<div class="col-lg-4 caption">
@@ -1265,8 +1265,8 @@
 						</ul>
 					</div>
 				</div>
-			</div>
-			<div *ngIf="postedJobsDetails?.match_select?.language==''">
+			</div> -->
+			<div *ngIf="postedJobsDetails?.match_select?.language==''&& postedJobsDetails?.language">
 				<div class="row">
 					<div class="col-lg-4 caption">
 						<ul class="list-group">

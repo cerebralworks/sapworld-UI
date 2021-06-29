@@ -207,7 +207,17 @@ validateAPI = 0;
     }
     
     if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length) {
-      requestParams.skills = this.userInfo.skills.join(',')
+		var temps = [];
+		if(this.userInfo.hands_on_experience && this.userInfo.hands_on_experience.length){
+			for(let i=0;i<this.userInfo.hands_on_experience.length;i++){
+				if(this.userInfo.hands_on_experience[i]['skill_id']  &&this.userInfo.hands_on_experience[i]['skill_id'] !=''){
+					temps.push(this.userInfo.hands_on_experience[i]['skill_id']);
+				}
+				
+			}
+			
+		}
+      requestParams.skills = temps.join(',')
     }
 
     if(this.queryParams && this.queryParams.skills && this.queryParams.skills.length) {
@@ -215,6 +225,16 @@ validateAPI = 0;
       //const tempSkillsMerged = [...this.userInfo.skills, ...tempSkill];
       const tempSkillsMerged = [...tempSkill];
       if(tempSkillsMerged && tempSkillsMerged.length) {
+		  if(this.userInfo.hands_on_experience && this.userInfo.hands_on_experience.length){
+			for(let i=0;i<this.userInfo.hands_on_experience.length;i++){
+				if(this.userInfo.hands_on_experience[i]['skill_id']  &&this.userInfo.hands_on_experience[i]['skill_id'] !=''){
+					//tempSkillsMerged.push(this.userInfo.hands_on_experience[i]['skill_id']);
+				}
+				
+			}
+			
+		}
+		  
         const removedDuplicates = tempSkillsMerged.filter( function( item, index, inputArray ) {
           return inputArray.indexOf(item) == index;
         });

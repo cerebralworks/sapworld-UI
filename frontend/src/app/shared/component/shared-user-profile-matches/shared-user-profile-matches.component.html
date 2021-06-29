@@ -402,7 +402,7 @@
 						   </span>
 					  </li>
 				  </ul>
-				</div>
+				</div><!-- 
 				<div *ngIf="postedJobsDetails?.match_select?.remote=='0'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">
@@ -430,7 +430,7 @@
 						   </span>
 					   </li>
 					</ul>
-				</div>
+				</div> -->
 				<div *ngIf="postedJobsDetails?.match_select?.language=='0'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">		
@@ -857,7 +857,7 @@
 					  </li>
 				  </ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.remote=='1'">
+				<!-- <div *ngIf="postedJobsDetails?.match_select?.remote=='1'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">
 						   <span *ngIf="matchedElement && (matchingUsers?.profile?.remote_only == postedJobsDetails?.remote)">
@@ -884,7 +884,7 @@
 						   </span>
 					   </li>
 					</ul>
-				</div>
+				</div> -->
 				<div *ngIf="postedJobsDetails?.match_select?.language=='1'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">		
@@ -1310,7 +1310,7 @@
 					  </li>
 				  </ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.remote=='2'">
+				<!-- <div *ngIf="postedJobsDetails?.match_select?.remote=='2'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">
 						   <span *ngIf="matchedElement && (matchingUsers?.profile?.remote_only == postedJobsDetails?.remote)">
@@ -1337,7 +1337,7 @@
 						   </span>
 					   </li>
 					</ul>
-				</div>
+				</div> -->
 				<div *ngIf="postedJobsDetails?.match_select?.language=='2'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">		
@@ -1524,7 +1524,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.optinal_skills==''">
+				<div  *ngIf="postedJobsDetails?.match_select?.optinal_skills=='' && postedJobsDetails?.optinal_skills">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">
 							<ng-container *ngFor="let item of matchingUsers?.profile?.other_skills; let first = first;let i = index;">
@@ -1548,7 +1548,7 @@
 						 </li>
 					</ul>					
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.certification==''">
+				<div  *ngIf="postedJobsDetails?.match_select?.certification=='' && postedJobsDetails?.certification">
 					<ul class="list-group">                        
 						<li class="list-group-item text-capitalize">
 							<ng-container *ngFor="let item of matchingUsers?.profile?.certification; let first = first;">
@@ -1572,7 +1572,7 @@
 					   </li>
 				   </ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.type==''">
+				<div  *ngIf="postedJobsDetails?.match_select?.type=='' && postedJobsDetails?.type">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">
 							<ng-container *ngFor="let item of matchingUsers?.profile?.job_type; let first = first;">
@@ -1594,7 +1594,7 @@
 						 </li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.employer_role_type==''">
+				<div  *ngIf="postedJobsDetails?.match_select?.employer_role_type=='' && postedJobsDetails?.employer_role_type">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span class="matchTxt">
@@ -1611,7 +1611,7 @@
 					</ul>
 					
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.availability==''">
+				<div *ngIf="postedJobsDetails?.match_select?.availability=='' && postedJobsDetails?.availability">
 					<ul class="list-group">
 						<li class="list-group-item">
 						   <span *ngIf="matchedElement && matchingUsers?.profile?.availability <= postedJobsDetails?.availability">
@@ -1631,7 +1631,7 @@
 						</li>
 					</ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.work_authorization==''">
+				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='' && postedJobsDetails?.work_authorization">
 					<li class="list-group-item">
 						<span *ngIf="matchedElement && ((matchingUsers?.profile?.work_authorization == 0) && (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1))">
 							<i class="fa fa-check text-green "></i>
@@ -1649,7 +1649,7 @@
 						</span>
 					</li>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.facing_role==''">
+				<div *ngIf="postedJobsDetails?.match_select?.facing_role=='' && postedJobsDetails?.facing_role">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span class="matchTxt">
@@ -1677,7 +1677,7 @@
 						</li>
 					</ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.training_experience==''">
+				<div *ngIf="postedJobsDetails?.match_select?.training_experience=='' && postedJobsDetails?.training_experience">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span class="matchTxt">
@@ -1705,7 +1705,7 @@
 						</li>
 					</ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation==''">
+				<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='' && postedJobsDetails?.end_to_end_implementation">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation == postedJobsDetails?.end_to_end_implementation)">
@@ -1741,7 +1741,7 @@
 						 </li>
 				   </ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.travel_opportunity==''">
+				<div *ngIf="postedJobsDetails?.match_select?.travel_opportunity=='' && postedJobsDetails?.travel_opportunity">
 					<ul class="list-group">	
 						<li class="list-group-item">
 							
@@ -1764,7 +1764,7 @@
 					  </li>
 				  </ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.remote==''">
+				<!-- <div *ngIf="postedJobsDetails?.match_select?.remote==''">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">
 						   <span *ngIf="matchedElement && (matchingUsers?.profile?.remote_only == postedJobsDetails?.remote)">
@@ -1791,8 +1791,8 @@
 						   </span>
 					   </li>
 					</ul>
-				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.language==''">
+				</div> -->
+				<div *ngIf="postedJobsDetails?.match_select?.language=='' && postedJobsDetails?.language">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">		
 							<ng-container *ngFor="let item of matchingUsers?.profile?.language_known; let first = first;">

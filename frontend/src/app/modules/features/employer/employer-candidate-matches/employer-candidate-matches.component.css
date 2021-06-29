@@ -28,21 +28,19 @@
 }
 .btn-fltr {
     color: #212529;
-    background-color: #ffffff;
-    border-color: #ffffff;
-    box-shadow: 2px 2px 2px 1px #dfdfdf;
-    margin-right: 10px;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    margin-right: 3px;
     margin-bottom: 14px;
-    padding: 4px 8px;
     font-size: 12px;
+    height: 26px;
+    padding: .25rem .435rem;
 }.btn-fltr:hover {
     background-color: #ffffff;
     border-color: #ffd3e2;
-    box-shadow: 3px 3px 3px 2px #dfdfdf;
     color: #ff2972;
 }.btn-fltr-active {
     background-color: #ffffff;
     border-color: #ffd3e2;
-    box-shadow: 3px 3px 3px 2px #dfdfdf;
     color: #ff2972;
 }

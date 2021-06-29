@@ -79,7 +79,7 @@
 										</div>
 									</div>
 									<!--Body Sec-->
-									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-3' : 'mt-3'">
+									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-1' : 'mt-1'">
 										<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJob?.score >= 5, 'score-txt-orange': (matchingJob?.score < 5 && matchingJob?.score > 0), 'score-txt-red': (matchingJob?.score == 0)}">
 											SCORE <span>{{matchingJob?.score ? matchingJob?.score :0}}/10</span>
 										</div>
@@ -132,7 +132,7 @@
 										</div>
 									</div>
 									<!--Body Sec-->
-									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-3' : 'mt-3'">
+									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-1' : 'mt-1'">
 										<div class="score" [ngClass]="{'score-txt-green': matchingJobNew?.score >= 5, 'score-txt-orange': (matchingJobNew?.score < 5 && matchingJobNew?.score > 0), 'score-txt-red': (matchingJobNew?.score == 0)}">
 											SCORE <span>{{matchingJobNew?.score ? matchingJobNew?.score : 0}}/10</span>
 										</div>

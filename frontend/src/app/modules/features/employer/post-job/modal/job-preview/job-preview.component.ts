@@ -488,12 +488,12 @@ this.dataService.getLanguageDataSource().subscribe(
   }
   
   handleChange(event){
-	  if(event.target.value=='0'){
-		  
-	  }else if(event.target.value=='1'){
-		  
-	  }else if(event.target.value=='2'){
-		  
+	  if(event.target.name){
+		  if(this.childForm.value.jobPrev.match_select[event.target.name] == event.target.value){
+			  var name = event.target.name;
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls'][name].setValue('');
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls'][name].updateValueAndValidity();
+		  }
 	  }
   }
 findLanguageArray(value){

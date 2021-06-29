@@ -302,6 +302,24 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     // }
 	if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
       requestParams.skill_tags_filter_type = 1;
+	  if(this.postedJobs){
+		  var temps = this.postedJobs.filter(function(a,b){ return a.id==jobId});
+		  if(temps.length==1){
+			  if(temps[0].hands_on_experience && temps[0].hands_on_experience.length){
+				  var temp =[];
+				  for(let i=0;i<temps[0].hands_on_experience.length;i++){
+					  if(temps[0].hands_on_experience[i]['skill_id']){
+						  temp.push(temps[0].hands_on_experience[i]['skill_id']);
+					  }
+					  
+				  }
+				  //requestParams.skill_tags = temp;
+			  }
+		  }else{
+			  requestParams.skill_tags_filter_type = 1;
+		  }
+
+	  }
      }else {
       requestParams.skill_tags_filter_type = 0;
     }
