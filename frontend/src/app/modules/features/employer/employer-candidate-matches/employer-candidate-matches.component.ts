@@ -21,6 +21,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
   public isOpenedResumeModal: boolean;
   public isOpenedSendMailModal: boolean;
+  public filter_location: boolean =false;
   public page: number = 1;
   public limit: number = 25;
   public userList: any[] = [];
@@ -86,11 +87,14 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       {value: {min: 7, max: 10}, text: '7 - 10 Years'},
       {value: {min: 10, max: 20}, text: '10 Years & above'}
     ]
+
     this.route.queryParams.subscribe(params => {
+	this.selectedJob = sessionStorage.getItem('match-job-id');
       if(params && !this.utilsHelperService.isEmptyObj(params)) {
         let urlQueryParams = {...params};
 
         if(urlQueryParams && urlQueryParams.id) {
+			sessionStorage.setItem('match-job-id',urlQueryParams.id);
           this.selectedJob = {id: urlQueryParams.id};
         }
 
@@ -134,6 +138,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
         this.queryParams = {...this.queryParams, ...urlQueryParams };
       }
     });
+	this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
   }
 
   validateSubscribe = 0;
@@ -191,6 +196,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	  this.resetData();
 	  this.clearFilters();
     this.selectedJob = item;
+	sessionStorage.setItem('match-job-id',this.selectedJob.id);
     if(this.selectedJob && this.selectedJob.id) {
       this.userList = [];
      // const removeEmpty = this.utilsHelperService.clean(this.queryParams);
@@ -201,8 +207,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     };
 	
 	
-		  this.onGetCandidateList(this.selectedJob.id);
-		this.router.navigate([], navigationExtras);
+		  //this.onGetCandidateList(this.selectedJob.id);
+		//this.router.navigate([], navigationExtras);
       this.onGetCandidateList(this.selectedJob.id);
     }
 
@@ -217,7 +223,6 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     if(requestParams.job_types && requestParams.job_types.length) {
       requestParams.job_types = requestParams.job_types.join(',')
     }
-
     const removeEmpty = this.utilsHelperService.clean(requestParams)
 
     this.userService.getUsers(removeEmpty).subscribe(
@@ -274,8 +279,19 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
               }
               this.onGetCandidateList(this.selectedJob.id);
             }else {
-              this.selectedJob = this.postedJobs[0];
-              this.onGetCandidateList(this.selectedJob.id);
+				if(!sessionStorage.getItem('match-job-id')){
+					this.selectedJob = this.postedJobs[0];
+				}else{
+					var ids = parseInt(sessionStorage.getItem('match-job-id'));
+					var temps = this.postedJobs.filter(function(a,b){ return a.id==ids })
+					if(temps.length==1){
+						this.selectedJob = temps[0];
+					}else{
+						this.selectedJob = this.postedJobs[0];
+					}
+				}
+				this.onGetCandidateList(this.selectedJob.id);
+              
             }
 
           }
@@ -294,6 +310,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     requestParams.limit = this.limit;
     requestParams.status = 1;
     requestParams.expand = 'is_saved_profile';
+    requestParams.expand = 'is_saved_profile';
+    requestParams.visa  = false;
+    requestParams.filter_location  = this.filter_location;
     // if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
       requestParams.skill_tags_filter_type = 1;
       requestParams.job_posting = jobId;
@@ -315,6 +334,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				  }
 				  //requestParams.skill_tags = temp;
 			  }
+			  
+			requestParams.visa = temps[0].visa_sponsorship ;
 		  }else{
 			  requestParams.skill_tags_filter_type = 1;
 		  }
@@ -325,6 +346,22 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
     }
     if(!this.route.snapshot.queryParamMap.get('min_experience')) {
       requestParams.min_experience = this.selectedJob.sap_experience;
+    }
+    if(this.route.snapshot.queryParamMap.get('min_experience')) {
+		if(this.postedJobs){
+		  var temps = this.postedJobs.filter(function(a,b){ return a.id==jobId});
+			if(temps.length==1){
+				if(temps[0].experience >= requestParams.min_experience && temps[0].experience >= requestParams.max_experience ){
+					requestParams.min_experience = 100
+					requestParams.max_experience = 101
+					
+				}if(temps[0].experience >= requestParams.min_experience && temps[0].experience <= requestParams.max_experience  ){
+					requestParams.min_experience = temps[0].experience
+					
+				}
+			}
+		}
+      
     }
     if(requestParams.job_types && requestParams.job_types.length) {
       requestParams.job_types = requestParams.job_types.join(',')
@@ -587,6 +624,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			delete this.queryParams.language;			
 		  }if(clr.target.id == 'education' && this.queryParams.education){
 			delete this.queryParams.education;			
+		  }if(clr.target.id == 'filter_location'){
+			this.filter_location = false;	
 		  }
 	  }else{
 		  clr.toElement.className = 'btn btn-fltr btn-fltr-active';
@@ -642,7 +681,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			  if( this.selectedJob &&  this.selectedJob.education) {
 					this.queryParams.education = this.selectedJob.education;
 			}
-		}
+		}if(clr.target.id == 'filter_location'){
+			this.filter_location = true;	
+		  }
 		  
 	  }
 	  
@@ -736,6 +777,12 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			}
 		}
 		
-  
+	filterData(arr){
+		var tempsData =  arr.filter(function(elem, index, self) {
+			return index === self.indexOf(elem);
+		});
+		
+		return tempsData;
+	}
 
 }

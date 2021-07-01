@@ -45,8 +45,22 @@ export class JobDetailViewComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
+	
+	this.route.queryParams.subscribe(params => {
+      if(params && !this.utilsHelperService.isEmptyObj(params)) {
+        let urlQueryParams = {...params};
 
-    const jobId = this.route.snapshot.paramMap.get('id');
+        if(urlQueryParams && urlQueryParams.id) {
+			sessionStorage.setItem('view-job-id',urlQueryParams.id);
+        }
+	}
+	});
+	this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
+	var jobId = 0;
+	if(sessionStorage.getItem('view-job-id')){
+		jobId = parseInt(sessionStorage.getItem('view-job-id'));
+	}
+    
     if(jobId) {
       this.onGetPostedJobDetails(jobId);
       this.onGetSkill();

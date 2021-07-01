@@ -1,6 +1,6 @@
 import { Component, OnDestroy,OnChanges, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedService } from '@shared/service/shared.service';
@@ -51,10 +51,33 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
     private employerService: EmployerService,
     private location: Location,
     public utilsHelperService: UtilsHelperService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private router: Router
   ) {
-    this.jobId = this.route.snapshot.paramMap.get('jobId');
-    this.userId = this.route.snapshot.paramMap.get('userId');
+	  this.route.queryParams.subscribe(params => {
+      if(params && !this.utilsHelperService.isEmptyObj(params)) {
+        let urlQueryParams = {...params};
+
+        if(urlQueryParams && urlQueryParams.jobId) {
+			sessionStorage.setItem('jobId',urlQueryParams.jobId);
+        }
+        if(urlQueryParams && urlQueryParams.userId) {
+			sessionStorage.setItem('userId',urlQueryParams.userId);
+        }
+	}
+	});
+	 
+	 var jobIds:any=0;
+	 var userIds:any=0;
+	 if(sessionStorage.getItem('jobId')){
+		jobIds = parseInt(sessionStorage.getItem('jobId'));
+	}if(sessionStorage.getItem('userId')){
+		userIds = parseInt(sessionStorage.getItem('userId'));
+	}
+	 
+    this.jobId = jobIds;
+    this.userId = userIds;
+	this.router.navigate([], {queryParams: {userId: null,jobId:null}, queryParamsHandling: 'merge'});
   }
 
   onChange(array: any[] = [], item, field) {
@@ -243,7 +266,9 @@ isEven = (num) => {
 }
 
   onRedirectBack = () => {
-    this.location.back();
+   // this.location.back();
+	this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches', id: this.jobId} });
+	
   }
 
   onToggleJDModal = (status) => {

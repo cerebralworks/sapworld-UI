@@ -619,6 +619,7 @@
 									</mat-chip>
 									<input placeholder="" #chipsInput
 									(onAddressChange)="handleAddressChange($event,id)"
+									[options]='options' 
 									ngx-google-places-autocomplete
 										[matChipInputFor]="chipLists"
 										[matChipInputSeparatorKeyCodes]="separatorKeysCodes"

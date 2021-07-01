@@ -349,6 +349,16 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			});
 		}
 		
+		if(this.savedUserDetails.work_authorization == null){
+			this.showAuthorization =true;
+			this.childForm.patchValue({
+			  personalDetails: {
+				['work_authorization']: 0,
+				['visa_type']: null,
+			  }
+			});
+		}
+		
   
       if(this.savedUserDetails && this.savedUserDetails.social_media_link && this.savedUserDetails.social_media_link.length > 0) {
         this.childForm.patchValue({
@@ -466,20 +476,25 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 					}else{
 						this.childForm.value.personalDetails.authorized_country_select.push(a);
 					}
-				}else{
-					var tempCountryVal = this.childForm.value.personalDetails.authorized_country;
-					if(tempCountryVal){
-						if(tempCountryVal.length){
-							tempCountryVal.push(a);
-						}else{
-							tempCountryVal=[a];
-						}
+				}
+			}else{
+				var tempCountryVal = this.childForm.value.personalDetails.authorized_country;
+				if(tempCountryVal){
+					if(tempCountryVal.length){
+						tempCountryVal.push(a);
 					}else{
 						tempCountryVal=[a];
 					}
-					this.childForm.patchValue({personalDetails: {authorized_country:[],}});
-					this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
+				}else{
+					tempCountryVal=[a];
 				}
+				if(tempCountryVal.length){
+					tempCountryVal = tempCountryVal.filter((a, b) => tempCountryVal.indexOf(a) === b);
+				}
+				this.childForm.patchValue({personalDetails: {authorized_country:[],}});
+				this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
+			
+				
 			}
 		}
 	}
@@ -746,6 +761,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			
 			this.childForm.get('personalDetails').controls['visa_type'].setValidators(null)
 			this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
+			
 			this.onChangeCountry(this.childForm.value.personalDetails.nationality);
 			this.childForm.patchValue({
 			  personalDetails: {

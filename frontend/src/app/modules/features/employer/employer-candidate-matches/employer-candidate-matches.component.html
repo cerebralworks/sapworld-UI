@@ -33,6 +33,7 @@
 				<label >Required</label>
 			</div>
 			<div class="py-2">
+				<!-- <button type="button" class="btn btn-fltr" (click)="handleChange($event);" id="filter_location">Job Location based User</button> -->
 				<button type="button" class="btn btn-fltr btn-fltr-active" *ngIf="selectedJob?.match_select?.experience=='0'" id="experience">{{"postJob.totalYearsOfExperience" | translate }}</button>
 				<button type="button" class="btn btn-fltr btn-fltr-active" *ngIf="selectedJob?.match_select?.sap_experience=='0'" id="sap_experience">{{"postJob.totalYearsOfSapExperience" | translate }}</button>
 				<button type="button" (click)="handleChange($event);" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.domain=='0'" id="domain">{{"postJob.domainExperience" | translate }}</button>
@@ -173,7 +174,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-lg-7">
-                      <a href="javascript:;" [routerLink]="['/employer/job-candidate-matches', selectedJob?.id, item?.id]">
+                      <a href="javascript:;" [routerLink]="['/employer/job-candidate-matches/details/view']" [queryParams]="{jobId: selectedJob?.id, userId: item?.id}">
                         <h5 class="text-capitalize">
                           <span>{{(item?.first_name ? item?.first_name : '') + ' ' + (item?.last_name ? item?.last_name : '')}}</span>
                           <small *ngIf="item?.job_role"> - {{item?.job_role}}</small>
@@ -227,7 +228,7 @@
                        Availability: {{(item?.availability || item?.availability == 0) ? (item?.availability == 0 ? 'Immediate' : item?.availability + ' Days') : '--'}}
                       </h6>
                       <div class="mt-2">
-                        <ng-container *ngFor="let itemSub of item?.skills">
+                        <ng-container *ngFor="let itemSub of filterData(item?.skills)">
                           <span *ngIf="itemSub" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub)?.tag)}}</span>
                         </ng-container>
                       </div>

@@ -168,9 +168,15 @@ validateAPI = 0;
     requestParams.page = this.page;
     requestParams.limit = this.limit;
     requestParams.expand = 'company';
-
+    requestParams.work_authorization = '';
+    requestParams.visa_sponsered = false;
+	
     if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true) {
-      requestParams.city = [this.userInfo.city];
+      requestParams.work_authorization = this.userInfo.work_authorization;
+      requestParams.visa_sponsered = this.userInfo.visa_sponsered;
+	  
+		  requestParams.city = [this.userInfo.city];
+	  
 	  if(this.userInfo && this.userInfo.preferred_locations) {
 			if(this.userInfo.preferred_locations.length !=0) {
 				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
@@ -243,7 +249,9 @@ validateAPI = 0;
       }
 
     }
-
+	/* if(!this.route.snapshot.queryParamMap.get('min_experience')) {
+      requestParams.min_experience = this.userInfo.experience;
+    } */
     if(requestParams.type && requestParams.type.length) {
       requestParams.type = requestParams.type.join(',')
     }else{
@@ -255,7 +263,7 @@ validateAPI = 0;
 		}
     }
 
-
+	
     const removeEmpty = this.utilsHelperService.clean(requestParams)
 
     this.employerService.getPostedJob(removeEmpty).subscribe(
