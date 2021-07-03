@@ -140,6 +140,14 @@ module.exports = (app, env, rp) => {
     requestCustom.get(`${serverRoutes.savedProfiles}`, req, res, requestBody);
   });
 
+   /**
+   * Employee Profile Posting
+   */
+  app.post("/api/employers/update", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.post(`${serverRoutes.employersUpdate}`, req, res, requestBody);
+  });
+  
   app.post("/api/employers/update-photo", (req, res) => {
     var form = new IncomingForm();
     form.parse(req, function(err, fields, files) {
