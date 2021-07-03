@@ -242,12 +242,18 @@
         <ng-template #elseTemplate>
           <p>No candidates available</p>
         </ng-template>
-
-        <div class="d-flex justify-content-center" *ngIf="((userMeta?.count > 0 && userMeta?.total > 25) && (userMeta?.total != userList?.length))">
+		<div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="((userMeta?.count > 0 && userMeta?.total > this.limit) && (userMeta?.total != userList?.length))">
+		<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="limit"
+    [pageIndex]="page-1">
+</mat-paginator>
+</div>
+        <!-- <div class="d-flex justify-content-center" *ngIf="((userMeta?.count > 0 && userMeta?.total > 25) && (userMeta?.total != userList?.length))">
           <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
             Load More
           </button>
-        </div>
+        </div> -->
         <!-- <div class="row mt-4 mb-4">
           <div class="col-lg-12">
             <div class="card job-card">

@@ -10,6 +10,7 @@ import { UserResumeComponent } from '../user-resume/user-resume.component';
 import { UserSettingModule } from '../profile/user-setting/user-setting.module';
 import { UserSharedModuleModule } from '../user-shared-module/user-shared-module.module';
 import { VisaSponsoredComponent } from '../visa-sponsored/visa-sponsored.component';
+import { MaterialModule } from '@shared/material.module';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     UserSharedModuleModule,
+    MaterialModule,
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule, UserSharedModuleModule]

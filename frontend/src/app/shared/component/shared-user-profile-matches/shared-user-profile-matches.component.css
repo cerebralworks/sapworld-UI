@@ -69,3 +69,6 @@ margin-top:45px;
     border-color: #dae0e5;
     color: #000;
 }
+.handsExps:hover{
+		overflow-x:auto !important;
+	}

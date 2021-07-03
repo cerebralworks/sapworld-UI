@@ -11,14 +11,14 @@
               <th scope="col">{{"postJob.location" | translate}}</th>
               <th scope="col">{{"dashboard.postedDated" | translate}}</th>
               <th scope="col">{{"dashboard.status" | translate}}</th>
-              <!-- <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
+              <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th>
             </tr>
             </thead>
             <tbody>
               <ng-container *ngIf="appliedJobs?.length; else elseTemplate">
                 <tr *ngFor="let item of appliedJobs">
                   <td>
-                    <a [routerLink]="[ '/user/candidate-job-view', item?.job_posting?.id ]" class="text-capitalize" href="javacript:;">
+                    <a [routerLink]="[ '/user/candidate-job-view/details', item?.job_posting?.id ]" class="text-capitalize" href="javacript:;">
                       {{item?.job_posting?.title}}
                     </a>
                   </td>
@@ -32,7 +32,7 @@
                   </td>
                   <td>{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}</td>
                   <td  class="text-capitalize" [ngClass]="{'text-success': item?.job_posting?.status == 1, 'text-danger': item?.job_posting?.status == 0}">{{item?.job_posting?.status == 1 ? 'Open' : 'Closed'}} </td>
-                  <!-- <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td> -->
+                  <td class="text-center"><a (click)="deleteJobApplication(item?.id)" class="text-danger"><i class="fas fa-trash-alt"></i></a></td> 
                 </tr>
               </ng-container>
               <ng-template #elseTemplate>
@@ -44,12 +44,19 @@
 
             </tbody>
           </table>
+		  <div class="d-flex justify-content-center" style="background: #f8f8f8;"  *ngIf="appliedJobMeta?.count > 0 && appliedJobMeta?.total > 10" >
+			<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+				[length]="length"
+				[pageSize]="limit"
+				[pageIndex]="page-1">
+			</mat-paginator>
+		</div>
         </div>
-        <div class="d-flex justify-content-center" *ngIf="appliedJobMeta?.count > 0 && appliedJobMeta?.total > 25">
+        <!-- <div class="d-flex justify-content-center" *ngIf="appliedJobMeta?.count > 0 && appliedJobMeta?.total > 25">
           <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
             Load More
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

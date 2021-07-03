@@ -6,6 +6,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-matching-job',
@@ -16,7 +17,11 @@ export class MatchingJobComponent implements OnInit {
 
   public isOpenedResumeSelectModal: boolean = false;
   public page: number = 1;
-  public limit: number = 25;
+  public limit: number = 10;
+  length = 0;
+  pageIndex = 1;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
   public postedJobs: any[] = [];
   public postedJobMeta: any;
   public userInfo: any;
@@ -269,9 +274,14 @@ validateAPI = 0;
     this.employerService.getPostedJob(removeEmpty).subscribe(
       response => {
         if(response && response.items && response.items.length > 0) {
+			this.postedJobs =[];
           this.postedJobs = [...this.postedJobs, ...response.items];
         }
-        this.postedJobMeta = { ...response.meta };
+		 this.postedJobMeta = { ...response.meta };
+		if(this.postedJobMeta.total){
+			this.length = this.postedJobMeta.total;
+		}
+       
       }, error => {
       }
     )
@@ -299,6 +309,7 @@ validateAPI = 0;
 
   onFiltertByJobType = (fieldName, value) => {
     if(value != 'undefined') {
+		this.page=1;
       if(this.queryParams && Array.isArray(this.queryParams.type)) {
         let index = this.queryParams.type.indexOf(value);
         if(index > -1) {
@@ -319,6 +330,7 @@ validateAPI = 0;
 
   onFiltertBySkill = (item) => {
     if(item != 'undefined') {
+		this.page=1;
       let index = this.skills.findIndex((element) => {
         return element == item.id;
       });
@@ -338,6 +350,7 @@ validateAPI = 0;
 
   onFiltertByExperience = (item) => {
     if(item != 'undefined') {
+		this.page=1;
       let index = this.minMaxExp.findIndex((element) => {
         return ((element.value.min == item.value.min) && (element.value.max == item.value.max))
       });
@@ -371,6 +384,7 @@ validateAPI = 0;
   }
 
   onFilterWithSalary = (event) => {
+	  this.page=1;
     if(event != 'undefined') {
       this.onRedirectRouteWithQuery({min_salary: event.value, max_salary: event.highValue})
     }else {
@@ -409,6 +423,13 @@ validateAPI = 0;
     }
     return false;
   }
+  
+  handlePageEvent(event: PageEvent) {
+		//this.length = event.length;
+		//this.pageSize = event.pageSize;
+		this.page = event.pageIndex+1;
+		this.onGetPostedJob();
+	}
 
 }
 

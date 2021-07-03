@@ -19,7 +19,7 @@ const routes: Routes = [
       import('@modules/features/user/profile/create-candidate/create-candidate.module').then(m => m.CreateCandidateModule)
   },
   {
-    path: 'job-matches/:id',
+    path: 'job-matches/details',
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.User] },
     loadChildren: () =>
@@ -40,7 +40,7 @@ const routes: Routes = [
       import('@modules/features/user/profile/user-setting/user-setting.module').then(m => m.UserSettingModule)
   },
   {
-    path: 'candidate-job-view/:id',
+    path: 'candidate-job-view/details',
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.User] },
     loadChildren: () =>

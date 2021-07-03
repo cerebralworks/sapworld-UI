@@ -11,6 +11,7 @@ import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employer-candidate-matches',
@@ -23,7 +24,12 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public isOpenedSendMailModal: boolean;
   public filter_location: boolean =false;
   public page: number = 1;
-  public limit: number = 25;
+  public limit: number = 10;
+  length = 0;
+  pageIndex = 1;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
+  
   public userList: any[] = [];
   public userMeta: any;
   public userInfo: any;
@@ -193,6 +199,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   }
 
   onSetJob = (item) =>{
+	  this.page=1;
 	  this.resetData();
 	  this.clearFilters();
     this.selectedJob = item;
@@ -394,6 +401,10 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			this.userList = [];
 		}
         this.userMeta = { ...response.meta };
+		
+		if(this.userMeta.total){
+			this.length = this.userMeta.total
+		}
       }, error => {
 		  this.userList = [];
       }
@@ -418,6 +429,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
         this.queryParams.job_types.push(value)
       }
 		}
+		this.page=1;
       if( this.queryParams.job_types &&  this.queryParams.job_types.length) {
         this.onRedirectRouteWithQuery({[fieldName]: this.queryParams.job_types.join(',')})
       }else {
@@ -436,7 +448,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       }else {
         this.skills.push(parseInt(item.id))
       }
-
+	this.page=1;
       if( this.skills &&  this.skills.length) {
         this.onRedirectRouteWithQuery({skill_tags: this.skills.join(',')})
       }else {
@@ -467,7 +479,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
           return item.value.max;
         }
       }));
-
+	this.page=1;
 
       if(this.minMaxExp.length == 0) {
         this.onRedirectRouteWithQuery({min_experience: "", max_experience: ""})
@@ -783,6 +795,15 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		});
 		
 		return tempsData;
+	}
+	
+	handlePageEvent(event: PageEvent) {
+		//this.length = event.length;
+		//this.pageSize = event.pageSize;
+		this.page = event.pageIndex+1;
+		if(this.selectedJob &&this.selectedJob.id) {
+		  this.onGetCandidateList(this.selectedJob.id);
+		}
 	}
 
 }

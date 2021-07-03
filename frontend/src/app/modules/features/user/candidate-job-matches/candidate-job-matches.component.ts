@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
@@ -41,20 +41,42 @@ export class CandidateJobMatchesComponent implements OnInit {
     private userService: UserService,
     private location: Location,
     public utilsHelperService: UtilsHelperService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.jobId = this.route.snapshot.paramMap.get('id');
+	  this.route.queryParams.subscribe(params => {
+      if(params && !this.utilsHelperService.isEmptyObj(params)) {
+        let urlQueryParams = {...params};
+
+        if(urlQueryParams && urlQueryParams.id) {
+			sessionStorage.setItem('view-job-id',urlQueryParams.id);
+        }
+	}
+	});
+	this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
+	var jobIds:any = 0;
+	if(sessionStorage.getItem('view-job-id')){
+		jobIds = parseInt(sessionStorage.getItem('view-job-id'));
+	}
+	
+    //this.jobId = this.route.snapshot.paramMap.get('id');
+    this.jobId = jobIds;
     this.userSharedService.getUserProfileDetails().subscribe(
       response => {
+		  if(response.skills){
+				response.skills = this.utilsHelperService.differenceByPropValArray(response.skills, response.hands_on_experience, 'skill_id')
+				
+			}
         this.userInfo = response;
       }
     )
     if (this.jobId) {
+		this.onGetUserScoringById(true, true);
       this.onGetUserScoringById();
-      this.onGetUserScoringById(true, true);
+      
     }
   }
 
@@ -84,7 +106,48 @@ export class CandidateJobMatchesComponent implements OnInit {
     }
 
     requestParams.page = this.page;
-
+	requestParams.visa_sponsered = false;
+	
+    if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true) {
+      //requestParams.work_authorization = this.userInfo.work_authorization;
+      requestParams.visa_sponsered = this.userInfo.visa_sponsered;
+	  
+		  requestParams.city = [this.userInfo.city];
+	  
+	  if(this.userInfo && this.userInfo.preferred_locations) {
+			if(this.userInfo.preferred_locations.length !=0) {
+				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.city});
+					tempData[tempData.length]=this.userInfo.city;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.city = tempData.join(',');
+					}
+				}
+			}
+	  }
+    }
+    if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true) {
+      requestParams.country = [this.userInfo.country];
+	  if(this.userInfo && this.userInfo.preferred_locations) {
+			if(this.userInfo.preferred_locations.length !=0) {
+				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.country});
+					tempData[tempData.length]=this.userInfo.country;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.country = tempData.join(',');
+					}
+				}
+			}
+	  }
+    }
     const sb = this.userService.getUserScoring(requestParams).subscribe(
       response => {
         // if (response && !this.utilsHelperService.isEmptyObj(response.jobs)) {
@@ -93,12 +156,41 @@ export class CandidateJobMatchesComponent implements OnInit {
         // if (isCount) {
         //   this.matchingUsersMeta = { ...response.meta }
         // }
-        if (response && !isCount) {
-          this.matchingJob = { ...response }
-        }
-        if (isCount) {
-          this.matchingJobMeta = { ...response.meta }
-        }
+		
+		if(response.jobs.skills){
+			response.jobs.skills = this.utilsHelperService.differenceByPropValArray(response.jobs.skills, response.jobs.hands_on_experience, 'skill_id')
+				
+		}
+		if(!isMultipleMatch){
+			  if(response.jobs){
+				  if(parseInt(this.jobId) == response.jobs.id ){
+					 if (response && !isCount) {
+					  this.matchingJob = { ...response }
+					  if(this.matchingJob['jobs']['match_select'] && this.matchingJobNew){
+						  if(!this.utilsHelperService.isEmptyObj(this.matchingJobNew['jobs'])){
+							this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
+						  }
+					  }
+					}
+					if (isCount) {
+					  this.matchingJobMeta = { ...response.meta }
+					}
+				  }
+			  }
+		  }else{
+			  
+			if (response && !isCount) {
+			  this.matchingJob = { ...response }
+			  if(this.matchingJob['jobs']['match_select'] && this.matchingJobNew){
+				  if(!this.utilsHelperService.isEmptyObj(this.matchingJobNew['jobs'])){
+					this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
+				  }
+			  }
+			}
+			if (isCount) {
+			  this.matchingJobMeta = { ...response.meta }
+			}
+		  }
 
       }, error => {
       }
@@ -110,12 +202,58 @@ export class CandidateJobMatchesComponent implements OnInit {
     let requestParams: any = {};
     // requestParams.id = this.jobId;
     requestParams.page = this.page;
+	requestParams.visa_sponsered = false;
+	
+    if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true) {
+      //requestParams.work_authorization = this.userInfo.work_authorization;
+      requestParams.visa_sponsered = this.userInfo.visa_sponsered;
+	  
+		  requestParams.city = [this.userInfo.city];
+	  
+	  if(this.userInfo && this.userInfo.preferred_locations) {
+			if(this.userInfo.preferred_locations.length !=0) {
+				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.city});
+					tempData[tempData.length]=this.userInfo.city;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.city = tempData.join(',');
+					}
+				}
+			}
+	  }
+    }
+    if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true) {
+      requestParams.country = [this.userInfo.country];
+	  if(this.userInfo && this.userInfo.preferred_locations) {
+			if(this.userInfo.preferred_locations.length !=0) {
+				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.country});
+					tempData[tempData.length]=this.userInfo.country;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.country = tempData.join(',');
+					}
+				}
+			}
+	  }
+    }
+	
 
     const sb = this.userService.getUserScoring(requestParams).subscribe(
       response => {
         if (response) {
           this.matchingJobNew = { ...response };
-          this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
+		  if(this.matchingJob['jobs']['match_select']){
+			  this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
+		  }
+          
         }
 
       }, error => {
@@ -158,8 +296,9 @@ export class CandidateJobMatchesComponent implements OnInit {
         }, 300);
         }
       }
+	  this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
     }
-	this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
+	
 
   }
 
@@ -172,7 +311,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 }
 
   onRedirectBack = () => {
-    this.location.back();
+    //this.location.back();
+	this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'matches'}})
   }
 
   onToggleJDModal = (status,description) => {

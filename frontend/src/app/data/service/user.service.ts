@@ -120,6 +120,13 @@ export class UserService extends CacheService {
       })
     );
   }
+  deleteJobApplication = (params?) => {
+    return this.apiService.post('/api/user/application/delete', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
 
   // getJob = (params?) => {
   //   return this.apiService.get('/api/jobpostings/job-scoring', params).pipe(
