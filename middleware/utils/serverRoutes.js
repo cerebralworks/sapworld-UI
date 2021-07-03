@@ -43,6 +43,7 @@ const routes = {
     employerProfileView: '/employers/view',
     employerCompanyProfile: '/employers/company-profile',
     employersUpdate: '/employers/update',
+    applicationDelete: '/user/application/delete',
 }
 
 module.exports = routes;
