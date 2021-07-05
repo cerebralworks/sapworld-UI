@@ -27,7 +27,7 @@ export class CandidateJobMatchesComponent implements OnInit {
   public description: any;
   public isOpenedResumeSelectModal: boolean;
   public matchedElement: boolean = true;
-  public missingElement: boolean = true;
+  public missingElement: boolean = false;
   public moreElement: boolean = true;
   public isMultipleMatches: boolean;
   // public matchingUsersMeta: any;

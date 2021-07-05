@@ -41,6 +41,10 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
         if(urlQueryParams && urlQueryParams.id) {
 			sessionStorage.setItem('userId',urlQueryParams.id);
         }
+		if(urlQueryParams.path){
+				sessionStorage.setItem('view-user-path',urlQueryParams.path);
+				this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
+			}
 	}
 	});
 	 
@@ -57,7 +61,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	
     //this.userID = this.route.snapshot.queryParamMap.get('id');
     //this.jobId = this.route.snapshot.queryParamMap.get('jobId');
-	this.router.navigate([], {queryParams: {id: null,jobId:null}, queryParamsHandling: 'merge'});
+	this.router.navigate([], {queryParams: {id: null,jobId:null,path:null}, queryParamsHandling: 'merge'});
   }
 
   ngOnInit(): void {
@@ -71,7 +75,12 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
   }
 onRedirectBack = () => {
     //this.location.back();
-	this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
+	if(sessionStorage.getItem('view-user-path')=='applicants'){
+		sessionStorage.clear();
+		this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'applicants'}});
+	}else{
+		this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
+	}
   }
   onGetPostedJob() {
     let requestParams: any = {};

@@ -29,7 +29,7 @@
               <ng-container *ngIf="appliedJobs?.length; else elseTemplate">
               <tr *ngFor="let item of appliedJobs">
                 <td>
-                  <a class="text-capitalize" [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.user?.id, jobId: item?.job_posting?.id}" href="javascript:;">
+                  <a class="text-capitalize" [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.user?.id, jobId: item?.job_posting?.id, path: 'applicants'}" href="javascript:;">
                     {{item?.user?.first_name + ' ' + item?.user?.last_name}}
                   </a>
                   </td>
@@ -69,9 +69,16 @@
                 <td colspan="6">No Record Found</td>
               </tr>
             </ng-template>
-
+			
             </tbody>
           </table>
+		  <div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="(appliedJobMeta?.count > 0 && appliedJobMeta?.total > this.limit)">>
+					<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+				[length]="length"
+				[pageSize]="limit"
+				[pageIndex]="page-1">
+			</mat-paginator>
+			</div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employer-applied-candidate',
@@ -15,7 +16,10 @@ export class EmployerAppliedCandidateComponent implements OnInit {
   public appliedJobs: any[] = [];
   public appliedJobMeta: any;
   public page: number = 1;
-  public limit: number = 25;
+  public limit: number = 10;
+  length = 0;
+  pageIndex = 1;
+  pageSizeOptions = [5, 10, 25];
   public selectedJob: any;
   public queryParams: any;
   public postedJobMeta: any;
@@ -37,12 +41,14 @@ export class EmployerAppliedCandidateComponent implements OnInit {
         let urlQueryParams = {...params};
         if(urlQueryParams && urlQueryParams.id) {
           this.selectedJob = {id: urlQueryParams.id};
+		  sessionStorage.setItem('view-application-job-id',urlQueryParams.id);
         }
 
         this.queryParams = {...this.queryParams, ...urlQueryParams };
 
       }
     });
+	this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
   }
 
   ngOnInit(): void {
@@ -60,12 +66,14 @@ export class EmployerAppliedCandidateComponent implements OnInit {
   }
 
   onSetJob = (item) =>{
+	  this.page=1;
     this.selectedJob = item;
     if(this.selectedJob && this.selectedJob.id) {
+		sessionStorage.setItem('view-application-job-id',this.selectedJob.id);
       this.appliedJobs = [];
       const removeEmpty = this.utilsHelperService.clean(this.queryParams);
       let url = this.router.createUrlTree(['/employer/dashboard'], {queryParams: {...removeEmpty, id: this.selectedJob.id}, relativeTo: this.route}).toString();
-      this.location.go(url);
+      //this.location.go(url);
       this.onGetAppliedJobs();
     }
   }
@@ -113,10 +121,14 @@ export class EmployerAppliedCandidateComponent implements OnInit {
       requestParams.job_posting = this.selectedJob.id;
       this.employerService.applicationsList(requestParams).subscribe(
         response => {
+			this.appliedJobs =[];
           if(response && response.items && response.items.length > 0) {
             this.appliedJobs = [...this.appliedJobs, ...response.items];
           }
           this.appliedJobMeta = { ...response.meta }
+		  if(this.appliedJobMeta.total){
+			  this.length = this.appliedJobMeta.total;
+		  }
         }, error => {
         }
       )
@@ -148,8 +160,10 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 
   }
 
-  onLoadMoreJob = () => {
-    this.page = this.page + 1;
+  handlePageEvent(event: PageEvent) {
+		//this.length = event.length;
+		//this.pageSize = event.pageSize;
+		this.page = event.pageIndex+1;
     this.onGetAppliedJobs();
   }
 

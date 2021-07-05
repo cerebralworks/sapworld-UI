@@ -243,7 +243,7 @@
 								</span>
 								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
 									<i class="fas fa-times text-danger "></i>
-									{{matchingUsers?.profile?.employer_role_type }}
+									{{postedJobsDetails?.employer_role_type }}
 								</span>
 							</span>
 						</li>
@@ -272,16 +272,25 @@
 				</div>
 				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='0'">
 					<li class="list-group-item">
-						<span *ngIf="matchedElement && (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
-							<div *ngIf="postedJobsDetails?.country == matchingUsers?.profile?.country">
+						<span *ngIf=" (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
+							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="postedJobsDetails?.country != matchingUsers?.profile?.country">
+							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && postedJobsDetails?.work_authorization == 2">
 							<i class="fa fa-check text-green "></i>
 							{{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
 							  0)
 							  ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
 							  translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+							  </div>
+							  <div *ngIf="missingElement && postedJobsDetails?.country != matchingUsers?.profile?.country && (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization ==1) && postedJobsDetails?.work_authorization != 2 ">
+							<i class="fa fa-times text-danger "></i>
+							<span *ngIf="postedJobsDetails?.work_authorization == 0" >
+								{{"postJob.shouldBeACitizenPr" | translate }}
+							</span>
+							<span *ngIf="postedJobsDetails?.work_authorization == 1" >
+								{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+							</span>
 							  </div>
 						</span>
 						<span *ngIf="missingElement && (matchingUsers?.profile?.work_authorization == 1 && postedJobsDetails?.country != matchingUsers?.profile?.country )">
@@ -702,7 +711,7 @@
 								</span>
 								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
 									<i class="fas fa-times text-danger "></i>
-									{{matchingUsers?.profile?.employer_role_type }}
+									{{postedJobsDetails?.employer_role_type }}
 								</span>
 							</span>
 						</li>
@@ -731,16 +740,25 @@
 				</div>
 				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='1'">
 					<li class="list-group-item">
-						<span *ngIf="matchedElement && (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
-							<div *ngIf="postedJobsDetails?.country == matchingUsers?.profile?.country">
+						<span *ngIf=" (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
+							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="postedJobsDetails?.country != matchingUsers?.profile?.country">
+							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && postedJobsDetails?.work_authorization == 2">
 							<i class="fa fa-check text-green "></i>
 							{{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
 							  0)
 							  ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
 							  translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+							  </div>
+							  <div *ngIf="missingElement && postedJobsDetails?.country != matchingUsers?.profile?.country && (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization ==1) && postedJobsDetails?.work_authorization != 2 ">
+							<i class="fa fa-times text-danger "></i>
+							<span *ngIf="postedJobsDetails?.work_authorization == 0" >
+								{{"postJob.shouldBeACitizenPr" | translate }}
+							</span>
+							<span *ngIf="postedJobsDetails?.work_authorization == 1" >
+								{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+							</span>
 							  </div>
 						</span>
 						<span *ngIf="missingElement && (matchingUsers?.profile?.work_authorization == 1 && postedJobsDetails?.country != matchingUsers?.profile?.country )">
@@ -1160,7 +1178,7 @@
 								</span>
 								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
 									<i class="fas fa-times text-danger "></i>
-									{{matchingUsers?.profile?.employer_role_type }}
+									{{postedJobsDetails?.employer_role_type }}
 								</span>
 							</span>
 						</li>
@@ -1189,16 +1207,25 @@
 				</div>
 				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='2'">
 					<li class="list-group-item">
-						<span *ngIf="matchedElement && (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
-							<div *ngIf="postedJobsDetails?.country == matchingUsers?.profile?.country">
+						<span *ngIf=" (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
+							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="postedJobsDetails?.country != matchingUsers?.profile?.country">
+							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && postedJobsDetails?.work_authorization == 2">
 							<i class="fa fa-check text-green "></i>
 							{{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
 							  0)
 							  ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
 							  translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+							  </div>
+							  <div *ngIf="missingElement && postedJobsDetails?.country != matchingUsers?.profile?.country && (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization ==1) && postedJobsDetails?.work_authorization != 2 ">
+							<i class="fa fa-times text-danger "></i>
+							<span *ngIf="postedJobsDetails?.work_authorization == 0" >
+								{{"postJob.shouldBeACitizenPr" | translate }}
+							</span>
+							<span *ngIf="postedJobsDetails?.work_authorization == 1" >
+								{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+							</span>
 							  </div>
 						</span>
 						<span *ngIf="missingElement && (matchingUsers?.profile?.work_authorization == 1 && postedJobsDetails?.country != matchingUsers?.profile?.country )">
@@ -1619,7 +1646,7 @@
 								</span>
 								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
 									<i class="fas fa-times text-danger "></i>
-									{{matchingUsers?.profile?.employer_role_type }}
+									{{postedJobsDetails?.employer_role_type }}
 								</span>
 							</span>
 						</li>
@@ -1648,16 +1675,25 @@
 				</div>
 				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='' || postedJobsDetails?.work_authorization">
 					<li class="list-group-item">
-						<span *ngIf="matchedElement && (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
-							<div *ngIf="postedJobsDetails?.country == matchingUsers?.profile?.country">
+						<span *ngIf=" (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
+							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="postedJobsDetails?.country != matchingUsers?.profile?.country">
+							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && postedJobsDetails?.work_authorization == 2">
 							<i class="fa fa-check text-green "></i>
 							{{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
 							  0)
 							  ? (matchingUsers?.profile?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
 							  translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+							  </div>
+							  <div *ngIf="missingElement && postedJobsDetails?.country != matchingUsers?.profile?.country && (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization ==1) && postedJobsDetails?.work_authorization != 2 ">
+							<i class="fa fa-times text-danger "></i>
+							<span *ngIf="postedJobsDetails?.work_authorization == 0" >
+								{{"postJob.shouldBeACitizenPr" | translate }}
+							</span>
+							<span *ngIf="postedJobsDetails?.work_authorization == 1" >
+								{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+							</span>
 							  </div>
 						</span>
 						<span *ngIf="missingElement && (matchingUsers?.profile?.work_authorization == 1 && postedJobsDetails?.country != matchingUsers?.profile?.country )">

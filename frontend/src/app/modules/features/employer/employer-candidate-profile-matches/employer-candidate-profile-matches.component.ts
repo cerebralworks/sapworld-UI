@@ -179,6 +179,14 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 
     const sb = this.employerService.getJobScoring(requestParams).subscribe(
       response => {
+		  if (response) {
+			if(response.job.skills){
+			response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
+			}
+			if(response.profile.skills){
+			response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
+			}
+		}
 		  if(!isMultipleMatch){
 			  if(response.profile){
 				  if(parseInt(this.userId) == response.profile.id ){
@@ -210,6 +218,14 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 
     const sb = this.employerService.getJobScoring(requestParams).subscribe(
       response => {
+		  if (response) {
+			if(response.job.skills){
+			response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
+			}	
+			if(response.profile.skills){
+			response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
+			}	
+		}
         if (response) {
           this.matchingUsersNew = { ...response };
         }

@@ -23,6 +23,7 @@ export class MatchingJobComponent implements OnInit {
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
   public postedJobs: any[] = [];
+  public nationality: any[] = [];
   public postedJobMeta: any;
   public userInfo: any;
   public currentJobDetails: any;
@@ -130,19 +131,30 @@ export class MatchingJobComponent implements OnInit {
 
 validateAPI = 0;
   ngOnInit(): void {
+	  this.userSharedService.getUserProfileDetails().subscribe(
+      response => {
+        this.userInfo = response;
+		
+        if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length && this.validateAPI == 0) {
+          
+        }
+      }
+    )
+	  this.dataService.getCountryDataSource().subscribe(
+		response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.nationality = response;
+		  this.onGetPostedJob();
+          this.validateAPI++;
+	
+        }
+      }
+    );
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
 
-    this.userSharedService.getUserProfileDetails().subscribe(
-      response => {
-        this.userInfo = response;
-        if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length && this.validateAPI == 0) {
-          this.onGetPostedJob();
-          this.validateAPI++;
-        }
-      }
-    )
+    
 
     this.experienceFilter = [
       {value: {min: 0, max: 1}, text: 'Freshers'},
@@ -169,6 +181,7 @@ validateAPI = 0;
   }
 
   onGetPostedJob() {
+	  //this.userInfo.authorized_country = this.findCountry(this.userInfo.authorized_country);
     let requestParams: any = {...this.queryParams};
     requestParams.page = this.page;
     requestParams.limit = this.limit;
@@ -200,11 +213,22 @@ validateAPI = 0;
     }
     if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true) {
       requestParams.country = [this.userInfo.country];
-	  if(this.userInfo && this.userInfo.preferred_locations) {
+	  if(this.userInfo && this.userInfo.preferred_locations || this.userInfo.authorized_country ) {
 			if(this.userInfo.preferred_locations.length !=0) {
 				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+					//temp = temp.concat(this.userInfo.authorized_country);
+				}
+				
 				if(temp.length!=0){
 					var tempData=temp.map(function(a,b){ return a.country});
+					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+						'france','poland','germany','portugal','greece','slovakia','hungary',
+						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+						]
+					}
 					tempData[tempData.length]=this.userInfo.country;
 					tempData =tempData.filter(function(item, pos) {
 								return tempData.indexOf(item) == pos;
@@ -213,9 +237,51 @@ validateAPI = 0;
 						requestParams.country = tempData.join(',');
 					}
 				}
-			}
+			}/* else if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+				
+				var temp = this.userInfo.authorized_country ; 
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.country});
+					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+						'france','poland','germany','portugal','greece','slovakia','hungary',
+						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+						]
+					}
+					tempData[tempData.length]=this.userInfo.country;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.country = tempData.join(',');
+					}
+				}
+			} */
 	  }
-    }
+    }/* else{
+		if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+				
+			var temp = this.userInfo.authorized_country ; 
+			if(temp.length!=0){
+				var tempData=temp.map(function(a,b){ return a.country});
+				if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+					var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+					'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+					'france','poland','germany','portugal','greece','slovakia','hungary',
+					'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+					]
+				}
+				tempData[tempData.length]=this.userInfo.country;
+				tempData =tempData.filter(function(item, pos) {
+							return tempData.indexOf(item) == pos;
+						})
+				if(tempData && tempData.length){
+					requestParams.country = tempData.join(',');
+				}
+			}
+		}
+	} */
     
     if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length) {
 		var temps = [];
@@ -429,6 +495,27 @@ validateAPI = 0;
 		//this.pageSize = event.pageSize;
 		this.page = event.pageIndex+1;
 		this.onGetPostedJob();
+	}
+	
+	findCountry(value){
+		if(value){
+			if(this.nationality){
+				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
+
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['nicename'];
+					})
+					if(temp.length !=0){
+						return temp;
+					}
+				}
+			
+			}
+			
+		}
+		
+		return [];
 	}
 
 }

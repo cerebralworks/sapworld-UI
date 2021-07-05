@@ -32,10 +32,14 @@ export class CandidateJobViewComponent implements OnInit {
 
         if(urlQueryParams && urlQueryParams.id) {
 			sessionStorage.setItem('view-job-id',urlQueryParams.id);
+			if(urlQueryParams.path){
+				sessionStorage.setItem('view-job-path',urlQueryParams.path);
+				this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
+			}
         }
 	}
 	});
-	this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
+	this.router.navigate([], {queryParams: {id: null,path: null}, queryParamsHandling: 'merge'});
 	var jobIds:any = 0;
 	if(sessionStorage.getItem('view-job-id')){
 		jobIds = parseInt(sessionStorage.getItem('view-job-id'));
@@ -68,7 +72,12 @@ export class CandidateJobViewComponent implements OnInit {
 onRedirectBack = () => {
    // this.location.back();
    
-   this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
+	if(sessionStorage.getItem('view-job-path')=='applied'){
+		sessionStorage.clear();
+		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'applied'}});
+	}else{
+		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
+	}
    
   }
   onToggleJDModal = (status) => {
