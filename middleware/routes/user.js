@@ -211,5 +211,11 @@ module.exports = (app, env, rp) => {
     let requestBody = { ...req.query };   
     requestCustom.get(`${serverRoutes.userScoring}`, req, res, requestBody);
   });
+  
+    app.post("/api/user/application/delete", (req, res) => {
+    let requestBody = { ...req.body };    
+	console.log(requestBody.id);
+    requestCustom.post(`${serverRoutes.applicationDelete}/${requestBody.id}`, req, res, requestBody);
+  });
 
 };

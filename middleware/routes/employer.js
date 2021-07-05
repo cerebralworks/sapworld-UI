@@ -139,8 +139,7 @@ module.exports = (app, env, rp) => {
     let requestBody = { ...req.query };    
     requestCustom.get(`${serverRoutes.savedProfiles}`, req, res, requestBody);
   });
-
-   /**
+/**
    * Employee Profile Posting
    */
   app.post("/api/employers/update", (req, res) => {
