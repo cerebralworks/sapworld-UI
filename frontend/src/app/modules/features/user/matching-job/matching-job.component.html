@@ -27,8 +27,8 @@
               <div class="alert alert-find alert-dismissible " role="alert">
                 <a href="#" class="text-dark"> UK (7) </a>
               </div> -->
-              <div *ngIf="postedJobs.length > 0" class="alert alert-find alert-dismissible " role="alert">
-                <a style="color: #ff2972;"> {{postedJobs.length}} Records Found</a>
+              <div  *ngFor="let item of postedJobCountry; let i=index" class="alert alert-find alert-dismissible " role="alert">
+                <a style="text-transform: capitalize;" (click)="ValidateByCountry(item.country,$event)"> {{item.country}} ({{item.count}})</a>
               </div>
             </div>
           </div> 

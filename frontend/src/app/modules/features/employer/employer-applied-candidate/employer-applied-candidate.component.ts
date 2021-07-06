@@ -126,6 +126,9 @@ export class EmployerAppliedCandidateComponent implements OnInit {
             this.appliedJobs = [...this.appliedJobs, ...response.items];
           }
           this.appliedJobMeta = { ...response.meta }
+		  if(document.getElementById('ApplicantsCount')){
+				document.getElementById('ApplicantsCount').innerHTML="("+this.appliedJobMeta.total+")";
+			}
 		  if(this.appliedJobMeta.total){
 			  this.length = this.appliedJobMeta.total;
 		  }

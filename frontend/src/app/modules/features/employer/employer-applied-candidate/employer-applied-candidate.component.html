@@ -20,9 +20,10 @@
               <th scope="col">{{"dashboard.position" | translate}}</th>
               <th scope="col">{{"dashboard.mobile" | translate}}</th>
               <th scope="col">{{"dashboard.email" | translate}}</th>
-              <th scope="col">{{"postJob.location" | translate}}</th>
-              <th scope="col">{{"dashboard.shortlist" | translate}}</th>
-              <th scope="col">{{"dashboard.action" | translate}}</th>
+              <!-- <th scope="col">{{"postJob.location" | translate}}</th> -->
+              <th scope="col">Job Details</th>
+              <th scope="col">Feedback</th>
+              <!-- <th scope="col">{{"dashboard.action" | translate}}</th> -->
             </tr>
             </thead>
             <tbody>
@@ -38,17 +39,18 @@
                 </td>
                 <td>{{item?.user?.phone ? (item?.user?.phone | phone) : '--'}}</td>
                 <td>{{item?.user?.email ? item?.user?.email : '--'}}</td>
-                <td class="text-capitalize">
+                <!-- <td class="text-capitalize">
                   {{item?.user?.city ? item?.user?.city + ', ' : ''}}
                   {{item?.user?.state ? item?.user?.state + ', ' : ''}}
                   <span class="text-uppercase">
                     {{item?.user?.country ? item?.user?.country : ''}}
                   </span>
-                </td>
+                </td> -->
+                <td class="text-capitalize"> {{item?.job_posting?.title ? item?.job_posting?.title : '--'}}</td>
                 <td class="text-center text-capitalize">
                   <select class="form-control form-control-td" (change)="onShortListUser(item, $event?.target?.value)">
                     <option [value]="null" [selected]="true" >Select</option>
-                    <option [value]="true" [selected]="item?.short_listed == true">Shortlist</option>
+                    <option [value]="true" [selected]="item?.short_listed == true">Shortlist for Interview</option>
                     <option [value]="false">Not a Fit</option>
                   </select>
                   </td>
@@ -57,11 +59,11 @@
                    {{item?.short_listed ? 'Remove' : 'Add'}}
                   </button>
                 </td> -->
-                <td class="text-capitalize">
+                <!-- <td class="text-capitalize">
                   <button  [routerLink]="['/employer/job-candidate-matches', item?.job_posting?.id, item?.user?.id]" type="button" class="btn btn-sm btn-secondary">
                     View Score
                   </button>
-                </td>
+                </td> -->
               </tr>
             </ng-container>
             <ng-template #elseTemplate>

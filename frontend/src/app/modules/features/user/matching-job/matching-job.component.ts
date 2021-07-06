@@ -16,6 +16,8 @@ import {PageEvent} from '@angular/material/paginator';
 export class MatchingJobComponent implements OnInit {
 
   public isOpenedResumeSelectModal: boolean = false;
+  public countrySelect: boolean = false;
+  public Country: any = [];
   public page: number = 1;
   public limit: number = 10;
   length = 0;
@@ -24,6 +26,7 @@ export class MatchingJobComponent implements OnInit {
   showFirstLastButtons = true;
   public postedJobs: any[] = [];
   public nationality: any[] = [];
+  public postedJobCountry: any[] = [];
   public postedJobMeta: any;
   public userInfo: any;
   public currentJobDetails: any;
@@ -189,7 +192,7 @@ validateAPI = 0;
     requestParams.work_authorization = '';
     requestParams.visa_sponsered = false;
 	
-    if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true) {
+    if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true ) {
       requestParams.work_authorization = this.userInfo.work_authorization;
       requestParams.visa_sponsered = this.userInfo.visa_sponsered;
 	  
@@ -211,7 +214,7 @@ validateAPI = 0;
 			}
 	  }
     }
-    if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true) {
+    if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true ) {
       requestParams.country = [this.userInfo.country];
 	  if(this.userInfo && this.userInfo.preferred_locations || this.userInfo.authorized_country ) {
 			if(this.userInfo.preferred_locations.length !=0) {
@@ -282,7 +285,12 @@ validateAPI = 0;
 			}
 		}
 	} */
-    
+    if(this.Country.length!=0 ){
+		if(this.Country && this.Country.length){
+			requestParams.country = this.Country.join(',');
+			requestParams.city =null;
+		}
+	}
     if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length) {
 		var temps = [];
 		if(this.userInfo.hands_on_experience && this.userInfo.hands_on_experience.length){
@@ -344,6 +352,14 @@ validateAPI = 0;
           this.postedJobs = [...this.postedJobs, ...response.items];
         }
 		 this.postedJobMeta = { ...response.meta };
+		 if(this.countrySelect==false){
+			this.postedJobCountry = response['country'];
+			this.countrySelect=true;
+			if(document.getElementById('matchesCountValue')){
+				document.getElementById('matchesCountValue').innerHTML="("+this.postedJobMeta.total+")";
+			}
+			 
+		 }
 		if(this.postedJobMeta.total){
 			this.length = this.postedJobMeta.total;
 		}
@@ -352,7 +368,27 @@ validateAPI = 0;
       }
     )
   }
-
+	
+	ValidateByCountry(value,event){
+		if(value!=undefined && value !=null && value !=''){	
+			
+			if(event.target.style.color!="rgb(255, 41, 114)"){
+				event.target.style.color="rgb(255, 41, 114)";
+				if(this.Country.length==0){
+					this.Country = [value];
+				}else{
+					this.Country = this.Country.filter(function(a,b){ return a != value});
+					this.Country.push(value);
+				}
+			}else{
+				event.target.style.color='#000';
+				
+					this.Country = this.Country.filter(function(a,b){ return a != value});
+			}
+			this.onGetPostedJob();
+			
+		}
+	}
   onToggleResumeSelectModal = (status, item?) => {
     if(!this.utilsHelperService.isEmptyObj(item)) {
       this.currentJobDetails = item;

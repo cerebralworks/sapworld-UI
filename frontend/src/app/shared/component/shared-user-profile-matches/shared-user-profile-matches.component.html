@@ -276,7 +276,7 @@
 							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && postedJobsDetails?.work_authorization == 2">
+							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && checkCountry(postedJobsDetails?.country) && postedJobsDetails?.work_authorization == 2">
 							<i class="fa fa-check text-green "></i>
 							{{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
 							  0)
@@ -744,7 +744,7 @@
 							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && postedJobsDetails?.work_authorization == 2">
+							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && checkCountry(postedJobsDetails?.country) && postedJobsDetails?.work_authorization == 2">
 							<i class="fa fa-check text-green "></i>
 							{{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
 							  0)
@@ -1211,7 +1211,7 @@
 							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && postedJobsDetails?.work_authorization == 2">
+							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && checkCountry(postedJobsDetails?.country) && postedJobsDetails?.work_authorization == 2">
 							<i class="fa fa-check text-green "></i>
 							{{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
 							  0)
@@ -1679,7 +1679,7 @@
 							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && postedJobsDetails?.work_authorization == 2">
+							  <div *ngIf="matchedElement && postedJobsDetails?.country != matchingUsers?.profile?.country && checkCountry(postedJobsDetails?.country) && postedJobsDetails?.work_authorization == 2">
 							<i class="fa fa-check text-green "></i>
 							{{(matchingUsers?.profile?.work_authorization || matchingUsers?.profile?.work_authorization ==
 							  0)

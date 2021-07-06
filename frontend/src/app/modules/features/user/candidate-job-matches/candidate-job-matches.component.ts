@@ -66,11 +66,13 @@ export class CandidateJobMatchesComponent implements OnInit {
     this.jobId = jobIds;
     this.userSharedService.getUserProfileDetails().subscribe(
       response => {
+		  if(response){
 		  if(response.skills){
 				response.skills = this.utilsHelperService.differenceByPropValArray(response.skills, response.hands_on_experience, 'skill_id')
 				
 			}
-        this.userInfo = response;
+			this.userInfo = response;
+		  }
       }
     )
     if (this.jobId) {

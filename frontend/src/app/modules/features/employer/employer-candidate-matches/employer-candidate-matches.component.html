@@ -136,6 +136,13 @@
 	</div>
     <div class="row">
       <div class="col-lg-8 col-md-7">
+		<div class="col-lg-12 mt-3">
+            <div class="clearfix">
+              <div  *ngFor="let item of postedJobCountry; let i=index" class="alert alert-find alert-dismissible " role="alert">
+                <a style="text-transform: capitalize;" (click)="ValidateByCountry(item.country,$event)"> {{item.country}} ({{item.count}})</a>
+              </div>
+            </div>
+          </div> 
         <!-- <div class="row">
           <div class="col-lg-5">
             <form class="form-inline">

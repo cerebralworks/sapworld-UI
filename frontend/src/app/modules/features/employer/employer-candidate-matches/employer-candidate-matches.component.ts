@@ -29,7 +29,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   pageIndex = 1;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
-  
+  public countrySelect: boolean = false;
+  public postedJobCountry: any = [];
+  public Country: any = [];
   public userList: any[] = [];
   public userMeta: any;
   public userInfo: any;
@@ -199,6 +201,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   }
 
   onSetJob = (item) =>{
+	  this.Country=[];
+	  this.countrySelect=false;
 	  this.page=1;
 	  this.resetData();
 	  this.clearFilters();
@@ -400,7 +404,16 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
         }else if(response && response.items && response.items.length == 0) {
 			this.userList = [];
 		}
-        this.userMeta = { ...response.meta };
+		this.userMeta = { ...response.meta };
+		if(this.countrySelect==false){
+			this.postedJobCountry = response['country'];
+			this.countrySelect=true;
+			if(document.getElementById('MatchesCount')){
+				document.getElementById('MatchesCount').innerHTML="("+this.userMeta.total+")";
+			}
+			 
+		 }
+        
 		
 		if(this.userMeta.total){
 			this.length = this.userMeta.total
@@ -803,6 +816,26 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		this.page = event.pageIndex+1;
 		if(this.selectedJob &&this.selectedJob.id) {
 		  this.onGetCandidateList(this.selectedJob.id);
+		}
+	}
+	ValidateByCountry(value,event){
+		if(value!=undefined && value !=null && value !=''){	
+			
+			if(event.target.style.color!="rgb(255, 41, 114)"){
+				event.target.style.color="rgb(255, 41, 114)";
+				if(this.Country.length==0){
+					this.Country = [value];
+				}else{
+					this.Country = this.Country.filter(function(a,b){ return a != value});
+					this.Country.push(value);
+				}
+			}else{
+				event.target.style.color='#000';
+				
+					this.Country = this.Country.filter(function(a,b){ return a != value});
+			}
+			this.onGetCandidateList(this.selectedJob.id);
+			
 		}
 	}
 

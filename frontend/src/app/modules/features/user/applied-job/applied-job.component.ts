@@ -38,6 +38,9 @@ export class AppliedJobComponent implements OnInit {
             this.appliedJobs = [...this.appliedJobs, ...response.items];
           }
           this.appliedJobMeta = { ...response.meta }
+		  if(document.getElementById('appliedCountValue')){
+				document.getElementById('appliedCountValue').innerHTML="("+this.appliedJobMeta.total+")";
+			}
 		  if(this.appliedJobMeta.total){
 			  this.length =this.appliedJobMeta.total;
 		  }

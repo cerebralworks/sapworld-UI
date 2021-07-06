@@ -308,8 +308,8 @@ this.dataService.getLanguageDataSource().subscribe(
       end_to_end_implementation: new FormControl(''),
       education: new FormControl(''),
       travel_opportunity: new FormControl(''),
-      remote: new FormControl(''),
-      willing_to_relocate: new FormControl(''),
+      //remote: new FormControl(''),
+     // willing_to_relocate: new FormControl(''),
       language: new FormControl(''),
     }
 

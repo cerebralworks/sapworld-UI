@@ -13,3 +13,6 @@
     border-bottom: 1px solid #ccc;
     width: fit-content;
 }
+.nav-item{
+	font-size:12px !important;
+}

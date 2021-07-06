@@ -31,6 +31,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   public matchedElement: boolean = true;
   public missingElement: boolean = false;
   public moreElement: boolean = true;
+  public isHideData: boolean = true;
   public isMultipleMatches: boolean = false;
   public matchingUsersMeta: any = { count: 0 };
   public matchingUsersNew: any;
