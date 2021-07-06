@@ -225,7 +225,27 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.work_authorization=='0'">
 				 <ul class="list-group">
 					<li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization)">
+						<span *ngIf="matchedElement && (jobInfo?.country == userInfo?.country || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
+							<div *ngIf="jobInfo?.country == userInfo?.country">
+							<i class="fa fa-check text-green "></i>  I am a Citizen
+							  </div>
+							  <div *ngIf="jobInfo?.country != userInfo?.country && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
+								<i class="fa fa-check text-green "></i>
+								{{"postYourResume.iHaveWorkAuthorization" | translate}}
+							  </div>
+							  <div *ngIf="jobInfo?.visa_sponsorship == true && jobInfo?.country != userInfo?.country && userInfo?.work_authorization == 1 ">
+								<i class="fa fa-check text-green "></i>
+								{{"postYourResume.iNeedVisaAponsorship" | translate}}
+							  </div>
+						</span>
+						<span *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && jobInfo?.country != userInfo?.country )">
+							 <i class="fa fa-times text-danger "></i>
+							 {{(userInfo?.work_authorization || userInfo?.work_authorization ==
+							 0)
+							 ? (userInfo?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+							 translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+						</span>
+                        <!-- <span *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization || jobInfo.work_authorization == 2 )">
                           <i class="fa fa-check text-green "></i>
                           {{(jobInfo.work_authorization || jobInfo.work_authorization ==
                             0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
@@ -234,11 +254,7 @@
                           <i class="fa fa-times text-danger "></i>
                           {{(jobInfo.work_authorization || jobInfo.work_authorization ==
                             0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
-                          <!-- {{(jobInfo.work_authorization || jobInfo.work_authorization ==
-                            0)
-                            ? (jobInfo.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                            translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}} -->
-                        </span>
+                        </span> -->
                       </li>
 				</ul>
 			</div>
@@ -324,12 +340,12 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.travel_opportunity=='0'">
 				<ul class="list-group">
                       <li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.travel_opportunity >= userInfo?.travel)">
+                        <span *ngIf="matchedElement && (jobInfo.travel_opportunity <= userInfo?.travel)">
                           <i class="fa fa-check text-green "></i>
                           {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
                             jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
                         </span>
-                        <span *ngIf="missingElement && (jobInfo.travel_opportunity < userInfo?.travel)">
+                        <span *ngIf="missingElement && (jobInfo.travel_opportunity > userInfo?.travel)">
                         <i class="fa fa-times text-danger "></i>
                         {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
                           jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
@@ -610,7 +626,27 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.work_authorization=='1'">
 				 <ul class="list-group">
 					<li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization)">
+						<span *ngIf="matchedElement && (jobInfo?.country == userInfo?.country || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
+							<div *ngIf="jobInfo?.country == userInfo?.country">
+							<i class="fa fa-check text-green "></i>  I am a Citizen
+							  </div>
+							  <div *ngIf="jobInfo?.country != userInfo?.country && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
+								<i class="fa fa-check text-green "></i>
+								{{"postYourResume.iHaveWorkAuthorization" | translate}}
+							  </div>
+							  <div *ngIf="jobInfo?.visa_sponsorship == true && jobInfo?.country != userInfo?.country && userInfo?.work_authorization == 1 ">
+								<i class="fa fa-check text-green "></i>
+								{{"postYourResume.iNeedVisaAponsorship" | translate}}
+							  </div>
+						</span>
+						<span *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && jobInfo?.country != userInfo?.country )">
+							 <i class="fa fa-times text-danger "></i>
+							 {{(userInfo?.work_authorization || userInfo?.work_authorization ==
+							 0)
+							 ? (userInfo?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+							 translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+						</span>
+                        <!-- <span *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization || jobInfo.work_authorization == 2 )">
                           <i class="fa fa-check text-green "></i>
                           {{(jobInfo.work_authorization || jobInfo.work_authorization ==
                             0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
@@ -619,11 +655,7 @@
                           <i class="fa fa-times text-danger "></i>
                           {{(jobInfo.work_authorization || jobInfo.work_authorization ==
                             0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
-                          <!-- {{(jobInfo.work_authorization || jobInfo.work_authorization ==
-                            0)
-                            ? (jobInfo.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                            translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}} -->
-                        </span>
+                          </span> -->
                       </li>
 				</ul>
 			</div>
@@ -709,12 +741,12 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.travel_opportunity=='1'">
 				<ul class="list-group">
                       <li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.travel_opportunity >= userInfo?.travel)">
+                        <span *ngIf="matchedElement && (jobInfo.travel_opportunity <= userInfo?.travel)">
                           <i class="fa fa-check text-green "></i>
                           {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
                             jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
                         </span>
-                        <span *ngIf="missingElement && (jobInfo.travel_opportunity < userInfo?.travel)">
+                        <span *ngIf="missingElement && (jobInfo.travel_opportunity > userInfo?.travel)">
                         <i class="fa fa-times text-danger "></i>
                         {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
                           jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
@@ -997,7 +1029,27 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.work_authorization=='2'">
 				 <ul class="list-group">
 					<li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization)">
+						<span *ngIf="matchedElement && (jobInfo?.country == userInfo?.country || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
+							<div *ngIf="jobInfo?.country == userInfo?.country">
+							<i class="fa fa-check text-green "></i>  I am a Citizen
+							  </div>
+							  <div *ngIf="jobInfo?.country != userInfo?.country && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
+								<i class="fa fa-check text-green "></i>
+								{{"postYourResume.iHaveWorkAuthorization" | translate}}
+							  </div>
+							  <div *ngIf="jobInfo?.visa_sponsorship == true && jobInfo?.country != userInfo?.country && userInfo?.work_authorization == 1 ">
+								<i class="fa fa-check text-green "></i>
+								{{"postYourResume.iNeedVisaAponsorship" | translate}}
+							  </div>
+						</span>
+						<span *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && jobInfo?.country != userInfo?.country )">
+							 <i class="fa fa-times text-danger "></i>
+							 {{(userInfo?.work_authorization || userInfo?.work_authorization ==
+							 0)
+							 ? (userInfo?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+							 translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+						</span>
+                       <!--  <span *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization || jobInfo.work_authorization == 2 )">
                           <i class="fa fa-check text-green "></i>
                           {{(jobInfo.work_authorization || jobInfo.work_authorization ==
                             0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
@@ -1006,11 +1058,7 @@
                           <i class="fa fa-times text-danger "></i>
                           {{(jobInfo.work_authorization || jobInfo.work_authorization ==
                             0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
-                          <!-- {{(jobInfo.work_authorization || jobInfo.work_authorization ==
-                            0)
-                            ? (jobInfo.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                            translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}} -->
-                        </span>
+                         </span> -->
                       </li>
 				</ul>
 			</div>
@@ -1096,12 +1144,12 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.travel_opportunity=='2'">
 				<ul class="list-group">
                       <li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.travel_opportunity >= userInfo?.travel)">
+                        <span *ngIf="matchedElement && (jobInfo.travel_opportunity <= userInfo?.travel)">
                           <i class="fa fa-check text-green "></i>
                           {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
                             jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
                         </span>
-                        <span *ngIf="missingElement && (jobInfo.travel_opportunity < userInfo?.travel)">
+                        <span *ngIf="missingElement && (jobInfo.travel_opportunity > userInfo?.travel)">
                         <i class="fa fa-times text-danger "></i>
                         {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
                           jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
@@ -1161,11 +1209,6 @@
 			<div class="pj-title " *ngIf="!isMultipleMatches" >
 				<h6 class="mb-0" type="button">
 					{{"dashboard.otherPreferences" | translate }}
-				 </h6>
-			</div>
-			<div class="pj-title mt-2" *ngIf="isMultipleMatches" >
-				<h6 class="mb-0" type="button">
-					
 				 </h6>
 			</div>
 		</div>
@@ -1384,7 +1427,27 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.work_authorization==''">
 				 <ul class="list-group">
 					<li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization)">
+						<span *ngIf="matchedElement && (jobInfo?.country == userInfo?.country || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
+							<div *ngIf="jobInfo?.country == userInfo?.country">
+							<i class="fa fa-check text-green "></i>  I am a Citizen
+							  </div>
+							  <div *ngIf="jobInfo?.country != userInfo?.country && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
+								<i class="fa fa-check text-green "></i>
+								{{"postYourResume.iHaveWorkAuthorization" | translate}}
+							  </div>
+							  <div *ngIf="jobInfo?.visa_sponsorship == true && jobInfo?.country != userInfo?.country && userInfo?.work_authorization == 1 ">
+								<i class="fa fa-check text-green "></i>
+								{{"postYourResume.iNeedVisaAponsorship" | translate}}
+							  </div>
+						</span>
+						<span *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && jobInfo?.country != userInfo?.country )">
+							 <i class="fa fa-times text-danger "></i>
+							 {{(userInfo?.work_authorization || userInfo?.work_authorization ==
+							 0)
+							 ? (userInfo?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+							 translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+						</span>				
+                        <!-- <span *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization || jobInfo.work_authorization == 2 )">
                           <i class="fa fa-check text-green "></i>
                           {{(jobInfo.work_authorization || jobInfo.work_authorization ==
                             0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
@@ -1393,11 +1456,7 @@
                           <i class="fa fa-times text-danger "></i>
                           {{(jobInfo.work_authorization || jobInfo.work_authorization ==
                             0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
-                          <!-- {{(jobInfo.work_authorization || jobInfo.work_authorization ==
-                            0)
-                            ? (jobInfo.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
-                            translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}} -->
-                        </span>
+                        </span> -->
                       </li>
 				</ul>
 			</div>
@@ -1483,12 +1542,12 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.travel_opportunity=='' && jobInfo?.travel_opportunity ">
 				<ul class="list-group">
                       <li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.travel_opportunity >= userInfo?.travel)">
+                        <span *ngIf="matchedElement && (jobInfo.travel_opportunity <= userInfo?.travel)">
                           <i class="fa fa-check text-green "></i>
                           {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
                             jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
                         </span>
-                        <span *ngIf="missingElement && (jobInfo.travel_opportunity < userInfo?.travel)">
+                        <span *ngIf="missingElement && (jobInfo.travel_opportunity > userInfo?.travel)">
                         <i class="fa fa-times text-danger "></i>
                         {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
                           jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}

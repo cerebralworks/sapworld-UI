@@ -11,6 +11,7 @@ import { SavedProfileComponent } from '../saved-profile/saved-profile.component'
 import { AddNotesComponent } from '../modal/add-notes/add-notes.component';
 import { EmployerSubscriptionComponent } from '../modal/employer-subscription/employer-subscription.component';
 import { MatchOtherPostComponent } from '../modal/match-other-post/match-other-post.component';
+import { MaterialModule } from '@shared/material.module';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    MaterialModule,
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule, AddNotesComponent, EmployerSubscriptionComponent]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
@@ -28,10 +28,40 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
     public sharedService: SharedService,
     private location: Location,
     public utilsHelperService: UtilsHelperService,
-    private employerService: EmployerService
+    private employerService: EmployerService,
+    private router: Router
   ) {
-    this.userID = this.route.snapshot.queryParamMap.get('id');
-    this.jobId = this.route.snapshot.queryParamMap.get('jobId');
+	  this.route.queryParams.subscribe(params => {
+      if(params && !this.utilsHelperService.isEmptyObj(params)) {
+        let urlQueryParams = {...params};
+
+        if(urlQueryParams && urlQueryParams.jobId) {
+			sessionStorage.setItem('jobId',urlQueryParams.jobId);
+        }
+        if(urlQueryParams && urlQueryParams.id) {
+			sessionStorage.setItem('userId',urlQueryParams.id);
+        }
+		if(urlQueryParams.path){
+				sessionStorage.setItem('view-user-path',urlQueryParams.path);
+				this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
+			}
+	}
+	});
+	 
+	 var jobIds:any=0;
+	 var userIds:any=0;
+	 if(sessionStorage.getItem('jobId')){
+		jobIds = parseInt(sessionStorage.getItem('jobId'));
+	}if(sessionStorage.getItem('userId')){
+		userIds = parseInt(sessionStorage.getItem('userId'));
+	}
+	 
+    this.jobId = jobIds;
+    this.userID = userIds;
+	
+    //this.userID = this.route.snapshot.queryParamMap.get('id');
+    //this.jobId = this.route.snapshot.queryParamMap.get('jobId');
+	this.router.navigate([], {queryParams: {id: null,jobId:null,path:null}, queryParamsHandling: 'merge'});
   }
 
   ngOnInit(): void {
@@ -44,7 +74,13 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
     }
   }
 onRedirectBack = () => {
-    this.location.back();
+    //this.location.back();
+	if(sessionStorage.getItem('view-user-path')=='applicants'){
+		sessionStorage.clear();
+		this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'applicants'}});
+	}else{
+		this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
+	}
   }
   onGetPostedJob() {
     let requestParams: any = {};

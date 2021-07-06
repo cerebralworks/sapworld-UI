@@ -23,7 +23,7 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 	
 	public required: boolean = true;
 	public desired: boolean = true;
-	public optional: boolean = true;
+	public optional: boolean = false;
 	public nice: boolean = true;
 	public IsValidate: boolean = false;
 	
@@ -54,6 +54,27 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 		var arr = [];
 		if(this.postedJobsDetails){
 			  if(this.postedJobsDetails.match_select){
+				  this.postedJobsDetails.match_select.remote="false";
+				  this.postedJobsDetails.match_select.willing_to_relocate="false";
+				  if(!this.postedJobsDetails.certification){
+					this.postedJobsDetails.match_select.certification="false";
+					  
+				  }else if(this.postedJobsDetails.certification.length==0){
+					this.postedJobsDetails.match_select.certification="false";
+					  
+				  }if(!this.postedJobsDetails.education || this.postedJobsDetails.education=='-1'){
+					this.postedJobsDetails.match_select.education="false";
+					  
+				  }if(!this.postedJobsDetails.employer_role_type || this.postedJobsDetails.employer_role_type=='' || this.postedJobsDetails.employer_role_type==undefined){
+					this.postedJobsDetails.match_select.employer_role_type="false";
+					  
+				  }if(!this.postedJobsDetails.facing_role || this.postedJobsDetails.facing_role=='' || this.postedJobsDetails.facing_role==undefined){
+					this.postedJobsDetails.match_select.facing_role="false";
+					  
+				  }if(!this.postedJobsDetails.training_experience || this.postedJobsDetails.training_experience=='' || this.postedJobsDetails.training_experience==undefined){
+					this.postedJobsDetails.match_select.training_experience="false";
+					  
+				  }
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 
 				});
@@ -300,6 +321,9 @@ findLanguageArray(value){
 	   if(event.target.childNodes['0']){
 		event.target.childNodes['0'].className='';
 	  }
+	this.missingElement = false;
+	document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light';
+	
 
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
@@ -309,6 +333,16 @@ findLanguageArray(value){
 		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 	  }
+	  if(document.getElementById('matchBtnVal').childNodes['0']){
+		document.getElementById('matchBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('missBtnVal').childNodes['0']){
+		document.getElementById('missBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('moreBtnVal').childNodes['0']){
+		document.getElementById('moreBtnVal').childNodes['0'].className='';
+	  }
+	  
   }
 
   onShowMissing = (event) => {
@@ -316,13 +350,24 @@ findLanguageArray(value){
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		  event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
 			this.missingElement = false;
+			document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		this.matchedElement = true;
+		this.moreElement = true;
 	 }else{
 		  event.target.className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.missingElement = true;
+		  document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light ';
+		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light ';
+		this.matchedElement = false;
+		this.moreElement = false;
 	  }
 	   if(event.target.childNodes['0']){
 		event.target.childNodes['0'].className='';
 	  }
+	  
+		
+	  
 
 	  if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
@@ -331,6 +376,16 @@ findLanguageArray(value){
 		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  }
+	  
+	  if(document.getElementById('matchBtnVal').childNodes['0']){
+		document.getElementById('matchBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('missBtnVal').childNodes['0']){
+		document.getElementById('missBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('moreBtnVal').childNodes['0']){
+		document.getElementById('moreBtnVal').childNodes['0'].className='';
 	  }
     
   }
@@ -347,6 +402,9 @@ findLanguageArray(value){
 	  if(event.target.childNodes['0']){
 		event.target.childNodes['0'].className='';
 	  }
+	this.missingElement = false;
+	document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light';
+	
 
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
@@ -355,6 +413,15 @@ findLanguageArray(value){
 		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  }
+	  if(document.getElementById('matchBtnVal').childNodes['0']){
+		document.getElementById('matchBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('missBtnVal').childNodes['0']){
+		document.getElementById('missBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('moreBtnVal').childNodes['0']){
+		document.getElementById('moreBtnVal').childNodes['0'].className='';
 	  }
   }
 
@@ -367,4 +434,41 @@ findLanguageArray(value){
 		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
   }
+  
+  checkCountry(country){
+	  if(country){
+		  if(this.matchingUsers.profile){
+			  var Temp:any = this.findCountrys(this.matchingUsers.profile.authorized_country);
+			  if(Temp.length !=0){
+				  if(Temp.filter(function(a,b){return a == country}).length !=0){
+					  return true;
+				  }
+			  }
+		  }
+				
+			
+	  }
+	  return false;
+  }
+  
+  findCountrys(value){
+		if(value){
+			if(this.nationality){
+				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
+
+				if(array.length !=0){
+					var temp = array.map(function(a,b){
+						return a['nicename'];
+					})
+					if(temp.length !=0){
+						return temp;
+					}
+				}
+			
+			}
+			
+		}
+		
+		return [];
+	}
 }

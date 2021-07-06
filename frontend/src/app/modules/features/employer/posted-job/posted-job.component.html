@@ -33,7 +33,7 @@
             <tbody>
             <ng-container *ngIf="postedJobs?.length > 0; else elseTemplate">
               <tr *ngFor="let item of postedJobs; let i=index">
-                <td><a class="text-capitalize" href="javascript:;" [routerLink]="['/employer/job-detail-view', item?.id]" routerLinkActive="router-link-active" >
+                <td><a class="text-capitalize" href="javascript:;" [routerLink]="['/employer/job-detail-view', 'details']" [queryParams]="{id: item?.id}" routerLinkActive="router-link-active" >
                 {{item?.title}}</a></td>
                 <!-- <td>
                   {{item?.company?.company ? item?.company?.company : '-'}}
@@ -48,7 +48,7 @@
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
                 <td class="text-center">
                   <a  [routerLink]="['/employer/dashboard']"
-                  [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;">0</a></td>
+                  [queryParams]="{activeTab: 'matches', id: item?.id}" [skipLocationChange]="true" href="javascript:;">0</a></td>
                 <td class="text-center"><a href="job-applied.html">0</a></td>
                 <td class="text-center"><a href="job-shortlisted.html">0</a></td>
                 <td class="text-center">

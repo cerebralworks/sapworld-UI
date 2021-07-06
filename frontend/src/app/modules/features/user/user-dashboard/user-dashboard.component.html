@@ -41,7 +41,7 @@
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'matches', tabNumber: 2})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}}
-              <!-- <small>(39)</small> -->
+              <small id="matchesCountValue" *ngIf="currentTabInfo.tabNumber == 2">(0)</small> 
             </a>
           </li>
           <!-- <li class="nav-item">
@@ -53,7 +53,7 @@
             <a (click)="onTabChange({tabName: 'applied', tabNumber: 4})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">
               {{"dashboard.jobsApplied" | translate}}
-              <!-- <small>(12)</small> -->
+               <small id="appliedCountValue" *ngIf="currentTabInfo.tabNumber == 4">(12)</small> 
             </a>
           </li>
           <!-- <li class="nav-item">

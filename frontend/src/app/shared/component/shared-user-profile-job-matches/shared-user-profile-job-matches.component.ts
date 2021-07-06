@@ -49,6 +49,27 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		var arr = [];
 		if(this.postedJobsDetails){
 			  if(this.postedJobsDetails.match_select){
+				  this.postedJobsDetails.match_select.remote="false";
+				  this.postedJobsDetails.match_select.willing_to_relocate="false";
+				  if(!this.postedJobsDetails.certification){
+					this.postedJobsDetails.match_select.certification="false";
+					  
+				  }else if(this.postedJobsDetails.certification.length==0){
+					this.postedJobsDetails.match_select.certification="false";
+					  
+				  }if(!this.postedJobsDetails.education || this.postedJobsDetails.education=='-1'){
+					this.postedJobsDetails.match_select.education="false";
+					  
+				  }if(!this.postedJobsDetails.employer_role_type || this.postedJobsDetails.employer_role_type=='' || this.postedJobsDetails.employer_role_type==undefined){
+					this.postedJobsDetails.match_select.employer_role_type="false";
+					  
+				  }if(!this.postedJobsDetails.facing_role || this.postedJobsDetails.facing_role=='' || this.postedJobsDetails.facing_role==undefined){
+					this.postedJobsDetails.match_select.facing_role="false";
+					  
+				  }if(!this.postedJobsDetails.training_experience || this.postedJobsDetails.training_experience=='' || this.postedJobsDetails.training_experience==undefined){
+					this.postedJobsDetails.match_select.training_experience="false";
+					  
+				  }
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 
 				});

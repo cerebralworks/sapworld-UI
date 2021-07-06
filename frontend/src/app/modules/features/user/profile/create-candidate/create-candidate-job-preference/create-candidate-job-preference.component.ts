@@ -8,12 +8,15 @@ import { SharedService } from '@shared/service/shared.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 
+declare let google: any;
+
 @Component({
 	selector: 'app-create-candidate-job-preference',
 	templateUrl: './create-candidate-job-preference.component.html',
 	styleUrls: ['./create-candidate-job-preference.component.css'],
 	viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
+
 export class CreateCandidateJobPreferenceComponent implements OnInit {
 
 	visible = true;
@@ -26,10 +29,12 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 @ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
+	private autocomplete: any;
 	public availabilityArray: { id: number; text: string; }[];
 	public travelArray: { id: number; text: string; }[];
 	public userInfo: any;
 	public job_type_error: boolean = false;
+	public IsShow: boolean = false;
 	public savedUserDetails: any;
 	public tabInfos: tabInfo[];
 	@Input('userDetails')
@@ -38,6 +43,12 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	}
 	public othercountry: any[] = [];
  	public requestParams: any;	 
+	
+	options  = {
+		componentRestrictions: { country:[] }
+
+	  };
+  
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
@@ -116,9 +127,76 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout(async () => {
+			
 			/* this.requestParams = {'Enter the ngOnChanges':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
 			if (this.childForm && this.savedUserDetails) {
+				if(this.savedUserDetails.work_authorization==0){
+					var temps =this.savedUserDetails.authorized_country;
+					var tempCoun =[];
+					if(temps.length){
+						for(let i=0;i<temps.length;i++){
+							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
+							if(vali.length==1){
+								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+									tempCoun.push(vali[0]['iso']);
+								}
+								
+							}
+							
+
+						}
+					}
+					
+					if(tempCoun.length==0){
+						// if(!(!google || !google.maps || !google.maps.places)){
+							// var elm = document.getElementById('preferredLocation');
+							// if(elm){
+								//this.autocomplete = new google.maps.places.Autocomplete(elm);
+								
+								//var componentRestrictions = {country: tempCoun};
+								//this.autocomplete.setComponentRestrictions(componentRestrictions);
+								
+							// }
+							
+						// }
+						this.options.componentRestrictions['country'] = [];
+						
+					}else{
+						// if(!(!google || !google.maps || !google.maps.places)){
+							// var elm = document.getElementById('preferredLocation');
+							// if(elm){
+								//this.autocomplete = new google.maps.places.Autocomplete(elm);
+								//var componentRestrictions = {country: tempCoun};
+								//this.autocomplete.setComponentRestrictions(componentRestrictions);
+
+								
+							// }
+							
+						// }
+						this.options.componentRestrictions['country'] = tempCoun;
+					}
+					
+				}else if(this.savedUserDetails.work_authorization==1){
+					var temps =this.savedUserDetails.nationality;
+					var tempCoun =[];
+					if(temps){
+						var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps)});
+						if(vali.length==1){
+							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+								tempCoun.push(vali[0]['iso']);
+							}
+								
+						}
+						
+					}
+					if(tempCoun.length==0){
+						this.options.componentRestrictions['country'] = [];
+					}else{
+						this.options.componentRestrictions['country'] = tempCoun;
+					}
+				}
+				this.IsShow = true;
 				if(this.savedUserDetails.preferred_locations!=null){
 					if(this.savedUserDetails.preferred_locations.length == 0){
 						this.t.removeAt(0);
@@ -215,7 +293,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			}
 			/* this.requestParams = {'Exist the ngOnChanges':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
-		});
+		},300);
 	}
 
 	/**

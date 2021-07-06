@@ -16,6 +16,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
   @Input() jobInfo: JobPosting;
   @Input() isDescrition: boolean = false;
   @Input() isMultipleMatches: boolean = false;
+  @Input() isHideData: boolean = false;
   @Input() fieldsExclude: JobPosting;
 	public languageSource=[];
 	public nationality=[];
@@ -49,6 +50,27 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 		var arr = [];
 		  if(this.jobInfo){
 			  if(this.jobInfo.match_select){
+				  this.jobInfo.match_select['remote']="false";
+				  this.jobInfo.match_select['willing_to_relocate']="false";
+				  if(!this.jobInfo.certification){
+					this.jobInfo.match_select['certification']="false";
+					  
+				  }else if(this.jobInfo.certification.length==0){
+					this.jobInfo.match_select['certification']="false";
+					  
+				  }if(!this.jobInfo['education'] ){
+					this.jobInfo.match_select['education']="false";
+					  
+				  }if(!this.jobInfo.employer_role_type || this.jobInfo.employer_role_type=='' || this.jobInfo.employer_role_type==undefined){
+					this.jobInfo.match_select['employer_role_type']="false";
+					  
+				  }if(!this.jobInfo.facing_role || this.jobInfo.facing_role=='' || this.jobInfo.facing_role==undefined){
+					this.jobInfo.match_select['facing_role']="false";
+					  
+				  }if(!this.jobInfo.training_experience || this.jobInfo.training_experience=='' || this.jobInfo.training_experience==undefined){
+					this.jobInfo.match_select['training_experience']="false";
+					  
+				  }
 				Object.keys(this.jobInfo.match_select).forEach(key => {
 					arr.push(this.jobInfo.match_select[key]) 
 				});

@@ -96,7 +96,7 @@
 					</div>
 					<div class="col-lg-6 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(userInfo?.willing_to_relocate)}}</li>
+							<li class="list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.willing_to_relocate)}}</li>
 						</ul>
 					</div>
 				</div>
@@ -619,6 +619,7 @@
 									</mat-chip>
 									<input placeholder="" #chipsInput
 									(onAddressChange)="handleAddressChange($event,id)"
+									[options]='options' 
 									ngx-google-places-autocomplete
 										[matChipInputFor]="chipLists"
 										[matChipInputSeparatorKeyCodes]="separatorKeysCodes"

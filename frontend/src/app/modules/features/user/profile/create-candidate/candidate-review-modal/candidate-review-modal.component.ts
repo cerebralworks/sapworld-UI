@@ -101,6 +101,10 @@ separateDialCode = false;
     ];
   public educationsSelectedArray: any[] = [];
   educationsSelectedValue: any;
+  options  = {
+		componentRestrictions: { country:[] }
+
+	  };
 	
 	@ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
 @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
@@ -316,6 +320,8 @@ separateDialCode = false;
 				}
 			  });
 		}else if(this.preferredLocation == true){
+			
+			
 			for(let i=0;i<=this.ts.length;i++){
 				this.ts.removeAt(0);
 				i=0;
@@ -380,6 +386,53 @@ separateDialCode = false;
 			this.job_role = true;
 		}else if(value=='preferredLocation'){
 			this.preferredLocation = true;
+			
+			if(this.childForm.value.personalDetails.work_authorization==0){
+				var temps =this.childForm.value.personalDetails.authorized_country;
+				var tempCoun =[];
+				if(temps.length){
+					for(let i=0;i<temps.length;i++){
+						var vali =this.nationality.filter(function(a,b){ return a.id==parseInt(temps[i])});
+						if(vali.length==1){
+							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+								tempCoun.push(vali[0]['iso']);
+							}
+							
+						}
+						
+
+					}
+				}
+				
+				if(tempCoun.length==0){
+				
+					this.options.componentRestrictions['country'] = [];
+					
+				}else{
+					
+					this.options.componentRestrictions['country'] = tempCoun;
+				}
+				
+				}else if(this.childForm.value.personalDetails.work_authorization==1){
+					var temps =this.childForm.value.personalDetails.nationality;
+					var tempCoun =[];
+					if(temps){
+						var vali =this.nationality.filter(function(a,b){ return a.id==parseInt(temps)});
+						if(vali.length==1){
+							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+								tempCoun.push(vali[0]['iso']);
+							}
+								
+						}
+						
+					}
+					if(tempCoun.length==0){
+						this.options.componentRestrictions['country'] = [];
+					}else{
+						this.options.componentRestrictions['country'] = tempCoun;
+					}
+				}
+				
 		}else if(value=='reference'){
 			this.reference = true;
 		}else if(value=='mobileNumber'){

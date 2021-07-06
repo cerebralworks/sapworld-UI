@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@data/service/user.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-applied-job',
@@ -10,7 +11,11 @@ export class AppliedJobComponent implements OnInit {
   public appliedJobs: any[] = [];
   public appliedJobMeta: any;
   public page: number = 1;
-  public limit: number = 25;
+  public limit: number = 10;
+  length = 0;
+  pageIndex = 1;
+  pageSizeOptions = [5, 10, 25];
+  showFirstLastButtons = true;
 
   constructor(
     private userService: UserService
@@ -28,18 +33,40 @@ export class AppliedJobComponent implements OnInit {
       requestParams.expand = "job_posting,user,employer";
       this.userService.applicationsListForUser(requestParams).subscribe(
         response => {
+			this.appliedJobs=[];
           if(response && response.items && response.items.length > 0) {
             this.appliedJobs = [...this.appliedJobs, ...response.items];
           }
           this.appliedJobMeta = { ...response.meta }
+		  if(document.getElementById('appliedCountValue')){
+				document.getElementById('appliedCountValue').innerHTML="("+this.appliedJobMeta.total+")";
+			}
+		  if(this.appliedJobMeta.total){
+			  this.length =this.appliedJobMeta.total;
+		  }
         }, error => {
         }
       )
   }
 
-  onLoadMoreJob = () => {
-    this.page = this.page + 1;
+  handlePageEvent(event: PageEvent) {
+	  
+    this.page = event.pageIndex + 1;
     this.onGetAppliedJobs();
+  }
+  
+  
+  deleteJobApplication = (id) => {
+      let requestParams: any = {};
+      requestParams.id = id;
+      this.userService.deleteJobApplication(requestParams).subscribe(
+        response => {
+			console.log(response);
+			this.onGetAppliedJobs();
+        }, error => {
+			this.onGetAppliedJobs();
+        }
+      )
   }
 
 }

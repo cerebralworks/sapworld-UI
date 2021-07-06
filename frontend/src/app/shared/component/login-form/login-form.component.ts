@@ -49,6 +49,7 @@ export class LoginFormComponent implements OnInit {
       userCredentials.username = userCredentials.username.toLowerCase();
       this.accountService.login(userCredentials).subscribe(
         response => {
+			sessionStorage.clear();
           this.isLoading = false;
           if (response.isLoggedIn && response.role.includes(0)) {
 			  if(response['verified']==true){

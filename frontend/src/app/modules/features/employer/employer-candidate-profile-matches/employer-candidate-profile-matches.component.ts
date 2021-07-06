@@ -1,6 +1,6 @@
 import { Component, OnDestroy,OnChanges, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedService } from '@shared/service/shared.service';
@@ -29,8 +29,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   public isOpenedSendMailModal: boolean;
   public currentUserInfo: CandidateProfile;
   public matchedElement: boolean = true;
-  public missingElement: boolean = true;
+  public missingElement: boolean = false;
   public moreElement: boolean = true;
+  public isHideData: boolean = true;
   public isMultipleMatches: boolean = false;
   public matchingUsersMeta: any = { count: 0 };
   public matchingUsersNew: any;
@@ -51,10 +52,33 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
     private employerService: EmployerService,
     private location: Location,
     public utilsHelperService: UtilsHelperService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private router: Router
   ) {
-    this.jobId = this.route.snapshot.paramMap.get('jobId');
-    this.userId = this.route.snapshot.paramMap.get('userId');
+	  this.route.queryParams.subscribe(params => {
+      if(params && !this.utilsHelperService.isEmptyObj(params)) {
+        let urlQueryParams = {...params};
+
+        if(urlQueryParams && urlQueryParams.jobId) {
+			sessionStorage.setItem('jobId',urlQueryParams.jobId);
+        }
+        if(urlQueryParams && urlQueryParams.userId) {
+			sessionStorage.setItem('userId',urlQueryParams.userId);
+        }
+	}
+	});
+	 
+	 var jobIds:any=0;
+	 var userIds:any=0;
+	 if(sessionStorage.getItem('jobId')){
+		jobIds = parseInt(sessionStorage.getItem('jobId'));
+	}if(sessionStorage.getItem('userId')){
+		userIds = parseInt(sessionStorage.getItem('userId'));
+	}
+	 
+    this.jobId = jobIds;
+    this.userId = userIds;
+	this.router.navigate([], {queryParams: {userId: null,jobId:null}, queryParamsHandling: 'merge'});
   }
 
   onChange(array: any[] = [], item, field) {
@@ -99,6 +123,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
     const sb = this.employerService.getPostedJobDetails(requestParams).subscribe(
       response => {
         if (response && response.details) {
+			if(response.details.skills){
+				response.details.skills = this.utilsHelperService.differenceByPropValArray(response.details.skills, response.details.hands_on_experience, 'skill_id')
+				
+			}
           this.postedJobsDetails = response.details;
         }
       }, error => {
@@ -152,12 +180,32 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 
     const sb = this.employerService.getJobScoring(requestParams).subscribe(
       response => {
-        if (response && !isCount) {
+		  if (response) {
+			if(response.job.skills){
+			response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
+			}
+			if(response.profile.skills){
+			response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
+			}
+		}
+		  if(!isMultipleMatch){
+			  if(response.profile){
+				  if(parseInt(this.userId) == response.profile.id ){
+					  if (response && !isCount  ) {
+						  this.matchingUsers = { ...response }
+						}
+						if (isCount) {
+						  this.matchingUsersMeta = { ...response.meta }
+						  }
+				  }
+			  }
+		  }else{
+        if (response && !isCount  ) {
           this.matchingUsers = { ...response }
         }
         if (isCount) {
           this.matchingUsersMeta = { ...response.meta }
-        }
+		  }}
       }, error => {
       }
     )
@@ -171,6 +219,14 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 
     const sb = this.employerService.getJobScoring(requestParams).subscribe(
       response => {
+		  if (response) {
+			if(response.job.skills){
+			response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
+			}	
+			if(response.profile.skills){
+			response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
+			}	
+		}
         if (response) {
           this.matchingUsersNew = { ...response };
         }
@@ -243,7 +299,9 @@ isEven = (num) => {
 }
 
   onRedirectBack = () => {
-    this.location.back();
+   // this.location.back();
+	this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches', id: this.jobId} });
+	
   }
 
   onToggleJDModal = (status) => {
@@ -383,6 +441,9 @@ isEven = (num) => {
 	   if(event.target.childNodes['0']){
 		event.target.childNodes['0'].className='';
 	  }
+	this.missingElement = false;
+	document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light';
+	
 
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
@@ -392,17 +453,35 @@ isEven = (num) => {
 		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 	  }
+	  if(document.getElementById('matchBtnVal').childNodes['0']){
+		document.getElementById('matchBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('missBtnVal').childNodes['0']){
+		document.getElementById('missBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('moreBtnVal').childNodes['0']){
+		document.getElementById('moreBtnVal').childNodes['0'].className='';
+	  }
   }
 
   onShowMissing = (event) => {
 	  var temp = event.toElement.className.split(' ');
-	  if(temp[temp.length-1]=='btn-fltr-active'){
-		  document.getElementById('missBtnVal').className = 'missBtn btn-sm btn btn-fltr btn-light';
+	  	  if(temp[temp.length-1]=='btn-fltr-active'){
+		  event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
 			this.missingElement = false;
+			document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		this.matchedElement = true;
+		this.moreElement = true;
 	 }else{
-		  document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		  event.target.className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.missingElement = true;
+		  document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light ';
+		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light ';
+		this.matchedElement = false;
+		this.moreElement = false;
 	  }
+
 	   if(event.target.childNodes['0']){
 		event.target.childNodes['0'].className='';
 	  }
@@ -414,6 +493,15 @@ isEven = (num) => {
 		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  }
+	  if(document.getElementById('matchBtnVal').childNodes['0']){
+		document.getElementById('matchBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('missBtnVal').childNodes['0']){
+		document.getElementById('missBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('moreBtnVal').childNodes['0']){
+		document.getElementById('moreBtnVal').childNodes['0'].className='';
 	  }
     
   }
@@ -430,7 +518,9 @@ isEven = (num) => {
 	   if(event.target.childNodes['0']){
 		event.target.childNodes['0'].className='';
 	  }
-
+	this.missingElement = false;
+	document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light';
+	
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
@@ -439,15 +529,24 @@ isEven = (num) => {
 		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 	  }
+	  if(document.getElementById('matchBtnVal').childNodes['0']){
+		document.getElementById('matchBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('missBtnVal').childNodes['0']){
+		document.getElementById('missBtnVal').childNodes['0'].className='';
+	  }
+	  if(document.getElementById('moreBtnVal').childNodes['0']){
+		document.getElementById('moreBtnVal').childNodes['0'].className='';
+	  }
   }
 
   onReset = () => {
 	 
     this.moreElement = true;
     this.matchedElement = true;
-    this.missingElement = true;
+    this.missingElement = false;
 		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light';
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
   }
 

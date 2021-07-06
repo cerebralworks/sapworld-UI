@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
@@ -22,9 +22,31 @@ export class CandidateJobViewComponent implements OnInit {
     private employerService: EmployerService,
     public utilsHelperService: UtilsHelperService,
     private location: Location,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private router: Router
   ) {
-    this.jobId = this.route.snapshot.paramMap.get('id');
+	  
+	  this.route.queryParams.subscribe(params => {
+      if(params && !this.utilsHelperService.isEmptyObj(params)) {
+        let urlQueryParams = {...params};
+
+        if(urlQueryParams && urlQueryParams.id) {
+			sessionStorage.setItem('view-job-id',urlQueryParams.id);
+			if(urlQueryParams.path){
+				sessionStorage.setItem('view-job-path',urlQueryParams.path);
+				this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
+			}
+        }
+	}
+	});
+	this.router.navigate([], {queryParams: {id: null,path: null}, queryParamsHandling: 'merge'});
+	var jobIds:any = 0;
+	if(sessionStorage.getItem('view-job-id')){
+		jobIds = parseInt(sessionStorage.getItem('view-job-id'));
+	}
+	
+    //this.jobId = this.route.snapshot.paramMap.get('id');
+    this.jobId = jobIds;
   }
 
   ngOnInit(): void {
@@ -48,7 +70,15 @@ export class CandidateJobViewComponent implements OnInit {
     )
   }
 onRedirectBack = () => {
-    this.location.back();
+   // this.location.back();
+   
+	if(sessionStorage.getItem('view-job-path')=='applied'){
+		sessionStorage.clear();
+		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'applied'}});
+	}else{
+		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
+	}
+   
   }
   onToggleJDModal = (status) => {
     this.isOpenedJDModal = status;
