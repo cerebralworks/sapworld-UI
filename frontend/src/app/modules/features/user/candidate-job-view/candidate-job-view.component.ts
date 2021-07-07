@@ -83,5 +83,11 @@ onRedirectBack = () => {
   onToggleJDModal = (status) => {
     this.isOpenedJDModal = status;
   }
-
+onGetYesOrNoValue = (value: boolean) => {
+    if (value == true) {
+      return "Yes";
+    } else {
+      return "No"
+    }
+  }
 }

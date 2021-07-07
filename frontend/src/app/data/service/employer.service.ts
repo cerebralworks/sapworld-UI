@@ -87,6 +87,13 @@ export class EmployerService extends CacheService {
       })
     );
   };
+  getPostedJobCount = (params: any): Observable<GetResponse> => {
+    return this.apiService.get('/api/jobpostings/list/users/count', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
 
   getPostedJobDetails = (params: any): Observable<GetViewResponse> => {
     return this.apiService.get('/api/jobpostings/view', params).pipe(

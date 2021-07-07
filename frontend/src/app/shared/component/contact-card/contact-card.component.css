@@ -12,4 +12,6 @@
 .job-card:hover .hilight {
     border-bottom: 1px solid #ccc;
     width: fit-content;
+}.job-card .media a:hover {
+    color: #fff !important;
 }
