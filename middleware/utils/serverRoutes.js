@@ -32,6 +32,7 @@ const routes = {
     employerList: '/employers/list',
     forgotPassword: '/accounts/request-reset-password',
     jobPostingList: '/jobpostings/list',
+    jobPostingListCount: '/jobpostings/list/users/count',
     resetPassword: '/accounts/reset-password',
     jobDelete: '/jobpostings/delete',
     updateCompanyProfile: '/employers/update-company-profile',

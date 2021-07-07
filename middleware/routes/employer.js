@@ -72,6 +72,13 @@ module.exports = (app, env, rp) => {
     let requestBody = { ...req.query };    
     requestCustom.get(`${serverRoutes.jobPostingList}`, req, res, requestBody);
   });
+  /**
+   * Job Listed Count
+   */
+  app.get("/api/jobpostings/list/users/count", (req, res) => {
+    let requestBody = { ...req.query };    
+    requestCustom.get(`${serverRoutes.jobPostingListCount}`, req, res, requestBody);
+  });
 
    /**
    * Job Delete
