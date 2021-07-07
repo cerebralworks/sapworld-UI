@@ -24,6 +24,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
   public queryParams: any;
   public postedJobMeta: any;
   public postedJobs: any[] = [];
+  public TotalCount: any[] = [];
   public validateSubscribe: number = 0;
   public shortlistModal: any = null;
 
@@ -58,6 +59,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
         if(details) {
           if((details && details.id) && this.validateSubscribe == 0) {
             this.onGetPostedJob(details.id);
+            this.onGetPostedJobCount(details.id);
             this.validateSubscribe ++;
           }
         }
@@ -112,6 +114,42 @@ export class EmployerAppliedCandidateComponent implements OnInit {
       }
     )
   }
+  
+  onGetPostedJobCount(companyId) {
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.status = 1;
+    requestParams.limit = 1000;
+    requestParams.expand = 'company';
+    requestParams.view = 'applicants';
+    requestParams.company = companyId;
+    requestParams.sort = 'created_at.desc';
+    this.employerService.getPostedJobCount(requestParams).subscribe(
+      response => {
+		if(response['count']){
+			this.TotalCount =response['count'];
+			var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+			if(document.getElementById('ApplicantsCount')){
+				document.getElementById('ApplicantsCount').innerHTML="("+TotalValue+")";
+			}
+			
+		}else{
+			
+		}
+      }, error => {
+      }
+    )
+  }
+  
+  checkDataCount(id){
+	  if(id !=undefined && id!=null && id !=''){
+		  var tempData= this.TotalCount.filter(function(a,b){ return a.id == id });
+			if(tempData.length==1){
+				return tempData[0]['count'];
+			}
+	  }
+	  return 0;
+  }
 
   onGetAppliedJobs = () => {
       let requestParams: any = {};
@@ -127,7 +165,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
           }
           this.appliedJobMeta = { ...response.meta }
 		  if(document.getElementById('ApplicantsCount')){
-				document.getElementById('ApplicantsCount').innerHTML="("+this.appliedJobMeta.total+")";
+				//document.getElementById('ApplicantsCount').innerHTML="("+this.appliedJobMeta.total+")";
 			}
 		  if(this.appliedJobMeta.total){
 			  this.length = this.appliedJobMeta.total;
