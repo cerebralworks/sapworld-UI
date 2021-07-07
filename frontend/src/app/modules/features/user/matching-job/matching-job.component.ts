@@ -189,6 +189,7 @@ validateAPI = 0;
     requestParams.page = this.page;
     requestParams.limit = this.limit;
     requestParams.expand = 'company';
+    requestParams.skills_filter = 'false';
     requestParams.work_authorization = '';
     requestParams.visa_sponsered = false;
 	
@@ -216,7 +217,7 @@ validateAPI = 0;
     }
     if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true ) {
       requestParams.country = [this.userInfo.country];
-	  if(this.userInfo && this.userInfo.preferred_locations || this.userInfo.authorized_country ) {
+	  if(this.userInfo && this.userInfo.preferred_locations ) {
 			if(this.userInfo.preferred_locations.length !=0) {
 				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 				if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
@@ -303,6 +304,7 @@ validateAPI = 0;
 			
 		}
       requestParams.skills = temps.join(',')
+      requestParams.skills_filter = 'false';
     }
 
     if(this.queryParams && this.queryParams.skills && this.queryParams.skills.length) {
@@ -325,6 +327,7 @@ validateAPI = 0;
         });
 
         requestParams.skills = removedDuplicates.join(',')
+        requestParams.skills_filter = 'true';
       }
 
     }

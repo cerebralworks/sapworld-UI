@@ -37,6 +37,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public userInfo: any;
   public currentUserInfo: CandidateProfile;
   public postedJobs: any[] = [];
+  public TotalCount: any[] = [];
   public postedJobMeta: any;
   public selectedJob: any;
   public queryParams: any = { job_types: [], sort: ''};
@@ -167,6 +168,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
         if(details) {
           if((details && details.id) && this.validateSubscribe == 0) {
             this.onGetPostedJob(details.id);
+            this.onGetPostedJobCount(details.id);
             this.validateSubscribe ++;
           }
         }
@@ -314,6 +316,41 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       }
     )
   }
+  
+  onGetPostedJobCount(companyId) {
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.status = 1;
+    requestParams.limit = 1000;
+    requestParams.expand = 'company';
+    requestParams.company = companyId;
+    requestParams.sort = 'created_at.desc';
+    this.employerService.getPostedJobCount(requestParams).subscribe(
+      response => {
+		if(response['count']){
+			this.TotalCount =response['count'];
+			var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+			if(document.getElementById('MatchesCount')){
+				document.getElementById('MatchesCount').innerHTML="("+TotalValue+")";
+			}
+			
+		}else{
+			
+		}
+      }, error => {
+      }
+    )
+  }
+  
+  checkDataCount(id){
+	  if(id !=undefined && id!=null && id !=''){
+		  var tempData= this.TotalCount.filter(function(a,b){ return a.id == id });
+			if(tempData.length==1){
+				return tempData[0]['count'];
+			}
+	  }
+	  return 0;
+  }
 
   onGetCandidateList(jobId) {
     let requestParams: any = {...this.queryParams};
@@ -343,10 +380,12 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 					  }
 					  
 				  }
-				  //requestParams.skill_tags = temp;
+				  if(temp.length !=0){
+					requestParams.skill_tags = temp.join(',');
+				  }
 			  }
 			  
-			requestParams.visa = temps[0].visa_sponsorship ;
+			requestParams.visa = this.selectedJob['visa_sponsorship'] ;
 		  }else{
 			  requestParams.skill_tags_filter_type = 1;
 		  }
@@ -356,7 +395,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       requestParams.skill_tags_filter_type = 0;
     }
     if(!this.route.snapshot.queryParamMap.get('min_experience')) {
-      requestParams.min_experience = this.selectedJob.sap_experience;
+      requestParams.min_experience = this.selectedJob.experience;
     }
     if(this.route.snapshot.queryParamMap.get('min_experience')) {
 		if(this.postedJobs){
@@ -406,11 +445,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		}
 		this.userMeta = { ...response.meta };
 		if(this.countrySelect==false){
-			this.postedJobCountry = response['country'];
+			//this.postedJobCountry = response['country'];
 			this.countrySelect=true;
-			if(document.getElementById('MatchesCount')){
-				document.getElementById('MatchesCount').innerHTML="("+this.userMeta.total+")";
-			}
+			
 			 
 		 }
         

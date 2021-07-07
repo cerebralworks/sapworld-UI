@@ -12,7 +12,7 @@
         <div class="matching-post">
           <div *ngFor="let item of postedJobs; let i = index" class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
             <input (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}" [checked]="(selectedJob?.id == item?.id)">
-            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} {{ selectedJob?.id == item?.id ? (userMeta?.total ?  '(' + userMeta?.total + ')' :  '(' +0+ ')') : ''}} </label>
+            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} ({{ checkDataCount(item?.id)}})</label>
           </div>
         </div>
       </div>
@@ -235,6 +235,14 @@
                        Availability: {{(item?.availability || item?.availability == 0) ? (item?.availability == 0 ? 'Immediate' : item?.availability + ' Days') : '--'}}
                       </h6>
                       <div class="mt-2">
+						<!-- <ng-container *ngIf="item?.hands_on_experience?.length; else elseHandsTemplate">
+							<ng-container *ngFor="let items of item?.hands_on_experience; let i = index" >
+								<span class="sap-badge"> {{items?.skill_id ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(items?.skill_id)?.tag) : '--'}} </span>
+							</ng-container>
+						</ng-container>
+						<ng-template #elseHandsTemplate>
+							<span  class="sap-badge">--</span>
+						</ng-template> -->
                         <ng-container *ngFor="let itemSub of filterData(item?.skills)">
                           <span *ngIf="itemSub" class="sap-badge">{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(itemSub)?.tag)}}</span>
                         </ng-container>

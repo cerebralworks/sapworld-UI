@@ -440,7 +440,7 @@ findLanguageArray(value){
 		  if(this.matchingUsers.profile){
 			  var Temp:any = this.findCountrys(this.matchingUsers.profile.authorized_country);
 			  if(Temp.length !=0){
-				  if(Temp.filter(function(a,b){return a == country}).length !=0){
+				  if(Temp.filter(function(a,b){return a.toLocaleLowerCase() == country.toLocaleLowerCase()}).length !=0){
 					  return true;
 				  }
 			  }

@@ -7,7 +7,14 @@
       </button>
       </div>
       <div class="modal-body">
-      <div class=" form-group">
+	  <div class="col-lg alert" *ngIf="isShowUpload" >
+				<label class="text-black-50">
+					<h1 class="text-black-50 mb-0"><i class="far fa-plus-square"></i></h1>
+					{{"common.addResume" | translate}}
+					<input #userResume type="file" hidden (change)="handleFileInput($event,'resume');">
+				</label>
+	</div>
+      <div class=" form-group"  *ngIf="isShowData">
         <label class="h5">Choose a Resume </label>
          <div class="mt-2">
            <div *ngFor="let item of userInfo?.doc_resume; let i=index" class="custom-control custom-radio custom-control-inline">
@@ -47,5 +54,28 @@
       <button [disabled]="!resumeSelected" (click)="onApplyJob()" type="button" class="btn btn-theme-blue " data-dismiss="modal" data-toggle="modal" data-target="#successMsg" >Submit</button>
       </div>
   <!-- </form> -->
+
+</ng-template>
+
+<ng-template #resumeTitleModal let-modal>
+  <form method="post" (ngSubmit)="onSaveResume()" #resumeNgForm="ngForm" [formGroup]="resumeForm">
+    <div class="modal-header">
+      <h5 class="modal-title">Add Resume Tilte</h5>
+      <button type="button" (click)="mbRefs?.close()" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+      <div class=" form-group">
+        <label class="h5">Resume Title</label>
+        <input formControlName="title" type="text" class="form-control" placeholder="Enter Resume Title">
+        <app-control-messages [control]="f['title']"></app-control-messages>
+      </div>
+      </div>
+      <div class="modal-footer">
+      <button type="button" (click)="mbRefs?.close()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button [disabled]="!resumeForm.valid" type="button" (click)="onSaveResume()" class="btn btn-theme-blue " data-dismiss="modal">Save</button>
+      </div>
+  </form>
 
 </ng-template>
