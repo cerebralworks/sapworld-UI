@@ -1,5 +1,6 @@
 {
   "extends": "tslint:recommended",
+  "allowSyntheticDefaultImports": true,
   "rulesDirectory": [
     "codelyzer"
   ],
