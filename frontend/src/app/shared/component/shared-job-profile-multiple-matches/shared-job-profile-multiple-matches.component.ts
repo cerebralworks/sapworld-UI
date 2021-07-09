@@ -4,20 +4,24 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import * as lodash from 'lodash';
 
 @Component({
-  selector: 'app-shared-job-profile',
-  templateUrl: './shared-job-profile.component.html',
-  styleUrls: ['./shared-job-profile.component.css'],
+  selector: 'app-shared-job-profile-multiple-matches',
+  templateUrl: './shared-job-profile-multiple-matches.component.html',
+  styleUrls: ['./shared-job-profile-multiple-matches.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
-export class SharedJobProfileComponent implements OnInit,OnChanges {
+export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChanges {
 
-  @Input() jobInfo: JobPosting;
+  @Input() jobInfo: any;
+  @Input() userInfo: any;
   @Input() isDescrition: boolean = false;
   @Input() isMultipleMatches: boolean = false;
-  @Input() isHideData: boolean = false;
-  @Input() fieldsExclude: JobPosting;
+  @Input() matchedElement: boolean = false;
+  @Input() missingElement: boolean = false;
+  @Input() moreElement: boolean = false;
+  @Input() matchingJob: any;
 	public languageSource=[];
 	public nationality=[];
 	public required: boolean = false;
@@ -25,6 +29,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 	public optional: boolean = false;
 	public nice: boolean = false;
 	public IsShown: boolean = false;
+
   constructor(private dataService: DataService,
     public sharedService: SharedService,
     private sharedApiService: SharedApiService,
@@ -151,13 +156,155 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 	}, 0);
 	  
   }
+	
+
+	
+	checkType(array,value,education){
+		
+		if(array && value){
+			if(array.length!=0 && array.length!= undefined){
+				if(education == 'education'){
+					if(array.filter(function(a,b){ return a.degree.toLocaleLowerCase()==value.toLocaleLowerCase()}).length !=0 ){
+						return true;
+					}else{
+						return false;
+					}
+				}if(education == 'type'){
+					if(array.filter(function(a,b){ return a.toLocaleLowerCase()==value.toLocaleLowerCase()}).length !=0 ){
+						return true;
+					}
+				}else if(array.filter(function(a,b){ return a.toLocaleLowerCase()!=value.toLocaleLowerCase()}).length ==0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	checkTypeEqual(array,value){
+		
+		if(array && value){
+			if(array.toLocaleLowerCase() ==value.toLocaleLowerCase()){
+				return true;
+			}
+		}
+		return false;
+	}
+	checkLanMatch(array,value){
+		
+		if(array && value){
+			if(array.length!=0 && array.length!= undefined){
+				if(array.filter(function(a,b){ return a.language==value}).length !=0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	checkLanExtra(array,value,language){
+		
+		if(array && value){
+			if(array.length!=0 && array.length!= undefined){
+				if(language =='language'){
+					if(array.filter(function(a,b){ return a.language==value}).length ==0){
+						return true;
+					}
+				}else if(array.filter(function(a,b){ return a!=value}).length !=0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+  inArray(needle, haystack, matchAll = false) {
+    if ((Array.isArray(needle) && Array.isArray(haystack)) && needle.length && haystack.length) {
+      if (matchAll) {
+        return needle.every(i => haystack.includes(i));
+      } else {
+        return needle.some(i => haystack.includes(i));
+      }
+    }
+    return false;
+  }
+
+  onChangeValue(array1: any[] = [], array2: any[] = [], type = 'array', field: string = 'id', filterArray: string = '') {
+    if (array1 && array1.length && array2 && array2.length) {
+      let result;
+      if (type == 'array') {
+        result = lodash.uniq([...array1, ...array2])
+      }
+      if (type == 'arrayObj') {
+        result = lodash.uniqBy([...array1, ...array2], field)
+      }
+      if (result && result.length) {
+        return result;
+      }
+    }
+    return [];
+  }
+
+  onLoweCase(array: any[] = []) {
+    if (array && array.length) {
+      return array.map(v => v.toLowerCase());
+    }
+  }
+
+  onDiff = (arr1: any[] = [], arr2: any[] = []) => {
+    if (arr1 && arr1.length && arr2 && arr2.length) {
+      let difference = arr1
+        .filter(x => !arr2.includes(x))
+        .concat(arr2.filter(x => !arr1.includes(x)));
+      return difference;
+    }
+    return [];
+  }
+
+  onChangeStringNumber(field1, field2, item, type, isString: boolean = false) {
+    let lowerCaseJob = [];
+    if (this.userInfo && this.userInfo[field1]) {
+      lowerCaseJob = isString ? this.onLoweCase(this.userInfo[field1]) : this.userInfo[field1];
+    }
+    let lowerCaseUser = [];
+    if (this.matchingJob && this.matchingJob.jobs && this.matchingJob.jobs[field2]) {
+      lowerCaseUser = isString ? this.onLoweCase(this.matchingJob.jobs[field2]) : this.matchingJob.jobs[field2];
+    }
+    if (lowerCaseJob.includes(item.toLowerCase()) && type == 'check') {
+      return { type: 'check', class: 'text-green' }
+    } else if (!lowerCaseJob.includes(item?.toLowerCase()) && type == 'close') {
+      return { type: 'close', class: 'text-danger' }
+    }
+    return { type: '', class: '' }
+  }
+
+  onChangeObj(field1, field2, item, type, filterField) {
+    let lowerCaseJob = [];
+    if (this.userInfo && this.userInfo[field1]) {
+      lowerCaseJob = this.userInfo[field1]
+    }
+    let lowerCaseUser = [];
+    if (this.userInfo && this.userInfo && this.userInfo[field2]) {
+      lowerCaseUser = this.userInfo[field2]
+    }
+    let jobIndex = lowerCaseJob.findIndex(val => val[filterField] == item[filterField]);
+
+    let userIndex = lowerCaseUser.findIndex(val => val[filterField] == item[filterField])
+    if (jobIndex > -1 && type == 'check') {
+      return { type: 'check', class: 'text-green' }
+    } else if (userIndex == -1 && type == 'close') {
+      return { type: 'close', class: 'text-danger' }
+    }
+    return { type: '', class: '' }
+  }
+
+
+
+
 	findLanguageArray(value){
 		if(value){
-			value = value.map(function(a,b){
-				return a 
-			})
+			
 			if(this.languageSource){
-				var array = this.languageSource.filter(f=>{ return value.includes(f.id)})
+				var array = this.languageSource.filter(function(a,b){ return a.id == value})
 
 				if(array.length !=0){
 					var temp = array.map(function(a,b){

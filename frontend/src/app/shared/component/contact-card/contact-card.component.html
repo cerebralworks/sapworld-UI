@@ -43,6 +43,8 @@
         </span>
       </div>
     </div>
+	<div class="row">
+		<div [ngClass]="(isMatchView === true)?'col-lg-7':'col-lg-12'" >
     <div class="media">
       <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
       <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
@@ -91,7 +93,7 @@
             </span>
           </ng-template>
         </ng-container>
-        <h6 *ngIf="userInfo?.social_media_link?.length">
+        <h6 *ngIf="userInfo?.social_media_link?.length" style="margin: 0px !important;">
           <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0); else elseTemplate">
             <a class="mr-1" *ngFor="let item of userInfo?.social_media_link" href="{{item.url}}" target="_blank">
               <ng-container [ngSwitch]="item?.media">
@@ -145,6 +147,21 @@
 
       </div>
     </div>
+    </div>
+
+	 <div class="col-lg-5 text-right" *ngIf="isMatchView">
+		<div class="form-inline float-right mt-2">
+			<div class="selectDD">
+				<select class="selectpicker" [(ngModel)]="selected" id="selectpicker" multiple data-live-search="true">
+					<option class="d-none" disabled selected >Choose Jobs </option>
+					<option *ngFor="let item of postedJobsMatchDetails" [value]="item.id">{{item.title}}</option>
+				</select>
+			</div>
+			<button type="button" (click)="OpenMatchesWithID()"  class="btn btn-theme-blue btn-sm"> 
+			<i class="fas fa-tasks"></i></button>				
+		</div>	
+	</div>
+		</div>
   </div>
 </div>
 

@@ -84,10 +84,12 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 				var optionalFilter = arr.filter(function(a,b){return a=='' });
 				if(requiredFilter.length>0){
 					this.required =true;
+				}else{
+					this.required =false;
 				}if(desiredFilter.length>0){
 					this.desired=true;
 				}else{
-					this.desired=false;
+					this.desired =false;
 				}if(niceFilter.length>0){
 					this.nice =true;
 				}else{

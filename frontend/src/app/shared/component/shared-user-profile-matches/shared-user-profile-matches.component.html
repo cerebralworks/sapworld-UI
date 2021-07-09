@@ -241,6 +241,10 @@
 									<i class="fas fa-check text-green "></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
+								<span *ngIf="moreElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+									<i class="fa fa-info-circle text-blue" ></i>
+									{{matchingUsers?.profile?.employer_role_type }}
+								</span>
 								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
@@ -358,11 +362,11 @@
 				<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='0'">
 					<ul class="list-group">
 						<li class="list-group-item">
-							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation == postedJobsDetails?.end_to_end_implementation)">
+							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)">
 								<i class="fa fa-check text-green "></i>
 								{{matchingUsers?.profile?.end_to_end_implementation }}
 							</span>
-							<span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation != postedJobsDetails?.end_to_end_implementation)">
+							<span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation)">
 								<i class="fa fa-times text-danger "></i>
 								{{postedJobsDetails?.end_to_end_implementation }}
 							</span>
@@ -706,6 +710,10 @@
 									<i class="fas fa-check text-green "></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
+								<span *ngIf="moreElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+									<i class="fa fa-info-circle text-blue" ></i>
+									{{matchingUsers?.profile?.employer_role_type }}
+								</span>
 								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
@@ -823,11 +831,11 @@
 				<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='1'">
 					<ul class="list-group">
 						<li class="list-group-item">
-							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation == postedJobsDetails?.end_to_end_implementation)">
+							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)">
 								<i class="fa fa-check text-green "></i>
 								{{matchingUsers?.profile?.end_to_end_implementation }}
 							</span>
-							<span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation != postedJobsDetails?.end_to_end_implementation)">
+							<span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation)">
 								<i class="fa fa-times text-danger "></i>
 								{{postedJobsDetails?.end_to_end_implementation }}
 							</span>
@@ -1170,6 +1178,10 @@
 									<i class="fas fa-check text-green "></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
+								<span *ngIf="moreElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+									<i class="fa fa-info-circle text-blue" ></i>
+									{{matchingUsers?.profile?.employer_role_type }}
+								</span>
 								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
@@ -1287,11 +1299,11 @@
 				<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='2'">
 					<ul class="list-group">
 						<li class="list-group-item">
-							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation == postedJobsDetails?.end_to_end_implementation)">
+							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)">
 								<i class="fa fa-check text-green "></i>
 								{{matchingUsers?.profile?.end_to_end_implementation }}
 							</span>
-							<span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation != postedJobsDetails?.end_to_end_implementation)">
+							<span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation)">
 								<i class="fa fa-times text-danger "></i>
 								{{postedJobsDetails?.end_to_end_implementation}}
 							</span>
@@ -1635,6 +1647,10 @@
 									<i class="fas fa-check text-green "></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
+								<span *ngIf="moreElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+									<i class="fa fa-info-circle text-blue" ></i>
+									{{matchingUsers?.profile?.employer_role_type }}
+								</span>
 								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
@@ -1752,11 +1768,11 @@
 				<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='' && postedJobsDetails?.end_to_end_implementation">
 					<ul class="list-group">
 						<li class="list-group-item">
-							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation == postedJobsDetails?.end_to_end_implementation)">
+							<span *ngIf="matchedElement && (matchingUsers?.profile?.end_to_end_implementation >= postedJobsDetails?.end_to_end_implementation)">
 								<i class="fa fa-check text-green "></i>
 								{{matchingUsers?.profile?.end_to_end_implementation }}
 							</span>
-							<span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation != postedJobsDetails?.end_to_end_implementation)">
+							<span *ngIf="missingElement && (matchingUsers?.profile?.end_to_end_implementation < postedJobsDetails?.end_to_end_implementation)">
 								<i class="fa fa-times text-danger "></i>
 								{{postedJobsDetails?.end_to_end_implementation }}
 							</span>

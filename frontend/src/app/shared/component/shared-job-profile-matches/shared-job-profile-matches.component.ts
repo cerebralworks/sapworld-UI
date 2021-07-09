@@ -85,12 +85,20 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 				var optionalFilter = arr.filter(function(a,b){return a=='' });
 				if(requiredFilter.length>0){
 					this.required =true;
+				}else{
+					this.required =false;
 				}if(desiredFilter.length>0){
 					this.desired=true;
+				}else{
+					this.desired =false;
 				}if(niceFilter.length>0){
 					this.nice =true;
+				}else{
+					this.nice =false;
 				}if(optionalFilter.length>0){
 					this.optional =true;
+				}else{
+					this.optional =false;
 				}
 				
 			  }
@@ -355,4 +363,30 @@ onGetCountry(query) {
 		this.sharedApiService.onGetLanguage(requestParams);
 	  }
 	  
+	    onShowMatches = (event) => {
+	  var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+			this.matchedElement = false;
+	 }else{
+		  this.matchedElement = true;
+	  }
+    if(this.missingElement == false && this.matchedElement == false ){
+		this.matchedElement = true;
+	  }
+	  
+  }
+
+  onShowMissing = (event) => {
+	  var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+			this.missingElement = false;
+	 }else{
+		  this.missingElement = true;
+	  }
+	   
+	  if(this.missingElement == false && this.matchedElement == false ){
+		this.missingElement = true;
+	  }
+    
+  }
 }

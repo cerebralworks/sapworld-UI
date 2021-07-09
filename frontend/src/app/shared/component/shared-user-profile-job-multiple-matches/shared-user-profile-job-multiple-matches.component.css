@@ -1,4 +1,9 @@
-.my-custom-class .tooltip-inner {
+.ul-value{
+	font-size: 14px;
+    min-height: 26px;
+	font-weight: 600;
+}
+.my-custom-classe .tooltip-inner {
     color: #000;
     background: #fff;
     background-color: #fff;
@@ -34,24 +39,3 @@
 .handsExps:hover{
 		overflow-x:auto !important;
 	}
-.btn-fltr {
-    color: #212529;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
-    margin-right: 3px;
-    margin-bottom: 14px;
-    font-size: 12px;
-    height: 26px;
-    padding: .25rem .435rem;
-}
-.btn-fltr:hover {
-
-    color: #000;
-    background-color: #e2e6ea;
-    border-color: #dae0e5;
-}
-.btn-fltr-active {
-    background-color: #e2e6ea;
-    border-color: #dae0e5;
-    color: #000;
-}

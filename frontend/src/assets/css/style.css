@@ -2410,3 +2410,14 @@ a:hover {
     border: 2px solid #ccd1d6 !important;
     border-radius: 10px !important;
 }
+.bootstrap-select .btn {
+    font-size: 14px!important;
+    height: 50px!important;
+    padding: 8px 15px!important;
+    border-radius: 4px!important;
+    /* border: 2px solid #d2d2d2!important; */
+    width: 100%!important;
+    color: #454545!important;
+    border-radius: 10px!important;
+    background-color: #fff!important;
+}
