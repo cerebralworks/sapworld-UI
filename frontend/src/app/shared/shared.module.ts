@@ -33,9 +33,11 @@ import { AppPasswordDirective } from './directives/app-password.directive';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { SharedUserProfileComponent } from './component/shared-user-profile/shared-user-profile.component';
 import { SharedUserProfileJobMatchesComponent } from './component/shared-user-profile-job-matches/shared-user-profile-job-matches.component';
+import { SharedUserProfileJobMultipleMatchesComponent } from './component/shared-user-profile-job-multiple-matches/shared-user-profile-job-multiple-matches.component';
 import { SharedUserProfileMatchesComponent } from './component/shared-user-profile-matches/shared-user-profile-matches.component';
 import { SharedJobProfileComponent } from './component/shared-job-profile/shared-job-profile.component';
 import { SharedJobProfileMatchesComponent } from './component/shared-job-profile-matches/shared-job-profile-matches.component';
+import { SharedJobProfileMultipleMatchesComponent } from './component/shared-job-profile-multiple-matches/shared-job-profile-multiple-matches.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-preview/job-preview.component';
 import { PhonePipe } from './pipes/phone.pipe';
@@ -68,7 +70,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SharedUserProfileMatchesComponent,
     SharedJobProfileComponent,
     SharedJobProfileMatchesComponent,
+    SharedJobProfileMultipleMatchesComponent,
     SharedUserProfileJobMatchesComponent,
+    SharedUserProfileJobMultipleMatchesComponent,
     JobPreviewModalComponent,
     PhonePipe,
     ChangePasswordComponent
@@ -127,7 +131,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SharedUserProfileMatchesComponent,
     SharedJobProfileComponent,
     SharedJobProfileMatchesComponent,
+    SharedJobProfileMultipleMatchesComponent,
     SharedUserProfileJobMatchesComponent,
+    SharedUserProfileJobMultipleMatchesComponent,
     Ng2TelInputModule,
     NgxDocViewerModule,
     NgxDocViewerModule,

@@ -25,6 +25,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
   public postedJobMeta: any;
   public postedJobs: any[] = [];
   public TotalCount: any[] = [];
+  public Company: any ='';
   public validateSubscribe: number = 0;
   public shortlistModal: any = null;
 
@@ -58,6 +59,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
       details => {
         if(details) {
           if((details && details.id) && this.validateSubscribe == 0) {
+			  this.Company = details.id;
             this.onGetPostedJob(details.id);
             this.onGetPostedJobCount(details.id);
             this.validateSubscribe ++;
@@ -102,8 +104,21 @@ export class EmployerAppliedCandidateComponent implements OnInit {
               }
               this.onGetAppliedJobs();
             }else {
-              this.selectedJob = this.postedJobs[0];
-              this.onGetAppliedJobs();
+				if(!sessionStorage.getItem('view-application-job-id')){
+					this.selectedJob = this.postedJobs[0];
+				}else{
+					var ids = parseInt(sessionStorage.getItem('view-application-job-id'));
+					var temps = this.postedJobs.filter(function(a,b){ return a.id==ids })
+					if(temps.length==1){
+						this.selectedJob = temps[0];
+					}else{
+						this.selectedJob = this.postedJobs[0];
+					}
+				}
+				this.onGetAppliedJobs();
+				
+              
+              
             }
 
           }
@@ -175,22 +190,29 @@ export class EmployerAppliedCandidateComponent implements OnInit {
       )
   }
 
-  onShortListUser = (item, value) => {
-    if((value == 'true' || value == 'null')) {
+  onShortListUser = (item, values) => {
+    if((values == 'true' || values == 'null'|| values == 'false')) {
       if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
         let requestParams: any = {};
         requestParams.job_posting = this.selectedJob.id;
         requestParams.user = item.user.id;
-        requestParams.short_listed = value == 'true' ? true : false;
-
+        requestParams.short_listed = values == 'true' ? true : false;
+		if(values == 'null'){
+			requestParams.short_listed =null;
+		}
         this.employerService.shortListUser(requestParams).subscribe(
           response => {
-            this.appliedJobs = this.appliedJobs.map((value) => {
-              if(value.id == item.id) {
-                value.short_listed = value == 'true' ? true : false;
-              }
-              return value;
-            });
+			  if(response['details']['short_listed']==true){
+					this.onGetPostedJobCount(this.Company);
+					this.onGetAppliedJobs();
+			  }else{
+				this.appliedJobs = this.appliedJobs.map((value) => {
+				  if(value.id == item.id) {
+					value.short_listed = response['details']['short_listed'];
+				  }
+				  return value;
+				});
+			  }
           }, error => {
           }
         )

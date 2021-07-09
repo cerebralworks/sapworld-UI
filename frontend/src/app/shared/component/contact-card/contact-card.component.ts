@@ -5,6 +5,10 @@ import { AccountService } from '@data/service/account.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as $ from 'jquery';
+
+declare var $: any;
 
 @Component({
   selector: 'app-contact-card',
@@ -14,9 +18,11 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() userInfo: any;
+  @Input() postedJobsMatchDetails: any[] =[];
   @Input() isEdit: boolean;
   @Input() isResume?: boolean;
   @Input() isMail?: boolean = false;
+  @Input() isMatch?: boolean = false;
   @Input() isMatchesView?: boolean = true;
   @Input() isContactIcon?: boolean = true;
   @Input() isMultipleMatches?: boolean = false;
@@ -25,6 +31,7 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public isOpenedContactInfoModal: boolean;
   public isOpenedResumeModal: boolean;
   public isOpenedCoverModal: boolean;
+  public isMatchView: boolean =false;
   public randomNum: number;
   public selectedResumeUrl: any;
   public selectedCoverUrl: any;
@@ -35,7 +42,8 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public isOpenedSendMailModal: boolean;
   public accountUserSubscription: Subscription;
   public loggedUserInfo: any;
-
+  public selected: any[]=[];
+toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   constructor(
     public utilsHelperService: UtilsHelperService,
     private router: Router,
@@ -43,6 +51,7 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+	  
     this.randomNum = Math.random();
 
     this.accountUserSubscription = this.accountService
@@ -60,8 +69,34 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
       this.selectedCover = this.userInfo.doc_cover[0];
     }
   }
-
+ngAfterViewInit(): void {
+	setTimeout( async () => {
+	
+	if(this.isMatch==true){
+		this.isMatchView =true;
+		$("#selectpicker").selectpicker();		
+	}else{
+		this.isMatchView =false;
+	}
+	},500);
+	setTimeout( async () => {
+	
+	if(this.postedJobsMatchDetails.length!=0){
+		if(this.isMatch==true){
+			this.isMatchView =true;
+			$("#selectpicker").selectpicker();		
+		}else{
+			this.isMatchView =false;
+		}	
+	}else{
+		this.isMatchView =false;
+	}
+	},2000);
+	
+	
+}
   ngOnDestroy(): void {
+	  
     this.validateOnAPI = null;
   }
 
@@ -129,5 +164,12 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
 
     this.router.navigate([], navigationExtras);
   }
-
+	
+	OpenMatchesWithID(){
+		
+		if(this.selected.length!=0){
+			var selectedIds = this.selected.join(',');
+			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userInfo.id,employeeId:this.postedJobsMatchDetails[0].company.id} });
+		}
+	}
 }

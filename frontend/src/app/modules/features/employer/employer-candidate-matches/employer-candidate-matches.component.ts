@@ -20,6 +20,10 @@ import {PageEvent} from '@angular/material/paginator';
 })
 export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
+  /**
+  **	Variable Declaration
+  **/
+  
   public isOpenedResumeModal: boolean;
   public isOpenedSendMailModal: boolean;
   public filter_location: boolean =false;
@@ -45,7 +49,6 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public minMaxExp: any[] = [];
   public skills: any[] = [];
   public customParseInt = parseInt
-
   public minValue: number = 100;
   public maxValue: number = 400;
   public options: Options = {
@@ -96,178 +99,203 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       {value: {min: 7, max: 10}, text: '7 - 10 Years'},
       {value: {min: 10, max: 20}, text: '10 Years & above'}
     ]
-
+	
+	/**
+	**	Validate the params value in routing strategy
+	**/
+	
     this.route.queryParams.subscribe(params => {
-	this.selectedJob = sessionStorage.getItem('match-job-id');
-      if(params && !this.utilsHelperService.isEmptyObj(params)) {
-        let urlQueryParams = {...params};
+		this.selectedJob = sessionStorage.getItem('match-job-id');
+		if(params && !this.utilsHelperService.isEmptyObj(params)) {
+			let urlQueryParams = {...params};
 
-        if(urlQueryParams && urlQueryParams.id) {
-			sessionStorage.setItem('match-job-id',urlQueryParams.id);
-          this.selectedJob = {id: urlQueryParams.id};
-        }
+			if(urlQueryParams && urlQueryParams.id) {
+				sessionStorage.setItem('match-job-id',urlQueryParams.id);
+				this.selectedJob = {id: urlQueryParams.id};
+			}
 
-        const jobTypes = this.route.snapshot.queryParamMap.get('job_types');
-        if(jobTypes) {
-          var jobTypesSplited = new Array();
-          jobTypesSplited = jobTypes.split(",");
-          if(jobTypesSplited && jobTypesSplited.length) {
-            for (let a in jobTypesSplited ) {
-              jobTypesSplited[a] = parseInt(jobTypesSplited[a], 10);
-            }
-            urlQueryParams.job_types = jobTypesSplited;
-          }
-        }
+			const jobTypes = this.route.snapshot.queryParamMap.get('job_types');
+			if(jobTypes) {
+				var jobTypesSplited = new Array();
+				jobTypesSplited = jobTypes.split(",");
+				if(jobTypesSplited && jobTypesSplited.length) {
+					for (let a in jobTypesSplited ) {
+					  jobTypesSplited[a] = parseInt(jobTypesSplited[a], 10);
+					}
+					urlQueryParams.job_types = jobTypesSplited;
+				}
+			}
 
-        const skillTags = this.route.snapshot.queryParamMap.get('skill_tags');
-        if(skillTags) {
-          let skillArray = new Array();
-          skillArray = skillTags.split(",");
-          if(skillArray && skillArray.length) {
-            for (let a in skillArray ) {
-              skillArray[a] = parseInt(skillArray[a], 10);
-            }
-            this.skills = skillArray;
-          }
-        }
+			const skillTags = this.route.snapshot.queryParamMap.get('skill_tags');
+			if(skillTags) {
+				let skillArray = new Array();
+				skillArray = skillTags.split(",");
+				if(skillArray && skillArray.length) {
+					for (let a in skillArray ) {
+					  skillArray[a] = parseInt(skillArray[a], 10);
+					}
+					this.skills = skillArray;
+				}
+			}
 
-        const minExperience = this.route.snapshot.queryParamMap.get('min_experience');
-        const maxExperience = this.route.snapshot.queryParamMap.get('max_experience');
-        if(parseInt(minExperience) >= 0 && parseInt(maxExperience) >= 0) {
-          const tempExp = this.experienceFilter.filter((val) => {
-            return ((val.value.min >= parseInt(minExperience)) && (val.value.max <= parseInt(maxExperience)))
-          })
-          if(tempExp.length) {
-            this.minMaxExp = [...tempExp]
-          }
+			const minExperience = this.route.snapshot.queryParamMap.get('min_experience');
+			const maxExperience = this.route.snapshot.queryParamMap.get('max_experience');
+			if(parseInt(minExperience) >= 0 && parseInt(maxExperience) >= 0) {
+				const tempExp = this.experienceFilter.filter((val) => {
+					return ((val.value.min >= parseInt(minExperience)) && (val.value.max <= parseInt(maxExperience)))
+				})
+				if(tempExp.length) {
+					this.minMaxExp = [...tempExp]
+				}
+			}
 
-
-        }
-
-        this.queryParams = {...this.queryParams, ...urlQueryParams };
-      }
+			this.queryParams = {...this.queryParams, ...urlQueryParams };
+		}
     });
-	this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
+		this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
   }
 
-  validateSubscribe = 0;
-  ngOnInit(): void {
-    this.randomNum = Math.random();
-
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
-    this.dataService.getSkillDataSource().subscribe(
-      response => {
-        this.skillItems = response
-      }
-    );
-
-    this.employerSharedService.getEmployerProfileDetails().subscribe(
-      details => {
-        if(details) {
-          if((details && details.id) && this.validateSubscribe == 0) {
-            this.onGetPostedJob(details.id);
-            this.onGetPostedJobCount(details.id);
-            this.validateSubscribe ++;
-          }
-        }
-      }
-    )
-    // this.onGetCandidateListForCountry();
-
-    this.accountService
-      .isCurrentUser()
-      .subscribe(response => {
-        this.loggedUserInfo = response;
-      });
-
-  }
-
-  ngDoCheck(): void {
-    this.tempQueryParams = {...this.queryParams}
-  }
-
-  onGetFilteredValue(resumeArray: any[]): any {
-    if(resumeArray && Array.isArray(resumeArray)) {
-      const filteredValue = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1);
-      if(!this.utilsHelperService.isEmptyObj(filteredValue)) {
-        return this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1).file;
-      }
-    }
-    return "";
-  }
-
-  ngOnDestroy(): void {
-    this.validateSubscribe = null;
-  }
-
-  onSetJob = (item) =>{
-	  this.Country=[];
-	  this.countrySelect=false;
-	  this.page=1;
-	  this.resetData();
-	  this.clearFilters();
-    this.selectedJob = item;
-	sessionStorage.setItem('match-job-id',this.selectedJob.id);
-    if(this.selectedJob && this.selectedJob.id) {
-      this.userList = [];
-     // const removeEmpty = this.utilsHelperService.clean(this.queryParams);
-     // let url = this.router.createUrlTree(['/employer/dashboard'], {queryParams: {...removeEmpty, id: this.selectedJob.id}, relativeTo: this.route}).toString();
-      //this.location.go(url);
-	  const navigationExtras: NavigationExtras = {
-      queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
-    };
+	/**
+	**	Initiallize the Component to get the employer profile
+	**/
 	
+	validateSubscribe = 0;
+	ngOnInit(): void {
+		this.randomNum = Math.random();
+
+		this.router.routeReuseStrategy.shouldReuseRoute = () => {
+		  return false;
+		};
+		this.dataService.getSkillDataSource().subscribe(
+		  response => {
+			this.skillItems = response
+		  }
+		);
+
+		this.employerSharedService.getEmployerProfileDetails().subscribe(
+		  details => {
+			if(details) {
+			  if((details && details.id) && this.validateSubscribe == 0) {
+				this.onGetPostedJob(details.id);
+				this.onGetPostedJobCount(details.id);
+				this.validateSubscribe ++;
+			  }
+			}
+		  }
+		)
+		// this.onGetCandidateListForCountry();
+
+		this.accountService
+		  .isCurrentUser()
+		  .subscribe(response => {
+			this.loggedUserInfo = response;
+		  });
+
+	}
+
+	/**
+	**	When any change accoured the docheck calls
+	**/
 	
-		  //this.onGetCandidateList(this.selectedJob.id);
-		//this.router.navigate([], navigationExtras);
-      this.onGetCandidateList(this.selectedJob.id);
-    }
+	ngDoCheck(): void {
+		this.tempQueryParams = {...this.queryParams}
+	}
 
-  }
+	/**
+	**	Resume Filter to get the default resume URL
+	**/
+	
+	onGetFilteredValue(resumeArray: any[]): any {
+		if(resumeArray && Array.isArray(resumeArray)) {
+		  const filteredValue = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1);
+		  if(!this.utilsHelperService.isEmptyObj(filteredValue)) {
+			return this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1).file;
+		  }
+		}
+		return "";
+	}
+	
+	/**
+	**	When the component leaves to next component or new page
+	**/
+	
+	ngOnDestroy(): void {
+		this.validateSubscribe = null;
+	}
+	
+	/**
+	**	To set the job to get candidates
+	**/
+	
+	onSetJob = (item) =>{
+		this.Country=[];
+		this.countrySelect=false;
+		this.page=1;
+		this.resetData();
+		this.clearFilters();
+		this.selectedJob = item;
+		sessionStorage.setItem('match-job-id',this.selectedJob.id);
+		if(this.selectedJob && this.selectedJob.id) {
+			this.userList = [];
+			// const removeEmpty = this.utilsHelperService.clean(this.queryParams);
+			// let url = this.router.createUrlTree(['/employer/dashboard'], {queryParams: {...removeEmpty, id: this.selectedJob.id}, relativeTo: this.route}).toString();
+			//this.location.go(url);
+			const navigationExtras: NavigationExtras = {
+				queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
+			};	
+			//this.onGetCandidateList(this.selectedJob.id);
+			//this.router.navigate([], navigationExtras);
+			this.onGetCandidateList(this.selectedJob.id);
+		}
+	}
+	
+	/**
+	**	To list the country for the selected job
+	**/
+	
+	onGetCandidateListForCountry() {
+		let requestParams: any = {...this.queryParams};
+		requestParams.page = this.page;
+		requestParams.limit = this.limit;
+		requestParams.status = 1;
+		requestParams.city = (this.selectedJob&& this.selectedJob.city )? this.selectedJob.city : '';
+		if(requestParams.job_types && requestParams.job_types.length) {
+			requestParams.job_types = requestParams.job_types.join(',')
+		}
+		const removeEmpty = this.utilsHelperService.clean(requestParams)
+		this.userService.getUsers(removeEmpty).subscribe(
+		response => {
+			if(response && response.items && response.items.length > 0) {
+				const userListForCountry = [...response.items];
+				userListForCountry.map((value, index) => {
+					if(value.country) {
+						this.userListForCountry.push(value.country);
+					}
+				});
+				this.userListForCountry.forEach((i) => { this.countryCount[i] = (this.countryCount[i]||0) + 1;});
+				this.userListForCountry = this.userListForCountry.filter( function( item, index, inputArray ) {
+				return inputArray.indexOf(item) == index;
+				});
+			}
+			this.userListForCountryMeta = { ...response.meta };
+		}, error => {
+		}
+		)
+	}
 
-  onGetCandidateListForCountry() {
-    let requestParams: any = {...this.queryParams};
-    requestParams.page = this.page;
-    requestParams.limit = this.limit;
-    requestParams.status = 1;
-    requestParams.city = (this.selectedJob&& this.selectedJob.city )? this.selectedJob.city : '';
-    if(requestParams.job_types && requestParams.job_types.length) {
-      requestParams.job_types = requestParams.job_types.join(',')
-    }
-    const removeEmpty = this.utilsHelperService.clean(requestParams)
-
-    this.userService.getUsers(removeEmpty).subscribe(
-      response => {
-        if(response && response.items && response.items.length > 0) {
-          const userListForCountry = [...response.items];
-          userListForCountry.map((value, index) => {
-            if(value.country) {
-              this.userListForCountry.push(value.country);
-            }
-          });
-          this.userListForCountry.forEach((i) => { this.countryCount[i] = (this.countryCount[i]||0) + 1;});
-          this.userListForCountry = this.userListForCountry.filter( function( item, index, inputArray ) {
-            return inputArray.indexOf(item) == index;
-          });
-        }
-        this.userListForCountryMeta = { ...response.meta };
-      }, error => {
-      }
-    )
-  }
-
-  onChangeCountry = (item) => {
-    this.selectCountry = item;
-    this.userList = this.userList.filter((value) => {
-      if(value && value.country) {
-        return value.country.includes(item);
-      }
-
-    })
-    // this.selectedJob && this.selectedJob.id && this.onGetCandidateList(this.selectedJob.id);
-  }
+	/**
+	**	Change the country select values
+	**/
+	
+	onChangeCountry = (item) => {
+		this.selectCountry = item;
+		this.userList = this.userList.filter((value) => {
+			if(value && value.country) {
+			return value.country.includes(item);
+			}
+		})
+		// this.selectedJob && this.selectedJob.id && this.onGetCandidateList(this.selectedJob.id);
+	}
 
   onGetPostedJob(companyId) {
     let requestParams: any = {};

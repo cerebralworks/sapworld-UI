@@ -1,0 +1,348 @@
+<div class=" info-box">
+	<div class="col-lg-12 mt-3">
+		<div class="accordion mt-5 ">
+			<div class=" info-box">
+				<ul class="list-group">
+					<li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && (jobInfo.experience <= userInfo?.experience)">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{jobInfo.experience ? jobInfo.experience + ' Years' : '--'}}
+                        </span>
+                        <span  class="text-danger" *ngIf="missingElement && (jobInfo.experience > userInfo?.experience)">
+                          <i class="fas fa-times text-danger "></i>
+                          {{jobInfo.experience ? jobInfo.experience + ' Years' : '--'}}
+                        </span>
+                     </li>
+                </ul>
+			</div>
+			<div class="info-box" >
+				<ul class="list-group">
+					<li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && (jobInfo.sap_experience <= userInfo?.sap_experience)">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{jobInfo.sap_experience ? jobInfo.sap_experience + ' Years' :'--'}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && (jobInfo.sap_experience > userInfo?.sap_experience)">
+                          <i class="fas fa-times text-danger "></i>
+                        </span>
+                      </li>
+                </ul>
+			</div>
+			<div class="info-box" >
+				<ul class="list-group">
+					<li class="list-group-item">
+                        <ng-container *ngFor="let item of jobInfo.domain; let first = first;">
+                          <span class="matchTxt text-capitalize text-green" *ngIf="matchedElement && onChangeStringNumber('domains_worked', 'domain', item, 'check').type == 'check'">
+                            <i class="far fa-check-circle text-green " [ngClass]="{'ml-0': !first}"></i>
+                            {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                          </span>
+                        </ng-container>
+                        <ng-container  *ngFor="let item of jobInfo.domain; let first = first;">
+                          <span class="matchTxt text-capitalize text-danger"  *ngIf="missingElement && onChangeStringNumber('domains_worked', 'domain', item, 'close').type == 'close'">
+                            <i  class="far fa-times-circle text-danger " [ngClass]="{'ml-0': !first}"></i>
+                            {{sharedService.onFindDomainFromSingleID(item)?.name}}
+                          </span>
+                        </ng-container>
+                   </li>
+               </ul>
+			</div>
+			<div class="info-box">
+				<ul class="list-group">
+					<li class="list-group-item handsExp text-uppercase" style="min-height: 42px;">
+                      <ng-container *ngIf="jobInfo.hands_on_experience?.length; else elseHandsTemplate">
+                        <ng-container *ngFor="let item of jobInfo.hands_on_experience; let i = index; let first = first;">
+                          <div class="text-green text-center border-right pr-3"
+                             *ngIf="matchedElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'check', 'skill_id').type == 'check'">
+                              {{utilsHelperService.onSplitTag(item.skill_name)}}
+                              <br>
+                            <i class="far fa-check-circle text-green " [ngClass]="{'ml-0': !first}"></i>
+                            ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                          </div>
+                        </ng-container>
+                        <ng-container *ngFor="let item of jobInfo.hands_on_experience; let i = index; let first = first;">
+                          <div class="text-danger text-center border-right pr-3"
+                             *ngIf="missingElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
+                              {{utilsHelperService.onSplitTag(item.skill_name)}}
+                              <br>
+                            <i class="far fa-times-circle  text-danger " [ngClass]="{'ml-0': !first}"></i>
+                            ({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #elseHandsTemplate>
+                        <p>--</p>
+                      </ng-template>
+                   </li>
+                </ul>
+			</div>
+			<div class="col-lg-12 border-top pt-3">	</div>
+			<div class="  info-box" >
+				<ul class="list-group">
+                      <li class="list-group-item  text-uppercase">
+                        <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
+                          <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
+                            <span
+                              class="text-green" *ngIf="matchedElement && onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
+                              <i class="far fa-check-circle text-green " [ngClass]="{'ml-0': !first}"></i>
+                              {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+                            </span>
+                          </ng-container>
+						<ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
+                            <span
+                              class="text-danger" *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
+                              <i class="far fa-times-circle text-danger " [ngClass]="{'ml-0': !first}"></i>
+                              {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+
+                            </span>
+                          </ng-container>
+                        </ng-container>
+                        <ng-template #elseSkillsTemplate>
+                          <p>--</p>
+                        </ng-template>
+                      </li>
+                </ul>
+			</div>
+			<div class="  info-box" >
+				<ul class="list-group">                      
+                    <li class="list-group-item">
+                        <ng-container *ngFor="let item of jobInfo.programming_skills; let first = first; let i = index">
+                          <span
+                            class="text-green" *ngIf="matchedElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'check', true).type == 'check'">
+                            <i class="far fa-check-circle text-green " [ngClass]="{'ml-0': i != 1}"></i>
+                            {{item}}
+                          </span>
+                        </ng-container>
+                        <ng-container *ngFor="let item of jobInfo.programming_skills; let i = index; let first = first;">
+                          <span
+                            class="text-danger" *ngIf="missingElement && onChangeStringNumber('programming_skills', 'programming_skills', item, 'close', true).type == 'close'">
+                            <i class="far fa-times-circle text-danger " [ngClass]="{'ml-0': i != 1}"></i>
+                            {{item}}
+                          </span>
+                        </ng-container>
+                      </li>
+                  </ul>
+			</div>
+			<div class="  info-box" >
+				<ul class="list-group">
+					<li class="list-group-item">
+                        <ng-container *ngFor="let item of jobInfo.optinal_skills; let i = index; let first = first;">
+                          <span
+                            class="text-green" *ngIf="matchedElement && onChangeStringNumber('other_skills', 'optinal_skills', item, 'check', true).type == 'check'">
+                            <i class="far fa-check-circle text-green " [ngClass]="{'ml-0': i != 1}"></i>
+                            {{item}}
+                          </span>
+                        </ng-container>
+						<ng-container *ngFor="let item of jobInfo.optinal_skills; let i = index; let first = first;">
+                          <span
+                            class="text-danger" *ngIf="missingElement && onChangeStringNumber('other_skills', 'optinal_skills', item, 'close', true).type == 'close'">
+                            <i class="far fa-times-circle text-danger " [ngClass]="{'ml-0': i != 1}"></i>
+                            {{item}}
+                          </span>
+                        </ng-container>
+                     </li>
+                </ul>
+			</div>
+			<div class=" info-box" >
+				<ul class="list-group">
+					<li class="list-group-item">
+                        <ng-container *ngFor="let item of jobInfo.certification; let first = first;">
+                          <span
+                            class="text-green" *ngIf="matchedElement && onChangeStringNumber('certification', 'certification', item, 'check', true).type == 'check'">
+                            <i class="far fa-check-circle text-green " [ngClass]="{'ml-0': !first}"></i>
+                            {{item}}
+                          </span>
+                        </ng-container>
+						<ng-container *ngFor="let item of jobInfo.certification; let first = first;">
+                          <span
+                            class="text-danger" *ngIf="missingElement && onChangeStringNumber('certification', 'certification', item, 'close', true).type == 'close'">
+                            <i class="far fa-times-circle text-danger " [ngClass]="{'ml-0': !first}"></i>
+                            {{item}}
+                          </span>
+                        </ng-container>
+                     </li>
+                 </ul>
+			</div>
+			<div class="col-lg-12 border-top pt-3">	</div>
+			<div class="  info-box" >
+				<ul class="list-group">
+                      <li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && checkType(userInfo?.job_type,jobInfo.type,'type')">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{(jobInfo.type || jobInfo.type == 0) ?
+                            sharedService.onGetJobType(jobInfo.type) : '--'}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && checkType(userInfo?.job_type,jobInfo.type,'')">
+                          <i class="far fa-times-circle text-danger "></i>
+                          {{(jobInfo.type || jobInfo.type == 0) ?
+                            sharedService.onGetJobType(jobInfo.type) : '--'}}
+                        </span>
+
+                      </li>
+                </ul>
+			</div>
+			<div class="  info-box" >
+				<ul class="list-group">
+					<li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && (jobInfo.employer_role_type == userInfo?.employer_role_type)">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{jobInfo.employer_role_type}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && (jobInfo.employer_role_type != userInfo?.employer_role_type)">
+                          <i class="far fa-times-circle text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
+                      </li>
+				</ul>
+			</div>
+			<div class="  info-box" >
+				<ul class="list-group">
+					<li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && (jobInfo.availability >= userInfo?.availability)">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{(jobInfo.availability || jobInfo.availability == 0) ?
+                            (jobInfo.availability == 0 ? 'Immediate' : jobInfo.availability
+                            +
+                            ' Days') : '--'}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && (jobInfo.availability < userInfo?.availability)">
+                          <i class="far fa-times-circle text-danger "></i>
+                          {{(jobInfo.availability || jobInfo.availability == 0) ?
+                            (jobInfo.availability == 0 ? 'Immediate' : jobInfo.availability
+                            +
+                            ' Days') : '--'}}
+                        </span>
+					</li>
+                 </ul>
+			</div>
+			<div class="  info-box" >
+				 <ul class="list-group">
+					<li class="list-group-item">
+						<span class="text-green" *ngIf="matchedElement && (jobInfo?.country == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
+							<div *ngIf="jobInfo?.country == findCountry([userInfo?.nationality])">
+							<i class="far fa-check-circle text-green "></i>  I am a Citizen
+							  </div>
+							  <div *ngIf="jobInfo?.country != findCountry([userInfo?.nationality]) && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
+								<i class="far fa-check-circle text-green "></i>
+								Authorized to work
+							  </div>
+							  <div *ngIf="jobInfo?.visa_sponsorship == true && jobInfo?.country != findCountry([userInfo?.nationality]) && userInfo?.work_authorization == 1 ">
+								<i class="far fa-check-circle text-green "></i>
+								We Provide Visa Sponsership
+							  </div>
+						</span>
+						<span class="text-danger" *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && jobInfo?.country != findCountry([userInfo?.nationality]) )">
+							 <i class="far fa-times-circle text-danger "></i>
+							 {{(userInfo?.work_authorization || userInfo?.work_authorization ==
+							 0)
+							 ? (userInfo?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" |
+							 translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
+						</span>
+                        <!-- <span class="text-green" *ngIf="matchedElement && (jobInfo.work_authorization == userInfo?.work_authorization || jobInfo.work_authorization == 2 )">
+                          <i class="fa fa-check text-green "></i>
+                          {{(jobInfo.work_authorization || jobInfo.work_authorization ==
+                            0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && (jobInfo.work_authorization != userInfo?.work_authorization)">
+                          <i class="far fa-times-circle text-danger "></i>
+                          {{(jobInfo.work_authorization || jobInfo.work_authorization ==
+                            0) ? (jobInfo.work_authorization == 0 ? ("postJob.shouldBeACitizenPr" | translate) : ("postJob.shouldBeHavingAWorkPermit" | translate)) : '--'}}
+                        </span> -->
+                      </li>
+				</ul>
+			</div>
+			<div class=" info-box" >
+				<ul class="list-group">
+					<li class="list-group-item">
+                         <span class="text-green" *ngIf="matchedElement && (jobInfo.end_to_end_implementation <= userInfo?.end_to_end_implementation)">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{(jobInfo.end_to_end_implementation || jobInfo.end_to_end_implementation == 0) ?
+                            (jobInfo.end_to_end_implementation) : '--'}}
+                         </span>
+                         <span class="text-danger" *ngIf="missingElement && (jobInfo.end_to_end_implementation > userInfo?.end_to_end_implementation)">
+                          <i class="far fa-times-circle text-danger "></i>
+                          {{(jobInfo.end_to_end_implementation || jobInfo.end_to_end_implementation == 0) ?
+                            (jobInfo.end_to_end_implementation) : '--'}}
+                         </span>
+                     </li>
+                 </ul>
+			</div>
+			<div class=" info-box" >
+				<ul class="list-group">
+                      <li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && checkType(userInfo?.education_qualification,jobInfo.education,'education')">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{jobInfo.education}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && checkType(userInfo?.job_type,jobInfo.education,'')">
+                          <i class="far fa-times-circle text-danger "></i>
+                          {{jobInfo.education}}
+                        </span>
+                      </li>
+                </ul>
+			</div>
+			<div class="  info-box" >
+				<ul class="list-group">
+                      <li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && (jobInfo.travel_opportunity <= userInfo?.travel)">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
+                            jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && (jobInfo.travel_opportunity > userInfo?.travel)">
+                        <i class="far fa-times-circle text-danger "></i>
+                        {{(jobInfo.travel_opportunity || jobInfo.travel_opportunity == 0) ?
+                          jobInfo.travel_opportunity == 0 ? 'No' : jobInfo.travel_opportunity + '%' : '--'}}
+                        </span>
+                      </li>
+                      <!-- <li class="list-group-item"><span class="matchTxt"><i class="far fa-check-circle text-green "></i> Yes </span></li> -->
+                    </ul>
+			</div>
+			<div class=" info-box" >
+				<ul class="list-group">                      
+                      <li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && (jobInfo.remote == userInfo?.remote_only)">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{utilsHelperService.onGetYesOrNoValue(jobInfo.remote)}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && (jobInfo.remote != userInfo?.remote_only)">
+                          <i class="far fa-times-circle text-danger "></i>
+                          {{utilsHelperService.onGetYesOrNoValue(jobInfo.remote)}}
+                        </span>
+                    </li>
+                </ul>
+			</div>
+			<div class=" info-box" >
+				<ul class="list-group">                      
+                      <li class="list-group-item">
+                        <span class="text-green" *ngIf="matchedElement && (jobInfo.willing_to_relocate == userInfo?.willing_to_relocate)">
+                          <i class="far fa-check-circle text-green "></i>
+                          {{utilsHelperService.onGetYesOrNoValue(jobInfo.willing_to_relocate)}}
+                        </span>
+                        <span class="text-danger" *ngIf="missingElement && (jobInfo.willing_to_relocate != userInfo?.willing_to_relocate)">
+                          <i class="far fa-times-circle text-danger "></i>
+                          {{utilsHelperService.onGetYesOrNoValue(jobInfo.willing_to_relocate)}}
+                        </span>
+                    </li>
+                </ul>
+			</div> 
+			<div class=" info-box" >
+				<ul class="list-group">			
+					<li class="list-group-item text-capitalize">		
+						<ng-container *ngFor="let item of jobInfo.language; let first = first;">
+							<span class="text-green" *ngIf="matchedElement && checkLanMatch(userInfo.language_known,item)">
+								<i class="far fa-check-circle text-green " ></i>
+								{{findLanguageArray(item)}}
+							</span>
+						</ng-container>
+						<ng-container *ngFor="let item of jobInfo.language; let first = first;">
+							<span class="text-danger" *ngIf="missingElement && checkLanExtra(userInfo.language_known,item,'language')">
+							  <i class="far fa-times-circle text-danger "  ></i>
+							  {{findLanguageArray(item)}}
+							</span>
+						</ng-container> 
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

@@ -31,7 +31,7 @@
               <ng-container *ngIf="appliedJobs?.length; else elseTemplate">
               <tr *ngFor="let item of appliedJobs">
                 <td>
-                  <a class="text-capitalize" [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.user?.id, jobId: item?.job_posting?.id, path: 'applicants'}" href="javascript:;">
+                  <a class="text-capitalize" [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.user?.id, jobId: item?.job_posting?.id, path: 'applicants', employee: selectedJob?.company.id}" href="javascript:;">
                     {{item?.user?.first_name + ' ' + item?.user?.last_name}}
                   </a>
                   </td>
@@ -48,13 +48,14 @@
                   </span>
                 </td> -->
                 <td class="text-capitalize"> {{item?.job_posting?.title ? item?.job_posting?.title : '--'}}</td>
-                <td class="text-center text-capitalize">
+                <td class="text-center text-capitalize" *ngIf="item.short_listed !=false">
                   <select class="form-control form-control-td" (change)="onShortListUser(item, $event?.target?.value)">
                     <option [value]="null" [selected]="true" >Select</option>
                     <option [value]="true" [selected]="item?.short_listed == true">Shortlist for Interview</option>
                     <option [value]="false">Not a Fit</option>
                   </select>
                   </td>
+				  <td class="text-danger" *ngIf="item.short_listed == false">Not a Fit</td>
                 <!-- <td class="text-capitalize">
                  <button type="button" class="btn btn-sm btn-primary" (click)="onShortListUser(item)">
                    {{item?.short_listed ? 'Remove' : 'Add'}}
@@ -75,7 +76,7 @@
 			
             </tbody>
           </table>
-		  <div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="(appliedJobMeta?.count > 0 && appliedJobMeta?.total > this.limit)">>
+		  <div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="(appliedJobMeta?.count > 0 && appliedJobMeta?.total > this.limit)">
 					<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
 				[length]="length"
 				[pageSize]="limit"

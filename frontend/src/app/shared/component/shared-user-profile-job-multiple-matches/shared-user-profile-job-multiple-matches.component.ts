@@ -5,13 +5,13 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { DataService } from '@shared/service/data.service';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
 @Component({
-	selector: 'app-shared-user-profile-job-matches',
-	templateUrl: './shared-user-profile-job-matches.component.html',
-	styleUrls: ['./shared-user-profile-job-matches.component.css'],
+	selector: 'app-shared-user-profile-job-multiple-matches',
+	templateUrl: './shared-user-profile-job-multiple-matches.component.html',
+	styleUrls: ['./shared-user-profile-job-multiple-matches.component.css'],
 	encapsulation: ViewEncapsulation.None
 })
 
-export class SharedUserProfileJobMatchesComponent implements OnInit {
+export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 
 	@Input() userInfo: CandidateProfile;
 	@Input() fieldsExclude: any;

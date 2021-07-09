@@ -25,8 +25,10 @@
             <app-contact-card
             [userInfo]="userDetails"
             [jobInfo]="postedJobsDetails"
+            [postedJobsMatchDetails]="postedJobsMatchDetails"
             [isEdit]="false"
             [isResume]="true"
+            [isMatch]="true"
             [isMail]="true"
             >
             </app-contact-card>
@@ -34,115 +36,7 @@
           </div>
         </div>
         <app-shared-user-profile [userInfo]="userDetails"></app-shared-user-profile>
-        <!-- <div class="row mt-3 info-box">
-          <div class="col-lg-4 caption">
-            <ul class="list-group">
-              <li class=" list-group-item text-capitalize">{{"dashboard.totalYearsOfExp" | translate }}</li>
-              <li class=" list-group-item text-capitalize">{{"dashboard.totalSapExp" | translate }}</li>
-              <li class=" list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
-              <li class=" list-group-item text-capitalize">{{"postJob.handsOnWith" | translate }}</li>
-            </ul>
-          </div>
-          <div class="col-lg-8 info">
-            <ul class="list-group">
-              <li class="list-group-item text-capitalize">{{userDetails?.experience}} Years</li>
-            <li class="list-group-item text-capitalize">{{userDetails?.sap_experience}} Years</li>
-            <li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(userDetails?.domains_worked)}}</li>
-            <li class="list-group-item text-uppercase">
-              <ng-container *ngIf="userDetails?.hands_on_experience?.length; else elseHandsTemplate">
-                <p class="m-0 w-100 float-left" *ngFor="let item of userDetails?.hands_on_experience">
-                  <span class="text-wrap-custom float-left">{{item?.skill_id ? sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag : '--'}}</span>
-                  <span *ngIf="item?.skill_id">({{item?.experience + ' ' + item?.exp_type}})</span>
-                </p>
-              </ng-container>
-              <ng-template #elseHandsTemplate>
-                <p>--</p>
-              </ng-template>
-            </li>
-            </ul>
-          </div>
-
-          <div class="col-lg-12 border-top pt-3">	</div>
-          <div class="col-lg-4 caption">
-            <ul class="list-group">
-              <li class="list-group-item lg-mh-40 text-capitalize">{{"dashboard.knowledgeOn" | translate }}</li>
-                <li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
-                <li class="list-group-item text-capitalize">{{"postYourResume.others" | translate }}</li>
-                <li class="list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
-                <li class="list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
-            </ul>
-          </div>
-          <div class="col-lg-8 info">
-            <ul class="list-group">
-              <li class="list-group-item text-uppercase lg-mh-40">
-                <ng-container *ngIf="userDetails?.skills?.length; else elseSkillsTemplate">
-                  <p class="m-0 w-100 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userDetails?.skills, userDetails?.hands_on_experience, 'skill_id')">
-                    <span class="text-wrap-custom float-left">{{item ? sharedService.onFindSkillsFromSingleID(item)?.tag: '--'}}</span>
-                  </p>
-                </ng-container>
-                <ng-template #elseSkillsTemplate>
-                  <p>--</p>
-                </ng-template>
-              </li>
-              <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userDetails?.programming_skills)}} </li>
-              <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userDetails?.other_skills)}}</li>
-              <li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userDetails?.certification)}}</li>
-              <li class="list-group-item text-capitalize">{{userDetails?.end_to_end_implementation ? userDetails?.end_to_end_implementation : '--'}}</li>
-            </ul>
-          </div>
-
-          <div class="col-lg-12 border-top pt-3">	</div>
-          <div class="col-lg-4 caption">
-            <ul class="list-group">
-              <li class="list-group-item text-capitalize">{{"postYourResume.previousEmployers" | translate}}</li>
-              <li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
-              <li class="list-group-item text-capitalize">{{"postYourResume.rolesLookingFor" | translate }}</li>
-              <li class="list-group-item text-capitalize">{{"postJob.remote" | translate }}</li>
-            </ul>
-          </div>
-          <div class="col-lg-8 info">
-            <ul class="list-group">
-              <li class="list-group-item text-capitalize">
-                {{utilsHelperService.onConvertArrayToString(userDetails?.clients_worked)}}
-              </li>
-              <li class="list-group-item text-capitalize">
-                {{(userDetails?.job_type || userDetails?.job_type == 0) ? sharedService.onGetJobType(userDetails?.job_type) : '--'}}
-              </li>
-              <li class="list-group-item text-capitalize">
-                {{userDetails?.job_role ? userDetails?.job_role : '--'}}
-              </li>
-              <li class="list-group-item text-capitalize">
-                {{utilsHelperService.onGetYesOrNoValue(userDetails?.remote_only)}}
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-lg-12 border-top pt-3">	</div>
-          <div class="col-lg-4 caption">
-            <ul class="list-group">
-              <li class="list-group-item text-capitalize">{{"postJob.availableIn" | translate }}</li>
-              <li class="list-group-item text-capitalize">{{"postJob.workAuthorization" | translate }}</li>
-              <li class="list-group-item text-capitalize">{{"postJob.travel" | translate }}</li>
-              <li class="list-group-item text-capitalize">{{"postJob.willingToRelocate" | translate }}</li>
-            </ul>
-          </div>
-          <div class="col-lg-8 info">
-            <ul class="list-group">
-              <li class="list-group-item">
-                {{(userDetails?.availability || userDetails?.availability == 0) ? (userDetails?.availability == 0 ? 'Immediate' : userDetails?.availability + ' Days') : '--'}}
-              </li>
-              <li class="list-group-item">
-                {{(userDetails?.work_authorization || userDetails?.work_authorization == 0) ? (userDetails?.work_authorization == 0 ? ("postYourResume.iHaveWorkAuthorization" | translate) : ("postYourResume.iNeedVisaAponsorship" | translate)) : '--'}}
-              </li>
-               <li class="list-group-item">
-                {{(userDetails?.travel || userDetails?.travel == 0) ? userDetails?.travel == 0 ? 'No' : userDetails?.travel + '%' : '--'}}
-              </li>
-              <li class="list-group-item">
-                {{utilsHelperService.onGetYesOrNoValue(userDetails?.willing_to_relocate)}}
-              </li>
-            </ul>
-          </div>
-        </div> -->
+       
       </div>
       <div class="col-lg-4">
         <div class="title">
