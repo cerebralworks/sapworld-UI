@@ -19,7 +19,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
   public limit: number = 10;
   length = 0;
   pageIndex = 1;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [ 10, 20,50,100];
   public selectedJob: any;
   public queryParams: any;
   public postedJobMeta: any;
@@ -71,6 +71,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 
   onSetJob = (item) =>{
 	  this.page=1;
+	  this.limit =10;
     this.selectedJob = item;
     if(this.selectedJob && this.selectedJob.id) {
 		sessionStorage.setItem('view-application-job-id',this.selectedJob.id);
@@ -225,7 +226,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 
   handlePageEvent(event: PageEvent) {
 		//this.length = event.length;
-		//this.pageSize = event.pageSize;
+		this.limit = event.pageSize;
 		this.page = event.pageIndex+1;
     this.onGetAppliedJobs();
   }

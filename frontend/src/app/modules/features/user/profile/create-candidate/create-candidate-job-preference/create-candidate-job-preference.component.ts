@@ -238,20 +238,20 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 							}
 						}
 					}else{
-						this.childForm.patchValue({ 
+						/* this.childForm.patchValue({ 
 							jobPref: { 
 								job_type: ["1001"] 
 							} 
-						})
-						document.getElementById("1001")['className'] = document.getElementById("1001")['className'] +' btn-fltr-active';
+						}) */
+						//document.getElementById("1001")['className'] = document.getElementById("1001")['className'] +' btn-fltr-active';
 					}
 				}else{
-					this.childForm.patchValue({ 
+					/* this.childForm.patchValue({ 
 						jobPref: { 
 							job_type: ["1001"] 
 						} 
-					});
-					document.getElementById("1001")['className'] = document.getElementById("1001")['className'] +' btn-fltr-active';
+					}); */
+					//document.getElementById("1001")['className'] = document.getElementById("1001")['className'] +' btn-fltr-active';
 				}
 			}
 			if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
@@ -306,7 +306,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		this.childForm = this.parentF.form;
 
 		this.childForm.addControl('jobPref', new FormGroup({
-			job_type: new FormControl(null),
+			job_type: new FormControl(null, Validators.required),
 			job_role: new FormControl(''),
 			willing_to_relocate: new FormControl(null, Validators.required),
 			preferred_location: new FormControl(null),

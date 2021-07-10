@@ -251,10 +251,13 @@ export class CandidateJobMatchesComponent implements OnInit {
     const sb = this.userService.getUserScoring(requestParams).subscribe(
       response => {
         if (response) {
+			if(response['jobs']['match_select'] ){
+			  if(!this.utilsHelperService.isEmptyObj(response['jobs'])){
+				response['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
+			  }
+			}
           this.matchingJobNew = { ...response };
-		  if(this.matchingJob['jobs']['match_select']){
-			  this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
-		  }
+		  
           
         }
 

@@ -29,6 +29,13 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 	public optional: boolean = false;
 	public nice: boolean = false;
 	public IsShown: boolean = false;
+	public educationItems = [
+			{  id:0, text: 'high school' },
+			{  id:1, text: 'diploma' },
+			{  id:2, text: 'bachelors' },
+			{  id:3, text: 'masters' },
+			{  id:4, text: 'doctorate' }
+		];
 
   constructor(private dataService: DataService,
     public sharedService: SharedService,
@@ -164,8 +171,32 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 		if(array && value){
 			if(array.length!=0 && array.length!= undefined){
 				if(education == 'education'){
-					if(array.filter(function(a,b){ return a.degree.toLocaleLowerCase()==value.toLocaleLowerCase()}).length !=0 ){
+					var datas:any = this.educationItems.filter((el) => {
+						  return array.some((f) => {
+							return f.degree === el.text ;
+					});
+					});
+				value = this.educationItems.filter(function(a,b){return a.text.toLocaleLowerCase() == value.toLocaleLowerCase()})[0]['id']
+					
+					if(datas.filter(function(a,b){ return a.id >= value }).length !=0 ){
 						return true;
+					}else{
+						return false;
+					}
+				}if(education == 'missing'){
+					var datas:any = this.educationItems.filter((el) => {
+						  return array.some((f) => {
+							return f.degree === el.text ;
+					});
+					});
+				value = this.educationItems.filter(function(a,b){return a.text.toLocaleLowerCase() == value.toLocaleLowerCase()})[0]['id']
+					
+					if(datas.filter(function(a,b){ return a.id < value }).length !=0 ){
+						if(datas.filter(function(a,b){ return a.id >= value }).length !=0 ){
+							return false;
+						}else{
+							return true;
+						}
 					}else{
 						return false;
 					}
@@ -362,5 +393,30 @@ onGetCountry(query) {
 
 		this.sharedApiService.onGetLanguage(requestParams);
 	  }
+	  onShowMatches = (event) => {
+	  var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+			this.matchedElement = false;
+	 }else{
+		  this.matchedElement = true;
+	  }
+    if(this.missingElement == false && this.matchedElement == false ){
+		this.matchedElement = true;
+	  }
 	  
+  }
+
+  onShowMissing = (event) => {
+	  var temp = event.toElement.className.split(' ');
+	  if(temp[temp.length-1]=='btn-fltr-active'){
+			this.missingElement = false;
+	 }else{
+		  this.missingElement = true;
+	  }
+	   
+	  if(this.missingElement == false && this.matchedElement == false ){
+		this.missingElement = true;
+	  }
+    
+  }
 }

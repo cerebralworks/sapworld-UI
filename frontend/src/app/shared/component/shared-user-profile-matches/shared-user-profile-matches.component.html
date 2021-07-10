@@ -383,7 +383,7 @@
 								</span>
 							</ng-container>
 							<ng-container *ngFor="let item of matchingUsers?.profile?.education_qualification; let first = first;">
-								<span *ngIf="moreElement && (item.degree.toLocaleLowerCase() != postedJobsDetails?.education.toLocaleLowerCase())">
+								<span *ngIf="moreElement && checkTypeExtra(item.degree,postedJobsDetails?.education)">
 								  <i class="fa fa-info-circle text-blue" ></i>
 								  {{item.degree}}
 								</span>
@@ -852,7 +852,7 @@
 								</span>
 							</ng-container>
 							<ng-container *ngFor="let item of matchingUsers?.profile?.education_qualification; let first = first;">
-								<span *ngIf="moreElement && (item.degree.toLocaleLowerCase() != postedJobsDetails?.education.toLocaleLowerCase())">
+								<span *ngIf="moreElement && checkTypeExtra(item.degree,postedJobsDetails?.education)">
 								  <i class="fa fa-info-circle text-blue" ></i>
 								  {{item.degree}}
 								</span>
@@ -1320,7 +1320,7 @@
 								</span>
 							</ng-container>
 							<ng-container *ngFor="let item of matchingUsers?.profile?.education_qualification; let first = first;">
-								<span *ngIf="moreElement && (item.degree.toLocaleLowerCase() != postedJobsDetails?.education.toLocaleLowerCase())">
+								<span *ngIf="moreElement && checkTypeExtra(item.degree,postedJobsDetails?.education)">
 								  <i class="fa fa-info-circle text-blue" ></i>
 								  {{item.degree}}
 								</span>
@@ -1680,7 +1680,7 @@
 						</li>
 					</ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='' || postedJobsDetails?.work_authorization">
+				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='' && postedJobsDetails?.work_authorization">
 					<li class="list-group-item">
 						<span *ngIf=" (postedJobsDetails?.country == matchingUsers?.profile?.country || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
 							<div *ngIf="matchedElement && postedJobsDetails?.country == matchingUsers?.profile?.country">
@@ -1789,7 +1789,7 @@
 								</span>
 							</ng-container>
 							<ng-container *ngFor="let item of matchingUsers?.profile?.education_qualification; let first = first;">
-								<span *ngIf="moreElement && (item.degree.toLocaleLowerCase() != postedJobsDetails?.education.toLocaleLowerCase())">
+								<span *ngIf="moreElement && checkTypeExtra(item.degree,postedJobsDetails?.education)">
 								  <i class="fa fa-info-circle text-blue" ></i>
 								  {{item.degree}}
 								</span>

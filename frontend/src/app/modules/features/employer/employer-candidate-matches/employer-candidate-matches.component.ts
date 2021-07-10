@@ -31,7 +31,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public limit: number = 10;
   length = 0;
   pageIndex = 1;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [10, 25,50,100];
   showFirstLastButtons = true;
   public countrySelect: boolean = false;
   public postedJobCountry: any = [];
@@ -231,6 +231,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		this.Country=[];
 		this.countrySelect=false;
 		this.page=1;
+		this.limit=10;
 		this.resetData();
 		this.clearFilters();
 		this.selectedJob = item;
@@ -468,6 +469,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       response => {
         if(response && response.items && response.items.length > 0) {
           this.userList = [...response.items];
+		  this.savedProfiles = this.userList.filter(function(a,b){ return a.is_saved_profile ==true}).map(function(a,b){ return a.id});
+		   
         }else if(response && response.items && response.items.length == 0) {
 			this.userList = [];
 		}
@@ -683,6 +686,23 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       this.toastrService.error('Something went wrong', 'Failed')
     }
   }
+  
+onUnSaveProfile = (item) => {
+    if ((item && item.id)) {
+      let requestParams: any = {};
+      requestParams.user_id = item.id;
+      requestParams.delete = 1;
+      this.employerService.saveProfile(requestParams).subscribe(
+        response => {
+          this.savedProfiles = this.savedProfiles.filter(function(a,b){ return a!=item.id});
+        }, error => {
+        }
+      )
+    } else {
+      this.toastrService.error('Something went wrong', 'Failed')
+    }
+  }
+  
   handleChange(clr){
 	  var temp = clr.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
@@ -877,7 +897,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	
 	handlePageEvent(event: PageEvent) {
 		//this.length = event.length;
-		//this.pageSize = event.pageSize;
+		this.limit = event.pageSize;
 		this.page = event.pageIndex+1;
 		if(this.selectedJob &&this.selectedJob.id) {
 		  this.onGetCandidateList(this.selectedJob.id);

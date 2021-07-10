@@ -91,14 +91,14 @@
 															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
 															</a>
-															<a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}" class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a>
 														</form>
 													</div>
 												</div>
 											</div>
-											<div class="matchs-info" *ngIf="!isMultipleMatches" style="margin-top: 5px;">
+											<div class="matchs-info" *ngIf="!isMultipleMatches" >
 												<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 												<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
 												<button (click)="onShowMore($event)" id="moreBtnVal"  class="moreBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
@@ -147,7 +147,7 @@
 															<a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
 															</a>
-															<a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsersNew?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a>
 														</form>

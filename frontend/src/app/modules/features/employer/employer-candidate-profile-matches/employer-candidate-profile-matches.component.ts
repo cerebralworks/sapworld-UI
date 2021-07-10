@@ -633,5 +633,10 @@ findLanguageArray(value){
 		}
 		return false;
 	}
-	
+	OpenMatchesWithID(profileId,companyId){
+		
+		if(profileId && companyId){
+			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: null,id: profileId ,employeeId:companyId,path:'userscoring'} });
+		}
+	}
 }

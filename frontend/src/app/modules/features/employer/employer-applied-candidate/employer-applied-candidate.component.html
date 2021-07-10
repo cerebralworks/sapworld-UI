@@ -70,16 +70,16 @@
             </ng-container>
             <ng-template #elseTemplate>
               <tr>
-                <td colspan="6">No Record Found</td>
+                <td colspan="6">No Candidates Found</td>
               </tr>
             </ng-template>
 			
             </tbody>
           </table>
-		  <div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="(appliedJobMeta?.count > 0 && appliedJobMeta?.total > this.limit)">
+		  <div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="(appliedJobMeta?.count > 0 && appliedJobMeta?.total > 10)">
 					<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
 				[length]="length"
-				[pageSize]="limit"
+				[pageSize]="limit"  [pageSizeOptions]="pageSizeOptions"
 				[pageIndex]="page-1">
 			</mat-paginator>
 			</div>

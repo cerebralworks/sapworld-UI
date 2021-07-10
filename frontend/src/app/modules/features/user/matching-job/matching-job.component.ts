@@ -17,12 +17,13 @@ export class MatchingJobComponent implements OnInit {
 
   public isOpenedResumeSelectModal: boolean = false;
   public countrySelect: boolean = false;
+  public callJobsData: boolean = false;
   public Country: any = [];
   public page: number = 1;
   public limit: number = 10;
   length = 0;
   pageIndex = 1;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [ 10, 20,50,100];
   showFirstLastButtons = true;
   public postedJobs: any[] = [];
   public nationality: any[] = [];
@@ -147,12 +148,13 @@ validateAPI = 0;
 		response => {
         if (response && Array.isArray(response) && response.length) {
           this.nationality = response;
-		  this.onGetPostedJob();
+		 
           this.validateAPI++;
 	
         }
       }
     );
+	 this.onGetPostedJob();
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
@@ -184,7 +186,6 @@ validateAPI = 0;
   }
 
   onGetPostedJob() {
-	  //this.userInfo.authorized_country = this.findCountry(this.userInfo.authorized_country);
     let requestParams: any = {...this.queryParams};
     requestParams.page = this.page;
     requestParams.limit = this.limit;
@@ -201,7 +202,7 @@ validateAPI = 0;
 	  
 	  if(this.userInfo && this.userInfo.preferred_locations) {
 			if(this.userInfo.preferred_locations.length !=0) {
-				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				var temp:any[]= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 				if(temp.length!=0){
 					var tempData=temp.map(function(a,b){ return a.city});
 					tempData[tempData.length]=this.userInfo.city;
@@ -219,19 +220,32 @@ validateAPI = 0;
       requestParams.country = [this.userInfo.country];
 	  if(this.userInfo && this.userInfo.preferred_locations ) {
 			if(this.userInfo.preferred_locations.length !=0) {
-				var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				var temp:any[]= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var temp=temp.map(function(a,b){ return a.country});
+				}
 				if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
-					//temp = temp.concat(this.userInfo.authorized_country);
+					var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userInfo.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+						temp = temp.concat(authorized_countrys);
+					}
+					
 				}
 				
 				if(temp.length!=0){
-					var tempData=temp.map(function(a,b){ return a.country});
+					var tempData=temp;
 					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
 						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
 						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
 						'france','poland','germany','portugal','greece','slovakia','hungary',
 						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 						]
+						tempData = tempData.concat(EUCountry);
 					}
 					tempData[tempData.length]=this.userInfo.country;
 					tempData =tempData.filter(function(item, pos) {
@@ -241,17 +255,25 @@ validateAPI = 0;
 						requestParams.country = tempData.join(',');
 					}
 				}
-			}/* else if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
-				
-				var temp = this.userInfo.authorized_country ; 
+			} else if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+				var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userInfo.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+					}
+				var temp:any[] = authorized_countrys ; 
 				if(temp.length!=0){
-					var tempData=temp.map(function(a,b){ return a.country});
+					var tempData=temp;
 					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
 						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
 						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
 						'france','poland','germany','portugal','greece','slovakia','hungary',
 						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 						]
+						tempData = tempData.concat(EUCountry);
 					}
 					tempData[tempData.length]=this.userInfo.country;
 					tempData =tempData.filter(function(item, pos) {
@@ -261,20 +283,29 @@ validateAPI = 0;
 						requestParams.country = tempData.join(',');
 					}
 				}
-			} */
+			} 
 	  }
-    }/* else{
-		if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+    } else{
+		if(this.userInfo && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
 				
-			var temp = this.userInfo.authorized_country ; 
+			var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userInfo.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+					}
+				var temp:any[] = authorized_countrys ; 
 			if(temp.length!=0){
-				var tempData=temp.map(function(a,b){ return a.country});
+				var tempData=temp;
 				if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
 					var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
 					'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
 					'france','poland','germany','portugal','greece','slovakia','hungary',
 					'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 					]
+					tempData = tempData.concat(EUCountry);
 				}
 				tempData[tempData.length]=this.userInfo.country;
 				tempData =tempData.filter(function(item, pos) {
@@ -285,7 +316,7 @@ validateAPI = 0;
 				}
 			}
 		}
-	} */
+	} 
     if(this.Country.length!=0 ){
 		if(this.Country && this.Country.length){
 			requestParams.country = this.Country.join(',');
@@ -358,9 +389,18 @@ validateAPI = 0;
 		 if(this.countrySelect==false){
 			this.postedJobCountry = response['country'];
 			this.countrySelect=true;
+			if(response['country']){
+			var TotalValue =response['country'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+			
 			if(document.getElementById('matchesCountValue')){
-				document.getElementById('matchesCountValue').innerHTML="("+this.postedJobMeta.total+")";
+				document.getElementById('matchesCountValue').innerHTML="("+TotalValue+")";
 			}
+			 
+		 }else{
+			 if(document.getElementById('matchesCountValue')){
+				document.getElementById('matchesCountValue').innerHTML="(0)";
+			}
+		 }
 			 
 		 }
 		if(this.postedJobMeta.total){
@@ -532,6 +572,7 @@ validateAPI = 0;
   handlePageEvent(event: PageEvent) {
 		//this.length = event.length;
 		//this.pageSize = event.pageSize;
+		this.limit = event.pageSize;
 		this.page = event.pageIndex+1;
 		this.onGetPostedJob();
 	}

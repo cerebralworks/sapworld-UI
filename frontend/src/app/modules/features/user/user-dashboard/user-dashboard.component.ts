@@ -6,6 +6,8 @@ import { DataService } from '@shared/service/data.service';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import { UserService } from '@data/service/user.service';
+import { EmployerService } from '@data/service/employer.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -20,26 +22,40 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
   };
   public toggleResumeModal: boolean;
   public dashboardView: boolean = false;
+  public dashboardViewAPI: boolean = false;
   @ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
   public mbRef: NgbModalRef;
   public queryParams: any = {};
-
+	public userInfo:any;
+	public nationality:any[]=[];
   constructor(
     private route: ActivatedRoute,
     private userSharedService: UserSharedService,
     private router: Router,
     private dataService: DataService,
     private modelService: NgbModal,
+    private userService: UserService,
     private sharedApiService: SharedApiService,
+    private employerService: EmployerService,
     private utilsHelperService: UtilsHelperService
   ) { }
 
   ngOnInit(): void {
-	  this.onGetCountry('');
-	  this.onGetLanguage('');
+	  
+	  //this.onGetCountry('');
+	 // this.onGetLanguage('');
+	  
+	  this.dataService.getCountryDataSource().subscribe(
+		response => {
+        if (response && Array.isArray(response) && response.length) {
+          this.nationality = response;
+        }
+      }
+    );
 	  this.userSharedService.getUserProfileDetails().subscribe(
 		  response => {
 			  if(response){
+				  this.userInfo = response;
 				if(response.profile_completed){
 					if(response.profile_completed == false  ){
 						this.dashboardView = false;
@@ -87,6 +103,11 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
           break;
       }
     }
+	if(this.dashboardViewAPI ==false){
+	this.onGetAppliedJobs();
+	this.onGetPostedJob();
+	this.dashboardViewAPI =true;
+	}
   }
 
   validateOnPrfile = 0;
@@ -147,5 +168,230 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 
 		this.sharedApiService.onGetLanguage(requestParams);
 	  }
+	  
+	  
+  onGetAppliedJobs = () => {
+      let requestParams: any = {};
+      requestParams.page = 1;
+      requestParams.limit = 100000;
+      //requestParams.expand = "job_posting,user,employer";
+      this.userService.applicationsListForUser(requestParams).subscribe(
+        response => {
+          if(response && response['meta'] && response['meta']['total'] ) {
+           
+		  if(document.getElementById('appliedCountValue')){
+				document.getElementById('appliedCountValue').innerHTML="("+response['meta']['total']+")";
+			}
+		  }
+        }, error => {
+        }
+      )
+  }
+  
+  onGetPostedJob() {
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.limit = 10000;
+    requestParams.expand = '';
+    requestParams.skills_filter = 'false';
+    requestParams.work_authorization = '';
+    requestParams.visa_sponsered = false;
+	
+    if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true ) {
+      requestParams.work_authorization = this.userInfo.work_authorization;
+      requestParams.visa_sponsered = this.userInfo.visa_sponsered;
+	  
+		  requestParams.city = [this.userInfo.city];
+	  
+	  if(this.userInfo && this.userInfo.preferred_locations) {
+			if(this.userInfo.preferred_locations.length !=0) {
+				var temp:any[]= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.city});
+					tempData[tempData.length]=this.userInfo.city;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.city = tempData.join(',');
+					}
+				}
+			}
+	  }
+    }
+    if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true ) {
+      requestParams.country = [this.userInfo.country];
+	  if(this.userInfo && this.userInfo.preferred_locations ) {
+			if(this.userInfo.preferred_locations.length !=0) {
+				var temp:any[]= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var temp=temp.map(function(a,b){ return a.country});
+				}
+				if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+					var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userInfo.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+						temp = temp.concat(authorized_countrys);
+					}
+					
+				}
+				
+				if(temp.length!=0){
+					var tempData=temp;
+					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+						'france','poland','germany','portugal','greece','slovakia','hungary',
+						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+						]
+						tempData = tempData.concat(EUCountry);
+					}
+					tempData[tempData.length]=this.userInfo.country;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.country = tempData.join(',');
+					}
+				}
+			} else if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+				var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userInfo.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+					}
+				var temp:any[] = authorized_countrys ; 
+				if(temp.length!=0){
+					var tempData=temp;
+					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+						'france','poland','germany','portugal','greece','slovakia','hungary',
+						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+						]
+						tempData = tempData.concat(EUCountry);
+					}
+					tempData[tempData.length]=this.userInfo.country;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.country = tempData.join(',');
+					}
+				}
+			} 
+	  }
+    } else{
+		if(this.userInfo && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+				
+			var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userInfo.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+					}
+				var temp:any[] = authorized_countrys ; 
+			if(temp.length!=0){
+				var tempData=temp;
+				if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+					var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+					'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+					'france','poland','germany','portugal','greece','slovakia','hungary',
+					'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+					]
+					tempData = tempData.concat(EUCountry);
+				}
+				tempData[tempData.length]=this.userInfo.country;
+				tempData =tempData.filter(function(item, pos) {
+							return tempData.indexOf(item) == pos;
+						})
+				if(tempData && tempData.length){
+					requestParams.country = tempData.join(',');
+				}
+			}
+		}
+	} 
+    if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length) {
+		var temps = [];
+		if(this.userInfo.hands_on_experience && this.userInfo.hands_on_experience.length){
+			for(let i=0;i<this.userInfo.hands_on_experience.length;i++){
+				if(this.userInfo.hands_on_experience[i]['skill_id']  &&this.userInfo.hands_on_experience[i]['skill_id'] !=''){
+					temps.push(this.userInfo.hands_on_experience[i]['skill_id']);
+				}
+				
+			}
+			
+		}
+      requestParams.skills = temps.join(',')
+      requestParams.skills_filter = 'false';
+    }
+
+    if(this.queryParams && this.queryParams.skills && this.queryParams.skills.length) {
+      const tempSkill = (this.queryParams && this.queryParams.skills) ? this.queryParams.skills.split(',') : [];
+      //const tempSkillsMerged = [...this.userInfo.skills, ...tempSkill];
+      const tempSkillsMerged = [...tempSkill];
+      if(tempSkillsMerged && tempSkillsMerged.length) {
+		  if(this.userInfo.hands_on_experience && this.userInfo.hands_on_experience.length){
+			for(let i=0;i<this.userInfo.hands_on_experience.length;i++){
+				if(this.userInfo.hands_on_experience[i]['skill_id']  &&this.userInfo.hands_on_experience[i]['skill_id'] !=''){
+					//tempSkillsMerged.push(this.userInfo.hands_on_experience[i]['skill_id']);
+				}
+				
+			}
+			
+		}
+		  
+        const removedDuplicates = tempSkillsMerged.filter( function( item, index, inputArray ) {
+          return inputArray.indexOf(item) == index;
+        });
+
+        requestParams.skills = removedDuplicates.join(',')
+        requestParams.skills_filter = 'true';
+      }
+
+    }
+    if(requestParams.type && requestParams.type.length) {
+      requestParams.type = requestParams.type.join(',')
+    }else{
+		if(this.userInfo && this.userInfo.job_type) {
+			requestParams.type = this.userInfo.job_type;
+			if(requestParams.type && requestParams.type.length) {
+			  requestParams.type = requestParams.type.join(',')
+			}
+		}
+    }
+
+	
+    const removeEmpty = this.utilsHelperService.clean(requestParams)
+
+    this.employerService.getPostedJob(removeEmpty).subscribe(
+      response => {
+        if(response['country']){
+			var TotalValue =response['country'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+			
+			if(document.getElementById('matchesCountValue')){
+				document.getElementById('matchesCountValue').innerHTML="("+TotalValue+")";
+			}
+			 
+		 }else{
+			 if(document.getElementById('matchesCountValue')){
+				document.getElementById('matchesCountValue').innerHTML="(0)";
+			}
+		 }
+		
+       
+      }, error => {
+      }
+    )
+  }
 
 }

@@ -7,6 +7,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-saved-profile',
@@ -20,7 +21,10 @@ export class SavedProfileComponent implements OnInit {
   public isOpenedNotesViewModal: boolean = false;
   public savedProfile: any[] = [];
   public page: number = 1;
-  public limit: number = 25;
+  public limit: number = 10;
+  length = 0;
+  pageIndex = 1;
+  pageSizeOptions = [10, 25,50,100];
   public savedProfileMeta: any;
   public selectedResumeUrl: string;
   public searchField: FormControl = new FormControl();
@@ -28,6 +32,7 @@ export class SavedProfileComponent implements OnInit {
   public validateSubscribe: number = 0;
   public loggedUserInfo: any;
   public randomNum: number;
+  public userInfo: any;
 
   constructor(
     private employerService: EmployerService,
@@ -84,6 +89,20 @@ export class SavedProfileComponent implements OnInit {
           this.savedProfile = [...this.savedProfile, ...response.items];
         }
         this.savedProfileMeta = { ...response.meta }
+		 if(response['meta']['total']){
+			  var TotalValue = response['meta']['total'];
+			if(document.getElementById('SavedCount')){
+					document.getElementById('SavedCount').innerHTML="("+TotalValue+")";
+				}
+				
+			}else{
+				if(document.getElementById('SavedCount')){
+					document.getElementById('SavedCount').innerHTML="(0)";
+				}
+			}
+		if(this.savedProfileMeta.total){
+			this.length = this.savedProfileMeta.total
+		}
       }, error => {
       }
     )
@@ -118,8 +137,19 @@ export class SavedProfileComponent implements OnInit {
     this.isOpenedResumeModal = status;
   }
 
-  onToggleAddNotesModal = (status) => {
-    this.isOpenedAddNotesModal = status;
+  onToggleAddNotesModal = (status,data) => {
+	  
+		this.userInfo = data;
+		this.isOpenedAddNotesModal = status;
+  }
+  
+  onToggleAddNotesModalEmit = (status) => {
+	  if(status ==false){
+		  this.savedProfile =[];
+		  this.onGetSavedProfile();
+		 
+	  }
+	   this.isOpenedAddNotesModal = false;
   }
 
   onToggleNotesViewModal = (status) => {
@@ -146,5 +176,12 @@ export class SavedProfileComponent implements OnInit {
     }
     return "";
   }
+	handlePageEvent(event: PageEvent) {
+		//this.length = event.length;
+		  this.savedProfile =[];
+		this.limit = event.pageSize;
+		this.page = event.pageIndex+1;
+		this.onGetSavedProfile();
+	}
 
 }

@@ -22,6 +22,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
   public userID: string;
   public jobId: string;
   public employeeID: any;
+  public pathUser: any;
   public postedJobsDetails: JobPosting;
   public postedJobsMatchDetails:any[] =[];
 
@@ -91,6 +92,8 @@ onRedirectBack = () => {
     //this.location.back();
 	if(sessionStorage.getItem('view-user-path')=='applicants'){
 		this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'applicants'}});
+	}else if(sessionStorage.getItem('view-user-path')=='savedprofile'){
+		this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'savedProfile'}});
 	}else{
 		this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
 	}

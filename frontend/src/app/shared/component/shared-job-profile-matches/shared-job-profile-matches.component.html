@@ -334,7 +334,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.job_type,jobInfo.education,'')">
+                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -735,7 +735,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.job_type,jobInfo.education,'')">
+                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -1138,7 +1138,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.job_type,jobInfo.education,'')">
+                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -1536,7 +1536,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.job_type,jobInfo.education,'')">
+                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
