@@ -8,6 +8,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ConfigModule } from '@config/config.module';
 import { CoreModule } from '@app/core.module';
 import { NgbModule  } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 // import ngx-translate and the http loader
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -49,6 +50,7 @@ import { environment } from '@env';
     }),
     NgxUiLoaderModule, // import NgxUiLoaderModule
     // NgxUiLoaderHttpModule,
+	TooltipModule.forRoot(),
     NgxUiLoaderHttpModule.forRoot({
       showForeground: true,
       exclude: [

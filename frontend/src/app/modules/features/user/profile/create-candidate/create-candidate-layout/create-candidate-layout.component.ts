@@ -210,7 +210,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	createFormData(){
 		if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
 			this.candidateForm.addControl('jobPref', new FormGroup({
-				job_type: new FormControl(null),
+				job_type: new FormControl(null, Validators.required),
 				job_role: new FormControl(''),
 				willing_to_relocate: new FormControl(null, Validators.required),
 				preferred_location: new FormControl(null),

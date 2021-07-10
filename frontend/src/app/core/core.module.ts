@@ -13,7 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
     CommonModule,
     HttpClientModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
+      timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
       autoDismiss: true,

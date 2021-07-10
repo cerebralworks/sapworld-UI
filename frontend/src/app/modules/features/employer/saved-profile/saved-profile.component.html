@@ -21,14 +21,14 @@
             <div class="col-lg-4" *ngIf="!utilsHelperService.isEmptyObj(item)">
               <div class="card job-card sm" >
                 <div class="card-body">
-                  <a  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.id, jobId: item?.job_posting?.id}">
+                  <a  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.id,path:'savedprofile'}">
                     <h5 class="text-capitalize mb-0">
                       {{item?.first_name + ' ' + item?.last_name}}
                     </h5>
                     <h5 class="text-capitalize"><small *ngIf="item?.job_role">{{item?.job_role}}</small></h5>
                   </a>
                   <!-- <div [ngClass]="{'active': savedProfiles?.includes(item?.id)}" (click)="onSaveProfile(item)" class="save-icon" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div> -->
-                  <div  (click)="onSaveProfile(item, i)" class="save-icon active" data-toggle="tooltip" title="Save"><i class="far fa-bookmark"></i></div>
+                  <div  (click)="onSaveProfile(item, i)" class="save-icon active"  ><i class="far fa-bookmark"></i></div>
                   <div class="media">
                     <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" style="width:36px;" [src]="item?.photo ? (savedProfileMeta?.photo?.path+'/'+ savedProfileMeta?.photo?.folder+'/'+savedProfileMeta?.photo?.sizes?.medium+'/'+item?.photo) : 'assets/images/user-img-icon.jpg'">
                     <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
@@ -58,8 +58,8 @@
                       class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
                       <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate}}</a>
                     </span>
-                    <span data-toggle="modal" data-target="#notes">
-                      <a (click)="onToggleNotesViewModal(true)" class="btn btn-outline-green btn-sm" href="javascript:;">
+                    <span data-toggle="modal" data-target="#notes" (click)="onToggleAddNotesModal(true,item)">
+                      <a  class="btn btn-outline-green btn-sm" href="javascript:;">
                       <i class="fas fa-edit"></i>{{"home.notes" | translate}}</a>
                     </span>
                   </div>
@@ -76,12 +76,19 @@
       </div>
     </ng-template>
 
+	<div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="((savedProfileMeta?.count > 0 && savedProfileMeta?.total > 1))">
+		<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="limit" [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="page-1">
+</mat-paginator>
+</div>
 
-    <div class="d-flex justify-content-center" *ngIf="((savedProfileMeta?.count > 0 && savedProfileMeta?.total > 25) && (savedProfileMeta?.total != savedProfile?.length))">
+   <!--  <div class="d-flex justify-content-center" *ngIf="((savedProfileMeta?.count > 0 && savedProfileMeta?.total > 25) && (savedProfileMeta?.total != savedProfile?.length))">
       <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
         Load More
       </button>
-    </div>
+    </div> -->
 
   </div>
 </section>
@@ -98,8 +105,9 @@
 
 <app-add-notes
 *ngIf="isOpenedAddNotesModal"
+[userInfo]="userInfo"
 [toggleAddNotesModal]="isOpenedAddNotesModal"
-(onEvent)="onToggleAddNotesModal($event)">
+(onEvent)="onToggleAddNotesModalEmit($event)">
 </app-add-notes>
 
 <app-notes-view

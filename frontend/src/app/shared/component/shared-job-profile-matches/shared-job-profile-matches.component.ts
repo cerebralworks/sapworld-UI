@@ -1,4 +1,4 @@
-import { Component,ViewEncapsulation,OnChanges, Input, OnInit } from '@angular/core';
+import { Component,ViewEncapsulation,OnChanges, Input, OnInit, ChangeDetectionStrategy,ChangeDetectorRef } from '@angular/core';
 import { JobPosting } from '@data/schema/post-job';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -11,6 +11,7 @@ import * as lodash from 'lodash';
   templateUrl: './shared-job-profile-matches.component.html',
   styleUrls: ['./shared-job-profile-matches.component.css'],
 	encapsulation: ViewEncapsulation.None
+	
 })
 export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 
@@ -29,9 +30,17 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 	public optional: boolean = false;
 	public nice: boolean = false;
 	public IsShown: boolean = false;
+	public educationItems = [
+			{  id:0, text: 'high school' },
+			{  id:1, text: 'diploma' },
+			{  id:2, text: 'bachelors' },
+			{  id:3, text: 'masters' },
+			{  id:4, text: 'doctorate' }
+		];
 
   constructor(private dataService: DataService,
     public sharedService: SharedService,
+    public cdRef:ChangeDetectorRef,
     private sharedApiService: SharedApiService,
     public utilsHelperService: UtilsHelperService
   ) { }
@@ -119,6 +128,7 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
   }
   ngOnChanges(changes): void {
     setTimeout( async () => {
+	this.cdRef.detectChanges();
 		var arr = [];
 		if(this.jobInfo){
 			  if(this.jobInfo.match_select){
@@ -164,8 +174,32 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 		if(array && value){
 			if(array.length!=0 && array.length!= undefined){
 				if(education == 'education'){
-					if(array.filter(function(a,b){ return a.degree.toLocaleLowerCase()==value.toLocaleLowerCase()}).length !=0 ){
+					var datas:any = this.educationItems.filter((el) => {
+						  return array.some((f) => {
+							return f.degree === el.text ;
+					});
+					});
+				value = this.educationItems.filter(function(a,b){return a.text.toLocaleLowerCase() == value.toLocaleLowerCase()})[0]['id']
+					
+					if(datas.filter(function(a,b){ return a.id >= value }).length !=0 ){
 						return true;
+					}else{
+						return false;
+					}
+				}if(education == 'missing'){
+					var datas:any = this.educationItems.filter((el) => {
+						  return array.some((f) => {
+							return f.degree === el.text ;
+					});
+					});
+				value = this.educationItems.filter(function(a,b){return a.text.toLocaleLowerCase() == value.toLocaleLowerCase()})[0]['id']
+					
+					if(datas.filter(function(a,b){ return a.id < value }).length !=0 ){
+						if(datas.filter(function(a,b){ return a.id >= value }).length !=0 ){
+							return false;
+						}else{
+							return true;
+						}
 					}else{
 						return false;
 					}

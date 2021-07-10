@@ -8,12 +8,12 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <textarea class="form-control" rows="3"></textarea>
+        <textarea [(ngModel)]="description" name="description" class="form-control" rows="3"></textarea>
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-theme-blue btn-sm" data-dismiss="modal">Save</button>
+    <button (click)="onSaveProfile()" type="button" class="btn btn-theme-blue btn-sm" >Save</button>
   </div>
 </ng-template>

@@ -163,8 +163,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		];
 		this.educationItems = [
 			{  text: 'High School' },
-			{  text: 'Bachelors' },
 			{  text: 'Diploma' },
+			{  text: 'Bachelors' },
 			{  text: 'Masters' },
 			{ text: 'Doctorate' }
 		];

@@ -14,7 +14,7 @@ export class AppliedJobComponent implements OnInit {
   public limit: number = 10;
   length = 0;
   pageIndex = 1;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [ 10, 20,50,100];
   showFirstLastButtons = true;
 
   constructor(
@@ -50,6 +50,7 @@ export class AppliedJobComponent implements OnInit {
   }
 
   handlePageEvent(event: PageEvent) {
+		this.limit = event.pageSize;
 	  
     this.page = event.pageIndex + 1;
     this.onGetAppliedJobs();

@@ -43,6 +43,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
   postedJobsMatchDetails: any;
   postedJobsDetails: any;
   currentUserInfo: any;
+  employeePath: any;
   TotalMatchJobs: any[]=[];
 
   constructor(
@@ -64,10 +65,11 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 			sessionStorage.setItem('view-user-id',urlQueryParams.id);
 			sessionStorage.setItem('view-jobId-id',urlQueryParams.jobId);
 			sessionStorage.setItem('view-Employee-id',urlQueryParams.employeeId);
+			sessionStorage.setItem('view-Employee-Path',urlQueryParams.path);
         }
 	}
 	});
-	this.router.navigate([], {queryParams: {id: null,jobId: null,employeeId: null}, queryParamsHandling: 'merge'});
+	this.router.navigate([], {queryParams: {userscoring: null,path: null,id: null,jobId: null,employeeId: null}, queryParamsHandling: 'merge'});
 	if(sessionStorage.getItem('view-user-id')){
 		this.userID = parseInt(sessionStorage.getItem('view-user-id'));
 		this.onGetCandidateInfo();
@@ -77,6 +79,9 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	}
 	if(sessionStorage.getItem('view-Employee-id')){
 		this.employeeID =  parseInt(sessionStorage.getItem('view-Employee-id'));
+	}
+	if(sessionStorage.getItem('view-Employee-Path')){
+		this.employeePath =  sessionStorage.getItem('view-Employee-Path');
 	}
 	
   }
@@ -185,29 +190,33 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
       response => {
         if(response && response.items && response.items.length > 0) {
 			this.postedJobsMatchDetails=response.items;
-			for(let i=0;i<this.jobID.length;i++){
-				var idVal = parseInt(this.jobID[i]);
-				var temp = this.postedJobsMatchDetails.filter(function(a,b){ return a.id == idVal})
-				if(temp.length!=0){
-					var score =4;
-					var profile = temp[0]
-					if (this.userInfo['work_authorization'] == profile.work_authorization) {
-                        score += 1;
-                    }
-                    if (this.userInfo['travel_opportunity'] <= profile.travel) {
-                        score += 1;
-                    }
-                    if (this.userInfo['job_type'] == profile.job_type) {
-                        score += 1;
-                    }
-                    if (this.userInfo['availability'] >= profile.availability) {
-                        score += 1;
-                    }
-                    if (this.userInfo['end_to_end_implementation'] <= profile.end_to_end_implementation) {
-                        score += 1;
-                    }
-					temp[0]['score']=score;
-					this.TotalMatchJobs.push(temp[0])
+			if(this.employeePath =='userscoring'){
+				this.TotalMatchJobs = this.postedJobsMatchDetails;
+			}else{
+				for(let i=0;i<this.jobID.length;i++){
+					var idVal = parseInt(this.jobID[i]);
+					var temp = this.postedJobsMatchDetails.filter(function(a,b){ return a.id == idVal})
+					if(temp.length!=0){
+						var score =4;
+						var profile = temp[0]
+						if (this.userInfo['work_authorization'] == profile.work_authorization) {
+							score += 1;
+						}
+						if (this.userInfo['travel_opportunity'] <= profile.travel) {
+							score += 1;
+						}
+						if (this.userInfo['job_type'] == profile.job_type) {
+							score += 1;
+						}
+						if (this.userInfo['availability'] >= profile.availability) {
+							score += 1;
+						}
+						if (this.userInfo['end_to_end_implementation'] <= profile.end_to_end_implementation) {
+							score += 1;
+						}
+						temp[0]['score']=score;
+						this.TotalMatchJobs.push(temp[0])
+					}
 				}
 			}
 			this.ShowData()
@@ -284,7 +293,11 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	}
   onRedirectBack = () => {
     //this.location.back();
-	this.router.navigate(['/employer/candidate-profile'])
+	if(this.employeePath =='userscoring'){
+		this.router.navigate(['/employer/job-candidate-matches/details/view']);
+	}else{
+		this.router.navigate(['/employer/candidate-profile']);
+	}
   }
 
   onToggleJDModal = (status,description) => {
