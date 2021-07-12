@@ -191,7 +191,29 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
         if(response && response.items && response.items.length > 0) {
 			this.postedJobsMatchDetails=response.items;
 			if(this.employeePath =='userscoring'){
-				this.TotalMatchJobs = this.postedJobsMatchDetails;
+				this.TotalMatchJobs = [];
+				for(let i=0;i<this.postedJobsMatchDetails.length;i++){
+					
+						var score =4;
+						var profile = this.postedJobsMatchDetails[i]
+						if (this.userInfo['work_authorization'] == profile.work_authorization) {
+							score += 1;
+						}
+						if (this.userInfo['travel_opportunity'] <= profile.travel) {
+							score += 1;
+						}
+						if (this.userInfo['job_type'] == profile.job_type) {
+							score += 1;
+						}
+						if (this.userInfo['availability'] >= profile.availability) {
+							score += 1;
+						}
+						if (this.userInfo['end_to_end_implementation'] <= profile.end_to_end_implementation) {
+							score += 1;
+						}
+						this.postedJobsMatchDetails[i]['score']=score;
+						this.TotalMatchJobs.push(this.postedJobsMatchDetails[i])
+				}
 			}else{
 				for(let i=0;i<this.jobID.length;i++){
 					var idVal = parseInt(this.jobID[i]);

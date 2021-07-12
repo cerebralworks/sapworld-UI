@@ -204,7 +204,7 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 					if(array.filter(function(a,b){ return a.toLocaleLowerCase()==value.toLocaleLowerCase()}).length !=0 ){
 						return true;
 					}
-				}else if(array.filter(function(a,b){ return a.toLocaleLowerCase()!=value.toLocaleLowerCase()}).length ==0){
+				}else if(array.filter(function(a,b){ return a.toLocaleLowerCase()==value.toLocaleLowerCase()}).length ==0){
 					return true;
 				}
 			}
@@ -359,7 +359,7 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 
 				if(array.length !=0){
 					var temp = array.map(function(a,b){
-						return a['nicename'];
+						return a['nicename'].toLocaleLowerCase();
 					})
 					if(temp.length !=0){
 						return this.utilsHelperService.onConvertArrayToString(temp);

@@ -91,7 +91,7 @@
 															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
 															</a>
-															<a href="javascript:;" (click)="OpenMatchesWithID(matchingUsers?.profile?.id,postedJobsDetails?.company)" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}" class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a>
 														</form>
@@ -147,7 +147,7 @@
 															<a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
 															</a>
-															<a href="javascript:;"  (click)="OpenMatchesWithID(matchingUsersNew?.profile?.id,postedJobsDetails?.company)"  class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsersNew?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a>
 														</form>

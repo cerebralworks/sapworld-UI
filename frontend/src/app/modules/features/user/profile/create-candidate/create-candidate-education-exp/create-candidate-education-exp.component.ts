@@ -113,11 +113,13 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 			this.savedUserDetails.domains_worked[i]=parseInt(this.savedUserDetails.domains_worked[i]);
 		}
       }
-      this.childForm.patchValue({
-        educationExp: {
-          ...this.savedUserDetails
-        }
-      })
+	  if(this.childForm.controls.educationExp.status =="INVALID"){
+		  this.childForm.patchValue({
+			educationExp: {
+			  ...this.savedUserDetails
+			}
+		  })
+	  }
       
     }
     // if(this.childForm && this.childForm.value.educationExp.education_qualification && Array.isArray(this.childForm.value.educationExp.education_qualification)) {

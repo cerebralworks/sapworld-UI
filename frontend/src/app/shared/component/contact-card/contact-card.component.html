@@ -22,10 +22,14 @@
       <div class="col-lg-5 text-right">
 			
         <span class="mr-1" *ngIf="!isMultipleMatches">
-          <a
+          <a *ngIf="!isUploadShow || selectedCover?.file"
           [class.disabled]="!selectedCover?.file"
           (click)="selectedCover?.file && onToggleCoverForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedCover?.file))" class="btn btn-outline-orange  btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i> Cover Lettter
+          </a>
+		  <a *ngIf="isUploadShow && !selectedCover?.file"
+          (click)="openCoverselect(true)" class="btn btn-outline-orange  btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> Upload cover
           </a>
         </span>
         <span *ngIf="isResume" class="mr-1">
@@ -165,6 +169,11 @@
   </div>
 </div>
 
+<app-cover-select
+[togglecoverSelectModal]="togglecoverSelectModal"
+*ngIf="togglecoverSelectModal"
+(onEvent)="onToggleCoverSelectModal($event)">
+</app-cover-select>
 
 <app-contact-info
 [userInfo]="userInfo"

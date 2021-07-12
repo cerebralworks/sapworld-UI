@@ -6,6 +6,8 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '@data/service/user.service';
+
 import * as $ from 'jquery';
 
 declare var $: any;
@@ -26,11 +28,13 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   @Input() isMatchesView?: boolean = true;
   @Input() isContactIcon?: boolean = true;
   @Input() isMultipleMatches?: boolean = false;
+  @Input() isUploadShow?: boolean = false;
   @Input() jobInfo?: JobPosting;
 
   public isOpenedContactInfoModal: boolean;
   public isOpenedResumeModal: boolean;
   public isOpenedCoverModal: boolean;
+  public togglecoverSelectModal: boolean;
   public isMatchView: boolean =false;
   public randomNum: number;
   public selectedResumeUrl: any;
@@ -47,6 +51,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   constructor(
     public utilsHelperService: UtilsHelperService,
     private router: Router,
+    private userService: UserService,
     private accountService: AccountService
   ) { }
 
@@ -171,5 +176,32 @@ ngAfterViewInit(): void {
 			var selectedIds = this.selected.join(',');
 			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userInfo.id,employeeId:this.postedJobsMatchDetails[0].company.id} });
 		}
+	}
+	
+	onToggleCoverSelectModal(status){
+		if(status==true){
+			
+			this.userService.profile().subscribe(
+			  response => {
+				  this.isUploadShow = false;
+				if(response['details']){
+					this.userInfo = response['details'];
+					if(this.userInfo && this.userInfo.doc_cover && Array.isArray(this.userInfo.doc_cover)) {
+					  this.selectedCover = this.userInfo.doc_cover[0];
+					}
+					this.userInfo['meta'] = response['meta'];
+				}
+			  }, error => {
+				//this.modalService.dismissAll();
+			  }
+			)
+			
+		}
+	}
+	openCoverselect(status){
+		if(status==true){
+			this.togglecoverSelectModal = true;
+		}
+		
 	}
 }
