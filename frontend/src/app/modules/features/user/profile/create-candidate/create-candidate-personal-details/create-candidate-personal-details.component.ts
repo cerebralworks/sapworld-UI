@@ -219,6 +219,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	  setTimeout(async () => {
 		 /*  this.requestParams = {'Enter the ngOnChanges':'personalComponent'};
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
+				if(this.childForm.controls.personalDetails.status =="INVALID"){
     if(this.childForm && this.savedUserDetails) {
 		if(this.childForm.value.personalDetails.country){
 			this.savedUserDetails.first_name=this.childForm.value.personalDetails.first_name;
@@ -309,7 +310,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			}
 		  });
 	  }}
+	  this.childForm.patchValue({
+        personalDetails: {
+			  phone: this.savedUserDetails.phone,
+        }
+      });
 	  }
+	   
       this.childForm.patchValue({
         personalDetails: {
 			first_name:this.savedUserDetails.first_name,
@@ -418,7 +425,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
           })
         }
       }
-
+		this.childForm.patchValue({
+        personalDetails: {
+			  phone: this.savedUserDetails.phone,
+        }
+      });
       let phoneNumber: string = this.savedUserDetails.phone;
       if(phoneNumber) {
         // this.childForm.controls.personalDetails.controls.phone.setValue('+919898989898');
@@ -434,7 +445,55 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         //   }
         // })
       }
-    }
+				}}else{
+					if(this.childForm.value.personalDetails.visa_type){
+				  var splits =this.childForm.value.personalDetails.visa_type;
+				  this.savedUserDetails.visa_type=splits;
+				  this.visa_types = splits;
+			  }
+			  if(this.childForm.value.personalDetails.clients_worked){
+				  var splits =this.childForm.value.personalDetails.clients_worked;
+				  this.savedUserDetails.clients_worked=splits;
+				  this.employers = splits;
+			  }
+			  this.savedUserDetails.work_authorization= this.childForm.value.personalDetails.work_authorization;
+			  if(this.childForm.value.personalDetails.authorized_country){
+				this.savedUserDetails.authorized_country= this.childForm.value.personalDetails.authorized_country;
+			  }
+			  if(this.childForm.value.personalDetails.authorized_country_select){
+				var selected_authorized_country_select = this.childForm.value.personalDetails.authorized_country_select;
+				for(let i=0;i<selected_authorized_country_select.length;i++){
+					var id=selected_authorized_country_select[i];
+					this.savedUserDetails.authorized_country.push(id);
+				}
+			  }
+			  
+			  if(this.savedUserDetails.authorized_country!=null){		  
+		if(this.savedUserDetails.authorized_country.length){
+			for(let i=0;i<this.savedUserDetails.authorized_country.length;i++){
+				var id = this.savedUserDetails.authorized_country[i]
+				if(document.getElementById(id)){
+					document.getElementById(id)['className'] ='btn btn-fltr btn-fltr-active';
+				}
+			}
+			var value = this.savedUserDetails.authorized_country;
+			var temp = value.filter(function(a,b){
+				return a =="226" ||a =="254" || a =="225" || a =="13" || a =="153" || a =="192" || a =="38" 
+			});
+			var tempData = value.filter(function(a,b){
+				return a !="226" ||a !="254" || a !="225" || a !="13" || a =="153" || a =="192" || a =="38" 
+			});
+			this.savedUserDetails.authorized_country = tempData;
+			this.childForm.patchValue({
+				personalDetails: {
+					authorized_country_select : temp,
+					authorized_country : tempData
+				}
+			});
+		}
+		
+	  }
+				}
 	/* this.requestParams = {'Exist the onchange':'personalComponent'};
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
 	  }); 

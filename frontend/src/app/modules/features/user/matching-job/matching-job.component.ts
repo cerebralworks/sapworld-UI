@@ -362,6 +362,23 @@ validateAPI = 0;
       }
 
     }
+	
+    if(!this.route.snapshot.queryParamMap.get('max_experience')) {
+      requestParams.max_experience = this.userInfo.experience;
+    }
+    if(this.route.snapshot.queryParamMap.get('max_experience')) {
+		if(this.userInfo){
+			if(this.userInfo.experience >= requestParams.min_experience && !(this.userInfo.experience >= requestParams.max_experience) ){
+				requestParams.max_experience = this.userInfo.experience
+				
+			}if(!(this.userInfo.experience > requestParams.min_experience) && !(this.userInfo.experience > requestParams.max_experience) ){
+				requestParams.min_experience = 100
+				requestParams.max_experience = 101
+				
+			}
+		}
+      
+    }
 	/* if(!this.route.snapshot.queryParamMap.get('min_experience')) {
       requestParams.min_experience = this.userInfo.experience;
     } */
@@ -387,7 +404,16 @@ validateAPI = 0;
         }
 		 this.postedJobMeta = { ...response.meta };
 		 if(this.countrySelect==false){
-			this.postedJobCountry = response['country'];
+			
+			for(let i=0;i<response['country']['length'];i++){
+				var tempcountry = response['country'][0]['country'];
+				var filter = response['country'].filter(function(a,b){ return a.country.toLowerCase() == tempcountry.toLowerCase() }).length
+				this.postedJobCountry.push({count:filter,country:tempcountry});
+				response['country'] = response['country'].filter(function(a,b){ return a.country.toLowerCase() != tempcountry.toLowerCase() });
+				i = 0;
+				
+			}
+			response['country'] = this.postedJobCountry ;
 			this.countrySelect=true;
 			if(response['country']){
 			var TotalValue =response['country'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);

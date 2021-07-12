@@ -195,6 +195,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     setTimeout(async () => {
 		/* this.requestParams = {'Enter the ngOnChanges':'CreateCandidateSkillsetComponent'};
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
+		if(this.childForm.controls.skillSet.status =="INVALID"){
+		  
       if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
         if (this.savedUserDetails && this.savedUserDetails.hands_on_experience && Array.isArray(this.savedUserDetails.hands_on_experience)) {
           if ((this.savedUserDetails.hands_on_experience.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.hands_on_experience && this.savedUserDetails.hands_on_experience.length)) {
@@ -244,7 +246,18 @@ export class CreateCandidateSkillsetComponent implements OnInit {
             ...this.savedUserDetails
           }
         });
-      }
+		}}else{
+			
+		if (this.savedUserDetails.programming_skills != null) {
+			this.programmingSkills = this.savedUserDetails.programming_skills;
+		}
+		if (this.savedUserDetails.other_skills != null) {
+			this.othersSkills = this.savedUserDetails.other_skills;
+		}
+		if (this.savedUserDetails.certification != null) {
+			this.certification = this.savedUserDetails.certification;
+		}
+		}
 	  /* this.requestParams = {'Exist the ngOnChanges':'CreateCandidateSkillsetComponent'};
 				this.SharedAPIService.onSaveLogs(this.requestParams); */
     });

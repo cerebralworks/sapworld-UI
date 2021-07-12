@@ -369,13 +369,26 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 			}
 		}
     }
-
+if(this.userInfo && this.userInfo.experience) {
+      requestParams.max_experience = this.userInfo.experience;
+    }
 	
     const removeEmpty = this.utilsHelperService.clean(requestParams)
 
     this.employerService.getPostedJob(removeEmpty).subscribe(
       response => {
+		  
         if(response['country']){
+			var postedJobCountry =[];
+			for(let i=0;i<response['country']['length'];i++){
+				var tempcountry = response['country'][0]['country'];
+				var filter = response['country'].filter(function(a,b){ return a.country.toLowerCase() == tempcountry.toLowerCase() }).length
+				postedJobCountry.push({count:filter,country:tempcountry});
+				response['country'] = response['country'].filter(function(a,b){ return a.country.toLowerCase() != tempcountry.toLowerCase() });
+				i = 0;
+				
+			}
+			response['country'] = postedJobCountry ;
 			var TotalValue =response['country'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
 			
 			if(document.getElementById('matchesCountValue')){

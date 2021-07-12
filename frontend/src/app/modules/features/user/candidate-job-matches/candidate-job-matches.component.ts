@@ -132,6 +132,10 @@ export class CandidateJobMatchesComponent implements OnInit {
 			}
 	  }
     }
+	
+    if(this.userInfo && this.userInfo.experience) {
+      requestParams.max_experience = this.userInfo.experience;
+    }
     if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true) {
       requestParams.country = [this.userInfo.country];
 	  if(this.userInfo && this.userInfo.preferred_locations) {
@@ -247,6 +251,9 @@ export class CandidateJobMatchesComponent implements OnInit {
 	  }
     }
 	
+    if(this.userInfo && this.userInfo.experience) {
+      requestParams.max_experience = this.userInfo.experience;
+    }
 
     const sb = this.userService.getUserScoring(requestParams).subscribe(
       response => {

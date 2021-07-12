@@ -28,6 +28,7 @@
                         </span>
                         <span class="text-danger" *ngIf="missingElement && (jobInfo.sap_experience > userInfo?.sap_experience)">
                           <i class="fas fa-times text-danger "></i>
+						  {{jobInfo.sap_experience ? jobInfo.sap_experience + ' Years' :'--'}}
                         </span>
                       </li>
                 </ul>
@@ -223,7 +224,7 @@
 					<li class="list-group-item">
 						<span class="text-green" *ngIf="matchedElement && (jobInfo?.country == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
 							<div *ngIf="jobInfo?.country == findCountry([userInfo?.nationality])">
-							<i class="fas fa-check text-green "></i>  I am a Citizen
+							<i class="fas fa-check text-green "></i>  Authorized to work
 							  </div>
 							  <div *ngIf="jobInfo?.country != findCountry([userInfo?.nationality]) && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
 								<i class="fas fa-check text-green "></i>
@@ -231,7 +232,7 @@
 							  </div>
 							  <div *ngIf="jobInfo?.visa_sponsorship == true && jobInfo?.country != findCountry([userInfo?.nationality]) && userInfo?.work_authorization == 1 ">
 								<i class="fas fa-check text-green "></i>
-								We Provide Visa Sponsership
+								Visa Sponsorship Provided
 							  </div>
 						</span>
 						<span class="text-danger" *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && jobInfo?.country != findCountry([userInfo?.nationality]) )">

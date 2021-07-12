@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit,SimpleChanges } from '@angular/core';
 import { CandidateProfile, tabInfo, tabProgressor } from '@data/schema/create-candidate';
 import { trigger, transition, query, style, animate, group } from '@angular/animations';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -111,7 +111,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		this.ngAfterViewInitCheck();
 		 console.log({'Exist the oninit':'CreateCandidateLayoutComponent'})
 	}
-
+	
 	validateOnAPI = 0;
 	validateOnForm = 0;
 	ngAfterViewInitCheck(){
