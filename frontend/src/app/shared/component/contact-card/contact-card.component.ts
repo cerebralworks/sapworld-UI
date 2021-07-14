@@ -29,12 +29,14 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   @Input() isContactIcon?: boolean = true;
   @Input() isMultipleMatches?: boolean = false;
   @Input() isUploadShow?: boolean = false;
+  @Input() isUploadShowResume?: boolean = false;
   @Input() jobInfo?: JobPosting;
 
   public isOpenedContactInfoModal: boolean;
   public isOpenedResumeModal: boolean;
   public isOpenedCoverModal: boolean;
   public togglecoverSelectModal: boolean;
+  public toggleresumeSelectModal: boolean;
   public isMatchView: boolean =false;
   public randomNum: number;
   public selectedResumeUrl: any;
@@ -69,6 +71,9 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   ngDoCheck(): void {
     if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
       this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
+	  if(!this.selectedResume || this.selectedResume==undefined){
+		  this.selectedResume =this.userInfo.doc_resume[0];
+	  }
     }
     if(this.userInfo && this.userInfo.doc_cover && Array.isArray(this.userInfo.doc_cover)) {
       this.selectedCover = this.userInfo.doc_cover[0];
@@ -196,11 +201,46 @@ ngAfterViewInit(): void {
 			  }
 			)
 			
+		}else{
+			this.togglecoverSelectModal = false;
+			this.isUploadShow = true;
+		}
+	}
+	onToggleResumeSelectModal(status){
+		if(status==true){
+			
+			this.userService.profile().subscribe(
+			  response => {
+				  this.isUploadShowResume = false;
+				if(response['details']){
+					this.userInfo = response['details'];
+					if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
+					  this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
+						if(!this.selectedResume || this.selectedResume==undefined){
+							  this.selectedResume =this.userInfo.doc_resume[0];
+						 }
+					}
+					this.userInfo['meta'] = response['meta'];
+				}
+			  }, error => {
+				//this.modalService.dismissAll();
+			  }
+			)
+			
+		}else{
+			this.toggleresumeSelectModal = false;
+			this.isUploadShowResume = true;
 		}
 	}
 	openCoverselect(status){
 		if(status==true){
 			this.togglecoverSelectModal = true;
+		}
+		
+	}
+	openResumselect(status){
+		if(status==true){
+			this.toggleresumeSelectModal = true;
 		}
 		
 	}

@@ -75,6 +75,9 @@ onRedirectBack = () => {
 	if(sessionStorage.getItem('view-job-path')=='applied'){
 		sessionStorage.clear();
 		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'applied'}});
+	}else if(sessionStorage.getItem('view-job-path')=='shortlisted'){
+		sessionStorage.clear();
+		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
 	}else{
 		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
 	}

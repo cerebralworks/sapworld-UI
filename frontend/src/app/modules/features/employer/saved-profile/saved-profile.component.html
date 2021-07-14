@@ -21,7 +21,7 @@
             <div class="col-lg-4" *ngIf="!utilsHelperService.isEmptyObj(item)">
               <div class="card job-card sm" >
                 <div class="card-body">
-                  <a  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.id,path:'savedprofile'}">
+                  <a  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.id,path:'savedprofile',employee:this.employerDetails.id}">
                     <h5 class="text-capitalize mb-0">
                       {{item?.first_name + ' ' + item?.last_name}}
                     </h5>
@@ -41,13 +41,13 @@
                     </ng-container>
                     <div class="media-body">
                       <h6 class="text-capitalize">
-                        {{item?.city ? item?.city : ''}}
-                        {{item?.state ? ', ' + item?.state : ''}}
+                        {{item?.city ? item?.city + ', ' : ''}}
+                        {{item?.state ? item?.state + ', ' : ''}}
                         <span class="text-uppercase">
-                          {{item?.country ? ', ' + item?.country : ''}}
+                          {{item?.country ? item?.country : ''}}
                         </span>
                       </h6>
-                      <h6 class="text-capitalize" *ngIf="(item?.job_type || item?.job_type == 0)">{{(item?.job_type || item?.job_type == 0) ? sharedService.onGetJobType(item?.job_type) : ''}}</h6>
+                      <h6 class="text-capitalize" *ngIf="(item?.job_type || item?.job_type == 0)">{{(item?.job_type || item?.job_type == 0) ? checkJobType(item?.job_type) : ''}}</h6>
                     </div>
                   </div>
                   <div class="mt-1">

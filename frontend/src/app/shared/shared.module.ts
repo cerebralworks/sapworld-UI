@@ -4,6 +4,7 @@ import { LoginFormComponent } from './component/login-form/login-form.component'
 import { RegisterFormComponent } from './component/modal/register-form/register-form.component';
 import { ResumeModalComponent } from './component/modal/resume-modal/resume-modal.component';
 import { CoverSelectComponent } from './component/modal/cover-select/cover-select.component';
+import { ResumeSelectComponent } from './component/modal/resume-select/resume-select.component';
 import { CoverModalComponent } from './component/modal/cover-modal/cover-modal.component';
 import { JobDescriptionComponent } from './component/modal/job-description/job-description.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -53,6 +54,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterFormComponent,
     ResumeModalComponent,
     CoverSelectComponent,
+    ResumeSelectComponent,
     CoverModalComponent,
     JobDescriptionComponent,
     SendMailJobPreviewComponent,
@@ -103,6 +105,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterFormComponent,
     ResumeModalComponent,
     CoverSelectComponent,
+    ResumeSelectComponent,
     CoverModalComponent,
     JobDescriptionComponent,
     SendMailJobPreviewComponent,

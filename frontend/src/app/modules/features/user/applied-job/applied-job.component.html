@@ -1,63 +1,92 @@
 <section class="my-5">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-lg-12">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">{{"postJob.jobTitle" | translate}}</th>
-              <th scope="col">{{"dashboard.employer" | translate}}</th>
-              <th scope="col">{{"postJob.location" | translate}}</th>
-              <th scope="col">{{"dashboard.postedDated" | translate}}</th>
-              <th scope="col">{{"dashboard.status" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngIf="appliedJobs?.length; else elseTemplate">
-                <tr *ngFor="let item of appliedJobs">
-                  <td>
-                    <a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'applied' }"  class="text-capitalize" href="javacript:;">
-                      {{item?.job_posting?.title}}
-                    </a>
-                  </td>
-                  <td>{{item?.employer?.company ? item?.employer?.company : '--'}}</td>
-                  <td class="text-capitalize">
-                    {{item?.job_posting?.city ? item?.job_posting?.city + ', ' : ''}}
-                    {{item?.job_posting?.state ? item?.job_posting?.state + ', ' : ''}}
-                    <span class="text-uppercase">
-                      {{item?.job_posting?.country ? item?.job_posting?.country : ''}}
-                    </span>
-                  </td>
-                  <td>{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}</td>
-                  <td  class="text-capitalize" [ngClass]="{'text-success': item?.job_posting?.status == 1, 'text-danger': item?.job_posting?.status == 0}">{{item?.job_posting?.status == 1 ? 'Open' : 'Closed'}} </td>
-                  <td class="text-center"><a (click)="deleteJobApplication(item?.id)" class="text-danger"><i class="fas fa-trash-alt"></i></a></td> 
-                </tr>
-              </ng-container>
-              <ng-template #elseTemplate>
-                <tr>
-                  <td colspan="6">No Record Found</td>
-                </tr>
-              </ng-template>
-
-
-            </tbody>
-          </table>
-		  <div class="d-flex justify-content-center" style="background: #f8f8f8;"  *ngIf="appliedJobMeta?.count > 0 && appliedJobMeta?.total > 10" >
-			<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
-				[length]="length"
-				[pageSize]="limit"  [pageSizeOptions]="pageSizeOptions"
-				[pageIndex]="page-1">
-			</mat-paginator>
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-lg-12">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">{{"postJob.jobTitle" | translate}}</th>
+								<th scope="col">{{"dashboard.employer" | translate}}</th>
+								<th scope="col">{{"postJob.location" | translate}}</th>
+								<th scope="col">{{"dashboard.postedDated" | translate}}</th>
+								<th scope="col">{{"dashboard.status" | translate}}</th>
+								<!--  <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<ng-container *ngIf="appliedJobs?.length; else elseTemplate">
+								<tr *ngFor="let item of appliedJobs">
+									<td>
+										<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'applied' }"  class="text-capitalize" href="javacript:;">
+											{{item?.job_posting?.title}}
+										</a>
+									</td>
+									<td>
+										{{item?.employer?.company ? item?.employer?.company : '--'}}
+									</td>
+									<td class="text-capitalize">
+										{{item?.job_posting?.city ? item?.job_posting?.city + ', ' : ''}}
+										{{item?.job_posting?.state ? item?.job_posting?.state + ', ' : ''}}
+										<span class="text-uppercase">
+											{{item?.job_posting?.country ? item?.job_posting?.country : ''}}
+										</span>
+									</td>
+									<td>
+										{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}
+									</td>
+									<td  class="text-capitalize text-warning" *ngIf="item?.job_posting?.status == 1 && !item?.short_listed" style="color: #385edf;">
+										Applied
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 1 && item?.short_listed == false " style="color: #385edf;">
+										Not a fit
+									</td>
+									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 1 && item?.short_listed == true " style="color: #385edf;">
+										Short Listed
+									</td>
+									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 2">
+										selected
+									</td>
+									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 3">
+										scheduled
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 4">
+										rejected
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 5">
+										on hold
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 6">
+										not available
+									</td>
+									<td  class="text-capitalize text-warning" *ngIf="item?.job_posting?.status == 7">
+										pending
+									</td>
+									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 8">
+										applied
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 9">
+										closed
+									</td>
+									<!-- <td class="text-center"><a (click)="deleteJobApplication(item?.id)" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>  -->
+								</tr>
+							</ng-container>
+							<ng-template #elseTemplate>
+								<tr>
+									<td colspan="6">No Record Found</td>
+								</tr>
+							</ng-template>
+						</tbody>
+					</table>
+					<div class="d-flex justify-content-center" style="background: #f8f8f8;"  *ngIf="appliedJobMeta?.count > 0 && appliedJobMeta?.total > 10" >
+						<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+							[length]="length"
+							[pageSize]="limit"  [pageSizeOptions]="pageSizeOptions"
+							[pageIndex]="page-1">
+						</mat-paginator>
+					</div>
+				</div>
+			</div>
 		</div>
-        </div>
-        <!-- <div class="d-flex justify-content-center" *ngIf="appliedJobMeta?.count > 0 && appliedJobMeta?.total > 25">
-          <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
-            Load More
-          </button>
-        </div> -->
-      </div>
-    </div>
-  </div>
+	</div>
 </section>

@@ -52,11 +52,12 @@
 														<h5>{{matchingJob?.jobs?.title}} <small></small></h5>
 													</a>
 													<h6 class="mb-0 text-capitalize">
-														{{matchingJob?.jobs?.city ? matchingJob?.jobs?.city : ''}}
-														{{matchingJob?.jobs?.state ? ', ' + matchingJob?.jobs?.state : ''}}
+														{{matchingJob?.jobs?.city +', ' +matchingJob?.jobs?.state+', ' +matchingJob?.jobs?.country}}
+														<!-- {{matchingJob?.jobs?.city ? matchingJob?.jobs?.city : ''}}
+														{{matchingJob?.jobs?.state ?  matchingJob?.jobs?.state : ''}}
 														<span class="text-uppercase">
 															{{matchingJob?.jobs?.country ? ', ' + matchingJob?.jobs?.country : ''}}
-														</span>
+														</span> -->
 													</h6>
 													<form class="form-inline">
 														<!-- <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
@@ -105,11 +106,12 @@
 														<h5>{{matchingJobNew?.jobs?.title}} <small></small></h5>
 													</a>
 													<h6 class="mb-0 text-capitalize">
-														{{matchingJobNew?.jobs?.city ? matchingJobNew?.jobs?.city : ''}}
+														{{matchingJobNew?.jobs?.city +', ' +matchingJobNew?.jobs?.state+', ' +matchingJobNew?.jobs?.country}}
+														<!-- {{matchingJobNew?.jobs?.city ? matchingJobNew?.jobs?.city : ''}}
 														{{matchingJobNew?.jobs?.state ? ', ' + matchingJobNew?.jobs?.state : ''}}
 														<span class="text-uppercase">
 														  {{matchingJobNew?.jobs?.country ? ', ' + matchingJobNew?.jobs?.country : ''}}
-														</span>
+														</span> -->
 													</h6>
 													<form class="form-inline">
 														<!-- <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">

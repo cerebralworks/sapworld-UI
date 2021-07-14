@@ -30,10 +30,10 @@
 									</a>
 									<h6 class="text-capitalize">{{postedJobsDetails?.company?.company}}</h6>
 									<h6 class="mb-0 text-capitalize">
-										{{postedJobsDetails?.city ? postedJobsDetails?.city : ''}}
-										{{postedJobsDetails?.state ? ', ' + postedJobsDetails?.state : ''}}
+										{{postedJobsDetails?.city ? postedJobsDetails?.city+', '  : ''}}
+										{{postedJobsDetails?.state ? postedJobsDetails?.state+', '  : ''}}
 										<span class="text-uppercase">
-										  {{postedJobsDetails?.country ? ', ' + postedJobsDetails?.country : ''}}
+										  {{postedJobsDetails?.country ? postedJobsDetails?.country : ''}}
 										</span>
 									</h6>
 								</div>
@@ -81,24 +81,26 @@
 															</h5>
 														</a>
 														<h6 class="mb-0 text-capitalize">
-															{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city : ''}}
-															{{matchingUsers?.profile?.state ? ', ' + matchingUsers?.profile?.state : ''}}
+															{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
+															{{matchingUsers?.profile?.state ? matchingUsers?.profile?.state+', '  : ''}}
 															<span class="text-uppercase">
-																{{matchingUsers?.profile?.country ? ', ' + matchingUsers?.profile?.country : ''}}
+																{{matchingUsers?.profile?.country ? matchingUsers?.profile?.country : ''}}
 															</span>
 														</h6>
 														<form class="form-inline">
 															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
-															</a>
-															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}" class="mr-3" >
+															</a><a (click)="OpenMatchPopup(postedJobsDetails?.company,matchingUsers?.profile)" class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a>
+															<!-- <a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company.id,path:'userscoring'}" class="mr-3" >
+																<small><i class="fab fa-buffer"></i> View Other Matches</small>
+															</a> -->
 														</form>
 													</div>
 												</div>
 											</div>
-											<div class="matchs-info" *ngIf="!isMultipleMatches" >
+											<div class="matchs-info" *ngIf="!isMultipleMatches" style="margin-top: 6px;">
 												<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 												<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
 												<button (click)="onShowMore($event)" id="moreBtnVal"  class="moreBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
@@ -137,19 +139,22 @@
 															</h5>
 														</a>
 														<h6 class="mb-0 text-capitalize">
-															{{matchingUsersNew?.profile?.city ? matchingUsersNew?.profile?.city : ''}}
-															{{matchingUsersNew?.profile?.state ? ', ' + matchingUsersNew?.profile?.state : ''}}
+															{{matchingUsersNew?.profile?.city ? matchingUsersNew?.profile?.city+', '  : ''}}
+															{{matchingUsersNew?.profile?.state ?  matchingUsersNew?.profile?.state+', '  : ''}}
 															<span class="text-uppercase">
-																{{matchingUsersNew?.profile?.country ? ', ' + matchingUsersNew?.profile?.country : ''}}
+																{{matchingUsersNew?.profile?.country ? matchingUsersNew?.profile?.country : ''}}
 															</span>
 														</h6>
 														<form class="form-inline">
 															<a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
 															</a>
+															<a (click)="OpenMatchPopup()" class="mr-3" >
+																<small><i class="fab fa-buffer"></i> View Other Matches</small>
+															</a><!-- 
 															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsersNew?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
-															</a>
+															</a> -->
 														</form>
 													</div>
 												</div>
@@ -194,6 +199,39 @@
 		</div>
 	</div>
 </section>
+
+<ng-template *ngIf="toggleMatchModal" #deleteModal let-modal let-d="dismiss">
+	<div class="full-width">
+		<div class="modal-header bg-dblue text-white">
+			<h3 class="modal-title" id="exampleModalLabel">Match Other Posts</h3>
+			<button (click)="mbRef?.close()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		
+		<div class="modal-body">
+			<div class="form-row">
+				<div class="col-12 my-2 border-bottom">
+					<h6 class="text-blue">Jobs that Match</h6>
+				</div>
+			</div>
+				<div class="form-row">
+					<div class="col-12 my-2" *ngFor="let item of postedJobsMatchDetails;">
+						<div class="custom-control custom-checkbox mr-sm-2">
+							<input type="checkbox" class="custom-control-input" [name]="item?.id" [id]="item?.id" (change) ="updateSelectedTimeslots($event,item?.id)" >
+							<label class="custom-control-label font-weight-bold pt-1" [for]="item?.id">{{ item?.title}}</label>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="modal-footer full-width">
+			<button type="button" class="btn btn-secondary"
+				(click)="mbRef?.close()">Close</button> 
+			<button type="button" class="btn btn-theme-blue"
+				(click)="MatchCandidate()">Match</button>
+		</div>
+	</div>
+</ng-template>
 
 <app-resume-modal
 [url]="selectedResumeUrl"

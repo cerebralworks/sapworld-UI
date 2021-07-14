@@ -9,7 +9,7 @@ export class PhonePipe implements PipeTransform {
   transform(phoneValue: number | string, country: string): any {
     try {
       const phoneNumber = parsePhoneNumber(phoneValue + '', country as CountryCode);
-      return phoneNumber.formatNational();
+      return phoneNumber.formatInternational();
     } catch (error) {
       return phoneValue;
     }

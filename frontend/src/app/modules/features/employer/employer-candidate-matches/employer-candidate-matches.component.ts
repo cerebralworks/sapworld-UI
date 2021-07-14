@@ -1,6 +1,6 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy,EventEmitter,Output, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { AccountService } from '@data/service/account.service';
@@ -23,6 +23,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   /**
   **	Variable Declaration
   **/
+  
+  @Output() onEvent = new EventEmitter<boolean>();
   
   public isOpenedResumeModal: boolean;
   public isOpenedSendMailModal: boolean;
@@ -113,6 +115,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				sessionStorage.setItem('match-job-id',urlQueryParams.id);
 				this.selectedJob = {id: urlQueryParams.id};
 			}
+			if(urlQueryParams && urlQueryParams.reset) {
+				sessionStorage.clear();
+			}
 
 			const jobTypes = this.route.snapshot.queryParamMap.get('job_types');
 			if(jobTypes) {
@@ -152,7 +157,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			this.queryParams = {...this.queryParams, ...urlQueryParams };
 		}
     });
-		this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
+		this.router.navigate([], {queryParams: {id: null,reset: null}, queryParamsHandling: 'merge'});
   }
 
 	/**
@@ -679,7 +684,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       this.employerService.saveProfile(requestParams).subscribe(
         response => {
           this.savedProfiles.push(item.id);
+		  this.onEvent.emit(true);
         }, error => {
+			this.onEvent.emit(true);
         }
       )
     }else {
@@ -695,7 +702,9 @@ onUnSaveProfile = (item) => {
       this.employerService.saveProfile(requestParams).subscribe(
         response => {
           this.savedProfiles = this.savedProfiles.filter(function(a,b){ return a!=item.id});
+		  this.onEvent.emit(true);
         }, error => {
+			this.onEvent.emit(true);
         }
       )
     } else {
@@ -922,6 +931,16 @@ onUnSaveProfile = (item) => {
 			this.onGetCandidateList(this.selectedJob.id);
 			
 		}
+	}
+	
+	checkJobType(item){
+		var data = this.sharedService.onGetJobType(item);
+		if(data.length){
+			if(data.length!=0){
+				return data['join'](', ');
+			}
+		}
+		return data;
 	}
 
 }

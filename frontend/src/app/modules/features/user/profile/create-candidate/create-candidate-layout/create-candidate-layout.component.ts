@@ -160,6 +160,16 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				if (this.userInfo && this.userInfo.hands_on_experience == null) {
 				  delete this.userInfo.hands_on_experience;
 				}
+				if (this.userInfo.hands_on_experience != null) {
+					for(let i=0;i<this.userInfo.hands_on_experience.length;i++){
+						this.userInfo.hands_on_experience[i]['skill_id']=parseInt(this.userInfo.hands_on_experience[i]['skill_id']);
+					}
+				}
+				if (this.userInfo.skills != null) {
+					for(let i=0;i<this.userInfo.skills.length;i++){
+						this.userInfo.skills[i]=parseInt(this.userInfo.skills[i]);
+					}
+				  }
 				this.candidateForm.patchValue({
 					skillSet : {
 						...this.userInfo

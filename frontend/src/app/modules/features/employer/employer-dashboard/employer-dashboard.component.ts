@@ -19,6 +19,7 @@ export class EmployerDashboardComponent implements OnInit {
   };
   public isOpenedSendMailModal: any;
   public queryParams: any = {};
+  public employeeData:any = {};
   public getDataCount:boolean =false;
 
   constructor(
@@ -33,9 +34,11 @@ export class EmployerDashboardComponent implements OnInit {
 	  this.employerSharedService.getEmployerProfileDetails().subscribe(
 		  details => {
 			if(details) {
+				this.employeeData = details;
 			  if(details && details.id && this.getDataCount == false) {
 				this.onGetPostedJobCount(details.id);
 				this.onGetAppliedJobCount(details.id);
+				this.onGetShortListJobCount(details.id);  
 				this.onGetSavedProfile();
 				this.getDataCount =true;
 			  }
@@ -85,9 +88,9 @@ export class EmployerDashboardComponent implements OnInit {
 
   onTabChange = (tabInfo: tabInfo) => {
     this.currentTabInfo = tabInfo;
-
+	
     const navigationExtras: NavigationExtras = {
-      queryParams: {...this.queryParams, activeTab: tabInfo.tabName}
+      queryParams: {...this.queryParams, activeTab: tabInfo.tabName,reset:true}
     };
 
     this.router.navigate([], navigationExtras);
@@ -169,7 +172,42 @@ onGetCountry(query) {
       }
     )
   }
+  onGetShortListJobCount(companyId) {
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.status = 1;
+    requestParams.limit = 1000;
+    requestParams.expand = 'company';
+    requestParams.view = 'shortlisted';
+    requestParams.company = companyId;
+    requestParams.sort = 'created_at.desc';
+    this.employerService.getPostedJobCount(requestParams).subscribe(
+      response => {
+		if(response['count']){
+			var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+			if(document.getElementById('ApplicantsShortListCount')){
+				document.getElementById('ApplicantsShortListCount').innerHTML="("+TotalValue+")";
+			}
+			
+		}else{
+			if(document.getElementById('ApplicantsShortListCount')){
+				document.getElementById('ApplicantsShortListCount').innerHTML="(0)";
+			}
+		}
+      }, error => {
+      }
+    )
+  }
   
+  refreshCountDetails = (status) => {
+    if(status ==true){
+		if(this.employeeData && this.employeeData.id) {
+			this.onGetAppliedJobCount(this.employeeData.id);
+			this.onGetShortListJobCount(this.employeeData.id);
+			this.onGetSavedProfile();
+		}
+	}
+  }
   onGetSavedProfile = (searchString?: string) => {
     let requestParams: any = {};
     requestParams.page = 1;

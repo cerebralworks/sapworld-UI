@@ -50,7 +50,7 @@
 					  <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'shortlisted', tabNumber: 4})"
             [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">{{"dashboard.shortlisted" | translate}}
-            <!-- <small>(26)</small> -->
+            <small id="ApplicantsShortListCount" >(0)</small> 
           </a>
             </li>
             <li class="nav-item">
@@ -71,10 +71,10 @@
   <app-posted-job *ngIf="currentTabInfo.tabNumber == 1">
   </app-posted-job>
 
-  <app-employer-candidate-matches *ngIf="currentTabInfo.tabNumber == 2">
+  <app-employer-candidate-matches *ngIf="currentTabInfo.tabNumber == 2" (onEvent)="refreshCountDetails($event)">
   </app-employer-candidate-matches>
 
-  <app-employer-applied-candidate *ngIf="currentTabInfo.tabNumber == 3">
+  <app-employer-applied-candidate *ngIf="currentTabInfo.tabNumber == 3" (onEvent)="refreshCountDetails($event)" >
   </app-employer-applied-candidate>
 
   <app-employer-shortlisted-candidate *ngIf="currentTabInfo.tabNumber == 4">

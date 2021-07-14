@@ -79,7 +79,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
       }
     )
 	this.requestParams = {'Exist the oninit':'CreateCandidateSkillsetComponent'};
-				this.SharedAPIService.onSaveLogs(this.requestParams);
+				//this.SharedAPIService.onSaveLogs(this.requestParams);
   }
 
 	add(event: MatChipInputEvent): void {
@@ -247,15 +247,14 @@ export class CreateCandidateSkillsetComponent implements OnInit {
           }
         });
 		}}else{
-			
-		if (this.savedUserDetails.programming_skills != null) {
-			this.programmingSkills = this.savedUserDetails.programming_skills;
+		if (this.childForm.controls.skillSet.value.programming_skills != null) {
+			this.programmingSkills = this.childForm.controls.skillSet.value.programming_skills;
 		}
-		if (this.savedUserDetails.other_skills != null) {
-			this.othersSkills = this.savedUserDetails.other_skills;
+		if (this.childForm.controls.skillSet.value.other_skills != null) {
+			this.othersSkills = this.childForm.controls.skillSet.value.other_skills;
 		}
-		if (this.savedUserDetails.certification != null) {
-			this.certification = this.savedUserDetails.certification;
+		if (this.childForm.controls.skillSet.value.certification != null) {
+			this.certification = this.childForm.controls.skillSet.value.certification;
 		}
 		}
 	  /* this.requestParams = {'Exist the ngOnChanges':'CreateCandidateSkillsetComponent'};

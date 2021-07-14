@@ -184,13 +184,16 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		}
 
 	
+    if(this.userInfo && this.userInfo.experience) {
+      requestParams.max_experience = this.userInfo.experience;
+    }
     const removeEmpty = this.utilsHelperService.clean(requestParams)
 
     this.employerService.getPostedJob(removeEmpty).subscribe(
       response => {
         if(response && response.items && response.items.length > 0) {
 			this.postedJobsMatchDetails=response.items;
-			if(this.employeePath =='userscoring'){
+			if(this.employeePath =='userscorings'){
 				this.TotalMatchJobs = [];
 				for(let i=0;i<this.postedJobsMatchDetails.length;i++){
 					

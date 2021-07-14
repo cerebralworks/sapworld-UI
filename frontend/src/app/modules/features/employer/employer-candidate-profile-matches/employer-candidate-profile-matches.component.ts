@@ -1,10 +1,13 @@
-import { Component, OnDestroy,OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+
 import { Location } from '@angular/common';
 import { ActivatedRoute,Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedService } from '@shared/service/shared.service';
 import { DataService } from '@shared/service/data.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 
 import * as lodash from 'lodash';
 import { CandidateProfile } from '@data/schema/create-candidate';
@@ -20,6 +23,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   public isOpenedJDModal: boolean = false;
   public isOpenedResumeModal: boolean = false;
   public isOpenedOtherPostModal: boolean = false;
+  public toggleMatchModal: boolean =false;
   public jobId: string;
   public postedJobsDetails: any;
   public page: number = 1;
@@ -37,7 +41,12 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   public matchingUsersNew: any;
   public selectedResumeUrl: string;
   private subscriptions: Subscription[] = [];
+  private postedJobsMatchDetails: any[] = [];
+  private checkArray: any[] = [];
+  private userDetails: any = {};
   
+  @ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
+  public mbRef: NgbModalRef;
   public languageSource=[];
 	public nationality=[];
 	public required: boolean = true;
@@ -45,16 +54,20 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public optional: boolean = true;
 	public nice: boolean = true;
 	public IsValidate: boolean = false;
-
+	public matchForm: FormGroup;
   constructor(
 	private dataService: DataService,
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private employerService: EmployerService,
     private location: Location,
+    private modelService: NgbModal,
     public utilsHelperService: UtilsHelperService,
     public sharedService: SharedService,
     private router: Router
   ) {
+	  
+	
 	  this.route.queryParams.subscribe(params => {
       if(params && !this.utilsHelperService.isEmptyObj(params)) {
         let urlQueryParams = {...params};
@@ -110,6 +123,11 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
         }
 		}
     );
+  }
+  private buildForm(): void {
+    // this.matchForm = this.formBuilder.array({
+      // title: ['', [Validators.required]]
+    // });
   }
 
   ngOnDestroy(): void {
@@ -639,4 +657,218 @@ findLanguageArray(value){
 			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: null,id: profileId ,employeeId:companyId,path:'userscoring'} });
 		}
 	}
+	
+
+	onGetPostedJobs(companyId) {
+    let requestParams: any ={};
+    requestParams.page = 1;
+    requestParams.limit = 1000;
+    requestParams.expand = 'company';
+    requestParams.company = companyId;
+    requestParams.skills_filter = 'false';
+    requestParams.work_authorization = '';
+    requestParams.visa_sponsered = false;	
+	
+    if(this.userDetails && this.userDetails.city && this.userDetails.willing_to_relocate == true ) {
+      requestParams.work_authorization = this.userDetails.work_authorization;
+      requestParams.visa_sponsered = this.userDetails.visa_sponsered;
+	  
+		  requestParams.city = [this.userDetails.city];
+	  
+	  if(this.userDetails && this.userDetails.preferred_locations) {
+			if(this.userDetails.preferred_locations.length !=0) {
+				var temp:any[]= this.userDetails.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var tempData=temp.map(function(a,b){ return a.city});
+					tempData[tempData.length]=this.userDetails.city;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.city = tempData.join(',');
+					}
+				}
+			}
+	  }
+    }
+    if(this.userDetails && this.userDetails.country && this.userDetails.willing_to_relocate == true ) {
+      requestParams.country = [this.userDetails.country];
+	  if(this.userDetails && this.userDetails.preferred_locations ) {
+			if(this.userDetails.preferred_locations.length !=0) {
+				var temp:any[]= this.userDetails.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+				if(temp.length!=0){
+					var temp=temp.map(function(a,b){ return a.country});
+				}
+				if(this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+					var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userDetails.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+						temp = temp.concat(authorized_countrys);
+					}
+					
+				}
+				
+				if(temp.length!=0){
+					var tempData=temp;
+					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+						'france','poland','germany','portugal','greece','slovakia','hungary',
+						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+						]
+						tempData = tempData.concat(EUCountry);
+					}
+					tempData[tempData.length]=this.userDetails.country;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.country = tempData.join(',');
+					}
+				}
+			} else if(this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+				var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userDetails.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+					}
+				var temp:any[] = authorized_countrys ; 
+				if(temp.length!=0){
+					var tempData=temp;
+					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+						'france','poland','germany','portugal','greece','slovakia','hungary',
+						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+						]
+						tempData = tempData.concat(EUCountry);
+					}
+					tempData[tempData.length]=this.userDetails.country;
+					tempData =tempData.filter(function(item, pos) {
+								return tempData.indexOf(item) == pos;
+							})
+					if(tempData && tempData.length){
+						requestParams.country = tempData.join(',');
+					}
+				}
+			} 
+	  }
+    } else{
+		if(this.userDetails && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+				
+			var authorized_countrys= this.nationality.filter((el) => {
+						  return this.userDetails.authorized_country.some((f) => {
+							return f === el.id ;
+						  });
+					});
+					if(authorized_countrys.length !=0){
+						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
+					}
+				var temp:any[] = authorized_countrys ; 
+			if(temp.length!=0){
+				var tempData=temp;
+				if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
+					var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
+					'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
+					'france','poland','germany','portugal','greece','slovakia','hungary',
+					'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
+					]
+					tempData = tempData.concat(EUCountry);
+				}
+				tempData[tempData.length]=this.userDetails.country;
+				tempData =tempData.filter(function(item, pos) {
+							return tempData.indexOf(item) == pos;
+						})
+				if(tempData && tempData.length){
+					requestParams.country = tempData.join(',');
+				}
+			}
+		}
+	} 
+	
+    if(this.userDetails && this.userDetails.skills && this.userDetails.skills.length) {
+		var temps = [];
+		if(this.userDetails.hands_on_experience && this.userDetails.hands_on_experience.length){
+			for(let i=0;i<this.userDetails.hands_on_experience.length;i++){
+				if(this.userDetails.hands_on_experience[i]['skill_id']  &&this.userDetails.hands_on_experience[i]['skill_id'] !=''){
+					temps.push(this.userDetails.hands_on_experience[i]['skill_id']);
+				}
+				
+			}
+			
+		}
+      requestParams.skills = temps.join(',')
+      requestParams.skills_filter = 'false';
+    }
+
+	
+	if(this.userDetails && this.userDetails.job_type) {
+		if(this.userDetails.job_type && this.userDetails.job_type['length']) {
+			 requestParams.type = this.userDetails.job_type['join'](',')
+		}
+	}
+if(this.userDetails && this.userDetails.experience) {
+      requestParams.max_experience = this.userDetails.experience;
+    }
+	
+    const removeEmpty = this.utilsHelperService.clean(requestParams)
+
+    this.employerService.getPostedJob(removeEmpty).subscribe(
+      response => {
+        if(response && response.items && response.items.length > 0) {
+			this.postedJobsMatchDetails=response.items;
+        }
+       
+      }, error => {
+      }
+    )
+  }
+  
+  OpenMatchPopup = (companyId,details) => {
+	  this.userDetails = details;
+	  this.onGetPostedJobs(companyId) ;
+	  this.toggleMatchModal = true;
+    
+		setTimeout(() => {
+			if (this.toggleMatchModal) {
+      this.mbRef = this.modelService.open(this.deleteModal, {
+        windowClass: 'modal-holder',
+        centered: true,
+        backdrop: 'static',
+        keyboard: false
+      });
+    } });
+  }
+  
+  updateSelectedTimeslots(event,id){
+	  if(id){
+		  if(event){
+			  if(event.target){
+				  if(event.target.checked ==true || event.target.checked ==true ){
+					  if(event.target.checked ==true){
+						  this.checkArray.push(id);
+					  }else{
+						  this.checkArray = this.checkArray.filter(function(a,b){ return a != id });
+					  }
+				  }
+			  }
+		}
+	}
+  }
+	MatchCandidate(){
+		
+		if(this.checkArray.length!=0){
+			this.mbRef.close();
+			var selectedIds = this.checkArray.join(',');
+			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userDetails.id,employeeId:this.postedJobsMatchDetails[0].company.id,path:'userscoring'} });
+		}
+	}
+	
 }

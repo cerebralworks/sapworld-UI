@@ -23,6 +23,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
   public toggleResumeModal: boolean;
   public dashboardView: boolean = false;
   public dashboardViewAPI: boolean = false;
+  public toggleresumeSelectModal: boolean = false;
   @ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
   public mbRef: NgbModalRef;
   public queryParams: any = {};
@@ -105,6 +106,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
     }
 	if(this.dashboardViewAPI ==false){
 	this.onGetAppliedJobs();
+	this.onGetShortListJobs();
 	this.onGetPostedJob();
 	this.dashboardViewAPI =true;
 	}
@@ -140,6 +142,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onTabChange = (tabInfo: tabInfo) => {
+	  sessionStorage.clear();
     this.currentTabInfo = tabInfo;
     const navigationExtras: NavigationExtras = {
       queryParams: {...this.queryParams, activeTab: tabInfo.tabName}
@@ -186,6 +189,24 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
         }, error => {
         }
       )
+  } 
+  onGetShortListJobs = () => {
+      let requestParams: any = {};
+      requestParams.page = 1;
+      requestParams.limit = 100000;
+		requestParams.short_listed = 1;
+      //requestParams.expand = "job_posting,user,employer";
+      this.userService.applicationsListForUser(requestParams).subscribe(
+        response => {
+          if(response && response['meta'] && response['meta']['total'] ) {
+           
+		  if(document.getElementById('shortlistedJob')){
+				document.getElementById('shortlistedJob').innerHTML="("+response['meta']['total']+")";
+			}
+		  }
+        }, error => {
+        }
+      )
   }
   
   onGetPostedJob() {
@@ -227,7 +248,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 				if(temp.length!=0){
 					var temp=temp.map(function(a,b){ return a.country});
 				}
-				if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+				if(this.userInfo && this.userInfo.authorized_country && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
 					var authorized_countrys= this.nationality.filter((el) => {
 						  return this.userInfo.authorized_country.some((f) => {
 							return f === el.id ;
@@ -258,7 +279,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 						requestParams.country = tempData.join(',');
 					}
 				}
-			} else if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+			} else if(this.userInfo.authorized_country && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
 				var authorized_countrys= this.nationality.filter((el) => {
 						  return this.userInfo.authorized_country.some((f) => {
 							return f === el.id ;
@@ -289,7 +310,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 			} 
 	  }
     } else{
-		if(this.userInfo && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+		if(this.userInfo && this.userInfo.authorized_country && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
 				
 			var authorized_countrys= this.nationality.filter((el) => {
 						  return this.userInfo.authorized_country.some((f) => {
@@ -359,16 +380,12 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
       }
 
     }
-    if(requestParams.type && requestParams.type.length) {
-      requestParams.type = requestParams.type.join(',')
-    }else{
 		if(this.userInfo && this.userInfo.job_type) {
 			requestParams.type = this.userInfo.job_type;
 			if(requestParams.type && requestParams.type.length) {
 			  requestParams.type = requestParams.type.join(',')
 			}
 		}
-    }
 if(this.userInfo && this.userInfo.experience) {
       requestParams.max_experience = this.userInfo.experience;
     }
@@ -405,6 +422,37 @@ if(this.userInfo && this.userInfo.experience) {
       }, error => {
       }
     )
+  }
+  
+  refreshCountDetails = (status) => {
+    if(status ==true){
+		this.onGetAppliedJobs();
+		this.onGetShortListJobs();
+	}
+  }
+  
+	onToggleResumeSelectModal(status){
+		if(status==true){
+			
+			this.userService.profile().subscribe(
+			  response => {
+				  
+				if(response['details']){
+					this.userInfo = response['details'];
+					this.userInfo['meta'] = response['meta'];
+					//this.userSharedService.clearUserProfileDetails();
+					this.userSharedService.saveUserProfileDetails(this.userInfo);
+				}
+			  }, error => {
+				//this.modalService.dismissAll();
+			  }
+			)
+			
+		}
+	}
+  OpenAddResume(){
+	  this.toggleresumeSelectModal = true;
+	  this.mbRef.close()
   }
 
 }

@@ -19,7 +19,7 @@
             class="fas fa-pencil-alt text-orange"></i></small>
         </h5>
       </div>
-      <div class="col-lg-5 text-right">
+      <div class="col-lg-5 text-right" style="padding-left:1px">
 			
         <span class="mr-1" *ngIf="!isMultipleMatches">
           <a *ngIf="!isUploadShow || selectedCover?.file"
@@ -29,14 +29,18 @@
           </a>
 		  <a *ngIf="isUploadShow && !selectedCover?.file"
           (click)="openCoverselect(true)" class="btn btn-outline-orange  btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> Upload cover
+            <i class="fas fa-file-alt"></i> Add cover
           </a>
         </span>
         <span *ngIf="isResume" class="mr-1">
-          <a
+          <a *ngIf="!isUploadShowResume || selectedResume?.file"
           [class.disabled]="!selectedResume?.file"
           (click)="selectedResume?.file && onToggleResumeForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
+          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file"
+         (click)="openResumselect(true)"  id="addResumeFile"
+           class="btn btn-outline-blue btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> Add Resume
           </a>
         </span>
 		<a *ngIf="!isMail && isMatchesView" (click)="onTabChange()" style="margin-top: .25rem;" class="btn btn-outline-green btn-sm mr-1" href="javascript:;" title="Edit"><i
@@ -61,11 +65,11 @@
       </ng-container>
       <div class="media-body">
         <h6 class="text-capitalize">
-          {{userInfo?.city ? userInfo?.city : ''}}
-          {{userInfo?.state ? ', ' + userInfo?.state : ''}}
+          {{userInfo?.city+', '+userInfo?.state+', '+userInfo?.country}}
+          <!-- {{userInfo?.state?', ' + userInfo?.state : ''}}
           <span class="text-capitalize">
-            {{userInfo?.country ? ', ' + userInfo?.country : ''}}
-          </span>
+            {{userInfo?.country ?', '+userInfo?.country : ''}}
+          </span> -->
         </h6>
         <h6 *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
           <a href="mailto:{{userInfo?.email}}">
@@ -156,7 +160,7 @@
 	 <div class="col-lg-5 text-right" *ngIf="isMatchView">
 		<div class="form-inline float-right mt-2">
 			<div class="selectDD">
-				<select class="selectpicker" [(ngModel)]="selected" id="selectpicker" multiple data-live-search="true">
+				<select class="selectpicker" [(ngModel)]="selected" id="selectpicker" data-none-selected-text="Choose Jobs " multiple data-live-search="true">
 					<option class="d-none" disabled selected >Choose Jobs </option>
 					<option *ngFor="let item of postedJobsMatchDetails" [value]="item.id">{{item.title}}</option>
 				</select>
@@ -174,6 +178,11 @@
 *ngIf="togglecoverSelectModal"
 (onEvent)="onToggleCoverSelectModal($event)">
 </app-cover-select>
+<app-resume-selects
+[toggleresumeSelectModal]="toggleresumeSelectModal"
+*ngIf="toggleresumeSelectModal"
+(onEvent)="onToggleResumeSelectModal($event)">
+</app-resume-selects>
 
 <app-contact-info
 [userInfo]="userInfo"
