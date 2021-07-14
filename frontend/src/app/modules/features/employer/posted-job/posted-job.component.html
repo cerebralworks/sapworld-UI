@@ -5,9 +5,9 @@
         <button type="button" [ngClass]="{'active': isStatusValue == 1}" class="btn btn-sm btn-outline-success px-3 mr-1" (click)="onGetChangedStatus(1)">
           {{"dashboard.active" | translate}}
         </button>
-        <!-- <button type="button" class="btn btn-sm btn-outline-warning px-3 mr-1">
+        <button type="button" class="btn btn-sm btn-outline-warning px-3 mr-1">
           {{"dashboard.paused" | translate}}
-        </button> -->
+        </button>
         <button type="button" [ngClass]="{'closed': isStatusValue == 0}" class="btn btn-sm btn-outline-danger px-3" (click)="onGetChangedStatus(0)">
           {{"dashboard.closed" | translate}}
         </button>
@@ -48,14 +48,16 @@
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
                 <td class="text-center">
                   <a  [routerLink]="['/employer/dashboard']"
-                  [queryParams]="{activeTab: 'matches', id: item?.id}" [skipLocationChange]="true" href="javascript:;">0</a></td>
-                <td class="text-center"><a href="job-applied.html">0</a></td>
-                <td class="text-center"><a href="job-shortlisted.html">0</a></td>
+                  [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a></td>
+                <td class="text-center"><a  [routerLink]="['/employer/dashboard']"
+                  [queryParams]="{activeTab: 'applicants', id: item?.id}" > {{ CheckAppliedCount(item?.id)}}</a></td>
+                <td class="text-center"><a  [routerLink]="['/employer/dashboard']"
+                  [queryParams]="{activeTab: 'shortlisted', id: item?.id}" > {{CheckShortlistedCount(item?.id)}}</a></td>
                 <td class="text-center">
                 <select (change)="onSelectStatus($event?.target?.value, item)" class="form-control form-control-td">
                   <option disabled [selected]="true">Select</option>
                   <option [value]="1" [selected]="item.status == 1">Active</option>
-                  <!-- <option [selected]="item.status == 2">Pause</option> -->
+                  <option [selected]="item.status == 2">Pause</option>
                   <option [value]="0" [selected]="item.status == 0">Closed</option>
                 </select>
                 </td>
@@ -70,15 +72,22 @@
                 <td colspan="9">No Record Found</td>
               </tr>
             </ng-template>
-
+			
             </tbody>
           </table>
         </div>
-        <div class="d-flex justify-content-center" *ngIf="postedJobMeta?.count > 0 && postedJobMeta?.total > 25">
+		<div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="((postedJobMeta?.count > 0 && postedJobMeta?.total > 10))">
+					<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+				[length]="length"
+				[pageSize]="limit" [pageSizeOptions]="pageSizeOptions"
+				[pageIndex]="page-1">
+			</mat-paginator>
+			</div>
+        <!-- <div class="d-flex justify-content-center" *ngIf="postedJobMeta?.count > 0 && postedJobMeta?.total > 25">
           <button (click)="onLoadMoreJob()" class="btn btn-theme-blue" type="button">
             Load More
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

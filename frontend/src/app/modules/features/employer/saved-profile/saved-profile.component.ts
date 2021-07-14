@@ -117,6 +117,16 @@ export class SavedProfileComponent implements OnInit {
         response => {
           this.savedProfile.splice(index, 1);
           this.savedProfileMeta.total = this.savedProfileMeta.total-1;
+			if(document.getElementById('SavedCount')){
+					document.getElementById('SavedCount').innerHTML="("+this.savedProfileMeta.total+")";
+			}		
+			else{
+				if(document.getElementById('SavedCount')){
+					document.getElementById('SavedCount').innerHTML="(0)";
+				}
+			}
+		
+		
         }, error => {
         }
       )
@@ -182,6 +192,16 @@ export class SavedProfileComponent implements OnInit {
 		this.limit = event.pageSize;
 		this.page = event.pageIndex+1;
 		this.onGetSavedProfile();
+	}
+	
+	checkJobType(item){
+		var data = this.sharedService.onGetJobType(item);
+		if(data.length){
+			if(data.length!=0){
+				return data['join'](', ');
+			}
+		}
+		return data;
 	}
 
 }

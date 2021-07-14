@@ -56,12 +56,12 @@
                <small id="appliedCountValue" >(0)</small> 
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a (click)="onTabChange({tabName: 'shortlisted', tabNumber: 5})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 5}" class="nav-link" href="javascript:;">
               {{"dashboard.shortlisted" | translate}}
-              <small>(07)</small></a>
-          </li> -->
+              <small id="shortlistedJob">(0)</small></a>
+          </li>
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'resume', tabNumber: 6})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 6}" class="nav-link" href="javascript:;">
@@ -78,7 +78,7 @@
 <app-user-profile *ngIf="currentTabInfo.tabNumber == 1 && dashboardView">
 </app-user-profile>
 
-<app-matching-job *ngIf="currentTabInfo.tabNumber == 2 && dashboardView">
+<app-matching-job *ngIf="currentTabInfo.tabNumber == 2 && dashboardView" (onEvent)="refreshCountDetails($event)" >
 </app-matching-job>
 
 <!-- <app-visa-sponsored *  ngIf="currentTabInfo.tabNumber == 3">
@@ -87,8 +87,8 @@
 <app-applied-job *ngIf="currentTabInfo.tabNumber == 4 && dashboardView">
 </app-applied-job>
 
-  <!-- <app-shortlisted-job *ngIf="currentTabInfo.tabNumber == 5">
-  </app-shortlisted-job> -->
+  <app-shortlisted-job *ngIf="currentTabInfo.tabNumber == 5">
+  </app-shortlisted-job>
 
 <app-user-resume *ngIf="currentTabInfo.tabNumber == 6 && dashboardView">
 </app-user-resume>
@@ -105,7 +105,13 @@
       <button type="button" class="btn btn-theme-orange"
       (click)="mbRef?.close()">Later</button> 
 	  <button type="button" class="btn btn-primary"
-      (click)="onTabChange({tabName: 'resume', tabNumber: 6});mbRef?.close()">Upload</button>
+      (click)="OpenAddResume()">Upload</button>
     </div>
   </div>
 </ng-template>
+
+<app-resume-selects
+[toggleresumeSelectModal]="toggleresumeSelectModal"
+*ngIf="toggleresumeSelectModal"
+(onEvent)="onToggleResumeSelectModal($event)">
+</app-resume-selects>

@@ -5,6 +5,7 @@ import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-posted-job',
@@ -14,11 +15,18 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 export class PostedJobComponent implements OnInit {
   public isLoading: boolean;
   public postedJobs: any[] = [];
+  public postedJobsMatches: any[] = [];
+  public postedJobsApplied: any[] = [];
+  public postedJobsShortlist: any[] = [];
   public page: number = 1;
-  public limit: number = 25;
+  public limit: number = 10;
+  length = 0;
+  pageIndex = 1;
+  pageSizeOptions = [10, 25,50,100];
   public postedJobMeta: any = {};
   public currentEmployerDetails: any = {};
   public isDeleteModalOpened: boolean = false;
+  public getDataCount: boolean = false;
   public currentJobDetails: any;
   public currentJobIndex: any;
   public statusGlossary: any;
@@ -48,7 +56,13 @@ export class PostedJobComponent implements OnInit {
         if(details) {
           this.currentEmployerDetails = details;
           if(this.currentEmployerDetails.id && this.validateSubscribe == 0) {
-            this.onGetPostedJob(this.currentEmployerDetails.id);
+            if(this.getDataCount == false){
+				this.onGetPostedJobCount(this.currentEmployerDetails.id);
+				this.onGetAppliedJobCount(this.currentEmployerDetails.id);
+				this.onGetShortListJobCount(this.currentEmployerDetails.id);
+				this.getDataCount = true;
+			}
+			this.onGetPostedJob(this.currentEmployerDetails.id);
             this.validateSubscribe ++;
           }
         }
@@ -70,6 +84,7 @@ export class PostedJobComponent implements OnInit {
     }
     this.employerService.getPostedJob(requestParams).subscribe(
       response => {
+		  this.postedJobs =[];
         if(response && response.items && response.items.length > 0) {
           if(statusValue != null) {
             this.postedJobs = [];
@@ -77,7 +92,9 @@ export class PostedJobComponent implements OnInit {
           this.postedJobs = [...this.postedJobs, ...response.items];
         }
         this.postedJobMeta = { ...response.meta }
-
+		if(this.postedJobMeta.total){
+			this.length = this.postedJobMeta.total;
+		}
         this.isLoading = false;
       }, error => {
         this.isLoading = false;
@@ -165,6 +182,89 @@ export class PostedJobComponent implements OnInit {
       }
     )
   }
+  
+  
+  onGetPostedJobCount(companyId) {
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.status = 1;
+    requestParams.limit = 1000;
+    requestParams.expand = 'company';
+    requestParams.company = companyId;
+    requestParams.sort = 'created_at.desc';
+    this.employerService.getPostedJobCount(requestParams).subscribe(
+      response => {
+		if(response['count']){
+			this.postedJobsMatches=response['count'];
+			var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+			if(document.getElementById('MatchesCount')){
+				document.getElementById('MatchesCount').innerHTML="("+TotalValue+")";
+			}
+			
+		}else{
+			if(document.getElementById('MatchesCount')){
+				document.getElementById('MatchesCount').innerHTML="(0)";
+			}
+		}
+      }, error => {
+      }
+    )
+  }
+  onGetAppliedJobCount(companyId) {
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.status = 1;
+    requestParams.limit = 1000;
+    requestParams.expand = 'company';
+    requestParams.view = 'applicants';
+    requestParams.company = companyId;
+    requestParams.sort = 'created_at.desc';
+    this.employerService.getPostedJobCount(requestParams).subscribe(
+      response => {
+		if(response['count']){
+			this.postedJobsApplied=response['count'];
+			var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+			if(document.getElementById('ApplicantsCount')){
+				document.getElementById('ApplicantsCount').innerHTML="("+TotalValue+")";
+			}
+			
+		}else{
+			if(document.getElementById('ApplicantsCount')){
+				document.getElementById('ApplicantsCount').innerHTML="(0)";
+			}
+		}
+      }, error => {
+      }
+    )
+  }
+  onGetShortListJobCount(companyId) {
+    let requestParams: any = {};
+    requestParams.page = 1;
+    requestParams.status = 1;
+    requestParams.limit = 1000;
+    requestParams.expand = 'company';
+    requestParams.view = 'shortlisted';
+    requestParams.company = companyId;
+    requestParams.sort = 'created_at.desc';
+    this.employerService.getPostedJobCount(requestParams).subscribe(
+      response => {
+		if(response['count']){
+			this.postedJobsShortlist=response['count'];
+			var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+			if(document.getElementById('ApplicantsShortListCount')){
+				document.getElementById('ApplicantsShortListCount').innerHTML="("+TotalValue+")";
+			}
+			
+		}else{
+			if(document.getElementById('ApplicantsShortListCount')){
+				document.getElementById('ApplicantsShortListCount').innerHTML="(0)";
+			}
+		}
+      }, error => {
+      }
+    )
+  }
+  
 
   onConfirmDelete = () => {
     const x = confirm('Are you sure you want to delete?');
@@ -180,6 +280,42 @@ export class PostedJobComponent implements OnInit {
     if(this.currentEmployerDetails.id) {
       this.onGetPostedJob(this.currentEmployerDetails.id);
     }
+  }
+	handlePageEvent(event: PageEvent) {
+		//this.length = event.length;
+		this.limit = event.pageSize;
+		this.page = event.pageIndex+1;
+		if(this.currentEmployerDetails.id) {
+		  this.onGetPostedJob(this.currentEmployerDetails.id);
+		}
+	}
+	
+	CheckMatchesCount(id){
+	  if(id !=undefined && id!=null && id !=''){
+		  var tempData= this.postedJobsMatches.filter(function(a,b){ return a.id == id });
+			if(tempData.length==1){
+				return tempData[0]['count'];
+			}
+	  }
+	  return 0;
+  }
+	CheckAppliedCount(id){
+	  if(id !=undefined && id!=null && id !=''){
+		  var tempData= this.postedJobsApplied.filter(function(a,b){ return a.id == id });
+			if(tempData.length==1){
+				return tempData[0]['count'];
+			}
+	  }
+	  return 0;
+  }
+	CheckShortlistedCount(id){
+	  if(id !=undefined && id!=null && id !=''){
+		  var tempData= this.postedJobsShortlist.filter(function(a,b){ return a.id == id });
+			if(tempData.length==1){
+				return tempData[0]['count'];
+			}
+	  }
+	  return 0;
   }
 
 }

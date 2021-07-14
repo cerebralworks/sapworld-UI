@@ -446,6 +446,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         // })
       }
 				}}else{
+					
+					if(this.childForm.value.personalDetails.work_authorization==0){
+						this.showAuthorization =true;
+					}else{
+						this.showAuthorization = false;
+					}
+		
 					if(this.childForm.value.personalDetails.visa_type){
 				  var splits =this.childForm.value.personalDetails.visa_type;
 				  this.savedUserDetails.visa_type=splits;

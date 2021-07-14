@@ -1,5 +1,5 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
-import { Component, OnInit } from '@angular/core';
+import { Component,EventEmitter,Output, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -16,6 +16,7 @@ import {PageEvent} from '@angular/material/paginator';
 export class MatchingJobComponent implements OnInit {
 
   public isOpenedResumeSelectModal: boolean = false;
+  @Output() onEvent = new EventEmitter<boolean>();
   public countrySelect: boolean = false;
   public callJobsData: boolean = false;
   public Country: any = [];
@@ -463,6 +464,7 @@ validateAPI = 0;
       this.currentJobDetails = item;
     }
     this.isOpenedResumeSelectModal = status;
+    this.onEvent.emit(true);
   }
 
   onLoadMoreJob = () => {

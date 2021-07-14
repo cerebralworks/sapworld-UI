@@ -149,31 +149,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					}
 					
 					if(tempCoun.length==0){
-						// if(!(!google || !google.maps || !google.maps.places)){
-							// var elm = document.getElementById('preferredLocation');
-							// if(elm){
-								//this.autocomplete = new google.maps.places.Autocomplete(elm);
-								
-								//var componentRestrictions = {country: tempCoun};
-								//this.autocomplete.setComponentRestrictions(componentRestrictions);
-								
-							// }
-							
-						// }
+						
 						this.options.componentRestrictions['country'] = [];
 						
 					}else{
-						// if(!(!google || !google.maps || !google.maps.places)){
-							// var elm = document.getElementById('preferredLocation');
-							// if(elm){
-								//this.autocomplete = new google.maps.places.Autocomplete(elm);
-								//var componentRestrictions = {country: tempCoun};
-								//this.autocomplete.setComponentRestrictions(componentRestrictions);
-
-								
-							// }
-							
-						// }
+						
 						this.options.componentRestrictions['country'] = tempCoun;
 					}
 					
@@ -228,6 +208,83 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				  
 				this.address=tempData;
 				}
+				if(this.childForm.controls.personalDetails.value.work_authorization==0){
+					var temps =this.childForm.controls.personalDetails.value.authorized_country;
+					var tempCoun =[];
+					if(temps.length){
+						for(let i=0;i<temps.length;i++){
+							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
+							if(vali.length==1){
+								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+									tempCoun.push(vali[0]['iso']);
+								}
+								
+							}
+							
+
+						}
+					}
+					
+					if(tempCoun.length==0){
+						
+						this.options.componentRestrictions['country'] = [];
+						
+					}else{
+						
+						this.options.componentRestrictions['country'] = tempCoun;
+					}
+					
+				}else if(this.childForm.controls.personalDetails.value.work_authorization==1){
+					var temps =this.childForm.controls.personalDetails.value.nationality;
+					var tempCoun =[];
+					if(temps){
+						var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps)});
+						if(vali.length==1){
+							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+								tempCoun.push(vali[0]['iso']);
+							}
+								
+						}
+						
+					}
+					if(tempCoun.length==0){
+						this.options.componentRestrictions['country'] = [];
+					}else{
+						this.options.componentRestrictions['country'] = tempCoun;
+					}
+				}
+				
+				if(this.childForm.controls.jobPref.value.preferred_locations!=null){
+					if(this.childForm.controls.jobPref.value.preferred_locations.length == 0){
+						this.t.removeAt(0);
+						this.t.push(this.formBuilder.group({
+							city: [''],
+							state: [''],
+							stateShort: [''],
+							country: ['']
+						  }));
+						  this.address=[];
+					}else if ((this.childForm.controls.jobPref.value.preferred_locations.length == 1) || (this.t && this.t.length) !== (this.childForm.controls.jobPref.value.preferred_locations && this.childForm.controls.jobPref.value.preferred_locations.length)) {
+					 //this.t.removeAt(0);
+					  this.childForm.controls.jobPref.value.preferred_locations.map((value, index) => {
+						this.t.push(this.formBuilder.group({
+							city: [''],
+							state: [''],
+							stateShort: [''],
+							country: ['']
+						  }));
+					  });
+					}
+					var tempData =[];
+				if(this.t.value){
+						 tempData = this.childForm.controls.jobPref.value.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
+						 tempData = tempData.map(function(a,b){ 
+				a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+				return a.city+'-'+a.stateShort });
+					}
+				  
+				this.address=tempData;
+				}
 				if(this.savedUserDetails.job_type!=null){		  
 					if(this.savedUserDetails.job_type.length !=0){
 						for(let i=0;i<this.savedUserDetails.job_type.length;i++){
@@ -238,20 +295,20 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 							}
 						}
 					}else{
-						/* this.childForm.patchValue({ 
-							jobPref: { 
-								job_type: ["1001"] 
-							} 
-						}) */
-						//document.getElementById("1001")['className'] = document.getElementById("1001")['className'] +' btn-fltr-active';
+						
 					}
-				}else{
-					/* this.childForm.patchValue({ 
-						jobPref: { 
-							job_type: ["1001"] 
-						} 
-					}); */
-					//document.getElementById("1001")['className'] = document.getElementById("1001")['className'] +' btn-fltr-active';
+				}else if(this.childForm.controls.jobPref.value.job_type!=null){		  
+					if(this.childForm.controls.jobPref.value.job_type.length !=0){
+						for(let i=0;i<this.childForm.controls.jobPref.value.job_type.length;i++){
+							for(let j=0;j<document.getElementsByClassName('jobtype').length;j++){
+								if(document.getElementsByClassName('jobtype').item(j)['id'] == this.childForm.controls.jobPref.value.job_type[i]){
+									document.getElementsByClassName('jobtype').item(j)['className'] = document.getElementsByClassName('jobtype').item(j)['className'] +' btn-fltr-active';
+								}
+							}
+						}
+					}else{
+						
+					}
 				}
 			}
 			if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {

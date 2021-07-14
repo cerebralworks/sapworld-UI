@@ -5,7 +5,7 @@
         <div class="matching-post">
           <div *ngFor="let item of postedJobs; let i = index" class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
             <input (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}" [checked]="(selectedJob?.id == item?.id)">
-            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} {{ selectedJob?.id == item?.id ? (shortListedMeta?.total ?  '(' + shortListedMeta?.total + ')' :  '(' +0+ ')') : ''}} </label>
+            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}}  ({{ checkDataCount(item?.id)}}) <!--  {{ selectedJob?.id == item?.id ? (shortListedMeta?.total ?  '(' + shortListedMeta?.total + ')' :  '(' +0+ ')') : ''}}  --></label>
           </div>
         </div>
       </div>
@@ -20,10 +20,10 @@
               <th scope="col">{{"dashboard.position" | translate}}</th>
               <th scope="col">{{"dashboard.mobile" | translate}}</th>
               <th scope="col">{{"dashboard.email" | translate}}</th>
-              <th scope="col">{{"postJob.location" | translate}}</th>
-              <!-- <th scope="col">{{"dashboard.jobDetails" | translate}}</th> -->
-              <!-- <th scope="col">{{"dashboard.status" | translate}}</th> -->
-              <!-- <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
+              <!-- <th scope="col">{{"postJob.location" | translate}}</th> -->
+              <th scope="col">{{"dashboard.jobDetails" | translate}}</th>
+              <th scope="col">{{"dashboard.status" | translate}}</th>
+             <!--  <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
             </tr>
             </thead>
             <tbody>
@@ -39,13 +39,27 @@
                   </td>
                   <td>{{item?.user?.phone ? (item?.user?.phone | phone) : '--'}}</td>
                   <td>{{item?.user?.email ? item?.user?.email : '--'}}</td>
-                  <td class="text-capitalize">
+                  <!-- <td class="text-capitalize">
                     {{item?.user?.city ? item?.user?.city + ', ' : ''}}
                     {{item?.user?.state ? item?.user?.state + ', ' : ''}}
                     <span class="text-uppercase">
                       {{item?.user?.country ? item?.user?.country : ''}}
                       </span>
-                  </td>
+                  </td> -->
+				  <td class="text-capitalize">
+				  {{selectedJob.title}}
+				  </td>
+				  <td class="text-center">
+					<select class="form-control form-control-td"  (change)="onChangeStatus(item, $event?.target?.value)">
+					  <option [value]="1" [selected]="item?.status == 1">Choose</option>
+					  <option [value]="2" [selected]="item?.status == 2">Selected</option>
+					  <option [value]="3" [selected]="item?.status == 3">Interview scheduled</option>
+					  <option [value]="4" [selected]="item?.status == 4">Rejected</option>
+					  <option [value]="5" [selected]="item?.status == 5">On Hold</option>
+					  <option [value]="6" [selected]="item?.status == 6">Not Available</option>
+					</select>
+					</td>
+				  <!-- <td class="text-center"><a  class="text-danger"><i class="fas fa-trash-alt"></i></a></td>  -->
                 </tr>
               </ng-container>
               <ng-template #elseTemplate>
@@ -55,6 +69,13 @@
               </ng-template>
             </tbody>
           </table>
+		  <div class="d-flex justify-content-center" style="background: #f8f8f8;" *ngIf="(shortListedMeta?.count > 0 && shortListedMeta?.total > 10)">
+					<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+				[length]="length"
+				[pageSize]="limit"  [pageSizeOptions]="pageSizeOptions"
+				[pageIndex]="page-1">
+			</mat-paginator>
+			</div>
         </div>
       </div>
     </div>

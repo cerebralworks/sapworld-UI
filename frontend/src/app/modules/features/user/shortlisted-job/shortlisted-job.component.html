@@ -1,92 +1,88 @@
 <section class="my-5">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-lg-12">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">{{"postJob.jobTitle" | translate}}</th>
-              <th scope="col">{{"dashboard.employer" | translate}}</th>
-              <th scope="col">{{"postJob.location" | translate}}</th>
-              <th scope="col">{{"dashboard.postedDated" | translate}}</th>
-              <th scope="col">{{"common.message" | translate}}</th>
-              <th scope="col">{{"dashboard.status" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><a href="candidate-job-view-matches.html">SAP ABAP Lead Consultant</a></td>
-              <td>Wipro Limited</td>
-              <td>Austin, TX, USA</td>
-              <td>Sep 22, 2020</td>
-              <td class="text-center"><a class="text-blue" data-toggle="collapse" href="#msgCollapse1" ><i class="fas fa-envelope"></i></a></td>
-              <td class="text-warning">Pending </td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-              <!--Message Collapse -->
-              <tr>
-                 <td colspan="8" class="p-0" style="white-space: normal;">
-                  <div class="collapse p-3" id="msgCollapse1">
-                    <h6>Hi, Jacky Smith</h6>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    <button type="submit" class="btn btn-outline-secondary btn-sm mr-1" data-toggle="collapse" href="#msgCollapse1">  Close </button>
-                    <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob">  Apply </button>
-                  </div>
-                 </td>
-              </tr>
-            <tr>
-              <td><a href="#">SAP BA / Project Manager</a></td>
-              <td>SAP Cincinnati</td>
-              <td>OH, USA</td>
-              <td>Sep 22, 2020</td>
-              <td class="text-center"><a class="text-blue" data-toggle="collapse" href="#msgCollapse2" ><i class="fas fa-envelope"></i></a></td>
-              <td class="text-warning">Pending </td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-              <!--Message Collapse -->
-              <tr>
-                 <td colspan="8" class="p-0" style="white-space: normal;">
-                  <div class="collapse p-3" id="msgCollapse2">
-                    <h6>Hi, Jacky Smith</h6>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                    <button type="submit" class="btn btn-outline-secondary btn-sm mr-1" data-toggle="collapse" href="#msgCollapse2">  Close </button>
-                    <button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" data-target="#applyJob">  Apply </button>
-                  </div>
-                 </td>
-              </tr>
-            <tr>
-              <td><a href="candidate-job-view-matches.html">SAP IBP - Integrated Business Planning</a></td>
-              <td>Techcom Solutions</td>
-              <td>Chennai, India</td>
-              <td>Sep 22, 2020</td>
-              <td class="text-center"><a href="#" class="text-blue"><i class="fas fa-envelope"></i></a></td>
-              <td class="text-success">Applied </td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-              <td><a href="candidate-job-view-matches.html">SAP Security Consultant</a></td>
-              <td>Infosys Technologies Ltd</td>
-              <td>New York, NY 10007</td>
-              <td>Sep 22, 2020</td>
-              <td class="text-center"><a href="#" class="text-blue"><i class="fas fa-envelope"></i></a></td>
-               <td class="text-success">Applied </td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            <tr>
-              <td><a href="#">SAP Hybris Consultant - C4C</a></td>
-              <td>Next Ventures</td>
-              <td>Chennai, Tamil Nadu</td>
-              <td>Sep 22, 2020</td>
-              <td class="text-center"><a href="#" class="text-blue"><i class="fas fa-envelope"></i></a></td>
-              <td class="text-success">Applied </td>
-              <td class="text-center"><a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-lg-12">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">{{"postJob.jobTitle" | translate}}</th>
+								<th scope="col">{{"dashboard.employer" | translate}}</th>
+								<th scope="col">{{"postJob.location" | translate}}</th>
+								<th scope="col">{{"dashboard.postedDated" | translate}}</th>
+								<th scope="col" class="text-center">{{"common.message" | translate}}</th>
+								<th scope="col">{{"dashboard.status" | translate}}</th>
+								<!-- <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<ng-container *ngIf="shortlistJobs?.length; else elseTemplate">
+								<tr *ngFor="let item of shortlistJobs">
+									<td>
+										<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'shortlisted' }"  class="text-capitalize" href="javacript:;">
+											{{item?.job_posting?.title}}
+										</a>
+									</td>
+									<td>
+										{{item?.employer?.company ? item?.employer?.company : '--'}}
+									</td>
+									<td class="text-capitalize">
+										{{item?.job_posting?.city ? item?.job_posting?.city + ', ' : ''}}
+										{{item?.job_posting?.state ? item?.job_posting?.state + ', ' : ''}}
+										<span class="text-uppercase">
+											{{item?.job_posting?.country ? item?.job_posting?.country : ''}}
+										</span>
+									</td>
+									<td>
+										{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}
+									</td>
+									<td class="text-center "><a class="text-blue" data-toggle="collapse" href="#msgCollapse1" ><i class="fas fa-envelope"></i></a></td>
+									<td  class="text-capitalize" *ngIf="item?.job_posting?.status == 1" style="color: #385edf;">
+										Short Listed
+									</td>
+									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 2">
+										selected
+									</td>
+									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 3">
+										scheduled
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 4">
+										rejected
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 5">
+										on hold
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 6">
+										not available
+									</td>
+									<td  class="text-capitalize text-warning" *ngIf="item?.job_posting?.status == 7">
+										pending
+									</td>
+									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 8">
+										applied
+									</td>
+									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 9">
+										closed
+									</td>
+									<!-- <td class="text-center"><a (click)="deleteJobApplication(item?.id)" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>  -->
+								</tr>
+							</ng-container>
+							<ng-template #elseTemplate>
+								<tr>
+									<td colspan="6">No Record Found</td>
+								</tr>
+							</ng-template>
+						</tbody>
+					</table>
+					<div class="d-flex justify-content-center" style="background: #f8f8f8;"  *ngIf="appliedJobMeta?.count > 0 && appliedJobMeta?.total > 10" >
+						<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+							[length]="length"
+							[pageSize]="limit"  [pageSizeOptions]="pageSizeOptions"
+							[pageIndex]="page-1">
+						</mat-paginator>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

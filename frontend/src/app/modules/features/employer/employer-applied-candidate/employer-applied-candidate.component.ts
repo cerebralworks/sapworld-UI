@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component,EventEmitter,Output, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
@@ -13,6 +13,7 @@ import {PageEvent} from '@angular/material/paginator';
   styleUrls: ['./employer-applied-candidate.component.css']
 })
 export class EmployerAppliedCandidateComponent implements OnInit {
+  @Output() onEvent = new EventEmitter<boolean>();
   public appliedJobs: any[] = [];
   public appliedJobMeta: any;
   public page: number = 1;
@@ -203,6 +204,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 		}
         this.employerService.shortListUser(requestParams).subscribe(
           response => {
+			  this.onEvent.emit(true);
 			  if(response['details']['short_listed']==true){
 					this.onGetPostedJobCount(this.Company);
 					this.onGetAppliedJobs();
@@ -215,6 +217,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 				});
 			  }
           }, error => {
+			  this.onEvent.emit(true);
           }
         )
       }else {
