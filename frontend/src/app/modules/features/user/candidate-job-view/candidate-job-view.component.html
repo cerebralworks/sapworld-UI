@@ -30,7 +30,9 @@
 										<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
 									</div>
 									<div class="col-lg-5 text-right">
+										<a class="btn btn-outline-green btn-sm" (click)="onToggleResumeSelectModal(true, postedJobsDetails)" style="margin-right: 10px;" href="javascript:;" *ngIf="isShowApply" ><i class="fas fa-file-alt"></i> Apply</a>
 										<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;"><i class="fas fa-file-alt"></i> Description</a>
+										
 									</div>
 								</div>
 								<div class="row">
@@ -80,6 +82,13 @@
 		</div>
 	</div>
 </section>
+<app-resume-select
+[toggleResumeSelectModal]="isOpenedResumeSelectModal"
+[userAccept]="userAccept"
+[currentJobDetails]="currentJobDetails"
+*ngIf="isOpenedResumeSelectModal" 
+(onEvent)="onToggleResumeSelectModalClose($event)">
+</app-resume-select>
 
   <app-job-description
   [isRichTextEnabled]="true"
@@ -88,3 +97,5 @@
   *ngIf="isOpenedJDModal"
   (onEvent)="onToggleJDModal($event)">
   </app-job-description>
+
+

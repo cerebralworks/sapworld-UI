@@ -73,6 +73,7 @@ separateDialCode = false;
 	public job_role: boolean = false;
 	public reference: boolean = false;
 	public mobileNumber: boolean = false;
+	public toggleresumeSelectModal: boolean = false;
 	public preferredLocation: boolean = false;
 	@Output() createCandidate: EventEmitter<any> = new EventEmitter();
 	public savedUserDetails: any;
@@ -802,4 +803,15 @@ separateDialCode = false;
 	}
 	onCountryChange = (event) => {
      }
+	 
+	 onToggleResumeSelectModal(status){
+		if(status==true){
+			
+		}
+		this.toggleresumeSelectModal = false;
+	}
+	OpenAddResume(){
+	  this.toggleresumeSelectModal = true;
+	}
+	
 }

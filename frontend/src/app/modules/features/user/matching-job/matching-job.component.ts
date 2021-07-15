@@ -406,13 +406,12 @@ validateAPI = 0;
 		 this.postedJobMeta = { ...response.meta };
 		 if(this.countrySelect==false){
 			
-			for(let i=0;i<response['country']['length'];i++){
-				var tempcountry = response['country'][0]['country'];
+			var tempLen = response['country'].map(function(a,b){ return a.country} );
+			tempLen = tempLen.filter(function(item, pos) { return tempLen.indexOf(item) == pos; })
+			for(let i=0;i<tempLen['length'];i++){
+				var tempcountry = tempLen[i];
 				var filter = response['country'].filter(function(a,b){ return a.country.toLowerCase() == tempcountry.toLowerCase() }).length
 				this.postedJobCountry.push({count:filter,country:tempcountry});
-				response['country'] = response['country'].filter(function(a,b){ return a.country.toLowerCase() != tempcountry.toLowerCase() });
-				i = 0;
-				
 			}
 			response['country'] = this.postedJobCountry ;
 			this.countrySelect=true;

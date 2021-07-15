@@ -20,8 +20,8 @@
 								</h5>
 							</div>
 							<div class="col-lg-5 text-right">
-								<span data-toggle="modal" data-target="#exampleModal">
-									<a class="btn btn-outline-blue btn-sm" href="#">
+								<span data-toggle="modal" data-target="#exampleModal" (click)="OpenAddResume()">
+									<a class="btn btn-outline-blue btn-sm" >
 									<i class="fas fa-file-alt"></i> Resume</a>
 								</span>
 							</div>
@@ -726,3 +726,9 @@
 		</div>
 	
 </ng-template>
+
+<app-resume-selects
+[toggleresumeSelectModal]="toggleresumeSelectModal"
+*ngIf="toggleresumeSelectModal"
+(onEvent)="onToggleResumeSelectModal($event)">
+</app-resume-selects>

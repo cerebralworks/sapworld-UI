@@ -16,8 +16,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<ng-container *ngIf="shortlistJobs?.length; else elseTemplate">
-								<tr *ngFor="let item of shortlistJobs">
+							<ng-container *ngFor="let item of shortlistJobs">
+								<tr >
 									<td>
 										<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'shortlisted' }"  class="text-capitalize" href="javacript:;">
 											{{item?.job_posting?.title}}
@@ -36,38 +36,49 @@
 									<td>
 										{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}
 									</td>
-									<td class="text-center "><a class="text-blue" data-toggle="collapse" href="#msgCollapse1" ><i class="fas fa-envelope"></i></a></td>
-									<td  class="text-capitalize" *ngIf="item?.job_posting?.status == 1" style="color: #385edf;">
+									<td class="text-center "><a class="text-blue" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event);"><i class="fas fa-envelope"></i></a></td>
+									<td  class="text-capitalize" *ngIf="item?.status == 1" style="color: #385edf;">
 										Short Listed
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 2">
+									<td  class="text-capitalize text-success" *ngIf="item?.status == 2">
 										selected
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 3">
+									<td  class="text-capitalize text-success" *ngIf="item?.status == 3">
 										scheduled
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 4">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 4">
 										rejected
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 5">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 5">
 										on hold
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 6">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 6">
 										not available
 									</td>
-									<td  class="text-capitalize text-warning" *ngIf="item?.job_posting?.status == 7">
+									<td  class="text-capitalize text-warning" *ngIf="item?.status == 7">
 										pending
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 8">
+									<td  class="text-capitalize text-success" *ngIf="item?.status == 8">
 										applied
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 9">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 9">
 										closed
 									</td>
 									<!-- <td class="text-center"><a (click)="deleteJobApplication(item?.id)" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>  -->
 								</tr>
+								<!--Message Collapse -->
+								<tr *ngIf="item?.status == 7">
+									 <td colspan="8" class="p-0" style="white-space: normal;">
+										<div class="collapse p-3" [id]="getIdVals(item)">
+											<h6>Hi, {{item?.employer?.company ? item?.employer?.company : '--'}}</h6>
+											<p>I have been applied for the postion of <a style="color:#000;text-transform: capitalize;">{{item?.job_posting?.title}}</a>, and here i attached my resume .</p>
+											<button type="submit" class="btn btn-outline-secondary btn-sm" data-toggle="collapse" [id]="getIdVal(item)" >  Close </button>
+											<button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" (click)="onToggleResumeSelectModal(true, item)" >  Apply </button>
+										</div>
+									 </td>
+								</tr>
 							</ng-container>
-							<ng-template #elseTemplate>
+							<ng-template *ngIf="shortlistJobs.length==0">
 								<tr>
 									<td colspan="6">No Record Found</td>
 								</tr>
@@ -86,3 +97,11 @@
 		</div>
 	</div>
 </section>
+
+<app-resume-select
+[toggleResumeSelectModal]="isOpenedResumeSelectModal"
+[userAccept]="userAccept"
+[currentJobDetails]="currentJobDetails"
+*ngIf="isOpenedResumeSelectModal" 
+(onEvent)="onToggleResumeSelectModalClose($event)">
+</app-resume-select>

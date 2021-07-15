@@ -22,6 +22,7 @@ export class ResumeSelectComponent implements OnInit {
   public isShowData: boolean = false;
   public isShowUpload: boolean = true;
   @Input() toggleResumeSelectModal: boolean;
+  @Input() userAccept: boolean = false;
   @Input() currentJobDetails: JobPosting;
   @Output() onEvent = new EventEmitter<boolean>();
 
@@ -90,6 +91,9 @@ export class ResumeSelectComponent implements OnInit {
       let requestParams: any = {};
       requestParams.job_posting = this.currentJobDetails.id;
       requestParams.user_resume = this.resumeSelected.file;
+	  if(this.userAccept ==true ){
+		  requestParams.status =  8 ;
+	  }
       this.userService.jobApply(requestParams).subscribe(
         response => {
           this.onClickCloseBtn(false);

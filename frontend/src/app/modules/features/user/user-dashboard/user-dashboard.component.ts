@@ -63,6 +63,12 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 						this.router.navigate(['/user/create-candidate']);
 					}else{
 						this.dashboardView = true; 
+	if(this.dashboardViewAPI ==false){
+	this.onGetAppliedJobs();
+	this.onGetShortListJobs();
+	this.onGetPostedJob();
+	this.dashboardViewAPI =true;
+	}
 					}
 				}
 			}
@@ -104,12 +110,6 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
           break;
       }
     }
-	if(this.dashboardViewAPI ==false){
-	this.onGetAppliedJobs();
-	this.onGetShortListJobs();
-	this.onGetPostedJob();
-	this.dashboardViewAPI =true;
-	}
   }
 
   validateOnPrfile = 0;
@@ -397,13 +397,12 @@ if(this.userInfo && this.userInfo.experience) {
 		  
         if(response['country']){
 			var postedJobCountry =[];
-			for(let i=0;i<response['country']['length'];i++){
-				var tempcountry = response['country'][0]['country'];
+			var tempLen = response['country'].map(function(a,b){ return a.country} );
+			tempLen = tempLen.filter(function(item, pos) { return tempLen.indexOf(item) == pos; })
+			for(let i=0;i<tempLen['length'];i++){
+				var tempcountry = tempLen[i];
 				var filter = response['country'].filter(function(a,b){ return a.country.toLowerCase() == tempcountry.toLowerCase() }).length
 				postedJobCountry.push({count:filter,country:tempcountry});
-				response['country'] = response['country'].filter(function(a,b){ return a.country.toLowerCase() != tempcountry.toLowerCase() });
-				i = 0;
-				
 			}
 			response['country'] = postedJobCountry ;
 			var TotalValue =response['country'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
