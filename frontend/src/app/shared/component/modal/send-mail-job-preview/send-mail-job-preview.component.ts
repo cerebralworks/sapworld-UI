@@ -78,6 +78,7 @@ export class SendMailJobPreviewComponent implements OnInit {
       let requestParams: any = {};
       requestParams.job_posting = this.jobInfo.id;
       requestParams.user = this.userInfo.id;
+      requestParams.status = 7;
       requestParams.short_listed = true;
 
       this.employerService.shortListUser(requestParams).subscribe(

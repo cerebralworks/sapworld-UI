@@ -55,7 +55,14 @@ export class LoginFormComponent implements OnInit {
           this.isLoading = false;
           if (response.isLoggedIn && response.role.includes(0)) {
 			  if(response['verified']==true){
-				  this.router.navigate([this.returnUserUrl]);
+				  if(this.route.snapshot.queryParams['redirect']){
+					  if(this.route.snapshot.queryParams['redirect'].split('/')[2] =="candidate-job-view"){
+						  this.returnUserUrl = '/user/dashboard';
+						  this.router.navigate([this.returnUserUrl]);
+					  }
+				  }else{
+					this.router.navigate([this.returnUserUrl]);
+				  }
 			  }else{
 				  this.router.navigate(['/user/create-candidate']);
 			  }

@@ -15,7 +15,11 @@ export class CandidateJobViewComponent implements OnInit {
 
   public postedJobsDetails: JobPosting;
   public jobId: string;
+  public currentJobDetails: any;
   public isOpenedJDModal: boolean;
+  public isShowApply: boolean = false;
+	public userAccept: boolean = false;
+	public isOpenedResumeSelectModal: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +41,9 @@ export class CandidateJobViewComponent implements OnInit {
 				this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
 			}
         }
+			if(urlQueryParams && urlQueryParams.show){
+				this.isShowApply = true;
+			}
 	}
 	});
 	this.router.navigate([], {queryParams: {id: null,path: null}, queryParamsHandling: 'merge'});
@@ -83,6 +90,23 @@ onRedirectBack = () => {
 	}
    
   }
+	
+	onToggleResumeSelectModal = (status, item?) => {
+    if(!this.utilsHelperService.isEmptyObj(item)) {
+      this.currentJobDetails = item;
+    }
+		this.isOpenedResumeSelectModal = status;
+		this.userAccept = status;
+	}
+	
+	onToggleResumeSelectModalClose(status){
+		if(status ==false){
+		}
+		this.isOpenedResumeSelectModal = false;
+		this.userAccept = false;
+		this.isShowApply = false;
+	}
+	
   onToggleJDModal = (status) => {
     this.isOpenedJDModal = status;
   }

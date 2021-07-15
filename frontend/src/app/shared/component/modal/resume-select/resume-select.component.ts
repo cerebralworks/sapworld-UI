@@ -57,7 +57,7 @@ export class ResumeSelectComponent implements OnInit {
 
   ngAfterViewInit(): void {
     if (this.toggleresumeSelectModal) {
-      this.mbRef = this.modalService.open(this.coverSelectModal, {
+      this.mbRefs = this.modalService.open(this.coverSelectModal, {
         windowClass: 'modal-holder',
         centered: true,
         backdrop: 'static',
@@ -89,7 +89,7 @@ export class ResumeSelectComponent implements OnInit {
   onClickCloseBtn(status) {
     this.onEvent.emit(status);
     if (status == false) {
-      this.mbRef.close()
+      this.mbRefs.close()
     }
   }
   
@@ -150,7 +150,9 @@ export class ResumeSelectComponent implements OnInit {
     this.userService.resumeUpdate(formData).subscribe(
       response => {
        
-         this.modalService.dismissAll();
+         //this.modalService.dismissAll();
+		 this.mbRef.close();
+		 this.mbRefs.close();
 		  this.onClickCloseBtn(true);
         this.resumeForm.reset();
         //this.userCover.nativeElement.value = null;

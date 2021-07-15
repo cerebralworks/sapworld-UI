@@ -35,37 +35,37 @@
 									<td>
 										{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}
 									</td>
-									<td  class="text-capitalize text-warning" *ngIf="item?.job_posting?.status == 1 && !item?.short_listed" style="color: #385edf;">
+									<td  class="text-capitalize text-warning" *ngIf="item?.status == 1 && !item?.short_listed" style="color: #385edf;">
 										Applied
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 1 && item?.short_listed == false " style="color: #385edf;">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 1 && item?.short_listed == false " style="color: #385edf;">
 										Not a fit
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 1 && item?.short_listed == true " style="color: #385edf;">
+									<td  class="text-capitalize text-success" *ngIf="item?.status == 1 && item?.short_listed == true " style="color: #385edf;">
 										Short Listed
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 2">
+									<td  class="text-capitalize text-success" *ngIf="item?.status == 2">
 										selected
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 3">
+									<td  class="text-capitalize text-success" *ngIf="item?.status == 3">
 										scheduled
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 4">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 4">
 										rejected
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 5">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 5">
 										on hold
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 6">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 6">
 										not available
 									</td>
-									<td  class="text-capitalize text-warning" *ngIf="item?.job_posting?.status == 7">
+									<td  class="text-capitalize text-warning" *ngIf="item?.status == 7">
 										pending
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.job_posting?.status == 8">
+									<td  class="text-capitalize text-success" *ngIf="item?.status == 8">
 										applied
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.job_posting?.status == 9">
+									<td  class="text-capitalize text-danger" *ngIf="item?.status == 9">
 										closed
 									</td>
 									<!-- <td class="text-center"><a (click)="deleteJobApplication(item?.id)" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>  -->

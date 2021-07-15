@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import {PageEvent} from '@angular/material/paginator';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({
 	selector: 'app-shortlisted-job',
@@ -10,8 +11,11 @@ import {PageEvent} from '@angular/material/paginator';
 
 export class ShortlistedJobComponent implements OnInit {
 	
+	public isOpenedResumeSelectModal: boolean = false;
+	public userAccept: boolean = false;
 	public shortlistJobs: any[] = [];
 	public appliedJobMeta: any;
+	public currentJobDetails: any;
 	public page: number = 1;
 	public limit: number = 10;
 	length = 0;
@@ -19,7 +23,8 @@ export class ShortlistedJobComponent implements OnInit {
 	pageSizeOptions = [ 10, 20,50,100];
 	showFirstLastButtons = true;
 
-	constructor(private userService: UserService) { }
+	constructor(private userService: UserService,
+    public utilsHelperService: UtilsHelperService) { }
 
 	ngOnInit(): void {
 		this.onGetshortlistJobs();
@@ -39,8 +44,8 @@ export class ShortlistedJobComponent implements OnInit {
 			}
 			this.appliedJobMeta = { ...response.meta }
 			if(response && response['meta'] && response['meta']['total'] ) {
-				if(document.getElementById('appliedCountValue')){
-					document.getElementById('appliedCountValue').innerHTML="("+response['meta']['total']+")";
+				if(document.getElementById('shortlistedJob')){
+					document.getElementById('shortlistedJob').innerHTML="("+response['meta']['total']+")";
 				}
 			}
 			if(this.appliedJobMeta.total){
@@ -68,5 +73,56 @@ export class ShortlistedJobComponent implements OnInit {
 			this.onGetshortlistJobs();
 		})
 	}
+	
+	getIdVal(items){
+		if(items){
+			if(items['id']){
+				var data = '#Open'+items['id']
+				return data;
+			}
+		}
+		return '#Open'
+	}
+	
+	getIdVals(items){
+		if(items){
+			if(items['id']){
+				var data = 'Open'+items['id']
+				return data;
+			}
+		}
+		return 'Open'
+	}
+	
+	stopPropagation(event){
+		if(event && event.path){
+			if(event['path'][1]){
+				if(event['path'][1]['href']){
+					var temp= event['path'][1]['href'].split('/')
+					temp = temp[temp.length-1];
+					if(document.getElementById(temp)){
+						document.getElementById(temp).setAttribute('href',temp);
+					}
+				}
+			}
 
+		}
+	}
+	
+	onToggleResumeSelectModal = (status, item?) => {
+    if(!this.utilsHelperService.isEmptyObj(item)) {
+      this.currentJobDetails = item['job_posting'];
+    }
+		this.isOpenedResumeSelectModal = status;
+		this.userAccept = status;
+	}
+	
+	onToggleResumeSelectModalClose(status){
+		if(status ==false){
+			this.page = 1;
+			this.onGetshortlistJobs();
+		}
+		this.isOpenedResumeSelectModal = false;
+		this.userAccept = false;
+	}
 }
