@@ -10,117 +10,144 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./employer-profile.component.css']
 })
 export class EmployerProfileComponent implements OnInit {
+	
+	/**
+	**	Variable declaration
+	**/
+	
+	public companyProfileInfo: any;
+	public employerDetails: any;
+	public profileSettings: any[] = [];
+	public isLoading: boolean;
+	public page: any = 1;
+	public limit: number = 25;
+	public postedJobs: any[] = [];
+	public postedJobMeta: any = {};
+	public validateSubscribe: number = 0;
+	public randomNum: number;
+	public privacyProtection: any;
 
-  public companyProfileInfo: any;
-  public employerDetails: any;
-  public profileSettings: any[] = [];
-  public isLoading: boolean;
-  public page: any = 1;
-  public limit: number = 25;
-  public postedJobs: any[] = [];
-  public postedJobMeta: any = {};
-  public validateSubscribe: number = 0;
-  public randomNum: number;
-  public privacyProtection: any;
+	constructor(
+		private employerService: EmployerService,
+		private toastrService: ToastrService,
+		private employerSharedService: EmployerSharedService,
+		public utilsHelperService: UtilsHelperService
+	) { }
 
-  constructor(
-    private employerService: EmployerService,
-    private toastrService: ToastrService,
-    private employerSharedService: EmployerSharedService,
-    public utilsHelperService: UtilsHelperService
-  ) { }
-
-  updateUrl = (event) => {
-    console.log(event);
-
-  }
-
-  ngOnInit(): void {
-	  this.profileSettings = [
-      {field: 'phone', label: 'Phone Numer'},
-      {field: 'email', label: 'Email ID'},
-      {field: 'open_jobs', label: 'Open Jobs'},
-      {field: 'emplyees', label: 'Employees'}
-    ];
-    this.randomNum = Math.random();
-    this.employerSharedService.getEmployerProfileDetails().subscribe(
-      details => {
-        if (!this.utilsHelperService.isEmptyObj(details) && this.validateSubscribe == 0) {
-          this.employerDetails = details;
-          this.privacyProtection = details.privacy_protection;
-		  if(this.privacyProtection==null || this.privacyProtection ==undefined){
-			  this.privacyProtection={
-				  'phone':false,
-				  'email':false,
-				  'open_jobs':false,
-				  'emplyees':false
-			  }
-		  }
-          this.onGetPostedJob(this.employerDetails.id);
-          this.validateSubscribe ++;
-        }
-      }
-    )
-
-    this.onGetProfileInfo();
-  }
-
-  onGetPostedJob(companyId) {
-    let requestParams: any = {};
-    requestParams.page = this.page;
-    requestParams.limit = this.limit;
-    requestParams.expand = 'company';
-    requestParams.company = companyId;
-    requestParams.sort = 'created_at.desc';
-    this.employerService.getPostedJob(requestParams).subscribe(
-      response => {
-        if(response && response.items && response.items.length > 0) {
-          this.postedJobs = [...this.postedJobs, ...response.items];
-        }
-        this.postedJobMeta = { ...response.meta };
-      }, error => {
-      }
-    )
-  }
-
-  onGetProfileInfo() {
-    let requestParams: any = {};
-    this.employerService.getCompanyProfileInfo(requestParams).subscribe(
-      (response: any) => {
-        this.companyProfileInfo = { ...response.details };
-      }, error => {
-        this.companyProfileInfo = {};
-      }
-    )
-  }
-
-  onLoadMoreJob = () => {
-    this.page = this.page + 1;
-    if(this.employerDetails.id) {
-      this.onGetPostedJob(this.employerDetails.id);
-    }
-  }
-  
+	updateUrl = (event) => {
+		console.log(event);
+	}
+	
+	/**
+	**	To triggeres when the page loads
+	**/
+	
+	ngOnInit(): void {
+		this.profileSettings = [
+		  {field: 'phone', label: 'Phone Numer'},
+		  {field: 'email', label: 'Email ID'},
+		  {field: 'open_jobs', label: 'Open Jobs'},
+		  {field: 'emplyees', label: 'Employees'}
+		];
+		this.randomNum = Math.random();
+		this.employerSharedService.getEmployerProfileDetails().subscribe(
+			details => {
+				if (!this.utilsHelperService.isEmptyObj(details) && this.validateSubscribe == 0) {
+					this.employerDetails = details;
+					this.privacyProtection = details.privacy_protection;
+					if(this.privacyProtection==null || this.privacyProtection ==undefined){
+						this.privacyProtection={
+						  'phone':false,
+						  'email':false,
+						  'open_jobs':false,
+						  'emplyees':false
+						}
+					}
+					this.onGetPostedJob(this.employerDetails.id);
+					this.validateSubscribe ++;
+				}
+			}
+		)
+		this.onGetProfileInfo();
+	}
+	
+	/**
+	**	To get the posted job details
+	**/
+	
+	onGetPostedJob(companyId) {
+		let requestParams: any = {};
+		requestParams.page = this.page;
+		requestParams.limit = this.limit;
+		requestParams.expand = 'company';
+		requestParams.company = companyId;
+		requestParams.sort = 'created_at.desc';
+		this.employerService.getPostedJob(requestParams).subscribe(
+			response => {
+				if(response && response.items && response.items.length > 0) {
+					this.postedJobs = [...this.postedJobs, ...response.items];
+				}
+				this.postedJobMeta = { ...response.meta };
+			}, error => {
+			}
+		)
+	}
+	
+	/**
+	**	To get the profile information
+	**/
+	
+	onGetProfileInfo() {
+		let requestParams: any = {};
+		this.employerService.getCompanyProfileInfo(requestParams).subscribe(
+			(response: any) => {
+				this.companyProfileInfo = { ...response.details };
+			}, error => {
+				this.companyProfileInfo = {};
+			}
+		)
+	}
+	
+	/**
+	**	To loads more job details
+	**/
+	
+	onLoadMoreJob = () => {
+		this.page = this.page + 1;
+		if(this.employerDetails.id) {
+			this.onGetPostedJob(this.employerDetails.id);
+		}
+	}
+	
+	/**
+	**	To set the privacy production status 
+	**/
+	
     onSetSettings = (item: any, eventValue: boolean) => {
-    this.privacyProtection[item.field] = eventValue;
-    this.setPrivacy(this.privacyProtection);
-  }
-
-  setPrivacy(privacyProtection) {
-    if(this.employerDetails && !this.utilsHelperService.isEmptyObj(this.employerDetails)) {
-      this.isLoading = true;
-      let requestParams = {...this.employerDetails};
-      requestParams.privacy_protection = privacyProtection;
-
-      this.employerService.update(requestParams).subscribe(
-        response => {
-          this.isLoading = false;
-        }, error => {
-          this.isLoading = false;
-          this.toastrService.error('Something went wrong', 'Failed');        }
-      )
-    }
-
-  }
+		this.privacyProtection[item.field] = eventValue;
+		this.setPrivacy(this.privacyProtection);
+	}
+	
+	/**
+	**	To update the privacy status
+	**/
+	
+	setPrivacy(privacyProtection) {
+		if(this.employerDetails && !this.utilsHelperService.isEmptyObj(this.employerDetails)) {
+			this.isLoading = true;
+			let requestParams = {...this.employerDetails};
+			requestParams.privacy_protection = privacyProtection;
+			this.employerService.update(requestParams).subscribe(
+				response => {
+					this.isLoading = false;
+				}, error => {
+					this.isLoading = false;
+					this.toastrService.error('Something went wrong', 'Failed');      
+				}
+			)
+		}
+	}
+	
+	
 
 }

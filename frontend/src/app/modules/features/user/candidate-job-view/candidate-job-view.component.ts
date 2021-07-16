@@ -12,109 +12,146 @@ import { Location } from '@angular/common';
   styleUrls: ['./candidate-job-view.component.css']
 })
 export class CandidateJobViewComponent implements OnInit {
-
-  public postedJobsDetails: JobPosting;
-  public jobId: string;
-  public currentJobDetails: any;
-  public isOpenedJDModal: boolean;
-  public isShowApply: boolean = false;
+	
+	/**
+	**	Variable declaration
+	**/
+	
+	public postedJobsDetails: JobPosting;
+	public jobId: string;
+	public currentJobDetails: any;
+	public isOpenedJDModal: boolean;
+	public isShowApply: boolean = false;
 	public userAccept: boolean = false;
 	public isOpenedResumeSelectModal: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private employerService: EmployerService,
-    public utilsHelperService: UtilsHelperService,
-    private location: Location,
-    public sharedService: SharedService,
-    private router: Router
-  ) {
+	constructor(
+		private route: ActivatedRoute,
+		private employerService: EmployerService,
+		public utilsHelperService: UtilsHelperService,
+		private location: Location,
+		public sharedService: SharedService,
+		private router: Router
+	) {
 	  
-	  this.route.queryParams.subscribe(params => {
-      if(params && !this.utilsHelperService.isEmptyObj(params)) {
-        let urlQueryParams = {...params};
-
-        if(urlQueryParams && urlQueryParams.id) {
-			sessionStorage.setItem('view-job-id',urlQueryParams.id);
-			if(urlQueryParams.path){
-				sessionStorage.setItem('view-job-path',urlQueryParams.path);
-				this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
+		/**	
+		**	Checking Routing params
+		**/
+		
+		this.route.queryParams.subscribe(params => {
+			if(params && !this.utilsHelperService.isEmptyObj(params)) {
+				let urlQueryParams = {...params};
+				if(urlQueryParams && urlQueryParams.id) {
+					sessionStorage.setItem('view-job-id',urlQueryParams.id);
+					if(urlQueryParams.path){
+						sessionStorage.setItem('view-job-path',urlQueryParams.path);
+						this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
+					}
+				}
+				if(urlQueryParams && urlQueryParams.show){
+					this.isShowApply = true;
+				}
 			}
-        }
-			if(urlQueryParams && urlQueryParams.show){
-				this.isShowApply = true;
-			}
+		});
+		this.router.navigate([], {queryParams: {id: null,path: null}, queryParamsHandling: 'merge'});
+		var jobIds:any = 0;
+		if(sessionStorage.getItem('view-job-id')){
+			jobIds = parseInt(sessionStorage.getItem('view-job-id'));
+		}
+		//this.jobId = this.route.snapshot.paramMap.get('id');
+		this.jobId = jobIds;
 	}
-	});
-	this.router.navigate([], {queryParams: {id: null,path: null}, queryParamsHandling: 'merge'});
-	var jobIds:any = 0;
-	if(sessionStorage.getItem('view-job-id')){
-		jobIds = parseInt(sessionStorage.getItem('view-job-id'));
+
+	/**	
+	**	When the page loads the onint calls
+	**/
+		
+	ngOnInit(): void {
+		if(this.jobId) {
+			this.onGetPostedJobDetails();
+		}
+	}
+
+	/**	
+	**	To get the posted job details
+	**/
+		
+	onGetPostedJobDetails() {
+		let requestParams: any = {};
+		requestParams.expand = 'company';
+		requestParams.id = this.jobId;
+		this.employerService.getPostedJobDetails(requestParams).subscribe(
+			response => {
+				if(response && response.details) {
+					this.postedJobsDetails = response.details;
+				}
+			}, error => {
+			
+			}
+		)
 	}
 	
-    //this.jobId = this.route.snapshot.paramMap.get('id');
-    this.jobId = jobIds;
-  }
-
-  ngOnInit(): void {
-
-    if(this.jobId) {
-      this.onGetPostedJobDetails();
-    }
-  }
-
-  onGetPostedJobDetails() {
-    let requestParams: any = {};
-    requestParams.expand = 'company';
-    requestParams.id = this.jobId;
-    this.employerService.getPostedJobDetails(requestParams).subscribe(
-      response => {
-        if(response && response.details) {
-          this.postedJobsDetails = response.details;
-        }
-      }, error => {
-      }
-    )
-  }
-onRedirectBack = () => {
-   // this.location.back();
-   
-	if(sessionStorage.getItem('view-job-path')=='applied'){
-		sessionStorage.clear();
-		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'applied'}});
-	}else if(sessionStorage.getItem('view-job-path')=='shortlisted'){
-		sessionStorage.clear();
-		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
-	}else{
-		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
+	/**	
+	**	To redirect the jobview to previous page
+	**/
+		
+	onRedirectBack = () => {
+		
+		// this.location.back();
+		if(sessionStorage.getItem('view-job-path')=='applied'){
+			sessionStorage.clear();
+			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'applied'}});
+		}else if(sessionStorage.getItem('view-job-path')=='shortlisted'){
+			sessionStorage.clear();
+			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
+		}else{
+			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
+		}
 	}
-   
-  }
 	
+	/**	
+	**	To Open the resume in popup view
+	**/
+		
 	onToggleResumeSelectModal = (status, item?) => {
-    if(!this.utilsHelperService.isEmptyObj(item)) {
-      this.currentJobDetails = item;
-    }
+		if(!this.utilsHelperService.isEmptyObj(item)) {
+			this.currentJobDetails = item;
+		}
 		this.isOpenedResumeSelectModal = status;
 		this.userAccept = status;
 	}
 	
+	/**	
+	**	To Close the resume in popup view the Function calls
+	**/
+		
 	onToggleResumeSelectModalClose(status){
 		if(status ==false){
+		
 		}
 		this.isOpenedResumeSelectModal = false;
 		this.userAccept = false;
 		this.isShowApply = false;
 	}
+
+	/**	
+	**	To open the jon details in popup view 
+	**/
+		
+	onToggleJDModal = (status) => {
+		this.isOpenedJDModal = status;
+	}
+
+	/**	
+	**	To	return the Boolean to string
+	**/
+		
+	onGetYesOrNoValue = (value: boolean) => {
+		if (value == true) {
+			return "Yes";
+		} else {
+			return "No"
+		}
+	}
 	
-  onToggleJDModal = (status) => {
-    this.isOpenedJDModal = status;
-  }
-onGetYesOrNoValue = (value: boolean) => {
-    if (value == true) {
-      return "Yes";
-    } else {
-      return "No"
-    }
-  }
 }

@@ -20,34 +20,39 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./employer-candidate-profile-matches.component.css']
 })
 export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestroy,OnChanges {
-  public isOpenedJDModal: boolean = false;
-  public isOpenedResumeModal: boolean = false;
-  public isOpenedOtherPostModal: boolean = false;
-  public toggleMatchModal: boolean =false;
-  public jobId: string;
-  public postedJobsDetails: any;
-  public page: number = 1;
-  public userId: string;
-  public matchingUsers: any = {};
-  public cusLoadsh: any = lodash;
-  public isOpenedSendMailModal: boolean;
-  public currentUserInfo: CandidateProfile;
-  public matchedElement: boolean = true;
-  public missingElement: boolean = false;
-  public moreElement: boolean = true;
-  public isHideData: boolean = true;
-  public isMultipleMatches: boolean = false;
-  public matchingUsersMeta: any = { count: 0 };
-  public matchingUsersNew: any;
-  public selectedResumeUrl: string;
-  private subscriptions: Subscription[] = [];
-  private postedJobsMatchDetails: any[] = [];
-  private checkArray: any[] = [];
-  private userDetails: any = {};
-  
-  @ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
-  public mbRef: NgbModalRef;
-  public languageSource=[];
+	
+	/**
+	**	Variable declaration
+	**/
+	
+	public isOpenedJDModal: boolean = false;
+	public isOpenedResumeModal: boolean = false;
+	public isOpenedOtherPostModal: boolean = false;
+	public toggleMatchModal: boolean =false;
+	public jobId: string;
+	public postedJobsDetails: any;
+	public page: number = 1;
+	public userId: string;
+	public matchingUsers: any = {};
+	public cusLoadsh: any = lodash;
+	public isOpenedSendMailModal: boolean;
+	public currentUserInfo: CandidateProfile;
+	public matchedElement: boolean = true;
+	public missingElement: boolean = false;
+	public moreElement: boolean = true;
+	public isHideData: boolean = true;
+	public isMultipleMatches: boolean = false;
+	public matchingUsersMeta: any = { count: 0 };
+	public matchingUsersNew: any;
+	public selectedResumeUrl: string;
+	private subscriptions: Subscription[] = [];
+	private postedJobsMatchDetails: any[] = [];
+	private checkArray: any[] = [];
+	private userDetails: any = {};
+
+	@ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
+	public mbRef: NgbModalRef;
+	public languageSource=[];
 	public nationality=[];
 	public required: boolean = true;
 	public desired: boolean = true;
@@ -55,288 +60,340 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public nice: boolean = true;
 	public IsValidate: boolean = false;
 	public matchForm: FormGroup;
-  constructor(
-	private dataService: DataService,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private employerService: EmployerService,
-    private location: Location,
-    private modelService: NgbModal,
-    public utilsHelperService: UtilsHelperService,
-    public sharedService: SharedService,
-    private router: Router
-  ) {
-	  
 	
-	  this.route.queryParams.subscribe(params => {
-      if(params && !this.utilsHelperService.isEmptyObj(params)) {
-        let urlQueryParams = {...params};
-
-        if(urlQueryParams && urlQueryParams.jobId) {
-			sessionStorage.setItem('jobId',urlQueryParams.jobId);
-        }
-        if(urlQueryParams && urlQueryParams.userId) {
-			sessionStorage.setItem('userId',urlQueryParams.userId);
-        }
-	}
-	});
-	 
-	 var jobIds:any=0;
-	 var userIds:any=0;
-	 if(sessionStorage.getItem('jobId')){
-		jobIds = parseInt(sessionStorage.getItem('jobId'));
-	}if(sessionStorage.getItem('userId')){
-		userIds = parseInt(sessionStorage.getItem('userId'));
-	}
-	 
-    this.jobId = jobIds;
-    this.userId = userIds;
-	this.router.navigate([], {queryParams: {userId: null,jobId:null}, queryParamsHandling: 'merge'});
-  }
-
-  onChange(array: any[] = [], item, field) {
-    if (!this.utilsHelperService.isEmptyObj(item) && array && array.length) {
-      return array.find((val) => {
-        return val[field] == item[field];
-      });
-    }
-  }
-
-  ngOnInit(): void {
-    if (this.jobId && this.userId) {
-      this.onGetPostedJob();
-      this.onGetJobScoringById();
-      this.onGetJobScoringById(true, true);
-    }
-	this.dataService.getCountryDataSource().subscribe(
-		response => {
-        if (response && Array.isArray(response) && response.length) {
-          this.nationality = response;
-	
-        }
-      }
-    );
-	  this.dataService.getLanguageDataSource().subscribe(
-      response => {
-        if (response && Array.isArray(response) && response.length) {
-          this.languageSource = response;
-        }
-		}
-    );
-  }
-  private buildForm(): void {
-    // this.matchForm = this.formBuilder.array({
-      // title: ['', [Validators.required]]
-    // });
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.length > 0 && this.subscriptions.forEach(sb => sb.unsubscribe());
-  }
-
-  onGetPostedJob() {
-    let requestParams: any = {};
-    requestParams.expand = 'company';
-    requestParams.id = this.jobId;
-    const sb = this.employerService.getPostedJobDetails(requestParams).subscribe(
-      response => {
-        if (response && response.details) {
-			if(response.details.skills){
-				response.details.skills = this.utilsHelperService.differenceByPropValArray(response.details.skills, response.details.hands_on_experience, 'skill_id')
-				
-			}
-          this.postedJobsDetails = response.details;
-        }
-      }, error => {
-      }
-    )
-    this.subscriptions.push(sb);
-  }
-
-  ngOnChanges(changes): void {
-    setTimeout( async () => {
-		var arr = [];
-		if(this.postedJobsDetails){
-			  if(this.postedJobsDetails.match_select){
-				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
-					arr.push(this.postedJobsDetails.match_select[key]) 
-				});
-				var requiredFilter = arr.filter(function(a,b){return a=='0'});
-				var desiredFilter = arr.filter(function(a,b){return a=='1'});
-				var niceFilter = arr.filter(function(a,b){return a=='2' });
-				var optionalFilter = arr.filter(function(a,b){return a=='' });
-				if(requiredFilter.length>0){
-					this.required =true;
-				}if(desiredFilter.length>0){
-					this.desired=true;
-				}else{
-					this.desired=false;
-				}if(niceFilter.length>0){
-					this.nice =true;
-				}else{
-					this.nice =false;
-				}if(optionalFilter.length>0){
-					this.optional =true;
-				}else{
-					this.optional =false;
-				}
-				
-			  }
-		  }
+	constructor(
+		private dataService: DataService,
+		private route: ActivatedRoute,
+		private formBuilder: FormBuilder,
+		private employerService: EmployerService,
+		private location: Location,
+		private modelService: NgbModal,
+		public utilsHelperService: UtilsHelperService,
+		public sharedService: SharedService,
+		private router: Router
+	) {
 		
-	});
-	  
-  }
-  onGetJobScoringById = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
-    let requestParams: any = {};
-    if (!isMultipleMatch) {
-      requestParams.user_id = this.userId;
-    }
-    requestParams.id = this.jobId;
-    requestParams.page = this.page;
-    requestParams.additional_fields = 'job_application';
-
-    const sb = this.employerService.getJobScoring(requestParams).subscribe(
-      response => {
-		  if (response) {
-			if(response.job.skills){
-			response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
+		this.route.queryParams.subscribe(params => {
+			if(params && !this.utilsHelperService.isEmptyObj(params)) {
+				let urlQueryParams = {...params};
+				if(urlQueryParams && urlQueryParams.jobId) {
+					sessionStorage.setItem('jobId',urlQueryParams.jobId);
+				}
+				if(urlQueryParams && urlQueryParams.userId) {
+					sessionStorage.setItem('userId',urlQueryParams.userId);
+				}
 			}
-			if(response.profile.skills){
-			response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
-			}
-		}
-		  if(!isMultipleMatch){
-			  if(response.profile){
-				  if(parseInt(this.userId) == response.profile.id ){
-					  if (response && !isCount  ) {
-						  this.matchingUsers = { ...response }
-						}
-						if (isCount) {
-						  this.matchingUsersMeta = { ...response.meta }
-						  }
-				  }
-			  }
-		  }else{
-        if (response && !isCount  ) {
-          this.matchingUsers = { ...response }
-        }
-        if (isCount) {
-          this.matchingUsersMeta = { ...response.meta }
-		  }}
-      }, error => {
-      }
-    )
-    this.subscriptions.push(sb);
-  }
-  onGetJobScoringByIdNew = () => {
-    let requestParams: any = {};
-    requestParams.id = this.jobId;
-    requestParams.page = this.page;
-    requestParams.additional_fields = 'job_application';
+		});
+		var jobIds:any=0;
+		var userIds:any=0;
+		if(sessionStorage.getItem('jobId')){
+			jobIds = parseInt(sessionStorage.getItem('jobId'));
+		}if(sessionStorage.getItem('userId')){
+			userIds = parseInt(sessionStorage.getItem('userId'));
+		}	 
+		this.jobId = jobIds;
+		this.userId = userIds;
+		this.router.navigate([], {queryParams: {userId: null,jobId:null}, queryParamsHandling: 'merge'});
+	}
 
-    const sb = this.employerService.getJobScoring(requestParams).subscribe(
-      response => {
-		  if (response) {
-			if(response.job.skills){
-			response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
-			}	
-			if(response.profile.skills){
-			response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
-			}	
-		}
-        if (response) {
-          this.matchingUsersNew = { ...response };
-        }
-
-      }, error => {
-      }
-    )
-    this.subscriptions.push(sb);
-  }
-
-  onViewOtherMatches = () => {
-	  if(this.IsValidate==false){
-    if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-      this.isMultipleMatches = true;
-      this.onGetJobScoringById(true);
-      this.page++;
-      setTimeout(() => {
-		  this.IsValidate =true;
-        this.onGetJobScoringByIdNew();
-		this.missingElement = true;
-    this.matchedElement = true;
-    this.moreElement = true;
-      }, 300);
-    }
-	  }
-
-  }
-
-  onChangeUser = (type) => {
-    const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? parseInt(this.matchingUsers.meta.count) : 0;
-    if (type == 'next') {
-      if (count > this.page) {
-        if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-          this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
-          this.matchingUsers = { ...this.matchingUsers, profile: {} };
-          this.page++;
-          this.onGetJobScoringById(true);
-          if (count > this.page) {
-            this.page++;
-            setTimeout(() => {
-              this.onGetJobScoringByIdNew();
-            }, 300);
-          };
-        }
-      }
-    } else if (type == 'prev' && this.page > 2) {
-      if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-        this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
-        this.matchingUsers = { ...this.matchingUsers, profile: {} };
-        this.page--;
-
-        !this.isEven(this.page) && this.page--;
-        this.onGetJobScoringByIdNew();
-        if (count > this.page) {
-          this.page--;
-          setTimeout(() => {
-            this.onGetJobScoringById(true); this.page++;
-        }, 300);
-        }
-      }
-      }
-  }
-
-isEven = (num) => {
-    if(num % 2 == 0) {
-      return true;
-    }
-
-    return false;
-}
-
-  onRedirectBack = () => {
-   // this.location.back();
-	this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches', id: this.jobId} });
+	/**
+	**	To Check the change fields of the array
+	**/
 	
-  }
+	onChange(array: any[] = [], item, field) {
+		if (!this.utilsHelperService.isEmptyObj(item) && array && array.length) {
+			return array.find((val) => {
+				return val[field] == item[field];
+			});
+		}
+	}
+	/**
+	**	To initialize the page loads
+	**/
+	
+	ngOnInit(): void {
+		if (this.jobId && this.userId) {
+			this.onGetPostedJob();
+			this.onGetJobScoringById();
+			this.onGetJobScoringById(true, true);
+		}
+		this.dataService.getCountryDataSource().subscribe(
+			response => {
+				if (response && Array.isArray(response) && response.length) {
+					this.nationality = response;
+				}
+			}
+		);
+		this.dataService.getLanguageDataSource().subscribe(
+			response => {
+				if (response && Array.isArray(response) && response.length) {
+					this.languageSource = response;
+				}
+			}
+		);
+	}
+	
+	/**
+	**	To Build Form
+	**/
+	
+	private buildForm(): void {
+		// this.matchForm = this.formBuilder.array({
+			// title: ['', [Validators.required]]
+		// });
+	}
+	
+	/**
+	**	To page leave function triggers
+	**/
+	
+	ngOnDestroy(): void {
+		this.subscriptions.length > 0 && this.subscriptions.forEach(sb => sb.unsubscribe());
+	}
+	
+	/**
+	**	To Get the posted job Details
+	**/
+	
+	onGetPostedJob() {
+		let requestParams: any = {};
+		requestParams.expand = 'company';
+		requestParams.id = this.jobId;
+		const sb = this.employerService.getPostedJobDetails(requestParams).subscribe(
+			response => {
+				if (response && response.details) {
+					if(response.details.skills){
+						response.details.skills = this.utilsHelperService.differenceByPropValArray(response.details.skills, response.details.hands_on_experience, 'skill_id')
+					}
+					this.postedJobsDetails = response.details;
+				}
+			}, error => {
+			}
+		)
+		this.subscriptions.push(sb);
+	}
+	
+	/**
+	**	To Check if any changes happens in the page 
+	**/
+	
+	ngOnChanges(changes): void {
+		setTimeout( async () => {
+			var arr = [];
+			if(this.postedJobsDetails){
+				if(this.postedJobsDetails.match_select){
+					Object.keys(this.postedJobsDetails.match_select).forEach(key => {
+						arr.push(this.postedJobsDetails.match_select[key]) 
+					});
+					var requiredFilter = arr.filter(function(a,b){return a=='0'});
+					var desiredFilter = arr.filter(function(a,b){return a=='1'});
+					var niceFilter = arr.filter(function(a,b){return a=='2' });
+					var optionalFilter = arr.filter(function(a,b){return a=='' });
+					if(requiredFilter.length>0){
+						this.required =true;
+					}if(desiredFilter.length>0){
+						this.desired=true;
+					}else{
+						this.desired=false;
+					}if(niceFilter.length>0){
+						this.nice =true;
+					}else{
+						this.nice =false;
+					}if(optionalFilter.length>0){
+						this.optional =true;
+					}else{
+						this.optional =false;
+					}
+				}
+			}
+		});
+	}
+	
+	/**
+	**	To Get the user scoring details 
+	**/
+	
+	onGetJobScoringById = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
+		let requestParams: any = {};
+		if (!isMultipleMatch) {
+			requestParams.user_id = this.userId;
+		}
+		requestParams.id = this.jobId;
+		requestParams.page = this.page;
+		requestParams.additional_fields = 'job_application';
+		const sb = this.employerService.getJobScoring(requestParams).subscribe(
+			response => {
+				if (response) {
+					if(response.job.skills){
+						response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
+					}
+					if(response.profile.skills){
+						response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
+					}
+				}
+				if(!isMultipleMatch){
+					if(response.profile){
+						if(parseInt(this.userId) == response.profile.id ){
+							if (response && !isCount  ) {
+								this.matchingUsers = { ...response }
+							}
+							if (isCount) {
+								this.matchingUsersMeta = { ...response.meta }
+							}
+						}
+					}
+				}else{
+					if (response && !isCount  ) {
+						this.matchingUsers = { ...response }
+					}
+					if (isCount) {
+						this.matchingUsersMeta = { ...response.meta }
+					}
+				}
+			}, error => {
+			}
+		)
+		this.subscriptions.push(sb);
+	}
+	
+	/**
+	**	To Check if any changes happens in the page 
+	**/
+	
+	onGetJobScoringByIdNew = () => {
+		let requestParams: any = {};
+		requestParams.id = this.jobId;
+		requestParams.page = this.page;
+		requestParams.additional_fields = 'job_application';
+		const sb = this.employerService.getJobScoring(requestParams).subscribe(
+		response => {
+			if (response) {
+				if(response.job.skills){
+					response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
+				}	
+				if(response.profile.skills){
+					response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
+				}	
+			}
+			if (response) {
+				this.matchingUsersNew = { ...response };
+			}
+		}, error => {
+		})
+		this.subscriptions.push(sb);
+	}
 
-  onToggleJDModal = (status) => {
-    this.isOpenedJDModal = status;
-  }
+	/**
+	**	To Show the view othermatches details
+	**/
+	
+	onViewOtherMatches = () => {
+		if(this.IsValidate==false){
+			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+				this.isMultipleMatches = true;
+				this.onGetJobScoringById(true);
+				this.page++;
+				setTimeout(() => {
+					this.IsValidate =true;
+					this.onGetJobScoringByIdNew();
+					this.missingElement = true;
+					this.matchedElement = true;
+					this.moreElement = true;
+				}, 300);
+			}
+		}
+	}
 
-  onToggleResumeForm = (status, selectedResumeUrl?: string) => {
-    if (selectedResumeUrl) {
-      this.selectedResumeUrl = selectedResumeUrl;
-    }
-    this.isOpenedResumeModal = status;
-  }
+	/**
+	**	To Check the previous and the next button 
+	**/
+	
+	onChangeUser = (type) => {
+		const count = this.matchingUsers && this.matchingUsers.meta && this.matchingUsers.meta.count ? parseInt(this.matchingUsers.meta.count) : 0;
+		if (type == 'next') {
+			if (count > this.page) {
+				if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+					this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
+					this.matchingUsers = { ...this.matchingUsers, profile: {} };
+					this.page++;
+					this.onGetJobScoringById(true);
+					if (count > this.page) {
+						this.page++;
+						setTimeout(() => {
+							this.onGetJobScoringByIdNew();
+						}, 300);
+					};
+				}
+			}
+		} else if (type == 'prev' && this.page > 2) {
+			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+				this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
+				this.matchingUsers = { ...this.matchingUsers, profile: {} };
+				this.page--;
+				!this.isEven(this.page) && this.page--;
+				this.onGetJobScoringByIdNew();
+				if (count > this.page) {
+					this.page--;
+					setTimeout(() => {
+						this.onGetJobScoringById(true); this.page++;
+					}, 300);
+				}
+			}
+		}
+	}
 
-  onToggleOtherPostModal = (status) => {
-    this.isOpenedOtherPostModal = status;
-  }
+	/**
+	**	To Check event or not 
+	**/
+	
+	isEven = (num) => {
+		if(num % 2 == 0) {
+			return true;
+		}
+		return false;
+	}
 
+	/**
+	**	To Click the back button 
+	**/
+	
+	onRedirectBack = () => {
+		// this.location.back();
+		this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches', id: this.jobId} });
+	}
+	
+	
+	/**
+	**	To Open jobdescription status
+	**/
+	
+	onToggleJDModal = (status) => {
+		this.isOpenedJDModal = status;
+	}
+
+	/**
+	**	To Open Resume status
+	**/
+	
+	onToggleResumeForm = (status, selectedResumeUrl?: string) => {
+		if (selectedResumeUrl) {
+			this.selectedResumeUrl = selectedResumeUrl;
+		}
+		this.isOpenedResumeModal = status;
+	}
+
+	/**
+	**	To Open otherpost jobs status
+	**/
+	
+	onToggleOtherPostModal = (status) => {
+		this.isOpenedOtherPostModal = status;
+	}
+
+	/**
+	**	Array to Strings
+	**/
+	
   inArray(needle, haystack, matchAll = false) {
     if ((Array.isArray(needle) && Array.isArray(haystack)) && needle.length && haystack.length) {
       if (matchAll) {
@@ -680,7 +737,7 @@ findLanguageArray(value){
 				var temp:any[]= this.userDetails.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 				if(temp.length!=0){
 					var tempData=temp.map(function(a,b){ return a.city});
-					tempData[tempData.length]=this.userDetails.city;
+					//tempData[tempData.length]=this.userDetails.city;
 					tempData =tempData.filter(function(item, pos) {
 								return tempData.indexOf(item) == pos;
 							})
@@ -707,7 +764,7 @@ findLanguageArray(value){
 					});
 					if(authorized_countrys.length !=0){
 						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
-						temp = temp.concat(authorized_countrys);
+						//temp = temp.concat(authorized_countrys);
 					}
 					
 				}
@@ -722,7 +779,7 @@ findLanguageArray(value){
 						]
 						tempData = tempData.concat(EUCountry);
 					}
-					tempData[tempData.length]=this.userDetails.country;
+					//tempData[tempData.length]=this.userDetails.country;
 					tempData =tempData.filter(function(item, pos) {
 								return tempData.indexOf(item) == pos;
 							})
@@ -750,7 +807,7 @@ findLanguageArray(value){
 						]
 						tempData = tempData.concat(EUCountry);
 					}
-					tempData[tempData.length]=this.userDetails.country;
+					//tempData[tempData.length]=this.userDetails.country;
 					tempData =tempData.filter(function(item, pos) {
 								return tempData.indexOf(item) == pos;
 							})
@@ -782,7 +839,7 @@ findLanguageArray(value){
 					]
 					tempData = tempData.concat(EUCountry);
 				}
-				tempData[tempData.length]=this.userDetails.country;
+				//tempData[tempData.length]=this.userDetails.country;
 				tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})

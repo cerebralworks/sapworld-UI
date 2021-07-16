@@ -8,25 +8,41 @@ import {PageEvent} from '@angular/material/paginator';
   styleUrls: ['./applied-job.component.css']
 })
 export class AppliedJobComponent implements OnInit {
-  public appliedJobs: any[] = [];
-  public appliedJobMeta: any;
-  public page: number = 1;
-  public limit: number = 10;
-  length = 0;
-  pageIndex = 1;
-  pageSizeOptions = [ 10, 20,50,100];
-  showFirstLastButtons = true;
+	
+	/**
+	**	Variable Declaration
+	**/
+	
+	public appliedJobs: any[] = [];
+	public appliedJobMeta: any;
+	public page: number = 1;
+	public limit: number = 10;
+	length = 0;
+	pageIndex = 1;
+	pageSizeOptions = [ 10, 20,50,100];
+	showFirstLastButtons = true;
 
-  constructor(
-    private userService: UserService
-  ) { }
+	/**	
+	**	To implement the package section constructor
+	**/
+	
+	constructor(
+		private userService: UserService
+	) { }
 
-  ngOnInit(): void {
-    this.onGetAppliedJobs();
-  }
+	/**
+	**		When the page loads the OnInitCalls 
+	**/
+	
+	ngOnInit(): void {
+		this.onGetAppliedJobs();
+	}
 
+	/**
+	**	To get the Applied Jobs Details API Calls
+	**/
 
-  onGetAppliedJobs = () => {
+	onGetAppliedJobs = () => {
       let requestParams: any = {};
       requestParams.page = this.page;
       requestParams.limit = this.limit;
@@ -47,17 +63,23 @@ export class AppliedJobComponent implements OnInit {
         }, error => {
         }
       )
-  }
+	}
 
-  handlePageEvent(event: PageEvent) {
+	/**
+	**	To handle the pagination
+	**/	
+	
+	handlePageEvent(event: PageEvent) {
 		this.limit = event.pageSize;
+		this.page = event.pageIndex + 1;
+		this.onGetAppliedJobs();
+	}
+
+	/**
+	**	To delete the job application API 
+	**/	
 	  
-    this.page = event.pageIndex + 1;
-    this.onGetAppliedJobs();
-  }
-  
-  
-  deleteJobApplication = (id) => {
+	deleteJobApplication = (id) => {
       let requestParams: any = {};
       requestParams.id = id;
       this.userService.deleteJobApplication(requestParams).subscribe(
@@ -68,6 +90,6 @@ export class AppliedJobComponent implements OnInit {
 			this.onGetAppliedJobs();
         }
       )
-  }
+	}
 
 }

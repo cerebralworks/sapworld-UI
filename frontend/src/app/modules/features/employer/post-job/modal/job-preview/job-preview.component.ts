@@ -22,6 +22,10 @@ import {MatChipInputEvent} from '@angular/material/chips';
 })
 export class JobPreviewComponent implements OnInit {
 	
+	/**
+	**	Variable declaration
+	**/	
+	
 	visible = true;
 	selectable = true;
 	removable = true;
@@ -29,103 +33,110 @@ export class JobPreviewComponent implements OnInit {
 	readonly separatorKeysCodes = [ENTER, COMMA] as const;
 	certification = [ ];
 	public educationItems = [
-			{  text: 'High School' },
-			{  text: 'Bachelors' },
-			{  text: 'Diploma' },
-			{  text: 'Masters' },
-			{ text: 'Doctorate' }
-		];
-  @Input() toggleJobPreviewModal: boolean;
-  @Output() onEvent = new EventEmitter<boolean>();
-  @Input() postJobForm: FormGroup;
-  @Output() postJob: EventEmitter<any> = new EventEmitter();
-  @Input('postedJobsDetails')
-  set postedJobsDetails(inFo: JobPosting) {
-    this.getPostedJobsDetails = inFo;
-  }
-
-  public mbRef: NgbModalRef;
-  public jobPreviewModalRef: NgbModalRef;
-  public criteriaModalRef: NgbModalRef;
+		{  text: 'High School' },
+		{  text: 'Bachelors' },
+		{  text: 'Diploma' },
+		{  text: 'Masters' },
+		{ text: 'Doctorate' }
+	];
+	@Input() toggleJobPreviewModal: boolean;
+	@Output() onEvent = new EventEmitter<boolean>();
+	@Input() postJobForm: FormGroup;
+	@Output() postJob: EventEmitter<any> = new EventEmitter();
+	@Input('postedJobsDetails')
+	set postedJobsDetails(inFo: JobPosting) {
+		this.getPostedJobsDetails = inFo;
+	}
+	public mbRef: NgbModalRef;
+	public jobPreviewModalRef: NgbModalRef;
+	public criteriaModalRef: NgbModalRef;
 	public checkModalRef: NgbModalRef;
-  public isOpenCriteriaModal: boolean;
-  public isCheckModel: boolean;
-  public jdSub: Subscription;
-  public childForm;
-  public industries: any;
-  public profileInfo: any;
-  public isShow: boolean=false;
-  public mustMacthArray: any[] = [];
-  public getPostedJobsDetails: JobPosting;
-  public industriesItems: any[] = [];
-  public skillItems: any[] = [];
-  public languageSource: any[] = [];
-  public nationality: any[] = [];
-  public authorized_country: any[] = [];
+	public isOpenCriteriaModal: boolean;
+	public isCheckModel: boolean;
+	public jdSub: Subscription;
+	public childForm;
+	public industries: any;
+	public profileInfo: any;
+	public isShow: boolean=false;
+	public mustMacthArray: any[] = [];
+	public getPostedJobsDetails: JobPosting;
+	public industriesItems: any[] = [];
+	public skillItems: any[] = [];
+	public languageSource: any[] = [];
+	public nationality: any[] = [];
+	public authorized_country: any[] = [];
+	@ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
+	@ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
+	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
+	public mustMacthObj: any = {};
+	public MacthObj: any = {};
+	public jobId:string;
+	public jobtype: boolean =false;
+	public education: boolean =false;
+	public clientfacing: boolean =false;
+	public training: boolean =false;
+	public certificationBoolean: boolean =false;
+	public work_authorization: boolean =false;
+	public ShowData: boolean =false;
 
-  @ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
-  @ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
-  @ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
-
-  public mustMacthObj: any = {};
-  public MacthObj: any = {};
-  public jobId:string;
-  
-  public jobtype: boolean =false;
-  public education: boolean =false;
-  public clientfacing: boolean =false;
-  public training: boolean =false;
-  public certificationBoolean: boolean =false;
-  public work_authorization: boolean =false;
-  public ShowData: boolean =false;
-
-  constructor(private dataService: DataService,
-    private modalService: NgbModal,
-	private sanitizer: DomSanitizer,
-    public router: Router,
-    private parentF: FormGroupDirective,
-    private formBuilder: FormBuilder,
-    private employerService: EmployerService,
-    public sharedService: SharedService,
-    public route: ActivatedRoute,
-    public utilsHelperService: UtilsHelperService
-  ) { }
-
-  ngOnInit(): void {
-    this.jobId = this.route.snapshot.queryParamMap.get('id');
-this.dataService.getLanguageDataSource().subscribe(
-      response => {
-        if (response && Array.isArray(response) && response.length) {
-          this.languageSource = response;
-        }
-      }
-    );
-	this.dataService.getCountryDataSource().subscribe(
-		response => {
-        if (response && Array.isArray(response) && response.length) {
-          this.nationality = response;
-          this.authorized_country = response;
+	constructor(private dataService: DataService,
+		private modalService: NgbModal,
+		private sanitizer: DomSanitizer,
+		public router: Router,
+		private parentF: FormGroupDirective,
+		private formBuilder: FormBuilder,
+		private employerService: EmployerService,
+		public sharedService: SharedService,
+		public route: ActivatedRoute,
+		public utilsHelperService: UtilsHelperService
+	) { }
 	
-        }
-      }
-    );
-    this.onGetProfile();
-    this.onGetIndustries();
-    this.onGetSkill()
-  }
-
-  ngAfterViewInit(): void {
-    if (this.toggleJobPreviewModal) {
-      this.jobPreviewModalRef = this.modalService.open(this.jobPreviewModal, {
-        windowClass: 'modal-holder',
-        centered: true,
-        size: 'xl',
-        backdrop: 'static',
-        keyboard: false
-      });
-      this.createForm();
-    }
-  }
+	/**
+	**	To triggers when the page loads
+	**/
+	
+	ngOnInit(): void {
+		this.jobId = this.route.snapshot.queryParamMap.get('id');
+		this.dataService.getLanguageDataSource().subscribe(
+			response => {
+				if (response && Array.isArray(response) && response.length) {
+					this.languageSource = response;
+				}
+			}
+		);
+		this.dataService.getCountryDataSource().subscribe(
+			response => {
+			if (response && Array.isArray(response) && response.length) {
+				this.nationality = response;
+					this.authorized_country = response;
+				}
+			}
+		);
+		this.onGetProfile();
+		this.onGetIndustries();
+		this.onGetSkill()
+	}
+	
+	/**
+	**	To open the job preview model in popup
+	**/
+	
+	ngAfterViewInit(): void {
+		if (this.toggleJobPreviewModal) {
+			this.jobPreviewModalRef = this.modalService.open(this.jobPreviewModal, {
+				windowClass: 'modal-holder',
+				centered: true,
+				size: 'xl',
+				backdrop: 'static',
+				keyboard: false
+			});
+			this.createForm();
+		}
+	}
+	
+	/**
+	**	To check status of the optional data's
+	**/
 	
 	checkValidator(){
 		if(!this.postJobForm?.value?.otherPref?.training_experience || this.postJobForm?.value?.otherPref?.training_experience==''){
@@ -135,35 +146,27 @@ this.dataService.getLanguageDataSource().subscribe(
 		}else{
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].updateValueAndValidity();
-		
 		}
 		if(!this.postJobForm?.value?.requirement?.education || this.postJobForm?.value?.requirement?.education=='' ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].updateValueAndValidity();
-		
 		}else{
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].updateValueAndValidity();
-		
-		
 		}
 		if(!this.postJobForm?.value?.requirement?.work_authorization || this.postJobForm?.value?.requirement?.work_authorization=='' ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
-		
 		}else{
-			
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
-			
 		}
 		if(!this.postJobForm?.value?.otherPref?.facing_role || this.postJobForm?.value?.otherPref?.facing_role=='' ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].updateValueAndValidity();
-		
 		}else{
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].updateValueAndValidity();
@@ -180,79 +183,99 @@ this.dataService.getLanguageDataSource().subscribe(
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].updateValueAndValidity();
-		
 		}else{
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].updateValueAndValidity();
-		
-		
 		}
 	}
-  ngOnChanges(changes: SimpleChanges): void {
-    setTimeout( async () => {
-      if(this.childForm && this.getPostedJobsDetails) {
-        this.childForm.patchValue({
-          jobPrev : {
-            ...this.getPostedJobsDetails
-          }
-        });
-		
-		if(this.postJobForm.value.otherPref.extra_criteria){
-			var extra = this.postJobForm.value.otherPref.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
-			for(let i=0;i<extra.length;i++){
-				this.postJobForm.controls.jobPrev['controls']['match_select']['addControl'](extra[i]['title'],new FormControl('0', Validators.required));
-			}
-			this.isShow =true;
-			if(extra.length==0){
-				this.isShow =false;
-			}
+	
+	/**
+	**	To triggers when changes ocures in the popup view
+	**/
+	
+	ngOnChanges(changes: SimpleChanges): void {
+		setTimeout( async () => {
+			if(this.childForm && this.getPostedJobsDetails) {
+				this.childForm.patchValue({
+					jobPrev : {
+						...this.getPostedJobsDetails
+					}
+				});		
+				if(this.postJobForm.value.otherPref.extra_criteria){
+					var extra = this.postJobForm.value.otherPref.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
+					for(let i=0;i<extra.length;i++){
+						this.postJobForm.controls.jobPrev['controls']['match_select']['addControl'](extra[i]['title'],new FormControl('0', Validators.required));
+					}
+					this.isShow =true;
+					if(extra.length==0){
+						this.isShow =false;
+					}
 			
+				}
+				this.checkValidator();
+				if(this.postJobForm.value.requirement.work_authorization ==''){
+					this.ShowData = true;
+				}else{
+					this.ShowData = false;
+				}
+			}
+		});
+	}
+
+	/**
+	**	To triggers when popup close
+	**/
+	
+	ngOnDestroy(): void {
+		this.onClickCloseBtn(false);
+		this.jdSub && this.jdSub.unsubscribe();
+	}
+
+	/**
+	**	To close the popup job-preview
+	**/
+	
+	onClickCloseBtn(status) {
+		this.childForm.get('jobPrev.number_of_positions').setValidators(null);
+		this.childForm.get('jobPrev.number_of_positions').updateValueAndValidity();
+		if (status == false) {
+			this.modalService.dismissAll()
 		}
-	  this.checkValidator();
-		if(this.postJobForm.value.requirement.work_authorization ==''){
-			this.ShowData = true;
-		}else{
-			this.ShowData = false;
-		}
-      }
-    });
-  }
+		this.onEvent.emit(status);
+	}
 
-  ngOnDestroy(): void {
-    this.onClickCloseBtn(false);
-    this.jdSub && this.jdSub.unsubscribe();
-  }
+	/**
+	**	To get the errors in the form data's
+	**/
+	
+	getErrors = (formGroup: FormGroup, errors: any = {}) => {
+		Object.keys(formGroup.controls).forEach(field => {
+			const control = formGroup.get(field);
+			if (control instanceof FormControl) {
+				errors[field] = control.errors;
+			} else if (control instanceof FormGroup) {
+				errors[field] = this.getErrors(control);
+			}
+		});
+		return errors;
+	}
 
-  onClickCloseBtn(status) {
-    this.childForm.get('jobPrev.number_of_positions').setValidators(null);
-    this.childForm.get('jobPrev.number_of_positions').updateValueAndValidity();
-    if (status == false) {
-      this.modalService.dismissAll()
-    }
-    this.onEvent.emit(status);
-  }
+	/**
+	**	To redirect the path status
+	**/
+	
+	onRedirectDashboard(status) {
+		this.postJob.next();
+	}
 
-  getErrors = (formGroup: FormGroup, errors: any = {}) => {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        errors[field] = control.errors;
-      } else if (control instanceof FormGroup) {
-        errors[field] = this.getErrors(control);
-      }
-    });
-    return errors;
-  }
-
-  onRedirectDashboard(status) {
-    this.postJob.next();
-  }
-
+	/**
+	**	To find the country value by id 
+	**/
+	
 	findCountry(value){
 		if(value){
 			if(this.nationality){
 				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
-
 				if(array.length !=0){
 					var temp = array.map(function(a,b){
 						return a['nicename'];
@@ -261,242 +284,285 @@ this.dataService.getLanguageDataSource().subscribe(
 						return this.utilsHelperService.onConvertArrayToString(temp);
 					}
 				}
-			
 			}
-			
 		}
-		
 		return '--';
 	}
 
-  createForm() {
-    this.childForm = this.parentF.form;
-
-    this.mustMacthObj = {
-      experience: true,
-      sap_experience: true,
-      domain: true,
-      hands_on_experience: true,
-      skills: true,
-      programming_skills: true,
-      optinal_skills: true,
-      certification: true,
-      end_to_end_implementation: true,
-      type: true,
-      remote: true,
-      availability: true,
-      travel_opportunity: true,
-      work_authorization: true,
-      visa_sponsorship: true
-    }
+	/**
+	**	To build a form
+	**/
 	
-    this.MacthObj = {
-      experience: new FormControl('0', Validators.required),
-      sap_experience: new FormControl('0', Validators.required),
-      domain: new FormControl(''),
-      hands_on_experience: new FormControl('0', Validators.required),
-      skills: new FormControl(''),
-      programming_skills: new FormControl(''),
-      optinal_skills: new FormControl(''),
-      certification: new FormControl(''),
-      type: new FormControl('0', Validators.required),
-      employer_role_type: new FormControl(''),
-      availability: new FormControl('0', Validators.required),
-      work_authorization: new FormControl(''),
-      facing_role: new FormControl(''),
-      training_experience: new FormControl(''),
-      end_to_end_implementation: new FormControl(''),
-      education: new FormControl(''),
-      travel_opportunity: new FormControl(''),
-      //remote: new FormControl(''),
-     // willing_to_relocate: new FormControl(''),
-      language: new FormControl(''),
-    }
+	createForm() {
+		this.childForm = this.parentF.form;
+		this.mustMacthObj = {
+		  experience: true,
+		  sap_experience: true,
+		  domain: true,
+		  hands_on_experience: true,
+		  skills: true,
+		  programming_skills: true,
+		  optinal_skills: true,
+		  certification: true,
+		  end_to_end_implementation: true,
+		  type: true,
+		  remote: true,
+		  availability: true,
+		  travel_opportunity: true,
+		  work_authorization: true,
+		  visa_sponsorship: true
+		}
+		this.MacthObj = {
+		  experience: new FormControl('0', Validators.required),
+		  sap_experience: new FormControl('0', Validators.required),
+		  domain: new FormControl(''),
+		  hands_on_experience: new FormControl('0', Validators.required),
+		  skills: new FormControl(''),
+		  programming_skills: new FormControl(''),
+		  optinal_skills: new FormControl(''),
+		  certification: new FormControl(''),
+		  type: new FormControl('0', Validators.required),
+		  employer_role_type: new FormControl(''),
+		  availability: new FormControl('0', Validators.required),
+		  work_authorization: new FormControl(''),
+		  facing_role: new FormControl(''),
+		  training_experience: new FormControl(''),
+		  end_to_end_implementation: new FormControl(''),
+		  education: new FormControl(''),
+		  travel_opportunity: new FormControl(''),
+		  //remote: new FormControl(''),
+		 // willing_to_relocate: new FormControl(''),
+		  language: new FormControl(''),
+		}
 
-    this.childForm.addControl('jobPrev', new FormGroup({
-      number_of_positions: new FormControl(null, Validators.required),
-      must_match: new FormControl(this.mustMacthObj),
-	  match_select: new FormGroup(this.MacthObj),
-    }));
-	this.checkValidator();
+		this.childForm.addControl('jobPrev', new FormGroup({
+			number_of_positions: new FormControl(null, Validators.required),
+			must_match: new FormControl(this.mustMacthObj),
+			match_select: new FormGroup(this.MacthObj),
+		}));
+		this.checkValidator();
+	}
+	
+	/**
+	**	To assign the jobPrev controls to f
+	**/
+	
+	get f() {
+		return this.childForm.controls.jobPrev.controls;
+	}
 
-  }
+	/**
+	**	To add the mustMacthObj
+	**/
+	
+	onAddOrRemoveMustMatch = (checked, fieldName) => {
+		this.mustMacthObj = { ...this.mustMacthObj, [fieldName]: checked };
+		if(this.allMustMatchValue(this.mustMacthObj)) {
+		
+		}
+		this.childForm.patchValue({
+			jobPrev: {
+				must_match: this.mustMacthObj,
+			}
+		});
+	}
 
-  get f() {
-    return this.childForm.controls.jobPrev.controls;
-  }
+	/**
+	**	To Check the must match 
+	**/
+	
+	allMustMatchValue = (obj) => {
+		for(var o in obj)
+		if(obj[o]) return false;
+		return true;
+	}
 
+	/**
+	**	To split the object to data
+	**/
+	
+	read_prop(obj, prop) {
+		return obj[prop];
+	}
 
-  onAddOrRemoveMustMatch = (checked, fieldName) => {
-    this.mustMacthObj = { ...this.mustMacthObj, [fieldName]: checked };
+	/**
+	**	To get the employer profile details
+	**/
+	
+	onGetProfile() {
+		this.employerService.profile().subscribe(
+			response => {
+				this.profileInfo = response;
+			}, error => {
+			}
+		)
+	}
 
-    // if (this.mustMacthArray.length == 0) {
-    //   this.mustMacthArray.push({ [fieldName]: event.target.checked })
-    // } else {
-    //   let index = this.mustMacthArray.findIndex((x, i) => {
-    //     return x[fieldName] === true
-    //   });
+	/**
+	**	To convert array to string
+	**/
+	
+	onConvertArrayObjToAdditionalString = (value: any[], field: string = 'name', field2?:string) => {
+		if (!Array.isArray(value)) return "--";
+		return value.map(s => {
+			if(field && field2) {
+				return s[field][field2] + ' (' + s.experience + ' ' + s.experience_type + ')'
+			}
+			if(field && !field2) {
+				return s[field] + ' (' + s.experience + ' ' + s.experience_type + ')'
+			}
+		}).toString();
+	}
 
-    //   if (index == -1) {
-    //     this.mustMacthArray.push({ [fieldName]: event.target.checked });
-    //   }
-    //   else {
-    //     this.mustMacthArray.splice(index, 1);
-    //   }
-    // }
+	/**
+	**	To convert array to string
+	**/
+	
+	onConvertArrayToString = (value: any[]) => {
+		if (!Array.isArray(value)) return "--";
+		return value.join(", ");
+	}
 
-    if(this.allMustMatchValue(this.mustMacthObj)) {
+	/**
+	**	To convert arrayObject to string
+	**/
+	
+	onConvertArrayObjToString = (value: any[], field: string = 'name') => {
+		if (!Array.isArray(value)) return "--";
+		return value.map(s => s[field]).join(', ');
+	}
 
-    }
+	/**
+	**	To get the boolean to string
+	**/
+	
+	onGetYesOrNoValue = (value: boolean) => {
+		if (value == true) {
+			return "Yes";
+		} else {
+			return "No"
+		}
+	}
 
+	/**
+	**	To split with the new line
+	**/
+	
+	onSplitValueWithNewLine = (value: string) => {
+		if (value == "" || value == "-") return "-";
+		if (value) {
+			let splitValue: any = value.split(",");
+			splitValue = splitValue.join(", \n");
+			return splitValue;
+		}
+	};
 
-    this.childForm.patchValue({
-      jobPrev: {
-        must_match: this.mustMacthObj,
-      }
-    });
+	/**
+	**	To find the skills from the id
+	**/
+	
+	onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => {
+		if(this.skillItems && this.skillItems && Array.isArray(this.skillItems) && Array.isArray(arrayValues) && arrayValues.length > 0) {
+			const temp = this.skillItems.filter(r=> {
+				return arrayValues.includes(r.id)
+			});
+			if(returnVal == 'obj') {
+				return temp;
+			}
+			return this.onConvertArrayObjToString(temp, 'tag');
+		}
+		if(returnVal == 'obj') {
+			return [];
+		}
+		return '--';
+	}
 
-  }
+	/**
+	**	To find the domain details from the id
+	**/
+	
+	onFindDomainFromID = (arrayValues: Array<any>, returnVal: string = 'string') => {
+		if(this.industriesItems && Array.isArray(this.industriesItems) && Array.isArray(arrayValues) && arrayValues.length > 0) {
+			const temp = this.industriesItems.filter(r=> {
+				return arrayValues.includes(r.id)
+			});
+			if(returnVal == 'obj') {
+				return temp;
+			}
+			return this.onConvertArrayObjToString(temp, 'name');
+		}
+		return '--';
+	}
 
-  allMustMatchValue = (obj) => {
-    for(var o in obj)
-        if(obj[o]) return false;
+	/**
+	**	To find skills array to string
+	**/
+	
+	onFindSkillsFromSingleID = (value: any) => {
+		if(value && this.skillItems && this.skillItems && Array.isArray(this.skillItems)) {
+			const temp = this.skillItems.find(r=> {
+				return value == r.id
+		});
+		return temp;
+		}
+		return '--';
+	}
 
-    return true;
-  }
+	/**
+	**	To get the industries details
+	**/
+	
+	onGetIndustries(searchString: string = '') {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		this.employerService.getIndustries(requestParams).subscribe(
+		response => {
+			if(response && response.items) {
+				this.industriesItems = [...response.items];
+			}
+		}, error => {
+		}
+		)
+	}
 
-  read_prop(obj, prop) {
-    return obj[prop];
-  }
-
-
-  onGetProfile() {
-    this.employerService.profile().subscribe(
-      response => {
-        this.profileInfo = response;
-      }, error => {
-      }
-    )
-  }
-
-  onConvertArrayObjToAdditionalString = (value: any[], field: string = 'name', field2?:string) => {
-    if (!Array.isArray(value)) return "--";
-    return value.map(s => {
-      if(field && field2) {
-        return s[field][field2] + ' (' + s.experience + ' ' + s.experience_type + ')'
-      }
-      if(field && !field2) {
-        return s[field] + ' (' + s.experience + ' ' + s.experience_type + ')'
-      }
-    }).toString();
-  }
-
-  onConvertArrayToString = (value: any[]) => {
-    if (!Array.isArray(value)) return "--";
-    return value.join(", ");
-  }
-
-  onConvertArrayObjToString = (value: any[], field: string = 'name') => {
-    if (!Array.isArray(value)) return "--";
-    return value.map(s => s[field]).join(', ');
-  }
-
-  onGetYesOrNoValue = (value: boolean) => {
-    if (value == true) {
-      return "Yes";
-    } else {
-      return "No"
-    }
-  }
-
-  onSplitValueWithNewLine = (value: string) => {
-    if (value == "" || value == "-") return "-";
-    if (value) {
-      let splitValue: any = value.split(",");
-      splitValue = splitValue.join(", \n");
-      return splitValue;
-    }
-  };
-
-  onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => {
-    if(this.skillItems && this.skillItems && Array.isArray(this.skillItems) && Array.isArray(arrayValues) && arrayValues.length > 0) {
-      const temp = this.skillItems.filter(r=> {
-        return arrayValues.includes(r.id)
-      });
-      if(returnVal == 'obj') {
-        return temp;
-      }
-      return this.onConvertArrayObjToString(temp, 'tag');
-    }
-    if(returnVal == 'obj') {
-      return [];
-    }
-    return '--';
-  }
-
-  onFindDomainFromID = (arrayValues: Array<any>, returnVal: string = 'string') => {
-    if(this.industriesItems && Array.isArray(this.industriesItems) && Array.isArray(arrayValues) && arrayValues.length > 0) {
-      const temp = this.industriesItems.filter(r=> {
-        return arrayValues.includes(r.id)
-      });
-      if(returnVal == 'obj') {
-        return temp;
-      }
-      return this.onConvertArrayObjToString(temp, 'name');
-    }
-    return '--';
-  }
-
-  onFindSkillsFromSingleID = (value: any) => {
-    if(value && this.skillItems && this.skillItems && Array.isArray(this.skillItems)) {
-      const temp = this.skillItems.find(r=> {
-        return value == r.id
-      });
-      return temp;
-    }
-    return '--';
-  }
-
-
-  onGetIndustries(searchString: string = '') {
-    let requestParams: any = {};
-    requestParams.page = 1;
-    requestParams.limit = 1000;
-
-    this.employerService.getIndustries(requestParams).subscribe(
-      response => {
-        if(response && response.items) {
-          this.industriesItems = [...response.items];
-        }
-      }, error => {
-      }
-    )
-  }
-
-  onGetSkill(searchString: string = "") {
-    let requestParams: any = {};
-    requestParams.page = 1;
-    requestParams.limit = 1000;
-    this.employerService.getSkill(requestParams).subscribe(
-      response => {
-        if(response && response.items) {
-          this.skillItems = [...response.items];
-        }
-      }, error => {
-      }
-    )
-  }
+	/**
+	**	To get the skills details
+	**/
+	
+	onGetSkill(searchString: string = "") {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		this.employerService.getSkill(requestParams).subscribe(
+			response => {
+				if(response && response.items) {
+					this.skillItems = [...response.items];
+				}
+			}, error => {
+			}
+		)
+	}
   
-  handleChange(event){
-	  if(event.target.name){
-		  if(this.childForm.value.jobPrev.match_select[event.target.name] == event.target.value){
-			  var name = event.target.name;
+	/**
+	**	To handle match select
+	**/
+	
+	handleChange(event){
+		if(event.target.name){
+			if(this.childForm.value.jobPrev.match_select[event.target.name] == event.target.value){
+				var name = event.target.name;
 				this.postJobForm.controls.jobPrev['controls']['match_select']['controls'][name].setValue('');
 				this.postJobForm.controls.jobPrev['controls']['match_select']['controls'][name].updateValueAndValidity();
-		  }
-	  }
-  }
-findLanguageArray(value){
+			}
+		}
+	}
+	
+	/**
+	**	To find the language array to string
+	**/
+	
+	findLanguageArray(value){
 		if(value){
 			value = value.map(function(a,b){
 				return a 
@@ -512,23 +578,20 @@ findLanguageArray(value){
 						return this.utilsHelperService.onConvertArrayToString(temp);
 					}
 				}
-			
 			}
-			
 		}
-		
 		return '--';
 	}
-	
-	
-	add(event: MatChipInputEvent): void {
-		
-		const value = (event.value || '').trim();
 
+	/**
+	**	To add the chip inputs
+	**/
+		
+	add(event: MatChipInputEvent): void {
+		const value = (event.value || '').trim();
 		if (value) {
 			const index = this.certification.indexOf(value);
 			if (index >= 0) {
-				
 			}else{
 			this.certification.push(value);
 			this.postJobForm.patchValue({
@@ -536,17 +599,17 @@ findLanguageArray(value){
 				['certification']: this.certification,
 			  }
 			});}
-			
 		}
-
 		// Clear the input value
 		event.chipInput!.clear();
 	}
 
+	/**
+	**	To remove the certification details
+	**/
+	
 	remove(visa): void {
-		
 		const index = this.certification.indexOf(visa);
-
 		if (index >= 0) {
 			this.certification.splice(index, 1);
 			this.postJobForm.patchValue({
@@ -557,9 +620,12 @@ findLanguageArray(value){
 		}
 	}
 	
+	/**
+	**	To close after the add popup close
+	**/
+	
 	closeAdd(){
 		this.criteriaModalRef.close();
-		
 		if(this.jobtype==true){
 			this.postJobForm.patchValue({
 			  jobInfo : {
@@ -605,6 +671,11 @@ findLanguageArray(value){
 		this.education=false;
 		this.work_authorization=false;
 	}
+	
+	/**
+	**	To close after the save popup
+	**/
+	
 	closeSave(){
 		this.checkValidator();
 		this.criteriaModalRef.close();
@@ -628,6 +699,11 @@ findLanguageArray(value){
 			this.work_authorization=false;
 		}
 	}
+	
+	/**
+	**	To open model for adding new details in jobs
+	**/
+	
 	onOpenCriteriaModal = (value) => {
 		if(value == 'jobtype'){
 			this.jobtype=true;
@@ -642,29 +718,33 @@ findLanguageArray(value){
 		}else if(value == 'work_authorization'){
 			this.work_authorization=true;
 		}
-    this.isOpenCriteriaModal = true;
-    if (this.isOpenCriteriaModal && this.work_authorization == true) {
-      setTimeout(() => {
-        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
-          windowClass: 'modal-holder',
-		  size: 'lg',
-          centered: true,
-          backdrop: 'static',
-          keyboard: false
-        });
-      }, 300);
-    }else if (this.isOpenCriteriaModal) {
-      setTimeout(() => {
-        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
-          windowClass: 'modal-holder',
-          centered: true,
-          backdrop: 'static',
-          keyboard: false
-        });
-      }, 300);
-    }
-  }
+		this.isOpenCriteriaModal = true;
+		if (this.isOpenCriteriaModal && this.work_authorization == true) {
+			setTimeout(() => {
+			this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
+				windowClass: 'modal-holder',
+				size: 'lg',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+			}, 300);
+		}else if (this.isOpenCriteriaModal) {
+			setTimeout(() => {
+				this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
+					windowClass: 'modal-holder',
+					centered: true,
+					backdrop: 'static',
+					keyboard: false
+				});
+			}, 300);
+		}
+	}
   
+	/**
+	**	To Open the popup details for the add section
+	**/
+	
   openCheckPopup(){
 		this.isCheckModel = true;
 		if(this.jobtype==true){
@@ -713,18 +793,19 @@ findLanguageArray(value){
 		}
   }
   
-  cancelCheck(){
-	 this.checkModalRef.close();
-	  //this.closeAdd(); 
-	  
-  }
+	/**
+	**	To cancel the check buton event
+	**/
+	
+	cancelCheck(){
+		this.checkModalRef.close();
+		//this.closeAdd(); 
+	}
   
-  closeSaveCheck(){
-	  
-	this.checkModalRef.close();
-	  this.closeSave();
-  }
-  
+	closeSaveCheck(){
+		this.checkModalRef.close();
+		this.closeSave();
+	}
   
 	/**
 	**	To change the fields type value

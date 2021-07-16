@@ -72,7 +72,7 @@
 										<div class="collapse p-3" [id]="getIdVals(item)">
 											<h6>Hi, {{item?.employer?.company ? item?.employer?.company : '--'}}</h6>
 											<p>I have been applied for the postion of <a style="color:#000;text-transform: capitalize;">{{item?.job_posting?.title}}</a>, and here i attached my resume .</p>
-											<button type="submit" class="btn btn-outline-secondary btn-sm" data-toggle="collapse" [id]="getIdVal(item)" >  Close </button>
+											<button type="submit" class="btn btn-outline-secondary btn-sm" style="margin-right:10px;" data-toggle="collapse" [id]="getIdVal(item)" >  Close </button>
 											<button type="submit" class="btn btn-outline-green btn-sm" data-toggle="modal" (click)="onToggleResumeSelectModal(true, item)" >  Apply </button>
 										</div>
 									 </td>

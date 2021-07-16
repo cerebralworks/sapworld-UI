@@ -303,522 +303,564 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		// this.selectedJob && this.selectedJob.id && this.onGetCandidateList(this.selectedJob.id);
 	}
 
-  onGetPostedJob(companyId) {
-    let requestParams: any = {};
-    requestParams.page = 1;
-    requestParams.status = 1;
-    requestParams.limit = 1000;
-    requestParams.expand = 'company';
-    requestParams.company = companyId;
-    requestParams.sort = 'created_at.desc';
-    this.employerService.getPostedJob(requestParams).subscribe(
-      response => {
-        if(response && response.items && response.items.length > 0) {
-          this.postedJobs = [...response.items];
-          if(this.postedJobs && this.postedJobs.length && this.postedJobs[0]) {
-            if(this.selectedJob && this.selectedJob.id) {
-              const filterJob = this.postedJobs.find((val) => {
-                if(this.selectedJob && this.selectedJob.id)
-                return parseInt(val.id) == parseInt(this.selectedJob.id);
-              });
-              if(filterJob && !this.utilsHelperService.isEmptyObj(filterJob)) {
-                this.selectedJob = filterJob;
-              }
-              this.onGetCandidateList(this.selectedJob.id);
-            }else {
-				if(!sessionStorage.getItem('match-job-id')){
-					this.selectedJob = this.postedJobs[0];
-				}else{
-					var ids = parseInt(sessionStorage.getItem('match-job-id'));
-					var temps = this.postedJobs.filter(function(a,b){ return a.id==ids })
-					if(temps.length==1){
-						this.selectedJob = temps[0];
-					}else{
-						this.selectedJob = this.postedJobs[0];
+	/**
+	**	To get the posted job details
+	**/
+	
+	onGetPostedJob(companyId) {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.status = 1;
+		requestParams.limit = 1000;
+		requestParams.expand = 'company';
+		requestParams.company = companyId;
+		requestParams.sort = 'created_at.desc';
+		this.employerService.getPostedJob(requestParams).subscribe(
+			response => {
+				if(response && response.items && response.items.length > 0) {
+					this.postedJobs = [...response.items];
+					if(this.postedJobs && this.postedJobs.length && this.postedJobs[0]) {
+						if(this.selectedJob && this.selectedJob.id) {
+							const filterJob = this.postedJobs.find((val) => {
+								if(this.selectedJob && this.selectedJob.id)
+								return parseInt(val.id) == parseInt(this.selectedJob.id);
+							});
+							if(filterJob && !this.utilsHelperService.isEmptyObj(filterJob)) {
+								this.selectedJob = filterJob;
+							}
+							this.onGetCandidateList(this.selectedJob.id);
+						}else {
+							if(!sessionStorage.getItem('match-job-id')){
+								this.selectedJob = this.postedJobs[0];
+							}else{
+								var ids = parseInt(sessionStorage.getItem('match-job-id'));
+								var temps = this.postedJobs.filter(function(a,b){ return a.id==ids })
+								if(temps.length==1){
+									this.selectedJob = temps[0];
+								}else{
+									this.selectedJob = this.postedJobs[0];
+								}
+							}
+							this.onGetCandidateList(this.selectedJob.id);              
+						}
 					}
 				}
-				this.onGetCandidateList(this.selectedJob.id);
-              
-            }
-
-          }
-
-        }
-        this.postedJobMeta = { ...response.meta }
-
-      }, error => {
-      }
-    )
-  }
-  
-  onGetPostedJobCount(companyId) {
-    let requestParams: any = {};
-    requestParams.page = 1;
-    requestParams.status = 1;
-    requestParams.limit = 1000;
-    requestParams.expand = 'company';
-    requestParams.company = companyId;
-    requestParams.sort = 'created_at.desc';
-    this.employerService.getPostedJobCount(requestParams).subscribe(
-      response => {
-		if(response['count']){
-			this.TotalCount =response['count'];
-			var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
-			if(document.getElementById('MatchesCount')){
-				document.getElementById('MatchesCount').innerHTML="("+TotalValue+")";
+				this.postedJobMeta = { ...response.meta }
+			}, error => {
 			}
-			
-		}else{
-			
+		)
+	}
+  
+	/**
+	**	To get posted job count
+	**/
+	
+	onGetPostedJobCount(companyId) {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.status = 1;
+		requestParams.limit = 1000;
+		requestParams.expand = 'company';
+		requestParams.company = companyId;
+		requestParams.sort = 'created_at.desc';
+		this.employerService.getPostedJobCount(requestParams).subscribe(
+			response => {
+				if(response['count']){
+					this.TotalCount =response['count'];
+					var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
+					if(document.getElementById('MatchesCount')){
+						document.getElementById('MatchesCount').innerHTML="("+TotalValue+")";
+					}			
+				}else{			
+				}
+			}, error => {
+			}
+		)
+	}
+  
+	/**
+	**	To Check the count
+	**/
+	
+	checkDataCount(id){
+		if(id !=undefined && id!=null && id !=''){
+			var tempData= this.TotalCount.filter(function(a,b){ return a.id == id });
+				if(tempData.length==1){
+					return tempData[0]['count'];
+				}
 		}
-      }, error => {
-      }
-    )
-  }
-  
-  checkDataCount(id){
-	  if(id !=undefined && id!=null && id !=''){
-		  var tempData= this.TotalCount.filter(function(a,b){ return a.id == id });
-			if(tempData.length==1){
-				return tempData[0]['count'];
+		return 0;
+	}
+
+	/**
+	**	To get Candidate lists
+	**/
+	
+	onGetCandidateList(jobId) {
+		let requestParams: any = {...this.queryParams};
+		requestParams.page = this.page;
+		requestParams.limit = this.limit;
+		requestParams.status = 1;
+		requestParams.expand = 'is_saved_profile';
+		requestParams.expand = 'is_saved_profile';
+		requestParams.visa  = false;
+		requestParams.filter_location  = this.filter_location;
+		// if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
+		  requestParams.skill_tags_filter_type = 1;
+		  requestParams.job_posting = jobId;
+		// }else {
+		//   requestParams.skill_tags_filter_type = 0;
+		// }
+		if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
+			requestParams.skill_tags_filter_type = 1;
+			if(this.postedJobs){
+				var temps = this.postedJobs.filter(function(a,b){ return a.id==jobId});
+				if(temps.length==1){
+					if(temps[0].hands_on_experience && temps[0].hands_on_experience.length){
+						var temp =[];
+						for(let i=0;i<temps[0].hands_on_experience.length;i++){
+							if(temps[0].hands_on_experience[i]['skill_id']){
+								temp.push(temps[0].hands_on_experience[i]['skill_id']);
+							}					  
+						}
+						if(temp.length !=0){
+							requestParams.skill_tags = temp.join(',');
+						}
+					}			  
+					requestParams.visa = this.selectedJob['visa_sponsorship'] ;
+				}else{
+					requestParams.skill_tags_filter_type = 1;
+				}
 			}
-	  }
-	  return 0;
-  }
-
-  onGetCandidateList(jobId) {
-    let requestParams: any = {...this.queryParams};
-    requestParams.page = this.page;
-    requestParams.limit = this.limit;
-    requestParams.status = 1;
-    requestParams.expand = 'is_saved_profile';
-    requestParams.expand = 'is_saved_profile';
-    requestParams.visa  = false;
-    requestParams.filter_location  = this.filter_location;
-    // if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
-      requestParams.skill_tags_filter_type = 1;
-      requestParams.job_posting = jobId;
-    // }else {
-    //   requestParams.skill_tags_filter_type = 0;
-    // }
-	if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
-      requestParams.skill_tags_filter_type = 1;
-	  if(this.postedJobs){
-		  var temps = this.postedJobs.filter(function(a,b){ return a.id==jobId});
-		  if(temps.length==1){
-			  if(temps[0].hands_on_experience && temps[0].hands_on_experience.length){
-				  var temp =[];
-				  for(let i=0;i<temps[0].hands_on_experience.length;i++){
-					  if(temps[0].hands_on_experience[i]['skill_id']){
-						  temp.push(temps[0].hands_on_experience[i]['skill_id']);
-					  }
-					  
-				  }
-				  if(temp.length !=0){
-					requestParams.skill_tags = temp.join(',');
-				  }
-			  }
-			  
-			requestParams.visa = this.selectedJob['visa_sponsorship'] ;
-		  }else{
-			  requestParams.skill_tags_filter_type = 1;
-		  }
-
-	  }
-     }else {
-      requestParams.skill_tags_filter_type = 0;
-    }
-    if(!this.route.snapshot.queryParamMap.get('min_experience')) {
-      requestParams.min_experience = this.selectedJob.experience;
-    }
-    if(this.route.snapshot.queryParamMap.get('min_experience')) {
-		if(this.postedJobs){
-		  var temps = this.postedJobs.filter(function(a,b){ return a.id==jobId});
-			if(temps.length==1){
-				if(temps[0].experience >= requestParams.min_experience && temps[0].experience >= requestParams.max_experience ){
-					requestParams.min_experience = 100
-					requestParams.max_experience = 101
-					
-				}if(temps[0].experience >= requestParams.min_experience && temps[0].experience <= requestParams.max_experience  ){
-					requestParams.min_experience = temps[0].experience
-					
+		}else {
+			requestParams.skill_tags_filter_type = 0;
+		}
+		if(!this.route.snapshot.queryParamMap.get('min_experience')) {
+			requestParams.min_experience = this.selectedJob.experience;
+		}
+		if(this.route.snapshot.queryParamMap.get('min_experience')) {
+			if(this.postedJobs){
+				var temps = this.postedJobs.filter(function(a,b){ return a.id==jobId});
+				if(temps.length==1){
+					if(temps[0].experience >= requestParams.min_experience && temps[0].experience >= requestParams.max_experience ){
+						requestParams.min_experience = 100
+						requestParams.max_experience = 101					
+					}if(temps[0].experience >= requestParams.min_experience && temps[0].experience <= requestParams.max_experience  ){
+						requestParams.min_experience = temps[0].experience
+					}
 				}
 			}
 		}
-      
-    }
-    if(requestParams.job_types && requestParams.job_types.length) {
-      requestParams.job_types = requestParams.job_types.join(',')
-    }
-
-    requestParams.additional_fields = 'job_application';
-    requestParams.city = this.selectedJob.city;
-/* 
-    if(this.selectCountry) {
-      requestParams.country = this.selectCountry;
-    } */
-    if(this.selectedJob.country) {
-      requestParams.country = this.selectedJob.country;
-    }
-    if(this.selectedJob.work_authorization && this.selectedJob.work_authorization !='' ) {
-      requestParams.work_authorization = this.selectedJob.work_authorization;
-	  if(this.selectedJob.work_authorization==2){
-		  requestParams.work_authorization =1;
-	  }
-    }
-	
-
-    const removeEmpty = this.utilsHelperService.clean(requestParams)
-
-    this.userService.getUsers(removeEmpty).subscribe(
-      response => {
-        if(response && response.items && response.items.length > 0) {
-          this.userList = [...response.items];
-		  this.savedProfiles = this.userList.filter(function(a,b){ return a.is_saved_profile ==true}).map(function(a,b){ return a.id});
-		   
-        }else if(response && response.items && response.items.length == 0) {
-			this.userList = [];
+		if(requestParams.job_types && requestParams.job_types.length) {
+			requestParams.job_types = requestParams.job_types.join(',')
 		}
-		this.userMeta = { ...response.meta };
-		if(this.countrySelect==false){
-			//this.postedJobCountry = response['country'];
-			this.countrySelect=true;
-			
-			 
-		 }
-        
-		
-		if(this.userMeta.total){
-			this.length = this.userMeta.total
+		requestParams.additional_fields = 'job_application';
+		requestParams.city = this.selectedJob.city;
+		/* 
+		if(this.selectCountry) {
+		  requestParams.country = this.selectCountry;
+		} */
+		if(this.selectedJob.country) {
+			requestParams.country = this.selectedJob.country;
 		}
-      }, error => {
-		  this.userList = [];
-      }
-    )
-  }
-
-  onLoadMoreJob = () => {
-    this.page = this.page + 1;
-    if(this.selectedJob &&this.selectedJob.id) {
-      this.onGetCandidateList(this.selectedJob.id);
-    }
-
-  }
-
-  onFiltertByJobType = (fieldName, value) => {
-    if(value != 'undefined') {
-		if(this.queryParams.job_types){
-      let index = this.queryParams.job_types.indexOf(value);
-      if(index > -1) {
-        this.queryParams.job_types.splice(index, 1)
-      }else {
-        this.queryParams.job_types.push(value)
-      }
+		if(this.selectedJob.work_authorization && this.selectedJob.work_authorization !='' ) {
+			requestParams.work_authorization = this.selectedJob.work_authorization;
+			if(this.selectedJob.work_authorization==2){
+				requestParams.work_authorization =1;
+			}
 		}
-		this.page=1;
-      if( this.queryParams.job_types &&  this.queryParams.job_types.length) {
-        this.onRedirectRouteWithQuery({[fieldName]: this.queryParams.job_types.join(',')})
-      }else {
-        this.onRedirectRouteWithQuery({[fieldName]: [].toString()})
-      }
-    }
-  }
-
-  onFiltertBySkill = (item) => {
-    if(item != 'undefined') {
-      let index = this.skills.findIndex((element) => {
-        return element == item.id;
-      });
-      if(index > -1) {
-        this.skills.splice(index, 1)
-      }else {
-        this.skills.push(parseInt(item.id))
-      }
-	this.page=1;
-      if( this.skills &&  this.skills.length) {
-        this.onRedirectRouteWithQuery({skill_tags: this.skills.join(',')})
-      }else {
-        this.onRedirectRouteWithQuery({skill_tags: [].toString()})
-      }
-    }
-  }
-
-  onFiltertByExperience = (item) => {
-    if(item != 'undefined') {
-      let index = this.minMaxExp.findIndex((element) => {
-        return ((element.value.min == item.value.min) && (element.value.max == item.value.max))
-      });
-
-      if(index > -1) {
-        this.minMaxExp.splice(index, 1)
-      }else {
-        this.minMaxExp.push(item)
-      }
-
-      const min = Math.min.apply(null, this.minMaxExp.map(function(item) {
-        if(item && item.value && (item.value.min || item.value.min == 0)) {
-          return item.value.min;
-        }
-      }));
-      const max = Math.max.apply(null, this.minMaxExp.map(function(item) {
-        if(item && item.value && (item.value.max || item.value.max == 0)) {
-          return item.value.max;
-        }
-      }));
-	this.page=1;
-
-      if(this.minMaxExp.length == 0) {
-        this.onRedirectRouteWithQuery({min_experience: "", max_experience: ""})
-      }
-
-      if((min || min ==0) && max && this.minMaxExp.length) {
-        this.onRedirectRouteWithQuery({min_experience: min, max_experience: max})
-      }
-    }
-  }
-
-  onRedirectRouteWithQuery = (params: any = {}) => {
-    this.queryParams = { ...this.queryParams, ...params };
-    const removeEmpty = this.utilsHelperService.clean(this.queryParams);
-
-    if(removeEmpty && removeEmpty.job_types && Array.isArray(removeEmpty.job_types)) {
-      removeEmpty.job_types = removeEmpty.job_types.join(',');
-    }
-
-
-    const navigationExtras: NavigationExtras = {
-      queryParams: {...removeEmpty}
-    };
-
-    this.router.navigate([], navigationExtras);
-  }
-
-  onCheckExpDefault = (item) => {
-    if(((item.value.min >= parseInt(this.queryParams.min_experience)) && (item.value.max <= parseInt(this.queryParams.max_experience)))) {
-     return true;
-    }
-    return false;
-  }
-
-  onChangeEve = (event) => {
-    if(event != 'undefined') {
-      this.onRedirectRouteWithQuery({min_salary: event.value, max_salary: event.highValue})
-    }else {
-      this.onRedirectRouteWithQuery({min_salary: '', max_salary: ''})
-    }
-  }
-
-  onClearFilter = () => {
-    const navigationExtras: NavigationExtras = {
-      queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
-    };
-	
-	
-		  this.onGetCandidateList(this.selectedJob.id);
-    this.router.navigate([], navigationExtras);
-    // this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
-  }
-  
-  clearFilters(){
-	  if(this.queryParams.domain){
-			delete this.queryParams.domain;			
-		  }
-		  if(this.queryParams.skills){
-			  document.getElementById('skills').className="btn btn-fltr";
-			delete this.queryParams.skills;			
-		  }if(this.queryParams.programming_skills){
-			  document.getElementById('programming_skills').className="btn btn-fltr";
-			delete this.queryParams.programming_skills;			
-		  }if( this.queryParams.optinal_skills){
-			  document.getElementById('optinal_skills').className="btn btn-fltr";
-			delete this.queryParams.optinal_skills;			
-		  }if( this.queryParams.employer_role_type){
-			  document.getElementById('employer_role_type').className="btn btn-fltr";
-			delete this.queryParams.employer_role_type;			
-		  }if( this.queryParams.certification){
-			  document.getElementById('certification').className="btn btn-fltr";
-			delete this.queryParams.certification;			
-		  }if( this.queryParams.end_to_end_implementation){
-			  document.getElementById('end_to_end_implementation').className="btn btn-fltr";
-			delete this.queryParams.end_to_end_implementation;			
-		  }if( this.queryParams.availability){
-			  document.getElementById('availability').className="btn btn-fltr";
-			delete this.queryParams.availability;			
-		  }if( this.queryParams.travel_opportunity){
-			  document.getElementById('travel_opportunity').className="btn btn-fltr";
-			delete this.queryParams.travel_opportunity;			
-		  }if( this.queryParams.remote){
-			  document.getElementById('remote').className="btn btn-fltr";
-			delete this.queryParams.remote;			
-		  }if( this.queryParams.willing_to_relocate){
-			  document.getElementById('willing_to_relocate').className="btn btn-fltr";
-			delete this.queryParams.willing_to_relocate;			
-		  }if( this.queryParams.language){
-			  document.getElementById('language').className="btn btn-fltr";
-			delete this.queryParams.language;			
-		  }if(this.queryParams.education){
-			  document.getElementById('education').className="btn btn-fltr";
-			delete this.queryParams.education;			
-		  }
-  }
-
-  onToggleResumeForm = (status, selectedResumeUrl?) => {
-    if (selectedResumeUrl) {
-      this.selectedResumeUrl = selectedResumeUrl;
-    }
-    this.isOpenedResumeModal = status;
-  }
-
-  onToggleSendMail = (status,item?) => {
-    if(item && !this.utilsHelperService.isEmptyObj(item)) {
-      this.currentUserInfo = item;
-    }
-    this.isOpenedSendMailModal = status;
-	if(this.selectedJob &&this.selectedJob.id) {
-	 this.onGetCandidateList(this.selectedJob.id);
+		const removeEmpty = this.utilsHelperService.clean(requestParams)
+		this.userService.getUsers(removeEmpty).subscribe(
+			response => {
+				if(response && response.items && response.items.length > 0) {
+					this.userList = [...response.items];
+					this.savedProfiles = this.userList.filter(function(a,b){ return a.is_saved_profile ==true}).map(function(a,b){ return a.id});
+				}else if(response && response.items && response.items.length == 0) {
+					this.userList = [];
+				}
+				this.userMeta = { ...response.meta };
+				if(this.countrySelect==false){
+					//this.postedJobCountry = response['country'];
+					this.countrySelect=true;			 
+				}	
+				if(this.userMeta.total){
+					this.length = this.userMeta.total
+				}
+			}, error => {
+				this.userList = [];
+			}
+		)
 	}
-  }
 
-  onSaveProfile = (item) => {
-    if((item && item.id)) {
-      let requestParams: any = {};
-      requestParams.user_id = item.id;
-      requestParams.delete = 0
-      this.employerService.saveProfile(requestParams).subscribe(
-        response => {
-          this.savedProfiles.push(item.id);
-		  this.onEvent.emit(true);
-        }, error => {
-			this.onEvent.emit(true);
-        }
-      )
-    }else {
-      this.toastrService.error('Something went wrong', 'Failed')
-    }
-  }
-  
-onUnSaveProfile = (item) => {
-    if ((item && item.id)) {
-      let requestParams: any = {};
-      requestParams.user_id = item.id;
-      requestParams.delete = 1;
-      this.employerService.saveProfile(requestParams).subscribe(
-        response => {
-          this.savedProfiles = this.savedProfiles.filter(function(a,b){ return a!=item.id});
-		  this.onEvent.emit(true);
-        }, error => {
-			this.onEvent.emit(true);
-        }
-      )
-    } else {
-      this.toastrService.error('Something went wrong', 'Failed')
-    }
-  }
-  
-  handleChange(clr){
-	  var temp = clr.toElement.className.split(' ');
-	  if(temp[temp.length-1]=='btn-fltr-active'){
-		  clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
-		  if(clr.target.id == 'domain' && this.queryParams.domain){
-			delete this.queryParams.domain;			
-		  }
-		  if(clr.target.id == 'domain' && this.queryParams.skills){
-			delete this.queryParams.skills;			
-		  }if(clr.target.id == 'programming_skills' && this.queryParams.programming_skills){
-			delete this.queryParams.programming_skills;			
-		  }if(clr.target.id == 'optinal_skills' && this.queryParams.optinal_skills){
-			delete this.queryParams.optinal_skills;			
-		  }if(clr.target.id == 'employer_role_type' && this.queryParams.employer_role_type){
-			delete this.queryParams.employer_role_type;			
-		  }if(clr.target.id == 'certification' && this.queryParams.certification){
-			delete this.queryParams.certification;			
-		  }if(clr.target.id == 'end_to_end_implementation' && this.queryParams.end_to_end_implementation){
-			delete this.queryParams.end_to_end_implementation;			
-		  }if(clr.target.id == 'availability' && this.queryParams.availability){
-			delete this.queryParams.availability;			
-		  }if(clr.target.id == 'travel_opportunity' && this.queryParams.travel_opportunity){
-			delete this.queryParams.travel_opportunity;			
-		  }if(clr.target.id == 'remote' && this.queryParams.remote){
-			delete this.queryParams.remote;			
-		  }if(clr.target.id == 'willing_to_relocate' && this.queryParams.willing_to_relocate){
-			delete this.queryParams.willing_to_relocate;			
-		  }if(clr.target.id == 'language' && this.queryParams.language){
-			delete this.queryParams.language;			
-		  }if(clr.target.id == 'education' && this.queryParams.education){
-			delete this.queryParams.education;			
-		  }if(clr.target.id == 'filter_location'){
-			this.filter_location = false;	
-		  }
-	  }else{
-		  clr.toElement.className = 'btn btn-fltr btn-fltr-active';
-		  if(clr.target.id == 'domain') {
-			  if( this.selectedJob &&  this.selectedJob.domain) {
-					this.queryParams.domain = this.selectedJob.domain.join(',');
-			}
-		}if(clr.target.id == 'skills') {
-			  if( this.selectedJob &&  this.selectedJob.skills) {
-					this.queryParams.skills = this.selectedJob.skills.join(',');
-			}
-		}if(clr.target.id == 'programming_skills') {
-			  if( this.selectedJob &&  this.selectedJob.programming_skills) {
-					this.queryParams.programming_skills = this.selectedJob.programming_skills.join(',');
-			}
-		}if(clr.target.id == 'optinal_skills') {
-			  if( this.selectedJob &&  this.selectedJob.optinal_skills) {
-					this.queryParams.optinal_skills = this.selectedJob.optinal_skills.join(',');
-			}
-		}if(clr.target.id == 'employer_role_type') {
-			  if( this.selectedJob &&  this.selectedJob.employer_role_type) {
-					this.queryParams.employer_role_type = this.selectedJob.employer_role_type;
-			}
-		}if(clr.target.id == 'certification') {
-			  if( this.selectedJob &&  this.selectedJob.certification) {
-					this.queryParams.certification = this.selectedJob.certification;
-			}
-		}if(clr.target.id == 'end_to_end_implementation') {
-			  if( this.selectedJob &&  this.selectedJob.end_to_end_implementation) {
-					this.queryParams.end_to_end_implementation = this.selectedJob.end_to_end_implementation;
-			}
-		}if(clr.target.id == 'availability') {
-			  if( this.selectedJob &&  this.selectedJob.availability) {
-					this.queryParams.availability = this.selectedJob.availability;
-			}
-		}if(clr.target.id == 'travel_opportunity') {
-			  if( this.selectedJob &&  this.selectedJob.travel_opportunity) {
-					this.queryParams.travel_opportunity = this.selectedJob.travel_opportunity;
-			}
-		}if(clr.target.id == 'remote') {
-			  if( this.selectedJob &&  this.selectedJob.remote) {
-					this.queryParams.remote = this.selectedJob.remote;
-			}
-		}if(clr.target.id == 'willing_to_relocate') {
-			  if( this.selectedJob &&  this.selectedJob.willing_to_relocate) {
-					this.queryParams.willing_to_relocate = this.selectedJob.willing_to_relocate;
-			}
-		}if(clr.target.id == 'language') {
-			  if( this.selectedJob &&  this.selectedJob.language) {
-					this.queryParams.language = this.selectedJob.language.join(',');
-			}
-		}if(clr.target.id == 'education') {
-			  if( this.selectedJob &&  this.selectedJob.education) {
-					this.queryParams.education = this.selectedJob.education;
-			}
-		}if(clr.target.id == 'filter_location'){
-			this.filter_location = true;	
-		  }
-		  
-	  }
-	  
-	  
+	/**
+	**	To load more data's
+	**/
 	
-	this.onGetCandidateList(this.selectedJob.id);
-  }
+	onLoadMoreJob = () => {
+		this.page = this.page + 1;
+		if(this.selectedJob &&this.selectedJob.id) {
+			this.onGetCandidateList(this.selectedJob.id);
+		}
+	}
+
+	/**
+	**	To Filter the job type 
+	**/
+	
+	onFiltertByJobType = (fieldName, value) => {
+		if(value != 'undefined') {
+			if(this.queryParams.job_types){
+				let index = this.queryParams.job_types.indexOf(value);
+				if(index > -1) {
+					this.queryParams.job_types.splice(index, 1)
+				}else {
+					this.queryParams.job_types.push(value)
+				}
+			}
+			this.page=1;
+			if( this.queryParams.job_types &&  this.queryParams.job_types.length) {
+				this.onRedirectRouteWithQuery({[fieldName]: this.queryParams.job_types.join(',')})
+			}else {
+				this.onRedirectRouteWithQuery({[fieldName]: [].toString()})
+			}
+		}
+	}
+
+	/**
+	**	To Filter by skills
+	**/
+	
+	onFiltertBySkill = (item) => {
+		if(item != 'undefined') {
+			let index = this.skills.findIndex((element) => {
+				return element == item.id;
+			});
+			if(index > -1) {
+				this.skills.splice(index, 1)
+			}else {
+				this.skills.push(parseInt(item.id))
+			}
+			this.page=1;
+			if( this.skills &&  this.skills.length) {
+				this.onRedirectRouteWithQuery({skill_tags: this.skills.join(',')})
+			}else {
+				this.onRedirectRouteWithQuery({skill_tags: [].toString()})
+			}
+		}
+	}
+
+	/**
+	**	To Filer by experience
+	**/
+	
+	onFiltertByExperience = (item) => {
+		if(item != 'undefined') {
+			let index = this.minMaxExp.findIndex((element) => {
+				return ((element.value.min == item.value.min) && (element.value.max == item.value.max))
+			});
+			if(index > -1) {
+				this.minMaxExp.splice(index, 1)
+			}else {
+				this.minMaxExp.push(item)
+			}
+			const min = Math.min.apply(null, this.minMaxExp.map(function(item) {
+				if(item && item.value && (item.value.min || item.value.min == 0)) {
+					return item.value.min;
+				}
+			}));
+			const max = Math.max.apply(null, this.minMaxExp.map(function(item) {
+				if(item && item.value && (item.value.max || item.value.max == 0)) {
+					return item.value.max;
+				}
+			}));
+			this.page=1;
+			if(this.minMaxExp.length == 0) {
+				this.onRedirectRouteWithQuery({min_experience: "", max_experience: ""})
+			}
+			if((min || min ==0) && max && this.minMaxExp.length) {
+				this.onRedirectRouteWithQuery({min_experience: min, max_experience: max})
+			}
+		}
+	}
+
+	/**
+	**	To Filter the data's with query as params
+	**/
+	
+	onRedirectRouteWithQuery = (params: any = {}) => {
+		this.queryParams = { ...this.queryParams, ...params };
+		const removeEmpty = this.utilsHelperService.clean(this.queryParams);
+		if(removeEmpty && removeEmpty.job_types && Array.isArray(removeEmpty.job_types)) {
+			removeEmpty.job_types = removeEmpty.job_types.join(',');
+		}
+		const navigationExtras: NavigationExtras = {
+			queryParams: {...removeEmpty}
+		};
+		this.router.navigate([], navigationExtras);
+	}
+
+	/**
+	**	To Check the default experience
+	**/
+	
+	onCheckExpDefault = (item) => {
+		if(((item.value.min >= parseInt(this.queryParams.min_experience)) && (item.value.max <= parseInt(this.queryParams.max_experience)))) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	**	To Filter the salary
+	**/
+	
+	onChangeEve = (event) => {
+		if(event != 'undefined') {
+			this.onRedirectRouteWithQuery({min_salary: event.value, max_salary: event.highValue})
+		}else {
+			this.onRedirectRouteWithQuery({min_salary: '', max_salary: ''})
+		}
+	}
+
+	/**
+	**	To clear all the filters in params
+	**/
+	
+	onClearFilter = () => {
+		const navigationExtras: NavigationExtras = {
+			queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
+		};
+		this.onGetCandidateList(this.selectedJob.id);
+		this.router.navigate([], navigationExtras);
+		// this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
+	}
   
-  resetData(){
+	/**
+	**	To clear all the filters
+	**/
+	
+	clearFilters(){
+		if(this.queryParams.domain){
+			delete this.queryParams.domain;			
+		}
+		if(this.queryParams.skills){
+			document.getElementById('skills').className="btn btn-fltr";
+			delete this.queryParams.skills;			
+		}if(this.queryParams.programming_skills){
+			document.getElementById('programming_skills').className="btn btn-fltr";
+			delete this.queryParams.programming_skills;			
+		}if( this.queryParams.optinal_skills){
+			document.getElementById('optinal_skills').className="btn btn-fltr";
+			delete this.queryParams.optinal_skills;			
+		}if( this.queryParams.employer_role_type){
+			document.getElementById('employer_role_type').className="btn btn-fltr";
+			delete this.queryParams.employer_role_type;			
+		}if( this.queryParams.certification){
+			document.getElementById('certification').className="btn btn-fltr";
+			delete this.queryParams.certification;			
+		}if( this.queryParams.end_to_end_implementation){
+			document.getElementById('end_to_end_implementation').className="btn btn-fltr";
+			delete this.queryParams.end_to_end_implementation;			
+		}if( this.queryParams.availability){
+			document.getElementById('availability').className="btn btn-fltr";
+			delete this.queryParams.availability;			
+		}if( this.queryParams.travel_opportunity){
+			document.getElementById('travel_opportunity').className="btn btn-fltr";
+			delete this.queryParams.travel_opportunity;			
+		}if( this.queryParams.remote){
+			document.getElementById('remote').className="btn btn-fltr";
+			delete this.queryParams.remote;			
+		}if( this.queryParams.willing_to_relocate){
+			 document.getElementById('willing_to_relocate').className="btn btn-fltr";
+			delete this.queryParams.willing_to_relocate;			
+		}if( this.queryParams.language){
+			document.getElementById('language').className="btn btn-fltr";
+			delete this.queryParams.language;			
+		}if(this.queryParams.education){
+			document.getElementById('education').className="btn btn-fltr";
+			delete this.queryParams.education;			
+		}
+	}
+
+	/**
+	**	To open the resume popup status
+	**/
+	
+	onToggleResumeForm = (status, selectedResumeUrl?) => {
+		if (selectedResumeUrl) {
+			this.selectedResumeUrl = selectedResumeUrl;
+		}
+		this.isOpenedResumeModal = status;
+	}
+
+	/**
+	**	To Open the send mail status
+	**/
+	
+	onToggleSendMail = (status,item?) => {
+		if(item && !this.utilsHelperService.isEmptyObj(item)) {
+			this.currentUserInfo = item;
+		}
+		this.isOpenedSendMailModal = status;
+		if(this.selectedJob &&this.selectedJob.id) {
+			this.onGetCandidateList(this.selectedJob.id);
+		}
+	}
+
+	/**
+	**	To save the profile
+	**/
+	
+	onSaveProfile = (item) => {
+		if((item && item.id)) {
+			let requestParams: any = {};
+			requestParams.user_id = item.id;
+			requestParams.delete = 0
+			this.employerService.saveProfile(requestParams).subscribe(
+				response => {
+					this.savedProfiles.push(item.id);
+					this.onEvent.emit(true);
+				}, error => {
+					this.onEvent.emit(true);
+				}
+			)
+		}else {
+			this.toastrService.error('Something went wrong', 'Failed')
+		}
+	}
+  
+	/**
+	**	To unsave the user details
+	**/
+	
+	onUnSaveProfile = (item) => {
+		if ((item && item.id)) {
+			let requestParams: any = {};
+			requestParams.user_id = item.id;
+			requestParams.delete = 1;
+			this.employerService.saveProfile(requestParams).subscribe(
+				response => {
+					this.savedProfiles = this.savedProfiles.filter(function(a,b){ return a!=item.id});
+					this.onEvent.emit(true);
+				}, error => {
+					this.onEvent.emit(true);
+				}
+			)
+		} else {
+			this.toastrService.error('Something went wrong', 'Failed')
+		}
+	}
+  
+	/**
+	**	To Filter the jobs data's
+	**/
+	
+	handleChange(clr){
+		var temp = clr.toElement.className.split(' ');
+		if(temp[temp.length-1]=='btn-fltr-active'){
+			clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
+			if(clr.target.id == 'domain' && this.queryParams.domain){
+				delete this.queryParams.domain;			
+			}
+			if(clr.target.id == 'skills' && this.queryParams.knowledge){
+				delete this.queryParams.knowledge;			
+			}if(clr.target.id == 'programming_skills' && this.queryParams.programming_skills){
+				delete this.queryParams.programming_skills;			
+			}if(clr.target.id == 'optinal_skills' && this.queryParams.optinal_skills){
+				delete this.queryParams.optinal_skills;			
+			}if(clr.target.id == 'employer_role_type' && this.queryParams.employer_role_type){
+				delete this.queryParams.employer_role_type;			
+			}if(clr.target.id == 'certification' && this.queryParams.certification){
+				delete this.queryParams.certification;			
+			}if(clr.target.id == 'end_to_end_implementation' && this.queryParams.end_to_end_implementation){
+				delete this.queryParams.end_to_end_implementation;			
+			}if(clr.target.id == 'availability' && this.queryParams.availability){
+				delete this.queryParams.availability;			
+			}if(clr.target.id == 'travel_opportunity' && this.queryParams.travel_opportunity){
+				delete this.queryParams.travel_opportunity;			
+			}if(clr.target.id == 'remote' && this.queryParams.remote){
+				delete this.queryParams.remote;			
+			}if(clr.target.id == 'willing_to_relocate' && this.queryParams.willing_to_relocate){
+				delete this.queryParams.willing_to_relocate;			
+			}if(clr.target.id == 'language' && this.queryParams.language){
+				delete this.queryParams.language;			
+			}if(clr.target.id == 'education' && this.queryParams.education){
+				delete this.queryParams.education;			
+			}if(clr.target.id == 'filter_location'){
+				this.filter_location = false;	
+			}
+		}else{
+			clr.toElement.className = 'btn btn-fltr btn-fltr-active';
+			if(clr.target.id == 'domain') {
+				if( this.selectedJob &&  this.selectedJob.domain) {
+					this.queryParams.domain = this.selectedJob.domain.join(',');
+				}
+			}if(clr.target.id == 'skills') {
+				if( this.selectedJob &&  this.selectedJob.skills) {
+					this.queryParams.knowledge = this.utilsHelperService.differenceByPropValArray(this.selectedJob.skills, this.selectedJob.hands_on_experience, 'skill_id').join(',');
+				}
+			}if(clr.target.id == 'programming_skills') {
+				if( this.selectedJob &&  this.selectedJob.programming_skills) {
+					this.queryParams.programming_skills = this.selectedJob.programming_skills.join(',');
+				}
+			}if(clr.target.id == 'optinal_skills') {
+				if( this.selectedJob &&  this.selectedJob.optinal_skills) {
+					this.queryParams.optinal_skills = this.selectedJob.optinal_skills.join(',');
+				}
+			}if(clr.target.id == 'employer_role_type') {
+				if( this.selectedJob &&  this.selectedJob.employer_role_type) {
+					this.queryParams.employer_role_type = this.selectedJob.employer_role_type;
+				}
+			}if(clr.target.id == 'certification') {
+				if( this.selectedJob &&  this.selectedJob.certification) {
+					this.queryParams.certification = this.selectedJob.certification;
+				}
+			}if(clr.target.id == 'end_to_end_implementation') {
+				if( this.selectedJob &&  this.selectedJob.end_to_end_implementation) {
+					this.queryParams.end_to_end_implementation = this.selectedJob.end_to_end_implementation;
+				}
+			}if(clr.target.id == 'availability') {
+				if( this.selectedJob &&  this.selectedJob.availability) {
+					this.queryParams.availability = this.selectedJob.availability;
+				}
+			}if(clr.target.id == 'travel_opportunity') {
+				if( this.selectedJob &&  this.selectedJob.travel_opportunity) {
+					this.queryParams.travel_opportunity = this.selectedJob.travel_opportunity;
+				}
+			}if(clr.target.id == 'remote') {
+				if( this.selectedJob &&  this.selectedJob.remote) {
+					this.queryParams.remote = this.selectedJob.remote;
+				}
+			}if(clr.target.id == 'willing_to_relocate') {
+				if( this.selectedJob &&  this.selectedJob.willing_to_relocate) {
+					this.queryParams.willing_to_relocate = this.selectedJob.willing_to_relocate;
+				}
+			}if(clr.target.id == 'language') {
+				if( this.selectedJob &&  this.selectedJob.language) {
+					this.queryParams.language = this.selectedJob.language.join(',');
+				}
+			}if(clr.target.id == 'education') {
+				if( this.selectedJob &&  this.selectedJob.education) {
+					this.queryParams.education = this.selectedJob.education;
+				}
+			}if(clr.target.id == 'filter_location'){
+				this.filter_location = true;	
+			}		  
+		}	
+		this.onGetCandidateList(this.selectedJob.id);
+	}
+  
+	/**
+	**	To Reset all the filter data's
+	**/
+	
+	resetData(){
 		if(this.queryParams.domain){
 			delete this.queryParams.domain;			
 		}if(this.queryParams.skills){
 			delete this.queryParams.skills;			
+		}if(this.queryParams.knowledge){
+			delete this.queryParams.knowledge;			
 		}if(this.queryParams.programming_skills){
 			delete this.queryParams.programming_skills;			
 		}if(this.queryParams.optinal_skills){
@@ -877,35 +919,39 @@ onUnSaveProfile = (item) => {
 			if(this.selectedJob.extra_criteria.length && this.selectedJob.extra_criteria.length!=0)
 				for(let i=0;i<this.selectedJob.extra_criteria.length;i++){
 					if(this.selectedJob.match_select[this.selectedJob.extra_criteria[i]['title']]=='0'){
-						var titleData = this.selectedJob.extra_criteria[i]['title']+'_'+i;
-						if(document.getElementById(titleData)){
-							document.getElementById(titleData).className = "btn btn-fltr " ; 
-						}
-							
-					}else if(this.selectedJob.match_select[this.selectedJob.extra_criteria[i]['title']]=='1'){
-						var titleData = this.selectedJob.extra_criteria[i]['title']+'_'+i;
-						if(document.getElementById(titleData)){
-							document.getElementById(titleData).className = "btn btn-fltr " ; 
-						}
-							
-					}else if(this.selectedJob.match_select[this.selectedJob.extra_criteria[i]['title']]=='2'){
-						var titleData = this.selectedJob.extra_criteria[i]['title']+'_'+i;
-						if(document.getElementById(titleData)){
-							document.getElementById(titleData).className = "btn btn-fltr " ; 
-						}
-							
+					var titleData = this.selectedJob.extra_criteria[i]['title']+'_'+i;
+					if(document.getElementById(titleData)){
+						document.getElementById(titleData).className = "btn btn-fltr " ; 
+					}
+				}else if(this.selectedJob.match_select[this.selectedJob.extra_criteria[i]['title']]=='1'){
+					var titleData = this.selectedJob.extra_criteria[i]['title']+'_'+i;
+					if(document.getElementById(titleData)){
+						document.getElementById(titleData).className = "btn btn-fltr " ; 
+					}
+				}else if(this.selectedJob.match_select[this.selectedJob.extra_criteria[i]['title']]=='2'){
+					var titleData = this.selectedJob.extra_criteria[i]['title']+'_'+i;
+					if(document.getElementById(titleData)){
+						document.getElementById(titleData).className = "btn btn-fltr " ; 
 					}
 				}
 			}
 		}
+	}
 		
+	/**
+	**	To Filter the dublicates
+	**/
+	
 	filterData(arr){
 		var tempsData =  arr.filter(function(elem, index, self) {
 			return index === self.indexOf(elem);
 		});
-		
 		return tempsData;
 	}
+	
+	/**
+	**	To pagination changes
+	**/ 
 	
 	handlePageEvent(event: PageEvent) {
 		//this.length = event.length;
@@ -915,6 +961,11 @@ onUnSaveProfile = (item) => {
 		  this.onGetCandidateList(this.selectedJob.id);
 		}
 	}
+	
+	/**
+	**	To Filter the country based data
+	**/
+	
 	ValidateByCountry(value,event){
 		if(value!=undefined && value !=null && value !=''){	
 			
@@ -935,6 +986,10 @@ onUnSaveProfile = (item) => {
 			
 		}
 	}
+	
+	/**
+	**	To Filter the jobTypes
+	**/
 	
 	checkJobType(item){
 		var data = this.sharedService.onGetJobType(item);
