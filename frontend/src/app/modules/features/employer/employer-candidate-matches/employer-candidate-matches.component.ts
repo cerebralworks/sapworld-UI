@@ -762,8 +762,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			if(clr.target.id == 'domain' && this.queryParams.domain){
 				delete this.queryParams.domain;			
 			}
-			if(clr.target.id == 'domain' && this.queryParams.skills){
-				delete this.queryParams.skills;			
+			if(clr.target.id == 'skills' && this.queryParams.knowledge){
+				delete this.queryParams.knowledge;			
 			}if(clr.target.id == 'programming_skills' && this.queryParams.programming_skills){
 				delete this.queryParams.programming_skills;			
 			}if(clr.target.id == 'optinal_skills' && this.queryParams.optinal_skills){
@@ -797,7 +797,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				}
 			}if(clr.target.id == 'skills') {
 				if( this.selectedJob &&  this.selectedJob.skills) {
-					this.queryParams.skills = this.selectedJob.skills.join(',');
+					this.queryParams.knowledge = this.utilsHelperService.differenceByPropValArray(this.selectedJob.skills, this.selectedJob.hands_on_experience, 'skill_id').join(',');
 				}
 			}if(clr.target.id == 'programming_skills') {
 				if( this.selectedJob &&  this.selectedJob.programming_skills) {
@@ -859,6 +859,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			delete this.queryParams.domain;			
 		}if(this.queryParams.skills){
 			delete this.queryParams.skills;			
+		}if(this.queryParams.knowledge){
+			delete this.queryParams.knowledge;			
 		}if(this.queryParams.programming_skills){
 			delete this.queryParams.programming_skills;			
 		}if(this.queryParams.optinal_skills){

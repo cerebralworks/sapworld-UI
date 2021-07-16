@@ -1,71 +1,70 @@
-
-  <section class="sub-header">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-5">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
-					</ol>
-				</div>
-				<div class="col-lg-7 clearfix d-none">
-					<form class="form-inline float-right">
-						<div class="input-with-icon mr-sm-2">
-						  <input type="text" class="form-control" name="job-title" placeholder="Job Title / SAP Module" style="height: 36px;">
-						  <i class="fas fa-briefcase"></i>
-						</div>
-						<div class="input-with-icon mr-sm-2">
-						  <input type="text" class="form-control" name="job-city" placeholder="City, State, Zipcode" style="height: 36px;">
-						  <i class="fas fa-map-marker-alt"></i>
-						</div>
-						<button type="button" class="btn btn-theme-blue" (click)="onToggleSendMail(true)" style="height:35px;line-height:15px;">
-						<i class="fas fa-search"></i></button>
-					</form>
-				</div>
+<section class="sub-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
+				</ol>
+			</div>
+			<div class="col-lg-7 clearfix d-none">
+				<form class="form-inline float-right">
+					<div class="input-with-icon mr-sm-2">
+					  <input type="text" class="form-control" name="job-title" placeholder="Job Title / SAP Module" style="height: 36px;">
+					  <i class="fas fa-briefcase"></i>
+					</div>
+					<div class="input-with-icon mr-sm-2">
+					  <input type="text" class="form-control" name="job-city" placeholder="City, State, Zipcode" style="height: 36px;">
+					  <i class="fas fa-map-marker-alt"></i>
+					</div>
+					<button type="button" class="btn btn-theme-blue" (click)="onToggleSendMail(true)" style="height:35px;line-height:15px;">
+					<i class="fas fa-search"></i></button>
+				</form>
 			</div>
 		</div>
-  </section>
+	</div>
+</section>
 
-  <!-- Nav Tab Section -->
-	<section class="nav-tab">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
+<!-- Nav Tab Section -->
+<section class="nav-tab">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
 				<ul class="nav">
-					  <li class="nav-item">
+					<li class="nav-item">
 						<a (click)="onTabChange({tabName: 'postedJobs', tabNumber: 1})"
-            [ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">{{"dashboard.postedJobs" | translate}}</a>
-					  </li>
-					  <li class="nav-item">
+							[ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">{{"dashboard.postedJobs" | translate}}</a>
+					 </li>
+					 <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'matches', tabNumber: 2})"
-            [ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}}
-             <small id="MatchesCount" >(0)</small>
-          </a>
+							[ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}}
+							<small id="MatchesCount" >(0)</small>
+						</a>
 					  </li>
 					  <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'applicants', tabNumber: 3})"
-            [ngClass]="{'active': currentTabInfo.tabNumber == 3}" class="nav-link" href="javascript:;">{{"dashboard.applicants" | translate}}
-             <small id="ApplicantsCount" >(0)</small> 
-          </a>
+							[ngClass]="{'active': currentTabInfo.tabNumber == 3}" class="nav-link" href="javascript:;">{{"dashboard.applicants" | translate}}
+							<small id="ApplicantsCount" >(0)</small> 
+						</a>
 					  </li>
 					  <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'shortlisted', tabNumber: 4})"
-            [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">{{"dashboard.shortlisted" | translate}}
-            <small id="ApplicantsShortListCount" >(0)</small> 
-          </a>
-            </li>
-            <li class="nav-item">
-              <a (click)="onTabChange({tabName: 'savedProfile', tabNumber: 5})"
-              [ngClass]="{'active': currentTabInfo.tabNumber == 5}"
-              class="nav-link" href="javascript:;">{{"dashboard.savedProfile" | translate}}
-              <small id="SavedCount">(0)</small>
-            </a>
-              </li>
-					</ul>
-				</div>
+							[ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">{{"dashboard.shortlisted" | translate}}
+							<small id="ApplicantsShortListCount" >(0)</small> 
+						  </a>
+					  </li>
+					 <li class="nav-item">
+						<a (click)="onTabChange({tabName: 'savedProfile', tabNumber: 5})"
+							[ngClass]="{'active': currentTabInfo.tabNumber == 5}"
+							class="nav-link" href="javascript:;">{{"dashboard.savedProfile" | translate}}
+							<small id="SavedCount">(0)</small>
+						</a>
+					 </li>
+				</ul>
 			</div>
 		</div>
-	</section>
-    <!-- //Nav Tab Section -->
+	</div>
+</section>
+<!-- //Nav Tab Section -->
 
 
   <app-posted-job *ngIf="currentTabInfo.tabNumber == 1">
