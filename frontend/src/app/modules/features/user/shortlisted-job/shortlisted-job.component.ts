@@ -11,6 +11,10 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 export class ShortlistedJobComponent implements OnInit {
 	
+	/**
+	**	Variable declaration 
+	**/
+	
 	public isOpenedResumeSelectModal: boolean = false;
 	public userAccept: boolean = false;
 	public shortlistJobs: any[] = [];
@@ -25,11 +29,20 @@ export class ShortlistedJobComponent implements OnInit {
 
 	constructor(private userService: UserService,
     public utilsHelperService: UtilsHelperService) { }
-
+	
+	
+	/**
+	**	To initialize the page calls
+	**/	
+	 
 	ngOnInit(): void {
 		this.onGetshortlistJobs();
 	}
 
+	/**
+	**	To Get the shortlisted jobs
+	**/	
+	  
 	onGetshortlistJobs = () => {
 		let requestParams: any = {};
 		requestParams.page = this.page;
@@ -56,12 +69,20 @@ export class ShortlistedJobComponent implements OnInit {
 		})
 	}
 
+	/**
+	**	To check the pagination changes
+	**/	
+	  
 	handlePageEvent(event: PageEvent) {
 		this.limit = event.pageSize;
 		this.page = event.pageIndex + 1;
 		this.onGetshortlistJobs();
 	}
 
+	/**
+	**	To delete the job application 
+	**/	
+	  
 	deleteJobApplication = (id) => {
 		let requestParams: any = {};
 		requestParams.id = id;
@@ -74,6 +95,10 @@ export class ShortlistedJobComponent implements OnInit {
 		})
 	}
 	
+	/**
+	**	To assign the collapse id and href
+	**/	
+	  
 	getIdVal(items){
 		if(items){
 			if(items['id']){
@@ -84,6 +109,10 @@ export class ShortlistedJobComponent implements OnInit {
 		return '#Open'
 	}
 	
+	/**
+	**	To assign the close collapse id
+	**/	
+	  
 	getIdVals(items){
 		if(items){
 			if(items['id']){
@@ -94,6 +123,10 @@ export class ShortlistedJobComponent implements OnInit {
 		return 'Open'
 	}
 	
+	/**
+	**	To set the href for close id
+	**/	
+	  
 	stopPropagation(event){
 		if(event && event.path){
 			if(event['path'][1]){
@@ -109,6 +142,10 @@ export class ShortlistedJobComponent implements OnInit {
 		}
 	}
 	
+	/**
+	**	To Open the resume model popup
+	**/	
+	  
 	onToggleResumeSelectModal = (status, item?) => {
     if(!this.utilsHelperService.isEmptyObj(item)) {
       this.currentJobDetails = item['job_posting'];
@@ -117,6 +154,10 @@ export class ShortlistedJobComponent implements OnInit {
 		this.userAccept = status;
 	}
 	
+	/**
+	**	To Close the resume model popup
+	**/	
+	  
 	onToggleResumeSelectModalClose(status){
 		if(status ==false){
 			this.page = 1;

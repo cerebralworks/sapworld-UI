@@ -319,22 +319,24 @@
 			</div>
 		</div>
 	</div>
-</div> 
-<div class="row mt-3 info-box"  *ngIf="userInfo?.reference" >	
-	<div class="col-lg-12" *ngIf="userInfo?.reference?.length !=0">
-		<div class="pj-title mb-3 border-primary" *ngIf="userInfo?.reference[0].name && userInfo?.reference[0].email && userInfo?.reference[0].company_name">
-			<h6 class="text-blue" role="button" (click)="show = !show"> {{"dashboard.reference" | translate }}  <i class="fas fa-angle-down"></i></h6>
-		</div>
-		<div *ngIf="show" [@slideInOut] class="row mt-2" style="padding:0px;">
-			<div class="col-lg-4 p-1" *ngFor="let reference of userInfo?.reference " >
-				<div class="card job-card sm" style="min-height: 105px;" *ngIf="reference.name && reference.email && reference.company_name" >
-					<div class="card-body">
-						<p class="text-blue font-weight-bold mb-1">{{reference.name}}</p>
-						<p class="mb-1 hilight">{{reference.email}}</p>
-						<p class="mb-0">{{reference.company_name}}</p>
+</div>
+<ng-container *ngIf="userInfo?.privacy_protection?.reference == true || isShowUserData==true "> 
+	<div class="row mt-3 info-box"  *ngIf="userInfo?.reference" >	
+		<div class="col-lg-12" *ngIf="userInfo?.reference?.length !=0">
+			<div class="pj-title mb-3 border-primary" *ngIf="userInfo?.reference[0].name && userInfo?.reference[0].email && userInfo?.reference[0].company_name">
+				<h6 class="text-blue" role="button" (click)="show = !show"> {{"dashboard.reference" | translate }}  <i class="fas fa-angle-down"></i></h6>
+			</div>
+			<div *ngIf="show" [@slideInOut] class="row mt-2" style="padding:0px;">
+				<div class="col-lg-4 p-1" *ngFor="let reference of userInfo?.reference " >
+					<div class="card job-card sm" style="min-height: 105px;" *ngIf="reference.name && reference.email && reference.company_name" >
+						<div class="card-body">
+							<p class="text-blue font-weight-bold mb-1">{{reference.name}}</p>
+							<p class="mb-1 hilight">{{reference.email}}</p>
+							<p class="mb-0">{{reference.company_name}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>	
-</div>
+		</div>	
+	</div>
+</ng-container>

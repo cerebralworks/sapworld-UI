@@ -9,36 +9,57 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+	
+	/**
+	**	Variable declaration
+	**/
+	
+	public isOpenedContactInfoModal: boolean = false;
+	public isOpenedResumeModal: boolean = false;
+	public isShowUserData: boolean = true;
+	public userInfo: any;
+	public userPhotoInfo: any;
 
-  public isOpenedContactInfoModal: boolean = false;
-  public isOpenedResumeModal: boolean = false;
-  public userInfo: any;
-  public userPhotoInfo: any;
+	constructor(
+		private userSharedService: UserSharedService,
+		public utilsHelperService: UtilsHelperService,
+		public sharedService: SharedService
+	) { }
 
-  constructor(
-    private userSharedService: UserSharedService,
-    public utilsHelperService: UtilsHelperService,
-    public sharedService: SharedService
-  ) { }
+	/**
+	**	To initialize the page loads
+	**/	
+	  
+	ngOnInit(): void {
+		this.userSharedService.getUserProfileDetails().subscribe(
+			response => {
+				this.userInfo = response;
+			}
+		)
+	}
 
-  ngOnInit(): void {
-    this.userSharedService.getUserProfileDetails().subscribe(
-      response => {
-        this.userInfo = response;
-      }
-    )
-  }
+	/**
+	**	To Open the infomation of the contact details
+	**/	
+	  
+	onToggleContactInfoModal = (status) => {
+		this.isOpenedContactInfoModal = status;
+	}
 
-  onToggleContactInfoModal = (status) => {
-    this.isOpenedContactInfoModal = status;
-  }
+	/**
+	**	To open the resume in popup
+	**/	
+	  
+	onToggleResumeForm = (status) => {
+		this.isOpenedResumeModal = status;
+	}
 
-  onToggleResumeForm = (status) => {
-    this.isOpenedResumeModal = status;
-  }
-
-  convertToImage(imageString: string): string {
-    return this.utilsHelperService.convertToImageUrl(imageString);
-  }
+	/**
+	**	To open the coverletter in popup view
+	**/	
+	  
+	convertToImage(imageString: string): string {
+		return this.utilsHelperService.convertToImageUrl(imageString);
+	}
 
 }

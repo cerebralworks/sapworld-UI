@@ -39,6 +39,7 @@ export class SharedUserProfileComponent implements OnInit {
 	@Input() userInfo: CandidateProfile;
 	@Input() fieldsExclude: any;
 	@Input() isMatches: boolean = false;
+	@Input() isShowUserData: boolean = false;
 	public show: boolean = false;
 	public nationality: any[] = [];
 	public languageSource: any[] = [];
