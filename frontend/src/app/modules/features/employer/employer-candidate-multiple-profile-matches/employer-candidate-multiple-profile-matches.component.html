@@ -32,7 +32,7 @@
 						</app-contact-card>
 					</div>
 				</div>
-				<app-shared-user-profile-job-multiple-matches [isMultipleMatches]="isMultipleMatches" [fieldsExclude]="{clients_worked: true, job_role: true, willing_to_relocate: true}" [userInfo]="userInfo" [postedJobsDetails]="matchingJob?.jobs"></app-shared-user-profile-job-multiple-matches>
+				<app-shared-user-profile-job-matches [isMultipleMatches]="isMultipleMatches" [fieldsExclude]="{clients_worked: true, job_role: true, willing_to_relocate: true}" [userInfo]="userInfo" [postedJobsDetails]="matchingJob?.jobs"></app-shared-user-profile-job-matches>
 		  </div>
 		<div [ngClass]="(isMultipleMatches === true)?'col-lg-8':'col-lg-6'">
 			<div id="carouselProfile" class="carousel slide job-info-container" data-interval="false" data-ride="carousel">

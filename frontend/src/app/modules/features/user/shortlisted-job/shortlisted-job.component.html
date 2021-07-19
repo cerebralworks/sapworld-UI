@@ -9,7 +9,7 @@
 								<th scope="col">{{"postJob.jobTitle" | translate}}</th>
 								<th scope="col">{{"dashboard.employer" | translate}}</th>
 								<th scope="col">{{"postJob.location" | translate}}</th>
-								<th scope="col">{{"dashboard.postedDated" | translate}}</th>
+								<th scope="col">Applied Date</th>
 								<th scope="col" class="text-center">{{"common.message" | translate}}</th>
 								<th scope="col">{{"dashboard.status" | translate}}</th>
 								<!-- <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
@@ -34,7 +34,7 @@
 										</span>
 									</td>
 									<td>
-										{{item?.job_posting?.created_at ? (item?.job_posting?.created_at | date: "MMM dd, y") : '-'}}
+										{{item?.created_at ? (item?.created_at | date: "MMM dd, y") : '-'}}
 									</td>
 									<td class="text-center "><a class="text-blue" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event);"><i class="fas fa-envelope"></i></a></td>
 									<td  class="text-capitalize" *ngIf="item?.status == 1" style="color: #385edf;">

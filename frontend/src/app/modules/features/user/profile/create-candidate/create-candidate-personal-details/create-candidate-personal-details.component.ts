@@ -46,16 +46,13 @@ import {MatChipInputEvent} from '@angular/material/chips';
 export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	
 	//Variable Declaration
-	  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  visa_types = [ ];
-  employers = [ ];
-
-
-  
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = true;
+	readonly separatorKeysCodes = [ENTER, COMMA] as const;
+	visa_types = [ ];
+	employers = [ ];  
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
 	public show: boolean = false;
@@ -103,6 +100,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		private formBuilder: FormBuilder
 	) { }
 	
+	/**
+	**	To add the visa type
+	**/
+	
 	add(event: MatChipInputEvent): void {
 		
 		const value = (event.value || '').trim();
@@ -124,7 +125,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the visa type
+	**/
 	remove(visa): void {
 		
 		const index = this.visa_types.indexOf(visa);
@@ -138,6 +142,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			});
 		}
 	}
+	
+	/**
+	**	To add the company
+	**/
 	addEmplyee(event: MatChipInputEvent): void {
 		
 		const value = (event.value || '').trim();
@@ -159,7 +167,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the company
+	**/
 	removeEmplyee(employer): void {
 		
 		const index = this.employers.indexOf(employer);
@@ -179,8 +190,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-		/* this.requestParams = {'Enter the oninit':'personalComponent'};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
+		
 		this.randomNum = Math.random();
 		this.createForm();
 		
@@ -210,15 +220,14 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         }
       }
     );
-	/* this.requestParams = {'Exist the oninit':'personalComponent'};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
+	
   }
-
+	/**
+	**	To check the form details and assign the data's
+	**/
   ngOnChanges(changes: SimpleChanges): void {
 	 
 	  setTimeout(async () => {
-		 /*  this.requestParams = {'Enter the ngOnChanges':'personalComponent'};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
 				if(this.childForm.controls.personalDetails.status =="INVALID"){
     if(this.childForm && this.savedUserDetails) {
 		if(this.childForm.value.personalDetails.country){
@@ -506,6 +515,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	  }); 
   }
 	
+	/**
+	**	To check the mobile number
+	**/
+	
 	checkNumber(){
 		
 		if(this.childForm.controls.personalDetails.controls.phone.status=="INVALID"){
@@ -524,6 +537,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			this.invalidMobile = false;
 		}
 	}
+	
+	/**
+	**	To check the authorized_country
+	**/
+	
 	onChangeCountry(a){
 		if(a!='-1'){
 			if(a =="226" ||a =="254" || a =="225" || a =="13" || a =="153" || a =="192" || a =="38" ){
@@ -564,6 +582,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			}
 		}
 	}
+	
+	/**
+	**	To remove the authorized country
+	**/
+	
 	onRemoveCountryEvent(id){
 		if(this.childForm.value.personalDetails.nationality == id){
 			this.onChangeCountry(id);
@@ -578,7 +601,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     }
     return ''
   }
-
+	/**
+	**	To create a personal-details form
+	**/
   createForm() {
     this.childForm = this.parentF.form;
 
@@ -627,7 +652,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
   get f() {
     return this.childForm.controls.personalDetails.controls;
   }
-
+	
+	/**
+	**	To detectChanges in address 
+	**/
   handleAddressChange = (event) => {
     const address = this.sharedService.fromGooglePlace(event);
 	if(event.geometry){
@@ -644,7 +672,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     });
 	}
   };
-
+  
+	/**
+	**	To set the socialMediaLinks
+	**/
   onSetLinks = (fieldName, status) => {
 	  if(this.socialMediaLinks==null || undefined){
 		  this.socialMediaLinks=[
@@ -684,7 +715,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       }
     })
   }
-
+	/**
+	**	To upload the profile image
+	**/
   handleFileInput(event, CropImagePopUp) {
     let files: FileList = event.target.files;
     if (files && files.length > 0) {
@@ -771,6 +804,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
     //   })
     // }
   }
+  
+	/**
+	**	To detect the language details control
+	**/
+	
 	onChangeLanguageValue(value,index){
 		if(value && index > -1) {
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].setValidators([Validators.required])
@@ -843,7 +881,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	 get t() {
     return this.f.language_known as FormArray;
   }
-
+	/**
+	**	To add a new language 
+	**/
   onDuplicate = (index) => {
    
 	 if(this.t.value[index]['language']=="" || this.t.value[index]['language']== null ){
@@ -857,7 +897,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		}));
 	  }
   }
-
+	/**
+	**	To remove a language
+	**/
   onRemove = (index) => {
     if (index == 0  && this.t.value.length==1) {
       this.t.reset();
@@ -888,6 +930,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		this.r.removeAt(index);
     }
   }
+  
+	/**
+	**	To click the country info active or not
+	**/
+	
   countryClick(value,clr){
 	  var temp = clr.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){

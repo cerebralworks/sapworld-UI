@@ -118,7 +118,7 @@ export class ResumeSelectComponent implements OnInit {
 			requestParams.job_posting = this.currentJobDetails.id;
 			requestParams.user_resume = this.resumeSelected.file;
 			if(this.userAccept ==true ){
-				requestParams.status =  8 ;
+				//requestParams.status =  8 ;
 			}
 			this.userService.jobApply(requestParams).subscribe(
 				response => {
@@ -179,7 +179,8 @@ export class ResumeSelectComponent implements OnInit {
 	**/
 	
 	onClickCloseBtnStatus(status) {
-		this.onEvent.emit(status);
+		this.onEvent.emit(true);
+		this.mbRefss.close();
 		if (status == false) {
 			this.mbRefss.close();
 		}
