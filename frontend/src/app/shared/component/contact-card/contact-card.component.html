@@ -1,7 +1,7 @@
 <div class="card job-card">
   <div class="card-body">
     <div class="row">
-      <div class="col-lg-7">
+      <div class="col-lg-9">
         <h5>
           <a  href="javascript:;" class="text-capitalize">
             {{userInfo?.first_name + ' ' + userInfo?.last_name}}
@@ -18,41 +18,7 @@
 			<small [routerLink]="[ '/user/create-candidate' ]" *ngIf="isEdit" class="ml-2" href="javascript:;" title="Edit" style="font-size: 11px;cursor:pointer;" ><i
             class="fas fa-pencil-alt text-orange"></i></small>
         </h5>
-      </div>
-      <div class="col-lg-5 text-right" style="padding-left:1px">
-			
-        <span class="mr-1" *ngIf="!isMultipleMatches">
-          <a *ngIf="!isUploadShow || selectedCover?.file"
-          [class.disabled]="!selectedCover?.file"
-          (click)="selectedCover?.file && onToggleCoverForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedCover?.file))" class="btn btn-outline-orange  btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> Cover Lettter
-          </a>
-		  <a *ngIf="isUploadShow && !selectedCover?.file"
-          (click)="openCoverselect(true)" class="btn btn-outline-orange  btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> Add cover
-          </a>
-        </span>
-        <span *ngIf="isResume" class="mr-1">
-          <a *ngIf="!isUploadShowResume || selectedResume?.file"
-          [class.disabled]="!selectedResume?.file"
-          (click)="selectedResume?.file && onToggleResumeForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
-          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file"
-         (click)="openResumselect(true)"  id="addResumeFile"
-           class="btn btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> Add Resume
-          </a>
-        </span>
-		<a *ngIf="!isMail && isMatchesView" (click)="onTabChange()" style="margin-top: .25rem;" class="btn btn-outline-green btn-sm mr-1" href="javascript:;" title="Edit"><i
-            class="fas fa-tasks" ></i> Matches </a>
-        <span  *ngIf="isMail && jobInfo?.id">
-          <a (click)="onToggleSendMail(true)"  class="btn btn-outline-orange btn-sm " href="javascript:;">
-          <i class="fas fa-paper-plane"></i> Send Mail</a>
-        </span>
-      </div>
-    </div>
-	<div class="row">
-		<div [ngClass]="(isMatchView === true)?'col-lg-7':'col-lg-12'" >
+		<div >
     <div class="media">
       <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
       <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
@@ -70,6 +36,154 @@
           <span class="text-capitalize">
             {{userInfo?.country ?', '+userInfo?.country : ''}}
           </span> -->
+        </h6>
+        <h6 *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
+          <a href="mailto:{{userInfo?.email}}">
+            <i class="fas fa-envelope" *ngIf="userInfo?.email"></i>
+            {{userInfo?.email}}
+          </a>
+            <br *ngIf="isMultipleMatches">
+          <i class="fas fa-mobile" *ngIf="userInfo?.phone"></i> {{userInfo?.phone | phone}}
+        </h6>
+        <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+          <ng-container *ngIf="userInfo?.privacy_protection?.email == true; else elseEmailTemplate">
+            <a href="mailto:{{userInfo?.email}}">
+              <i class="fas fa-envelope" *ngIf="userInfo?.email"></i>
+              {{userInfo?.email}}
+            </a>
+          </ng-container>
+          <ng-template #elseEmailTemplate>
+            <span class="text-capitalize">
+              <i class="fas fa-envelope"></i>
+              {{censorEmail(userInfo?.email)}}
+            </span>
+          </ng-template>
+          <br *ngIf="isMultipleMatches">
+          <ng-container *ngIf="userInfo?.privacy_protection?.phone == true; else elsePhoneTemplate">
+            <i class="fas fa-mobile" *ngIf="userInfo?.phone"></i> {{userInfo?.phone | phone}}
+          </ng-container>
+          <ng-template #elsePhoneTemplate>
+            <span class="text-capitalize">
+              <i class="fas fa-mobile"></i>
+              {{censorPhoneNumber(userInfo?.phone)}}
+            </span>
+          </ng-template>
+        </ng-container>
+        <h6 *ngIf="userInfo?.social_media_link?.length" style="margin: 0px !important;">
+          <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0); else elseTemplate">
+            <a class="mr-1" *ngFor="let item of userInfo?.social_media_link" href="{{item.url}}" target="_blank">
+              <ng-container [ngSwitch]="item?.media">
+                <ng-container *ngSwitchCase="'youtube'">
+                  <i class="fab fa-youtube-square" *ngIf="item?.visibility"></i>
+                </ng-container>
+                <ng-container *ngSwitchCase="'portfolio'">
+                  <i class="fas fa-laptop-code" *ngIf="item?.visibility"></i>
+                </ng-container>
+                <ng-container *ngSwitchCase="'blog'">
+                  <i class="fas fa-blog" *ngIf="item?.visibility"></i>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <i class="fab fa-{{item.media}}" *ngIf="item?.visibility"></i>
+                </ng-container>
+              </ng-container>
+            </a>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ng-container  *ngFor="let item of userInfo?.social_media_link">
+              <a class="mr-1" href="{{item.url}}" target="_blank">
+                <ng-container *ngIf="item?.visibility == true" [ngSwitch]="item?.media">
+                  <ng-container *ngSwitchCase="'youtube'">
+                    <i class="fab fa-youtube-square" *ngIf="item?.visibility"></i>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'portfolio'">
+                    <i class="fas fa-laptop-code" *ngIf="item?.visibility" ></i>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'blog'">
+                    <i class="fas fa-blog" *ngIf="item?.visibility"></i>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    <i class="fab fa-{{item.media}}" *ngIf="item?.visibility" ></i>
+                  </ng-container>
+                </ng-container>
+              </a>
+            </ng-container>
+          </ng-template>
+        </h6>
+        <!--<h6 *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" class="mb-0 text-capitalize">{{userInfo?.current_employer}}</h6>
+        <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+          <ng-container *ngIf="userInfo?.privacy_protection?.current_employer == true; else elseEmpTemplate">
+            <h6 class="mb-0 text-capitalize">{{userInfo?.current_employer}}</h6>
+          </ng-container>
+          <ng-template #elseEmpTemplate>
+            <h6 class="mb-0 text-capitalize">
+              {{censorEmployer(userInfo?.current_employer)}}
+            </h6>
+          </ng-template>
+        </ng-container>-->
+
+      </div>
+    </div>
+    </div>
+      </div>
+      <div class="col-lg-3 text-right" style="padding:0px;">
+			
+        <span class=" profile-btn" *ngIf="!isMultipleMatches" >
+          <a *ngIf="!isUploadShow || selectedCover?.file"
+          [class.disabled]="!selectedCover?.file"
+          (click)="selectedCover?.file && onToggleCoverForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedCover?.file))" class="btn btn-outline-orange  btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> Cover Lettter
+          </a>
+		  <a *ngIf="isUploadShow && !selectedCover?.file"
+          (click)="openCoverselect(true)" class="btn btn-outline-orange  btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> Add cover
+          </a>
+        </span>
+        <span *ngIf="isResume" class="profile-btn">
+          <a *ngIf="!isUploadShowResume || selectedResume?.file" style="margin-top: .25rem;"
+          [class.disabled]="!selectedResume?.file"
+          (click)="selectedResume?.file && onToggleResumeForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
+          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="margin-top: .25rem;"
+         (click)="openResumselect(true)"  id="addResumeFile"
+           class="btn btn-outline-blue btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> Add Resume
+          </a>
+        </span>
+		<a *ngIf="!isMail && isMatchesView " (click)="onTabChange()" style="margin-top: .25rem;" class="btn btn-outline-green btn-sm profile-btn" href="javascript:;" title="Edit"><i
+            class="fas fa-tasks" ></i> Matches </a>
+        <span  *ngIf="isMail && jobInfo?.id">
+          <a (click)="onToggleSendMail(true)"  style="margin-top: .25rem;" class="btn btn-outline-orange btn-sm profile-btn profile-btn" href="javascript:;">
+          <i class="fas fa-paper-plane"></i> Send Mail</a>
+        </span>
+		<!-- <div *ngIf="isMatchView">
+		<div class="form-inline float-right mt-2">
+			<div class="selectDD">
+				<select class="selectpicker" [(ngModel)]="selected" id="selectpicker" data-none-selected-text="Choose Jobs " multiple data-live-search="true">
+					<option class="d-none" disabled selected >Choose Jobs </option>
+					<option *ngFor="let item of postedJobsMatchDetails" [value]="item.id">{{item.title}}</option>
+				</select>
+			</div>
+			<button type="button" (click)="OpenMatchesWithID()"  class="btn btn-theme-blue btn-sm"> 
+			<i class="fas fa-tasks"></i></button>				
+		</div>	
+	</div> -->
+      </div>
+    </div>
+	<div class="row">
+		<!-- <div [ngClass]="(isMatchView === true)?'col-lg-7':'col-lg-12'" >
+    <div class="media">
+      <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+      <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
+        <ng-container *ngIf="userInfo?.privacy_protection?.photo == true; else elsePhotoTemplate">
+          <img [src]="userInfo?.photo ? userInfo?.meta?.photo?.path+'/'+ userInfo?.meta?.photo?.folder+'/'+userInfo?.meta?.photo?.sizes?.medium+'/'+userInfo?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+        </ng-container>
+        <ng-template #elsePhotoTemplate>
+          <img [src]="'assets/images/user-lock.jpg'">
+        </ng-template>
+      </ng-container>
+      <div class="media-body">
+        <h6 class="text-capitalize">
+          {{userInfo?.city+', '+userInfo?.state+', '+userInfo?.country}}
         </h6>
         <h6 *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
           <a href="mailto:{{userInfo?.email}}">
@@ -141,23 +255,12 @@
             </ng-container>
           </ng-template>
         </h6>
-        <!--<h6 *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" class="mb-0 text-capitalize">{{userInfo?.current_employer}}</h6>
-        <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
-          <ng-container *ngIf="userInfo?.privacy_protection?.current_employer == true; else elseEmpTemplate">
-            <h6 class="mb-0 text-capitalize">{{userInfo?.current_employer}}</h6>
-          </ng-container>
-          <ng-template #elseEmpTemplate>
-            <h6 class="mb-0 text-capitalize">
-              {{censorEmployer(userInfo?.current_employer)}}
-            </h6>
-          </ng-template>
-        </ng-container>-->
 
       </div>
     </div>
-    </div>
+    </div> -->
 
-	 <div class="col-lg-5 text-right" *ngIf="isMatchView">
+	  <div class="col-lg-12 text-right" *ngIf="isMatchView">
 		<div class="form-inline float-right mt-2">
 			<div class="selectDD">
 				<select class="selectpicker" [(ngModel)]="selected" id="selectpicker" data-none-selected-text="Choose Jobs " multiple data-live-search="true">
@@ -168,7 +271,7 @@
 			<button type="button" (click)="OpenMatchesWithID()"  class="btn btn-theme-blue btn-sm"> 
 			<i class="fas fa-tasks"></i></button>				
 		</div>	
-	</div>
+	</div> 
 		</div>
   </div>
 </div>

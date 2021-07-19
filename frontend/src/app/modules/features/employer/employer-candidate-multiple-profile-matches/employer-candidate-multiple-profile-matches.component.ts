@@ -196,12 +196,12 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		this.employerService.getPostedJob(removeEmpty).subscribe(
 		response => {
 			if(response && response.items && response.items.length > 0) {
-				this.postedJobsMatchDetails=response.items;
+				//this.postedJobsMatchDetails=response.items;
 				if(this.employeePath =='userscorings'){
 					this.TotalMatchJobs = [];
-					for(let i=0;i<this.postedJobsMatchDetails.length;i++){
+					for(let i=0;i<response.items.length;i++){
 						var score =4;
-						var profile = this.postedJobsMatchDetails[i]
+						var profile = response.items[i]
 						if (this.userInfo['work_authorization'] == profile.work_authorization) {
 							score += 1;
 						}
@@ -217,13 +217,16 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 						if (this.userInfo['end_to_end_implementation'] <= profile.end_to_end_implementation) {
 							score += 1;
 						}
-						this.postedJobsMatchDetails[i]['score']=score;
-						this.TotalMatchJobs.push(this.postedJobsMatchDetails[i])
+						response.items[i]['score']=score;
+						if(this.TotalMatchJobs.length!=0){
+							temp[0]['match_select']=this.TotalMatchJobs[0]['match_select'];
+						}
+						this.TotalMatchJobs.push(response.items[i])
 					}
 				}else{
 					for(let i=0;i<this.jobID.length;i++){
 						var idVal = parseInt(this.jobID[i]);
-						var temp = this.postedJobsMatchDetails.filter(function(a,b){ return a.id == idVal})
+						var temp = response.items.filter(function(a,b){ return a.id == idVal})
 						if(temp.length!=0){
 							var score =4;
 							var profile = temp[0]
@@ -243,9 +246,15 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 								score += 1;
 							}
 							temp[0]['score']=score;
+							if(this.TotalMatchJobs.length!=0){
+								temp[0]['match_select']=this.TotalMatchJobs[0]['match_select'];
+							}
 							this.TotalMatchJobs.push(temp[0])
 						}
 					}
+				}
+				if(response && response.items && response.items.length > 0) {
+					this.postedJobsMatchDetails=response.items;
 				}
 				this.ShowData()
 			}

@@ -80,8 +80,9 @@ export class SendMailJobPreviewComponent implements OnInit {
       requestParams.user = this.userInfo.id;
       requestParams.status = 7;
       requestParams.short_listed = true;
-
-      this.employerService.shortListUser(requestParams).subscribe(
+		this.onClickCloseBtn(false);
+          callBack();
+      /* this.employerService.shortListUser(requestParams).subscribe(
         response => {
           this.onClickCloseBtn(false);
           callBack();
@@ -90,8 +91,8 @@ export class SendMailJobPreviewComponent implements OnInit {
       )
     }else {
       this.toastrService.error('Something went wrong', 'Failed')
-    }
-  }
+    } */
+}}
 
   onSendMail = () => {
     if((this.jobInfo && this.jobInfo.id) && (this.userInfo && this.userInfo.email)) {

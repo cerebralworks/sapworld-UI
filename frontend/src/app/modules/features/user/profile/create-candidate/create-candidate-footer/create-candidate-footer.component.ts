@@ -11,82 +11,75 @@ import { SharedApiService } from '@shared/service/shared-api.service';
   styleUrls: ['./create-candidate-footer.component.css']
 })
 export class CreateCandidateFooterComponent implements OnInit {
+	
+	/**
+	**	Variable declaration
+	**/
+	
+	@Input() currentTabInfo: tabInfo;
+	@Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
+	@Output() createCandidate: EventEmitter<any> = new EventEmitter();
+	@Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
+	@Input() createCandidateForm: FormGroup;
+	public savedUserDetails: any;
+	public nextBtnValidate: boolean =false ;
+	public userInfo: any;
 
-  @Input() currentTabInfo: tabInfo;
-  @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
-  @Output() createCandidate: EventEmitter<any> = new EventEmitter();
-  @Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
-  @Input() createCandidateForm: FormGroup;
-  public savedUserDetails: any;
-  public nextBtnValidate: boolean =false ;
-  public userInfo: any;
-  
-  tabInfos: any[];
-  @Input('userDetails')
-  set userDetails(inFo: any) {
-    this.savedUserDetails = inFo;
-  }
-
-  public btnType: string;
-  isOpenedRegisterReviewModal: any;
-public requestParams: any;
-  constructor(
-    private userSharedService: UserSharedService,
+	tabInfos: any[];
+	@Input('userDetails')
+	set userDetails(inFo: any) {
+		this.savedUserDetails = inFo;
+	}
+	public btnType: string;
+	isOpenedRegisterReviewModal: any;
+	public requestParams: any;
+	
+	constructor(
+		private userSharedService: UserSharedService,
 		private SharedAPIService: SharedApiService,
-    private dataService: DataService
+		private dataService: DataService
     ) { }
-
-  validateInfo = 0;
-  ngOnInit(): void {
-	  /* this.requestParams = {'Enter the oninit':'CreateCandidateFooterComponent'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
-    this.userSharedService.getUserProfileDetails().subscribe(
-      response => {
-        this.userInfo = response;
-        if(this.userInfo && this.userInfo.id && this.validateInfo == 0) {
-          this.validateInfo++;
-        }
-      }
-    )
-    this.dataService.getTabInfo().subscribe(
-      response => {
-        if (response && Array.isArray(response) && response.length) {
-          this.tabInfos = response;
-        }
-      }
-    )
-	/* this.requestParams = {'Exist the oninit':'CreateCandidateFooterComponent'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
-  }
-
-  onPrevious = () => {
-	 /*  this.requestParams = {'Enter the onPrevious':'CreateCandidateFooterComponent','time':new Date().toLocaleString()};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
-    this.btnType = 'prev';
-    this.onTabChange();
-	/* this.requestParams = {'Exist the onPrevious':'CreateCandidateFooterComponent','time':new Date().toLocaleString()};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
-  }
-
-  onNext = () => {
-	  /* this.requestParams = {'Enter the onNext':'CreateCandidateFooterComponent','time':new Date().toLocaleString()};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
-    this.btnType = 'next';
-    this.onTabChange();
-	/* this.requestParams = {'Exist the onNext':'CreateCandidateFooterComponent','time':new Date().toLocaleString()};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
-  }
-
+	
+	/**
+	**	Initialize the footer section
+	**/
+	
+	validateInfo = 0;
+	ngOnInit(): void {
+		this.userSharedService.getUserProfileDetails().subscribe(
+		  response => {
+			this.userInfo = response;
+			if(this.userInfo && this.userInfo.id && this.validateInfo == 0) {
+			  this.validateInfo++;
+			}
+		  }
+		)
+		this.dataService.getTabInfo().subscribe(
+		  response => {
+			if (response && Array.isArray(response) && response.length) {
+			  this.tabInfos = response;
+			}
+		  }
+		)
+	}
+	/**
+	**	click the previous section
+	**/
+	onPrevious = () => {
+		this.btnType = 'prev';
+		this.onTabChange();
+	}
+	/**
+	**	click the next section
+	**/
+	onNext = () => {
+		this.btnType = 'next';
+		this.onTabChange();
+	}
+	/**
+	**	to detect the chnages in the tabs change
+	**/
   onTabChange = () => {
-	  /* this.requestParams = {'Enter the onTabChange':'CreateCandidateFooterComponent','time':new Date().toLocaleString()};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
     if(this.btnType == 'next') {
 		if(this.currentTabInfo.tabNumber == 1 ){
 		if(this.createCandidateForm.value.personalDetails.authorized_country_select){
@@ -135,11 +128,10 @@ public requestParams: any;
       prevTabProgressor.tabName = this.onGetTabName(prevTabProgressor.tabNumber);
       this.onTabChangeEvent.emit(prevTabProgressor);
     }
-	/* this.requestParams = {'Exist the onTabChange':'CreateCandidateFooterComponent'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
   }
-
+	/**
+	**	Tabs section
+	**/
   onGetTabName = (tabNumber: number) => {
     let tabName: string = 'Personal Detail';
     switch (tabNumber) {
@@ -160,40 +152,34 @@ public requestParams: any;
     }
     return tabName;
   }
-  	
+  	/**
+	**	To open the review popup
+	**/
+	
   onToggleRegisterReview = (status) => {
-	  /* this.requestParams = {'Enter the onToggleRegisterReview':'footer','time':new Date().toLocaleString()};
-	 this.SharedAPIService.onSaveLogs(this.requestParams); */
+	 
     if(this.createCandidateForm.valid) {
-		/* this.requestParams = {'Check Authorized Country Select':'footer','time':new Date().toLocaleString()};
-		this.SharedAPIService.onSaveLogs(this.requestParams); */
+		
 		if(this.createCandidateForm.value.personalDetails.authorized_country_select){
-			/* this.requestParams = {'Check Authorized Country Select After':'footer','Check Authorized Country Bfrore':'footer','time':new Date().toLocaleString()};
-			this.SharedAPIService.onSaveLogs(this.requestParams); */
+		
 			if(this.createCandidateForm.value.personalDetails.authorized_country){
 				this.requestParams = {'Check Authorized Country Aftre':'footer','Check Before concat authorized_country':'footer','time':new Date().toLocaleString()};
 				this.SharedAPIService.onSaveLogs(this.requestParams);
 				var val= this.createCandidateForm.value.personalDetails.authorized_country.concat(this.createCandidateForm.value.personalDetails.authorized_country_select);
 				val= [...new Set(val)];
-				/* this.requestParams = {'Check Aftr concat authorized_country':'footer','Check Before patchValue authorized_country':'footer','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
+				
 				this.createCandidateForm.patchValue({personalDetails:{authorized_country:val}})
-				/* this.requestParams = {'Check After patchValue authorized_country':'footer'};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
+				
 			}else{
-				/* this.requestParams = {'Check Aftr concat authorized_country':'footer','Check Before patchValue authorized_country':'footer','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
+				
 				var value = this.createCandidateForm.value.personalDetails.authorized_country_select
 				this.createCandidateForm.patchValue({personalDetails:{authorized_country:value}	})
-				/* this.requestParams = {'Check After patchValue authorized_country':'footer','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
+				
 			}
 		}
-		/* this.requestParams = {'Before the onEnableJobPreviewModalEmit':'footer','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
+		
 		this.onEnableJobPreviewModal.emit(status);
-		/* this.requestParams = {'Exist onToggleRegisterReview':'footer','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
+		
     }
   }
 

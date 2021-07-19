@@ -10,7 +10,11 @@ import { DataService } from '@shared/service/data.service';
   styleUrls: ['./create-candidate-header.component.css']
 })
 export class CreateCandidateHeaderComponent implements OnInit {
-
+	
+	/**
+	**	variable declaration
+	**/
+	
   @Input() currentTabInfo: tabInfo;
   @Input() createCandidateForm: FormGroup;
   @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
@@ -22,95 +26,61 @@ export class CreateCandidateHeaderComponent implements OnInit {
     private userSharedService: UserSharedService,
     private dataService: DataService
   ) { }
-
-  ngOnInit(): void {
-    this.tabTempArray.push(this.currentTabInfo);
-    this.dataService.setTabInfo(this.tabTempArray);
-    this.dataService.getTabInfo().subscribe(
-      response => {
-        if (response && Array.isArray(response) && response.length) {
-          this.tabInfos = response;
-        }
-      }
-    )
-    this.userSharedService.getUserProfileDetails().subscribe(
-      response => {
-        this.userInfo = response;
-      }
-    )
-  }
-
-  onTabChange = (currentTabInfo: tabInfo) => {
-    this.currentTabInfo = currentTabInfo;
-    this.onTabChangeEvent.emit(currentTabInfo);
-    if (this.tabInfos.length == 0) {
-      this.tabTempArray.push(currentTabInfo);
-    } else {
-      let index = this.tabInfos.findIndex(val => val.tabNumber == currentTabInfo.tabNumber);
-      if (index == -1) {
-        this.tabTempArray.push(currentTabInfo);
-      }
-    }
-    this.dataService.setTabInfo(this.tabTempArray);
-
-    // this.tabInfos.map((val: tabInfo, index) => {
-    //   if (currentTabInfo.tabNumber < val.tabNumber) {
-    //     if (val.tabNumber == 2) {
-    //       this.removeValidators(<FormGroup>this.createCandidateForm.controls['educationExp']);
-    //     }
-    //     if (val.tabNumber == 3) {
-    //       this.removeValidators(<FormGroup>this.createCandidateForm.controls['skillSet']);
-    //       this.removeValidators(<FormGroup>this.createCandidateForm.controls['skillSet']);
-    //       this.createCandidateForm.controls.skillSet['controls'].hands_on_experience.controls.map((val, index) => {
-    //         this.removeValidators(<FormGroup>val);
-    //       })
-    //     }
-    //     if (val.tabNumber == 4) {
-    //       this.removeValidators(<FormGroup>this.createCandidateForm.controls['jobPref']);
-    //     }
-    //   }
-    //   if (currentTabInfo.tabNumber > val.tabNumber) {
-    //     if (val.tabNumber == 2) {
-    //       this.addValidators(<FormGroup>this.createCandidateForm.controls['educationExp']);
-    //     }
-    //     if (val.tabNumber == 3) {
-    //       this.addValidators(<FormGroup>this.createCandidateForm.controls['skillSet']);
-    //       this.createCandidateForm.controls.skillSet['controls'].hands_on_experience.controls.map((val, index) => {
-    //         this.addValidators(<FormGroup>val);
-    //       })
-    //     }
-    //     if (val.tabNumber == 4) {
-    //       this.addValidators(<FormGroup>this.createCandidateForm.controls['jobPref']);
-    //     }
-    //   }
-    // })
-
-    // this.tabInfos.map((val: tabInfo, index) => {
-    //   if(val.tabNumber > currentTabInfo.tabNumber) {
-    //     if(val.tabNumber == 2) {
-    //       this.createCandidateForm.removeControl('educationExp');
-    //     }else if(val.tabNumber == 3) {
-    //       this.createCandidateForm.removeControl('skillSet');
-    //     }else if(val.tabNumber == 4) {
-    //       this.createCandidateForm.removeControl('jobPref');
-    //     }
-    //   }
-    // })
-  }
-
-  public removeValidators(form: FormGroup) {
-    for (const key in form.controls) {
-      form.get(key).clearValidators();
-      form.get(key).updateValueAndValidity();
-    }
-  }
-
-  public addValidators(form: FormGroup) {
-    for (const key in form.controls) {
-      form.get(key).setValidators(this.validationType[key]);
-      form.get(key).updateValueAndValidity();
-    }
-  }
+	/**
+	**	Initialize section
+	**/
+	ngOnInit(): void {
+		this.tabTempArray.push(this.currentTabInfo);
+		this.dataService.setTabInfo(this.tabTempArray);
+		this.dataService.getTabInfo().subscribe(
+		  response => {
+			if (response && Array.isArray(response) && response.length) {
+			  this.tabInfos = response;
+			}
+		  }
+		)
+		this.userSharedService.getUserProfileDetails().subscribe(
+		  response => {
+			this.userInfo = response;
+		  }
+		)
+	}
+	/**
+	**	detect the tabInfo change
+	**/
+	onTabChange = (currentTabInfo: tabInfo) => {
+		this.currentTabInfo = currentTabInfo;
+		this.onTabChangeEvent.emit(currentTabInfo);
+		if (this.tabInfos.length == 0) {
+		  this.tabTempArray.push(currentTabInfo);
+		} else {
+		  let index = this.tabInfos.findIndex(val => val.tabNumber == currentTabInfo.tabNumber);
+		  if (index == -1) {
+			this.tabTempArray.push(currentTabInfo);
+		  }
+		}
+		this.dataService.setTabInfo(this.tabTempArray);
+	}
+	
+	/**
+	**	remove the validation for edit update
+	**/
+	public removeValidators(form: FormGroup) {
+		for (const key in form.controls) {
+		  form.get(key).clearValidators();
+		  form.get(key).updateValueAndValidity();
+		}
+	}
+	
+	/**
+	**	Add the validation 
+	**/
+	public addValidators(form: FormGroup) {
+		for (const key in form.controls) {
+		  form.get(key).setValidators(this.validationType[key]);
+		  form.get(key).updateValueAndValidity();
+		}
+	}
 
   validationType = {
     'experience': [Validators.required],

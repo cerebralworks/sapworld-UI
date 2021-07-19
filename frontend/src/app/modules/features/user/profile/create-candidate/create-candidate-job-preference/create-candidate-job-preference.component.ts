@@ -18,15 +18,18 @@ declare let google: any;
 })
 
 export class CreateCandidateJobPreferenceComponent implements OnInit {
-
+	
+	/**
+	**	Variable declaration
+	**/
+	
 	visible = true;
 	selectable = true;
 	removable = true;
 	addOnBlur = true;
 	readonly separatorKeysCodes = [ENTER, COMMA] as const;
 	address = [ ];
-	
-@ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
+	@ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
 	private autocomplete: any;
@@ -42,13 +45,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		this.savedUserDetails = inFo;
 	}
 	public othercountry: any[] = [];
- 	public requestParams: any;	 
-	
+	public requestParams: any;	 
 	options  = {
 		componentRestrictions: { country:[] }
+	};
 
-	  };
-  
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
@@ -511,7 +512,9 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
     return this.f.preferred_locations as FormArray;
   }
   
-  
+	/**
+	**	To add the preferred_location
+	**/
   onDuplicate = () => {
       this.t.push(this.formBuilder.group({
         city: [''],
@@ -520,7 +523,9 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
         country: ['']
       }));
   }
-
+	/**
+	**	To remove the preferred_location
+	**/
   onRemove = (index) => {
     let removedValue = this.t.value[index];
  
@@ -546,6 +551,10 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 
     }
   }
+	/**
+	**	handle the address change
+	**/
+	
   handleAddressChange = (event) => {
     const address = this.sharedService.fromGooglePlace(event);
 	if(event.geometry){

@@ -14,25 +14,28 @@ import { SharedApiService } from '@shared/service/shared-api.service';
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
 export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
-
-  @Input() currentTabInfo: tabInfo;
-
-  public eduArray: any[] = [];
-  public initialValue = 0 ;
-  public childForm;
-  public industryItems: any[] = [];
-  public educations: any[] = [];
-  public educationsSelectedArray: any[] = [];
-  public sapExpError: boolean = false;
-  public totalExpError: boolean = false;
-  educationsSelectedValue: any;
-  educationsSelectedIndex: number;
-  userInfo: any;
-  savedUserDetails: any;
-  @Input('userDetails')
-  set userDetails(inFo: any) {
-    this.savedUserDetails = inFo;
-  }
+	
+	/**
+	**	Variable declaration
+	**/
+	
+	@Input() currentTabInfo: tabInfo;
+	public eduArray: any[] = [];
+	public initialValue = 0 ;
+	public childForm;
+	public industryItems: any[] = [];
+	public educations: any[] = [];
+	public educationsSelectedArray: any[] = [];
+	public sapExpError: boolean = false;
+	public totalExpError: boolean = false;
+	educationsSelectedValue: any;
+	educationsSelectedIndex: number;
+	userInfo: any;
+	savedUserDetails: any;
+	@Input('userDetails')
+	set userDetails(inFo: any) {
+		this.savedUserDetails = inFo;
+	}
 	public requestParams: any;	
   constructor(
     private parentF: FormGroupDirective,
@@ -43,44 +46,46 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 		private SharedAPIService: SharedApiService,
     public utilsHelperService: UtilsHelperService
   ) { }
+	
+	/**
+	**	Initialize the education-exp tab
+	**/
+	
+	ngOnInit(): void {
+		this.createForm();
+		this.educations = [
+		  "high school",
+		  "bachelors",
+		  "diploma",
+		  "masters",
+		  "doctorate"
+		];
+		this.dataService.getIndustriesDataSource().subscribe(
+		  response => {
+			if (response && response.items) {
+			  this.industryItems = [...response.items];
+			}
+		  },
+		  error => {
+			this.industryItems = [];
+		  }
+		)
+		this.userSharedService.getUserProfileDetails().subscribe(
+		  response => {
+			this.userInfo = response;
+			if(this.userInfo) {
 
-  ngOnInit(): void {
-	  //console.log({'Entering the oninit':'educationExp'})
-    this.createForm();
-
-    this.educations = [
-      "high school",
-      "bachelors",
-      "diploma",
-      "masters",
-      "doctorate"
-    ];
-    this.dataService.getIndustriesDataSource().subscribe(
-      response => {
-        if (response && response.items) {
-          this.industryItems = [...response.items];
-        }
-      },
-      error => {
-        this.industryItems = [];
-      }
-    )
-    this.userSharedService.getUserProfileDetails().subscribe(
-      response => {
-        this.userInfo = response;
-        if(this.userInfo) {
-
-        }
-      }
-    )
-	console.log({'Exist the oninit':'educationExp'})
-  }
-
+			}
+		  }
+		)
+	}
+	
+  /**
+  **	To detect onchange event in education-exp tabInfo
+  **/	
+  
   ngOnChanges(changes): void {
     setTimeout( async () => {
-		/* this.requestParams = {'Entering the onChange':'educationExp'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
     if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
       if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
         if(this.savedUserDetails.education_qualification.length == 0){
@@ -122,20 +127,13 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	  }
       
     }
-    // if(this.childForm && this.childForm.value.educationExp.education_qualification && Array.isArray(this.childForm.value.educationExp.education_qualification)) {
-    // let remp =  this.childForm.value.educationExp.education_qualification.filter((val, index) => {
-    //   if((val.degree == null || val.degree == '') && (val.field_of_study == null || val.field_of_study == '') && (val.year_of_completion == null || val.year_of_completion == '')) {
-    //     console.log(this.childForm.get('educationExp.education_qualification').controls[index].controls['degree']);
-    //     this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
-    //     this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-    //   }
-    //  });
-    // }
-	/* this.requestParams = {'Exist the onChange':'educationExp'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
   });
   }
+  
+	/**
+	**	To detect keyPress event
+	**/
+	
 	keyPress() {
 	if(this.childForm.value.educationExp.sap_experience !="" && this.childForm.value.educationExp.experience != ""){
 		if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience){
@@ -148,6 +146,9 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	}
     
 }
+	/**
+	**	To create a educationExp form
+	**/
   createForm() {
     this.childForm = this.parentF.form;
 
@@ -175,6 +176,9 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   get t() {
     return this.f.education_qualification as FormArray;
   }
+	/**
+	**	To check the education Array data
+	**/
 	educationsSelectedArrayCheck(value,index){
 		if(value==index['value']['degree']){
 			return false;
@@ -186,6 +190,10 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 			}
 		}
 	}
+	/**
+	**	To detect the changes in the degree  
+	**/
+	
   onChangeDegreeValue = (value, index) => {
     this.educationsSelectedValue = value;
     if (!this.educationsSelectedArray.includes(this.educationsSelectedValue)) {
@@ -245,7 +253,9 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
     }
   }
-
+	/**
+	**	To add a new education Array
+	**/
   onDuplicate = (index) => {
 	  if(this.t.value[index]['field_of_study']== null ||this.t.value[index]['degree']== '' ||this.t.value[index]['year_of_completion']== null  ){
 		  
@@ -257,7 +267,9 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
       }));
     }
   }
-
+	/**
+	**	To remove the education Array
+	**/
   onRemove = (index) => {
     let removedValue = this.t.value[index];
     if (removedValue && removedValue.degree) {

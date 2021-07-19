@@ -721,7 +721,7 @@ findLanguageArray(value){
     requestParams.page = 1;
     requestParams.limit = 1000;
     requestParams.expand = 'company';
-    requestParams.company = companyId;
+    requestParams.company = companyId.company;
     requestParams.skills_filter = 'false';
     requestParams.work_authorization = '';
     requestParams.visa_sponsered = false;	
@@ -881,7 +881,22 @@ if(this.userDetails && this.userDetails.experience) {
       response => {
         if(response && response.items && response.items.length > 0) {
 			this.postedJobsMatchDetails=response.items;
+			var ids= this.postedJobsDetails['id'];
+			this.postedJobsMatchDetails = this.postedJobsMatchDetails.filter(function(a,b){ return a.id != ids});
+			if(this.postedJobsMatchDetails.length !=0){
+				
+				setTimeout(() => {
+					if (this.toggleMatchModal) {
+			  this.mbRef = this.modelService.open(this.deleteModal, {
+				windowClass: 'modal-holder',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			  });
+			} });
+			}
         }
+		
        
       }, error => {
       }
@@ -892,16 +907,7 @@ if(this.userDetails && this.userDetails.experience) {
 	  this.userDetails = details;
 	  this.onGetPostedJobs(companyId) ;
 	  this.toggleMatchModal = true;
-    
-		setTimeout(() => {
-			if (this.toggleMatchModal) {
-      this.mbRef = this.modelService.open(this.deleteModal, {
-        windowClass: 'modal-holder',
-        centered: true,
-        backdrop: 'static',
-        keyboard: false
-      });
-    } });
+		
   }
   
   updateSelectedTimeslots(event,id){

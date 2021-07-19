@@ -50,7 +50,11 @@ const right = [
 	],
 })
 export class CreateCandidateLayoutComponent implements OnInit {
-
+	
+	/**
+	**	Variable declaratioin
+	**/
+	
 	public currentTabInfo: tabInfo = {tabNumber: 1, tabName: 'Personal Detail'};
 	public currentProgessor: tabProgressor;
 	public slidingCounter: number = 0;
@@ -77,7 +81,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		private userSharedService: UserSharedService,
 		private utilsHelperService: UtilsHelperService
 	) { }
-
+	
+	/**
+	**	To initialize the layout
+	**/
+	
 	validateInfo = 0;
 	ngOnInit(): void {
 		 console.log({'Enter the oninit':'CreateCandidateLayoutComponent'})
@@ -114,6 +122,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	
 	validateOnAPI = 0;
 	validateOnForm = 0;
+	
+	/**
+	**	To check the form data's
+	**/
+	
 	ngAfterViewInitCheck(){
 		console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
 		if(this.tabInfos && this.tabInfos.length &&  !this.utilsHelperService.isEmptyObj(this.userInfo)) {
@@ -170,6 +183,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 						this.userInfo.skills[i]=parseInt(this.userInfo.skills[i]);
 					}
 				  }
+				  this.userInfo.skills = this.utilsHelperService.differenceByPropValArray(this.userInfo.skills, this.userInfo.hands_on_experience, 'skill_id')
 				this.candidateForm.patchValue({
 					skillSet : {
 						...this.userInfo
@@ -216,7 +230,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		this.ngAfterViewInitCheck();
 		console.log({'Exist the ngAfterViewInit':'CreateCandidateLayoutComponent'})
 	}
-	
+	/**
+	**	To buildForm for the profile
+	**/
 	createFormData(){
 		if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
 			this.candidateForm.addControl('jobPref', new FormGroup({
@@ -269,6 +285,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		}
 		this.ngAfterViewInitCheck();
 	}
+	
+	/**
+	**	To slide the tabs
+	**/
+	
 	onNext() {
 		//console.log({'Enter the onNext':'CreateCandidateLayoutComponent'})
 		if (this.slidingCounter != this.slindingList.length - 1) {
@@ -288,7 +309,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		}
 		//console.log({'Exist the onNext':'CreateCandidateLayoutComponent'})
 	}
-
+	
+	/**
+	**	To remove a validationType
+	**/
+	
 	public removeValidators(form: FormGroup) {
 		if(form && form.controls) {
 			for (const key in form.controls) {
@@ -297,7 +322,10 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			}
 		}
 	}
-
+	
+	/**
+	**	To add the preferred_location
+	**/
 	public addValidators(form: FormGroup) {
 		if(form && form.controls) {
 			for (const key in form.controls) {
@@ -323,11 +351,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		'travel': [Validators.required],
 		'availability': [Validators.required],
 	}
-
+	
+	/**
+	**	To slide change the prevoius section
+	**/
 	onPrevious() {
-		//this.requestParams = {'Enter the onPrevious':'CreateCandidateLayoutComponent'};
-	// this.SharedAPIService.onSaveLogs(this.requestParams);
-	 // console.log(this.requestParams);
 		if (this.slidingCounter > 0) {
 			if(this.slidingCounter == 1) {
 				this.removeValidators(<FormGroup>this.candidateForm.controls['educationExp']);
@@ -341,9 +369,6 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			}
 			this.slidingCounter--;
 		}
-		//this.requestParams = {'Exist the onPrevious':'CreateCandidateLayoutComponent'};
-	// this.SharedAPIService.onSaveLogs(this.requestParams);
-	 // console.log(this.requestParams)
 	}
 
 	onHeaderTabChange = (currentTabInfo: tabInfo) => {
@@ -359,7 +384,10 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		}
 		this.currentTabInfo = { ...currentTabInfo};
 	}
-
+	
+	/**
+	**	To validate the form details
+	**/
 	createCandidate = () => {
 		let candidateInfo: CandidateProfile = {
 			...this.candidateForm.value.personalDetails,
@@ -434,7 +462,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			this.onUserUpdate(candidateInfo);
 		})
 	}
-
+	/**
+	**	To update the user details
+	**/
 	onUserUpdate = (candidateInfo: CandidateProfile) => {
 		this.userService.update(candidateInfo).subscribe(
 		response => {
@@ -458,22 +488,20 @@ export class CreateCandidateLayoutComponent implements OnInit {
       }
     )
   }
-
+	/**
+	**	To get review popup status
+	**/
   onToggleRegisterReview = (status) => {
-	 /*  this.requestParams = {'Enter the onToggleRegisterReview':'CreateCandidateLayoutComponent'};
-	 this.SharedAPIService.onSaveLogs(this.requestParams);
-	  console.log(this.requestParams) */
     this.isOpenedRegisterReviewModal = status;
-	 /* console.log({'Exist the onToggleRegisterReview':'CreateCandidateLayoutComponent'})
-	 this.requestParams = {'Exist the onToggleRegisterReview':'CreateCandidateLayoutComponent'};
-	 this.SharedAPIService.onSaveLogs(this.requestParams); */
   }
 
   private buildForm(): void {
     this.candidateForm = this.formBuilder.group({
     });
   }
-
+	/**
+	**	To get skills Info
+	**/
   onGetSkill = () => {
     this.requestParams = {};
     this.requestParams.page = 1;
@@ -481,7 +509,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
     this.requestParams.search = '';
     this.SharedAPIService.onGetSkill(this.requestParams);
   }
-
+	/**
+	**	To get domain Info
+	**/
   onGetIndustries = () => {
     this.requestParams = {};
     this.requestParams.page = 1;
@@ -490,7 +520,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
     this.SharedAPIService.onGetIndustries(this.requestParams);
   }
   
-  
+	/**
+	**	To get country Info
+	**/
     onGetCountry(query) {
 		this.requestParams = {};
 		this.requestParams.page = 1;
@@ -501,7 +533,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		this.SharedAPIService.onGetCountry(this.requestParams);
 		 
 	  }
-	  
+	/**
+	**	To get language Info
+	**/
 	onGetLanguage(query) {
 		this.requestParams = {};
 		this.requestParams.page = 1;
@@ -510,8 +544,10 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		this.requestParams.search = query;
 
 		this.SharedAPIService.onGetLanguage(this.requestParams);
-	  }
-
+	}  
+	/**
+	**	To get candidate Info
+	**/
   onGetCandidateInfo(userId) {
     this.requestParams = {};
     this.requestParams.id = userId;

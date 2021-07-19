@@ -16,7 +16,11 @@ import {MatChipInputEvent} from '@angular/material/chips';
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
 export class CreateCandidateSkillsetComponent implements OnInit {
-
+	
+	/**
+	**	Variable declaration
+	**/
+	
 	visible = true;
 	selectable = true;
 	removable = true;
@@ -25,19 +29,18 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	certification = [ ];
 	othersSkills = [ ];
 	programmingSkills = [ ];
-	
-  @Input() currentTabInfo: tabInfo;
-  skillArray: any[] = [];
-  public childForm;
-  public skillItems: any[] = [];
-  public skillsItems: any[] = [];
-  public commonSkills: any[] = [];
-  public userInfo: any;
-  savedUserDetails: any;
-  @Input('userDetails')
-  set userDetails(inFo: any) {
-    this.savedUserDetails = inFo;
-  }
+	@Input() currentTabInfo: tabInfo;
+	skillArray: any[] = [];
+	public childForm;
+	public skillItems: any[] = [];
+	public skillsItems: any[] = [];
+	public commonSkills: any[] = [];
+	public userInfo: any;
+	savedUserDetails: any;
+	@Input('userDetails')
+	set userDetails(inFo: any) {
+		this.savedUserDetails = inFo;
+	}
 	public requestParams: any;	
 	public searchCallback = (search: string, item) => true; 
 
@@ -50,38 +53,41 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		private SharedAPIService: SharedApiService,
     public utilsHelperService: UtilsHelperService
   ) { }
+	
+	/**
+	**	To initialize the skillset tab
+	**/
+	
+	ngOnInit(): void {
+		this.createForm();
+		this.dataService.getSkillDataSource().subscribe(
+		  response => {
+			if (response && response.items) {
+			 for(let i=0;i<response.items.length;i++){
+				  response['items'][i]['tags'] =response['items'][i]['tag']+' -- '+response['items'][i]['long_tag'];
+			  } 
+			  this.skillItems = [...response.items];
+			  this.skillsItems = [...response.items];
+			  this.commonSkills = [...response.items];
+			}
+		  },
+		  error => {
+			this.skillItems = [];
+			this.skillsItems = [];
+			this.commonSkills = [];
+		  }
+		)
 
-  ngOnInit(): void {
-	   /* this.requestParams = {'Enter the oninit':'CreateCandidateSkillsetComponent'};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
-    this.createForm();
-    this.dataService.getSkillDataSource().subscribe(
-      response => {
-        if (response && response.items) {
-		 for(let i=0;i<response.items.length;i++){
-			  response['items'][i]['tags'] =response['items'][i]['tag']+' -- '+response['items'][i]['long_tag'];
-		  } 
-          this.skillItems = [...response.items];
-          this.skillsItems = [...response.items];
-          this.commonSkills = [...response.items];
-        }
-      },
-      error => {
-        this.skillItems = [];
-        this.skillsItems = [];
-        this.commonSkills = [];
-      }
-    )
-
-    this.userSharedService.getUserProfileDetails().subscribe(
-      response => {
-        this.userInfo = response;
-      }
-    )
-	this.requestParams = {'Exist the oninit':'CreateCandidateSkillsetComponent'};
-				//this.SharedAPIService.onSaveLogs(this.requestParams);
-  }
-
+		this.userSharedService.getUserProfileDetails().subscribe(
+		  response => {
+			this.userInfo = response;
+		  }
+		)
+	}
+	
+	/**
+	**	To add the programmingSkills data
+	**/
 	add(event: MatChipInputEvent): void {
 		
 		const value = (event.value || '').trim();
@@ -103,7 +109,10 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the programmingSkills data
+	**/
 	remove(data): void {
 		
 		const index = this.programmingSkills.indexOf(data);
@@ -118,6 +127,10 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		}
 	}
 	
+	
+	/**
+	**	To add the other_skills data
+	**/
 	addOthersSkills(event: MatChipInputEvent): void {
 		
 		const value = (event.value || '').trim();
@@ -139,7 +152,10 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the other_skills data
+	**/
 	removeOthersSkills(data): void {
 		
 		const index = this.othersSkills.indexOf(data);
@@ -153,6 +169,10 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			});
 		}
 	}
+	
+	/**
+	**	To add the certification data
+	**/
 	addCertification(event: MatChipInputEvent): void {
 		
 		const value = (event.value || '').trim();
@@ -174,7 +194,10 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the certification data
+	**/
 	removeCertification(data): void {
 		
 		const index = this.certification.indexOf(data);
@@ -189,12 +212,13 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		}
 	}
 
-
+	
+	/**
+	**	To detect the changes in the skillSet form data's
+	**/
   ngOnChanges(changes: SimpleChanges): void {
 	  
     setTimeout(async () => {
-		/* this.requestParams = {'Enter the ngOnChanges':'CreateCandidateSkillsetComponent'};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
 		if(this.childForm.controls.skillSet.status =="INVALID"){
 		  
       if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
@@ -247,6 +271,22 @@ export class CreateCandidateSkillsetComponent implements OnInit {
           }
         });
 		}}else{
+			
+		  if (this.childForm.controls.skillSet.value.hands_on_experience != null) {
+			for(let i=0;i<this.childForm.controls.skillSet.value.hands_on_experience.length;i++){
+				this.childForm.controls.skillSet.value.hands_on_experience[i]['skill_id']=parseInt(this.childForm.controls.skillSet.value.hands_on_experience[i]['skill_id']);
+				var temp_id = this.childForm.controls.skillSet.value['hands_on_experience'][i]["skill_id"]
+				this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != temp_id })
+			}
+		  } 
+
+		if (this.childForm.controls.skillSet.value.skills != null) {
+			for(let i=0;i<this.childForm.controls.skillSet.value.skills.length;i++){
+				this.childForm.controls.skillSet.value.skills[i]=parseInt(this.savedUserDetails.skills[i]);
+				var temp_id =this.childForm.controls.skillSet.value.skills[i];
+				this.skillItems = this.skillItems.filter(function(a,b){ return a.id != temp_id })
+			}
+		  }
 		if (this.childForm.controls.skillSet.value.programming_skills != null) {
 			this.programmingSkills = this.childForm.controls.skillSet.value.programming_skills;
 		}
@@ -257,10 +297,13 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			this.certification = this.childForm.controls.skillSet.value.certification;
 		}
 		}
-	  /* this.requestParams = {'Exist the ngOnChanges':'CreateCandidateSkillsetComponent'};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
     });
   }
+	
+	/**
+	**	To filter the Array dublicates
+	**/
+	
 	indexOfFilter(hasIndex,indexvalue) {
       var tempArray = this.t.value;
 	  if(tempArray.filter(function(a,b){ return a.skill_id == hasIndex }).length !=0 ){
@@ -270,6 +313,11 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	  }
        
 	}
+	
+	/**
+	**	To set the skills items
+	**/
+	
   onSelectSkillEvent = async (skillId, index) => {
     if(skillId) {
       const skillObj = this.sharedService.onFindSkillsFromSingleID(skillId);
@@ -317,7 +365,10 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
 	}
   }
-
+	
+	/**
+	**	To build a new skillSet form
+	**/
   createForm() {
     this.childForm = this.parentF.form;
 

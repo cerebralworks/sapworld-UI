@@ -46,6 +46,10 @@ import { trigger, style, animate, transition, state, group } from '@angular/anim
 })
 export class CandidateReviewModalComponent implements OnInit {
 	
+	/**
+	**	Variable Declaration
+	**/
+	
 	visible = true;
 	selectable = true;
 	removable = true;
@@ -53,13 +57,12 @@ export class CandidateReviewModalComponent implements OnInit {
 	readonly separatorKeysCodes = [ENTER, COMMA] as const;
 	certification = [ ];
 	address = [ ];
-separateDialCode = false;
+	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
 	TooltipLabel = TooltipLabel;
 	CountryISO = CountryISO;
 	PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-	
 	@Input() toggleRegisterReviewModal: boolean;
 	@Output() onEvent = new EventEmitter<boolean>();
 	public show: boolean = false;
@@ -94,23 +97,23 @@ separateDialCode = false;
 	public languageSource: any[] = [];
 	public requestParams: any;
 	public educations = [
-      "high school",
-      "bachelors",
-      "diploma",
-      "masters",
-      "doctorate"
-    ];
-  public educationsSelectedArray: any[] = [];
-  educationsSelectedValue: any;
-  options  = {
+		"high school",
+		"bachelors",
+		"diploma",
+		"masters",
+		"doctorate"
+	];
+	public educationsSelectedArray: any[] = [];
+	educationsSelectedValue: any;
+	options  = {
 		componentRestrictions: { country:[] }
+	};
 
-	  };
-	
 	@ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
-@ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
-@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
-@ViewChild('chipsInput', { static: false })chipsInput: ElementRef; //chipsInput: ElementRef<HTMLInputElement>;
+	@ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
+	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
+	@ViewChild('chipsInput', { static: false })chipsInput: ElementRef; //chipsInput: ElementRef<HTMLInputElement>;
+	
 	constructor(
 		private modalService: NgbModal,
 		public router: Router,
@@ -124,11 +127,14 @@ separateDialCode = false;
 		private SharedAPIService: SharedApiService,
 		private dataService: DataService
 	) { }
-
+	
+	/**
+	**	Initialize the review popup
+	** 	To get the country and language from the API
+	**/
+	
 	ngOnInit(): void {
-		/* this.requestParams = {'Entering the onInit':'ReviewComponent'};
-	 this.SharedAPIService.onSaveLogs(this.requestParams);
-	  console.log(this.requestParams); */
+		
 		this.childForm = this.parentF.form;
 		this.jobId = this.route.snapshot.queryParamMap.get('id');
 		this.userSharedService.getUserProfileDetails().subscribe(
@@ -151,16 +157,14 @@ separateDialCode = false;
 			  this.languageSource = response;
 			}
 		});
-		/* this.requestParams = {'Exist the onInit':'ReviewComponent'};
-	 this.SharedAPIService.onSaveLogs(this.requestParams);
-	  console.log(this.requestParams); */
 	}
-
+	
+	/**
+	**	To open the page in popup view
+	**/
+	
 	ngAfterViewInit(): void {
 		if (this.toggleRegisterReviewModal) {
-			/* this.requestParams = {'Entering the toggleRegisterReviewModal':'reviewComponent'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
 			this.mbRef = this.modalService.open(this.registerReviewModal, {
 				windowClass: 'modal-holder',
 				size: 'lg',
@@ -168,23 +172,21 @@ separateDialCode = false;
 				backdrop: 'static',
 				keyboard: false
 			});
-			/* this.requestParams = {'Exist the toggleRegisterReviewModal':'reviewComponent'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
 		}
 	}
-
+	
+	/**
+	**	To destroy the popup view
+	**/
+	
 	ngOnDestroy(): void {
-		/* this.requestParams = {'Enter the ngOnDestroy':'reviewComponent'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
 		this.onClickCloseBtn(false);
 		this.registerReviewModalSub && this.registerReviewModalSub.unsubscribe();
-		/* this.requestParams = {'Exist the ngOnDestroy':'reviewComponent'};
-			this.SharedAPIService.onSaveLogs(this.requestParams);
-			console.log(this.requestParams); */
 	}
 
+	/**
+	**	To close the review popup
+	**/
 	onClickCloseBtn(status){
 		this.onEvent.emit(status);
 		if(status == false) {
@@ -192,13 +194,25 @@ separateDialCode = false;
 		}
 	}
 
+	/**
+	**	To redirect to dashboard
+	**/
+	
 	onRedirectDashboard(status) {
 		this.createCandidate.next();
 	}
 
+	/**
+	**	To conert image to URL
+	**/
+	
 	convertToImage(imageString: string): string {
 		return this.utilsHelperService.convertToImageUrl(imageString);
 	}
+	
+	/**
+	**	To find the country id to string
+	**/
 	
 	findCountry(value){
 		if(value){
@@ -215,6 +229,10 @@ separateDialCode = false;
 		return '--';
 	}
 	
+	/**
+	**	To find the education id to string
+	**/
+	
 	findEducation(value){
 		if(value){
 		if(value.length!=0 && value.length!=null && value.length!=undefined){
@@ -227,6 +245,10 @@ separateDialCode = false;
 		return '--';
 		
 	}
+	
+	/**
+	**	To find language array to string
+	**/
 	
 	findLanguageArray(value){
 		if(value){
@@ -249,6 +271,10 @@ separateDialCode = false;
 		return '--';
 	}
 	
+	/**
+	**	To find country array to strin'
+	**/
+	
 	findCountryArray(value){
 		if(value){
 			if(this.nationality){
@@ -266,6 +292,10 @@ separateDialCode = false;
 		}
 		return '--';
 	}
+	
+	/**
+	**	To find the preferredLocation in string
+	**/
 	
 	filterPrefered(value){
 		if(value){
@@ -287,6 +317,10 @@ separateDialCode = false;
 		}
 		return '--';
 	}
+	
+	/**
+	**	To close the adding popup view
+	**/
 	
 	closeAdd(){
 		if(this.jobtype == true){
@@ -361,6 +395,10 @@ separateDialCode = false;
 		this.criteriaModalRef.close();
 	}
 	
+	/**
+	**	To close and save the add popup view
+	**/
+	
 	closeSave(){
 		
 		this.jobtype = false;
@@ -374,6 +412,12 @@ separateDialCode = false;
 		this.criteriaModalRef.close();
 		
 	}
+	
+	
+	/**
+	**	To open the add popup view
+	**/
+	
 	onOpenCriteriaModal = (value) => {
 		if(value=='jobtype'){
 			this.jobtype = true;
@@ -462,6 +506,10 @@ separateDialCode = false;
 	}
   }
   
+	/**
+	**	To check the add popup data
+	**/
+	
   openCheckPopup(){
 		this.isCheckModel = true;
 		if(this.jobtype == true){
@@ -518,25 +566,42 @@ separateDialCode = false;
 		}
   }
   
+	/**
+	**	To cancel the check model view
+	**/
+	
   cancelCheck(){
-	 this.checkModalRef.close();
-	  
-	  
+	 this.checkModalRef.close(); 
   }
   
+	/**
+	**	To destroy the popup view
+	**/
+	
   closeSaveCheck(){
 	  
 	this.checkModalRef.close();
 	  this.closeSave();
   }
   
+	/**
+	**	To assign the education form controls to f
+	**/
+	
   get f() {
     return this.childForm.controls.educationExp.controls;
   }
-
+	/**
+	**	To assign the education_qualification form controls to t
+	**/
+	
   get t() {
     return this.f.education_qualification as FormArray;
   }
+	/**
+	**	To check the education array
+	**/
+	
 	educationsSelectedArrayCheck(value,index){
 		if(value==index['value']['degree']){
 			return false;
@@ -548,6 +613,10 @@ separateDialCode = false;
 			}
 		}
 	}
+	/**
+	**	To detect any changes happens in the education_qualification
+	**/
+	
   onChangeDegreeValue = (value, index) => {
     this.educationsSelectedValue = value;
     if (!this.educationsSelectedArray.includes(this.educationsSelectedValue)) {
@@ -607,7 +676,9 @@ separateDialCode = false;
       this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
     }
   }
-
+	/**
+	**	To add a new education data
+	**/
   onDuplicate = (index) => {
 	  if(this.t.value[index]['field_of_study']== null ||this.t.value[index]['degree']== '' ||this.t.value[index]['year_of_completion']== null  ){
 		  
@@ -619,7 +690,9 @@ separateDialCode = false;
       }));
     }
   }
-
+	/**
+	**	To removable add data in education
+	**/
   onRemove = (index) => {
     let removedValue = this.t.value[index];
     if (removedValue && removedValue.degree) {
@@ -641,7 +714,10 @@ separateDialCode = false;
   }
   
   
-  
+	/**
+	**	To add the certification
+	**/
+	
 	addCertification(event: MatChipInputEvent): void {
 		
 		const value = (event.value || '').trim();
@@ -663,7 +739,9 @@ separateDialCode = false;
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	/**
+	**	To remove the certification
+	**/
 	removeCertification(data): void {
 		
 		const index = this.certification.indexOf(data);
@@ -695,7 +773,10 @@ separateDialCode = false;
     return this.childForm.controls.jobPref.controls.preferred_locations as FormArray;
   }
   
-  
+	/**
+	**	To add the preferredLocation
+	**/
+	
   onDuplicates = () => {
       this.ts.push(this.formBuilder.group({
         city: [''],
@@ -704,7 +785,9 @@ separateDialCode = false;
         country: ['']
       }));
   }
-
+	/**
+	**	To remove the preferredLocation by id
+	**/
   onRemoves = (index) => {
     let removedValue = this.ts.value[index];
  
@@ -782,7 +865,10 @@ separateDialCode = false;
 		this.r.removeAt(index);
     }
   }
-  
+	/**
+	**	To check the mobileNumber format
+	**/
+	
   checkNumber(){
 		
 		if(this.childForm.controls.personalDetails.controls.phone.status=="INVALID"){
