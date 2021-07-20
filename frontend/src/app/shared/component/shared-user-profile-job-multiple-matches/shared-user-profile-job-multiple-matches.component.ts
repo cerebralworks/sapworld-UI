@@ -13,6 +13,9 @@ import { trigger, style, animate, transition, state, group } from '@angular/anim
 
 export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 
+	/**
+	**	Variable declaration
+	**/
 	@Input() userInfo: CandidateProfile;
 	@Input() fieldsExclude: any;
 	@Input() postedJobsDetails: any;
@@ -44,6 +47,10 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
       }
     );
 	}
+	
+	/**
+	**	To get the required,desired and optional
+	**/
   ngOnChanges(changes): void {
     setTimeout( async () => {
 		var arr = [];
@@ -102,6 +109,9 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 	  
   }
 	
+	/**
+	**	To find the country String
+	**/
 	findCountry(value){
 		if(value){
 			if(this.nationality){
@@ -119,6 +129,9 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find the education
+	**/
 	findEducation(value){
 		if(value){
 			if(value.length!=0){
@@ -131,6 +144,9 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find the language
+	**/
 	findLanguageArray(value){
 		if(value){
 			value = value.map(function(a,b){
@@ -155,6 +171,9 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find country Array to String
+	**/
 	findCountryArray(value){
 		if(value){
 			if(this.nationality){
@@ -176,7 +195,9 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 		return '--';
 	}
 	
-	
+	/**
+	**	To filter the preferred Location
+	**/	
 	filterPrefered(value){
 		if(value){
 			if(value.length !=0){

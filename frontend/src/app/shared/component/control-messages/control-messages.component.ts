@@ -12,7 +12,9 @@ export class ControlMessagesComponent {
   public control: FormControl;
   @Input()
   public labelName?: string;
-
+  /**
+  **	To show the errorMessage
+  **/
   get errorMessage(): boolean {
     if(this.control && this.control.errors) {
       for (const propertyName in this.control.errors) {

@@ -47,6 +47,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public selectedResumeUrl: string;
 	private subscriptions: Subscription[] = [];
 	private postedJobsMatchDetails: any[] = [];
+	private postedJobsMatchDetailsUsers: any[] = [];
 	private checkArray: any[] = [];
 	private userDetails: any = {};
 
@@ -250,6 +251,12 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 						this.matchingUsersMeta = { ...response.meta }
 					}
 				}
+				if (response) {
+					if(response.profile){
+						this.userDetails = response.profile;
+						this.onGetPostedJobs(this.postedJobsDetails) ;
+					}
+				}
 			}, error => {
 			}
 		)
@@ -274,9 +281,15 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 				if(response.profile.skills){
 					response.profile.skills = this.utilsHelperService.differenceByPropValArray(response.profile.skills, response.profile.hands_on_experience, 'skill_id')
 				}	
+				
+				
 			}
 			if (response) {
 				this.matchingUsersNew = { ...response };
+				if(response.profile){
+					this.userDetails = response.profile;
+					this.onGetPostedJobs(this.postedJobsDetails) ;
+				}
 			}
 		}, error => {
 		})
@@ -290,6 +303,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	onViewOtherMatches = () => {
 		if(this.IsValidate==false){
 			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+				this.postedJobsMatchDetailsUsers =[];
+				this.toggleMatchModal = false;
 				this.isMultipleMatches = true;
 				this.onGetJobScoringById(true);
 				this.page++;
@@ -313,6 +328,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		if (type == 'next') {
 			if (count > this.page) {
 				if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+					this.postedJobsMatchDetailsUsers =[];
+					this.toggleMatchModal = false;
 					this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
 					this.matchingUsers = { ...this.matchingUsers, profile: {} };
 					this.page++;
@@ -327,6 +344,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 			}
 		} else if (type == 'prev' && this.page > 2) {
 			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+				this.postedJobsMatchDetailsUsers =[];
+				this.toggleMatchModal = false;
 				this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
 				this.matchingUsers = { ...this.matchingUsers, profile: {} };
 				this.page--;
@@ -499,6 +518,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
       const filteredValue = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1);
       if (!this.utilsHelperService.isEmptyObj(filteredValue)) {
         return filteredValue.file;
+      }
+	  const filteredValues = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 0);
+	  if (!this.utilsHelperService.isEmptyObj(filteredValues)) {
+        return filteredValues.file;
       }
     }
     return "";
@@ -717,11 +740,21 @@ findLanguageArray(value){
 	
 
 	onGetPostedJobs(companyId) {
+		var tempDataId = ''
+		if(companyId){
+			if(companyId['company']){
+				if(companyId['company']['id']){
+					tempDataId=companyId['company']['id'];
+				}else if(this.postedJobsDetails['company']){
+					tempDataId = companyId['company'];
+				}
+			}
+		}
     let requestParams: any ={};
     requestParams.page = 1;
     requestParams.limit = 1000;
     requestParams.expand = 'company';
-    requestParams.company = companyId.company;
+    requestParams.company = tempDataId;
     requestParams.skills_filter = 'false';
     requestParams.work_authorization = '';
     requestParams.visa_sponsered = false;	
@@ -881,19 +914,31 @@ if(this.userDetails && this.userDetails.experience) {
       response => {
         if(response && response.items && response.items.length > 0) {
 			this.postedJobsMatchDetails=response.items;
-			var ids= this.postedJobsDetails['id'];
+			var ids ='';
+			if(this.postedJobsDetails){
+				if(this.postedJobsDetails['id']){
+					ids= this.postedJobsDetails['id'];
+				}
+			}
 			this.postedJobsMatchDetails = this.postedJobsMatchDetails.filter(function(a,b){ return a.id != ids});
 			if(this.postedJobsMatchDetails.length !=0){
-				
+				if (!this.toggleMatchModal) {
+					var tempDatas = { id: this.userDetails.id,length:this.postedJobsMatchDetails.length }
+					this.postedJobsMatchDetailsUsers.push(tempDatas);
+				}
 				setTimeout(() => {
 					if (this.toggleMatchModal) {
-			  this.mbRef = this.modelService.open(this.deleteModal, {
-				windowClass: 'modal-holder',
-				centered: true,
-				backdrop: 'static',
-				keyboard: false
-			  });
-			} });
+					  this.mbRef = this.modelService.open(this.deleteModal, {
+						windowClass: 'modal-holder',
+						centered: true,
+						backdrop: 'static',
+						keyboard: false
+					  });
+					}
+				});
+			}else{
+				var tempDatas = { id: this.userDetails.id,length:this.postedJobsMatchDetails.length }
+				this.postedJobsMatchDetailsUsers.push(tempDatas);
 			}
         }
 		
@@ -907,7 +952,15 @@ if(this.userDetails && this.userDetails.experience) {
 	  this.userDetails = details;
 	  this.onGetPostedJobs(companyId) ;
 	  this.toggleMatchModal = true;
-		
+  }
+  OpenMatchPopups = (details) => {
+	 var lenCheck = this.postedJobsMatchDetailsUsers.filter(function(a,b){ return a.id == details.id});
+	 if(lenCheck['length']!=0){
+		 if(lenCheck[0]['length']!=0){
+			 return true
+		 }
+	 }
+	 return false;
   }
   
   updateSelectedTimeslots(event,id){

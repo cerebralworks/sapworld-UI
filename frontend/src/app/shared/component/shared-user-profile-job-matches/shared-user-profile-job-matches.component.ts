@@ -13,6 +13,9 @@ import { trigger, style, animate, transition, state, group } from '@angular/anim
 
 export class SharedUserProfileJobMatchesComponent implements OnInit {
 
+	/**
+	**	Variable declaration
+	**/
 	@Input() userInfo: CandidateProfile;
 	@Input() fieldsExclude: any;
 	@Input() postedJobsDetails: any;
@@ -44,6 +47,10 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
       }
     );
 	}
+	
+	/**
+	**	To filter the required,desired and optional data's
+	**/
   ngOnChanges(changes): void {
     setTimeout( async () => {
 		var arr = [];
@@ -102,6 +109,9 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 	  
   }
 	
+	/**
+	**	To find the country details
+	**/
 	findCountry(value){
 		if(value){
 			if(this.nationality){
@@ -119,6 +129,9 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find the education data's
+	**/
 	findEducation(value){
 		if(value){
 			if(value.length!=0){
@@ -131,6 +144,9 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find the language array
+	**/
 	findLanguageArray(value){
 		if(value){
 			value = value.map(function(a,b){
@@ -155,6 +171,10 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find the country array values
+	**
+	**/
 	findCountryArray(value){
 		if(value){
 			if(this.nationality){
@@ -176,7 +196,9 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		return '--';
 	}
 	
-	
+	/**
+	**	To find preferrd location values
+	**/	
 	filterPrefered(value){
 		if(value){
 			if(value.length !=0){

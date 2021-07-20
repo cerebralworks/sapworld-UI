@@ -14,6 +14,9 @@ import { Subscription } from 'rxjs';
 })
 export class RegisterFormComponent implements OnInit {
 
+  /**
+  **	Variable declaration
+  **/
   @Input() toggleRegisterModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
 
@@ -38,6 +41,9 @@ export class RegisterFormComponent implements OnInit {
     this.buildForm();
   }
 
+  /**
+  **	To open the popup
+  **/
   ngAfterViewInit(): void {
     if (this.toggleRegisterModal) {
       this.mbRef = this.modalService.open(this.registerModal, {
@@ -87,6 +93,9 @@ export class RegisterFormComponent implements OnInit {
     }
   }
 
+  /**
+  **	To register the userSignup
+  **/
   registerUser = () => {
     this.accountService.userSignup(this.onGenerateRes()).subscribe(
       response => {
@@ -100,6 +109,9 @@ export class RegisterFormComponent implements OnInit {
     )
   }
 
+  /**
+  **	To register the employerSignup
+  **/
   registerEmployer = () => {
     this.accountService.employerSignup(this.onGenerateRes()).subscribe(
       response => {
@@ -113,6 +125,9 @@ export class RegisterFormComponent implements OnInit {
     )
   }
 
+  /**
+  **	To get user data as params
+  **/
   onGenerateRes = () => {
     const userInfo = this.registerForm.value;
     let requestParams: any = {};
@@ -124,6 +139,9 @@ export class RegisterFormComponent implements OnInit {
     return requestParams;
   }
 
+  /**
+  **	To build the signup form
+  **/
   private buildForm(): void {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],

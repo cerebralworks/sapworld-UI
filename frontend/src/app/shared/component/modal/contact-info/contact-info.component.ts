@@ -12,12 +12,13 @@ import { Subscription } from 'rxjs';
 })
 export class ContactInfoComponent implements OnInit {
 
+  /**
+  **	Variable declaration
+  **/
   @Input() toggleContactInfoModal: boolean;
   @Input() userInfo: any;
   @Output() onEvent = new EventEmitter<boolean>();
-
   public mbRef: NgbModalRef;
-
   @ViewChild("contactInfoModal", { static: false }) contactInfoModal: TemplateRef<any>;
   public accountUserSubscription: Subscription;
   public loggedUserInfo: any;
@@ -38,6 +39,9 @@ export class ContactInfoComponent implements OnInit {
     });
   }
 
+  /**
+  **	To open the popup view
+  **/
   ngAfterViewInit(): void {
     if (this.toggleContactInfoModal) {
       this.mbRef = this.modalService.open(this.contactInfoModal, {
@@ -49,11 +53,17 @@ export class ContactInfoComponent implements OnInit {
     }
   }
 
+  /**
+  **	To after close the popup
+  **/
   ngOnDestroy(): void {
     this.onClickCloseBtn(false);
     this.accountUserSubscription && this.accountUserSubscription.unsubscribe();
   }
 
+  /**
+  **	To close the popup
+  **/
   onClickCloseBtn(status){
     this.onEvent.emit(status);
     if(status == false) {
@@ -61,10 +71,16 @@ export class ContactInfoComponent implements OnInit {
     }
   }
 
+  /**
+  **	To convert user Image to string
+  **/
   convertToImage(imageString: string): string {
     return this.utilsHelperService.convertToImageUrl(imageString);
   }
 
+  /**
+  **	To hide the name
+  **/
   censorWord = (str) => {
     if(str && str.length) {
       return str[0] + "*".repeat(str.length - 2) + str.slice(-1);
@@ -72,6 +88,9 @@ export class ContactInfoComponent implements OnInit {
 
   }
 
+  /**
+  **	To hide the email
+  **/
  censorEmail = (email) => {
    if(email && email.length) {
     let arr = email.split("@");
@@ -80,6 +99,9 @@ export class ContactInfoComponent implements OnInit {
    return "";
  }
 
+  /**
+  **	To hide the mobile Number
+  **/
  censorPhoneNumber = (str: string) => {
   if(str && str.length) {
     return str.slice(0, 2) + str.slice(2).replace(/.(?=...)/g, '*');
@@ -87,6 +109,9 @@ export class ContactInfoComponent implements OnInit {
   return "";
  }
 
+  /**
+  **	To hide the company name
+  **/
  censorEmployer = (str: string) => {
   if(str && str.length) {
     return str.slice(0, 1) + str.slice(1).replace(/.(?=...)/g, '*');

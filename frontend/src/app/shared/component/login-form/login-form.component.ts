@@ -12,7 +12,10 @@ import { SharedApiService } from '@shared/service/shared-api.service';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-
+ 
+  /**
+  **	Variable declaration
+  **/
   public isOpenedRegisterForm: boolean = false;
   public isOpenedForgotPassForm: boolean = false;
   public error: string;
@@ -42,6 +45,10 @@ export class LoginFormComponent implements OnInit {
     return this.loginForm.controls;
   }
 
+  /**
+  **	To submit the user credientails and check the user is exists or not
+  ** 	If exists navigate based on the role
+  **/
   login() {
     this.isLoading = true;
 
@@ -85,6 +92,9 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
+  /**
+  **	To build the login form
+  **/
   private buildForm(): void {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, ValidationService.emailValidator]],
@@ -92,10 +102,16 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
+  /**
+  **	To open the register form popup
+  **/
   onToggleRegisterForm = (status) => {
     this.isOpenedRegisterForm = status;
   }
 
+  /**
+  **	To open forgot form popup
+  **/
   onToggleForgotPassForm = (status) => {
     this.isOpenedForgotPassForm = status;
   }

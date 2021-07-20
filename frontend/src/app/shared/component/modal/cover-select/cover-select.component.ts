@@ -14,7 +14,10 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
   styleUrls: ['./cover-select.component.css']
 })
 export class CoverSelectComponent implements OnInit {
-
+ 
+  /**
+  **	Variable declaration
+  **/
   public userSelectedCover: File;
   public selectedCoverUrl: any;
   public isOpenedCoverModal: boolean;
@@ -22,11 +25,9 @@ export class CoverSelectComponent implements OnInit {
   public isShowUpload: boolean = true;
   @Input() togglecoverSelectModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
-
   public mbRef: NgbModalRef;
   public mbRefs: NgbModalRef;
   public userInfo: any;
-
   @ViewChild("coverSelectModal", { static: false }) coverSelectModal: TemplateRef<any>;
   @ViewChild("coverTitleModal", { static: false }) coverTitleModal: TemplateRef<any>;
   public coverSelectForm: FormGroup;
@@ -46,6 +47,9 @@ export class CoverSelectComponent implements OnInit {
     
   }
 
+  /**
+  **	To filter the array to data
+  **/
   onGetFilteredValue = (array: any[], fields) => {
     if (array && Array.isArray(array) && array.length) {
       return array.find(i => {
@@ -55,6 +59,9 @@ export class CoverSelectComponent implements OnInit {
     return []
   }
 
+  /**
+  **	To open the popup for cover select
+  **/
   ngAfterViewInit(): void {
     if (this.togglecoverSelectModal) {
       this.mbRef = this.modalService.open(this.coverSelectModal, {
@@ -93,7 +100,9 @@ export class CoverSelectComponent implements OnInit {
     }
   }
   
-
+  /**
+  **	To get the upload file validation
+  **/
   handleFileInput(event,data) {
     let files: FileList = event.target.files;
     if (files && files.length > 0) {
@@ -119,6 +128,9 @@ export class CoverSelectComponent implements OnInit {
 
   }
   
+  /**
+  **	To open the cover letter title popup
+  **/
   onOpenCoverTitleModal = () => {
     this.mbRef = this.modalService.open(this.coverTitleModal, {
       windowClass: 'modal-holder',
@@ -128,6 +140,9 @@ export class CoverSelectComponent implements OnInit {
     });
   }
    
+  /**
+  **	To get popup status
+  **/
  onTogglecoverSelectForm = (status, selectedCoverUrl?) => {
     if (selectedCoverUrl) {
       this.selectedCoverUrl = selectedCoverUrl;
@@ -141,7 +156,10 @@ export class CoverSelectComponent implements OnInit {
       this.onUserCoverUpdate();
     }
   }
-   
+
+  /**
+  **	To update the cover letter
+  **/
    onUserCoverUpdate = () => {
     const formData = new FormData();
 
@@ -159,6 +177,9 @@ export class CoverSelectComponent implements OnInit {
     )
   }
   
+  /**
+  **	To get the user details
+  **/
   onGetUserProfile(isRequiredDefault : boolean = false) {
     this.userService.profile().subscribe(
       response => {

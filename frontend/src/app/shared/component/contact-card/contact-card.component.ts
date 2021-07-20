@@ -18,7 +18,10 @@ declare var $: any;
   styleUrls: ['./contact-card.component.css']
 })
 export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
-
+  
+  /**
+  **	Variable declaration
+  **/
   @Input() userInfo: any;
   @Input() postedJobsMatchDetails: any[] =[];
   @Input() isEdit: boolean;
@@ -56,7 +59,10 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
     private userService: UserService,
     private accountService: AccountService
   ) { }
-
+  
+  /**
+  **	To get the loggedUserInfo
+  **/
   ngOnInit(): void {
 	  
     this.randomNum = Math.random();
@@ -68,6 +74,9 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
       });
   }
 
+  /**
+  **	To check and get the resume 
+  **/
   ngDoCheck(): void {
     if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
       this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
@@ -79,7 +88,11 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
       this.selectedCover = this.userInfo.doc_cover[0];
     }
   }
-ngAfterViewInit(): void {
+  
+  /**
+  **	To open the contact card in popup
+  **/
+  ngAfterViewInit(): void {
 	setTimeout( async () => {
 	
 	if(this.isMatch==true){
@@ -103,24 +116,35 @@ ngAfterViewInit(): void {
 	}
 	},2000);
 	
-	
-}
+  }
+  /**
+  **	To null the validateOnAPI 
+  **/
   ngOnDestroy(): void {
 	  
     this.validateOnAPI = null;
   }
 
+  /**
+  **	To get status for contact popup
+  **/
   onToggleContactInfoModal = (status) => {
     this.isOpenedContactInfoModal = status;
   }
-
+  
+  /**
+  **	To get resume popup status
+  **/
   onToggleResumeForm = (status, selectedResumeUrl?) => {
     if (selectedResumeUrl) {
       this.selectedResumeUrl = selectedResumeUrl;
     }
     this.isOpenedResumeModal = status;
   }
-
+  
+  /**
+  **	To get coverletter popup status
+  **/
   onToggleCoverForm = (status, selectedCoverUrl?) => {
     if (selectedCoverUrl) {
       this.selectedCoverUrl = selectedCoverUrl;
@@ -128,6 +152,9 @@ ngAfterViewInit(): void {
     this.isOpenedCoverModal = status;
   }
 
+  /**
+  **	To get send email status
+  **/
   onToggleSendMail = (status,item?) => {
     if(item && !this.utilsHelperService.isEmptyObj(item)) {
       this.currentUserInfo = item;
@@ -135,6 +162,9 @@ ngAfterViewInit(): void {
     this.isOpenedSendMailModal = status;
   }
 
+  /**
+  **	To hide the user privacy
+  **/
   censorWord = (str) => {
     if(str && str.length) {
       return str[0] + "*".repeat(str.length - 2) + str.slice(-1);
@@ -142,6 +172,9 @@ ngAfterViewInit(): void {
 
   }
 
+  /**
+  **	To hide the user email
+  **/
  censorEmail = (email) => {
    if(email && email.length) {
     let arr = email.split("@");
@@ -150,6 +183,9 @@ ngAfterViewInit(): void {
    return "";
  }
 
+  /**
+  **	To hide the user mobile number
+  **/
  censorPhoneNumber = (str: string) => {
   if(str && str.length) {
     return str.slice(0, 2) + str.slice(2).replace(/.(?=...)/g, '*');
@@ -157,6 +193,9 @@ ngAfterViewInit(): void {
   return "";
  }
 
+  /**
+  **	To hide the company name
+  **/
  censorEmployer = (str: string) => {
   if(str && str.length) {
     var first = str.substring(0, 1);
@@ -169,13 +208,20 @@ ngAfterViewInit(): void {
   return "";
  }
 
+  /**
+  **	To navigate matches
+  **/
   onTabChange(){
     const navigationExtras = {queryParams:{ activeTab: "matches"}}
 
     this.router.navigate([], navigationExtras);
   }
-	
-	OpenMatchesWithID(){
+
+  /**
+  **	To navigate employer matches
+  **/
+  
+   OpenMatchesWithID(){
 		
 		if(this.selected.length!=0){
 			var selectedIds = this.selected.join(',');
@@ -183,6 +229,9 @@ ngAfterViewInit(): void {
 		}
 	}
 	
+  /**
+  **	To open coverletter popup
+  **/
 	onToggleCoverSelectModal(status){
 		if(status==true){
 			
@@ -206,6 +255,10 @@ ngAfterViewInit(): void {
 			this.isUploadShow = true;
 		}
 	}
+	
+  /**
+  **	To resume in popup
+  **/
 	onToggleResumeSelectModal(status){
 		if(status==true){
 			
@@ -232,12 +285,20 @@ ngAfterViewInit(): void {
 			this.isUploadShowResume = true;
 		}
 	}
+	
+  /**
+  **	To get status for coverletter
+  **/
 	openCoverselect(status){
 		if(status==true){
 			this.togglecoverSelectModal = true;
 		}
 		
 	}
+	
+  /**
+  **	To get status for resume
+  **/
 	openResumselect(status){
 		if(status==true){
 			this.toggleresumeSelectModal = true;

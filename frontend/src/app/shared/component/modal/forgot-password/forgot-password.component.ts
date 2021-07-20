@@ -15,14 +15,15 @@ import { Subscription } from 'rxjs';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  /**
+  **	Variable declaration
+  **/
   @Input() toggleForgotPassModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
-
   public mbRef: NgbModalRef;
   public fpSub: Subscription;
   public isMailSent: boolean = false;
   public forgotPasswordForm: FormGroup
-
   @ViewChild("fpModal", { static: false }) fpModal: TemplateRef<any>;
 
   public isLoading: boolean;
@@ -43,6 +44,9 @@ export class ForgotPasswordComponent implements OnInit {
     this.buildForm();
   }
 
+  /**
+  **	To open the popup for forgotPasswordForm
+  **/
   ngAfterViewInit(): void {
     if (this.toggleForgotPassModal) {
       this.mbRef = this.modalService.open(this.fpModal, {
@@ -71,6 +75,9 @@ export class ForgotPasswordComponent implements OnInit {
     this.isMailSent = true;
   }
 
+  /**
+  **	To send the e-mail for reset passowrd
+  **/
   onGetResetLink = () => {
     this.isLoading = true;
 
@@ -90,6 +97,9 @@ export class ForgotPasswordComponent implements OnInit {
     }
   }
 
+  /**
+  **	To build a reset form password
+  **/
   private buildForm(): void {
     this.forgotPasswordForm = this.formBuilder.group({
       email: ['', [Validators.required, ValidationService.emailValidator]],
