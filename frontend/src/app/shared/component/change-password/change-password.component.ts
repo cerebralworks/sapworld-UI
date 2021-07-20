@@ -14,7 +14,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-
+ 
+  /**
+  **	Variable declaration
+  **/
   public changePasswordForm: FormGroup;
   public returnUserUrl: any;
   public returnEmpUrl: any;
@@ -32,7 +35,10 @@ export class ChangePasswordComponent implements OnInit {
     private toastrService: ToastrService,
     private utilsHelperService: UtilsHelperService
   ) { }
-
+  
+  /**
+  **	To initialize the page section
+  **/
   ngOnInit(): void {
     this.returnUserUrl = this.route.snapshot.queryParams['returnUrl'] || '/auth/user/login';
     this.returnEmpUrl = this.route.snapshot.queryParams['returnUrl'] || '/auth/employer/login';
@@ -67,7 +73,10 @@ export class ChangePasswordComponent implements OnInit {
 
     this.changePasswordForm.get('userName').disable();
   }
-
+  
+  /**
+  **	To build a reset form 
+  **/
   private buildForm(): void {
     this.changePasswordForm = this.formBuilder.group({
       userName: [''],
@@ -81,7 +90,10 @@ export class ChangePasswordComponent implements OnInit {
   get f() {
     return this.changePasswordForm.controls;
   }
-
+  
+  /**
+  **	To upload the reset user data
+  **/
   change() {
     this.isLoading = true;
 
@@ -119,7 +131,10 @@ export class ChangePasswordComponent implements OnInit {
       )
     }
   }
-
+  
+  /**
+  **	To logout the user
+  **/
   logout(callBack = () => {}) {
     this.accountService.logout().subscribe(
       response => {

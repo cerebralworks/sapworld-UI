@@ -11,13 +11,14 @@ import { Subscription } from 'rxjs';
 })
 export class ResumeModalComponent implements OnInit {
 
+  /**
+  **	Variable declaration
+  **/
   @Input() toggleResumeModal: boolean;
   @Input() url: any;
   @Output() onEvent = new EventEmitter<boolean>();
-
   public mbRef: NgbModalRef;
   public resumeModalSub: Subscription;
-
   @ViewChild("resumeModal", { static: false }) resumeModal: TemplateRef<any>;
 
   constructor(
@@ -30,6 +31,9 @@ export class ResumeModalComponent implements OnInit {
 
   }
 
+  /**
+  **	To open the resumeModal popup
+  **/
   ngAfterViewInit(): void {
     if (this.toggleResumeModal) {
       this.mbRef = this.modalService.open(this.resumeModal, {

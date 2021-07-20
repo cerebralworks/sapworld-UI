@@ -13,6 +13,9 @@ import * as lodash from 'lodash';
 
 export class SharedUserProfileMatchesComponent implements OnInit {
 
+	/**
+	**	Variable declaration
+	**/
 	@Input() matchingUsers: any;
 	@Input() postedJobsDetails: any;
 	@Input() matchingUsersNew: any;
@@ -56,6 +59,10 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 		}
     );
 	}
+	
+	/**
+	**	To seperate the required,desired and optional data
+	**/
   ngOnChanges(changes): void {
     setTimeout( async () => {
 		var arr = [];
@@ -217,6 +224,9 @@ export class SharedUserProfileMatchesComponent implements OnInit {
     return "";
   }
 
+	/**
+	**	To find the language
+	**/
 findLanguageArray(value){
 		if(value){
 			
@@ -238,6 +248,10 @@ findLanguageArray(value){
 		
 		return '--';
 	}
+	
+	/**
+	**	To find the country data
+	**/
 	findCountry(value){
 		if(value){
 			if(this.nationality){
@@ -245,7 +259,7 @@ findLanguageArray(value){
 
 				if(array.length !=0){
 					var temp = array.map(function(a,b){
-						return a['nicename'];
+						return a['nicename'].toLocaleLowerCase();
 					})
 					if(temp.length !=0){
 						return this.utilsHelperService.onConvertArrayToString(temp);
@@ -259,6 +273,37 @@ findLanguageArray(value){
 		return '--';
 	}
 	
+	
+	/**
+	**	To find the country data
+	**/
+	findCountrysData(value){
+		if(value){
+			if(this.nationality){
+				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
+
+				if(array.length !=0){
+					var temp = array[0]['nicename'].toLocaleLowerCase();
+					return temp;
+				}
+			
+			}
+			
+		}
+		
+		return '--';
+	}
+	
+	finpostJobDetailsCountry(country){
+		if(country){
+			return country.toLocaleLowerCase();
+		}
+		return '--';
+	}
+	
+	/**
+	**	To find the jobtype
+	**/
 	checkType(array,value,education){
 		
 		if(array && value){
@@ -287,6 +332,9 @@ findLanguageArray(value){
 		return false;
 	}
 	
+	/**
+	**	To check the education match
+	**/
 	checkTypeEqual(array,value){
 		
 		if(array && value){
@@ -298,6 +346,10 @@ findLanguageArray(value){
 		}
 		return false;
 	}
+	
+	/**
+	**	To check the education extra
+	**/
 	checkTypeExtra(array,value){
 		
 		if(array && value){
@@ -309,6 +361,10 @@ findLanguageArray(value){
 		}
 		return false;
 	}
+	
+	/**
+	**	To check language match
+	**/
 	checkLanMatch(array,value){
 		
 		if(array && value){
@@ -320,6 +376,10 @@ findLanguageArray(value){
 		}
 		return false;
 	}
+	
+	/**
+	**	To check language extra
+	**/
 	checkLanExtra(array,value,language){
 		
 		if(array && value){
@@ -337,6 +397,9 @@ findLanguageArray(value){
 	}
 	
 	
+	/**
+	**	To show the matches 
+	**/
   onShowMatches = (event) => {
 	  var temp = event.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
@@ -373,6 +436,9 @@ findLanguageArray(value){
 	  
   }
 
+	/**
+	**	To show the missing
+	**/
   onShowMissing = (event) => {
 	  var temp = event.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
@@ -418,6 +484,9 @@ findLanguageArray(value){
     
   }
 
+	/**
+	**	To show extra fields
+	**/
   onShowMore = (event) => {
 	  var temp = event.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
@@ -453,6 +522,9 @@ findLanguageArray(value){
 	  }
   }
 
+	/**
+	**	To reset user data
+	**/
   onReset = () => {
 	 
     this.moreElement = true;
@@ -463,6 +535,9 @@ findLanguageArray(value){
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
   }
   
+	/**
+	**	To check the country
+	**/
   checkCountry(country){
 	  if(country){
 		  if(this.matchingUsers.profile){
@@ -479,6 +554,9 @@ findLanguageArray(value){
 	  return false;
   }
   
+	/**
+	**	To check the country return string
+	**/
   findCountrys(value){
 		if(value){
 			if(this.nationality){
@@ -486,7 +564,7 @@ findLanguageArray(value){
 
 				if(array.length !=0){
 					var temp = array.map(function(a,b){
-						return a['nicename'];
+						return a['nicename'].toLocaleLowerCase() ;
 					})
 					if(temp.length !=0){
 						return temp;

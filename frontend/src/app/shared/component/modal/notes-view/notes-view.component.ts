@@ -9,11 +9,12 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class NotesViewComponent implements OnInit {
 
+  /**
+  **	variable declaration
+  **/
   @Input() toggleNotesViewModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
-
   public mbRef: NgbModalRef;
-
   @ViewChild("notesViewModal", { static: false }) notesViewModal: TemplateRef<any>;
 
   constructor(
@@ -25,6 +26,9 @@ export class NotesViewComponent implements OnInit {
 
   }
 
+  /**
+  **	To open the model
+  **/
   ngAfterViewInit(): void {
     if (this.toggleNotesViewModal) {
       this.mbRef = this.modalService.open(this.notesViewModal, {

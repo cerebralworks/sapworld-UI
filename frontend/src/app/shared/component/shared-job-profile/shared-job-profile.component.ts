@@ -13,11 +13,14 @@ import { SharedApiService } from '@shared/service/shared-api.service';
 })
 export class SharedJobProfileComponent implements OnInit,OnChanges {
 
-  @Input() jobInfo: JobPosting;
-  @Input() isDescrition: boolean = false;
-  @Input() isMultipleMatches: boolean = false;
-  @Input() isHideData: boolean = false;
-  @Input() fieldsExclude: JobPosting;
+	/**
+	**	Variable declaration
+	**/
+	@Input() jobInfo: JobPosting;
+	@Input() isDescrition: boolean = false;
+	@Input() isMultipleMatches: boolean = false;
+	@Input() isHideData: boolean = false;
+	@Input() fieldsExclude: JobPosting;
 	public languageSource=[];
 	public nationality=[];
 	public required: boolean = false;
@@ -112,6 +115,10 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
       }
     );
   }
+  
+	/**
+	**	detect the chnages and validate the required,desired and optional section
+	**/
   ngOnChanges(changes): void {
     setTimeout( async () => {
 		var arr = [];
@@ -151,6 +158,10 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 	}, 0);
 	  
   }
+  
+	/**
+	**	To filter array to String
+	**/
 	findLanguageArray(value){
 		if(value){
 			value = value.map(function(a,b){

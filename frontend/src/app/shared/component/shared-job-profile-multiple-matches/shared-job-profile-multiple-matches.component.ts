@@ -13,15 +13,18 @@ import * as lodash from 'lodash';
 	encapsulation: ViewEncapsulation.None
 })
 export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChanges {
-
-  @Input() jobInfo: any;
-  @Input() userInfo: any;
-  @Input() isDescrition: boolean = false;
-  @Input() isMultipleMatches: boolean = false;
-  @Input() matchedElement: boolean = false;
-  @Input() missingElement: boolean = false;
-  @Input() moreElement: boolean = false;
-  @Input() matchingJob: any;
+	
+	/**
+	**	Variable declaration
+	**/
+	@Input() jobInfo: any;
+	@Input() userInfo: any;
+	@Input() isDescrition: boolean = false;
+	@Input() isMultipleMatches: boolean = false;
+	@Input() matchedElement: boolean = false;
+	@Input() missingElement: boolean = false;
+	@Input() moreElement: boolean = false;
+	@Input() matchingJob: any;
 	public languageSource=[];
 	public nationality=[];
 	public required: boolean = false;
@@ -30,12 +33,12 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 	public nice: boolean = false;
 	public IsShown: boolean = false;
 	public educationItems = [
-			{  id:0, text: 'high school' },
-			{  id:1, text: 'diploma' },
-			{  id:2, text: 'bachelors' },
-			{  id:3, text: 'masters' },
-			{  id:4, text: 'doctorate' }
-		];
+		{  id:0, text: 'high school' },
+		{  id:1, text: 'diploma' },
+		{  id:2, text: 'bachelors' },
+		{  id:3, text: 'masters' },
+		{  id:4, text: 'doctorate' }
+	];
 
   constructor(private dataService: DataService,
     public sharedService: SharedService,
@@ -43,6 +46,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
     public utilsHelperService: UtilsHelperService
   ) { }
 
+  /**
+	**	To initialize the user data
+	**/
   ngOnInit(): void {
 	  //this.onGetCountry('');
 	  //this.onGetLanguage('');
@@ -124,6 +130,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
       }
     );
   }
+	/**
+	**	To detectChanges for required,optional and desired
+	**/
   ngOnChanges(changes): void {
     setTimeout( async () => {
 		var arr = [];
@@ -165,7 +174,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
   }
 	
 
-	
+	/**
+	**	To filter the type values
+	**/	
 	checkType(array,value,education){
 		
 		if(array && value){
@@ -212,6 +223,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 		return false;
 	}
 	
+	/**
+	**	To Check the data
+	**/
 	checkTypeEqual(array,value){
 		
 		if(array && value){
@@ -221,6 +235,10 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 		}
 		return false;
 	}
+	
+	/**
+	**	To check the user language
+	**/
 	checkLanMatch(array,value){
 		
 		if(array && value){
@@ -232,6 +250,10 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 		}
 		return false;
 	}
+	
+	/**
+	**	To get the language status
+	**/
 	checkLanExtra(array,value,language){
 		
 		if(array && value){
@@ -248,6 +270,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 		return false;
 	}
 	
+	/**
+	**	To validate the array fileds
+	**/
   inArray(needle, haystack, matchAll = false) {
     if ((Array.isArray(needle) && Array.isArray(haystack)) && needle.length && haystack.length) {
       if (matchAll) {
@@ -259,6 +284,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
     return false;
   }
 
+	/**
+	**	To check the two arrays
+	**/
   onChangeValue(array1: any[] = [], array2: any[] = [], type = 'array', field: string = 'id', filterArray: string = '') {
     if (array1 && array1.length && array2 && array2.length) {
       let result;
@@ -291,6 +319,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
     return [];
   }
 
+	/**
+	**	To convert string 
+	**/
   onChangeStringNumber(field1, field2, item, type, isString: boolean = false) {
     let lowerCaseJob = [];
     if (this.userInfo && this.userInfo[field1]) {
@@ -308,6 +339,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
     return { type: '', class: '' }
   }
 
+	/**
+	**	To get Object into String
+	**/
   onChangeObj(field1, field2, item, type, filterField) {
     let lowerCaseJob = [];
     if (this.userInfo && this.userInfo[field1]) {
@@ -328,9 +362,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
     return { type: '', class: '' }
   }
 
-
-
-
+	/**
+	**	To find the users language
+	**/
 	findLanguageArray(value){
 		if(value){
 			
@@ -352,6 +386,10 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 		
 		return '--';
 	}
+		
+	/**
+	**	To find the country values
+	**/
 	findCountry(value){
 		if(value){
 			if(this.nationality){
@@ -373,7 +411,10 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 		return '--';
 	}
 	
-onGetCountry(query) {
+	/**
+	**	To get the country details
+	**/
+	onGetCountry(query) {
 		let requestParams: any = {};
 		requestParams.page = 1;
 		requestParams.limit = 1000;
@@ -393,6 +434,10 @@ onGetCountry(query) {
 
 		this.sharedApiService.onGetLanguage(requestParams);
 	  }
+	  
+	/**
+	**	To show the users details matches
+	**/
 	  onShowMatches = (event) => {
 	  var temp = event.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
@@ -406,6 +451,9 @@ onGetCountry(query) {
 	  
   }
 
+	/**
+	**	To sjow the user details missing
+	**/
   onShowMissing = (event) => {
 	  var temp = event.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){

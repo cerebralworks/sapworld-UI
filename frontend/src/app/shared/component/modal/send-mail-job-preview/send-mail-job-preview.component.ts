@@ -15,7 +15,9 @@ import { Subscription } from 'rxjs';
 })
 export class SendMailJobPreviewComponent implements OnInit {
 
-
+  /**
+  **	Variable declaration
+  **/
   @Input() toggleSendMailModal: boolean;
   @Input() jobInfo: JobPosting;
   @Input() userInfo: CandidateProfile;
@@ -38,6 +40,9 @@ export class SendMailJobPreviewComponent implements OnInit {
 
   }
 
+  /**
+  **	To open the preview popup
+  **/
   ngAfterViewInit(): void {
     if (this.toggleSendMailModal) {
       this.mbRef = this.modalService.open(this.sendMailModal, {
@@ -61,7 +66,10 @@ export class SendMailJobPreviewComponent implements OnInit {
       this.modalService.dismissAll()
     }
   }
-
+  
+  /**
+  **	To shortlist the user
+  **/
   onShortListUser = () => {
     if(this.userInfo && !this.utilsHelperService.isEmptyObj(this.userInfo.job_application)) {
       this.onSendMail()
@@ -94,6 +102,9 @@ export class SendMailJobPreviewComponent implements OnInit {
     } */
 }}
 
+  /**
+  **	To send the email
+  **/
   onSendMail = () => {
     if((this.jobInfo && this.jobInfo.id) && (this.userInfo && this.userInfo.email)) {
       let requestParams: any = {};

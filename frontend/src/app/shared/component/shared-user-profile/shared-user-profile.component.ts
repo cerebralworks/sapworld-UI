@@ -36,6 +36,9 @@ import { trigger, style, animate, transition, state, group } from '@angular/anim
 
 export class SharedUserProfileComponent implements OnInit {
 
+	/**
+	**	variable declaration
+	**/
 	@Input() userInfo: CandidateProfile;
 	@Input() fieldsExclude: any;
 	@Input() isMatches: boolean = false;
@@ -64,6 +67,9 @@ export class SharedUserProfileComponent implements OnInit {
     );
 	}
 	
+	/**
+	**	To find the country value
+	**/
 	findCountry(value){
 		if(value){
 			if(this.nationality){
@@ -81,6 +87,9 @@ export class SharedUserProfileComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find the education 
+	**/
 	findEducation(value){
 		if(value){
 			if(value.length!=0){
@@ -93,6 +102,9 @@ export class SharedUserProfileComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find the language
+	**/
 	findLanguageArray(value){
 		if(value){
 			value = value.map(function(a,b){
@@ -117,6 +129,9 @@ export class SharedUserProfileComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To find country array to String
+	**/
 	findCountryArray(value){
 		if(value){
 			if(this.nationality){
@@ -138,7 +153,9 @@ export class SharedUserProfileComponent implements OnInit {
 		return '--';
 	}
 	
-	
+	/**
+	**	To find preferred Location
+	**/
 	filterPrefered(value){
 		if(value){
 			if(value.length !=0){

@@ -90,7 +90,7 @@
 														<form class="form-inline">
 															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
-															</a><a (click)="OpenMatchPopup(postedJobsDetails,matchingUsers?.profile)" class="mr-3" >
+															</a><a [class.disabled]="!OpenMatchPopups(matchingUsers?.profile)" (click)="OpenMatchPopup(postedJobsDetails,matchingUsers?.profile)" class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a>
 															<!-- <a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company.id,path:'userscoring'}" class="mr-3" >

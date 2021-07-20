@@ -15,6 +15,9 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 })
 export class ResumeSelectComponent implements OnInit {
 
+  /**
+  **	Variable declaration
+  **/
   public userSelectedCover: File;
   public selectedCoverUrl: any;
   public isOpenedCoverModal: boolean;
@@ -55,6 +58,9 @@ export class ResumeSelectComponent implements OnInit {
     return []
   }
 
+  /**
+  **	To open select popup section
+  **/
   ngAfterViewInit(): void {
     if (this.toggleresumeSelectModal) {
       this.mbRefs = this.modalService.open(this.coverSelectModal, {
@@ -93,7 +99,9 @@ export class ResumeSelectComponent implements OnInit {
     }
   }
   
-
+  /**
+  **	To validate the file format
+  **/
   handleFileInput(event,data) {
     let files: FileList = event.target.files;
     if (files && files.length > 0) {
@@ -119,6 +127,9 @@ export class ResumeSelectComponent implements OnInit {
 
   }
   
+  /**
+  **	To open the title of the resumeForm
+  **/
   onOpenresumeTitleModal = () => {
     this.mbRef = this.modalService.open(this.resumeTitleModal, {
       windowClass: 'modal-holder',
@@ -141,7 +152,10 @@ export class ResumeSelectComponent implements OnInit {
       this.onUserCoverUpdate();
     }
   }
-   
+
+  /**
+  **	To upload the resume user data
+  **/
    onUserCoverUpdate = () => {
     const formData = new FormData();
 
@@ -161,6 +175,9 @@ export class ResumeSelectComponent implements OnInit {
     )
   }
   
+  /**
+  **	To get user data
+  **/
   onGetUserProfile(isRequiredDefault : boolean = false) {
     this.userService.profile().subscribe(
       response => {

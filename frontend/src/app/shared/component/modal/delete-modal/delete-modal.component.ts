@@ -8,6 +8,9 @@ import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DeleteModalComponent implements OnInit {
 
+  /**
+  **	Variable declaration
+  **/
   @Input() currentRecordInfo: any;
   @Input() typeOfModel: string;
   @Input() showRecordName: string;
@@ -25,6 +28,9 @@ export class DeleteModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+  **	To open the delete model popup
+  **/
   ngAfterViewInit(): void {
     if (this.toggleDeleteModal) {
       this.mbRef = this.modelService.open(this.deleteModal, {

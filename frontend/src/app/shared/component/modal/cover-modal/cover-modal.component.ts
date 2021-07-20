@@ -11,13 +11,14 @@ import { Subscription } from 'rxjs';
 })
 export class CoverModalComponent implements OnInit {
 
+  /**
+  **	To upload the reset user data
+  **/
   @Input() toggleCoverModal: boolean;
   @Input() url: any;
   @Output() onEvent = new EventEmitter<boolean>();
-
   public mbRef: NgbModalRef;
   public coverModalSub: Subscription;
-
   @ViewChild("coverModal", { static: false }) coverModal: TemplateRef<any>;
 
   constructor(
@@ -30,6 +31,9 @@ export class CoverModalComponent implements OnInit {
 
   }
 
+  /**
+  **	To open the cover letter popup
+  **/
   ngAfterViewInit(): void {
     if (this.toggleCoverModal) {
       this.mbRef = this.modalService.open(this.coverModal, {

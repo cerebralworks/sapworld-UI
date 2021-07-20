@@ -11,14 +11,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class JobDescriptionComponent implements OnInit {
 
+  /**
+  **	Variable declaration
+  **/
   @Input() description: string;
   @Input() toggleJDModal: boolean;
   @Input() isRichTextEnabled: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
-
   public mbRef: NgbModalRef;
   public jdSub: Subscription;
-
   @ViewChild("jdModal", { static: false }) jdModal: TemplateRef<any>;
 
   constructor(
@@ -30,6 +31,9 @@ export class JobDescriptionComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+  **	To open the job description popup
+  **/
   ngAfterViewInit(): void {
     if (this.toggleJDModal) {
       this.mbRef = this.modalService.open(this.jdModal, {
