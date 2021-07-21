@@ -23,6 +23,7 @@ export class ForgotPasswordComponent implements OnInit {
   public mbRef: NgbModalRef;
   public fpSub: Subscription;
   public isMailSent: boolean = false;
+  public errorShow: boolean = false;
   public forgotPasswordForm: FormGroup
   @ViewChild("fpModal", { static: false }) fpModal: TemplateRef<any>;
 
@@ -87,11 +88,13 @@ export class ForgotPasswordComponent implements OnInit {
       this.accountService.getResetLink(requestParams).subscribe(
         response => {
           this.isLoading = false;
+          this.errorShow = false;
           this.onMailSuccess();
         }, error => {
           if(error && error.error && error.error.errors)
           this.formError = error.error.errors;
           this.isLoading = false;
+          this.errorShow = true;
         }
       )
     }

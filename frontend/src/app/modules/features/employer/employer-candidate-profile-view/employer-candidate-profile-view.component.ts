@@ -77,7 +77,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	}
 	
 	/**
-	**	When page init call 
+	**	When page init call after the page loads
 	**/
 	
 	ngOnInit(): void {
@@ -230,7 +230,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 						if(temp.length!=0){
 							var temp=temp.map(function(a,b){ return a.country});
 						}
-						if(this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+						if( this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
 							var authorized_countrys= this.nationality.filter((el) => {
 								return this.userDetails.authorized_country.some((f) => {
 									return f === el.id ;
@@ -259,7 +259,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 								requestParams.country = tempData.join(',');
 							}
 						}
-					} else if(this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+					} else if(this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
 						var authorized_countrys= this.nationality.filter((el) => {
 							return this.userDetails.authorized_country.some((f) => {
 								return f === el.id ;
@@ -290,7 +290,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 					} 
 				}
 			} else{
-			if(this.userDetails && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+			if(this.userDetails && this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
 				var authorized_countrys= this.nationality.filter((el) => {
 					return this.userDetails.authorized_country.some((f) => {
 						return f === el.id ;
