@@ -115,8 +115,6 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	ngOnInit(): void {
 		if (this.jobId && this.userId) {
 			this.onGetPostedJob();
-			this.onGetJobScoringById();
-			this.onGetJobScoringById(true, true);
 		}
 		this.dataService.getCountryDataSource().subscribe(
 			response => {
@@ -168,6 +166,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 					}
 					this.postedJobsDetails = response.details;
 				}
+				this.onGetJobScoringById();
+				this.onGetJobScoringById(true, true);
 			}, error => {
 			}
 		)
@@ -749,6 +749,14 @@ findLanguageArray(value){
 					tempDataId = companyId['company'];
 				}
 			}
+		}if(this.postedJobsDetails){
+			if(this.postedJobsDetails['company']){
+				if(this.postedJobsDetails['company']['id']){
+					tempDataId=this.postedJobsDetails['company']['id'];
+				}else if(this.postedJobsDetails['company']){
+					tempDataId = this.postedJobsDetails['company'];
+				}
+			}
 		}
     let requestParams: any ={};
     requestParams.page = 1;
@@ -789,7 +797,7 @@ findLanguageArray(value){
 				if(temp.length!=0){
 					var temp=temp.map(function(a,b){ return a.country});
 				}
-				if(this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+				if(this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
 					var authorized_countrys= this.nationality.filter((el) => {
 						  return this.userDetails.authorized_country.some((f) => {
 							return f === el.id ;
@@ -820,7 +828,7 @@ findLanguageArray(value){
 						requestParams.country = tempData.join(',');
 					}
 				}
-			} else if(this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+			} else if(  this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
 				var authorized_countrys= this.nationality.filter((el) => {
 						  return this.userDetails.authorized_country.some((f) => {
 							return f === el.id ;
@@ -851,7 +859,7 @@ findLanguageArray(value){
 			} 
 	  }
     } else{
-		if(this.userDetails && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
+		if(this.userDetails && this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
 				
 			var authorized_countrys= this.nationality.filter((el) => {
 						  return this.userDetails.authorized_country.some((f) => {
