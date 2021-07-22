@@ -6,8 +6,11 @@
 					<div class="col-lg-12 mt-3">
 						<div class="clearfix">
 							<div  *ngFor="let item of postedJobCountry; let i=index" class="alert alert-find alert-dismissible " role="alert">
-								<a style="text-transform: capitalize;color: rgb(255, 41, 114);" *ngIf="postedJobCountry.length ==1 " > {{item.country}} ({{item.count}})</a>
-								<a style="text-transform: capitalize;" *ngIf="postedJobCountry.length !=1 " (click)="ValidateByCountry(item.country,$event)"> {{item.country}} ({{item.count}})</a>
+								<a style="text-transform: capitalize;color: rgb(255, 41, 114);" *ngIf="postedJobCountry.length ==1 && postedJobMeta?.visa ==0" > {{item.country}} ({{item.count}})</a>
+								<a style="text-transform: capitalize;" *ngIf="postedJobCountry.length !=1 || postedJobMeta?.visa !=0" (click)="ValidateByCountry(item.country,$event)"> {{item.country}} ({{item.count}})</a>
+							</div>
+							<div  *ngIf="postedJobMeta?.visa !=0" class="alert alert-find alert-dismissible " role="alert">
+								<a style="text-transform: capitalize;" (click)="ValidateByVisa($event)" > Visa Sponsored ({{postedJobMeta?.visa}})</a>
 							</div>
 						</div>
 					</div> 
@@ -24,7 +27,7 @@
 											</a>
 										</div>
 										<div class="float-right">
-											<button [ngClass]="{'applied-btn-green': (item?.is_job_applied  || (currentJobDetails?.id == item?.id && !isOpenedResumeSelectModal)), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied || (currentJobDetails?.id == item?.id && !isOpenedResumeSelectModal)" type="button" class="btn btn-sm" (click)="onToggleResumeSelectModal(true, item)"> <i class="fas fa-check"></i>
+											<button [ngClass]="{'applied-btn-green': (item?.is_job_applied ), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied || (currentJobDetails?.id == item?.id && !isOpenedResumeSelectModal)" type="button" class="btn btn-sm" (click)="onToggleResumeSelectModal(true, item)"> <i class="fas fa-check"></i>
 												{{(item?.is_job_applied || (currentJobDetails?.id == item?.id && !isOpenedResumeSelectModal)) ? 'Applied' : 'Apply Now'}}
 											</button>
 										</div>

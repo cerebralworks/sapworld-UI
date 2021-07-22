@@ -62,9 +62,11 @@ export class JobPreviewComponent implements OnInit {
 	public getPostedJobsDetails: JobPosting;
 	public industriesItems: any[] = [];
 	public skillItems: any[] = [];
+	public skillsItems: any[] = [];
 	public languageSource: any[] = [];
 	public nationality: any[] = [];
 	public authorized_country: any[] = [];
+	public commonSkills: any[] = [];
 	@ViewChild("jobPreviewModal", { static: false }) jobPreviewModal: TemplateRef<any>;
 	@ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
 	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
@@ -72,6 +74,7 @@ export class JobPreviewComponent implements OnInit {
 	public MacthObj: any = {};
 	public jobId:string;
 	public jobtype: boolean =false;
+	public skills: boolean =false;
 	public education: boolean =false;
 	public clientfacing: boolean =false;
 	public training: boolean =false;
@@ -186,6 +189,14 @@ export class JobPreviewComponent implements OnInit {
 		}else{
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].updateValueAndValidity();
+		}
+		if( !this.postJobForm.value.requirement.skills || !this.postJobForm.value.requirement.skills.length || this.utilsHelperService.differenceByPropValArray(this.postJobForm.value.requirement.skills, this.postJobForm.value.requirement.hands_on_experience, 'skill_id').length==0){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['skills'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['skills'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['skills'].updateValueAndValidity();
+		}else{
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['skills'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['skills'].updateValueAndValidity();
 		}
 	}
 	
@@ -538,6 +549,11 @@ export class JobPreviewComponent implements OnInit {
 			response => {
 				if(response && response.items) {
 					this.skillItems = [...response.items];
+					for(let i=0;i<response.items.length;i++){
+					  response['items'][i]['tags'] =response['items'][i]['tag']+' -- '+response['items'][i]['long_tag'];
+					} 
+					this.skillsItems = [...response.items];
+					this.commonSkills = [...response.items];
 				}
 			}, error => {
 			}
@@ -663,6 +679,13 @@ export class JobPreviewComponent implements OnInit {
 				work_authorization:null
 			  }
 			});
+		}else if(this.skills==true){
+			var temp = this.postJobForm.value.requirement.hands_on_experience.map(function(a,b){ return a.skill_id});
+			this.postJobForm.patchValue({
+			  requirement : {
+				skills:temp
+			  }
+			});
 		}
 		this.jobtype=false;
 		this.certificationBoolean=false;
@@ -670,6 +693,7 @@ export class JobPreviewComponent implements OnInit {
 		this.clientfacing=false;
 		this.education=false;
 		this.work_authorization=false;
+		this.skills=false;
 	}
 	
 	/**
@@ -697,6 +721,9 @@ export class JobPreviewComponent implements OnInit {
 		}else if(this.work_authorization==true){
 			
 			this.work_authorization=false;
+		}else if(this.skills==true){
+			
+			this.skills=false;
 		}
 	}
 	
@@ -717,6 +744,8 @@ export class JobPreviewComponent implements OnInit {
 			this.certificationBoolean=true;
 		}else if(value == 'work_authorization'){
 			this.work_authorization=true;
+		}else if(value == 'skills'){
+			this.skills=true;
 		}
 		this.isOpenCriteriaModal = true;
 		if (this.isOpenCriteriaModal && this.work_authorization == true) {
@@ -780,6 +809,12 @@ export class JobPreviewComponent implements OnInit {
 				this.isCheckModel = false;
 			}
 			 
+		}else if(this.skills==true){
+			if( !this.postJobForm.value.requirement.skills || !this.postJobForm.value.requirement.skills.length || this.utilsHelperService.differenceByPropValArray(this.postJobForm.value.requirement.skills, this.postJobForm.value.requirement.hands_on_experience, 'skill_id').length==0){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+			 
 		}
 		if (this.isCheckModel) {
 		setTimeout(() => {
@@ -819,5 +854,20 @@ export class JobPreviewComponent implements OnInit {
 			}
 		});
 	}
+	
+	
+  onRemoveSkillEvent = async (skillId) => {
+    if(skillId) {
+		var temp = this.commonSkills.filter(function(a,b){ return a.id == skillId });
+		//this.skillItems.push(temp[0]);
+	}
+  }
+
+  onSelectSkillsEvent = async (skillId) => {
+    if(skillId) {
+      //this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
+	}
+  }
+  
   
 }

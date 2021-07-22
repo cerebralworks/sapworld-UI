@@ -353,7 +353,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				experience: ['', [Validators.required,]],
 				exp_type: ['years', [Validators.required]]
 			})]),
-			skills: new FormControl(null, Validators.required),
+			skills: new FormControl(null),
 			programming_skills: new FormControl(null),
 			optinal_skills: new FormControl(null),
 			work_authorization: new FormControl(null),

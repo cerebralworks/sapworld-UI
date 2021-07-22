@@ -216,7 +216,7 @@
 		</ul>
 	</div>
 </div>
-<div class="row">
+<div class="row" *ngIf="utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id').length!=0">
 	<div class="col-lg-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"dashboard.knowledgeOn" | translate }}</li>

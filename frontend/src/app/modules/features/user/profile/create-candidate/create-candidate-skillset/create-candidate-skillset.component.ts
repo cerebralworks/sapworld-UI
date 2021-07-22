@@ -379,7 +379,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
         experience: ['', [Validators.required,]],
         exp_type: ['years', [Validators.required]]
       })]),
-      skills: new FormControl(null, Validators.required),
+      skills: new FormControl(null),
       programming_skills: new FormControl(null, Validators.required),
       other_skills: new FormControl(null, Validators.required),
       certification: new FormControl(null),

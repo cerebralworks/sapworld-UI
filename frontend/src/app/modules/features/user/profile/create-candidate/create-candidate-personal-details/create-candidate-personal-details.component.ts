@@ -206,6 +206,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       response => {
         if (response && Array.isArray(response) && response.length) {
           this.nationality = response;
+		  if(this.childForm.controls.personalDetails.status =="VALID"){
+				this.childForm.patchValue({
+					personalDetails: {
+						nationality: this.childForm.value.personalDetails.nationality,
+					}
+				});
+			}
 			this.othercountry =  response.filter(function(a,b){
 				return a.id !="226"&&a.id !="254"&&a.id !="225"&&a.id !="13"&&a.id !="153"&&a.id !="192"&&a.id !="38"
 			});
@@ -366,10 +373,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		}
 		
 		if(this.savedUserDetails.work_authorization == null){
-			this.showAuthorization =true;
+			this.showAuthorization =false;
 			this.childForm.patchValue({
 			  personalDetails: {
-				['work_authorization']: 0,
+				['work_authorization']: null,
 				['visa_type']: null,
 			  }
 			});
@@ -454,8 +461,15 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         //   }
         // })
       }
-				}}else{
+				}
+				}else{
 					
+					this.childForm.patchValue({
+						personalDetails: {
+							nationality: this.childForm.value.personalDetails.nationality,
+						}
+						});
+	  
 					if(this.childForm.value.personalDetails.work_authorization==0){
 						this.showAuthorization =true;
 					}else{
@@ -510,8 +524,6 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		
 	  }
 				}
-	/* this.requestParams = {'Exist the onchange':'personalComponent'};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
 	  }); 
   }
 	
@@ -551,9 +563,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 						var value =[a];
 						this.childForm.patchValue({ 
 								personalDetails: { 
-						
 									authorized_country_select: value 
-						
 								} 
 							})
 
@@ -565,19 +575,22 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 				var tempCountryVal = this.childForm.value.personalDetails.authorized_country;
 				if(tempCountryVal){
 					if(tempCountryVal.length){
-						tempCountryVal.push(a);
+						//tempCountryVal.push(a);
 					}else{
-						tempCountryVal=[a];
+						//tempCountryVal=[a];
 					}
 				}else{
-					tempCountryVal=[a];
+					//tempCountryVal=[a];
 				}
-				if(tempCountryVal.length){
-					tempCountryVal = tempCountryVal.filter((a, b) => tempCountryVal.indexOf(a) === b);
-				}
-				this.childForm.patchValue({personalDetails: {authorized_country:[],}});
-				this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
+				if(tempCountryVal){
+					if(tempCountryVal.length){
+						tempCountryVal = tempCountryVal.filter((a, b) => tempCountryVal.indexOf(a) === b);
+					}
+					this.childForm.patchValue({personalDetails: {authorized_country:[],}});
+					this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
 			
+				}
+				
 				
 			}
 		}

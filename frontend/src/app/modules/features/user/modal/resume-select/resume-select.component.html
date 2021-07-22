@@ -94,3 +94,18 @@
 		</div>
 	</div>
 </ng-template>
+
+<ng-template #openWarningPopup let-modal>
+	<div class="modal-content">
+		<div class="modal-body text-center">
+			<h1 class="text-green mx-auto pt-4"><i class="far fa-check-circle"></i></h1>
+			<h6 class="mt-3">Please Provide a valid visa type then apply {{currentJobDetails.title}} Position </h6>
+		</div>
+		<div class="modal-footer">
+			<div class=" mx-auto">
+				<button type="button" class="btn btn-theme-blue" style="margin-right:10px;" (click)="onClickCloseBtnStatusWarning()"  data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-theme-green"  (click)="navigateProfile()" >Go to Profile</button>
+			</div>
+		</div>
+	</div>
+</ng-template>

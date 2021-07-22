@@ -476,6 +476,24 @@ export class CandidateReviewModalComponent implements OnInit {
 					}else{
 						this.options.componentRestrictions['country'] = tempCoun;
 					}
+				}else{
+					var temps =this.childForm.value.personalDetails.nationality;
+					var tempCoun =[];
+					if(temps){
+						var vali =this.nationality.filter(function(a,b){ return a.id==parseInt(temps)});
+						if(vali.length==1){
+							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+								tempCoun.push(vali[0]['iso']);
+							}
+								
+						}
+						
+					}
+					if(tempCoun.length==0){
+						this.options.componentRestrictions['country'] = [];
+					}else{
+						this.options.componentRestrictions['country'] = tempCoun;
+					}
 				}
 				
 		}else if(value=='reference'){

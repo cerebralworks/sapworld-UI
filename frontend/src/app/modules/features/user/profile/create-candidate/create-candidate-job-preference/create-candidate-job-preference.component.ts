@@ -64,8 +64,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-		/* this.requestParams = {'Enter the ngOnInit':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
 		this.createForm();
 
 		this.availabilityArray = [
@@ -102,8 +100,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				this.othercountry =  response;
 			}
 		});
-		/* this.requestParams = {'Exist the ngOnInit':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
 	}
 	
 	
@@ -129,12 +125,15 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout(async () => {
 			
-			/* this.requestParams = {'Enter the ngOnChanges':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
 			if (this.childForm && this.savedUserDetails) {
 				if(this.savedUserDetails.work_authorization==0){
 					var temps =this.savedUserDetails.authorized_country;
 					var tempCoun =[];
+					if(!temps || temps.length==0){
+						temps =[this.savedUserDetails.nationality];
+					}else{
+						temps[temps.length]=this.childForm.value.personalDetails.nationality;
+					}
 					if(temps.length){
 						for(let i=0;i<temps.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
@@ -159,7 +158,25 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					}
 					
 				}else if(this.savedUserDetails.work_authorization==1){
-					var temps =this.savedUserDetails.nationality;
+					var temps =this.childForm.value.personalDetails.nationality;
+					var tempCoun =[];
+					if(temps){
+						var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps)});
+						if(vali.length==1){
+							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+								tempCoun.push(vali[0]['iso']);
+							}
+								
+						}
+						
+					}
+					if(tempCoun.length==0){
+						this.options.componentRestrictions['country'] = [];
+					}else{
+						this.options.componentRestrictions['country'] = tempCoun;
+					}
+				}else{
+					var temps =this.childForm.value.personalDetails.nationality;
 					var tempCoun =[];
 					if(temps){
 						var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps)});
@@ -349,8 +366,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					},
 				});
 			}
-			/* this.requestParams = {'Exist the ngOnChanges':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
 		},300);
 	}
 
@@ -359,8 +374,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	**/
 	
 	createForm() {
-	  /* this.requestParams = {'Enter the createForm':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams); */
 		this.childForm = this.parentF.form;
 
 		this.childForm.addControl('jobPref', new FormGroup({
@@ -435,8 +448,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	**/
 	
 	countryClick(value,clr){
-		 //this.requestParams = {'Enter the countryClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				//this.SharedAPIService.onSaveLogs(this.requestParams);
 		var temp = clr.toElement.className.split(' ');
 		if(temp[temp.length-1]=='btn-fltr-active'){
 			this.childForm.value.jobPref.preferred_countries.pop(clr.toElement.id);
@@ -454,8 +465,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				this.childForm.value.jobPref.preferred_countries.push(clr.toElement.id);
 			}
 		}
-		 //this.requestParams = {'Exist the countryClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
 	
 	/** 
@@ -463,8 +472,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	**/
 	
 	jobClick(value,clr){
-		 //this.requestParams = {'Enter the jobClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	  var temp = clr.toElement.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		 if(this.childForm.value.jobPref.job_type){
@@ -504,8 +511,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						job_type: tempCal 
 					} 
 				})
-		// this.requestParams = {'Exist the jobClick':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
 	
   get t() {

@@ -218,9 +218,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		let requestParams: any = {};
 		if (!isMultipleMatch) {
 			requestParams.user_id = this.userId;
+		}else{
+			requestParams.page = this.page;			
 		}
 		requestParams.id = this.jobId;
-		requestParams.page = this.page;
 		requestParams.additional_fields = 'job_application';
 		const sb = this.employerService.getJobScoring(requestParams).subscribe(
 			response => {
@@ -778,7 +779,7 @@ findLanguageArray(value){
 				var temp:any[]= this.userDetails.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 				if(temp.length!=0){
 					var tempData=temp.map(function(a,b){ return a.city});
-					//tempData[tempData.length]=this.userDetails.city;
+					tempData[tempData.length]=this.userDetails.city;
 					tempData =tempData.filter(function(item, pos) {
 								return tempData.indexOf(item) == pos;
 							})
@@ -818,9 +819,9 @@ findLanguageArray(value){
 						'france','poland','germany','portugal','greece','slovakia','hungary',
 						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 						]
-						tempData = tempData.concat(EUCountry);
+						//tempData = tempData.concat(EUCountry);
 					}
-					//tempData[tempData.length]=this.userDetails.country;
+					tempData[tempData.length]=this.userDetails.country;
 					tempData =tempData.filter(function(item, pos) {
 								return tempData.indexOf(item) == pos;
 							})
@@ -846,9 +847,9 @@ findLanguageArray(value){
 						'france','poland','germany','portugal','greece','slovakia','hungary',
 						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 						]
-						tempData = tempData.concat(EUCountry);
+						//tempData = tempData.concat(EUCountry);
 					}
-					//tempData[tempData.length]=this.userDetails.country;
+					tempData[tempData.length]=this.userDetails.country;
 					tempData =tempData.filter(function(item, pos) {
 								return tempData.indexOf(item) == pos;
 							})
@@ -878,9 +879,9 @@ findLanguageArray(value){
 					'france','poland','germany','portugal','greece','slovakia','hungary',
 					'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 					]
-					tempData = tempData.concat(EUCountry);
+					//tempData = tempData.concat(EUCountry);
 				}
-				//tempData[tempData.length]=this.userDetails.country;
+				tempData[tempData.length]=this.userDetails.country;
 				tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
