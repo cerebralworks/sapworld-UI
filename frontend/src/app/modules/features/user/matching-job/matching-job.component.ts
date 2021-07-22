@@ -23,6 +23,7 @@ export class MatchingJobComponent implements OnInit {
 	@Output() onEvent = new EventEmitter<boolean>();
 	public countrySelect: boolean = false;
 	public callJobsData: boolean = false;
+	public visa: boolean = false;
 	public Country: any = [];
 	public page: number = 1;
 	public limit: number = 10;
@@ -210,6 +211,13 @@ export class MatchingJobComponent implements OnInit {
 		requestParams.skills_filter = 'false';
 		requestParams.work_authorization = '';
 		requestParams.visa_sponsered = false;
+		if(this.visa ==true){
+			requestParams.visa = true;			
+		}
+		if(this.userInfo && this.userInfo.city ){
+			requestParams.city = this.userInfo.city;
+			requestParams.country = this.userInfo.country;
+		}
 		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true ) {
 			requestParams.work_authorization = this.userInfo.work_authorization;
 			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
@@ -219,7 +227,7 @@ export class MatchingJobComponent implements OnInit {
 					var temp:any[]= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 					if(temp.length!=0){
 						var tempData=temp.map(function(a,b){ return a.city});
-						//tempData[tempData.length]=this.userInfo.city;
+						tempData[tempData.length]=this.userInfo.city;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
@@ -238,7 +246,7 @@ export class MatchingJobComponent implements OnInit {
 					if(temp.length!=0){
 						var temp=temp.map(function(a,b){ return a.country});
 					}
-					if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+					if(this.userInfo.authorized_country && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
 						var authorized_countrys= this.nationality.filter((el) => {
 							return this.userInfo.authorized_country.some((f) => {
 								return f === el.id ;
@@ -255,7 +263,7 @@ export class MatchingJobComponent implements OnInit {
 							]
 							//tempData = tempData.concat(EUCountry);
 						}
-						//tempData[tempData.length]=this.userInfo.country;
+						tempData[tempData.length]=this.userInfo.country;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
@@ -263,7 +271,7 @@ export class MatchingJobComponent implements OnInit {
 							requestParams.country = tempData.join(',');
 						}
 					}
-				} else if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+				} else if(this.userInfo.authorized_country && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
 					var authorized_countrys= this.nationality.filter((el) => {
 						return this.userInfo.authorized_country.some((f) => {
 							return f === el.id ;
@@ -283,7 +291,7 @@ export class MatchingJobComponent implements OnInit {
 							]
 							//tempData = tempData.concat(EUCountry);
 						}
-						//tempData[tempData.length]=this.userInfo.country;
+						tempData[tempData.length]=this.userInfo.country;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
@@ -294,7 +302,7 @@ export class MatchingJobComponent implements OnInit {
 				} 
 			}
 		} else{
-			if(this.userInfo && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+			if(this.userInfo && this.userInfo.authorized_country && this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
 				var authorized_countrys= this.nationality.filter((el) => {
 					return this.userInfo.authorized_country.some((f) => {
 						return f === el.id ;
@@ -314,7 +322,7 @@ export class MatchingJobComponent implements OnInit {
 						]
 						//tempData = tempData.concat(EUCountry);
 					}
-					//tempData[tempData.length]=this.userInfo.country;
+					tempData[tempData.length]=this.userInfo.country;
 					tempData =tempData.filter(function(item, pos) {
 						return tempData.indexOf(item) == pos;
 					})
@@ -449,6 +457,21 @@ export class MatchingJobComponent implements OnInit {
 	}
 	
 	/**
+	**	To validate the visa details to show the matches section
+	**/
+	
+	ValidateByVisa(event){
+		if(event.target.style.color!="rgb(255, 41, 114)"){
+			event.target.style.color="rgb(255, 41, 114)";
+			this.visa = true;
+		}else{
+			event.target.style.color='#000';
+			this.visa = false;
+		}
+		this.onGetPostedJob();
+	}
+	
+	/**
 	**	To Open the resume in popup view
 	**/
 	
@@ -458,6 +481,7 @@ export class MatchingJobComponent implements OnInit {
 		}
 		this.isOpenedResumeSelectModal = status;
 		this.onEvent.emit(true);
+		this.onGetPostedJob();
 	}
 
 	onLoadMoreJob = () => {

@@ -90,7 +90,7 @@ export class CreateCandidateHeaderComponent implements OnInit {
     'domains_worked': [Validators.required],
     'skill_id': [Validators.required],
     'exp_type': [Validators.required],
-    'skills': [Validators.required],
+    //'skills': [Validators.required],
     'programming_skills': [Validators.required],
     'other_skills': [Validators.required],
     'job_role': [Validators.required],

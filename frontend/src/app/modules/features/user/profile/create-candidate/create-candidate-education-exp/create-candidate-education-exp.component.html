@@ -26,8 +26,8 @@
       </div>
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
-          <label>{{"postYourResume.yearOfCompletion" | translate }}</label>
-          <input maxlength="4" (change)="onChangeCompletionValue($event?.target?.value, i)" numbersOnly formControlName="year_of_completion" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.yearOfCompletion' | translate">
+          <label>{{"postYourResume.yearOfCompletionGraduation" | translate }}</label>
+          <input maxlength="4" (change)="onChangeCompletionValue($event?.target?.value, i)" numbersOnly formControlName="year_of_completion" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.yearOfCompletionGraduation' | translate">
           <app-control-messages [control]="ticket['controls']['year_of_completion']"></app-control-messages>
 		 
         </div>

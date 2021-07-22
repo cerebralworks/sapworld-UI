@@ -172,6 +172,14 @@ export class CandidateReviewModalComponent implements OnInit {
 				backdrop: 'static',
 				keyboard: false
 			});
+			if(!this.childForm.value.skillSet.skills || !this.childForm.value.skillSet.skills.length || this.childForm.value.skillSet.skills.length ==0){
+				var temFilter =this.childForm.value.skillSet.hands_on_experience.map(function(a,b){ return a.skill_id });
+				this.childForm.patchValue({
+				  skillSet: {
+					['skills']: temFilter,
+				  }
+				});
+			}
 		}
 	}
 	
@@ -459,6 +467,24 @@ export class CandidateReviewModalComponent implements OnInit {
 				}
 				
 				}else if(this.childForm.value.personalDetails.work_authorization==1){
+					var temps =this.childForm.value.personalDetails.nationality;
+					var tempCoun =[];
+					if(temps){
+						var vali =this.nationality.filter(function(a,b){ return a.id==parseInt(temps)});
+						if(vali.length==1){
+							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+								tempCoun.push(vali[0]['iso']);
+							}
+								
+						}
+						
+					}
+					if(tempCoun.length==0){
+						this.options.componentRestrictions['country'] = [];
+					}else{
+						this.options.componentRestrictions['country'] = tempCoun;
+					}
+				}else{
 					var temps =this.childForm.value.personalDetails.nationality;
 					var tempCoun =[];
 					if(temps){

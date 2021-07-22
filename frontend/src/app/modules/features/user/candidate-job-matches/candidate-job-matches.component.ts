@@ -31,6 +31,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	public isOpenedResumeSelectModal: boolean;
 	public matchedElement: boolean = true;
 	public missingElement: boolean = false;
+	public matchFind: boolean = false;
 	public moreElement: boolean = true;
 	public isMultipleMatches: boolean;
 	// public matchingUsersMeta: any;
@@ -77,16 +78,18 @@ export class CandidateJobMatchesComponent implements OnInit {
 			response => {
 				if(response){
 					if(response.skills){
-						response.skills = this.utilsHelperService.differenceByPropValArray(response.skills, response.hands_on_experience, 'skill_id')
+						response.skillses = this.utilsHelperService.differenceByPropValArray(response.skills, response.hands_on_experience, 'skill_id')
 					}
 					this.userInfo = response;
+					if (this.jobId && this.matchFind ==false) {
+						this.onGetUserScoringById(true, true);
+						this.onGetUserScoringById();
+						this.matchFind = true;
+					}
 				}
 			}
 		)
-		if (this.jobId) {
-			this.onGetUserScoringById(true, true);
-			this.onGetUserScoringById();
-		}
+		
 	}
 
 	/**
@@ -128,6 +131,10 @@ export class CandidateJobMatchesComponent implements OnInit {
 		}
 		requestParams.page = this.page;
 		requestParams.visa_sponsered = false;
+		if(this.userInfo && this.userInfo.city ){
+			requestParams.city = this.userInfo.city;
+			requestParams.country = this.userInfo.country;
+		}
 		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true) {
 			//requestParams.work_authorization = this.userInfo.work_authorization;
 			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
@@ -137,7 +144,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 					if(temp.length!=0){
 						var tempData=temp.map(function(a,b){ return a.city});
-						//tempData[tempData.length]=this.userInfo.city;
+						tempData[tempData.length]=this.userInfo.city;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
@@ -159,7 +166,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 					if(temp.length!=0){
 						var tempData=temp.map(function(a,b){ return a.country});
-						//tempData[tempData.length]=this.userInfo.country;
+						tempData[tempData.length]=this.userInfo.country;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
@@ -220,6 +227,11 @@ export class CandidateJobMatchesComponent implements OnInit {
 		// requestParams.id = this.jobId;
 		requestParams.page = this.page;
 		requestParams.visa_sponsered = false;
+		
+		if(this.userInfo && this.userInfo.city ){
+			requestParams.city = this.userInfo.city;
+			requestParams.country = this.userInfo.country;
+		}
 		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true) {
 			//requestParams.work_authorization = this.userInfo.work_authorization;
 			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
@@ -229,7 +241,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 					if(temp.length!=0){
 						var tempData=temp.map(function(a,b){ return a.city});
-						//tempData[tempData.length]=this.userInfo.city;
+						tempData[tempData.length]=this.userInfo.city;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
@@ -247,7 +259,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 					if(temp.length!=0){
 						var tempData=temp.map(function(a,b){ return a.country});
-						//tempData[tempData.length]=this.userInfo.country;
+						tempData[tempData.length]=this.userInfo.country;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})

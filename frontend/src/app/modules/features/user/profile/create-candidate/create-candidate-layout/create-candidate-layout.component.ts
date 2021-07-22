@@ -94,8 +94,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		};
 		this.buildForm();
 		this.createFormData();
-		this.onGetCountry('');
-		this.onGetLanguage('');
+		//this.onGetCountry('');
+		//this.onGetLanguage('');
 		this.dataService.getUserPhoto().subscribe(
 		response => {
 			this.userPhotoInfo = response;
@@ -260,7 +260,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					experience: ['', [Validators.required,]],
 					exp_type: ['years', [Validators.required]]
 				})]),
-				skills: new FormControl(null, Validators.required),
+				skills: new FormControl(null),
 					programming_skills: new FormControl(null, Validators.required),
 					other_skills: new FormControl(null, Validators.required),
 					certification: new FormControl(null),
@@ -343,7 +343,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		'domains_worked': [Validators.required],
 		'skill_id': [Validators.required],
 		'exp_type': [Validators.required],
-		'skills': [Validators.required],
+		//'skills': [Validators.required],
 		'programming_skills': [Validators.required],
 		'other_skills': [Validators.required],
 		//'job_role': [Validators.required],

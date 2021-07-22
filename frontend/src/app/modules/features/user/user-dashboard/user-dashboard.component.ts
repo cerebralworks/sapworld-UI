@@ -224,6 +224,8 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		requestParams.skills_filter = 'false';
 		requestParams.work_authorization = '';
 		requestParams.visa_sponsered = false;	
+		requestParams.city = this.userInfo.city;
+		requestParams.country = this.userInfo.country;
 		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true ) {
 			requestParams.work_authorization = this.userInfo.work_authorization;
 			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
@@ -233,7 +235,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 					var temp:any[]= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
 					if(temp.length!=0){
 						var tempData=temp.map(function(a,b){ return a.city});
-						//tempData[tempData.length]=this.userInfo.city;
+						tempData[tempData.length]=this.userInfo.city;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
@@ -271,7 +273,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 							'france','poland','germany','portugal','greece','slovakia','hungary',
 							'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 							]
-							tempData = tempData.concat(EUCountry);
+							//tempData = tempData.concat(EUCountry);
 						}
 						tempData[tempData.length]=this.userInfo.country;
 						tempData =tempData.filter(function(item, pos) {
@@ -299,9 +301,9 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 							'france','poland','germany','portugal','greece','slovakia','hungary',
 							'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 							]
-							tempData = tempData.concat(EUCountry);
+							//tempData = tempData.concat(EUCountry);
 						}
-						//tempData[tempData.length]=this.userInfo.country;
+						tempData[tempData.length]=this.userInfo.country;
 						tempData =tempData.filter(function(item, pos) {
 							return tempData.indexOf(item) == pos;
 						})
@@ -330,9 +332,9 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 						'france','poland','germany','portugal','greece','slovakia','hungary',
 						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
 						]
-						tempData = tempData.concat(EUCountry);
+						//tempData = tempData.concat(EUCountry);
 					}
-					//tempData[tempData.length]=this.userInfo.country;
+					tempData[tempData.length]=this.userInfo.country;
 					tempData =tempData.filter(function(item, pos) {
 						return tempData.indexOf(item) == pos;
 					})

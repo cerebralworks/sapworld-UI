@@ -7,6 +7,7 @@ import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { DataService } from '@shared/service/data.service';
 
 @Component({
   selector: 'app-resume-select',
@@ -24,6 +25,7 @@ export class ResumeSelectComponent implements OnInit {
 	public resumeForm: FormGroup;
 	public isOpenedResumeModal: boolean;
 	public isShowData: boolean = false;
+	public isShowValidShow: boolean = false;
 	public isShowUpload: boolean = true;
 	@Input() toggleResumeSelectModal: boolean;
 	@Input() userAccept: boolean = false;
@@ -33,11 +35,14 @@ export class ResumeSelectComponent implements OnInit {
 	public mbRef: NgbModalRef;
 	public mbRefs: NgbModalRef;
 	public mbRefss: NgbModalRef;
+	public mbRefsss: NgbModalRef;
 	public userInfo: any;
+	public nationality: any[]=[];
 
 	@ViewChild("resumeSelectModal", { static: false }) resumeSelectModal: TemplateRef<any>;
 	@ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
 	@ViewChild("openSuccessPopup", { static: false }) openSuccessModal: TemplateRef<any>;
+	@ViewChild("openWarningPopup", { static: false }) openWarningPopup: TemplateRef<any>;
 	@ViewChild('userResume', { static: false }) userResume: ElementRef;
 	public resumeSelectForm: FormGroup;
 	public resumeSelected: any;
@@ -46,6 +51,7 @@ export class ResumeSelectComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private modalService: NgbModal,
 		public router: Router,
+		private dataService: DataService,
 		private userSharedService: UserSharedService,
 		private utilsHelperService: UtilsHelperService,
 		private toastrService: ToastrService,
@@ -57,14 +63,38 @@ export class ResumeSelectComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
+		this.dataService.getCountryDataSource().subscribe(
+			response => {
+				if (response && Array.isArray(response) && response.length) {
+					this.nationality = response;
+				}
+			}
+		);
 		this.userSharedService.getUserProfileDetails().subscribe(
 		response => {
 			this.userInfo = response;
-			if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
-				this.resumeSelected = this.onGetFilteredValue(this.userInfo.doc_resume, 'default');
-				if(this.userInfo.doc_resume.length!=0){
-					this.isShowData = true;
-					this.isShowUpload = false;
+			if(this.userInfo){
+				var tempNationality = parseInt(this.userInfo['nationality']);
+				var tempFilterdata = this.nationality.filter(function(a,b){ return a.id == tempNationality });
+				if(tempFilterdata.length==1){
+					if(tempFilterdata[0]['nicename'].toLocaleLowerCase() == this.currentJobDetails['country'].toLocaleLowerCase()){
+						 this.isShowValidShow = true
+					}else if(this.userInfo['country'].toLocaleLowerCase() == this.currentJobDetails['country'].toLocaleLowerCase()){
+						 if(this.userInfo['visa_type'] !=null && this.userInfo['visa_type']['length']&& this.userInfo['visa_type']['length']!=0){
+							this.isShowValidShow = true;
+						 }
+					}else if (this.currentJobDetails['visa_sponsorship'] == true){
+						this.isShowValidShow = true;
+					}
+				}
+				if(this.isShowValidShow ==true){
+					if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
+						this.resumeSelected = this.onGetFilteredValue(this.userInfo.doc_resume, 'default');
+						if(this.userInfo.doc_resume.length!=0){
+							this.isShowData = true;
+							this.isShowUpload = false;
+						}
+					}
 				}
 			}
 		}
@@ -89,7 +119,7 @@ export class ResumeSelectComponent implements OnInit {
 	**/
 	
 	ngAfterViewInit(): void {
-		if (this.toggleResumeSelectModal) {
+		if (this.toggleResumeSelectModal && this.isShowValidShow == true) {
 			this.mbRef = this.modalService.open(this.resumeSelectModal, {
 				windowClass: 'modal-holder',
 				centered: true,
@@ -97,6 +127,13 @@ export class ResumeSelectComponent implements OnInit {
 				keyboard: false
 			});
 			this.buildForm();
+		}else{
+			this.mbRefsss = this.modalService.open(this.openWarningPopup, {
+				windowClass: 'modal-holder',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
 		}
 	}
 	
@@ -105,7 +142,9 @@ export class ResumeSelectComponent implements OnInit {
 	**/
 	
 	ngOnDestroy(): void {
-		this.onClickCloseBtn(false);
+		if(this.isShowValidShow !=true){
+			this.onClickCloseBtn(false);
+		}
 	}
 
 	/**
@@ -170,7 +209,12 @@ export class ResumeSelectComponent implements OnInit {
 	onClickCloseBtn(status) {
 		this.onEvent.emit(status);
 		if (status == false) {
-			this.mbRef.close()
+			if(this.mbRefsss){
+				this.mbRefsss.close();			
+			}
+			if(this.mbRef){
+				this.mbRef.close()				
+			}
 		}
 	}
 	
@@ -191,8 +235,26 @@ export class ResumeSelectComponent implements OnInit {
 	**/
 	
 	navigateMatches(){
+		this.onEvent.emit(false);
 		this.mbRefss.close();
 		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'matches'}})
+	}  
+	/**
+	**	To navigate the profile View
+	**/
+	
+	navigateProfile(){
+		this.mbRefsss.close();
+		this.router.navigate(['/user/create-candidate']);
+	}  
+	 
+	/**
+	**	To close the warning preview
+	**/
+	
+	onClickCloseBtnStatusWarning(){
+		this.onEvent.emit(false);
+		this.mbRefsss.close();
 	}  
 	
 	/**

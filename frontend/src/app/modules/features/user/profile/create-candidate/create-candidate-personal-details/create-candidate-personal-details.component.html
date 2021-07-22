@@ -138,7 +138,7 @@
 		<div class="col-lg-5 col-md-6">
 		  <div class=" form-group">
 			<label>{{"postJob.workAuthorization" | translate }}</label>
-			<div appMarkAsterisk class="mt-2">
+			<div class="mt-2">
 			  <div class="custom-control custom-radio custom-control-inline">
 				<input (change)="onChangeFieldValue('work_authorization', 0)" [value]="0" formControlName="work_authorization" type="radio" id="customRadioInline5"
 				  name="work_authorization" class="custom-control-input">
@@ -161,13 +161,13 @@
 			<div class=" form-group">
 				<label>{{"postYourResume.selectcountry" | translate }} </label>
 				<div class="pt-2">
-					<button type="button" class="btn btn-fltr" id="254" (click)="countryClick('Europe',$event);">Europe</button>
-					<button type="button" class="btn btn-fltr" id="226" (click)="countryClick('United States',$event);">United States</button>
-					<button type="button" class="btn btn-fltr" id="225"  (click)="countryClick('United Kingdom',$event);">United Kingdom</button>
-					<button type="button" class="btn btn-fltr" id="13"  (click)="countryClick('Australia',$event);">Australia</button>
-					<button type="button" class="btn btn-fltr" id="153"  (click)="countryClick('New Zealand',$event);"> New Zealand </button>
-					<button type="button" class="btn btn-fltr" id="38"  (click)="countryClick('Canada',$event);">Canada</button>
-					<button type="button" class="btn btn-fltr" id="192"  (click)="countryClick('Singapore',$event);">Singapore</button>
+					<button type="button" class="btn btn-fltr" id="254" *ngIf="childForm.value.personalDetails.nationality !=254" (click)="countryClick('Europe',$event);">Europe</button>
+					<button type="button" class="btn btn-fltr" id="226" *ngIf="childForm.value.personalDetails.nationality != 226" (click)="countryClick('United States',$event);">United States</button>
+					<button type="button" class="btn btn-fltr" id="225" *ngIf="childForm.value.personalDetails.nationality !=225"  (click)="countryClick('United Kingdom',$event);">United Kingdom</button>
+					<button type="button" class="btn btn-fltr" id="13"  *ngIf="childForm.value.personalDetails.nationality !=13" (click)="countryClick('Australia',$event);">Australia</button>
+					<button type="button" class="btn btn-fltr" id="153" *ngIf="childForm.value.personalDetails.nationality !=153"  (click)="countryClick('New Zealand',$event);"> New Zealand </button>
+					<button type="button" class="btn btn-fltr" id="38"  *ngIf="childForm.value.personalDetails.nationality !=38" (click)="countryClick('Canada',$event);">Canada</button>
+					<button type="button" class="btn btn-fltr" id="192"  *ngIf="childForm.value.personalDetails.nationality !=192" (click)="countryClick('Singapore',$event);">Singapore</button>
 					<!-- <button type="button" class="btn btn-fltr bg-light">Others</button> -->
 				</div>
 			</div>

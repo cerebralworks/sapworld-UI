@@ -103,6 +103,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		this.userService.profileView(requestParams).subscribe(
 		response => {
 			if(response && response.details) {
+				response['details']['skillses'] = response['details']['skills']
 				this.userInfo = {...response.details, meta: response.meta};
 				this.onGetPostedJobs(this.employeeID);
 			}
@@ -148,7 +149,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 			if(this.userInfo && this.userInfo.preferred_locations ) {
 				if(this.userInfo.preferred_locations.length !=0) {
 					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
-					if(this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
+					if(this.userInfo.authorized_country &&  this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
 						//temp = temp.concat(this.userInfo.authorized_country);
 					}				
 					if(temp.length!=0){
