@@ -304,7 +304,7 @@
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-						<li class="list-group-item text-uppercase"> 
+						<li class="list-group-item text-uppercase" *ngIf="childForm?.value?.skillSet?.skills"> 
 							<ng-container *ngIf="childForm?.value?.skillSet?.skills.length; else elseSkillsTemplate">
 							<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id'); let last = last;">
 							<span class="knldge"  tooltipClass="my-custom-class"  container="body"   placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -316,6 +316,9 @@
 					<li>--</li>
 				</ng-template>
 						</li>
+						<ng-template *ngIf="!childForm?.value?.skillSet?.skills">
+							<li>--</li>
+				</ng-template>
 					</ul>
 				</div>
 			</div>

@@ -214,8 +214,10 @@ export class MatchingJobComponent implements OnInit {
 		if(this.visa ==true){
 			requestParams.visa = true;			
 		}
-		requestParams.city = this.userInfo.city;
-		requestParams.country = this.userInfo.country;
+		if(this.userInfo && this.userInfo.city ){
+			requestParams.city = this.userInfo.city;
+			requestParams.country = this.userInfo.country;
+		}
 		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true ) {
 			requestParams.work_authorization = this.userInfo.work_authorization;
 			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
@@ -479,6 +481,7 @@ export class MatchingJobComponent implements OnInit {
 		}
 		this.isOpenedResumeSelectModal = status;
 		this.onEvent.emit(true);
+		this.onGetPostedJob();
 	}
 
 	onLoadMoreJob = () => {

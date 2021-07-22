@@ -235,6 +235,7 @@ export class ResumeSelectComponent implements OnInit {
 	**/
 	
 	navigateMatches(){
+		this.onEvent.emit(false);
 		this.mbRefss.close();
 		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'matches'}})
 	}  

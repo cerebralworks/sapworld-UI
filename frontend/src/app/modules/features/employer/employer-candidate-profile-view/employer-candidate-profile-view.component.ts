@@ -201,7 +201,10 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		requestParams.skills_filter = 'false';
 		requestParams.work_authorization = '';
 		requestParams.visa_sponsered = false;
-	
+	if(this.userDetails && this.userDetails.city ){
+			requestParams.city = this.userDetails.city;
+			requestParams.country = this.userDetails.country;
+		}
 		if(this.userDetails && this.userDetails.city && this.userDetails.willing_to_relocate == true ) {
 			requestParams.work_authorization = this.userDetails.work_authorization;
 			requestParams.visa_sponsered = this.userDetails.visa_sponsered;
@@ -279,7 +282,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 								]
 								tempData = tempData.concat(EUCountry);
 							}
-							//tempData[tempData.length]=this.userDetails.country;
+							tempData[tempData.length]=this.userDetails.country;
 							tempData =tempData.filter(function(item, pos) {
 								return tempData.indexOf(item) == pos;
 							})
@@ -310,7 +313,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 						]
 						tempData = tempData.concat(EUCountry);
 					}
-					//tempData[tempData.length]=this.userDetails.country;
+					tempData[tempData.length]=this.userDetails.country;
 					tempData =tempData.filter(function(item, pos) {
 						return tempData.indexOf(item) == pos;
 					})

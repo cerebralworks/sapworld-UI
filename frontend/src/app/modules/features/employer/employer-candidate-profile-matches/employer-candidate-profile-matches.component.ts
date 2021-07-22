@@ -768,6 +768,10 @@ findLanguageArray(value){
     requestParams.work_authorization = '';
     requestParams.visa_sponsered = false;	
 	
+		if(this.userDetails && this.userDetails.city ){
+			requestParams.city = this.userDetails.city;
+			requestParams.country = this.userDetails.country;
+		}
     if(this.userDetails && this.userDetails.city && this.userDetails.willing_to_relocate == true ) {
       requestParams.work_authorization = this.userDetails.work_authorization;
       requestParams.visa_sponsered = this.userDetails.visa_sponsered;
