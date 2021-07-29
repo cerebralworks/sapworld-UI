@@ -471,7 +471,7 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 	**	To show the users details matches
 	**/
 	  onShowMatches = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 			this.matchedElement = false;
 	 }else{
@@ -487,7 +487,7 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 	**	To sjow the user details missing
 	**/
   onShowMissing = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 			this.missingElement = false;
 	 }else{

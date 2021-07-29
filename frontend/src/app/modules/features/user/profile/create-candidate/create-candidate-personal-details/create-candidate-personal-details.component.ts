@@ -864,6 +864,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	  
 	onChangeFieldValue = (fieldName, value) => {
 		if(value==0){
+			this.visa_types =[];
 			this.showAuthorization =true;
 			this.childForm.get('personalDetails').controls['visa_type'].setValidators([Validators.required])
 		  this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
@@ -875,7 +876,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			});
 		}else{
 			this.showAuthorization = false;
-			
+			this.visa_types =[];
 			this.childForm.get('personalDetails').controls['visa_type'].setValidators(null)
 			this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
 			
@@ -949,26 +950,36 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**/
 	
   countryClick(value,clr){
-	  var temp = clr.toElement.className.split(' ');
+	  var temp = clr.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		 
-		this.childForm.value.personalDetails.authorized_country_select.pop(clr.toElement.id);
-		  clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
+		this.childForm.value.personalDetails.authorized_country_select.pop(clr.target.id);
+		this.childForm.value.personalDetails.authorized_country.pop(clr.target.id);
+		  clr.target.className = clr.target.className.replace('btn-fltr-active','');
 	  }else{
-		  clr.toElement.className = clr.toElement.className+' btn-fltr-active';
+		  clr.target.className = clr.target.className+' btn-fltr-active';
 
 		if(this.childForm.value.personalDetails.authorized_country_select==null){
-			value =[clr.toElement.id];
+			value =[clr.target.id];
 			this.childForm.patchValue({ 
 				personalDetails: { 
-					
 					authorized_country_select: value 
-					
 				} 
 			})
 
 		}else{
-			this.childForm.value.personalDetails.authorized_country_select.push(clr.toElement.id);
+			this.childForm.value.personalDetails.authorized_country_select.push(clr.target.id);
+		}
+		if(this.childForm.value.personalDetails.authorized_country==null){
+			value =[clr.target.id];
+			this.childForm.patchValue({ 
+				personalDetails: { 
+					authorized_country: value 
+				} 
+			})
+
+		}else{
+			this.childForm.value.personalDetails.authorized_country.push(clr.target.id);
 		}
 	  }
 	  console.log(value);

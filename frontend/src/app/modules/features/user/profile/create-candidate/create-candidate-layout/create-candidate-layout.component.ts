@@ -96,6 +96,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		this.createFormData();
 		//this.onGetCountry('');
 		//this.onGetLanguage('');
+		this.onGetSkill();
+		this.onGetIndustries();
 		this.dataService.getUserPhoto().subscribe(
 		response => {
 			this.userPhotoInfo = response;
@@ -151,6 +153,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				  }
 				if (this.userInfo && this.userInfo.education_qualification == null) {
 					delete this.userInfo.education_qualification;
+				}
+				if (this.userInfo.domains_worked != null) {
+					for(let i=0;i<this.userInfo.domains_worked.length;i++){
+						this.userInfo.domains_worked[i]=parseInt(this.userInfo.domains_worked[i]);
+					}
 				}
 				this.candidateForm.patchValue({
 					educationExp : {

@@ -529,7 +529,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   }
 
   onShowMatches = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		    document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light';
 			this.matchedElement = false;
@@ -564,7 +564,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   }
 
   onShowMissing = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  	  if(temp[temp.length-1]=='btn-fltr-active'){
 		  event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
 			this.missingElement = false;
@@ -606,7 +606,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   }
 
   onShowMore = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		  document.getElementById('moreBtnVal').className = 'moreBtn btn-sm btn btn-fltr btn-light';
 			this.moreElement = false;
@@ -764,6 +764,8 @@ findLanguageArray(value){
     requestParams.limit = 1000;
     requestParams.expand = 'company';
     requestParams.company = tempDataId;
+	requestParams.user_list = true;	
+	requestParams.user_id = this.userDetails.id;	
     requestParams.skills_filter = 'false';
     requestParams.work_authorization = '';
     requestParams.visa_sponsered = false;	

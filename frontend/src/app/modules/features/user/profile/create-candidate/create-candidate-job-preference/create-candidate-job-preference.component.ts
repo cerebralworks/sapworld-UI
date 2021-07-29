@@ -128,6 +128,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			if (this.childForm && this.savedUserDetails) {
 				if(this.savedUserDetails.work_authorization==0){
 					var temps =this.savedUserDetails.authorized_country;
+					var temps1 =this.savedUserDetails.authorized_country_select;
 					var tempCoun =[];
 					if(!temps || temps.length==0){
 						temps =[this.savedUserDetails.nationality];
@@ -137,6 +138,24 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					if(temps.length){
 						for(let i=0;i<temps.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
+							if(vali.length==1){
+								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+									tempCoun.push(vali[0]['iso']);
+								}
+								
+							}
+							
+
+						}
+					}
+					if(!temps1 || temps1.length==0){
+						temps1 =[this.savedUserDetails.nationality];
+					}else{
+						temps1[temps1.length]=this.childForm.value.personalDetails.nationality;
+					}
+					if(temps1.length){
+						for(let i=0;i<temps1.length;i++){
+							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps1[i])});
 							if(vali.length==1){
 								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 									tempCoun.push(vali[0]['iso']);
@@ -228,10 +247,24 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				}
 				if(this.childForm.controls.personalDetails.value.work_authorization==0){
 					var temps =this.childForm.controls.personalDetails.value.authorized_country;
+					var temps1 =this.childForm.controls.personalDetails.value.authorized_country_select;
 					var tempCoun =[];
 					if(temps.length){
 						for(let i=0;i<temps.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
+							if(vali.length==1){
+								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+									tempCoun.push(vali[0]['iso']);
+								}
+								
+							}
+							
+
+						}
+					}
+					if(temps1.length){
+						for(let i=0;i<temps1.length;i++){
+							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps1[i])});
 							if(vali.length==1){
 								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 									tempCoun.push(vali[0]['iso']);
@@ -335,7 +368,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					if(educationExpIndex == -1) {
 						
 						var idVals = this.childForm.value.personalDetails.nationality;
-						this.savedUserDetails.preferred_countries = [idVals];
+						//this.savedUserDetails.preferred_countries = [idVals];
 							
 						this.childForm.patchValue({
 								educationExp : {
@@ -382,7 +415,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			willing_to_relocate: new FormControl(null, Validators.required),
 			preferred_location: new FormControl(null),
 			travel: new FormControl(null, Validators.required),
-			preferred_countries: new FormControl(null, Validators.required),
+			//preferred_countries: new FormControl(null, Validators.required),
 			preferred_locations : new FormArray([this.formBuilder.group({
 				city: [''],
 				state: [''],
@@ -447,46 +480,46 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	** Country Onclick with pathching the form values
 	**/
 	
-	countryClick(value,clr){
-		var temp = clr.toElement.className.split(' ');
+	/* countryClick(value,clr){
+		var temp = clr.target.className.split(' ');
 		if(temp[temp.length-1]=='btn-fltr-active'){
-			this.childForm.value.jobPref.preferred_countries.pop(clr.toElement.id);
-			clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
+			this.childForm.value.jobPref.preferred_countries.pop(clr.target.id);
+			clr.target.className = clr.target.className.replace('btn-fltr-active','');
 		}else{
-			clr.toElement.className = clr.toElement.className+' btn-fltr-active';
+			clr.target.className = clr.target.className+' btn-fltr-active';
 			if(this.childForm.value.jobPref.preferred_countries==null){
-				value =[clr.toElement.id];
+				value =[clr.target.id];
 				this.childForm.patchValue({ 
 					jobPref: { 
 						preferred_countries: value 
 					} 
 				})
 			}else{
-				this.childForm.value.jobPref.preferred_countries.push(clr.toElement.id);
+				this.childForm.value.jobPref.preferred_countries.push(clr.target.id);
 			}
 		}
-	}
+	} */
 	
 	/** 
 	** Job Onclick with pathching the form values
 	**/
 	
 	jobClick(value,clr){
-	  var temp = clr.toElement.className.split(' ');
+	  var temp = clr.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		 if(this.childForm.value.jobPref.job_type){
-				this.childForm.value.jobPref.job_type.pop(clr.toElement.id);
+				this.childForm.value.jobPref.job_type.pop(clr.target.id);
 				if(this.childForm.value.jobPref.job_type.length==0){
 					this.job_type_error = true;					
 				}
 		 }else{
 			 this.job_type_error = true;
 		 }
-		 clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
+		 clr.target.className = clr.target.className.replace('btn-fltr-active','');
 	  }else{
-			clr.toElement.className = clr.toElement.className+' btn-fltr-active';
+			clr.target.className = clr.target.className+' btn-fltr-active';
 			if(this.childForm.value.jobPref.job_type==null){
-				/* value =[clr.toElement.id];
+				/* value =[clr.target.id];
 				this.childForm.patchValue({ 
 					jobPref: { 
 						job_type: value 
@@ -494,7 +527,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				}) */
 			
 			}else{
-				//this.childForm.value.jobPref.job_type.push(clr.toElement.id);
+				//this.childForm.value.jobPref.job_type.push(clr.target.id);
 			}
 			 
 			this.job_type_error = false;
