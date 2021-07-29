@@ -228,7 +228,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 		// requestParams.id = this.jobId;
 		requestParams.page = this.page;
 		requestParams.visa_sponsered = false;
-		
+		requestParams.id = this.userInfo.id;
+		requestParams.visa_sponsered = false;
 		if(this.userInfo && this.userInfo.city ){
 			requestParams.city = this.userInfo.city;
 			requestParams.country = this.userInfo.country;
