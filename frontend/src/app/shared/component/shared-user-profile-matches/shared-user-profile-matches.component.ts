@@ -279,8 +279,10 @@ findLanguageArray(value){
 	**/
 	findCountrysData(value){
 		if(value){
+			value = value.map(function(a,b){ return parseInt(a)});
+
 			if(this.nationality){
-				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
+				var array = this.nationality.filter(f=>{ return value.includes(parseInt(f.id))})
 
 				if(array.length !=0){
 					var temp = array[0]['nicename'].toLocaleLowerCase();
@@ -401,7 +403,7 @@ findLanguageArray(value){
 	**	To show the matches 
 	**/
   onShowMatches = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		    event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light';
 			this.matchedElement = false;
@@ -440,7 +442,7 @@ findLanguageArray(value){
 	**	To show the missing
 	**/
   onShowMissing = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		  event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
 			this.missingElement = false;
@@ -488,7 +490,7 @@ findLanguageArray(value){
 	**	To show extra fields
 	**/
   onShowMore = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		  event.target.className = 'moreBtn btn-sm btn btn-fltr btn-light';
 			this.moreElement = false;
@@ -546,6 +548,15 @@ findLanguageArray(value){
 				  if(Temp.filter(function(a,b){return a.toLocaleLowerCase() == country.toLocaleLowerCase()}).length !=0){
 					  return true;
 				  }
+			  }else{
+				  if(this.matchingUsers.profile.preferred_locations &&this.matchingUsers.profile.preferred_locations.length){
+					  if(this.matchingUsers.profile.preferred_locations.filter(function(a,b){return a.country.toLocaleLowerCase() == country.toLocaleLowerCase()}).length !=0){
+					  return true;
+					}
+				  }
+			  }
+			  if(this.matchingUsers.profile.country.toLocaleLowerCase() == country.toLocaleLowerCase()){
+				  return true;
 			  }
 		  }
 				

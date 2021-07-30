@@ -109,6 +109,10 @@ export class CandidateJobViewComponent implements OnInit {
 		}
 	}
 	
+	navigateMatches(){
+		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
+	}
+	
 	/**	
 	**	To Open the resume in popup view
 	**/

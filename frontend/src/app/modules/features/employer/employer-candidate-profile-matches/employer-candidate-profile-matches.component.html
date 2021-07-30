@@ -90,7 +90,7 @@
 														<form class="form-inline">
 															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
-															</a><a [class.disabled]="!OpenMatchPopups(matchingUsers?.profile)" (click)="OpenMatchPopup(postedJobsDetails,matchingUsers?.profile)" class="mr-3" >
+															</a><a [class.disabled]="OpenMatchPopups(matchingUsers)" (click)="OpenMatchPopup(matchingUsers)" class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a>
 															<!-- <a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company.id,path:'userscoring'}" class="mr-3" >
@@ -149,7 +149,7 @@
 															<a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
 															</a>
-															<a (click)="OpenMatchPopup(postedJobsDetails,matchingUsersNew?.profile)" class="mr-3" >
+															<a [class.disabled]="OpenMatchPopups(matchingUsersNew)"  (click)="OpenMatchPopup(matchingUsersNew)" class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a><!-- 
 															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsersNew?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >

@@ -26,12 +26,13 @@
 						<div class="card job-card">
 							<div class="card-body">
 								<div class="row">
-									<div class="col-lg-7">
+									<div class="col-lg-6">
 										<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
 									</div>
-									<div class="col-lg-5 text-right">
-										<a class="btn btn-outline-green btn-sm" (click)="onToggleResumeSelectModal(true, postedJobsDetails)" style="margin-right: 10px;" href="javascript:;" *ngIf="isShowApply" ><i class="fas fa-file-alt"></i> Apply</a>
-										<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;"><i class="fas fa-file-alt"></i> Description</a>
+									<div class="col-lg-6 text-right" >
+										<a class="btn btn-outline-green btn-sm" (click)="onToggleResumeSelectModal(true, postedJobsDetails)" style="margin-right: 4px;" href="javascript:;" *ngIf="isShowApply" ><i class="fas fa-file-alt"></i> Apply</a>
+										<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;" style="margin-right: 4px;"><i class="fas fa-file-alt"></i> Description</a>
+										<a class="btn btn-outline-blue btn-sm"  *ngIf="isShowApply"  (click)="navigateMatches()" href="javascript:;"><i class="fas fa-file-alt"></i> Show Matches</a>
 										
 									</div>
 								</div>

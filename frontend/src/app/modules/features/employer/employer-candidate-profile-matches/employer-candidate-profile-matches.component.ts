@@ -255,7 +255,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 				if (response) {
 					if(response.profile){
 						this.userDetails = response.profile;
-						this.onGetPostedJobs(this.postedJobsDetails) ;
+						//this.onGetPostedJobs(this.postedJobsDetails) ;
 					}
 				}
 			}, error => {
@@ -289,7 +289,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 				this.matchingUsersNew = { ...response };
 				if(response.profile){
 					this.userDetails = response.profile;
-					this.onGetPostedJobs(this.postedJobsDetails) ;
+					//this.onGetPostedJobs(this.postedJobsDetails) ;
 				}
 			}
 		}, error => {
@@ -411,101 +411,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	}
 
 	/**
-	**	Array to Strings
+	**	Popup status
 	**/
-	
-  inArray(needle, haystack, matchAll = false) {
-    if ((Array.isArray(needle) && Array.isArray(haystack)) && needle.length && haystack.length) {
-      if (matchAll) {
-        return needle.every(i => haystack.includes(i));
-      } else {
-        return needle.some(i => haystack.includes(i));
-      }
-    }
-    return false;
-  }
-
-  onChangeValue(array1: any[] = [], array2: any[] = [], type = 'array', field: string = 'id', filterArray: string = '') {
-    if (array1 && array1.length && array2 && array2.length) {
-      let result;
-      if (type == 'array') {
-        result = lodash.uniq([...array1, ...array2])
-      }
-      if (type == 'arrayObj') {
-        result = lodash.uniqBy([...array1, ...array2], field)
-      }
-      if (result && result.length) {
-        return result;
-      }
-    }
-    return [];
-  }
-
-  onLoweCase(array: any[] = []) {
-    if (array && array.length) {
-      return array.map(v => v.toLowerCase());
-    }
-  }
-
-  onDiff = (arr1: any[] = [], arr2: any[] = []) => {
-
-    if (arr1 && arr1.length && arr2 && arr2.length) {
-      let difference = arr1
-        .filter(x => !arr2.includes(x))
-        .concat(arr2.filter(x => !arr1.includes(x)));
-      return difference;
-    }
-    return [];
-  }
-
-  onChangeStringNumber(field1, field2, item, type, isString: boolean = false, isNew: boolean = false) {
-    let lowerCaseJob = [];
-    if (this.postedJobsDetails && this.postedJobsDetails[field1]) {
-      lowerCaseJob = isString ? this.onLoweCase(this.postedJobsDetails[field1]) : this.postedJobsDetails[field1];
-    }
-    let lowerCaseUser = [];
-    if (!isNew && this.matchingUsers && this.matchingUsers.profile && this.matchingUsers.profile[field2]) {
-      lowerCaseUser = isString ? this.onLoweCase(this.matchingUsers.profile[field2]) : this.matchingUsers.profile[field2];
-    }
-    if (isNew && this.matchingUsersNew && this.matchingUsersNew.profile && this.matchingUsersNew.profile[field2]) {
-      lowerCaseUser = isString ? this.onLoweCase(this.matchingUsersNew.profile[field2]) : this.matchingUsersNew.profile[field2];
-    }
-
-    const itemMod = isString ? item.toLowerCase() : item;
-    if (lowerCaseJob.includes(itemMod) && type == 'check') {
-      return { type: 'check', class: 'text-green' }
-    } else if (!lowerCaseUser.includes(itemMod) && type == 'info') {
-      return { type: 'info', class: 'text-blue' }
-    } else if (!lowerCaseJob.includes(itemMod) && type == 'close') {
-      return { type: 'close', class: 'text-danger' }
-    }
-    return { type: '', class: '' }
-  }
-
-  onChangeObj(field1, field2, item, type, filterField, isNew = false) {
-    let lowerCaseJob = [];
-    if (this.postedJobsDetails && this.postedJobsDetails[field1]) {
-      lowerCaseJob = this.postedJobsDetails[field1]
-    }
-    let lowerCaseUser = [];
-    if (!isNew && this.matchingUsers && this.matchingUsers.profile && this.matchingUsers.profile[field2]) {
-      lowerCaseUser = this.matchingUsers.profile[field2]
-    }
-    if (isNew && this.matchingUsersNew && this.matchingUsersNew.profile && this.matchingUsersNew.profile[field2]) {
-      lowerCaseUser = this.matchingUsersNew.profile[field2]
-    }
-    let jobIndex = lowerCaseJob.findIndex(val => val[filterField] == item[filterField]);
-
-    let userIndex = lowerCaseUser.findIndex(val => val[filterField] == item[filterField]);
-    if (jobIndex > -1 && type == 'check') {
-      return { type: 'check', class: 'text-green' }
-    } else if (userIndex == -1 && type == 'info') {
-      return { type: 'info', class: 'text-blue' }
-    } else if (jobIndex == -1 && type == 'close') {
-      return { type: 'close', class: 'text-danger' }
-    }
-    return { type: '', class: '' }
-  }
 
   onToggleSendMail = (status, item?) => {
     if (item && !this.utilsHelperService.isEmptyObj(item)) {
@@ -529,7 +436,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   }
 
   onShowMatches = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		    document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light';
 			this.matchedElement = false;
@@ -564,7 +471,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   }
 
   onShowMissing = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  	  if(temp[temp.length-1]=='btn-fltr-active'){
 		  event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
 			this.missingElement = false;
@@ -606,7 +513,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   }
 
   onShowMore = (event) => {
-	  var temp = event.toElement.className.split(' ');
+	  var temp = event.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		  document.getElementById('moreBtnVal').className = 'moreBtn btn-sm btn btn-fltr btn-light';
 			this.moreElement = false;
@@ -649,89 +556,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
   }
 
-findLanguageArray(value){
-		if(value){
-			
-			if(this.languageSource){
-				var array = this.languageSource.filter(function(a,b){ return a.id == value})
 
-				if(array.length !=0){
-					var temp = array.map(function(a,b){
-						return a['name'];
-					})
-					if(temp.length !=0){
-						return this.utilsHelperService.onConvertArrayToString(temp);
-					}
-				}
-			
-			}
-			
-		}
-		
-		return '--';
-	}
-	findCountry(value){
-		if(value){
-			if(this.nationality){
-				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
-
-				if(array.length !=0){
-					var temp = array.map(function(a,b){
-						return a['nicename'];
-					})
-					if(temp.length !=0){
-						return this.utilsHelperService.onConvertArrayToString(temp);
-					}
-				}
-			
-			}
-			
-		}
-		
-		return '--';
-	}
 	
-	checkType(array,value,education){
-		
-		if(array && value){
-			if(array.length!=0 && array.length!= undefined){
-				if(education == 'education'){
-					if(array.filter(function(a,b){ return a.degree!=value}).length !=0){
-						return true;
-					}
-				}else if(array.filter(function(a,b){ return a!=value}).length !=0){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	checkLanMatch(array,value){
-		
-		if(array && value){
-			if(array.length!=0 && array.length!= undefined){
-				if(array.filter(function(a,b){ return a==value}).length !=0){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	checkLanExtra(array,value,language){
-		
-		if(array && value){
-			if(array.length!=0 && array.length!= undefined){
-				if(language =='language'){
-					if(array.filter(function(a,b){ return a.language!=value}).length !=0){
-						return true;
-					}
-				}else if(array.filter(function(a,b){ return a!=value}).length !=0){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 	OpenMatchesWithID(profileId,companyId){
 		
 		if(profileId && companyId){
@@ -740,240 +566,43 @@ findLanguageArray(value){
 	}
 	
 
-	onGetPostedJobs(companyId) {
-		var tempDataId = ''
-		if(companyId){
-			if(companyId['company']){
-				if(companyId['company']['id']){
-					tempDataId=companyId['company']['id'];
-				}else if(this.postedJobsDetails['company']){
-					tempDataId = companyId['company'];
-				}
-			}
-		}if(this.postedJobsDetails){
-			if(this.postedJobsDetails['company']){
-				if(this.postedJobsDetails['company']['id']){
-					tempDataId=this.postedJobsDetails['company']['id'];
-				}else if(this.postedJobsDetails['company']){
-					tempDataId = this.postedJobsDetails['company'];
-				}
-			}
-		}
-    let requestParams: any ={};
-    requestParams.page = 1;
-    requestParams.limit = 1000;
-    requestParams.expand = 'company';
-    requestParams.company = tempDataId;
-    requestParams.skills_filter = 'false';
-    requestParams.work_authorization = '';
-    requestParams.visa_sponsered = false;	
-	
-		if(this.userDetails && this.userDetails.city ){
-			requestParams.city = this.userDetails.city;
-			requestParams.country = this.userDetails.country;
-		}
-    if(this.userDetails && this.userDetails.city && this.userDetails.willing_to_relocate == true ) {
-      requestParams.work_authorization = this.userDetails.work_authorization;
-      requestParams.visa_sponsered = this.userDetails.visa_sponsered;
-	  
-		  requestParams.city = [this.userDetails.city];
-	  
-	  if(this.userDetails && this.userDetails.preferred_locations) {
-			if(this.userDetails.preferred_locations.length !=0) {
-				var temp:any[]= this.userDetails.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
-				if(temp.length!=0){
-					var tempData=temp.map(function(a,b){ return a.city});
-					tempData[tempData.length]=this.userDetails.city;
-					tempData =tempData.filter(function(item, pos) {
-								return tempData.indexOf(item) == pos;
-							})
-					if(tempData && tempData.length){
-						requestParams.city = tempData.join(',');
-					}
-				}
-			}
-	  }
-    }
-    if(this.userDetails && this.userDetails.country && this.userDetails.willing_to_relocate == true ) {
-      requestParams.country = [this.userDetails.country];
-	  if(this.userDetails && this.userDetails.preferred_locations ) {
-			if(this.userDetails.preferred_locations.length !=0) {
-				var temp:any[]= this.userDetails.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
-				if(temp.length!=0){
-					var temp=temp.map(function(a,b){ return a.country});
-				}
-				if(this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
-					var authorized_countrys= this.nationality.filter((el) => {
-						  return this.userDetails.authorized_country.some((f) => {
-							return f === el.id ;
-						  });
-					});
-					if(authorized_countrys.length !=0){
-						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
-						//temp = temp.concat(authorized_countrys);
-					}
-					
-				}
-				
-				if(temp.length!=0){
-					var tempData=temp;
-					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
-						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
-						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
-						'france','poland','germany','portugal','greece','slovakia','hungary',
-						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
-						]
-						//tempData = tempData.concat(EUCountry);
-					}
-					tempData[tempData.length]=this.userDetails.country;
-					tempData =tempData.filter(function(item, pos) {
-								return tempData.indexOf(item) == pos;
-							})
-					if(tempData && tempData.length){
-						requestParams.country = tempData.join(',');
-					}
-				}
-			} else if(  this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
-				var authorized_countrys= this.nationality.filter((el) => {
-						  return this.userDetails.authorized_country.some((f) => {
-							return f === el.id ;
-						  });
-					});
-					if(authorized_countrys.length !=0){
-						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
-					}
-				var temp:any[] = authorized_countrys ; 
-				if(temp.length!=0){
-					var tempData=temp;
-					if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
-						var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
-						'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
-						'france','poland','germany','portugal','greece','slovakia','hungary',
-						'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
-						]
-						//tempData = tempData.concat(EUCountry);
-					}
-					tempData[tempData.length]=this.userDetails.country;
-					tempData =tempData.filter(function(item, pos) {
-								return tempData.indexOf(item) == pos;
-							})
-					if(tempData && tempData.length){
-						requestParams.country = tempData.join(',');
-					}
-				}
-			} 
-	  }
-    } else{
-		if(this.userDetails && this.userDetails.authorized_country && this.userDetails.authorized_country.length && this.userDetails.authorized_country.length !=0){
-				
-			var authorized_countrys= this.nationality.filter((el) => {
-						  return this.userDetails.authorized_country.some((f) => {
-							return f === el.id ;
-						  });
-					});
-					if(authorized_countrys.length !=0){
-						authorized_countrys = authorized_countrys.map(function(a,b){ return a.nicename.toLowerCase()});
-					}
-				var temp:any[] = authorized_countrys ; 
-			if(temp.length!=0){
-				var tempData=temp;
-				if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
-					var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
-					'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
-					'france','poland','germany','portugal','greece','slovakia','hungary',
-					'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
-					]
-					//tempData = tempData.concat(EUCountry);
-				}
-				tempData[tempData.length]=this.userDetails.country;
-				tempData =tempData.filter(function(item, pos) {
-							return tempData.indexOf(item) == pos;
-						})
-				if(tempData && tempData.length){
-					requestParams.country = tempData.join(',');
-				}
-			}
-		}
-	} 
-	
-    if(this.userDetails && this.userDetails.skills && this.userDetails.skills.length) {
-		var temps = [];
-		if(this.userDetails.hands_on_experience && this.userDetails.hands_on_experience.length){
-			for(let i=0;i<this.userDetails.hands_on_experience.length;i++){
-				if(this.userDetails.hands_on_experience[i]['skill_id']  &&this.userDetails.hands_on_experience[i]['skill_id'] !=''){
-					temps.push(this.userDetails.hands_on_experience[i]['skill_id']);
-				}
-				
-			}
-			
-		}
-      requestParams.skills = temps.join(',')
-      requestParams.skills_filter = 'false';
-    }
+	/**
+	**	To open the popup for the matches jobs
+	**/
 
-	
-	if(this.userDetails && this.userDetails.job_type) {
-		if(this.userDetails.job_type && this.userDetails.job_type['length']) {
-			 requestParams.type = this.userDetails.job_type['join'](',')
-		}
-	}
-if(this.userDetails && this.userDetails.experience) {
-      requestParams.max_experience = this.userDetails.experience;
-    }
-	
-    const removeEmpty = this.utilsHelperService.clean(requestParams)
-
-    this.employerService.getPostedJob(removeEmpty).subscribe(
-      response => {
-        if(response && response.items && response.items.length > 0) {
-			this.postedJobsMatchDetails=response.items;
-			var ids ='';
-			if(this.postedJobsDetails){
+  OpenMatchPopup = (details) => {
+	  this.userDetails = details;
+	  this.toggleMatchModal = true;
+	  if(details['meta']['matches']){
+		 if(details['meta']['matches']>1){
+			if (this.toggleMatchModal) {
+				var ids =''
 				if(this.postedJobsDetails['id']){
 					ids= this.postedJobsDetails['id'];
 				}
+				details['matches'] = details['matches'].filter(function(a,b){ return a.id != ids })
+				this.postedJobsMatchDetails=details['matches'];
 			}
-			this.postedJobsMatchDetails = this.postedJobsMatchDetails.filter(function(a,b){ return a.id != ids});
-			if(this.postedJobsMatchDetails.length !=0){
-				if (!this.toggleMatchModal) {
-					var tempDatas = { id: this.userDetails.id,length:this.postedJobsMatchDetails.length }
-					this.postedJobsMatchDetailsUsers.push(tempDatas);
+			setTimeout(() => {
+				if (this.toggleMatchModal) {
+				  this.mbRef = this.modelService.open(this.deleteModal, {
+					windowClass: 'modal-holder',
+					centered: true,
+					backdrop: 'static',
+					keyboard: false
+				  });
 				}
-				setTimeout(() => {
-					if (this.toggleMatchModal) {
-					  this.mbRef = this.modelService.open(this.deleteModal, {
-						windowClass: 'modal-holder',
-						centered: true,
-						backdrop: 'static',
-						keyboard: false
-					  });
-					}
-				});
-			}else{
-				var tempDatas = { id: this.userDetails.id,length:this.postedJobsMatchDetails.length }
-				this.postedJobsMatchDetailsUsers.push(tempDatas);
-			}
-        }
-		
-       
-      }, error => {
-      }
-    )
-  }
-  
-  OpenMatchPopup = (companyId,details) => {
-	  this.userDetails = details;
-	  this.onGetPostedJobs(companyId) ;
-	  this.toggleMatchModal = true;
+			});
+		}
+	}
   }
   OpenMatchPopups = (details) => {
-	 var lenCheck = this.postedJobsMatchDetailsUsers.filter(function(a,b){ return a.id == details.id});
-	 if(lenCheck['length']!=0){
-		 if(lenCheck[0]['length']!=0){
-			 return true
+	 if(details['meta']['matches']){
+		 if(details['meta']['matches']>1){
+			 return false;
 		 }
 	 }
-	 return false;
+	 return true;
   }
   
   updateSelectedTimeslots(event,id){
@@ -996,7 +625,7 @@ if(this.userDetails && this.userDetails.experience) {
 		if(this.checkArray.length!=0){
 			this.mbRef.close();
 			var selectedIds = this.checkArray.join(',');
-			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userDetails.id,employeeId:this.postedJobsMatchDetails[0].company.id,path:'userscoring'} });
+			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userDetails['profile']['id'],employeeId:this.postedJobsMatchDetails[0].company,path:'userscoring'} });
 		}
 	}
 	

@@ -201,6 +201,9 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		requestParams.skills_filter = 'false';
 		requestParams.work_authorization = '';
 		requestParams.visa_sponsered = false;
+		requestParams.user_list = true;	
+		requestParams.user_id = this.userDetails.id;	
+
 	if(this.userDetails && this.userDetails.city ){
 			requestParams.city = this.userDetails.city;
 			requestParams.country = this.userDetails.country;

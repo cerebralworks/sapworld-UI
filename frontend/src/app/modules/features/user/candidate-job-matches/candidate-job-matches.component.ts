@@ -130,6 +130,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 			requestParams.job_id = this.jobId;
 		}
 		requestParams.page = this.page;
+		requestParams.id = this.userInfo.id;
 		requestParams.visa_sponsered = false;
 		if(this.userInfo && this.userInfo.city ){
 			requestParams.city = this.userInfo.city;
@@ -227,7 +228,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 		// requestParams.id = this.jobId;
 		requestParams.page = this.page;
 		requestParams.visa_sponsered = false;
-		
+		requestParams.id = this.userInfo.id;
+		requestParams.visa_sponsered = false;
 		if(this.userInfo && this.userInfo.city ){
 			requestParams.city = this.userInfo.city;
 			requestParams.country = this.userInfo.country;
@@ -475,7 +477,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	**/
 
 	onShowMatches = (event) => {
-		var temp = event.toElement.className.split(' ');
+		var temp = event.target.className.split(' ');
 		if(temp[temp.length-1]=='btn-fltr-active'){
 		    event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light';
 			this.matchedElement = false;
@@ -499,7 +501,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	**/
 
 	onShowMissing = (event) => {
-		var temp = event.toElement.className.split(' ');
+		var temp = event.target.className.split(' ');
 		if(temp[temp.length-1]=='btn-fltr-active'){
 		    event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
 			this.missingElement = false;

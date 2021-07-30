@@ -756,9 +756,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	**/
 	
 	handleChange(clr){
-		var temp = clr.toElement.className.split(' ');
+		var temp = clr.target.className.split(' ');
 		if(temp[temp.length-1]=='btn-fltr-active'){
-			clr.toElement.className = clr.toElement.className.replace('btn-fltr-active','');
+			clr.target.className = clr.target.className.replace('btn-fltr-active','');
 			if(clr.target.id == 'domain' && this.queryParams.domain){
 				delete this.queryParams.domain;			
 			}
@@ -790,7 +790,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				this.filter_location = false;	
 			}
 		}else{
-			clr.toElement.className = 'btn btn-fltr btn-fltr-active';
+			clr.target.className = 'btn btn-fltr btn-fltr-active';
 			if(clr.target.id == 'domain') {
 				if( this.selectedJob &&  this.selectedJob.domain) {
 					this.queryParams.domain = this.selectedJob.domain.join(',');

@@ -211,6 +211,8 @@ export class MatchingJobComponent implements OnInit {
 		requestParams.skills_filter = 'false';
 		requestParams.work_authorization = '';
 		requestParams.visa_sponsered = false;
+		requestParams.user_list = true;	
+		requestParams.user_id = this.userInfo.id;	
 		if(this.visa ==true){
 			requestParams.visa = true;			
 		}
