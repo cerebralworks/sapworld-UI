@@ -1,7 +1,7 @@
 <div class="card job-card">
   <div class="card-body">
     <div class="row">
-      <div class="col-lg-9">
+      <div [ngClass]="(isMultipleMatches === true)?'col-lg-12':'col-lg-9'">
         <h5>
           <a  href="javascript:;" class="text-capitalize">
             {{userInfo?.first_name + ' ' + userInfo?.last_name}}
@@ -125,7 +125,7 @@
     </div>
     </div>
       </div>
-      <div class="col-lg-3 text-right" style="padding:0px;">
+      <div class="col-lg-3 text-right" style="padding:0px;" [ngClass]="(isMultipleMatches === true)?'none-data':'col-lg-3'">
 			
         <span class=" profile-btn" *ngIf="!isMultipleMatches" >
           <a *ngIf="!isUploadShow || selectedCover?.file"
