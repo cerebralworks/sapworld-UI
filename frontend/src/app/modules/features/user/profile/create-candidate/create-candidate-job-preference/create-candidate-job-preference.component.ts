@@ -130,6 +130,9 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					var temps =this.savedUserDetails.authorized_country;
 					var temps1 =this.savedUserDetails.authorized_country_select;
 					var tempCoun =[];
+					if(!temps){
+						temps =[];
+					}
 					if(!temps || temps.length==0){
 						temps =[this.savedUserDetails.nationality];
 					}else{
@@ -147,6 +150,9 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 							
 
 						}
+					}
+					if(temps1){
+						temps1 =[];
 					}
 					if(!temps1 || temps1.length==0){
 						temps1 =[this.savedUserDetails.nationality];
@@ -249,6 +255,9 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					var temps =this.childForm.controls.personalDetails.value.authorized_country;
 					var temps1 =this.childForm.controls.personalDetails.value.authorized_country_select;
 					var tempCoun =[];
+					if(!temps){
+						temps =[];
+					}
 					if(temps.length){
 						for(let i=0;i<temps.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
@@ -261,6 +270,9 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 							
 
 						}
+					}
+					if(!temps1 ){
+						temps1 =[];
 					}
 					if(temps1.length){
 						for(let i=0;i<temps1.length;i++){
