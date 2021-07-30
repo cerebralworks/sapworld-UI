@@ -105,7 +105,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 			if(response && response.details) {
 				response['details']['skillses'] = response['details']['skills']
 				this.userInfo = {...response.details, meta: response.meta};
-				this.onGetPostedJobs(this.employeeID);
+				this.onGetPostedJobs();
 			}
 		}, error => {
 		})
@@ -115,155 +115,57 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	**	To get the posted jobs matches for the user
 	**/
 	
-	onGetPostedJobs(companyId) {
-		let requestParams: any ={};
-		requestParams.page = 1;
-		requestParams.limit = 1000;
-		requestParams.expand = 'company';
-		requestParams.company = companyId;
-		requestParams.skills_filter = 'false';
-		requestParams.work_authorization = '';
-		requestParams.visa_sponsered = false;
-		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true ) {
-			requestParams.work_authorization = this.userInfo.work_authorization;
-			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
-			requestParams.city = [this.userInfo.city];
-			if(this.userInfo && this.userInfo.preferred_locations) {
-				if(this.userInfo.preferred_locations.length !=0) {
-					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
-					if(temp.length!=0){
-						var tempData=temp.map(function(a,b){ return a.city});
-						//tempData[tempData.length]=this.userInfo.city;
-						tempData =tempData.filter(function(item, pos) {
-							return tempData.indexOf(item) == pos;
-						})
-						if(tempData && tempData.length){
-							requestParams.city = tempData.join(',');
-						}
-					}
-				}
-			}
-		}
-		if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true ) {
-			requestParams.country = [this.userInfo.country];
-			if(this.userInfo && this.userInfo.preferred_locations ) {
-				if(this.userInfo.preferred_locations.length !=0) {
-					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
-					if(this.userInfo.authorized_country &&  this.userInfo.authorized_country.length && this.userInfo.authorized_country.length !=0){
-						//temp = temp.concat(this.userInfo.authorized_country);
-					}				
-					if(temp.length!=0){
-						var tempData=temp.map(function(a,b){ return a.country});
-						if(tempData.filter(function(a,b){ return a == 'europe'}).length==1){
-							var EUCountry =['austria','liechtenstein','belgium','lithuania','czechia',
-							'luxembourg','denmark','malta','estonia','etherlands','finland','norway',
-							'france','poland','germany','portugal','greece','slovakia','hungary',
-							'slovenia','iceland','spain','italy','sweden','latvia','switzerland','reland'
-							]
-						}
-						//tempData[tempData.length]=this.userInfo.country;
-						tempData =tempData.filter(function(item, pos) {
-							return tempData.indexOf(item) == pos;
-						})
-						if(tempData && tempData.length){
-							requestParams.country = tempData.join(',');
-						}
-					}
-				}
-			}
-		}
-		if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length) {
-			var temps = [];
-			if(this.userInfo.hands_on_experience && this.userInfo.hands_on_experience.length){
-				for(let i=0;i<this.userInfo.hands_on_experience.length;i++){
-					if(this.userInfo.hands_on_experience[i]['skill_id']  &&this.userInfo.hands_on_experience[i]['skill_id'] !=''){
-						temps.push(this.userInfo.hands_on_experience[i]['skill_id']);
-					}
-				}
-			}
-			requestParams.skills = temps.join(',')
-			requestParams.skills_filter = 'false';
-		}
-		if(this.userInfo && this.userInfo.job_type) {
-			requestParams.type = this.userInfo.job_type;
-			if(requestParams.type && requestParams.type.length) {
-			  requestParams.type = requestParams.type.join(',')
-			}
-		}
-		if(this.userInfo && this.userInfo.experience) {
-			requestParams.max_experience = this.userInfo.experience;
-		}
-		const removeEmpty = this.utilsHelperService.clean(requestParams)
-		this.employerService.getPostedJob(removeEmpty).subscribe(
-		response => {
-			if(response && response.items && response.items.length > 0) {
-				//this.postedJobsMatchDetails=response.items;
-				if(this.employeePath =='userscorings'){
-					this.TotalMatchJobs = [];
-					for(let i=0;i<response.items.length;i++){
-						var score =4;
-						var profile = response.items[i]
-						if (this.userInfo['work_authorization'] == profile.work_authorization) {
-							score += 1;
-						}
-						if (this.userInfo['travel_opportunity'] <= profile.travel) {
-							score += 1;
-						}
-						if (this.userInfo['job_type'] == profile.job_type) {
-							score += 1;
-						}
-						if (this.userInfo['availability'] >= profile.availability) {
-							score += 1;
-						}
-						if (this.userInfo['end_to_end_implementation'] <= profile.end_to_end_implementation) {
-							score += 1;
-						}
-						response.items[i]['score']=score;
-						if(this.TotalMatchJobs.length!=0){
-							temp[0]['match_select']=this.TotalMatchJobs[0]['match_select'];
-						}
-						this.TotalMatchJobs.push(response.items[i])
-					}
-				}else{
-					for(let i=0;i<this.jobID.length;i++){
-						var idVal = parseInt(this.jobID[i]);
-						var temp = response.items.filter(function(a,b){ return a.id == idVal})
-						if(temp.length!=0){
-							var score =4;
-							var profile = temp[0]
-							if (this.userInfo['work_authorization'] == profile.work_authorization) {
-								score += 1;
-							}
-							if (this.userInfo['travel_opportunity'] <= profile.travel) {
-								score += 1;
-							}
-							if (this.userInfo['job_type'] == profile.job_type) {
-								score += 1;
-							}
-							if (this.userInfo['availability'] >= profile.availability) {
-								score += 1;
-							}
-							if (this.userInfo['end_to_end_implementation'] <= profile.end_to_end_implementation) {
-								score += 1;
-							}
-							temp[0]['score']=score;
+	onGetPostedJobs() {
+		let requestParams: any = {};
+		requestParams.view = 'users_matches_details';
+		requestParams.company = this.employeeID;
+		requestParams.id = this.userID;
+		this.employerService.getPostedJobCount(requestParams).subscribe(
+			response => {
+				if(response['count']){
+					if(this.employeePath =='userscorings'){
+						this.TotalMatchJobs = [];
+						for(let i=0;i<response['count'].length;i++){
 							if(this.TotalMatchJobs.length!=0){
-								temp[0]['match_select']=this.TotalMatchJobs[0]['match_select'];
+								response['count'][i]['match_select']=this.TotalMatchJobs[0]['match_select'];
 							}
-							this.TotalMatchJobs.push(temp[0])
+							response['count'][i]['score']=response['count'][i]['score'].toFixed(1);
+							this.TotalMatchJobs.push(response['count'][i])
+						}
+					}else{
+						for(let i=0;i<response['count'].length;i++){
+							var idVal = parseInt(response['count'][i]['id']);
+							var temp = this.jobID.filter(function(a,b){ return a == idVal})
+							if(temp.length!=0){
+								idVal = parseInt(temp[0]);
+								temp = response['count'].filter(function(a,b){ return a.id == idVal});
+								if(temp.length!=0){
+									if(this.TotalMatchJobs.length!=0){
+										temp[0]['match_select']=this.TotalMatchJobs[0]['match_select'];
+									}
+									temp[0]['score']=temp[0]['score'].toFixed(1);
+									this.TotalMatchJobs.push(temp[0])
+								}
+							}
 						}
 					}
 				}
-				if(response && response.items && response.items.length > 0) {
-					this.postedJobsMatchDetails=response.items;
+				if(this.TotalMatchJobs && this.TotalMatchJobs.length && this.TotalMatchJobs.length > 0) {
+					//this.TotalMatchJobs = this.TotalMatchJobs.sort((a,b)=> { return a.score - b.score });
+					
+				}
+				if(response && response['count'] && response['count'].length > 0) {
+					//response['count'] = response['count'].sort((a,b)=> { return a.score - b.score });
+					this.postedJobsMatchDetails=response['count'];
 				}
 				this.ShowData()
+				
+			}, error => {
 			}
-		}, error => {
-		}
 		)
 	}
-  
+	
+	
 	/**
 	**	To Show the user details
 	**/

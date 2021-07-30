@@ -101,7 +101,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
 	}else{
 		this.isMatchView =false;
 	}
-	},500);
+	},1000);
 	setTimeout( async () => {
 	
 	if(this.postedJobsMatchDetails.length!=0){
@@ -225,7 +225,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
 		
 		if(this.selected.length!=0){
 			var selectedIds = this.selected.join(',');
-			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userInfo.id,employeeId:this.postedJobsMatchDetails[0].company.id} });
+			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userInfo.id,employeeId:this.postedJobsMatchDetails[0].company} });
 		}
 	}
 	
