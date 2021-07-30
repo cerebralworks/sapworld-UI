@@ -201,7 +201,7 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 			  }}
 		  }
 		
-	}, 0);
+	}, 400);
 	  
   }
 	
@@ -301,6 +301,14 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 		}
 		return false;
 	}
+	
+	finpostJobDetailsCountry(country){
+		if(country){
+			return country.toLocaleLowerCase();
+		}
+		return '--';
+	}
+	
 	
 	/**
 	**	To validate the array fileds

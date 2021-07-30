@@ -312,7 +312,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 				}
 			}
 		} else if (type == 'prev' && this.page > 2) {
-			if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
+			if (this.matchingJobMeta.count > 1 ) {
 				this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
 				this.matchingJob = { ...this.matchingJob, jobs: {} };
 				this.page--;
@@ -324,8 +324,9 @@ export class CandidateJobMatchesComponent implements OnInit {
 						this.onGetUserScoringById(true); this.page++;
 					}, 300);
 				}
+				this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
 			}
-			this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
+			
 		}
 	}
 	
