@@ -28,7 +28,7 @@
 									<a [routerLink]="['/employer/job-detail-view']" href="javascript:;">
 										<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
 									</a>
-									<h6 class="text-capitalize">{{postedJobsDetails?.company?.company}}</h6>
+									<h6 class="text-capitalize mt-2">{{postedJobsDetails?.company?.company}}</h6>
 									<h6 class="mb-0 text-capitalize">
 										{{postedJobsDetails?.city ? postedJobsDetails?.city+', '  : ''}}
 										{{postedJobsDetails?.state ? postedJobsDetails?.state+', '  : ''}}
@@ -38,15 +38,26 @@
 									</h6>
 								</div>
 								<div class="pc-btn">
-									<a class="btn btn-outline-blue btn-sm mr-1"
+									
+									<a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2" href="javascript:;">
+										<i class="fas fa-file-alt"></i> Description
+									</a>
+									<a *ngIf="!isMultipleMatches" class="btn btn-outline-green btn-sm mr-1"
 									  (click)="onViewOtherMatches()"
 										 href="javascript:;">
 										<!-- {{"dashboard.matches" | translate}} -->
-										View All Candidates
+										<i class="fas fa-tasks"></i>
+										matches
 									</a>
-									<a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right" href="javascript:;">
-										<i class="fas fa-file-alt"></i> JD
-									</a>
+									<div class="media "  [ngClass]="(isMultipleMatches === true)?'moreTxt':'mt-2'">
+										<div class="media-body">
+											<h6 *ngIf="postedJobsDetails?.salary_type == 0" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / hr'}}</h6>
+											<h6 *ngIf="postedJobsDetails?.salary_type == 1" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual '}}</h6>
+											<h6 *ngIf="postedJobsDetails?.salary_type == 2" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / month'}}</h6>
+											<h6 class="text-capitalize job-cardh6">{{"postJob.remote" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.remote)}} </h6>
+											<h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}} </h6>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -64,7 +75,88 @@
 							<div class="row">
 								<div *ngIf="!utilsHelperService.isEmptyObj(matchingUsers?.profile)" [ngClass]="(isMultipleMatches === true)?'col-lg-6':'col-lg-12'" >
 									<div class="info-box">
-										<div class="col-lg-12">
+										<div class="col-lg-12" *ngIf="!isMultipleMatches">
+											<div class="card job-card">
+												<div class="card-body">
+													<div class="row">
+														<div class="col-lg-8">
+															<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
+																	<h5 class="text-capitalize">
+																		<span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
+																		  + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
+																		<small *ngIf="matchingUsers?.profile?.job_role"> -
+																		  {{matchingUsers?.profile?.job_role}}</small>
+																	</h5>
+																</a>
+														</div>
+														<div class="col-lg-4">
+															<span class="mr-2">														
+																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-orange btn-sm" data-toggle="modal" data-target="#resumeModal">
+																		<small><i class="fas fa-file-alt"></i> Cover Letter</small>
+																	</a>	
+															</span>	
+															<span>
+																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
+																		<small><i class="fas fa-file-alt"></i> Resume</small>
+																	</a>	
+															</span>	
+														</div>
+													</div>
+													<div class="row mt-2">
+														<div class="col-lg-8">						
+															<div class="media">
+																<img
+																  [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
+																<div class="media-body">
+																	<h6 class="mb-0 text-capitalize" style="text-overflow: ellipsis;">
+																		{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
+																		{{matchingUsers?.profile?.state ? matchingUsers?.profile?.state+', '  : ''}}
+																		<span class="text-uppercase">
+																			{{matchingUsers?.profile?.country ? matchingUsers?.profile?.country : ''}}
+																		</span>
+																	</h6>
+																	<h6 class="mb-1 text-capitalize" >{{matchingUsers?.profile?.current_employer}}</h6>
+																	 <h6 *ngIf="matchingUsers?.profile?.social_media_link?.length" class="mb-1">
+																		<ng-container  *ngFor="let item of matchingUsers?.profile?.social_media_link">
+																			<a class="mr-1" href="{{item.url}}" target="_blank">
+																				<ng-container *ngIf="item?.visibility == true" [ngSwitch]="item?.media">
+																					<ng-container *ngSwitchCase="'youtube'">
+																						<i class="fab fa-youtube-square" *ngIf="item?.visibility"></i>
+																					</ng-container>
+																					<ng-container *ngSwitchCase="'portfolio'">
+																						<i class="fas fa-laptop-code" *ngIf="item?.visibility" ></i>
+																					</ng-container>
+																					<ng-container *ngSwitchCase="'blog'">
+																						<i class="fas fa-blog" *ngIf="item?.visibility"></i>
+																					</ng-container>
+																					<ng-container *ngSwitchDefault>
+																						<i class="fab fa-{{item.media}}" *ngIf="item?.visibility" ></i>
+																					</ng-container>
+																				</ng-container>
+																			</a>
+																		</ng-container>
+																	</h6>
+																</div>
+															</div>	
+														</div>
+														<div class="col-lg-3">
+															<a [class.disabled]="OpenMatchPopups(matchingUsers)" (click)="OpenMatchPopup(matchingUsers)"  >
+																		<small><i class="fab fa-buffer"></i> View Other Matches</small>
+																	</a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="matchs-info" >
+												<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+												<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
+												<button (click)="onShowMore($event)" id="moreBtnVal"  class="moreBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+												<!-- <button (click)="onReset()" class="btn btn-sm btn-light ml-1" style="margin-top: -12px;">
+												<i class="fas fa-sync"></i>
+												</button> -->
+											</div>
+										</div>
+										<div class="col-lg-12" *ngIf="isMultipleMatches">
 											<div class="card profile-card">
 												<div class="d-flex">
 													<div class="pc-img">
@@ -82,7 +174,7 @@
 														</a>
 														<h6 class="mb-0 text-capitalize">
 															{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
-															{{matchingUsers?.profile?.state ? matchingUsers?.profile?.state+', '  : ''}}
+															{{matchingUsers?.profile?.state ?  matchingUsers?.profile?.state+', '  : ''}}
 															<span class="text-uppercase">
 																{{matchingUsers?.profile?.country ? matchingUsers?.profile?.country : ''}}
 															</span>
@@ -90,26 +182,26 @@
 														<form class="form-inline">
 															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
-															</a><a [class.disabled]="OpenMatchPopups(matchingUsers)" (click)="OpenMatchPopup(matchingUsers)" class="mr-3" >
-																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a>
-															<!-- <a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company.id,path:'userscoring'}" class="mr-3" >
+															<a [class.disabled]="OpenMatchPopups(matchingUsers)"  (click)="OpenMatchPopup(matchingUsers)" class="mr-3" >
+																<small><i class="fab fa-buffer"></i> View Other Matches</small>
+															</a><!-- 
+															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
 															</a> -->
 														</form>
 													</div>
 												</div>
 											</div>
-											<div class="matchs-info" *ngIf="!isMultipleMatches" style="margin-top: 6px;">
-												<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
-												<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-												<button (click)="onShowMore($event)" id="moreBtnVal"  class="moreBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
-												<button (click)="onReset()" class="btn btn-sm btn-light ml-1" style="margin-top: -12px;">
+											<div class="matchs-info" *ngIf="!isMultipleMatches">
+												<button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+												<button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
+												<button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+												<button (click)="onReset()" class="btn btn-sm btn-light ml-1">
 												<i class="fas fa-sync"></i>
 												</button>
 											</div>
 										</div>
-																
 										<app-shared-user-profile-matches [postedJobsDetails]="postedJobsDetails"  [isMultipleMatches]="isMultipleMatches" 
 										[matchedElement]="matchedElement" [missingElement]="missingElement"
 										[moreElement]="moreElement" [matchingUsers]="matchingUsers" [matchingUsersNew]="matchingUsersNew">
@@ -183,17 +275,31 @@
 						<!--//Profile1-->
 					</div>
 					<!--PrevNext-->
-					<div class="matchCount" style="top:-45px;">{{page}}/{{matchingUsers?.meta?.count}}</div>
-					  <a  *ngIf="page != 1 " (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
-						data-slide="prev" style="top:-45px;">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					  </a>
-					  <a *ngIf="page != matchingUsers?.meta?.count " (click)="onChangeUser('next')" class="carousel-control-next" href="#carouselProfile" role="button"
-						data-slide="next" style="top:-45px;">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					  </a>
+					<div class="matchCount" style="top:-45px;">{{page}}/{{matchingUsersMeta?.count}}</div>
+					  <div *ngIf="!isMultipleMatches">
+						  <a  *ngIf="page != 1 " (click)="onChangeUsers('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
+							data-slide="prev" style="top:-45px;">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						  </a>
+						  <a *ngIf="page != matchingUsersMeta?.count " (click)="onChangeUsers('next')" class="carousel-control-next" href="#carouselProfile" role="button"
+							data-slide="next" style="top:-45px;">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						  </a>
+					</div>
+					<div *ngIf="isMultipleMatches">
+						  <a  *ngIf="page != 1 " (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
+							data-slide="prev" style="top:-45px;">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						  </a>
+						  <a *ngIf="page != matchingUsersMeta?.count " (click)="onChangeUser('next')" class="carousel-control-next" href="#carouselProfile" role="button"
+							data-slide="next" style="top:-45px;">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						  </a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -239,6 +345,13 @@
 [toggleResumeModal]="isOpenedResumeModal"
 (onEvent)="onToggleResumeForm($event)">
 </app-resume-modal>
+
+<app-cover-modal
+*ngIf="isOpenedCoverModal"
+[url]="selectedCoverUrl"
+[toggleCoverModal]="isOpenedCoverModal"
+(onEvent)="onToggleCoverForm($event)">
+</app-cover-modal>
 
 <app-job-description [isRichTextEnabled]="true" [description]="postedJobsDetails?.description" [toggleJDModal]="isOpenedJDModal" *ngIf="isOpenedJDModal" (onEvent)="onToggleJDModal($event)">
 </app-job-description>

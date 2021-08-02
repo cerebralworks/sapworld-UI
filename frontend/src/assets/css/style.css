@@ -1207,7 +1207,7 @@ a:hover {
 .profile-card {
     border: none;
     background: transparent;
-    min-height: 81px;
+    min-height: 120px;
     border-radius: 10px;
     border: 1px solid rgba(0,0,0,.125);
     padding: 8px;
@@ -2420,4 +2420,10 @@ a:hover {
     color: #454545!important;
     border-radius: 10px!important;
     background-color: #fff!important;
+}
+.media h6 {
+    font-weight: 700;
+    font-size: 13px;
+    color: #465666;
+    margin-bottom: 5px;
 }

@@ -220,7 +220,11 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		let requestParams: any = {};
 		requestParams.view = 'users';
 		requestParams.company = this.userInfo.id;
+		requestParams.visa_sponsered = false;
 		requestParams.sort = 'created_at.desc';
+		if( this.userInfo &&  this.userInfo.visa_sponsered){
+			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
+		}
 		this.employerService.getPostedJobCount(requestParams).subscribe(
 			response => {
 				if(response['count']){

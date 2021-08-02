@@ -131,6 +131,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		}
 		requestParams.page = this.page;
 		requestParams.id = this.userInfo.id;
+		requestParams.expand = "company";
 		requestParams.visa_sponsered = false;
 		if(this.userInfo && this.userInfo.city ){
 			requestParams.city = this.userInfo.city;
@@ -229,6 +230,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		requestParams.page = this.page;
 		requestParams.visa_sponsered = false;
 		requestParams.id = this.userInfo.id;
+		requestParams.expand = "company";
 		requestParams.visa_sponsered = false;
 		if(this.userInfo && this.userInfo.city ){
 			requestParams.city = this.userInfo.city;

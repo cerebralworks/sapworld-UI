@@ -111,8 +111,6 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
 		}else{
 			this.isMatchView =false;
 		}	
-	}else{
-		this.isMatchView =false;
 	}
 	},2000);
 	
