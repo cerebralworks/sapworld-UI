@@ -109,6 +109,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	**/
 	
 	onViewOtherMatches = () => {
+		this.page=1;
 		if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
 			this.isMultipleMatches = true;
 			this.onGetUserScoringById(true);
@@ -332,6 +333,30 @@ export class CandidateJobMatchesComponent implements OnInit {
 		}
 	}
 	
+	
+	/**
+	**	To Check the previous and the next button 
+	**/
+	
+	onChangeUsers = (type) => {
+		const count = this.matchingJobMeta  && this.matchingJobMeta.count ? parseInt(this.matchingJobMeta.count) : 0;
+		if (type == 'next') {
+			if (count > this.page) {
+				if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
+					this.matchingJob = { ...this.matchingJob, jobs: {} };
+					this.page++;
+					this.onGetUserScoringById(true);
+				}
+			}
+		} else if (type == 'prev' && this.page > 1) {
+			if (this.matchingJobMeta.count > 1 ) {
+				this.matchingJob = { ...this.matchingJob, jobs: {} };
+				this.page--;				
+				this.onGetUserScoringById(true);
+			}
+		}
+	}
+	
 	/**
 	**	To Checking the number is event or not
 	**/
@@ -532,4 +557,17 @@ export class CandidateJobMatchesComponent implements OnInit {
 		this.matchedElement = true;
 	}
 
+	
+	/**
+	**	To get the boolean to string
+	**/
+	
+	onGetYesOrNoValue = (value: boolean) => {
+		if (value == true) {
+			return "Yes";
+		} else {
+			return "No"
+		}
+	}
+	
 }

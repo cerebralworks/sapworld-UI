@@ -391,13 +391,12 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 					this.onGetJobScoringById(true);
 				}
 			}
-		} else if (type == 'prev' && this.page > 2) {
-			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+		} else if (type == 'prev' && this.page > 1) {
+			if (this.matchingUsersMeta.count > 1 ) {
 				this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
 				this.matchingUsers = { ...this.matchingUsers, profile: {} };
 				this.page--;
-				!this.isEven(this.page) && this.page--;
 				this.onGetJobScoringById(true);
 			}
 		}
