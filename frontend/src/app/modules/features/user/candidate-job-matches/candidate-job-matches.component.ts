@@ -82,9 +82,13 @@ export class CandidateJobMatchesComponent implements OnInit {
 					}
 					this.userInfo = response;
 					if (this.jobId && this.matchFind ==false) {
-						this.onGetUserScoringById(true, true);
+						
 						this.onGetUserScoringById();
 						this.matchFind = true;
+						setTimeout(() => {
+							this.onGetUserScoringByIds(true, true);
+						},1000);
+						
 					}
 				}
 			}
@@ -214,6 +218,78 @@ export class CandidateJobMatchesComponent implements OnInit {
 					this.matchingJobMeta = { ...response.meta }
 				}
 			}
+		}, error => {
+		})
+		this.subscriptions.push(sb);
+	}
+	
+	/**
+	**	To Get the userscoring details
+	**/
+	
+	onGetUserScoringByIds = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
+		
+		let requestParams: any = {};
+		if (!isMultipleMatch) {
+			requestParams.job_id = this.jobId;
+		}
+		requestParams.page = this.page;
+		requestParams.id = this.userInfo.id;
+		requestParams.expand = "company";
+		requestParams.visa_sponsered = false;
+		if(this.userInfo && this.userInfo.city ){
+			requestParams.city = this.userInfo.city;
+			requestParams.country = this.userInfo.country;
+		}
+		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true) {
+			//requestParams.work_authorization = this.userInfo.work_authorization;
+			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
+			requestParams.city = [this.userInfo.city];
+			if(this.userInfo && this.userInfo.preferred_locations) {
+				if(this.userInfo.preferred_locations.length !=0) {
+					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+					if(temp.length!=0){
+						var tempData=temp.map(function(a,b){ return a.city});
+						tempData[tempData.length]=this.userInfo.city;
+						tempData =tempData.filter(function(item, pos) {
+							return tempData.indexOf(item) == pos;
+						})
+						if(tempData && tempData.length){
+							requestParams.city = tempData.join(',');
+						}
+					}
+				}
+			}
+		}
+	
+		if(this.userInfo && this.userInfo.experience) {
+			requestParams.max_experience = this.userInfo.experience;
+		}
+		if(this.userInfo && this.userInfo.country && this.userInfo.willing_to_relocate == true) {
+			requestParams.country = [this.userInfo.country];
+			if(this.userInfo && this.userInfo.preferred_locations) {
+				if(this.userInfo.preferred_locations.length !=0) {
+					var temp= this.userInfo.preferred_locations.filter(function(a,b){ return a.city!='' && a.city!=null&&a.country!=''&&a.country!=null});
+					if(temp.length!=0){
+						var tempData=temp.map(function(a,b){ return a.country});
+						tempData[tempData.length]=this.userInfo.country;
+						tempData =tempData.filter(function(item, pos) {
+							return tempData.indexOf(item) == pos;
+						})
+						if(tempData && tempData.length){
+							requestParams.country = tempData.join(',');
+						}
+					}
+				}
+			}
+		}
+		const sb = this.userService.getUserScoring(requestParams).subscribe(
+		response => {
+			
+			if (isCount) {
+				this.matchingJobMeta = { ...response.meta }
+			}
+				
 		}, error => {
 		})
 		this.subscriptions.push(sb);
