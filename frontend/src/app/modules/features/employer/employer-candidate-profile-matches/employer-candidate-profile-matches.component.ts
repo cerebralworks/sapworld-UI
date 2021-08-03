@@ -170,7 +170,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 					this.postedJobsDetails = response.details;
 				}
 				this.onGetJobScoringById();
-				this.onGetJobScoringById(true, true);
+				setTimeout(() => {
+					this.onGetJobScoringByIds(true, true);
+				},1000);
 			}, error => {
 			}
 		)
@@ -261,6 +263,28 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 						//this.onGetPostedJobs(this.postedJobsDetails) ;
 					}
 				}
+			}, error => {
+			}
+		)
+		this.subscriptions.push(sb);
+	}
+	/**
+	**	To Get the user scoring details 
+	**/
+	
+	onGetJobScoringByIds = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
+		let requestParams: any = {};
+		requestParams.page = this.page;			
+		requestParams.id = this.jobId;
+		requestParams.additional_fields = 'job_application';
+		const sb = this.employerService.getJobScoring(requestParams).subscribe(
+			response => {
+				if(response.profile){
+					if (isCount) {
+						this.matchingUsersMeta = { ...response.meta }
+					}
+				}
+				
 			}, error => {
 			}
 		)
