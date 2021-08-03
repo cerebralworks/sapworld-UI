@@ -31,6 +31,7 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   @Input() isMatchesView?: boolean = true;
   @Input() isContactIcon?: boolean = true;
   @Input() isMultipleMatches?: boolean = false;
+  @Input() isMatchesShow?: boolean = false;
   @Input() isUploadShow?: boolean = false;
   @Input() isUploadShowResume?: boolean = false;
   @Input() jobInfo?: JobPosting;
@@ -111,8 +112,6 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
 		}else{
 			this.isMatchView =false;
 		}	
-	}else{
-		this.isMatchView =false;
 	}
 	},2000);
 	

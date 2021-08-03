@@ -109,6 +109,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	**/
 	
 	onViewOtherMatches = () => {
+		this.page=1;
 		if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
 			this.isMultipleMatches = true;
 			this.onGetUserScoringById(true);
@@ -131,6 +132,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		}
 		requestParams.page = this.page;
 		requestParams.id = this.userInfo.id;
+		requestParams.expand = "company";
 		requestParams.visa_sponsered = false;
 		if(this.userInfo && this.userInfo.city ){
 			requestParams.city = this.userInfo.city;
@@ -229,6 +231,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		requestParams.page = this.page;
 		requestParams.visa_sponsered = false;
 		requestParams.id = this.userInfo.id;
+		requestParams.expand = "company";
 		requestParams.visa_sponsered = false;
 		if(this.userInfo && this.userInfo.city ){
 			requestParams.city = this.userInfo.city;
@@ -327,6 +330,30 @@ export class CandidateJobMatchesComponent implements OnInit {
 				this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
 			}
 			
+		}
+	}
+	
+	
+	/**
+	**	To Check the previous and the next button 
+	**/
+	
+	onChangeUsers = (type) => {
+		const count = this.matchingJobMeta  && this.matchingJobMeta.count ? parseInt(this.matchingJobMeta.count) : 0;
+		if (type == 'next') {
+			if (count > this.page) {
+				if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
+					this.matchingJob = { ...this.matchingJob, jobs: {} };
+					this.page++;
+					this.onGetUserScoringById(true);
+				}
+			}
+		} else if (type == 'prev' && this.page > 1) {
+			if (this.matchingJobMeta.count > 1 ) {
+				this.matchingJob = { ...this.matchingJob, jobs: {} };
+				this.page--;				
+				this.onGetUserScoringById(true);
+			}
 		}
 	}
 	
@@ -530,4 +557,17 @@ export class CandidateJobMatchesComponent implements OnInit {
 		this.matchedElement = true;
 	}
 
+	
+	/**
+	**	To get the boolean to string
+	**/
+	
+	onGetYesOrNoValue = (value: boolean) => {
+		if (value == true) {
+			return "Yes";
+		} else {
+			return "No"
+		}
+	}
+	
 }

@@ -29,6 +29,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public isOpenedResumeModal: boolean = false;
 	public isOpenedOtherPostModal: boolean = false;
 	public toggleMatchModal: boolean =false;
+	public isOpenedCoverModal: boolean;
+	public togglecoverSelectModal: boolean;
 	public jobId: string;
 	public postedJobsDetails: any;
 	public page: number = 1;
@@ -50,6 +52,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	private postedJobsMatchDetailsUsers: any[] = [];
 	private checkArray: any[] = [];
 	private userDetails: any = {};
+	public selectedCoverUrl: any;
 
 	@ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
 	public mbRef: NgbModalRef;
@@ -264,6 +267,15 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		this.subscriptions.push(sb);
 	}
 	
+	  /**
+	  **	To get coverletter popup status
+	  **/
+	  onToggleCoverForm = (status, selectedCoverUrl?) => {
+		if (selectedCoverUrl) {
+		  this.selectedCoverUrl = selectedCoverUrl;
+		}
+		this.isOpenedCoverModal = status; 
+	}
 	/**
 	**	To Check if any changes happens in the page 
 	**/
@@ -304,6 +316,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	onViewOtherMatches = () => {
 		if(this.IsValidate==false){
 			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+				this.page = 1;
 				this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
 				this.isMultipleMatches = true;
@@ -358,6 +371,33 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 						this.onGetJobScoringById(true); this.page++;
 					}, 300);
 				}
+			}
+		}
+	}
+	
+	/**
+	**	To Check the previous and the next button 
+	**/
+	
+	onChangeUsers = (type) => {
+		const count = this.matchingUsersMeta  && this.matchingUsersMeta.count ? parseInt(this.matchingUsersMeta.count) : 0;
+		if (type == 'next') {
+			if (count > this.page) {
+				if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
+					this.postedJobsMatchDetailsUsers =[];
+					this.toggleMatchModal = false;
+					this.matchingUsers = { ...this.matchingUsers, profile: {} };
+					this.page++;
+					this.onGetJobScoringById(true);
+				}
+			}
+		} else if (type == 'prev' && this.page > 1) {
+			if (this.matchingUsersMeta.count > 1 ) {
+				this.postedJobsMatchDetailsUsers =[];
+				this.toggleMatchModal = false;
+				this.matchingUsers = { ...this.matchingUsers, profile: {} };
+				this.page--;
+				this.onGetJobScoringById(true);
 			}
 		}
 	}
@@ -626,6 +666,19 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 			this.mbRef.close();
 			var selectedIds = this.checkArray.join(',');
 			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userDetails['profile']['id'],employeeId:this.postedJobsMatchDetails[0].company,path:'userscoring'} });
+		}
+	}
+	
+	
+	/**
+	**	To get the boolean to string
+	**/
+	
+	onGetYesOrNoValue = (value: boolean) => {
+		if (value == true) {
+			return "Yes";
+		} else {
+			return "No"
 		}
 	}
 	

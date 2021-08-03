@@ -23,6 +23,8 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	
 	public isOpenedResumeModal: boolean;
 	public isOpenedSendMailModal: boolean;
+	public DetailsShown: boolean = false;
+	public DetailsShownCheck: boolean = false;
 	public userDetails: CandidateProfile;
 	public userID: string;
 	public jobId: string;
@@ -81,6 +83,20 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
+		this.employerSharedService.getEmployerProfileDetails().subscribe(
+			details => {
+				if(details && details.id){
+					this.employeeID = details.id;
+					if(this.employeeID && this.DetailsShownCheck == false){
+						this.DetailsShownCheck = true;
+						this.onGetPostedJobs();
+					}
+				}
+			}
+		)
+		if(this.jobId) {
+			this.onGetPostedJob();
+		}
 		this.dataService.getCountryDataSource().subscribe(
 			response => {
 				if (response && Array.isArray(response) && response.length) {
@@ -90,9 +106,6 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		);
 		if(this.userID) {
 			this.onGetCandidateInfo();
-		}
-		if(this.jobId) {
-			this.onGetPostedJob();
 		}
 	}
 	
@@ -132,9 +145,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 						}
 					}
 				}
-				if(this.employeeID){
-					this.onGetPostedJobs();
-				}
+				
 			}, error => {
 			}
 		)
@@ -198,7 +209,10 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 				}else{
 					this.postedJobsMatchDetails =[]
 				}
+				this.DetailsShown = true;
 			}, error => {
+				this.postedJobsMatchDetails =[];
+				this.DetailsShown = true;
 			}
 		)
 	}

@@ -1,5 +1,5 @@
 .job-info-container .profile-card{
-  min-height: 99px;
+  min-height: 120px;
 }
 .cus-mt {
   margin-top: 2.5rem !important;
@@ -26,4 +26,13 @@
     border-color: #dae0e5;
     box-shadow: 3px 3px 3px 2px #4caf5057;
     color: #000;
+}
+.job-cards h6 {
+    font-weight: 700;
+    font-size: 13px;
+    color: #465666;
+    margin-bottom: 7px;
+}
+.isMatchesView{
+	padding:0px !important;
 }
