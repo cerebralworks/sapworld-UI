@@ -476,7 +476,7 @@
 				</div>
 			</div>
 			<div class="accordion mt-3 " *ngIf="desired">
-			<div class="pj-title" style="padding: 5px 0px;"><h6 type="button" class="mb-0"></h6></div>
+			<div class="pj-title"  [ngClass]="(isMultipleMatches === true)?'padd-10':'padd-5'" ><h6 type="button" class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='1'">
 					<ul class="list-group">
 						<li class="list-group-item">

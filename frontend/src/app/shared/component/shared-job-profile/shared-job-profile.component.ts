@@ -73,6 +73,9 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 				  }if(!this.jobInfo.training_experience || this.jobInfo.training_experience=='' || this.jobInfo.training_experience==undefined){
 					this.jobInfo.match_select['training_experience']="false";
 					  
+				  }if(this.jobInfo['skills'] ==null || this.jobInfo.match_select['skills'] =='' || this.jobInfo['skills'] ==undefined){
+					this.jobInfo.match_select['skills']="false";
+					  
 				  }
 				Object.keys(this.jobInfo.match_select).forEach(key => {
 					arr.push(this.jobInfo.match_select[key]) 

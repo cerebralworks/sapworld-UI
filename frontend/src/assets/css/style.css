@@ -2427,3 +2427,7 @@ a:hover {
     color: #465666;
     margin-bottom: 5px;
 }
+.pj-title h6{	
+	border:none !important;
+	outline:none !important;
+}

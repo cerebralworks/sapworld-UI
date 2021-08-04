@@ -59,7 +59,7 @@
 													<h6 class="mt-1 text-capitalize">
 														{{matchingJob?.jobs?.company_name }}
 													</h6>
-													<div style="position: initial !important;"class="matchs-info " [ngClass]="isMultipleMatches ? 'd-none' : ''" >
+													<div style="position: initial !important;margin-top:0px !important;"class="matchs-info " [ngClass]="isMultipleMatches ? 'd-none' : ''" >
 														<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 														<button (click)="onShowMissing($event)" id="missBtnVal" class="missBtn btn-sm btn btn-fltr btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-2"> Missing </button>
 														<!-- <button (click)="onReset()" class="btn btn-sm btn-light ml-1">
@@ -168,8 +168,9 @@
 					<small><i class="fab fa-buffer"></i> View All Jobs</small>
 				</a> -->
 				<div style="top:-35px;position: absolute;left: 10px;" >					
-						<span class="font-weight-bold" style="line-height: 28px;">You have {{matchingJobMeta?.count}} Matches </span>	
-						<button type="button" (click)="!isMultipleMatches && onViewOtherMatches()" class="btn btn-outline-blue btn-sm ml-2 " style="position: absolute; z-index:99;width: 70px;">View all</button>
+						<span class="font-weight-bold" style="line-height: 28px;">You have {{matchingJobMeta?.count}} Matches
+						<button type="button" (click)="!isMultipleMatches && onViewOtherMatches()" class="btn btn-outline-blue btn-sm ml-2 " style=" z-index:99;width: 70px;">View all</button>
+						 </span>	
 				</div>
 				<div class="matchCount" style="top:-45px;">{{page}}/{{matchingJobMeta?.count}}</div>
 				<div *ngIf="!isMultipleMatches">

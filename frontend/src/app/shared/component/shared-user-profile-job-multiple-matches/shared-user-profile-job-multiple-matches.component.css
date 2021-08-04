@@ -39,3 +39,8 @@
 .handsExps:hover{
 		overflow-x:auto !important;
 	}
+	
+	.pj-title h6{	
+	border:none !important;
+	outline:none !important;
+}
