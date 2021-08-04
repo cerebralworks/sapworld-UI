@@ -56,5 +56,11 @@
     color: #000;
 }
 .top-pad{
-	margin-top: 4.0rem;
+	top: -75px !important;
+}.top-pad-1{
+	top: -60px !important;
+}
+.pj-title h6{	
+	border:none !important;
+	outline:none !important;
 }

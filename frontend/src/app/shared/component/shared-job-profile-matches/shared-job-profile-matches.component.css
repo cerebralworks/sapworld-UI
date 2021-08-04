@@ -59,3 +59,7 @@
 .top-pad{
 	margin-top: 4.3rem;
 }
+.pj-title h6{	
+	border:none !important;
+	outline:none !important;
+}

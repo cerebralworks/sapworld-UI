@@ -43,30 +43,41 @@
 							<div *ngIf="!utilsHelperService.isEmptyObj(matchingJob?.jobs)" [ngClass]="(isMultipleMatches === true)?'col-lg-6':'col-lg-12'" >
 								<div class="row info-box">
 								<!--Header Sec-->
-									<div class="col-lg-12">
+									<div class="col-lg-12" >
 										<div class="card profile-card">
 											<div class="d-flex">
-												<div class="pc-info">
-													<a class="text-capitalize" href="javascript:;">
+												<div class="col-lg-8 job-cards">
+													<a   class="text-capitalize" href="javascript:;">
 														<h5>{{matchingJob?.jobs?.title}} <small></small></h5>
 													</a>
 													<h6 class="mb-0 text-capitalize">
-														{{matchingJob?.jobs?.city ? matchingJob?.jobs?.city+', '  : ''}}
-														{{matchingJob?.jobs?.state ?  matchingJob?.jobs?.state+', '  : ''}}
-														<span class="text-uppercase">
-															{{matchingJob?.jobs?.country ? matchingJob?.jobs?.country : ''}}
-														</span>
+														{{matchingJob?.jobs?.city +', ' +matchingJob?.jobs?.state+', ' +matchingJob?.jobs?.country}}
+														
+													</h6>
+													<h6 class="mt-1 text-capitalize">
+														{{matchingJob?.jobs?.company_name }}
 													</h6>
 												</div>
-												<div class="pc-btn">
+												<div class="col-lg-4"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
 													<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJob?.jobs?.description)">	
 													<i class="fas fa-file-alt"></i> Description</a>
+													
+													<div class="media mt-2" >
+														<div class="media-body">
+															<h6 *ngIf="matchingJob?.jobs?.salary_type == 0" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / hr'}}</h6>
+															<h6 *ngIf="matchingJob?.jobs?.salary_type == 1" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / Annual '}}</h6>
+															<h6 *ngIf="matchingJob?.jobs?.salary_type == 2" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / month'}}</h6>
+															<h6 class="text-capitalize job-cardh6">{{"postJob.remote" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.remote)}} </h6>
+															<h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.willing_to_relocate)}} </h6>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
+										
 									</div>
 									<!--Body Sec-->
-									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-4' : 'mt-4'">
+									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-3' : 'mt-4'">
 										<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJob?.jobs.score >= 5, 'score-txt-orange': (matchingJob?.jobs.score < 5 && matchingJob?.jobs.score > 0), 'score-txt-red': (matchingJob?.jobs.score == 0)}">
 											SCORE <span>{{matchingJob?.jobs.score ? matchingJob?.jobs.score :0}}/10</span>
 										</div>
@@ -84,7 +95,40 @@
 							<div class="col-lg-6" *ngIf="isMultipleMatches && !utilsHelperService.isEmptyObj(matchingJobNew?.jobs)">
 								<div class="row info-box">
 									<!--Header Sec-->
-									<div class="col-lg-12">
+									<div class="col-lg-12" >
+										<div class="card profile-card">
+											<div class="d-flex">
+												<div class="col-lg-8 job-cards">
+													<a   class="text-capitalize" href="javascript:;">
+														<h5>{{matchingJobNew?.jobs?.title}} <small></small></h5>
+													</a>
+													<h6 class="mb-0 text-capitalize">
+														{{matchingJobNew?.jobs?.city +', ' +matchingJobNew?.jobs?.state+', ' +matchingJobNew?.jobs?.country}}
+														
+													</h6>
+													<h6 class="mt-1 text-capitalize">
+														{{matchingJobNew?.jobs?.company_name }}
+													</h6>
+												</div>
+												<div class="col-lg-4"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
+													<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJobNew?.jobs?.description)">	
+													<i class="fas fa-file-alt"></i> Description</a>
+													
+													<div class="media mt-2" >
+														<div class="media-body">
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 0" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / hr'}}</h6>
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 1" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / Annual '}}</h6>
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 2" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / month'}}</h6>
+															<h6 class="text-capitalize job-cardh6">{{"postJob.remote" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.remote)}} </h6>
+															<h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.willing_to_relocate)}} </h6>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+									<!-- <div class="col-lg-12">
 										<div class="card profile-card">
 											<div class="d-flex">
 												<div class="pc-info">
@@ -105,9 +149,9 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<!--Body Sec-->
-									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-4' : 'mt-4'">
+									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-3' : 'mt-4'">
 										<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJobNew?.jobs.score >= 5, 'score-txt-orange': (matchingJobNew?.jobs.score < 5 && matchingJobNew?.jobs.score > 0), 'score-txt-red': (matchingJobNew?.jobs.score == 0)}">
 											SCORE <span>{{matchingJobNew?.jobs.score ? matchingJobNew?.jobs.score : 0}}/10</span>
 										</div>

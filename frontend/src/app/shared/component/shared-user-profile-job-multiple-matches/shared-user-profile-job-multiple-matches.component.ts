@@ -76,6 +76,9 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 				  }if(!this.postedJobsDetails.training_experience || this.postedJobsDetails.training_experience=='' || this.postedJobsDetails.training_experience==undefined){
 					this.postedJobsDetails.match_select.training_experience="false";
 					  
+				  }if(!this.postedJobsDetails.skills || this.postedJobsDetails.match_select['skills']=='' || this.postedJobsDetails.skills==undefined){
+					this.postedJobsDetails.match_select.skills="false";
+					  
 				  }
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 

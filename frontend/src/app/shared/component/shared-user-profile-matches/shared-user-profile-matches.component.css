@@ -72,3 +72,12 @@ margin-top:38px;
 .handsExps:hover{
 		overflow-x:auto !important;
 	}
+.padd-10{
+	padding: 10px 0px;
+}.padd-5{
+	padding: 5px 0px;
+}
+.pj-title h6{	
+	border:none !important;
+	outline:none !important;
+}

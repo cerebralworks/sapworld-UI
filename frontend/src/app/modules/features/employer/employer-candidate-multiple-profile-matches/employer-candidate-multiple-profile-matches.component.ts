@@ -282,5 +282,16 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		}
 		this.isOpenedSendMailModal = status;
 	}
-
+	
+	/**
+	**	To get the boolean to string
+	**/
+	
+	onGetYesOrNoValue = (value: boolean) => {
+		if (value == true) {
+			return "Yes";
+		} else {
+			return "No"
+		}
+	}
 }
