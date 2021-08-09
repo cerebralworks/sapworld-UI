@@ -95,3 +95,12 @@ ul.statusHistory .content h4 {
 ul.statusHistory .content p{
     margin-bottom: 0;
 }
+
+.badges {
+    display: table-caption;
+    padding: 2px 4px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    font-size: 7px;
+}

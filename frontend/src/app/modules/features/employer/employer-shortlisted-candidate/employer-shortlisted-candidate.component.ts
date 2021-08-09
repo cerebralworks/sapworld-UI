@@ -30,6 +30,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public postedJobMeta: any;
 	public employeeValue: any;
 	public selectedStatusMessage: any;
+	public messagePopupValueStatus: any='';
 	public selectedStatusValue: any;
 	public messagePopupValue: any;
 	public postedJobs: any[] = [];
@@ -218,6 +219,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	**/
 	 openMessagePopup(item){
 		 this.isCheckModel = true;
+		 this.messagePopupValueStatus = '';
 		 if (this.isCheckModel) {
 			 this.messagePopupValue = item;
 			 if(item.status>=7){
@@ -225,6 +227,15 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				if(item['job_posting']['screening_process'][idValue]){
 					this.selectedStatusValue =item.status;
 					this.selectedStatusMessage = null;
+					this.messagePopupValueStatus= this.messagePopupValue['job_posting']['screening_process'][idValue]['title'];
+				}
+			}else{
+				this.selectedStatusValue =item.status;
+				this.selectedStatusMessage = null;
+				var values = parseInt(this.selectedStatusValue);
+				var value = this.statusvalue.filter(function(a,b){ return a.id == values });
+				if(value.length !=0){
+					this.messagePopupValueStatus = value[0]['text'];
 				}
 			}
 		setTimeout(() => {
@@ -262,6 +273,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.job_posting = this.selectedJob.id;
 			requestParams.user = this.messagePopupValue.user.id;
 			requestParams.short_listed = true ;
+			requestParams.view = false ;
 			requestParams.status =  this.messagePopupValue.status ;
 			requestParams.application_status =  this.messagePopupValue.application_status ;
 			var datas ='';
@@ -349,6 +361,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.job_posting = this.selectedJob.id;
 			requestParams.user = item.user.id;
 			requestParams.short_listed = true ;
+			requestParams.view = false ;
 			requestParams.status = values ;
 			requestParams.application_status = item.application_status ;
 			if(values>=7){

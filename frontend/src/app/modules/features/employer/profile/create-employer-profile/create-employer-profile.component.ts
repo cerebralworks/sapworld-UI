@@ -247,7 +247,9 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 				this.onUserPhotoUpdate(() => {
 					this.employerService.updateCompanyProfile(requestParams).subscribe(
 						response => {
-							
+							if(response.details ==null || response.details == undefined){
+								response = JSON.parse(response);
+							}
 							this.employerSharedService.saveEmployerCompanyDetails(response.details[0]);
 							this.router.navigate(['/employer/profile'])
 						}, error => {
@@ -258,6 +260,9 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			}else{
 				this.employerService.updateCompanyProfile(requestParams).subscribe(
 					response => {
+						if(response.details ==null || response.details == undefined){
+							response = JSON.parse(response);
+						}
 						this.employerSharedService.saveEmployerCompanyDetails(response.details[0]);
 						this.router.navigate(['/employer/profile'])
 					}, error => {
@@ -288,7 +293,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			description: ['', Validators.compose([Validators.required, Validators.maxLength(2500), Validators.minLength(100)])],
 			website: ['', Validators.compose([Validators.required, ValidationService.urlValidator])],
 			contact: [''],
-			latlng: [null, Validators.required],
+			latlng: [null],
 			social_media_link: [null],
 			linkedin: new FormControl(''),
 			github: new FormControl(''),

@@ -116,19 +116,9 @@
 			</div>
 			<form class="mt-3">
 				<div class="form-group">
-					<label for="exampleFormControlSelect1">Choose Status</label>
-					<select appMarkAsterisk class="form-control form-control-sm" name="exampleFormControlSelect1" (change)="onChangeStatusPop($event?.target?.value)" id="exampleFormControlSelect1" [(ngModel)]="selectedStatusValue" >
-						<option [value]="1" [selected]="messagePopupValue?.status == 1">Choose</option>
-						<option [value]="3" [selected]="messagePopupValue?.status == 3">Interview scheduled</option>
-						<ng-container *ngIf="messagePopupValue?.job_posting?.screening_process?.length;">
-							<option *ngFor="let option of messagePopupValue?.job_posting?.screening_process; index as i"
-								[value]="i+7" [selected]="messagePopupValue?.status == i+7"> {{ option.title }}</option>
-						</ng-container>
-						<option [value]="5" [selected]="messagePopupValue?.status == 5">On Hold</option>
-						<option [value]="6" [selected]="messagePopupValue?.status == 6">Not Available</option>
-						<option [value]="2" [selected]="messagePopupValue?.status == 2">Hired</option>					  
-						<option [value]="4" [selected]="messagePopupValue?.status == 4">Rejected</option>
-					</select>
+					<label for="exampleFormControlSelect1">Status</label>
+					<input type="text" class="form-control text-capitalize" name="messagePopupValueStatus" id ="messagePopupValueStatus" readonly [(ngModel)]="messagePopupValueStatus">
+					
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlTextarea1">Status Message</label>
