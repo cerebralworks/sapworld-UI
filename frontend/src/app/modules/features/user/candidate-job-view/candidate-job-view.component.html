@@ -64,7 +64,7 @@
 											--
 										</ng-container>
 										<h6 class="text-capitalize job-cardh6">{{"postJob.remote" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.remote)}} </h6>
-										<h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}} </h6>
+										<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}} </h6> -->
 									</div>
 								</div>
 							</div>
@@ -76,9 +76,24 @@
 				</app-shared-job-profile>
 			</div>
 			<div class="col-lg-4">
-				<div class="title">
-					<h2>More Jobs</h2>
+				<div class="title" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">
+				  <h2>
+					Screening Process           
+				  </h2>
 				</div>
+				<div class="sidebar-widget px-4" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">
+					<div class="row mt-3 mb-3" *ngFor="let items of postedJobsDetails?.screening_process;let i=index">
+						<div class="col-lg-2 col-md-3 text-left">
+							<h6 class="font-weight-bold">{{i+1}}.</h6> 
+						</div>	
+						<div class="col-lg-10 col-md-9 text-left">
+							<h6>{{items.title}}</h6>
+						</div>	
+					</div>
+				</div>
+				<!-- <div class="title">
+					<h2>More Jobs</h2>
+				</div> -->
 			</div>
 		</div>
 	</div>

@@ -258,6 +258,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					if(!temps){
 						temps =[];
 					}
+					if(!temps || temps.length==0){
+						temps =[this.childForm.controls.personalDetails.value.nationality];
+					}else{
+						temps[temps.length]=this.childForm.value.personalDetails.nationality;
+					}
 					if(temps.length){
 						for(let i=0;i<temps.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
@@ -618,16 +623,21 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
         state: address.state,
         stateShort: address.stateShort,
         country: address.country
-    };
-	this.chipsInput.nativeElement.value='';
-	if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
-	this.onDuplicate();
-	tempData.push(datas);
-	this.t.patchValue(tempData);
-	tempData = tempData.map(function(a,b){ 
-	a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
-	return a.city+'-'+a.stateShort });
-	this.address=tempData;
-	}}
+		};
+		this.chipsInput.nativeElement.value='';
+		if(address['city'] !=null &&address['state'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
+			address['city'] !=undefined &&address['state'] !=undefined &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){ 
+			if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
+				this.onDuplicate();
+				tempData.push(datas);
+				this.t.patchValue(tempData);
+				tempData = tempData.map(function(a,b){ 
+					a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+				return a.city+'-'+a.stateShort });
+				this.address=tempData;
+			}
+		}
+	}
+		
   };
 }

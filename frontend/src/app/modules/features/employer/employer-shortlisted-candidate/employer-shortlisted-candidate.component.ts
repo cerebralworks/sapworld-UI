@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Component,ViewEncapsulation, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
@@ -28,12 +29,29 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public queryParams: any;
 	public postedJobMeta: any;
 	public employeeValue: any;
+	public selectedStatusMessage: any;
+	public selectedStatusValue: any;
+	public messagePopupValue: any;
 	public postedJobs: any[] = [];
 	public TotalCount: any[] = [];
+	public statusvalue: any[] = [
+	{id:1,text:'APPLICATION UNDER REVIEW'},
+	{id:2,text:'Hired'},
+	{id:3,text:'Interview Scheduled'},
+	{id:4,text:'Rejected'},
+	{id:5,text:'On Hold'},
+	{id:6,text:'Not Available'}
+	];
 	public validateSubscribe: number = 0;
+	public isCheckModel: boolean = false;
+	public isErrorShown: boolean = false;
+	public isErrorShownValue: boolean = false;
+	public checkModalRef: NgbModalRef;
+	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
 
 	constructor(
 		private employerService: EmployerService,
+		private modalService: NgbModal,
 		public utilsHelperService: UtilsHelperService,
 		private router: Router,
 		private route: ActivatedRoute,
@@ -196,6 +214,132 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	}
     
 	/**
+	**	To open the message popoup
+	**/
+	 openMessagePopup(item){
+		 this.isCheckModel = true;
+		 if (this.isCheckModel) {
+			 this.messagePopupValue = item;
+			 if(item.status>=7){
+				var idValue = item.status-7;
+				if(item['job_posting']['screening_process'][idValue]){
+					this.selectedStatusValue =item.status;
+					this.selectedStatusMessage = null;
+				}
+			}
+		setTimeout(() => {
+        this.checkModalRef = this.modalService.open(this.checkModal, {
+          windowClass: 'modal-holder',
+          centered: true,
+          backdrop: 'static',
+          keyboard: false
+        });
+      }, 300);
+		}
+	 }
+	 
+	 
+	/**
+	**	To cancel the check buton event
+	**/
+	
+	cancelCheck(){
+		this.checkModalRef.close();
+		 this.isCheckModel = false;
+		 this.selectedStatusValue =null;
+		 this.selectedStatusMessage = null;
+		 this.isErrorShown = false;
+		 this.isErrorShownValue = false;
+	}
+  
+	
+	sendMessage(){
+		this.isErrorShown= false;
+		this.isErrorShownValue= false;
+		if(this.selectedStatusValue !=null && this.selectedStatusValue !='' && this.selectedStatusMessage != null && this.selectedStatusMessage !='' ){
+			
+			let requestParams: any = {};
+			requestParams.job_posting = this.selectedJob.id;
+			requestParams.user = this.messagePopupValue.user.id;
+			requestParams.short_listed = true ;
+			requestParams.status =  this.messagePopupValue.status ;
+			requestParams.application_status =  this.messagePopupValue.application_status ;
+			var datas ='';
+			var values = parseInt(this.selectedStatusValue);
+			if(values>=7){
+				var idValue =  values-7;
+				datas = this.messagePopupValue['job_posting']['screening_process'][idValue]['title'];
+			}else{
+				
+				var value = this.statusvalue.filter(function(a,b){ return a.id == values });
+				if(value.length !=0){
+					datas = value[0]['text'];
+				}
+			}
+			if(datas !=''){
+				for(let i=0;i< requestParams.application_status.length;i++){
+					if(requestParams.application_status[i]['status'] == datas){
+						requestParams.application_status[i]['comments'] = this.selectedStatusMessage;
+						this.isErrorShown= true;
+					}
+				}
+				if(this.isErrorShown== true){
+					this.employerService.shortListUser(requestParams).subscribe(
+						response => {
+							this.cancelCheck();
+							this.onGetShortListedJobs();
+						}, error => {
+							this.cancelCheck();
+							this.onGetShortListedJobs();
+						}
+					)
+
+				}else{
+					this.isErrorShownValue = true;
+				}
+			}
+			
+		}
+
+	}
+	
+	
+	/**
+	**	TO Change the shortlisted user details
+	**/
+	 onChangeStatusPop(data){
+		this.isErrorShown= false;
+		this.isErrorShownValue= false;
+		if(this.selectedStatusValue !=null && this.selectedStatusValue !=''){
+			var datas ='';
+			var val = parseInt(this.selectedStatusValue);
+			if(val>=7){
+				var idValue =  val-7;
+				datas = this.messagePopupValue['job_posting']['screening_process'][idValue]['title'];
+			}else{
+				var values = val;
+				var value = this.statusvalue.filter(function(a,b){ return a.id == values });
+				if(value.length !=0){
+					datas = value[0]['text'];
+				}
+			}
+			if(datas !=''){
+				for(let i=0;i< this.messagePopupValue.application_status.length;i++){
+					if(this.messagePopupValue.application_status[i]['status'] == datas){
+						this.messagePopupValue.application_status[i]['comments'] = this.selectedStatusMessage;
+						this.isErrorShown= true;
+					}
+				}
+				if(this.isErrorShown== false){
+					this.isErrorShownValue = true;
+				}
+			}else{
+				this.isErrorShownValue = true;
+			}
+		}
+	 }
+	
+	/**
 	**	TO Change the shortlisted user details
 	**/
 	 
@@ -206,6 +350,20 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.user = item.user.id;
 			requestParams.short_listed = true ;
 			requestParams.status = values ;
+			requestParams.application_status = item.application_status ;
+			if(values>=7){
+				var idValue = values-7;
+				if(item['job_posting']['screening_process'][idValue]){
+					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'date': new Date(),'comments':' ' };
+					requestParams.application_status.push(datas);
+				}
+			}else{
+				var value = this.statusvalue.filter(function(a,b){ return a.id == values});
+				if(value.length !=0){
+					var datas = {'id':values,'status':value[0]['text'], 'date': new Date(),'comments':' ' };
+					requestParams.application_status.push(datas);
+				}
+			}
 			this.employerService.shortListUser(requestParams).subscribe(
 				response => {
 					this.onGetShortListedJobs();

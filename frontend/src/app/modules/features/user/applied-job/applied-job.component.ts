@@ -74,7 +74,52 @@ export class AppliedJobComponent implements OnInit {
 		this.page = event.pageIndex + 1;
 		this.onGetAppliedJobs();
 	}
+	/**
+	**	To assign the collapse id and href
+	**/	
+	  
+	getIdVal(items){
+		if(items){
+			if(items['id']){
+				var data = '#Open'+items['id']
+				return data;
+			}
+		}
+		return '#Open'
+	}
 
+	/**
+	**	To assign the close collapse id
+	**/	
+	  
+	getIdVals(items){
+		if(items){
+			if(items['id']){
+				var data = 'Open'+items['id']
+				return data;
+			}
+		}
+		return 'Open'
+	}
+	/**
+	**	To set the href for close id
+	**/	
+	  
+	stopPropagation(event){
+		if(event && event.path){
+			if(event['path'][1]){
+				if(event['path'][1]['href']){
+					var temp= event['path'][1]['href'].split('/')
+					temp = temp[temp.length-1];
+					if(document.getElementById(temp)){
+						document.getElementById(temp).setAttribute('href',temp);
+					}
+				}
+			}
+
+		}
+	}
+	
 	/**
 	**	To delete the job application API 
 	**/	

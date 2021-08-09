@@ -1,0 +1,97 @@
+
+ul.statusHistory {
+    list-style-type: none;
+    position: relative;
+    white-space: initial;
+    padding-left: 15px;
+    margin: 15px 0px;
+}
+ul.statusHistory:before {
+    content: ' ';
+    background: #eaeaea;
+    display: inline-block;
+    position: absolute;
+    left: 19.25%;
+    width: 4px;
+    height: 100%;
+    z-index: 0;
+}
+ul.statusHistory li {
+   position: relative;
+}
+ul.statusHistory .date {
+    display: block;
+    width: 25%;
+    padding-right: 60px;
+    position: absolute;
+}
+ul.statusHistory .date h5{
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #000000;
+}
+ul.statusHistory .icon {
+    width: 40px;
+    height: 40px;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 1.4em;
+    line-height: 40px;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    color: #fff;
+    background: #b0b0b0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px #f0f0f0;
+    text-align: center;
+    left: 18.5%;
+    top: 0;
+    margin: 0 0 0 -25px;
+}
+ul.statusHistory .success .icon{
+	background: #11b771!important;
+}
+ul.statusHistory .process .icon{
+	background: #385edf!important;
+}
+ul.statusHistory .pending .icon{
+	background: #ffb100!important;
+}
+ul.statusHistory .rejected .icon{
+	background: #dc3545!important;
+}
+ul.statusHistory .orange .icon{
+	background: orange !important;
+}
+ul.statusHistory .content {
+    margin: 0 0 25px 25%;
+    background: #f8f8f8;
+    padding: 1.0em;
+    position: relative;
+    border-radius: 5px;
+}
+ul.statusHistory .content:after {
+       right: 100%;
+       border: solid transparent;
+       content: " ";
+       height: 0;
+       width: 0;
+       position: absolute;
+       pointer-events: none;
+       border-right-color: #f8f8f8;
+       border-width: 8px;
+       top: 8px;
+}
+ul.statusHistory .content h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+ul.statusHistory .content p{
+    margin-bottom: 0;
+}

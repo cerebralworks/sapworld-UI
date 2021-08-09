@@ -467,8 +467,10 @@
 						<div  *ngIf="postedJobsDetails?.match_select[postedJobsDetails?.extra_criteria[i]['title']]=='0'">
 							<ul class="list-group">
 								<li class="list-group-item text-capitalize" >
+								<span *ngIf="missingElement">
 									<i class="fa fa-times text-danger "></i>
 								  {{item?.value?.value ? item?.value?.value : '--'}}
+								</span>
 								</li>
 							 </ul>
 						</div>
@@ -928,8 +930,10 @@
 						<div  *ngIf="postedJobsDetails?.match_select[postedJobsDetails?.extra_criteria[i]['title']]=='1'">
 							<ul class="list-group">
 								<li class="list-group-item text-capitalize" >
+									<span *ngIf="missingElement">
 									<i class="fa fa-times text-danger "></i>
 								  {{item?.value?.value ? item?.value?.value : '--'}}
+								</span>
 								</li>
 							 </ul>
 						</div>
@@ -1388,8 +1392,10 @@
 						<div  *ngIf="postedJobsDetails?.match_select[postedJobsDetails?.extra_criteria[i]['title']]=='2'">
 							<ul class="list-group">
 								<li class="list-group-item text-capitalize" >
+									<span *ngIf="missingElement">
 									<i class="fa fa-times text-danger "></i>
 								  {{item?.value?.value ? item?.value?.value : '--'}}
+								</span>
 								</li>
 							 </ul>
 						</div>
@@ -1656,7 +1662,7 @@
 						</li>
 					</ul>
 				</div>
-				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='' && postedJobsDetails?.work_authorization">
+				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='' && postedJobsDetails?.work_authorization !=null ">
 					<li class="list-group-item">
 						<span *ngIf=" (finpostJobDetailsCountry(postedJobsDetails?.country) == findCountrysData([matchingUsers?.profile?.nationality]) || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
 							<div *ngIf="matchedElement && finpostJobDetailsCountry(postedJobsDetails?.country) == findCountrysData([matchingUsers?.profile?.nationality])">
@@ -1849,8 +1855,10 @@
 						<div  *ngIf="postedJobsDetails?.match_select[postedJobsDetails?.extra_criteria[i]['title']]==''">
 							<ul class="list-group">
 								<li class="list-group-item text-capitalize" >
+									<span *ngIf="missingElement">
 									<i class="fa fa-times text-danger "></i>
 								  {{item?.value?.value ? item?.value?.value : '--'}}
+								</span>
 								</li>
 							 </ul>
 						</div>
