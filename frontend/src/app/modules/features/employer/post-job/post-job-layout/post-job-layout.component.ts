@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
 
 import * as lodash from 'lodash';
 
@@ -55,14 +56,17 @@ export class PostJobLayoutComponent implements OnInit {
   public isEnableJobPreviewModal: any;
   public postJobForm: FormGroup;
   public isLoading: boolean;
+  public getDataCount: boolean = false;
   public formError: any;
   public postedJobsDetails: JobPosting;
   public jobId: string;
 	public requestParams: any;
+	public screeningProcess : any=[];
 
   constructor(
     private formBuilder: FormBuilder,
     private employerService: EmployerService,
+		private employerSharedService: EmployerSharedService,
     private modalService: NgbModal,
     public router: Router,
 		private SharedAPIService: SharedApiService,
@@ -82,6 +86,18 @@ export class PostJobLayoutComponent implements OnInit {
     if(this.jobId) {
       this.onGetPostedJob(this.jobId);
     }
+	
+	this.employerSharedService.getEmployerProfileDetails().subscribe(
+			details => {
+				if(details) {
+					if(details && details.id && this.getDataCount == false) {
+						this.onGetScreening(details.id);
+						this.getDataCount =true;
+					}
+				}
+			}
+		)
+		
   }
 
   onNext() {
@@ -126,6 +142,7 @@ export class PostJobLayoutComponent implements OnInit {
       ...this.postJobForm.value.jobInfo,
       ...this.postJobForm.value.otherPref,
       ...this.postJobForm.value.requirement,
+      ...this.postJobForm.value.screeningProcess,
       ...this.postJobForm.value.jobPrev
     };
 
@@ -229,12 +246,46 @@ export class PostJobLayoutComponent implements OnInit {
 			travel_opportunity: new FormControl(null, Validators.required),
 			end_to_end_implementation: new FormControl(null)
 		}));
-		
+		this.postJobForm.addControl('otherPref', new FormGroup({
+			facing_role: new FormControl(null),
+			training_experience: new FormControl(null),
+			certification: new FormControl(null),
+			language: new FormControl(null, Validators.required),
+			extra_criteria: new FormArray([this.formBuilder.group({
+				title: [null],
+				value: [null]
+			})]),
+			temp_extra_criteria: new FormArray([]),
+		}));
         if(response && response.details) {
           this.postedJobsDetails = response.details;
           this.postJobForm.patchValue({
             ...this.postedJobsDetails
           });
+		  if (this.postedJobsDetails.extra_criteria != null) {
+			for(let i=0;i<=this.postJobForm.controls.otherPref['controls']['extra_criteria'].value.length;i++){
+				this.postJobForm.controls.otherPref['controls']['extra_criteria'].removeAt(0);
+				i=0;
+			}
+			if(this.postedJobsDetails.extra_criteria.length==0){
+				this.postJobForm.controls.otherPref['controls']['extra_criteria'].push(this.formBuilder.group({
+					title: [null],
+					value: [null]
+				}));
+			}else{
+			this.postedJobsDetails.extra_criteria.map((value, index) => {
+				this.postJobForm.controls.otherPref['controls']['extra_criteria'].push(this.formBuilder.group({
+					title: [null],
+					value: [null]
+				}));
+			});
+			}
+		}
+		this.postJobForm.patchValue({
+			otherPref : {
+				...this.postedJobsDetails
+			}
+		});
 		  if(this.postedJobsDetails && this.postedJobsDetails.hands_on_experience && Array.isArray(this.postedJobsDetails.hands_on_experience)) {
 					
 					for(let i=0;i<=this.postJobForm.controls.requirement['controls']['hands_on_experience'].length;i++){
@@ -291,4 +342,29 @@ onGetCountry(query) {
 
 		this.SharedAPIService.onGetLanguage(this.requestParams);
 	  }
+	  
+	  
+	/**
+	**	TO Get the Applied job details screeningProcess
+	**/
+	 
+	onGetScreening(companyId) {
+		let requestParams: any = {};
+		requestParams.limit = 5;
+		requestParams.view = 'screening_process';
+		requestParams.company = companyId;
+		this.employerService.getPostedJobCount(requestParams).subscribe(
+			response => {
+				if(response['count']){
+					if(this.jobId){
+						var valuses = this.jobId;
+						response['count'] =response['count'].filter(function(a,b){return a.id != valuses });
+					}
+					this.screeningProcess = response['count'];
+				}
+				
+			}, error => {
+			}
+		)
+	}
 }

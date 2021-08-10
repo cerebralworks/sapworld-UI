@@ -14,12 +14,12 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-other-preference',
-  templateUrl: './other-preference.component.html',
-  styleUrls: ['./other-preference.component.css'],
+  selector: 'app-screening-process',
+  templateUrl: './screening-process.component.html',
+  styleUrls: ['./screening-process.component.css'],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective}]
 })
-export class OtherPreferenceComponent implements OnInit, OnChanges {
+export class ScreeningProcessComponent implements OnInit, OnChanges {
 
 	/**
 	**	Variable Declaration
@@ -34,6 +34,7 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	public criteriaModalRef: NgbModalRef;
 	public isOpenCriteriaModal: boolean;
 	@Input() currentTabInfo: tabInfo;
+	@Input() screeningProcess :any;
 	@Input('postedJobsDetails')
 	set postedJobsDetails(inFo: JobPosting) {
 		this.getPostedJobsDetails = inFo;
@@ -59,41 +60,6 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 		public utilsHelperService: UtilsHelperService
 	) { }
 	
-	add(event: MatChipInputEvent): void {
-		
-		const value = (event.value || '').trim();
-
-		if (value) {
-			const index = this.certification.indexOf(value);
-			if (index >= 0) {
-				
-			}else{
-			this.certification.push(value);
-			this.childForm.patchValue({
-			  otherPref: {
-				['certification']: this.certification,
-			  }
-			});}
-			
-		}
-
-		// Clear the input value
-		event.chipInput!.clear();
-	}
-
-	remove(visa): void {
-		
-		const index = this.certification.indexOf(visa);
-
-		if (index >= 0) {
-			this.certification.splice(index, 1);
-			this.childForm.patchValue({
-			  otherPref: {
-				['certification']: this.certification,
-			  }
-			});
-		}
-	}
 	/**
 	**	When the intial component calls
 	** 	Create form
@@ -118,35 +84,30 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
-			/* if(this.childForm && this.getPostedJobsDetails) {
-				if (this.getPostedJobsDetails.certification != null) {
-					this.certification = this.getPostedJobsDetails.certification;
-				}
-				if (this.getPostedJobsDetails.extra_criteria != null) {
+			if(this.childForm && this.getPostedJobsDetails) {
+				if (this.getPostedJobsDetails.screening_process != null) {
 					for(let i=0;i<=this.t.value.length;i++){
 						this.t.removeAt(0);
 						i=0;
 					}
-					if(this.getPostedJobsDetails.extra_criteria.length==0){
+					if(this.getPostedJobsDetails.screening_process.length==0){
 						this.t.push(this.formBuilder.group({
-							title: [null],
-							value: [null]
+							title: [null]
 						}));
 					}else{
-					this.getPostedJobsDetails.extra_criteria.map((value, index) => {
+					this.getPostedJobsDetails.screening_process.map((value, index) => {
 						this.t.push(this.formBuilder.group({
-							title: [null],
-							value: [null]
+							title: [null]
 						}));
 					});
 					}
 				}
 				this.childForm.patchValue({
-					otherPref : {
+					screeningProcess : {
 						...this.getPostedJobsDetails
 					}
 				});
-			} */
+			}
 		});
 	}
 
@@ -156,45 +117,41 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	
 	createForm() {
 		this.childForm = this.parentF.form;
-		this.childForm.addControl('otherPref', new FormGroup({
-			facing_role: new FormControl(null),
-			training_experience: new FormControl(null),
-			certification: new FormControl(null),
-			language: new FormControl(null, Validators.required),
-			extra_criteria: new FormArray([this.formBuilder.group({
-				title: [null],
-				value: [null]
-			})]),
-			temp_extra_criteria: new FormArray([]),
+		this.childForm.addControl('screeningProcess', new FormGroup({
+			screening_process: new FormArray([]),
+			temp_screening_process: new FormControl(null),
 		}));
 
 	}
 
 	get f() {
-		return this.childForm.controls.otherPref.controls;
+		return this.childForm.controls.screeningProcess.controls;
 	}
 	
 	  get t() {
-		return this.f.extra_criteria as FormArray;
+		return this.f.screening_process as FormArray;
 	  }
 	  
-	get tEX() {
-		return this.f.temp_extra_criteria as FormArray;
-	}
+	
 
 	/**
 	**	create a new hands_on_experience
 	**/
 	
-	onDuplicate = (index) => {
-		if(this.t.value[index]['title']== null ||this.t.value[index]['title']== '' || this.t.value[index]['value']== null ||this.t.value[index]['value']== '' ){
-		  
-	  }else{
-		this.t.push(this.formBuilder.group({
-			title: [null, Validators.required],
-			value: [null, Validators.required]
-		}));
-	  }
+	onDuplicate = () => {
+		var value = this.childForm.value.screeningProcess.temp_screening_process;
+		
+		if(value !=null && value !=undefined && value !=''){
+			this.t.push(this.formBuilder.group({
+				title: [value, Validators.required]
+			}));
+			this.childForm.patchValue({
+				screeningProcess : {
+					temp_screening_process :null
+				}
+			});
+		}
+		
 	}
 	
 	/**
@@ -203,11 +160,29 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	
 	onRemove = (index) => {
 		if(index == 0 &&this.t.value.length==1) {
-			this.t.reset();
-			this.t.controls[index]['controls']['title'].setValidators(null);
-			this.t.controls[index]['controls']['value'].updateValueAndValidity();
+			this.t.removeAt(index);
 		}else {
 			this.t.removeAt(index);
+		}
+	}
+	
+	/**	
+	**		To handle the selected screening process
+	**/
+	
+	handleChange(event,index){
+		if(index !=null && index !=undefined ){
+			if(this.screeningProcess[index]){
+				var checkData = this.screeningProcess[index]['screening_process'];
+				if(checkData && checkData.length){
+					for(let i=0;i<checkData.length;i++){
+						var value=checkData[i]['title'];
+						this.t.push(this.formBuilder.group({
+							title: [value]
+						}));
+					}
+				}
+			}
 		}
 	}
 

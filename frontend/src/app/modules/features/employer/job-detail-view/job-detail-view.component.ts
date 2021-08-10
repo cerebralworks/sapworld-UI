@@ -9,6 +9,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { filter, pairwise } from 'rxjs/operators';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-job-detail-view',
@@ -29,8 +30,12 @@ export class JobDetailViewComponent implements OnInit {
 	public previousUrl: string;
 	public postedJobs: any[] = [];
 	public postedJobMeta: any = {};
-	public limit: number = 25;
+	public companyIdValue: any = '';
 	public page: number = 1;
+	public limit: number = 10;
+	length = 0;
+	pageIndex = 1;
+	pageSizeOptions = [10, 25,50,100];
 	public validateSubscribe: number = 0;
 
 	constructor(
@@ -76,6 +81,7 @@ export class JobDetailViewComponent implements OnInit {
 			details => {
 				if(details) {
 					if((details && details.id) && this.validateSubscribe == 0) {
+						this.companyIdValue = details.id;
 						this.onGetPostedJob(details.id);
 						this.validateSubscribe ++;
 					}
@@ -133,10 +139,12 @@ export class JobDetailViewComponent implements OnInit {
 		requestParams.sort = 'most_popular.desc';
 		this.employerService.getPostedJob(requestParams).subscribe(
 			response => {
+				this.postedJobs = [];
 				if(response && response.items && response.items.length > 0) {
 				  this.postedJobs = [...this.postedJobs, ...response.items];
 				}
 				this.postedJobMeta = { ...response.meta };
+				this.length = this.postedJobMeta.total;
 			}, error => {
 			}
 		)
@@ -279,5 +287,15 @@ export class JobDetailViewComponent implements OnInit {
 		}
 	};
 	
+	/**
+	**	To pagination changes
+	**/ 
+	
+	handlePageEvent(event: PageEvent) {
+		//this.length = event.length;
+		this.limit = event.pageSize;
+		this.page = event.pageIndex+1;
+		this.onGetPostedJob(this.companyIdValue);
+	}
 
 }

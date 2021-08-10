@@ -40,6 +40,13 @@
             *ngIf="currentTabInfo.tabNumber == 3"
             [currentTabInfo]="currentTabInfo">
             </app-other-preference>
+			
+            <app-screening-process
+            [postedJobsDetails]="postedJobsDetails"
+            [screeningProcess]="screeningProcess"
+            *ngIf="currentTabInfo.tabNumber == 4"
+            [currentTabInfo]="currentTabInfo">
+            </app-screening-process>
 
           </div>
 

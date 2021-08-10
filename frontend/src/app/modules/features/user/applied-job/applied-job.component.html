@@ -16,7 +16,8 @@
 						</thead>
 						<tbody>
 							<ng-container *ngIf="appliedJobs?.length; else elseTemplate">
-								<tr *ngFor="let item of appliedJobs">
+							<ng-container *ngFor="let item of appliedJobs; let j = index">
+								<tr >
 									<td>
 										<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'applied' }"  class="text-capitalize" href="javacript:;">
 											{{item?.job_posting?.title}}
@@ -35,41 +36,107 @@
 									<td>
 										{{item?.created_at ? (item?.created_at | date: "MMM dd, y") : '-'}}
 									</td>
-									<td  class="text-capitalize text-warning" *ngIf="item?.status == 1 && item?.short_listed == null " style="color: #385edf;">
-										Applied
+									<td *ngIf="item?.short_listed == true && item?.status == 2 ">
+										<a class="text-success text-capitalize" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
+											{{itemReturn(item?.status,item?.application_status)}}
+											<i class="fas fa-caret-down"></i>
+											<span class="badges" *ngIf="item?.view == false " [id]="j" >1</span>
+										</a>
 									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.status == 1 && item?.short_listed == false " style="color: #385edf;">
-										Not a fit
+									<td *ngIf="item?.short_listed == true && item?.status != 2 && item?.status != 4 && item?.status != 5 && item?.status != 6">
+										<a class="text-warning text-capitalize" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
+											{{itemReturn(item?.status,item?.application_status)}}
+											<i class="fas fa-caret-down"></i>
+											<span class="badges" *ngIf="item?.view == false " [id]="j">1</span>
+										</a>
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.status == 1 && item?.short_listed == true " style="color: #385edf;">
-										Short Listed
+									<td *ngIf="item?.short_listed == true && (item?.status == 4 || item?.status == 5 || item?.status == 6) ">
+										<a class="text-danger text-capitalize" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
+											{{itemReturn(item?.status,item?.application_status)}}
+											<i class="fas fa-caret-down"></i>
+											<span class="badges" *ngIf="item?.view == false " [id]="j" >1</span>
+										</a>
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.status == 2">
-										selected
+									<td *ngIf="item?.short_listed == false ">
+										<a class="text-danger text-capitalize"  data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
+											Not a Fit
+											<i class="fas fa-caret-down"></i>
+											<span class="badges" *ngIf="item?.view == false " [id]="j" >1</span>
+										</a>
 									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.status == 3">
-										scheduled
-									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.status == 4">
-										rejected
-									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.status == 5">
-										on hold
-									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.status == 6">
-										not available
-									</td>
-									<td  class="text-capitalize text-warning" *ngIf="item?.status == 7">
-										pending
-									</td>
-									<td  class="text-capitalize text-success" *ngIf="item?.status == 8">
-										applied
-									</td>
-									<td  class="text-capitalize text-danger" *ngIf="item?.status == 9">
-										closed
+									<td *ngIf="(item?.short_listed == null || item?.short_listed == false) && item?.status == 1 ">
+										<a class="text-success text-capitalize"  data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
+											Applied 
+											<i class="fas fa-caret-down"></i>
+											<span class="badges" *ngIf="item?.view == false " [id]="j" >1</span>
+										</a>
 									</td>
 									<!-- <td class="text-center"><a (click)="deleteJobApplication(item?.id)" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>  -->
 								</tr>
+								<!--Message Collapse -->
+								<tr *ngIf="item?.application_status">
+									 <td colspan="12" class="p-0" style="white-space: normal;" *ngIf="item?.application_status?.length">
+										<div class="collapse p-3" [id]="getIdVals(item)">
+											<div class="row">
+												<div class="col-md-9 p-0">
+													<ul class="statusHistory">
+														<ng-container *ngFor="let items of item?.application_status;let i=index;">
+															<li class="success" *ngIf="items?.id == 1 ">
+																<div class="date">
+																	<h5 class="">{{items?.date | date: 'longDate' }}</h5>
+																</div>
+																<div class="icon">
+																	<i class="fas fa-file-alt"></i>
+																</div>
+																<div class="content">
+																	<h4>{{items?.status}}</h4>
+																	<p>{{items?.comments}}</p>
+																</div>
+															</li>
+															<li class="pending" *ngIf="items?.id != '98' && items?.id != '4' && items?.id != '2' && items?.id != 1&& items?.id != '1' && items?.id != '5' && items?.id != '6'" >
+																<div class="date">
+																	<h5 class="">{{items?.date | date: 'longDate' }}</h5>
+																</div>
+																<div class="icon">
+																	<i class="fas fa-user-check"></i>
+																</div>
+																<div class="content">
+																	<h4>{{items?.status}}</h4>
+																	<p>{{items?.comments}}</p>
+																</div>
+															</li>
+															<li class=" success" *ngIf="items?.id == '2' " >
+																<div class="date">
+																	<h5 class="">{{items?.date | date: 'longDate' }}</h5>
+																</div>
+																<div class="icon">
+																	<i class="fas fa-user-check"></i>
+																</div>
+																<div class="content">
+																	<h4>{{items?.status}}</h4>
+																	<p>{{items?.comments}}</p>
+																</div>
+															</li>
+															<li class="rejected" *ngIf="items?.id == '98' ||items?.id == '5' || items?.id == '6'|| items?.id == '4' " >
+																<div class="date">
+																	<h5 class="">{{items?.date | date: 'longDate' }}</h5>
+																</div>
+																<div class="icon">
+																	<i class="fas fa-user-times"></i>
+																</div>
+																<div class="content">
+																	<h4>{{items?.status}}</h4>
+																	<p>{{items?.comments}}</p>
+																</div>
+															</li>
+														</ng-container>
+													</ul>
+												</div>
+											</div>
+										</div>
+									 </td>
+								</tr>
+							</ng-container>
 							</ng-container>
 							<ng-template #elseTemplate>
 								<tr>

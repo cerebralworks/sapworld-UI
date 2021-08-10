@@ -206,29 +206,34 @@ export class JobPreviewComponent implements OnInit {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
+			
+			if(this.childForm.value.otherPref.extra_criteria){
+				var extra = this.childForm.value.otherPref.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
+				for(let i=0;i<extra.length;i++){
+						var tempTitle = extra[i]['title'];
+					if(this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] ==undefined || this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] ==null || this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] =="" ){
+						this.postJobForm.controls.jobPrev['controls']['match_select']['addControl'](extra[i]['title'],new FormControl(""));
+					}
+				}
+				this.isShow =true;
+				if(extra.length==0){
+					this.isShow =false;
+				}
+		
+			}
+			
 			if(this.childForm && this.getPostedJobsDetails) {
 				this.childForm.patchValue({
 					jobPrev : {
 						...this.getPostedJobsDetails
 					}
-				});		
-				if(this.postJobForm.value.otherPref.extra_criteria){
-					var extra = this.postJobForm.value.otherPref.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
-					for(let i=0;i<extra.length;i++){
-						this.postJobForm.controls.jobPrev['controls']['match_select']['addControl'](extra[i]['title'],new FormControl('0', Validators.required));
-					}
-					this.isShow =true;
-					if(extra.length==0){
-						this.isShow =false;
-					}
-			
-				}
-				this.checkValidator();
-				if(this.postJobForm.value.requirement.work_authorization ==''){
-					this.ShowData = true;
-				}else{
-					this.ShowData = false;
-				}
+				});	
+			}
+			this.checkValidator();
+			if(this.postJobForm.value.requirement.work_authorization ==''){
+				this.ShowData = true;
+			}else{
+				this.ShowData = false;
 			}
 		});
 	}
@@ -568,6 +573,20 @@ export class JobPreviewComponent implements OnInit {
 		if(event.target.name){
 			if(this.childForm.value.jobPrev.match_select[event.target.name] == event.target.value){
 				var name = event.target.name;
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls'][name].setValue('');
+				this.postJobForm.controls.jobPrev['controls']['match_select']['controls'][name].updateValueAndValidity();
+			}
+		}
+	}
+	
+	/**
+	**	To handle match select
+	**/
+	
+	handleChanges(event){
+		if(event.target.id){
+			var name = event.target.id.substring(0, event.target.id.length - 1);
+			if(this.childForm.value.jobPrev.match_select[name] == event.target.value){
 				this.postJobForm.controls.jobPrev['controls']['match_select']['controls'][name].setValue('');
 				this.postJobForm.controls.jobPrev['controls']['match_select']['controls'][name].updateValueAndValidity();
 			}

@@ -1138,7 +1138,7 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.work_authorization=='' ">
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.work_authorization=='' &&(jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2 )">
 				<div class="col-lg-4 caption">
 					<ul class="list-group">
 						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.workAuthorisation" | translate}}</li>

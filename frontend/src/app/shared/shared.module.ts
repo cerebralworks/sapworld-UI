@@ -31,6 +31,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgInitDirective } from './directives/nginit.directive';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ClickOutsideDirective } from './directives/clickOutside.directive';
+import { AutocompleteDirective } from './directives/autocomplete.directive';
 import { AppPasswordDirective } from './directives/app-password.directive';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { SharedUserProfileComponent } from './component/shared-user-profile/shared-user-profile.component';
@@ -69,6 +70,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ContactCardComponent,
     NgInitDirective,
     ClickOutsideDirective,
+    AutocompleteDirective,
     AppPasswordDirective,
     SharedUserProfileComponent,
     SharedUserProfileMatchesComponent,
@@ -132,6 +134,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgInitDirective,
     PerfectScrollbarModule,
     ClickOutsideDirective,
+    AutocompleteDirective,
     AppPasswordDirective,
     SharedUserProfileComponent,
     SharedUserProfileMatchesComponent,

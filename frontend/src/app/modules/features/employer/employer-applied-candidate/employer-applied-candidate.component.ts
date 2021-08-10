@@ -223,13 +223,24 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 				requestParams.job_posting = this.selectedJob.id;
 				requestParams.user = item.user.id;
 				requestParams.short_listed = values == 'true' ? true : false;
+				requestParams.view = false;
 				if(values == 'null'){
 					requestParams.short_listed =null;
+					requestParams.application_status =null;
+				}else{					
+					requestParams.application_status =[{'id':1,'status':'APPLICATION UNDER REVIEW', 'date': new Date(),'comments':' ' }];
+				}
+				if(requestParams.short_listed ==false ){
+					requestParams.application_status =[{'id':98,'status':'Not Fit for this Job', 'date': new Date(),'comments':' ' }]
+				}else{					
+					requestParams.application_status =[{'id':1,'status':'APPLICATION UNDER REVIEW', 'date': new Date(),'comments':' ' }];
 				}
 				this.employerService.shortListUser(requestParams).subscribe(
 					response => {
 						this.onEvent.emit(true);
-						if(response['details']['short_listed']==true){
+						this.onGetPostedJobCount(this.Company);
+						this.onGetAppliedJobs();
+						/* if(response['details']['short_listed']==true){
 							this.onGetPostedJobCount(this.Company);
 							this.onGetAppliedJobs();
 						}else{
@@ -239,7 +250,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 								}
 								return value;
 							});
-						}
+						} */
 					}, error => {
 						this.onEvent.emit(true);
 					}

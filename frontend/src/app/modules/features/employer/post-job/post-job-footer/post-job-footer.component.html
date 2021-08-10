@@ -21,7 +21,17 @@
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 3">
 		<div class="form-group">
-			<button [disabled]="!postJobForm.controls.otherPref.valid"(click)="onToggleJobPreviewModal(true)" type="button" class="btn btn-theme-green  btn-block btn-lg btnSubmit">{{"common.submit" | translate}}</button>
+			<button [disabled]="!postJobForm.controls.otherPref.valid" (click)="onNext()" type="button" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"common.next" | translate}}</button>
+		</div>
+	</div>
+	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 4">
+		<div class="form-group">
+			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">{{"common.previous" | translate}}</button>
+		</div>
+	</div>
+	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 4">
+		<div class="form-group">
+			<button [disabled]="!postJobForm.value.screeningProcess.screening_process.length >= 1"(click)="onToggleJobPreviewModal(true)" type="button" class="btn btn-theme-green  btn-block btn-lg btnSubmit">{{"common.submit" | translate}}</button>
 		</div>
 	</div>
 </div>

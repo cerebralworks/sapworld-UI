@@ -12,7 +12,7 @@
       <div class="form-group">
         <label>First Name</label>
         <div appMarkAsterisk class="input-with-icon">
-          <input type="text" class="form-control" [placeholder]="'First Name'" formControlName="firstName">
+          <input autocomplete="disabled" type="text" class="form-control" [placeholder]="'First Name'" formControlName="firstName">
           <i class="fas fa-user-alt"></i>
         </div>
         <app-control-messages [control]="f['firstName']"></app-control-messages>
@@ -20,7 +20,7 @@
       <div class="form-group">
         <label>Last Name</label>
         <div appMarkAsterisk class="input-with-icon">
-          <input type="text" class="form-control" [placeholder]="'Last Name'" formControlName="lastName">
+          <input autocomplete="disabled" type="text" class="form-control" [placeholder]="'Last Name'" formControlName="lastName">
           <i class="fas fa-user-alt"></i>
         </div>
         <app-control-messages [control]="f['lastName']"></app-control-messages>
@@ -28,7 +28,7 @@
       <div class="form-group">
         <label>Email</label>
         <div appMarkAsterisk class="input-with-icon">
-          <input type="text" style="text-transform: lowercase;" class="form-control" [placeholder]="'Email Address'" formControlName="email">
+          <input type="text" autocomplete="disabled" style="text-transform: lowercase;" class="form-control" [placeholder]="'Email Address'" formControlName="email">
           <i class="fas fa-envelope"></i>
         </div>
         <small class="text-danger" *ngIf="formError?.length > 0 && formError[0]?.field == 'account'">
@@ -39,7 +39,7 @@
       <div class="form-group" *ngIf="router?.url.includes('employer') || router?.url.includes('agency')">
         <label>Company Name </label>
         <div appMarkAsterisk class="input-with-icon">
-          <input type="text" class="form-control" [placeholder]="'Company Name'" formControlName="companyName">
+          <input autocomplete="disabled" type="text" class="form-control" [placeholder]="'Company Name'" formControlName="companyName">
           <i class="fas fa-industry"></i>
         </div>
         <app-control-messages [control]="f['companyName']"></app-control-messages>
@@ -54,7 +54,7 @@
       </div>
       <div class="form-group">
         <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="termsService" formControlName="isAgreed">
+        <input autocomplete="disabled" type="checkbox" class="custom-control-input" id="termsService" formControlName="isAgreed">
         <label class="custom-control-label" for="termsService">Terms of Service and Privacy Policy <a href="#">View</a></label>
         </div>
       </div>

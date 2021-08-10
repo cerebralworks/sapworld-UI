@@ -43,7 +43,7 @@
 								--
 							</ng-container>
 							<h6 class="text-capitalize job-cardh6">{{"postJob.remote" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}} </h6>
-							<h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.willing_to_relocate)}} </h6>
+							<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.willing_to_relocate)}} </h6> -->
 						</div>
 						</div>
 					</div>
@@ -1070,19 +1070,19 @@
 							<div class="d-flex">
 								<div class="rdn-radio">
 									<div class="custom-control custom-radio">
-										<input type="radio" (click)="handleChange($event)"    value="0"  id="{{extra_criteria?.title}}A" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input" >
+										<input type="radio" (click)="handleChanges($event)"    value="0"  id="{{extra_criteria?.title}}A" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input" >
 										<label class="custom-control-label" for="{{extra_criteria?.title}}A">&nbsp;</label>
 									</div>
 								 </div>
 								 <div class="rdn-radio">
 									<div class="custom-control custom-radio">
-										<input type="radio"  (click)="handleChange($event)"    value="1"  id="{{extra_criteria?.title}}B" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input">
+										<input type="radio"  (click)="handleChanges($event)"    value="1"  id="{{extra_criteria?.title}}B" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input">
 										<label class="custom-control-label" for="{{extra_criteria?.title}}B">&nbsp;</label>
 									</div>
 								 </div>
 								 <div class="rdn-radio">
 									<div class="custom-control custom-radio">
-									  <input type="radio" (click)="handleChange($event)"    value="2"  id="{{extra_criteria?.title}}C" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input">
+									  <input type="radio" (click)="handleChanges($event)"    value="2"  id="{{extra_criteria?.title}}C" name="{{extra_criteria?.title}}" formControlName="{{extra_criteria?.title}}"  class="custom-control-input">
 									  <label class="custom-control-label" for="{{extra_criteria?.title}}C">&nbsp;</label>
 									</div>
 								</div>
