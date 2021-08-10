@@ -42,8 +42,19 @@
         <div class="title">
           <h2>Matchings</h2>
         </div>
-        <div class="sidebar-widget text-left">
-          ---
+		<div class="sidebar-widget text-left">
+          <div class="card" *ngFor="let item of postedJobsMatchDetailsArray; let i=index">
+            <div class="card-body p-3" >
+              <a href="javascript:;"  [routerLink]="['/employer/job-candidate-matches/details/view']" [queryParams]="{jobId: item?.id, userId: userDetails?.id}" >
+                <h5 class="text-capitalize">{{item?.title}}</h5>
+              </a>              
+            </div>
+          </div>
+		  <mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
+			[length]="length"
+			[pageSize]="limit" [pageSizeOptions]="pageSizeOptions"
+			[pageIndex]="page-1">
+		</mat-paginator>
         </div>
       </div>
     </div>

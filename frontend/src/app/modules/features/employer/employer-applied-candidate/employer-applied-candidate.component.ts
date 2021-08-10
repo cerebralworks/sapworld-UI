@@ -223,7 +223,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 				requestParams.job_posting = this.selectedJob.id;
 				requestParams.user = item.user.id;
 				requestParams.short_listed = values == 'true' ? true : false;
-				
+				requestParams.view = false;
 				if(values == 'null'){
 					requestParams.short_listed =null;
 					requestParams.application_status =null;

@@ -9,6 +9,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Location } from '@angular/common';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { DataService } from '@shared/service/data.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employer-candidate-profile-view',
@@ -21,6 +22,11 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	**	Variable declaration
 	**/
 	
+	public page: number = 1;
+	public limit: number = 10;
+	length = 0;
+	pageIndex = 1;
+	pageSizeOptions = [10, 25,50,100];
 	public isOpenedResumeModal: boolean;
 	public isOpenedSendMailModal: boolean;
 	public DetailsShown: boolean = false;
@@ -32,6 +38,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	public pathUser: any;
 	public postedJobsDetails: JobPosting;
 	public postedJobsMatchDetails:any[] =[];
+	public postedJobsMatchDetailsArray:any[] =[];
 	public nationality: any[] = [];
 
 	constructor(
@@ -206,16 +213,32 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 			response => {
 				if(response['count']){
 					this.postedJobsMatchDetails = response['count'];		
+						
 				}else{
-					this.postedJobsMatchDetails =[]
+					this.postedJobsMatchDetails =[];
 				}
+				this.length = this.postedJobsMatchDetails.length;
+				this.postedJobsMatchDetailsArray = this.postedJobsMatchDetails.slice(0,this.limit)
 				this.DetailsShown = true;
 			}, error => {
 				this.postedJobsMatchDetails =[];
+				this.postedJobsMatchDetailsArray =[];
 				this.DetailsShown = true;
 			}
 		)
 	}
 	
+	/**
+	**	To pagination changes
+	**/ 
+	
+	handlePageEvent(event: PageEvent) {
+		//this.length = event.length;
+		this.limit = event.pageSize;
+		this.page = event.pageIndex+1;
+		this.postedJobsMatchDetailsArray =[];
+		
+		this.postedJobsMatchDetailsArray = this.postedJobsMatchDetails.slice((this.page - 1) * this.limit, this.page * this.limit);
+	}
   
 }
