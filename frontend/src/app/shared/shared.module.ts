@@ -32,6 +32,7 @@ import { NgInitDirective } from './directives/nginit.directive';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ClickOutsideDirective } from './directives/clickOutside.directive';
 import { AutocompleteDirective } from './directives/autocomplete.directive';
+import { OnlyNumber } from './directives/only-number.directive';
 import { AppPasswordDirective } from './directives/app-password.directive';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { SharedUserProfileComponent } from './component/shared-user-profile/shared-user-profile.component';
@@ -72,6 +73,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ClickOutsideDirective,
     AutocompleteDirective,
     AppPasswordDirective,
+    OnlyNumber,
     SharedUserProfileComponent,
     SharedUserProfileMatchesComponent,
     SharedJobProfileComponent,
@@ -136,6 +138,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ClickOutsideDirective,
     AutocompleteDirective,
     AppPasswordDirective,
+    OnlyNumber,
     SharedUserProfileComponent,
     SharedUserProfileMatchesComponent,
     SharedJobProfileComponent,

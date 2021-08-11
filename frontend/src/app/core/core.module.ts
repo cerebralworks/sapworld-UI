@@ -4,6 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { AuthGuard } from './guard/auth.guard';
 import { ErrorsHandler } from './interceptor/error-handler.service';
+import { GlobalErrorHandler } from './interceptor/global-errorhandler';
 import { HttpErrorInterceptor } from './interceptor/http-error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -38,7 +39,10 @@ import { ToastrModule } from 'ngx-toastr';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
-    },
+    },{
+		provide: ErrorHandler,
+		useClass: GlobalErrorHandler
+	}
   ]
 })
 export class CoreModule { }

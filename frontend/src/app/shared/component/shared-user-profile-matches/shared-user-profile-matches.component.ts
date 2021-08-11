@@ -39,6 +39,11 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 			{  id:3, text: 'masters' },
 			{  id:4, text: 'doctorate' }
 		];
+	public roleItems = [
+		{  id:1, text: 'Technical' },
+		{  id:2, text: 'Functional' },
+		{  id:3, text: 'Technofunctional' }
+	];
 
 	constructor(private dataService: DataService,public sharedService: SharedService,public utilsHelperService: UtilsHelperService ) { }
 
@@ -279,6 +284,55 @@ findLanguageArray(value){
 		return '--';
 	}
 	
+	/**
+	**	To filter the type values
+	**/	
+	checkTypeValue(job,user,role){
+		
+		if(job && user){
+			if(role=='matches'){
+				job = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == job.toLocaleLowerCase()});
+				if(job.length !=0){
+					job =job[0]['id']
+				}else{
+					job = 0
+				}
+				user = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == user.toLocaleLowerCase()});
+				if(user.length !=0){
+					user =user[0]['id']
+				}else{
+					user = 99;
+				}
+				if(job == user){
+					return true;
+				}
+				if(user == 3){
+					return true;
+				}
+			}if(role == 'missing'){
+				job = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == job.toLocaleLowerCase()});
+				if(job.length !=0){
+					job =job[0]['id']
+				}else{
+					job = 0
+				}
+				user = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == user.toLocaleLowerCase()});
+				if(user.length !=0){
+					user =user[0]['id']
+				}else{
+					user = 99;
+				}
+				if(user == 3){
+					return false;
+				}
+				if(job != user){					
+					return true;
+				}
+				
+			}
+		}
+		return false;
+	}
 	
 	/**
 	**	To find the country data
@@ -571,6 +625,24 @@ findLanguageArray(value){
 	  return false;
   }
   
+	CheckExtraId(value,data){
+		if(value){
+			var val = false;
+			var vales:any = '';
+			var arrayVal =Object.entries(this.postedJobsDetails.match_select);
+			for(let i=0;i<arrayVal.length;i++){
+				if(arrayVal[i][0].toLocaleLowerCase() == value.toLocaleLowerCase()){
+					vales = arrayVal[i][1] ;
+					if(vales == data){
+						return true;
+					}
+					
+				}
+			}
+		}
+		return false;
+	}
+	
 	/**
 	**	To check the country return string
 	**/

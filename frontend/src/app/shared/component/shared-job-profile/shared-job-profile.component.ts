@@ -130,6 +130,33 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 		var arr = [];
 		if(this.jobInfo){
 			  if(this.jobInfo.match_select){
+				   this.jobInfo.match_select['remote']="false";
+				  this.jobInfo.match_select['willing_to_relocate']="false";
+				  if(!this.jobInfo.certification){
+					this.jobInfo.match_select['certification']="false";
+					  
+				  }else if(this.jobInfo.certification.length==0){
+					this.jobInfo.match_select['certification']="false";
+					  
+				  }if(!this.jobInfo['education'] ){
+					this.jobInfo.match_select['education']="false";
+					  
+				  }if(!this.jobInfo.employer_role_type || this.jobInfo.employer_role_type=='' || this.jobInfo.employer_role_type==undefined){
+					this.jobInfo.match_select['employer_role_type']="false";
+					  
+				  }if(!this.jobInfo.facing_role || this.jobInfo.facing_role=='' || this.jobInfo.facing_role==undefined){
+					this.jobInfo.match_select['facing_role']="false";
+					  
+				  }if(!this.jobInfo.training_experience || this.jobInfo.training_experience=='' || this.jobInfo.training_experience==undefined){
+					this.jobInfo.match_select['training_experience']="false";
+					  
+				  }if(this.jobInfo['skills'] ==null || this.jobInfo.match_select['skills'] =='' || this.jobInfo['skills'] ==undefined){
+					this.jobInfo.match_select['skills']="false";
+					  
+				  }if(this.jobInfo['work_authorization'] ==null || this.jobInfo.match_select['work_authorization'] =='' || this.jobInfo['work_authorization'] ==undefined){
+					this.jobInfo.match_select['work_authorization']="false";
+					  
+				  }
 				Object.keys(this.jobInfo.match_select).forEach(key => {
 					arr.push(this.jobInfo.match_select[key]) 
 				});
@@ -212,6 +239,23 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 		return '--';
 	}
 	
+	CheckExtraId(value,data){
+		if(value){
+			var val = false;
+			var vales = '';
+			var arrayVal =Object.entries(this.jobInfo.match_select);
+			for(let i=0;i<arrayVal.length;i++){
+				if(arrayVal[i][0].toLocaleLowerCase() == value.toLocaleLowerCase()){
+					vales = arrayVal[i][1] ;
+					if(vales == data){
+						return true;
+					}
+					
+				}
+			}
+		}
+		return false;
+	}
 onGetCountry(query) {
 		let requestParams: any = {};
 		requestParams.page = 1;

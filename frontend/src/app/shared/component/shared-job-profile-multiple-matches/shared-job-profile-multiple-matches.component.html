@@ -194,11 +194,11 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.employer_role_type=='0'">
 				<ul class="list-group">
 					<li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.employer_role_type == userInfo?.employer_role_type)">
+                        <span *ngIf="matchedElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'matches')">
                           <i class="fas fa-check text-green "></i>
                           {{jobInfo.employer_role_type}}
                         </span>
-                        <span *ngIf="missingElement && (jobInfo.employer_role_type != userInfo?.employer_role_type)">
+                        <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
@@ -594,11 +594,11 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.employer_role_type=='1'">
 				<ul class="list-group">
 					<li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.employer_role_type == userInfo?.employer_role_type)">
+                        <span *ngIf="matchedElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'matches')">
                           <i class="fas fa-check text-green "></i>
                           {{jobInfo.employer_role_type}}
                         </span>
-                        <span *ngIf="missingElement && (jobInfo.employer_role_type != userInfo?.employer_role_type)">
+                        <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
@@ -996,11 +996,11 @@
 			<div class="  info-box" *ngIf="jobInfo.match_select?.employer_role_type=='2'">
 				<ul class="list-group">
 					<li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.employer_role_type == userInfo?.employer_role_type)">
+                        <span *ngIf="matchedElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'matches')">
                           <i class="fas fa-check text-green "></i>
                           {{jobInfo.employer_role_type}}
                         </span>
-                        <span *ngIf="missingElement && (jobInfo.employer_role_type != userInfo?.employer_role_type)">
+                        <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
@@ -1398,11 +1398,11 @@
 			<div class="  info-box" *ngIf=" jobInfo?.employer_role_type && jobInfo.match_select?.employer_role_type=='' ">
 				<ul class="list-group">
 					<li class="list-group-item">
-                        <span *ngIf="matchedElement && (jobInfo.employer_role_type == userInfo?.employer_role_type)">
+                        <span *ngIf="matchedElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'matches')">
                           <i class="fas fa-check text-green "></i>
                           {{jobInfo.employer_role_type}}
                         </span>
-                        <span *ngIf="missingElement && (jobInfo.employer_role_type != userInfo?.employer_role_type)">
+                        <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>

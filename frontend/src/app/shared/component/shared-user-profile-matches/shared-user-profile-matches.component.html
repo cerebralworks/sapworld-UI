@@ -237,15 +237,15 @@
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span class="matchTxt">
-								<span *ngIf="matchedElement && (matchingUsers?.profile?.employer_role_type == postedJobsDetails?.employer_role_type);">
+								<span *ngIf="matchedElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'matches');">
 									<i class="fas fa-check text-green "></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
-								<span *ngIf="moreElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+								<span *ngIf="moreElement && ( postedJobsDetails?.employer_role_type == null || postedJobsDetails?.employer_role_type == '') && matchingUsers?.profile?.employer_role_type ;">
 									<i class="fa fa-info-circle text-blue" ></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
-								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+								<span  *ngIf="missingElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'missing');">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
 								</span>
@@ -463,13 +463,13 @@
 					</ul>
 				</div>
 				<div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
-					<div *ngFor="let item of postedJobsDetails?.extra_criteria | keyvalue; let i=index" >
-						<div  *ngIf="postedJobsDetails?.match_select[postedJobsDetails?.extra_criteria[i]['title']]=='0'">
+					<div *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index" >
+						<div   *ngIf="CheckExtraId(item?.title,'0')">
 							<ul class="list-group">
 								<li class="list-group-item text-capitalize" >
 								<span *ngIf="missingElement">
 									<i class="fa fa-times text-danger "></i>
-								  {{item?.value?.value ? item?.value?.value : '--'}}
+								  {{item?.value ? item?.value : '--'}}
 								</span>
 								</li>
 							 </ul>
@@ -478,7 +478,7 @@
 				</div>
 			</div>
 			<div class="accordion mt-3 " *ngIf="desired">
-			<div class="pj-title"  [ngClass]="(isMultipleMatches === true)?'padd-10':'padd-5'" ><h6 type="button" class="mb-0"></h6></div>
+			<div class="pj-titles"  [ngClass]="(isMultipleMatches === true)?'padd-10':'padd-5'" ><h6 type="button" class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='1'">
 					<ul class="list-group">
 						<li class="list-group-item">
@@ -700,15 +700,15 @@
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span class="matchTxt">
-								<span *ngIf="matchedElement && (matchingUsers?.profile?.employer_role_type == postedJobsDetails?.employer_role_type);">
+								<span *ngIf="matchedElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'matches');">
 									<i class="fas fa-check text-green "></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
-								<span *ngIf="moreElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+								<span *ngIf="moreElement && ( postedJobsDetails?.employer_role_type == null || postedJobsDetails?.employer_role_type == '') && matchingUsers?.profile?.employer_role_type ;">
 									<i class="fa fa-info-circle text-blue" ></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
-								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+								<span  *ngIf="missingElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'missing');">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
 								</span>
@@ -926,13 +926,13 @@
 					</ul>
 				</div>
 				<div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
-					<div *ngFor="let item of postedJobsDetails?.extra_criteria | keyvalue; let i=index" >
-						<div  *ngIf="postedJobsDetails?.match_select[postedJobsDetails?.extra_criteria[i]['title']]=='1'">
+					<div *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index" >
+						<div   *ngIf="CheckExtraId(item?.title,'1')">
 							<ul class="list-group">
 								<li class="list-group-item text-capitalize" >
-									<span *ngIf="missingElement">
+								<span *ngIf="missingElement">
 									<i class="fa fa-times text-danger "></i>
-								  {{item?.value?.value ? item?.value?.value : '--'}}
+								  {{item?.value ? item?.value : '--'}}
 								</span>
 								</li>
 							 </ul>
@@ -940,7 +940,7 @@
 					</div>
 				</div>
 			</div><div class="accordion mt-0 " *ngIf="nice">
-				<div class="pj-title"  style="padding: 13px 0px;"><h6 type="button" class="mb-0"></h6></div>
+				<div class="pj-titles"  style="padding: 10px 0px;"><h6 type="button" class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='2'">
 					<ul class="list-group">
 						<li class="list-group-item">
@@ -1162,15 +1162,15 @@
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span class="matchTxt">
-								<span *ngIf="matchedElement && (matchingUsers?.profile?.employer_role_type == postedJobsDetails?.employer_role_type);">
+								<span *ngIf="matchedElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'matches');">
 									<i class="fas fa-check text-green "></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
-								<span *ngIf="moreElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+								<span *ngIf="moreElement && ( postedJobsDetails?.employer_role_type == null || postedJobsDetails?.employer_role_type == '') && matchingUsers?.profile?.employer_role_type ;">
 									<i class="fa fa-info-circle text-blue" ></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
-								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+								<span  *ngIf="missingElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'missing');">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
 								</span>
@@ -1388,13 +1388,13 @@
 					</ul>
 				</div>
 				<div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
-					<div *ngFor="let item of postedJobsDetails?.extra_criteria | keyvalue; let i=index" >
-						<div  *ngIf="postedJobsDetails?.match_select[postedJobsDetails?.extra_criteria[i]['title']]=='2'">
+					<div *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index" >
+						<div   *ngIf="CheckExtraId(item?.title,'2')">
 							<ul class="list-group">
 								<li class="list-group-item text-capitalize" >
-									<span *ngIf="missingElement">
+								<span *ngIf="missingElement">
 									<i class="fa fa-times text-danger "></i>
-								  {{item?.value?.value ? item?.value?.value : '--'}}
+								  {{item?.value ? item?.value : '--'}}
 								</span>
 								</li>
 							 </ul>
@@ -1403,7 +1403,7 @@
 				</div>
 			</div>
 			<div class="accordion mt-2" *ngIf="optional">
-				<div class="pj-title"  style="padding: 10px 0px;" ><h6 type="button" class="mb-0"></h6></div>
+				<div class="pj-titles"  style="padding: 5px 0px;" ><h6 type="button" class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience==''">
 					<ul class="list-group">
 						<li class="list-group-item">
@@ -1625,15 +1625,15 @@
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span class="matchTxt">
-								<span *ngIf="matchedElement && (matchingUsers?.profile?.employer_role_type == postedJobsDetails?.employer_role_type);">
+								<span *ngIf="matchedElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'matches');">
 									<i class="fas fa-check text-green "></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
-								<span *ngIf="moreElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+								<span *ngIf="moreElement && ( postedJobsDetails?.employer_role_type == null || postedJobsDetails?.employer_role_type == '') && matchingUsers?.profile?.employer_role_type ;">
 									<i class="fa fa-info-circle text-blue" ></i>
 									{{matchingUsers?.profile?.employer_role_type }}
 								</span>
-								<span  *ngIf="missingElement && (matchingUsers?.profile?.employer_role_type != postedJobsDetails?.employer_role_type);">
+								<span  *ngIf="missingElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'missing');">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
 								</span>
@@ -1851,13 +1851,13 @@
 					</ul>
 				</div>
 				<div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
-					<div *ngFor="let item of postedJobsDetails?.extra_criteria | keyvalue; let i=index" >
-						<div  *ngIf="postedJobsDetails?.match_select[postedJobsDetails?.extra_criteria[i]['title']]==''">
+					<div *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index" >
+						<div   *ngIf="CheckExtraId(item?.title,'')">
 							<ul class="list-group">
 								<li class="list-group-item text-capitalize" >
-									<span *ngIf="missingElement">
+								<span *ngIf="missingElement">
 									<i class="fa fa-times text-danger "></i>
-								  {{item?.value?.value ? item?.value?.value : '--'}}
+								  {{item?.value ? item?.value : '--'}}
 								</span>
 								</li>
 							 </ul>

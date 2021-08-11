@@ -5,6 +5,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Location } from '@angular/common';
+import { UserSharedService } from '@data/service/user-shared.service';
 
 @Component({
   selector: 'app-candidate-job-view',
@@ -20,13 +21,16 @@ export class CandidateJobViewComponent implements OnInit {
 	public postedJobsDetails: JobPosting;
 	public jobId: string;
 	public currentJobDetails: any;
+	public userInfo: any;
 	public isOpenedJDModal: boolean;
 	public isShowApply: boolean = false;
 	public userAccept: boolean = false;
 	public isOpenedResumeSelectModal: boolean = false;
+	public isgetValue: boolean = false;
 
 	constructor(
 		private route: ActivatedRoute,
+		private userSharedService: UserSharedService,
 		private employerService: EmployerService,
 		public utilsHelperService: UtilsHelperService,
 		private location: Location,
@@ -37,7 +41,15 @@ export class CandidateJobViewComponent implements OnInit {
 		/**	
 		**	Checking Routing params
 		**/
-		
+		this.userSharedService.getUserProfileDetails().subscribe(
+			response => {
+				this.userInfo = response;
+				if(this.jobId && this.isgetValue == false) {
+					this.isgetValue =true;
+					this.onGetPostedJobDetails();
+				}
+			}
+		)
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
@@ -67,9 +79,7 @@ export class CandidateJobViewComponent implements OnInit {
 	**/
 		
 	ngOnInit(): void {
-		if(this.jobId) {
-			this.onGetPostedJobDetails();
-		}
+		
 	}
 
 	/**	
@@ -80,6 +90,8 @@ export class CandidateJobViewComponent implements OnInit {
 		let requestParams: any = {};
 		requestParams.expand = 'company';
 		requestParams.id = this.jobId;
+		requestParams.is_job_applied = true;
+		requestParams.user_id = this.userInfo.id;
 		this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {
 				if(response && response.details) {

@@ -40,6 +40,7 @@ export interface JobPosting {
   visa_sponsorship: boolean;
   willing_to_relocate: boolean;
   company: any;
+  is_job_applied: any;
   end_to_end_implementation: number;
   contract_duration: number;
   latlng_text: any;

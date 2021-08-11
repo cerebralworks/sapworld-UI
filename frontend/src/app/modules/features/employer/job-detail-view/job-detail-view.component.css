@@ -10,3 +10,8 @@
     color: #465666;
     margin-bottom: 7px;
 }
+.job-card h5 {
+    width: auto !important;
+    height: auto !important;
+    white-space: inherit !important;
+}

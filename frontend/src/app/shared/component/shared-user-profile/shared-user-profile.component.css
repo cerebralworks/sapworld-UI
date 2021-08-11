@@ -39,3 +39,14 @@
 .handsExps:hover{
 		overflow-x:auto !important;
 	}
+
+.pj-title  h6{
+	display: contents !important;
+}
+.pj-titles{
+    padding: 10px 0;
+    border-bottom: 1px solid #ffc0d8;
+}
+.pj-titles  h6{
+	display: -webkit-inline-box !important;
+}
