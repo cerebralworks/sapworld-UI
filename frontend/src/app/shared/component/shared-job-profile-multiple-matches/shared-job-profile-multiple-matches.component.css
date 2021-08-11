@@ -56,11 +56,22 @@
     color: #000;
 }
 .top-pad{
-	top: -75px !important;
+	top: -50px !important;
 }.top-pad-1{
 	top: -60px !important;
 }
 .pj-title h6{	
 	border:none !important;
 	outline:none !important;
+}
+
+.pj-title  h6{
+	display: contents !important;
+}
+.pj-titles{
+    padding: 5px 0;
+    border-bottom: 1px solid #ffc0d8;
+}
+.pj-titles  h6{
+	display: -webkit-inline-box !important;
 }

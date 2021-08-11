@@ -173,7 +173,7 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 	handleChange(event,index){
 		if(index !=null && index !=undefined ){
 			if(this.screeningProcess[index]){
-				var checkData = this.screeningProcess[index]['screening_process'];
+				var checkData = this.screeningProcess[index];
 				if(checkData && checkData.length){
 					for(let i=0;i<checkData.length;i++){
 						var value=checkData[i]['title'];

@@ -40,6 +40,11 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 		{  id:3, text: 'masters' },
 		{  id:4, text: 'doctorate' }
 	];
+	public roleItems = [
+		{  id:1, text: 'Technical' },
+		{  id:2, text: 'Functional' },
+		{  id:3, text: 'Technofunctional' }
+	];
 
   constructor(private dataService: DataService,
     public sharedService: SharedService,
@@ -260,6 +265,57 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 		}
 		return false;
 	}
+	
+	/**
+	**	To filter the type values
+	**/	
+	checkTypeValue(job,user,role){
+		
+		if(job && user){
+			if(role=='matches'){
+				job = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == job.toLocaleLowerCase()});
+				if(job.length !=0){
+					job =job[0]['id']
+				}else{
+					job = 0
+				}
+				user = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == user.toLocaleLowerCase()});
+				if(user.length !=0){
+					user =user[0]['id']
+				}else{
+					user = 99;
+				}
+				if(job == user){
+					return true;
+				}
+				if(user == 3){
+					return true;
+				}
+			}if(role == 'missing'){
+				job = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == job.toLocaleLowerCase()});
+				if(job.length !=0){
+					job =job[0]['id']
+				}else{
+					job = 0
+				}
+				user = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == user.toLocaleLowerCase()});
+				if(user.length !=0){
+					user =user[0]['id']
+				}else{
+					user = 99;
+				}
+				if(user == 3){
+					return false;
+				}	
+				if(job != user){					
+					return true;
+				}
+				
+			}
+		}
+		return false;
+	}
+	
 	
 	/**
 	**	To Check the data

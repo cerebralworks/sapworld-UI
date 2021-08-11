@@ -314,16 +314,16 @@
 						{{"postJob.extraCriteria" | translate}}
 					 </h6>
 				</div> -->
-				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria | keyvalue; let i=index" >
-					<div class="col-lg-4 caption" *ngIf="jobInfo?.match_select[jobInfo?.extra_criteria[i]['title']]=='0'">
+				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria; let i=index" >
+					<div class="col-lg-4 caption" *ngIf="CheckExtraId(item?.title,'0')">
 						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize">{{item?.value?.title ? item?.value?.title : '--'}}</li>
+							 <li class=" list-group-item text-capitalize">{{item?.title ? item?.title : '--'}}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info" *ngIf="jobInfo?.match_select[jobInfo?.extra_criteria[i]['title']]=='0'">
+					<div class="col-lg-8 info" *ngIf="CheckExtraId(item?.title,'0')">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize" >
-							  {{item?.value?.value ? item?.value?.value : '--'}}
+							  {{item?.value ? item?.value : '--'}}
 							</li>
 						 </ul>
 					</div>
@@ -645,16 +645,16 @@
 						{{"postJob.extraCriteria" | translate}}
 					 </h6>
 				</div> -->
-				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria | keyvalue; let i=index" >
-					<div class="col-lg-4 caption" *ngIf="jobInfo?.match_select[jobInfo?.extra_criteria[i]['title']]=='1'">
+				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria; let i=index" >
+					<div class="col-lg-4 caption" *ngIf="CheckExtraId(item?.title,'1')">
 						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize">{{item?.value?.title ? item?.value?.title : '--'}}</li>
+							 <li class=" list-group-item text-capitalize">{{item?.title ? item?.title : '--'}}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info" *ngIf="jobInfo?.match_select[jobInfo?.extra_criteria[i]['title']]=='1'">
+					<div class="col-lg-8 info" *ngIf="CheckExtraId(item?.title,'1')">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize" >
-							  {{item?.value?.value ? item?.value?.value : '--'}}
+							  {{item?.value ? item?.value : '--'}}
 							</li>
 						 </ul>
 					</div>
@@ -976,16 +976,16 @@
 						{{"postJob.extraCriteria" | translate}}
 					 </h6>
 				</div> -->
-				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria | keyvalue; let i=index" >
-					<div class="col-lg-4 caption" *ngIf="jobInfo?.match_select[jobInfo?.extra_criteria[i]['title']]=='2'">
+				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria; let i=index" >
+					<div class="col-lg-4 caption" *ngIf="CheckExtraId(item?.title,'2')">
 						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize">{{item?.value?.title ? item?.value?.title : '--'}}</li>
+							 <li class=" list-group-item text-capitalize">{{item?.title ? item?.title : '--'}}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info" *ngIf="jobInfo?.match_select[jobInfo?.extra_criteria[i]['title']]=='2'">
+					<div class="col-lg-8 info" *ngIf="CheckExtraId(item?.title,'2')">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize" >
-							  {{item?.value?.value ? item?.value?.value : '--'}}
+							  {{item?.value ? item?.value : '--'}}
 							</li>
 						 </ul>
 					</div>
@@ -1280,16 +1280,16 @@
 						{{"postJob.extraCriteria" | translate}}
 					 </h6>
 				</div> -->
-				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria | keyvalue; let i=index" >
-					<div class="col-lg-4 caption" *ngIf="jobInfo?.match_select[jobInfo?.extra_criteria[i]['title']]==''">
+				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria; let i=index" >
+					<div class="col-lg-4 caption" *ngIf="CheckExtraId(item?.title,'')">
 						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize">{{item?.value?.title ? item?.value?.title : '--'}}</li>
+							 <li class=" list-group-item text-capitalize">{{item?.title ? item?.title : '--'}}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info" *ngIf="jobInfo?.match_select[jobInfo?.extra_criteria[i]['title']]==''">
+					<div class="col-lg-8 info" *ngIf="CheckExtraId(item?.title,'')">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize" >
-							  {{item?.value?.value ? item?.value?.value : '--'}}
+							  {{item?.value ? item?.value : '--'}}
 							</li>
 						 </ul>
 					</div>

@@ -63,9 +63,11 @@ export class LoginFormComponent implements OnInit {
           if (response.isLoggedIn && response.role.includes(0)) {
 			  if(response['verified']==true){
 				  if(this.route.snapshot.queryParams['redirect']){
-					  if(this.route.snapshot.queryParams['redirect'].split('/')[2] =="candidate-job-view"){
-						  this.returnUserUrl = '/user/dashboard';
-						  this.router.navigate([this.returnUserUrl]);
+					  var temps = this.route.snapshot.queryParams['redirect'].split('/');
+					  if(temps[2] =="candidate-job-view"){
+						  this.returnUserUrl = this.route.snapshot.queryParams['redirect'];
+						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
+						  this.router.navigate(['/user/candidate-job-view/details'], {queryParams: {'show': 'appply','id': id_val }});
 					  }
 				  }else{
 					this.router.navigate([this.returnUserUrl]);

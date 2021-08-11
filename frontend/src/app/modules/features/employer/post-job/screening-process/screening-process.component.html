@@ -14,10 +14,10 @@
 					<div class=" form-group">
 						<div class="custom-control custom-checkbox mb-2">
 							<input type="checkbox" (click)="handleChange($event,i)" class="custom-control-input" [id]="i" name="screeningProcess">
-							<label class="custom-control-label font-weight-bold text-dark" [for]="i">{{items.title}} </label>
+							<label class="custom-control-label font-weight-bold text-dark" [for]="i">Screening-{{i+1}} </label>
 						</div>
 					</div>
-					<div class="row mt-3 mb-3" *ngFor="let items of items?.screening_process;let i=index">
+					<div class="row mt-3 mb-3" *ngFor="let items of items;let i=index">
 						<div class="col-lg-2 col-md-3 text-left">
 							<h6 class="font-weight-bold">{{i+1}}.</h6> 
 						</div>	

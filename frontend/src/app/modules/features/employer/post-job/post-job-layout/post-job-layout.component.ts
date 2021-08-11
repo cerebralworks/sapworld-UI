@@ -350,7 +350,7 @@ onGetCountry(query) {
 	 
 	onGetScreening(companyId) {
 		let requestParams: any = {};
-		requestParams.limit = 5;
+		requestParams.limit = 50000;
 		requestParams.view = 'screening_process';
 		requestParams.company = companyId;
 		this.employerService.getPostedJobCount(requestParams).subscribe(
@@ -360,7 +360,12 @@ onGetCountry(query) {
 						var valuses = this.jobId;
 						response['count'] =response['count'].filter(function(a,b){return a.id != valuses });
 					}
-					this.screeningProcess = response['count'];
+					//this.screeningProcess = response['count'];
+					var temps = response['count'].map(function(a,b){return a.screening_process});
+					temps = temps.map(JSON.stringify).reverse().filter(function (e, i, a) {
+						return a.indexOf(e, i+1) === -1;
+					}).reverse().map(JSON.parse);
+					this.screeningProcess = temps;
 				}
 				
 			}, error => {

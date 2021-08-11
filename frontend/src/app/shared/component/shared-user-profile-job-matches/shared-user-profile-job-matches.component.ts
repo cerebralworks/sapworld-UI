@@ -28,6 +28,11 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 	public desired: boolean = true;
 	public optional: boolean = true;
 	public nice: boolean = true;
+		public roleItems = [
+		{  id:1, text: 'Technical' },
+		{  id:2, text: 'Functional' },
+		{  id:3, text: 'Technofunctional' }
+	];
 	constructor(private dataService: DataService,public sharedService: SharedService,public utilsHelperService: UtilsHelperService ) { }
 
 	ngOnInit(): void {
@@ -175,6 +180,56 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		}
 		
 		return '--';
+	}
+	
+	/**
+	**	To filter the type values
+	**/	
+	checkTypeValue(job,user,role){
+		
+		if(job && user){
+			if(role=='matches'){
+				job = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == job.toLocaleLowerCase()});
+				if(job.length !=0){
+					job =job[0]['id']
+				}else{
+					job = 0
+				}
+				user = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == user.toLocaleLowerCase()});
+				if(user.length !=0){
+					user =user[0]['id']
+				}else{
+					user = 99;
+				}
+				if(job == user){
+					return true;
+				}
+				if(user == 3){
+					return true;
+				}
+			}if(role == 'missing'){
+				job = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == job.toLocaleLowerCase()});
+				if(job.length !=0){
+					job =job[0]['id']
+				}else{
+					job = 0
+				}
+				user = this.roleItems.filter(function(a,b){return a.text.toLocaleLowerCase() == user.toLocaleLowerCase()});
+				if(user.length !=0){
+					user =user[0]['id']
+				}else{
+					user = 99;
+				}
+				if(user == 3){
+					return false;
+				}
+				if(job != user){					
+					return true;
+				}
+				
+			}
+		}
+		return false;
 	}
 	
 	/**
