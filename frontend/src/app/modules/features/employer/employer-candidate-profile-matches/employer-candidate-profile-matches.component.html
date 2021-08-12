@@ -63,7 +63,7 @@
 						</div>
 					</div>
 				</div>
-				<app-shared-job-profile [jobInfo]="postedJobsDetails"  [isMultipleMatches]="isMultipleMatches"[isHideData]="isHideData" 
+				<app-shared-job-profile [jobInfo]="postedJobsDetails" [isShownRequiements]="true"  [isMultipleMatches]="isMultipleMatches"[isHideData]="isHideData" 
 					[fieldsExclude]="{salary: false, visa_sponsorship: false, end_to_end_implementation: true}">
 				</app-shared-job-profile>
 			</div>
@@ -202,12 +202,12 @@
 												</button>
 											</div>
 										</div>
-										<app-shared-user-profile-matches [postedJobsDetails]="postedJobsDetails"  [isMultipleMatches]="isMultipleMatches" 
+										<app-shared-user-profile-matches  [isShownRequiements]="true" [postedJobsDetails]="postedJobsDetails"  [isMultipleMatches]="isMultipleMatches" 
 										[matchedElement]="matchedElement" [missingElement]="missingElement"
 										[moreElement]="moreElement" [matchingUsers]="matchingUsers" [matchingUsersNew]="matchingUsersNew">
 										</app-shared-user-profile-matches>
 										<div class="col-lg-12 info" style="text-align:end;">
-											<button (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
+											<button *ngIf="!matchingUsers?.application" (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
 												class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
 										</div>
 									</div>
@@ -260,12 +260,12 @@
 												</button>
 											</div>
 										</div>
-										<app-shared-user-profile-matches [postedJobsDetails]="postedJobsDetails"  [isMultipleMatches]="isMultipleMatches" 
+										<app-shared-user-profile-matches  [isShownRequiements]="true" [postedJobsDetails]="postedJobsDetails"  [isMultipleMatches]="isMultipleMatches" 
 										[matchedElement]="matchedElement" [missingElement]="missingElement"
 										[moreElement]="moreElement" [matchingUsers]="matchingUsersNew" [matchingUsersNew]="matchingUsersNew">
 										</app-shared-user-profile-matches>
 										<div class="col-lg-12 info" style="text-align:end;">
-											<button (click)="onToggleSendMail(true, matchingUsersNew?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
+											<button  [disabled]="matchingUsersNew?.application" (click)="onToggleSendMail(true, matchingUsersNew?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
 												class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
 										</div>
 									</div>

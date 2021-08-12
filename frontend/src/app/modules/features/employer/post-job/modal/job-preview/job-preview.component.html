@@ -53,7 +53,7 @@
 		<div formGroupName="match_select" >
 		<div class="row mt-3 info-box">
 			<div class="offset-lg-8 col-lg-4 text-center">
-					<div class="d-flex">
+					<div class="d-flex" >
 					<div class="rdn-radio">Required</div>
 					<div class="rdn-radio">Desired</div>
 					<div class="rdn-radio">Nice to have</div>
@@ -1052,6 +1052,47 @@
 				</ul>
 			</div>
 		</div>	
+		<div class="col-lg-12 border-top pt-3">	</div>
+		<ng-container *ngIf="childForm?.value?.otherPref?.others?.length > 0 && pageShow">
+			<div class="row info-box" *ngFor="let others of childForm?.value?.otherPref?.others; let i = index">
+				<div class="col-lg-3 caption" *ngIf="others?.value == true">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize" *ngIf="others?.id == isShowOthers">Others</li>
+					</ul>
+				</div>
+				<div class="col-lg-5 info" *ngIf="others?.value == true">
+					<ul class="list-group">
+						<li class="list-group-item text-capitalize">{{others?.title}}</li>
+					</ul>
+				</div>
+				<div class="col-lg-4"  *ngIf="others?.value == true">
+					<ul class="list-group">
+						<li class="list-group-item border-0 p-0 m-0 ">							
+							<div class="d-flex">
+								<div class="rdn-radio">
+									<div class="custom-control custom-radio">
+										<input type="radio" (click)="handleChange($event)"    value="0"  id="{{others?.id}}A" name="{{others?.id}}" formControlName="{{others?.id}}"  class="custom-control-input" >
+										<label class="custom-control-label" for="{{others?.id}}A">&nbsp;</label>
+									</div>
+								 </div>
+								 <div class="rdn-radio">
+									<div class="custom-control custom-radio">
+										<input type="radio"  (click)="handleChange($event)"    value="1"  id="{{others?.id}}B" name="{{others?.id}}" formControlName="{{others?.id}}"  class="custom-control-input">
+										<label class="custom-control-label" for="{{others?.id}}B">&nbsp;</label>
+									</div>
+								 </div>
+								 <div class="rdn-radio">
+									<div class="custom-control custom-radio">
+									  <input type="radio" (click)="handleChange($event)"    value="2"  id="{{others?.id}}C" name="{{others?.id}}" formControlName="{{others?.id}}"  class="custom-control-input">
+									  <label class="custom-control-label" for="{{others?.id}}C">&nbsp;</label>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</ng-container>	
 		<ng-container *ngIf="childForm?.value?.otherPref?.extra_criteria?.length > 0  && isShow">
 			<div class="row info-box" *ngFor="let extra_criteria of childForm?.value?.otherPref?.extra_criteria; let i = index">
 				<div class="col-lg-3 caption">

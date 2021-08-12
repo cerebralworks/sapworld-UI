@@ -36,6 +36,7 @@ export interface JobPosting {
   optinal_skills: Array<string>;
   certification: Array<string>;
   screening_process: Array<string>;
+  others: Array<string>;
   work_authorization: number;
   visa_sponsorship: boolean;
   willing_to_relocate: boolean;

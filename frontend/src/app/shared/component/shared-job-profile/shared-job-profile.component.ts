@@ -19,10 +19,15 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 	@Input() jobInfo: JobPosting;
 	@Input() isDescrition: boolean = false;
 	@Input() isMultipleMatches: boolean = false;
+	@Input() isShownRequiements: boolean = false;
 	@Input() isHideData: boolean = false;
 	@Input() fieldsExclude: JobPosting;
 	public languageSource=[];
 	public nationality=[];
+	public isOtherRequired: boolean = false;
+	public isOtherOptional: boolean = false;
+	public isOtherNice: boolean = false;
+	public isOtherDesired: boolean = false;
 	public required: boolean = false;
 	public desired: boolean = false;
 	public optional: boolean = false;
@@ -79,6 +84,24 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 				  }if(this.jobInfo['work_authorization'] ==null || this.jobInfo.match_select['work_authorization'] =='' || this.jobInfo['work_authorization'] ==undefined){
 					this.jobInfo.match_select['work_authorization']="false";
 					  
+				  }
+				  if(this.jobInfo.others && this.jobInfo.others.length){
+					  for(let i=0;i<this.jobInfo.others.length;i++){
+						  var id = this.jobInfo.others[i]['id'];
+						  if(this.isShownRequiements == false){
+							  if(this.jobInfo.match_select[id] =='0'){
+								  this.isOtherRequired = true;
+							  }if(this.jobInfo.match_select[id] =='2'){
+								  this.isOtherNice = true;
+							  }if(this.jobInfo.match_select[id] =='1'){
+								  this.isOtherDesired = true;
+							  }if(this.jobInfo.match_select[id] ==''){
+								  this.isOtherOptional = true;
+							  }
+						  }else{
+							  this.jobInfo.match_select[id] ='false';
+						  }
+					  }
 				  }
 				Object.keys(this.jobInfo.match_select).forEach(key => {
 					arr.push(this.jobInfo.match_select[key]) 
@@ -156,6 +179,24 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 				  }if(this.jobInfo['work_authorization'] ==null || this.jobInfo.match_select['work_authorization'] =='' || this.jobInfo['work_authorization'] ==undefined){
 					this.jobInfo.match_select['work_authorization']="false";
 					  
+				  }
+				  if(this.jobInfo.others && this.jobInfo.others.length){
+					  for(let i=0;i<this.jobInfo.others.length;i++){
+						  var id = this.jobInfo.others[i]['id'];
+						  if(this.isShownRequiements == false){
+							  if(this.jobInfo.match_select[id] =='0'){
+								  this.isOtherRequired = true;
+							  }if(this.jobInfo.match_select[id] =='2'){
+								  this.isOtherNice = true;
+							  }if(this.jobInfo.match_select[id] =='1'){
+								  this.isOtherDesired = true;
+							  }if(this.jobInfo.match_select[id] ==''){
+								  this.isOtherOptional = true;
+							  }
+						  }else{
+							  this.jobInfo.match_select[id] ='false';
+						  }
+					  }
 				  }
 				Object.keys(this.jobInfo.match_select).forEach(key => {
 					arr.push(this.jobInfo.match_select[key]) 

@@ -62,6 +62,7 @@ export class PostJobLayoutComponent implements OnInit {
   public jobId: string;
 	public requestParams: any;
 	public screeningProcess : any=[];
+	public others : any=[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -250,8 +251,14 @@ export class PostJobLayoutComponent implements OnInit {
 			facing_role: new FormControl(null),
 			training_experience: new FormControl(null),
 			certification: new FormControl(null),
+			others_data: new FormControl(null),
 			language: new FormControl(null, Validators.required),
 			extra_criteria: new FormArray([this.formBuilder.group({
+				title: [null],
+				value: [null]
+			})]),
+			others: new FormArray([this.formBuilder.group({
+				id: [null],
 				title: [null],
 				value: [null]
 			})]),
@@ -262,6 +269,49 @@ export class PostJobLayoutComponent implements OnInit {
           this.postJobForm.patchValue({
             ...this.postedJobsDetails
           });
+		  if (this.postedJobsDetails.others == null) {
+			  for(let i=0;i<=this.postJobForm.controls.otherPref['controls']['others'].value.length;i++){
+				this.postJobForm.controls.otherPref['controls']['others'].removeAt(0);
+				i=0;
+			}
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [1],
+					title: ['Should have done client facing role'],
+					value: [null]
+				}));
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [2],
+					title: ['Should have experience in training'],
+					value: [null]
+				}));
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [3],
+					title: ['Should have experience in design, build & configure applications'],
+					value: [null]
+				}));
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [4],
+					title: ['Should have experience in data intergation'],
+					value: [null]
+				}));
+		  }
+		  if (this.postedJobsDetails.others != null) {
+			for(let i=0;i<=this.postJobForm.controls.otherPref['controls']['others'].value.length;i++){
+				this.postJobForm.controls.otherPref['controls']['others'].removeAt(0);
+				i=0;
+			}
+			
+			this.postedJobsDetails.others.map((value, index) => {
+				var id = value['id'];
+				var title = value['title'];
+				var values = value['value'];
+				this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [id],
+					title: [title],
+					value: [values]
+				}));
+			});
+		}
 		  if (this.postedJobsDetails.extra_criteria != null) {
 			for(let i=0;i<=this.postJobForm.controls.otherPref['controls']['extra_criteria'].value.length;i++){
 				this.postJobForm.controls.otherPref['controls']['extra_criteria'].removeAt(0);
@@ -313,10 +363,10 @@ export class PostJobLayoutComponent implements OnInit {
 			}
 		}
 		  this.postJobForm.patchValue({
-					requirement : {
-						...this.postedJobsDetails
-					}
-				});
+				requirement : {
+					...this.postedJobsDetails
+				}
+			});
         }
       }, error => {
       }

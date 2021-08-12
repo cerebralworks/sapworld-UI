@@ -102,6 +102,25 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 					this.jobInfo.match_select.work_authorization="false";
 					  
 				  }
+				  if(this.jobInfo.extra_criteria && this.jobInfo.extra_criteria.length){
+						for(let j=0;j<this.jobInfo.extra_criteria.length;j++){
+							var value= this.jobInfo.extra_criteria[j]['title']
+							var arrayVal =Object.entries(this.jobInfo.match_select);
+							for(let i=0;i<arrayVal.length;i++){
+								if(arrayVal[i][0].toLocaleLowerCase() == value.toLocaleLowerCase()){
+									var temps =arrayVal[i][0];
+									this.jobInfo.match_select[temps]="false";									
+									
+								}
+							}
+						}
+				  }		
+				  if(this.jobInfo.others && this.jobInfo.others.length){
+					  for(let i=0;i<this.jobInfo.others.length;i++){
+						  var id = this.jobInfo.others[i]['id'];
+						  this.jobInfo.match_select[id] = 'false';
+					  }
+				  }				  
 				Object.keys(this.jobInfo.match_select).forEach(key => {
 					arr.push(this.jobInfo.match_select[key]) 
 				});
@@ -172,6 +191,19 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 				  }if(!this.jobInfo.training_experience || this.jobInfo.training_experience=='' || this.jobInfo.training_experience==undefined){
 					this.jobInfo.match_select['training_experience']="false";
 					  
+				  }
+				  if(this.jobInfo.extra_criteria && this.jobInfo.extra_criteria.length){
+						for(let j=0;j<this.jobInfo.extra_criteria.length;j++){
+							var value= this.jobInfo.extra_criteria[j]['title']
+							var arrayVal =Object.entries(this.jobInfo.match_select);
+							for(let i=0;i<arrayVal.length;i++){
+								if(arrayVal[i][0].toLocaleLowerCase() == value.toLocaleLowerCase()){
+									var temps =arrayVal[i][0];
+									this.jobInfo.match_select[temps]="false";									
+									
+								}
+							}
+						}
 				  }
 				Object.keys(this.jobInfo.match_select).forEach(key => {
 					arr.push(this.jobInfo.match_select[key]) 
@@ -569,4 +601,6 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 	  }
     
   }
+  
+  
 }

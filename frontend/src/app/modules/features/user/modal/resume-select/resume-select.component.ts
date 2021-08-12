@@ -1,5 +1,5 @@
 import { Component, EventEmitter, ElementRef,Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -26,6 +26,7 @@ export class ResumeSelectComponent implements OnInit {
 	public isOpenedResumeModal: boolean;
 	public isShowData: boolean = false;
 	public isShowValidShow: boolean = false;
+	public isShowDatas: boolean = false;
 	public isShowUpload: boolean = true;
 	@Input() toggleResumeSelectModal: boolean;
 	@Input() userAccept: boolean = false;
@@ -38,6 +39,7 @@ export class ResumeSelectComponent implements OnInit {
 	public mbRefsss: NgbModalRef;
 	public userInfo: any;
 	public nationality: any[]=[];
+	public statusArray: any[]=[];
 
 	@ViewChild("resumeSelectModal", { static: false }) resumeSelectModal: TemplateRef<any>;
 	@ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
@@ -45,6 +47,7 @@ export class ResumeSelectComponent implements OnInit {
 	@ViewChild("openWarningPopup", { static: false }) openWarningPopup: TemplateRef<any>;
 	@ViewChild('userResume', { static: false }) userResume: ElementRef;
 	public resumeSelectForm: FormGroup;
+	public jobDetailsForm: FormGroup;
 	public resumeSelected: any;
 
 	constructor(
@@ -92,6 +95,7 @@ export class ResumeSelectComponent implements OnInit {
 						this.resumeSelected = this.onGetFilteredValue(this.userInfo.doc_resume, 'default');
 						if(this.userInfo.doc_resume.length!=0){
 							this.isShowData = true;
+							this.isShowDatas = true;
 							this.isShowUpload = false;
 						}
 					}
@@ -127,6 +131,9 @@ export class ResumeSelectComponent implements OnInit {
 				keyboard: false
 			});
 			this.buildForm();
+			if(this.isShowData ==true){
+				this.isShowData =true;
+			}
 		}else{
 			this.mbRefsss = this.modalService.open(this.openWarningPopup, {
 				windowClass: 'modal-holder',
@@ -156,6 +163,8 @@ export class ResumeSelectComponent implements OnInit {
 			let requestParams: any = {};
 			requestParams.job_posting = this.currentJobDetails.id;
 			requestParams.user_resume = this.resumeSelected.file;
+			requestParams.others = this.others.value;
+			
 			if(this.userAccept ==true ){
 				//requestParams.status =  8 ;
 			}
@@ -189,9 +198,48 @@ export class ResumeSelectComponent implements OnInit {
 		this.resumeSelectForm = this.formBuilder.group({
 			title: ['', [Validators.required]]
 		});
+		this.jobDetailsForm = this.formBuilder.group({
+			others: new FormArray([this.formBuilder.group({
+				id: [null],
+				title: [null],
+				value: [null]
+			})])
+		});
 		this.resumeForm = this.formBuilder.group({
 			title: new FormControl('', [Validators.required])
 		});
+		this.buildData();
+		
+	}
+		
+	  get others() {
+		return this.ft.others as FormArray; 
+	  }
+	  
+	  changeStatus(id,event){
+		  
+	  }
+	buildData(){
+		
+	  if (this.currentJobDetails.others != null) {
+			for(let i=0;i<=this.jobDetailsForm['controls']['others'].value.length;i++){
+				this.others.removeAt(0);
+				i=0;
+			}			
+			this.currentJobDetails.others.map((value, index) => {
+				var id = value['id'];
+				var title = value['title'];
+				var values:any = value['value'];
+				if(values == true || values == 'true' ){
+					this.others.push(this.formBuilder.group({
+						id: [id],
+						title: [title],
+						value: [null, [Validators.required]]
+					}));
+				}
+			});
+			this.statusArray = this.others.value;
+		}
 	}
 
 	/**
@@ -200,6 +248,14 @@ export class ResumeSelectComponent implements OnInit {
 	
 	get f() {
 		return this.resumeSelectForm.controls;
+	}
+	
+	/**
+	**	To change the resume controls in f Function
+	**/
+	
+	get ft() {
+		return this.jobDetailsForm.controls;
 	}
 
 	/**
@@ -371,6 +427,21 @@ export class ResumeSelectComponent implements OnInit {
 		}, error => {
 			//this.modalService.dismissAll();
 		})
+	}
+	
+	handleChange(event,index){
+		if(event.target.value){
+			var id = index;
+			var value = event.target.value;
+			this.others['controls'][id]['controls']['value'].setValue(value);
+			this.others['controls'][id]['controls']['value'].updateValueAndValidity();
+			
+		}else{
+			var id = index;
+			this.others['controls'][id]['controls']['value'].setValue(null);
+			this.others['controls'][id]['controls']['value'].updateValueAndValidity();
+		}
+		
 	}
   
 }

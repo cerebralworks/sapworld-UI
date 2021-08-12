@@ -23,6 +23,7 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 	@Input() matchedElement: any;
 	@Input() missingElement: any;
 	@Input() isMultipleMatches: any;
+	@Input() isShownRequiements: boolean= false;
 	
 	public required: boolean = true;
 	public desired: boolean = true;
@@ -99,6 +100,16 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 				  }if(this.postedJobsDetails.work_authorization ==null || this.postedJobsDetails.match_select['work_authorization']=='' || this.postedJobsDetails.work_authorization==undefined){
 					this.postedJobsDetails.match_select.work_authorization="false";
 					  
+				  }
+				  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
+					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
+						  var id = this.postedJobsDetails.others[i]['id'];
+						  if(this.isShownRequiements == false){
+							  
+						  }else{
+							  this.postedJobsDetails.match_select[id] ='false';
+						  }
+					  }
 				  }
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 
