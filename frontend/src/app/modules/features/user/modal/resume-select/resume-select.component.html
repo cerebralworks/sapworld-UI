@@ -14,7 +14,27 @@
 					<input #userResume type="file" hidden (change)="handleFileInput($event,'resume');">
 				</label>
 	</div>
-      <div class=" form-group"  *ngIf="isShowData">
+      <div class=" form-group"  *ngIf="isShowDatas " >
+			<h5 class="mb-4" *ngIf="statusArray && statusArray.length !=0">Please answer the other skill requirement</h5>
+			<div class="mt-2" *ngFor="let ticket of statusArray;let i =index;">
+			<ng-container >
+				<div class=" form-group">
+					<label class="h6">{{ticket.title}}</label>
+					<div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" (click)="handleChange($event,i)"    value="Yes"  id="{{ticket.id}}A" name="{{ticket.id}}" class="custom-control-input">
+							<label class="custom-control-label" for="{{ticket.id}}A">&nbsp; Yes</label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" (click)="handleChange($event,i)"    value="No"  id="{{ticket.id}}B" name="{{ticket.id}}"  class="custom-control-input">
+							<label class="custom-control-label" for="{{ticket.id}}B">&nbsp; No</label>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+	<div class=" form-group"  *ngIf="isShowData">
         <label class="h5">Choose a Resume </label>
          <div class="mt-2">
            <div *ngFor="let item of userInfo?.doc_resume; let i=index" class="custom-control custom-radio custom-control-inline">
@@ -51,7 +71,7 @@
       </div>
       <div class="modal-footer">
       <button (click)="onClickCloseBtn(false)"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button [disabled]="!resumeSelected" (click)="onApplyJob()" type="button" class="btn btn-theme-blue " data-dismiss="modal" data-toggle="modal" data-target="#successMsg" >Submit</button>
+      <button [disabled]="this.others.status =='INVALID' && resumeSelected" (click)="onApplyJob()" type="button" class="btn btn-theme-blue " data-dismiss="modal" data-toggle="modal" data-target="#successMsg" >Submit</button>
       </div>
   <!-- </form> -->
 

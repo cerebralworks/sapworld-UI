@@ -57,7 +57,7 @@
 }
 
 .top-pad{
-	margin-top: 4.3rem;
+	margin-top: 4rem;
 }
 .pj-title h6{	
 	border:none !important;
@@ -69,8 +69,14 @@
 }
 .pj-titles{
     padding: 5px 0;
-    border-bottom: 1px solid #ffc0d8;
+    /* border-bottom: 1px solid #ffc0d8; */
 }
 .pj-titles  h6{
 	display: -webkit-inline-box !important;
+}
+.score{
+	    top: 20px !important;
+}
+p{
+	margin-bottom:0px !important;
 }

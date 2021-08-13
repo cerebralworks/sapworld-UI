@@ -160,22 +160,66 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 			facing_role: new FormControl(null),
 			training_experience: new FormControl(null),
 			certification: new FormControl(null),
+			others_data: new FormControl(null),
 			language: new FormControl(null, Validators.required),
 			extra_criteria: new FormArray([this.formBuilder.group({
 				title: [null],
 				value: [null]
 			})]),
-			temp_extra_criteria: new FormArray([]),
+			others: new FormArray([this.formBuilder.group({
+				id: [null],
+				title: [null],
+				value: [null]
+			})]),
+			temp_extra_criteria: new FormArray([])
 		}));
-
+		if(!this.route.snapshot.queryParamMap.get('id')){
+			this.resetForm();
+		}
+		
 	}
-
+	
+	resetForm(){
+		 for(let i=0;i<=this.childForm.controls.otherPref['controls']['others'].value.length;i++){
+			this.childForm.controls.otherPref['controls']['others'].removeAt(0);
+			i=0;
+		}
+		this.childForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+			id: [1],
+			title: ['Should have done client facing role'],
+			value: [null]
+		}));
+		this.childForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+			id: [2],
+			title: ['Should have experience in training'],
+			value: [null]
+		}));
+		this.childForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+			id: [3],
+			title: ['Should have experience in design, build & configure applications'],
+			value: [null]
+		}));
+		this.childForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+			id: [4],
+			title: ['Should have experience in data intergation'],
+			value: [null]
+		}));
+		this.childForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+			id: [5],
+			title: ['Should have experience in data migration'],
+			value: [null]
+		}));
+	}
 	get f() {
 		return this.childForm.controls.otherPref.controls;
 	}
 	
 	  get t() {
 		return this.f.extra_criteria as FormArray;
+	  }
+	  
+	  get others() {
+		return this.f.others as FormArray;
 	  }
 	  
 	get tEX() {
@@ -210,6 +254,59 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 			this.t.removeAt(index);
 		}
 	}
+	
+	
+	/**
+	**	create a new hands_on_experience
+	**/
+	
+	onDuplicateOthers = () => {
+		var value = this.childForm.value.otherPref.others_data;
+		
+		if(value !=null && value !=undefined && value !=''){
+			var len =this.others.value.length+1;
+			this.others.push(this.formBuilder.group({
+				id: [len, Validators.required],
+				title: [value, Validators.required],
+				value: [true, Validators.required]
+			}));
+			this.childForm.patchValue({
+				otherPref : {
+					others_data :null
+				}
+			});
+		}
+		
+	}
+	
+	/**
+	**	Remove the hands_on_experience
+	**/
+	
+	onRemoveOthers = (index) => {
+		if(index == 0 &&this.others.value.length==1) {
+			this.others.removeAt(index);
+		}else {
+			this.others.removeAt(index);
+		}
+	}
 
 
+	/**
+	**	To handle match select
+	**/
+	
+	changeStatus(id,event){
+		if(event.target.checked == true){
+			id = id-1;
+			this.others['controls'][id]['controls']['value'].setValue(true);
+			this.others['controls'][id]['controls']['value'].updateValueAndValidity();
+			
+		}else{
+			id = id-1;
+			this.others['controls'][id]['controls']['value'].setValue(null);
+			this.others['controls'][id]['controls']['value'].updateValueAndValidity();
+		}
+	}
+	
 }

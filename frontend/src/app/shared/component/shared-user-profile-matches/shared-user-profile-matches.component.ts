@@ -21,14 +21,21 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 	@Input() matchingUsersNew: any;
 	@Input() moreElement: any;
 	@Input() matchedElement: any;
+	@Input() application: any;
 	@Input() missingElement: any;
 	@Input() isMultipleMatches: any;
+	@Input() isShownRequiements: boolean= false;
 	
 	public required: boolean = true;
 	public desired: boolean = true;
 	public optional: boolean = false;
 	public nice: boolean = true;
 	public IsValidate: boolean = false;
+	public isOtherRequired: boolean = false;
+	public isOtherOptional: boolean = false;
+	public isOtherNice: boolean = false;
+	public isOtherDesired: boolean = false;
+	public applicationShow: boolean = false;
 	
 	public languageSource=[];
 	public nationality=[];
@@ -90,15 +97,41 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 				  }if(!this.postedJobsDetails.facing_role || this.postedJobsDetails.facing_role=='' || this.postedJobsDetails.facing_role==undefined){
 					this.postedJobsDetails.match_select.facing_role="false";
 					  
+				  }else{
+					  this.postedJobsDetails.match_select.facing_role="false";
 				  }if(!this.postedJobsDetails.training_experience || this.postedJobsDetails.training_experience=='' || this.postedJobsDetails.training_experience==undefined){
 					this.postedJobsDetails.match_select.training_experience="false";
 					  
+				  }else{
+					  this.postedJobsDetails.match_select.training_experience="false";
 				  }if(!this.postedJobsDetails.skills || this.postedJobsDetails.match_select['skills'] =='' || this.postedJobsDetails.skills==undefined){
 					this.postedJobsDetails.match_select.skills="false";
 					  
 				  }if(this.postedJobsDetails.work_authorization ==null || this.postedJobsDetails.match_select['work_authorization']=='' || this.postedJobsDetails.work_authorization==undefined){
 					this.postedJobsDetails.match_select.work_authorization="false";
 					  
+				  }
+				  if(this.application !=null){
+					  this.applicationShow = true;
+				  }
+				  this.isShownRequiements = false;
+				 if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
+					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
+						  var id = this.postedJobsDetails.others[i]['id'];
+						  if(this.isShownRequiements == false){
+							  if(this.postedJobsDetails.match_select[id] =='0'){
+								  this.isOtherRequired = true;
+							  }if(this.postedJobsDetails.match_select[id] =='2'){
+								  this.isOtherNice = true;
+							  }if(this.postedJobsDetails.match_select[id] =='1'){
+								  this.isOtherDesired = true;
+							  }if(this.postedJobsDetails.match_select[id] ==''){
+								  this.isOtherOptional = true;
+							  }
+						  }else{
+							  this.postedJobsDetails.match_select[id] ='false';
+						  }
+					  }
 				  }
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 
@@ -666,4 +699,25 @@ findLanguageArray(value){
 		
 		return [];
 	}
+	
+	checkValues(id){
+		
+		if(id && this.application && this.application['others']&& this.application['others']['length']){
+			id = parseInt(id);
+			var temp = this.application['others'].filter(function(a,b){ return a.id ==id });
+			if(temp.length !=0){
+				if(temp[0]['value']){
+					return temp[0]['value']
+				}
+			}
+		}
+		return '--';
+	}
+	checkDataOthers(data,value){
+		  if(data == value){
+			  return true;
+		  }else{
+			return false;  
+		  }
+	  }
 }

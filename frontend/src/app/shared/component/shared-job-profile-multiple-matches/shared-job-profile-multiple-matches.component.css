@@ -33,6 +33,7 @@
 }
 .handsExps:hover{
 		overflow-x:auto !important;
+		    text-overflow: clip !important;
 	}
 	.btn-fltr {
     color: #212529;
@@ -68,10 +69,20 @@
 .pj-title  h6{
 	display: contents !important;
 }
+.pj-title{
+    padding: 5px 0 !important;
+    /* border-bottom: 1px solid #ffc0d8; */
+}
 .pj-titles{
     padding: 5px 0;
-    border-bottom: 1px solid #ffc0d8;
+    /* border-bottom: 1px solid #ffc0d8; */
 }
 .pj-titles  h6{
 	display: -webkit-inline-box !important;
+}
+.matchs-info {
+    margin-top: 0px !important;
+}
+p{
+	margin-bottom:0px !important;
 }

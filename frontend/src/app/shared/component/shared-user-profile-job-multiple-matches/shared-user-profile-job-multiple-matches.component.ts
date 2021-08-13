@@ -78,9 +78,13 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 				  }if(!this.postedJobsDetails.facing_role || this.postedJobsDetails.facing_role=='' || this.postedJobsDetails.facing_role==undefined){
 					this.postedJobsDetails.match_select.facing_role="false";
 					  
+				  }else{
+					  this.postedJobsDetails.match_select.facing_role="false";
 				  }if(!this.postedJobsDetails.training_experience || this.postedJobsDetails.training_experience=='' || this.postedJobsDetails.training_experience==undefined){
 					this.postedJobsDetails.match_select.training_experience="false";
 					  
+				  }else{
+					  this.postedJobsDetails.match_select.training_experience="false";
 				  }if(!this.postedJobsDetails.skills || this.postedJobsDetails.match_select['skills']=='' || this.postedJobsDetails.skills==undefined){
 					this.postedJobsDetails.match_select.skills="false";
 					  
@@ -88,6 +92,12 @@ export class SharedUserProfileJobMultipleMatchesComponent implements OnInit {
 					this.postedJobsDetails.match_select.work_authorization="false";
 					  
 				  }
+				  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
+					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
+						  var id = this.postedJobsDetails.others[i]['id'];
+						  this.postedJobsDetails.match_select[id] = 'false';
+					  }
+				  }	
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 
 				});

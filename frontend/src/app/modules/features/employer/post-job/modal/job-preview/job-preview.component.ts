@@ -73,6 +73,8 @@ export class JobPreviewComponent implements OnInit {
 	public mustMacthObj: any = {};
 	public MacthObj: any = {};
 	public jobId:string;
+	public isShowOthers: any ='';
+	public pageShow: boolean =false;
 	public jobtype: boolean =false;
 	public skills: boolean =false;
 	public education: boolean =false;
@@ -182,7 +184,7 @@ export class JobPreviewComponent implements OnInit {
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].updateValueAndValidity();
 		}
-		if(!this.postJobForm?.value?.otherPref?.employer_role_type || this.postJobForm?.value?.otherPref?.employer_role_type==''){
+		if(!this.postJobForm?.value?.otherPref?.certification || this.postJobForm?.value?.otherPref?.certification.length ||  this.postJobForm?.value?.otherPref?.certification.length != 0){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].updateValueAndValidity();
@@ -222,6 +224,21 @@ export class JobPreviewComponent implements OnInit {
 		
 			}
 			
+			if(this.childForm.value.otherPref.others){
+				var extra = this.childForm.value.otherPref.others.filter(function(a,b){ return a.value==true&&a.title!=null&&a.title!=''&&a.id!=null&&a.id!=''});
+				for(let i=0;i<extra.length;i++){
+					var tempTitle = extra[i]['id'];
+					if(i==0){
+						this.isShowOthers = tempTitle;
+					}
+						
+					if(this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] ==undefined || this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] ==null || this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] =="" ){
+						this.postJobForm.controls.jobPrev['controls']['match_select']['addControl'](extra[i]['id'],new FormControl(""));
+					}
+				}		
+			}
+			this.pageShow = true;
+			this.checkValidator();
 			if(this.childForm && this.getPostedJobsDetails) {
 				this.childForm.patchValue({
 					jobPrev : {
@@ -229,7 +246,7 @@ export class JobPreviewComponent implements OnInit {
 					}
 				});	
 			}
-			this.checkValidator();
+			
 			if(this.postJobForm.value.requirement.work_authorization ==''){
 				this.ShowData = true;
 			}else{

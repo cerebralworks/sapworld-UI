@@ -78,9 +78,13 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 				  }if(!this.postedJobsDetails.facing_role || this.postedJobsDetails.facing_role=='' || this.postedJobsDetails.facing_role==undefined){
 					this.postedJobsDetails.match_select.facing_role="false";
 					  
+				  }else{
+					  this.postedJobsDetails.match_select.facing_role="false";
 				  }if(!this.postedJobsDetails.training_experience || this.postedJobsDetails.training_experience=='' || this.postedJobsDetails.training_experience==undefined){
 					this.postedJobsDetails.match_select.training_experience="false";
 					  
+				  }else{
+					  this.postedJobsDetails.match_select.training_experience="false";
 				  }if(!this.postedJobsDetails.skills || this.postedJobsDetails.match_select['skills']=='' || this.postedJobsDetails.skills==undefined){
 					this.postedJobsDetails.match_select.skills="false";
 					  
@@ -88,6 +92,26 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 					this.postedJobsDetails.match_select.work_authorization="false";
 					  
 				  }
+				  if(this.postedJobsDetails.extra_criteria && this.postedJobsDetails.extra_criteria.length){
+						for(let j=0;j<this.postedJobsDetails.extra_criteria.length;j++){
+							var value= this.postedJobsDetails.extra_criteria[j]['title']
+							var arrayVal =Object.entries(this.postedJobsDetails.match_select);
+							for(let i=0;i<arrayVal.length;i++){
+								if(arrayVal[i][0].toLocaleLowerCase() == value.toLocaleLowerCase()){
+									var temps =arrayVal[i][0];
+									this.postedJobsDetails.match_select[temps]="false";									
+									
+								}
+							}
+						}
+				  }
+				  
+				  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
+					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
+						  var id = this.postedJobsDetails.others[i]['id'];
+						  this.postedJobsDetails.match_select[id] = 'false';
+					  }
+				  }	
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 
 				});
