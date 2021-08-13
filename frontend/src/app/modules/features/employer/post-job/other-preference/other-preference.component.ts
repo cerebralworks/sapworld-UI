@@ -204,6 +204,11 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 			title: ['Should have experience in data intergation'],
 			value: [null]
 		}));
+		this.childForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+			id: [5],
+			title: ['Should have experience in data migration'],
+			value: [null]
+		}));
 	}
 	get f() {
 		return this.childForm.controls.otherPref.controls;

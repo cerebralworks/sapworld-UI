@@ -294,6 +294,11 @@ export class PostJobLayoutComponent implements OnInit {
 					title: ['Should have experience in data intergation'],
 					value: [null]
 				}));
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [5],
+					title: ['Should have experience in data migration'],
+					value: [null]
+				}));
 		  }
 		  if (this.postedJobsDetails.others != null) {
 			for(let i=0;i<=this.postJobForm.controls.otherPref['controls']['others'].value.length;i++){

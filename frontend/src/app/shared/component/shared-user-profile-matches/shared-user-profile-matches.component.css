@@ -86,8 +86,11 @@ margin-top:38px;
 }
 .pj-titles{
     padding: 5px 0;
-    border-bottom: 1px solid #ffc0d8;
+    /*border-bottom: 1px solid #ffc0d8;*/
 }
 .pj-titles  h6{
 	display: -webkit-inline-box !important;
+}
+p{
+	margin-bottom:0px !important;
 }

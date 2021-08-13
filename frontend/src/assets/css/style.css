@@ -13,7 +13,8 @@
 body {
     padding: 0;
     margin: 0;
-    font-family: 'Nunito', sans-serif !important;
+   /*  font-family: 'Nunito', sans-serif !important; */ 
+   font-family: sans-serif,'Nunito' !important;
     font-size: 13px;
 	color: #000000;
     letter-spacing: 0.25px;
@@ -42,10 +43,13 @@ a:hover {
 .w-40 {width: 40%!important;}
 .w-60 {width: 60%!important;}
 .custom-control-label {
-    position: relative;
+     position: relative;
     margin-bottom: 0;
     vertical-align: top;
     padding-top: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
 }
 .my-scrollbar {
     height: 500px;

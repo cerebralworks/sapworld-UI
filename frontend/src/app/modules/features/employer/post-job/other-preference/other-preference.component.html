@@ -1,5 +1,5 @@
 <div formGroupName="otherPref">
-	<div class="row mt-5">	
+	<!-- <div class="row mt-5">	
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
 				<label class="font-weight-bold" >Client Facing Role  </label>
@@ -32,7 +32,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="row mt-2">
 		<div class="col-lg-12 col-md-6">
 			<label class="font-weight-bold">Custom Requirements</label>
@@ -45,11 +45,11 @@
 				<div class=" form-group">
 					<div class="custom-control custom-checkbox mb-2">
 						<input type="checkbox" class="custom-control-input" value="true" [checked]="ticket.value.value" (change)="changeStatus(ticket.value.id,$event)" [name]="ticket.value.id" [id]="ticket.value.id">
-						<label class="custom-control-label text-dark" [for]="ticket.value.id"> {{ticket.value.title}}</label>
+						<label class="custom-control-label font-weight-bold text-dark" [for]="ticket.value.id"> {{ticket.value.title}}</label>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-2 col-md-2" *ngIf="!(ticket.value.id <=4)">
+			<div class="col-lg-2 col-md-2" *ngIf="!(ticket.value.id <=5)">
 				<button type="button" class="text-danger btn p-0 btn-small"
 					style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemoveOthers(i)"><i class="fas fa-times"></i></button>
 			</div>

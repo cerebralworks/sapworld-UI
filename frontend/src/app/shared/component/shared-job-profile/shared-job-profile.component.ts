@@ -75,9 +75,13 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 				  }if(!this.jobInfo.facing_role || this.jobInfo.facing_role=='' || this.jobInfo.facing_role==undefined){
 					this.jobInfo.match_select['facing_role']="false";
 					  
+				  }else{
+					  this.jobInfo.match_select['facing_role']="false";
 				  }if(!this.jobInfo.training_experience || this.jobInfo.training_experience=='' || this.jobInfo.training_experience==undefined){
 					this.jobInfo.match_select['training_experience']="false";
 					  
+				  }else{
+					  this.jobInfo.match_select['training_experience']="false";
 				  }if(this.jobInfo['skills'] ==null || this.jobInfo.match_select['skills'] =='' || this.jobInfo['skills'] ==undefined){
 					this.jobInfo.match_select['skills']="false";
 					  
@@ -85,6 +89,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 					this.jobInfo.match_select['work_authorization']="false";
 					  
 				  }
+				  this.isShownRequiements = false;
 				  if(this.jobInfo.others && this.jobInfo.others.length){
 					  for(let i=0;i<this.jobInfo.others.length;i++){
 						  var id = this.jobInfo.others[i]['id'];
@@ -170,16 +175,21 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 				  }if(!this.jobInfo.facing_role || this.jobInfo.facing_role=='' || this.jobInfo.facing_role==undefined){
 					this.jobInfo.match_select['facing_role']="false";
 					  
+				  }else{
+					  this.jobInfo.match_select['facing_role']="false";
 				  }if(!this.jobInfo.training_experience || this.jobInfo.training_experience=='' || this.jobInfo.training_experience==undefined){
 					this.jobInfo.match_select['training_experience']="false";
 					  
+				  }else{
+					  this.jobInfo.match_select['training_experience']="false";
 				  }if(this.jobInfo['skills'] ==null || this.jobInfo.match_select['skills'] =='' || this.jobInfo['skills'] ==undefined){
 					this.jobInfo.match_select['skills']="false";
 					  
 				  }if(this.jobInfo['work_authorization'] ==null || this.jobInfo.match_select['work_authorization'] =='' || this.jobInfo['work_authorization'] ==undefined){
 					this.jobInfo.match_select['work_authorization']="false";
 					  
-				  }
+				  } 
+				  this.isShownRequiements = false;
 				  if(this.jobInfo.others && this.jobInfo.others.length){
 					  for(let i=0;i<this.jobInfo.others.length;i++){
 						  var id = this.jobInfo.others[i]['id'];
@@ -318,4 +328,11 @@ onGetCountry(query) {
 		this.sharedApiService.onGetLanguage(requestParams);
 	  }
 	  
+	  checkDataOthers(data,value){
+		  if(data == value){
+			  return true;
+		  }else{
+			return false;  
+		  }
+	  }
 }

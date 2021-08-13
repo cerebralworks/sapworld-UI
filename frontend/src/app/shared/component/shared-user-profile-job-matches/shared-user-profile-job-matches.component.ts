@@ -78,9 +78,13 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 				  }if(!this.postedJobsDetails.facing_role || this.postedJobsDetails.facing_role=='' || this.postedJobsDetails.facing_role==undefined){
 					this.postedJobsDetails.match_select.facing_role="false";
 					  
+				  }else{
+					  this.postedJobsDetails.match_select.facing_role="false";
 				  }if(!this.postedJobsDetails.training_experience || this.postedJobsDetails.training_experience=='' || this.postedJobsDetails.training_experience==undefined){
 					this.postedJobsDetails.match_select.training_experience="false";
 					  
+				  }else{
+					  this.postedJobsDetails.match_select.training_experience="false";
 				  }if(!this.postedJobsDetails.skills || this.postedJobsDetails.match_select['skills']=='' || this.postedJobsDetails.skills==undefined){
 					this.postedJobsDetails.match_select.skills="false";
 					  

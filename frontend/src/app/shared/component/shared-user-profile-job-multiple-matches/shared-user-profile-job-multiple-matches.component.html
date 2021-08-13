@@ -3,13 +3,13 @@
 		<div class="accordion mt-5 ">
 			<div style="margin-top:-12px;">
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.totalYearsOfExperience" | translate }}</li>
 							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.shorttotalYearsOfExperience" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{userInfo?.experience ? userInfo?.experience + ' Years' : '--'}}</li>
 						</ul>
@@ -18,13 +18,13 @@
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
 							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperienceShort" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{userInfo?.sap_experience ? userInfo?.sap_experience + ' Years': '--'}} </li>
 						</ul>
@@ -33,28 +33,28 @@
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"dashboard.domainsWorked" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(userInfo?.domains_worked)}}</li>
+							<li class="list-group-item handsExps text-capitalize">{{sharedService.onFindDomainFromID(userInfo?.domains_worked)}}</li>
 						</ul>
 					</div>
 				</div>	
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWith" | translate }}</li>
 							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWithShort" | translate }}</li>
 						</ul>
 						
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
 							<li class="list-group-item text-uppercase d-flex handsExps skills">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
@@ -75,14 +75,14 @@
 			<div class="col-lg-12 border-top pt-3">	</div>
 			<div>
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"dashboard.knowledgeOn" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
-							 <li class="list-group-item text-uppercase"> 
+							 <li class="list-group-item handsExps text-uppercase"> 
 								<ng-container *ngIf="userInfo?.skills?.length; else elseSkillsTemplate">
 									<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 										<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-classes"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -100,42 +100,42 @@
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"postJob.programmingSkills" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div  >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"postYourResume.others" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
 						</ul>
 					</div>
 				</div>					
 			</div>
 			<div  >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"postJob.certification" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
+							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
 						</ul>
 					</div>
 				</div>	
@@ -143,26 +143,28 @@
 			<div class="col-lg-12 border-top pt-3">	</div>
 			<div  >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"postJob.jobType" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group ul-value">
+						<li class="list-group-item handsExps text-capitalize">
 							{{(userInfo?.job_type || userInfo?.job_type == 0) ? sharedService.onGetJobType(userInfo?.job_type) : '--'}}
+						</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"postJob.jobType" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group ul-value">
 							{{userInfo?.employer_role_type}}
 						</ul>
@@ -171,12 +173,12 @@
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"dashboard.availability" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{userInfo?.availability == 0 ? 'Immediate' : userInfo?.availability + ' Days'}}</li>
 						</ul>
@@ -185,13 +187,13 @@
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.workAuthorisation" | translate}}</li>
 						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.workAuthorisationShort" | translate}}</li>
 					</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 0 ">
 							{{utilsHelperService.onConvertArrayToString(userInfo?.visa_type)}}
 						</ul>
@@ -203,13 +205,13 @@
 			</div>
 			<div >
 				<div class="row" *ngIf="userInfo?.end_to_end_implementation">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
 							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.endToEndImplementationShort" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">
 								{{userInfo?.end_to_end_implementation}}
@@ -220,28 +222,30 @@
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">
 							{{"dashboard.education" | translate }}
 						</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group ul-value text-capitalize">
+						<li class="list-group-item text-capitalize handsExps" >
 						{{this.findEducation(userInfo?.education_qualification)}}
+						</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"postJob.travel" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{userInfo?.travel == 0 ? 'No' : userInfo?.travel + '%'}}</li>
 						</ul>
@@ -250,12 +254,12 @@
 			</div>
 			<div>
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"postJob.remote" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(userInfo?.remote_only)}}</li>
 						</ul>
@@ -264,12 +268,12 @@
 			</div>
 			<div>
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"dashboard.relocation" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(userInfo?.willing_to_relocate)}}</li>
 						</ul>
@@ -278,14 +282,14 @@
 			</div> 
 			<div >
 				<div class="row">
-					<div class="col-lg-4 caption">
+					<div class="col-lg-5 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"dashboard.languageKnown" | translate}}</li>
 						</ul>
 					</div>
-					<div class="col-lg-8 info">
+					<div class="col-lg-7 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">
+							<li class="list-group-item handsExps text-capitalize">
 								{{findLanguageArray(userInfo?.language_known)}}
 							</li>
 						</ul>
