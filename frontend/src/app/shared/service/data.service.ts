@@ -11,6 +11,7 @@ export class DataService {
   private userPhoto = new BehaviorSubject<any>({});
   private tabInfo = new BehaviorSubject<any>({});
   private profileCompletion: boolean = false;
+  private matchesSuccessfull: boolean = false;
 
   setSkillDataSource(data: {}) {
     this.skillTags.next(data);
@@ -94,6 +95,18 @@ export class DataService {
 
   getProfileCompletion(): any {
     return this.profileCompletion;
+  }
+  
+  setMatchesCompletion() {
+    this.matchesSuccessfull = true;
+  }
+
+  clearMatchesCompletion(): any {
+    this.matchesSuccessfull = false;
+  }
+
+  getMatchesCompletion(): any {
+    return this.matchesSuccessfull;
   }
 
 }

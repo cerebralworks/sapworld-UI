@@ -27,7 +27,7 @@
 											</a>
 										</div>
 										<div class="float-right">
-											<button [ngClass]="{'applied-btn-green': (item?.is_job_applied ), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied " type="button" class="btn btn-sm" (click)="onToggleResumeSelectModal(true, item)"> <i class="fas fa-check"></i>
+											<button [ngClass]="{'applied-btn-green': (item?.is_job_applied ), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied " type="button" class="btn btn-sm" (click)="onToggleResumeSelectModals(true, item)"> <i class="fas fa-check"></i>
 												{{(item?.is_job_applied ) ? 'Applied' : 'Apply Now'}}
 											</button>
 										</div>

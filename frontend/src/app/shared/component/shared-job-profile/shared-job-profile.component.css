@@ -42,6 +42,9 @@
 .pj-title  h6{
 	display: contents !important;
 }
+.pj-titler {
+    padding: 10px 0 !important;
+}
 .pj-titles{
     padding: 5px 0;
     /*border-bottom: 1px solid #ffc0d8;*/

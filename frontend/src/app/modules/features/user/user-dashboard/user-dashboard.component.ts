@@ -28,8 +28,11 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	public dashboardView: boolean = false;
 	public dashboardViewAPI: boolean = false;
 	public toggleresumeSelectModal: boolean = false;
+	public toggleMatchesModal: boolean = false;
 	@ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
+	@ViewChild('matchesModal', { static: false }) matchesModal: TemplateRef<any>;
 	public mbRef: NgbModalRef;
+	public mbRefs: NgbModalRef;
 	public queryParams: any = {};
 	public userInfo:any;
 	public nationality:any[]=[];
@@ -122,13 +125,31 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	
 	ngDoCheck(): void {
 		const profileCompletionValue = this.dataService.getProfileCompletion();
-		if(profileCompletionValue && this.validateOnPrfile == 0) {
-			this.toggleResumeModal = true;
-			setTimeout(() => {
-				this.onOpenResumeModal()
-			});
-			this.validateOnPrfile ++;
+		const matchesCompletionValue = this.dataService.getMatchesCompletion();
+		if(matchesCompletionValue == false){
+			if(profileCompletionValue && this.validateOnPrfile == 0) {
+				this.toggleResumeModal = true;
+				setTimeout(() => {
+					this.onOpenResumeModal()
+				});
+				this.validateOnPrfile ++;
+			}
+		}else{
+			if(matchesCompletionValue == true && this.validateOnPrfile == 0) {
+				this.dataService.clearMatchesCompletion();
+				this.toggleMatchesModal = true;
+				setTimeout(() => {
+					this.mbRefs = this.modelService.open(this.matchesModal, {
+						windowClass: 'modal-holder',
+						centered: true,
+						backdrop: 'static',
+						keyboard: false
+					});
+				});
+				this.validateOnPrfile ++;
+			}
 		}
+		
 	}
 	
 	/**
@@ -147,12 +168,39 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	}
 	
 	/**
+	** To close the matches View
+	**/
+	
+	closeMatches(){
+		this.toggleMatchesModal = false;
+		this.mbRefs.close();
+		this.validateOnPrfile= 0;
+		const profileCompletionValue = this.dataService.getProfileCompletion();
+		if(profileCompletionValue && this.validateOnPrfile == 0) {
+			this.toggleResumeModal = true;
+			setTimeout(() => {
+				this.onOpenResumeModal()
+			});
+			this.validateOnPrfile ++;
+		}
+	}
+	
+	/**
+	** To navigte matches
+	**/
+	
+	navigateMatches(){
+		this.mbRefs.close();
+		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'matches'}})
+	}
+	/**
 	**	To function calls while the page leaves
 	**/
 	
 	ngOnDestroy(): void {
 		this.toggleResumeModal = false;
 		this.dataService.clearProfileCompletion()
+		this.dataService.clearMatchesCompletion()
 		this.validateOnPrfile = null;
 	}
 	

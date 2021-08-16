@@ -144,14 +144,6 @@ export class JobPreviewComponent implements OnInit {
 	**/
 	
 	checkValidator(){
-		if(!this.postJobForm?.value?.otherPref?.training_experience || this.postJobForm?.value?.otherPref?.training_experience==''){
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].setValidators(null);
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].setValue('');
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].updateValueAndValidity();
-		}else{
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].setValidators(null);
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['training_experience'].updateValueAndValidity();
-		}
 		if(!this.postJobForm?.value?.requirement?.education || this.postJobForm?.value?.requirement?.education=='' ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValue('');
@@ -160,21 +152,13 @@ export class JobPreviewComponent implements OnInit {
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].updateValueAndValidity();
 		}
-		if(!this.postJobForm?.value?.requirement?.work_authorization || this.postJobForm?.value?.requirement?.work_authorization=='' ){
+		if(this.postJobForm?.value?.requirement?.work_authorization==null || this.postJobForm?.value?.requirement?.work_authorization==undefined  || this.postJobForm?.value?.requirement?.work_authorization=='' ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
 		}else{
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
-		}
-		if(!this.postJobForm?.value?.otherPref?.facing_role || this.postJobForm?.value?.otherPref?.facing_role=='' ){
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValidators(null);
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValue('');
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].updateValueAndValidity();
-		}else{
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].setValidators(null);
-			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['facing_role'].updateValueAndValidity();
 		}
 		if(!this.postJobForm?.value?.jobInfo?.employer_role_type || this.postJobForm?.value?.jobInfo?.employer_role_type==''){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].setValidators(null);
@@ -184,7 +168,7 @@ export class JobPreviewComponent implements OnInit {
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].updateValueAndValidity();
 		}
-		if(!this.postJobForm?.value?.otherPref?.certification || this.postJobForm?.value?.otherPref?.certification.length ||  this.postJobForm?.value?.otherPref?.certification.length != 0){
+		if(!this.postJobForm?.value?.otherPref?.certification || !this.postJobForm?.value?.otherPref?.certification.length ||  this.postJobForm?.value?.otherPref?.certification.length != 0){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].updateValueAndValidity();
@@ -209,7 +193,7 @@ export class JobPreviewComponent implements OnInit {
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
 			
-			if(this.childForm.value.otherPref.extra_criteria){
+			/* if(this.childForm.value.otherPref.extra_criteria){
 				var extra = this.childForm.value.otherPref.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
 				for(let i=0;i<extra.length;i++){
 						var tempTitle = extra[i]['title'];
@@ -222,7 +206,7 @@ export class JobPreviewComponent implements OnInit {
 					this.isShow =false;
 				}
 		
-			}
+			} */
 			
 			if(this.childForm.value.otherPref.others){
 				var extra = this.childForm.value.otherPref.others.filter(function(a,b){ return a.value==true&&a.title!=null&&a.title!=''&&a.id!=null&&a.id!=''});
@@ -238,7 +222,6 @@ export class JobPreviewComponent implements OnInit {
 				}		
 			}
 			this.pageShow = true;
-			this.checkValidator();
 			if(this.childForm && this.getPostedJobsDetails) {
 				this.childForm.patchValue({
 					jobPrev : {
@@ -246,7 +229,7 @@ export class JobPreviewComponent implements OnInit {
 					}
 				});	
 			}
-			
+			this.checkValidator();
 			if(this.postJobForm.value.requirement.work_authorization ==''){
 				this.ShowData = true;
 			}else{
@@ -358,8 +341,8 @@ export class JobPreviewComponent implements OnInit {
 		  employer_role_type: new FormControl(''),
 		  availability: new FormControl('0', Validators.required),
 		  work_authorization: new FormControl(''),
-		  facing_role: new FormControl(''),
-		  training_experience: new FormControl(''),
+		  //facing_role: new FormControl(''),
+		  //training_experience: new FormControl(''),
 		  end_to_end_implementation: new FormControl(''),
 		  education: new FormControl(''),
 		  travel_opportunity: new FormControl(''),

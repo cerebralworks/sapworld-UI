@@ -573,6 +573,21 @@ export class CandidateJobMatchesComponent implements OnInit {
 		if (!this.utilsHelperService.isEmptyObj(item)) {
 			this.currentJobDetails = item;
 		}
+		this.isOpenedResumeSelectModal = false;
+		if(this.currentJobDetails.id == this.matchingJob.jobs.id){
+			this.matchingJob = { ...this.matchingJob, jobs: {} };
+			this.onGetUserScoringById(true);
+		}else if(this.currentJobDetails.id == this.matchingJob.jobs.id){
+			this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
+			this.onGetUserScoringByIdNew();		
+		}
+
+	}
+	
+	onToggleResumeSelectModals = (status, item?) => {
+		if (!this.utilsHelperService.isEmptyObj(item)) {
+			this.currentJobDetails = item;
+		}
 		this.isOpenedResumeSelectModal = status;
 	}
 

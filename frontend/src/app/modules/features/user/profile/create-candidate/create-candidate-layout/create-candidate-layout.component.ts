@@ -475,9 +475,20 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	onUserUpdate = (candidateInfo: CandidateProfile) => {
 		this.userService.update(candidateInfo).subscribe(
 		response => {
+			
 			this.router.navigate(['/user/dashboard']).then(() => {
+				if(this.userInfo && this.userInfo.profile_completed == false){
+				if(!response.matches && response.matches  !=true && response.matches !=false){
+					response= JSON.parse(response);
+				}
+				if(response.matches == true){
+					this.dataService.setMatchesCompletion();
+				}
+			}
+			//this.dataService.setMatchesCompletion();
           if(this.userInfo && (!this.userInfo.doc_resume || this.userInfo.doc_resume.length == 0)) {
             this.dataService.setProfileCompletion();
+			
           }
 
           this.modalService.dismissAll();

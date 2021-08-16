@@ -148,6 +148,7 @@ export class CandidateJobViewComponent implements OnInit {
 		this.isOpenedResumeSelectModal = false;
 		this.userAccept = false;
 		this.isShowApply = false;
+		this.onGetPostedJobDetails();
 	}
 
 	/**	

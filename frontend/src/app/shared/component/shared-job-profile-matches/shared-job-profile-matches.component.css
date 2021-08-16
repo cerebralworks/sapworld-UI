@@ -57,13 +57,15 @@
 }
 
 .top-pad{
-	margin-top: 4rem;
+	margin-top: 3.1rem;
 }
 .pj-title h6{	
 	border:none !important;
 	outline:none !important;
 }
-
+.pj-title-10 {
+padding: 13px 0 !important;
+}
 .pj-title  h6{
 	display: contents !important;
 }

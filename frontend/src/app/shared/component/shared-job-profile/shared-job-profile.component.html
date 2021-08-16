@@ -1,7 +1,7 @@
 <div class="row  info-box">
 	<div class="col-lg-12">
 		<div class="accordion mt-3 ">
-			<div class="pj-title "  *ngIf="required">
+			<div class="pj-titler "  *ngIf="required">
 				<h6 class="mb-0" type="button">
 					Required Skills
 				 </h6>
@@ -53,7 +53,7 @@
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
-						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 50px;" >
+						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 55px;" >
 							<ng-container *ngIf="jobInfo?.hands_on_experience?.length; else elseHandsTemplate">
 							  <ng-container *ngFor="let item of jobInfo?.hands_on_experience; let i = index" >
 								<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2"   tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -309,27 +309,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="accordion" *ngIf="jobInfo?.extra_criteria">
-				<!-- <div class="pj-title " >
-					<h6 class="mb-0" type="button">
-						{{"postJob.extraCriteria" | translate}}
-					 </h6>
-				</div> -->
-				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria; let i=index" >
-					<div class="col-lg-5 caption" *ngIf="CheckExtraId(item?.title,'0')">
-						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize">{{item?.title ? item?.title : '--'}}</li>
-						</ul>
-					</div>
-					<div class="col-lg-7 info" *ngIf="CheckExtraId(item?.title,'0')">
-						<ul class="list-group">
-							<li class="list-group-item text-capitalize" >
-							  {{item?.value ? item?.value : '--'}}
-							</li>
-						 </ul>
-					</div>
-				</div>
-			</div>
 			<div *ngIf="isOtherRequired">
 				<div class="row info-box"  >
 					<div class="col-lg-5 caption">
@@ -347,7 +326,7 @@
 				</div>
 			</div>
 		<div class="accordion" *ngIf="desired">
-			<div class="pj-title " >
+			<div class="pj-titler m-b-1" >
 				<h6 class="mb-0" type="button">
 					{{"dashboard.desiredSkills" | translate }}
 				 </h6>
@@ -400,7 +379,7 @@
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
-						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 50px;">
+						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 55px;">
 							<ng-container *ngIf="jobInfo?.hands_on_experience?.length; else elseHandsTemplate">
 							  <ng-container *ngFor="let item of jobInfo?.hands_on_experience; let i = index" >
 								<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2"   tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -656,27 +635,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="accordion" *ngIf="jobInfo?.extra_criteria">
-				<!-- <div class="pj-title " >
-					<h6 class="mb-0" type="button">
-						{{"postJob.extraCriteria" | translate}}
-					 </h6>
-				</div> -->
-				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria; let i=index" >
-					<div class="col-lg-5 caption" *ngIf="CheckExtraId(item?.title,'1')">
-						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize">{{item?.title ? item?.title : '--'}}</li>
-						</ul>
-					</div>
-					<div class="col-lg-7 info" *ngIf="CheckExtraId(item?.title,'1')">
-						<ul class="list-group">
-							<li class="list-group-item text-capitalize" >
-							  {{item?.value ? item?.value : '--'}}
-							</li>
-						 </ul>
-					</div>
-				</div>
-			</div>
 			<div *ngIf="isOtherDesired">
 				<div class="row info-box"  >
 					<div class="col-lg-5 caption">
@@ -695,7 +653,7 @@
 			</div>
 		</div>
 		<div class="accordion" *ngIf="nice">
-			<div class="pj-title "  >
+			<div class="pj-titler m-b-1"  >
 				<h6 class="mb-0" type="button">
 					{{"postJob.niceToHave" | translate }}
 				 </h6>
@@ -748,7 +706,7 @@
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
-						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 50px;">
+						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 55px;">
 							<ng-container *ngIf="jobInfo?.hands_on_experience?.length; else elseHandsTemplate">
 							  <ng-container *ngFor="let item of jobInfo?.hands_on_experience; let i = index" >
 								<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2"   tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -1004,27 +962,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="accordion" *ngIf="jobInfo?.extra_criteria">
-				<!-- <div class="pj-title " >
-					<h6 class="mb-0" type="button">
-						{{"postJob.extraCriteria" | translate}}
-					 </h6>
-				</div> -->
-				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria; let i=index" >
-					<div class="col-lg-5 caption" *ngIf="CheckExtraId(item?.title,'2')">
-						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize">{{item?.title ? item?.title : '--'}}</li>
-						</ul>
-					</div>
-					<div class="col-lg-7 info" *ngIf="CheckExtraId(item?.title,'2')">
-						<ul class="list-group">
-							<li class="list-group-item text-capitalize" >
-							  {{item?.value ? item?.value : '--'}}
-							</li>
-						 </ul>
-					</div>
-				</div>
-			</div>
 			<div *ngIf="isOtherNice">
 				<div class="row info-box"  >
 					<div class="col-lg-5 caption">
@@ -1043,7 +980,7 @@
 			</div>
 		</div>
 		<div class="accordion"  *ngIf="optional">
-			<div class="pj-title "  >
+			<div class="pj-titler m-b-1"  >
 				<h6 class="mb-0" type="button">
 					{{"dashboard.otherPreferences" | translate }}
 				 </h6>
@@ -1069,7 +1006,7 @@
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
-						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 50px;">
+						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 55px;">
 							<ng-container *ngIf="jobInfo?.hands_on_experience?.length; else elseHandsTemplate">
 							  <ng-container *ngFor="let item of jobInfo?.hands_on_experience; let i = index" >
 								<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2"   tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -1325,27 +1262,6 @@
 					 </ul>
 				</div>
 			</div>
-			<div class="accordion" *ngIf="jobInfo?.extra_criteria">
-				<!-- <div class="pj-title " >
-					<h6 class="mb-0" type="button">
-						{{"postJob.extraCriteria" | translate}}
-					 </h6>
-				</div> -->
-				<div class="row info-box" *ngFor="let item of jobInfo?.extra_criteria; let i=index" >
-					<div class="col-lg-5 caption" *ngIf="CheckExtraId(item?.title,'')">
-						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize">{{item?.title ? item?.title : '--'}}</li>
-						</ul>
-					</div>
-					<div class="col-lg-7 info" *ngIf="CheckExtraId(item?.title,'')">
-						<ul class="list-group">
-							<li class="list-group-item text-capitalize" >
-							  {{item?.value ? item?.value : '--'}}
-							</li>
-						 </ul>
-					</div>
-				</div>
-			</div>
 			<div *ngIf="isOtherOptional">
 				<div class="row info-box"  >
 					<div class="col-lg-5 caption">
@@ -1365,7 +1281,7 @@
 		</div>
 		
 		<div class="accordion" *ngIf="IsShown && !isHideData">
-			<div class="pj-title " >
+			<div class="pj-titler m-b-1" >
 				<h6 class="mb-0" type="button">
 					{{"postJob.perksBenfits" | translate}}
 				 </h6>

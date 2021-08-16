@@ -481,6 +481,15 @@ export class MatchingJobComponent implements OnInit {
 		if(!this.utilsHelperService.isEmptyObj(item)) {
 			this.currentJobDetails = item;
 		}
+		this.isOpenedResumeSelectModal = false;
+		this.onEvent.emit(true);
+		this.onGetPostedJob();
+	}
+	
+	onToggleResumeSelectModals = (status, item?) => {
+		if(!this.utilsHelperService.isEmptyObj(item)) {
+			this.currentJobDetails = item;
+		}
 		this.isOpenedResumeSelectModal = status;
 		this.onEvent.emit(true);
 		this.onGetPostedJob();

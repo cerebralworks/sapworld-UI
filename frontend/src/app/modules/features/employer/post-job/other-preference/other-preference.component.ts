@@ -118,35 +118,15 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
-			/* if(this.childForm && this.getPostedJobsDetails) {
+			 if(this.childForm && this.getPostedJobsDetails) {
 				if (this.getPostedJobsDetails.certification != null) {
-					this.certification = this.getPostedJobsDetails.certification;
+					this.certification = this.childForm.value.otherPref.certification;
 				}
-				if (this.getPostedJobsDetails.extra_criteria != null) {
-					for(let i=0;i<=this.t.value.length;i++){
-						this.t.removeAt(0);
-						i=0;
-					}
-					if(this.getPostedJobsDetails.extra_criteria.length==0){
-						this.t.push(this.formBuilder.group({
-							title: [null],
-							value: [null]
-						}));
-					}else{
-					this.getPostedJobsDetails.extra_criteria.map((value, index) => {
-						this.t.push(this.formBuilder.group({
-							title: [null],
-							value: [null]
-						}));
-					});
-					}
+			 }else{
+				 if (this.childForm.value.otherPref.certification != null) {
+					this.certification = this.childForm.value.otherPref.certification;
 				}
-				this.childForm.patchValue({
-					otherPref : {
-						...this.getPostedJobsDetails
-					}
-				});
-			} */
+			 }
 		});
 	}
 
@@ -166,15 +146,13 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 				title: [null],
 				value: [null]
 			})]),
-			others: new FormArray([this.formBuilder.group({
-				id: [null],
-				title: [null],
-				value: [null]
-			})]),
+			others: new FormArray([]),
 			temp_extra_criteria: new FormArray([])
 		}));
 		if(!this.route.snapshot.queryParamMap.get('id')){
-			this.resetForm();
+			if(this.childForm.value.otherPref.others.length == 0){
+				this.resetForm();				
+			}
 		}
 		
 	}
