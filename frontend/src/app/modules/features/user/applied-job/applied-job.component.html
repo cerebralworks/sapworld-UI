@@ -36,21 +36,21 @@
 									<td>
 										{{item?.created_at ? (item?.created_at | date: "MMM dd, y") : '-'}}
 									</td>
-									<td *ngIf="item?.short_listed == true && item?.status == 2 ">
+									<td *ngIf="item?.short_listed == true && item?.status == 2  && item?.job_posting?.status != 98 && item?.job_posting?.status != 0">
 										<a class="text-success text-capitalize" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
 											{{itemReturn(item?.status,item?.application_status)}}
 											<i class="fas fa-caret-down"></i>
 											<span class="badges" *ngIf="item?.view == false " [id]="j" >1</span>
 										</a>
 									</td>
-									<td *ngIf="item?.short_listed == true && item?.status != 2 && item?.status != 4 && item?.status != 5 && item?.status != 6">
+									<td *ngIf="item?.short_listed == true && item?.status != 2 && item?.status != 4 && item?.status != 5 && item?.status != 6 && item?.job_posting?.status != 98 && item?.job_posting?.status != 0">
 										<a class="text-warning text-capitalize" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
 											{{itemReturn(item?.status,item?.application_status)}}
 											<i class="fas fa-caret-down"></i>
 											<span class="badges" *ngIf="item?.view == false " [id]="j">1</span>
 										</a>
 									</td>
-									<td *ngIf="item?.short_listed == true && (item?.status == 4 || item?.status == 5 || item?.status == 6) ">
+									<td *ngIf="item?.short_listed == true && (item?.status == 4 || item?.status == 5 || item?.status == 6) && item?.job_posting?.status != 98 && item?.job_posting?.status != 0 ">
 										<a class="text-danger text-capitalize" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
 											{{itemReturn(item?.status,item?.application_status)}}
 											<i class="fas fa-caret-down"></i>
@@ -64,11 +64,21 @@
 											<span class="badges" *ngIf="item?.view == false " [id]="j" >1</span>
 										</a>
 									</td>
-									<td *ngIf="(item?.short_listed == null || item?.short_listed == false) && item?.status == 1 ">
+									<td *ngIf="(item?.short_listed == null || item?.short_listed == false) && item?.status == 1 && item?.job_posting?.status != 98 && item?.job_posting?.status != 0">
 										<a class="text-success text-capitalize"  data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
 											Applied 
 											<i class="fas fa-caret-down"></i>
 											<span class="badges" *ngIf="item?.view == false " [id]="j" >1</span>
+										</a>
+									</td>
+									<td *ngIf="item?.job_posting?.status == 0">
+										<a class="text-danger text-capitalize"  data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
+											Closed 
+										</a>
+									</td>
+									<td *ngIf="item?.job_posting?.status == 98">
+										<a class="text-warning text-capitalize"  data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
+											Paused 
 										</a>
 									</td>
 									<!-- <td class="text-center"><a (click)="deleteJobApplication(item?.id)" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>  -->
@@ -130,6 +140,28 @@
 																</div>
 															</li>
 														</ng-container>
+															<li class="rejected" *ngIf="item?.job_posting?.status == 98" >
+																<div class="date">
+																	<h5 class="">{{items?.job_posting?.updated_at | date: 'longDate' }}</h5>
+																</div>
+																<div class="icon">
+																	<i class="fas fa-user-times"></i>
+																</div>
+																<div class="content">
+																	<h4>JOB PAUSED</h4>
+																</div>
+															</li>
+															<li class="rejected" *ngIf="item?.job_posting?.status == 0" >
+																<div class="date">
+																	<h5 class="">{{items?.job_posting?.updated_at | date: 'longDate' }}</h5>
+																</div>
+																<div class="icon">
+																	<i class="fas fa-user-times"></i>
+																</div>
+																<div class="content">
+																	<h4>JOB CLOSED</h4>
+																</div>
+															</li>
 													</ul>
 												</div>
 											</div>

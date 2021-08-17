@@ -209,6 +209,7 @@ export class MatchingJobComponent implements OnInit {
 		requestParams.limit = this.limit;
 		requestParams.expand = 'company';
 		requestParams.skills_filter = 'false';
+		requestParams.status = '1';
 		requestParams.work_authorization = '';
 		requestParams.visa_sponsered = false;
 		requestParams.user_list = true;	

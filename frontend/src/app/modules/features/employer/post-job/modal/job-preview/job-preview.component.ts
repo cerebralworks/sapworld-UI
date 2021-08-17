@@ -152,7 +152,7 @@ export class JobPreviewComponent implements OnInit {
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].updateValueAndValidity();
 		}
-		if(this.postJobForm?.value?.requirement?.work_authorization==null || this.postJobForm?.value?.requirement?.work_authorization==undefined  || this.postJobForm?.value?.requirement?.work_authorization=='' ){
+		if(this.postJobForm?.value?.requirement?.work_authorization==null || this.postJobForm?.value?.requirement?.work_authorization==undefined  || ( this.postJobForm?.value?.requirement?.work_authorization=='' && this.postJobForm?.value?.requirement?.work_authorization !=0) ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
@@ -168,7 +168,7 @@ export class JobPreviewComponent implements OnInit {
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['employer_role_type'].updateValueAndValidity();
 		}
-		if(!this.postJobForm?.value?.otherPref?.certification || !this.postJobForm?.value?.otherPref?.certification.length ||  this.postJobForm?.value?.otherPref?.certification.length != 0){
+		if(!this.postJobForm?.value?.otherPref?.certification || !this.postJobForm?.value?.otherPref?.certification.length ||  this.postJobForm?.value?.otherPref?.certification.length == 0){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].setValue('');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['certification'].updateValueAndValidity();
@@ -185,6 +185,7 @@ export class JobPreviewComponent implements OnInit {
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['skills'].updateValueAndValidity();
 		}
 	}
+	
 	
 	/**
 	**	To triggers when changes ocures in the popup view

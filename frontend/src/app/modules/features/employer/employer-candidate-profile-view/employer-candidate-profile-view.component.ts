@@ -127,6 +127,8 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'applicants'}});
 		}else if(sessionStorage.getItem('view-user-path')=='savedprofile'){
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'savedProfile'}});
+		}else if(sessionStorage.getItem('view-user-path')=='shortlisted'){
+			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
 		}else{
 			this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
 		}
