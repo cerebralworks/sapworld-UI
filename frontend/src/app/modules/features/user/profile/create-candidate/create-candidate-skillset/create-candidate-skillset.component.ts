@@ -236,21 +236,28 @@ export class CreateCandidateSkillsetComponent implements OnInit {
             });
 			
           }
+		 
 		  if (this.savedUserDetails.hands_on_experience != null) {
 			for(let i=0;i<this.savedUserDetails.hands_on_experience.length;i++){
 				this.savedUserDetails.hands_on_experience[i]['skill_id']=parseInt(this.savedUserDetails.hands_on_experience[i]['skill_id']);
-				var temp_id = this.savedUserDetails['hands_on_experience'][i]["skill_id"]
-				this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != temp_id })
+				var temp_id:any = this.savedUserDetails['hands_on_experience'][i]["skill_id"]
+				
+				
 			}
 		  } 
           this.savedUserDetails.skills = this.utilsHelperService.differenceByPropValArray(this.savedUserDetails.skills, this.savedUserDetails.hands_on_experience, 'skill_id')
 
         }
 		if (this.savedUserDetails.skills != null) {
+			 var temp_ids:any = this.savedUserDetails.hands_on_experience;
 			for(let i=0;i<this.savedUserDetails.skills.length;i++){
 				this.savedUserDetails.skills[i]=parseInt(this.savedUserDetails.skills[i]);
-				var temp_id =this.savedUserDetails.skills[i];
-				this.skillItems = this.skillItems.filter(function(a,b){ return a.id != temp_id })
+				var temp_id:any = parseInt(this.savedUserDetails.skills[i]);
+				var checkData = temp_ids.filter(function(a,b){ return parseInt(a.skill_id)== temp_id }).length;
+				if(checkData ==0){
+					 this.skillItems = this.skillItems.filter(function(a,b){ return a.id != temp_id })
+				}
+				
 			}
 		  }
         if (this.savedUserDetails.hands_on_experience == null) {
@@ -275,16 +282,20 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		  if (this.childForm.controls.skillSet.value.hands_on_experience != null) {
 			for(let i=0;i<this.childForm.controls.skillSet.value.hands_on_experience.length;i++){
 				this.childForm.controls.skillSet.value.hands_on_experience[i]['skill_id']=parseInt(this.childForm.controls.skillSet.value.hands_on_experience[i]['skill_id']);
-				var temp_id = this.childForm.controls.skillSet.value['hands_on_experience'][i]["skill_id"]
+				var temp_id:any = this.childForm.controls.skillSet.value['hands_on_experience'][i]["skill_id"]
 				this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != temp_id })
 			}
 		  } 
 
 		if (this.childForm.controls.skillSet.value.skills != null) {
+		 var temp_ids:any = this.childForm.controls.skillSet.value['hands_on_experience'];
 			for(let i=0;i<this.childForm.controls.skillSet.value.skills.length;i++){
 				this.childForm.controls.skillSet.value.skills[i]=parseInt(this.savedUserDetails.skills[i]);
-				var temp_id =this.childForm.controls.skillSet.value.skills[i];
-				this.skillItems = this.skillItems.filter(function(a,b){ return a.id != temp_id })
+				var temp_id:any =parseInt(this.childForm.controls.skillSet.value.skills[i]);
+				var checkData = temp_ids.filter(function(a,b){ return parseInt(a.skill_id)== temp_id }).length;
+				if(checkData ==0){
+					this.skillItems = this.skillItems.filter(function(a,b){ return a.id != temp_id })
+				}
 			}
 		  }
 		if (this.childForm.controls.skillSet.value.programming_skills != null) {

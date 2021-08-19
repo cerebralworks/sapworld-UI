@@ -38,12 +38,12 @@
                     </h5>
                   </div>
                   <div class="col-lg-5 ">
-                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)" class="btn btn-outline-warning btn-sm mr-1" [routerLink]="['/employer/post-job']" [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;" title="Edit"><i class="fas fa-pencil-alt"></i> {{"dashboard.edit" | translate}}</a>
+                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobsDetails?.status != 0 " class="btn btn-outline-warning btn-sm mr-1" [routerLink]="['/employer/post-job']" [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;" title="Edit"><i class="fas fa-pencil-alt"></i> {{"dashboard.edit" | translate}}</a>
                     <a class="btn btn-outline-blue btn-sm mr-1" href="javascript:;" (click)="onToggleJDModal(true)"><i class="fas fa-file-alt"></i> {{"dashboard.description" | translate}}</a>
-                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1)" class="btn btn-outline-green btn-sm" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches', id: postedJobsDetails?.id}" href="javascript:;" title="Matches"><i class="fas fa-tasks"></i> {{"dashboard.matches" | translate}}</a>
+                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobsDetails?.status != 0" class="btn btn-outline-green btn-sm" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches', id: postedJobsDetails?.id}" href="javascript:;" title="Matches"><i class="fas fa-tasks"></i> {{"dashboard.matches" | translate}}</a>
                   </div>
                 </div>
-				<div class="row">
+				<div class="row mt-2">
                 <div class="media col-lg-7">
                   <div class="media-body">
                     <h6>{{postedJobsDetails?.company?.company ? postedJobsDetails?.company?.company : ''}}</h6>
@@ -98,7 +98,7 @@
 				</div>	
 			</div>
 		</div>
-        <div class="title" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobs?.length && postedJobs?.length !=1 && !postedJobs?.includes(postedJobsDetails?.id)">
+        <div class="title mt-4" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobs?.length && postedJobs?.length !=1 && !postedJobs?.includes(postedJobsDetails?.id)">
           <h2>
             Other Post
             <!-- {{"dashboard.yourPostJobs" | translate }} -->

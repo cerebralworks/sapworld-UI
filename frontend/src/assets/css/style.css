@@ -13,11 +13,14 @@
 body {
     padding: 0;
     margin: 0;
-   /*  font-family: 'Nunito', sans-serif !important; */ 
-   font-family: sans-serif,'Nunito' !important;
+     font-family: 'Nunito', sans-serif !important; 
+  /*  font-family: sans-serif,'Nunito' !important; */
     font-size: 13px;
 	color: #000000;
     letter-spacing: 0.25px;
+}
+.m-b-1{
+	 margin-bottom: 1rem !important;
 }
 h1,h2,h3,h4,h5,h6 {
   color: #000000;
@@ -2347,7 +2350,7 @@ a:hover {
   background: url(../images/loading.gif)no-repeat center top;
 }
 .pj-title {
-    padding: 10px 0;
+    padding: 5px 0;
     border-bottom: 1px solid #ffc0d8;
 }
 .pj-title h6{

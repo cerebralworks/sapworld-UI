@@ -12,6 +12,12 @@
 							<div  *ngIf="postedJobMeta?.visa !=0" class="alert alert-find alert-dismissible " role="alert">
 								<a style="text-transform: capitalize;" (click)="ValidateByVisa($event)" > Visa Sponsored ({{postedJobMeta?.visa}})</a>
 							</div>
+							<!-- <div  *ngIf="checkStatus(0)" class="alert alert-find alert-dismissible " role="alert">
+								<a style="text-transform: capitalize;" (click)="statusChange('0',$event)" > Closed Jobs ({{checkStatusCount(0)}})</a>
+							</div> -->
+							<div  *ngIf="checkStatus(98)" class="alert alert-find alert-dismissible " role="alert">
+								<a style="text-transform: capitalize;" (click)="statusChange('98',$event)" > Paused Jobs ({{checkStatusCount(98)}})</a>
+							</div>
 						</div>
 					</div> 
 				</div>
@@ -26,8 +32,8 @@
 												<h5 class="text-capitalize">{{item?.title}}</h5>
 											</a>
 										</div>
-										<div class="float-right">
-											<button [ngClass]="{'applied-btn-green': (item?.is_job_applied ), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied " type="button" class="btn btn-sm" (click)="onToggleResumeSelectModal(true, item)"> <i class="fas fa-check"></i>
+										<div class="float-right" *ngIf="item?.status == 1 || item?.is_job_applied ">
+											<button [ngClass]="{'applied-btn-green': (item?.is_job_applied ), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied " type="button" class="btn btn-sm" (click)="onToggleResumeSelectModals(true, item)"> <i class="fas fa-check"></i>
 												{{(item?.is_job_applied ) ? 'Applied' : 'Apply Now'}}
 											</button>
 										</div>

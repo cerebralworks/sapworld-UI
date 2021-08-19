@@ -75,6 +75,8 @@ margin-top:38px;
 .padd-10{
 	padding: 10px 0px;
 }.padd-5{
+	padding: 10px 0px;
+}.padd-55{
 	padding: 5px 0px;
 }
 .pj-title h6{	
@@ -93,4 +95,10 @@ margin-top:38px;
 }
 p{
 	margin-bottom:0px !important;
+}
+.mt-3-3{
+	    margin-top: 1.2rem!important;
+}
+.mt-3-8{
+	    margin-top: 1.2rem!important;
 }

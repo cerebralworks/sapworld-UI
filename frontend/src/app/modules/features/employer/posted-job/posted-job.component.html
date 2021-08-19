@@ -5,7 +5,7 @@
         <button type="button" [ngClass]="{'active': isStatusValue == 1}" class="btn btn-sm btn-outline-success px-3 mr-1" (click)="onGetChangedStatus(1)">
           {{"dashboard.active" | translate}}
         </button>
-        <button type="button" class="btn btn-sm btn-outline-warning px-3 mr-1">
+        <button type="button" [ngClass]="{'warning': isStatusValue == 98}"  class="btn btn-sm btn-outline-warning px-3 mr-1" (click)="onGetChangedStatus(98)">
           {{"dashboard.paused" | translate}}
         </button>
         <button type="button" [ngClass]="{'closed': isStatusValue == 0}" class="btn btn-sm btn-outline-danger px-3" (click)="onGetChangedStatus(0)">
@@ -47,22 +47,34 @@
                 </td>
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
                 <td class="text-center">
-                  <a  [routerLink]="['/employer/dashboard']"
-                  [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a></td>
-                <td class="text-center"><a  [routerLink]="['/employer/dashboard']"
-                  [queryParams]="{activeTab: 'applicants', id: item?.id}" > {{ CheckAppliedCount(item?.id)}}</a></td>
+                  <a  [routerLink]="['/employer/dashboard']" *ngIf="item.status != 0 ||  CheckMatchesCount(item?.id) !=0 "
+                  [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
+				   <a   *ngIf="item.status == 0 "
+                   href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
+				  </td>
+                <td class="text-center">
+				<a  [routerLink]="['/employer/dashboard']"
+                  [queryParams]="{activeTab: 'applicants', id: item?.id}" *ngIf="CheckMatchesCount(item?.id) !=0 " > {{ CheckAppliedCount(item?.id)}}</a>
+				  <a  *ngIf="CheckMatchesCount(item?.id) ==0 " > {{ CheckAppliedCount(item?.id)}}</a>
+				  </td>
                 <td class="text-center"><a  [routerLink]="['/employer/dashboard']"
                   [queryParams]="{activeTab: 'shortlisted', id: item?.id}" > {{CheckShortlistedCount(item?.id)}}</a></td>
-                <td class="text-center">
+                <td class="text-center" *ngIf="item.status != 0">
                 <select (change)="onSelectStatus($event?.target?.value, item)" class="form-control form-control-td">
                   <option disabled [selected]="true">Select</option>
                   <option [value]="1" [selected]="item.status == 1">Active</option>
-                  <option [selected]="item.status == 2">Pause</option>
+                  <option [value]="98"  [selected]="item.status == 98">Pause</option>
                   <option [value]="0" [selected]="item.status == 0">Closed</option>
                 </select>
                 </td>
+				<td class="text-center" *ngIf="item.status == 0">
+				<select class="form-control form-control-td">
+                  <option [value]="0" disabled [selected]="item.status == 0">Closed</option>
+                </select>
+                </td>
                 <td class="text-center">
-                <a href="javascript:;"  [routerLink]="['/employer/post-job']" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+                <!-- <a href="javascript:;" disabled style="cursor: no-drop;" *ngIf="item.status == 0 "  class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a> -->
+                <a href="javascript:;"  *ngIf="item.status != 0 "[routerLink]="['/employer/post-job']" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
                 <a href="javascript:;" (click)="onDeleteJobConfirm(item, i)" class="text-danger"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
                 </td>
               </tr>
@@ -116,7 +128,7 @@
     </div>
     <div class="modal-footer full-width">
       <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onStatusModelClose()">Cancel</button>
-      <button type="button" [disabled]="!statusGlossary" class="btn btn-primary" data-dismiss="modal" (click)="onStatusModelSubmit()">Delete</button>
+      <button type="button" [disabled]="!statusGlossary" class="btn btn-primary" data-dismiss="modal" (click)="onStatusModelSubmit()">Submit</button>
     </div>
   </div>
 </ng-template>

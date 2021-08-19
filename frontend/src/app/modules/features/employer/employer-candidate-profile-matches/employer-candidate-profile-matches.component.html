@@ -148,9 +148,9 @@
 												</div>
 											</div>
 											<div class="matchs-info" >
-												<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
-												<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-												<button (click)="onShowMore($event)" id="moreBtnVal"  class="moreBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+												<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+												<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
+												<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''"  class="moreBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
 												<!-- <button (click)="onReset()" class="btn btn-sm btn-light ml-1" style="margin-top: -12px;">
 												<i class="fas fa-sync"></i>
 												</button> -->
@@ -207,7 +207,7 @@
 										[moreElement]="moreElement" [matchingUsers]="matchingUsers" [matchingUsersNew]="matchingUsersNew">
 										</app-shared-user-profile-matches>
 										<div class="col-lg-12 info" style="text-align:end;">
-											<button *ngIf="!matchingUsers?.application" (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
+											<button *ngIf="!matchingUsers?.application && postedJobsDetails?.status == 1 " (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
 												class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
 										</div>
 									</div>
@@ -265,7 +265,7 @@
 										[moreElement]="moreElement" [matchingUsers]="matchingUsersNew" [matchingUsersNew]="matchingUsersNew">
 										</app-shared-user-profile-matches>
 										<div class="col-lg-12 info" style="text-align:end;">
-											<button  [disabled]="matchingUsersNew?.application" (click)="onToggleSendMail(true, matchingUsersNew?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
+											<button  [disabled]="matchingUsersNew?.application && postedJobsDetails?.status == 1 " (click)="onToggleSendMail(true, matchingUsersNew?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
 												class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
 										</div>
 									</div>

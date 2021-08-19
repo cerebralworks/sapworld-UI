@@ -3,10 +3,12 @@
     <div class="row mb-5">
       <div class="col-lg-12">
         <div class="matching-post">
-          <div *ngFor="let item of postedJobs; let i = index" class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}" [checked]="(selectedJob?.id == item?.id)">
+              <ng-container  *ngFor="let item of postedJobs; let i = index" >
+          <div   *ngIf="checkDataCount(item?.id) != 0 && checkDataCount(item?.id) != '0'"   class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
+            <input  (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}" [checked]="(selectedJob?.id == item?.id)">
             <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}}  ({{ checkDataCount(item?.id)}}) <!--  {{ selectedJob?.id == item?.id ? (shortListedMeta?.total ?  '(' + shortListedMeta?.total + ')' :  '(' +0+ ')') : ''}}  --></label>
           </div>
+			</ng-container>
         </div>
       </div>
     </div>
@@ -31,7 +33,7 @@
               <ng-container *ngIf="shortListedJobs?.length; else elseTemplate">
                 <tr *ngFor="let item of shortListedJobs">
                   <td>
-                    <a class="text-capitalize"  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.user?.id, jobId: item?.job_posting?.id}"  href="javascript:;">
+                    <a class="text-capitalize"  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.user?.id, jobId: item?.job_posting?.id, path: 'shortlisted'}"  href="javascript:;">
                       {{item?.user?.first_name + ' ' + item?.user?.last_name}}
                     </a>
                     </td>
@@ -52,14 +54,17 @@
 				  </td>
 				  <td class="text-center">
 				  <h6 class="text-warning" *ngIf="item?.status == 6"> Not Available</h6>
-				  <h6 class="text-warning" *ngIf="item?.success == 2">Hired </h6>
+				  <h6 class="text-success" *ngIf="item?.status == 2">Hired </h6>
 				  <h6 class="text-danger" *ngIf="item?.status == 4"> Rejected</h6>
-					<select *ngIf="item?.status !=6 && item?.status !=2 && item?.status !=4  " class="form-control form-control-td"  (change)="onChangeStatus(item, $event?.target?.value)">
-					  <option [value]="1" [selected]="item?.status == 1">Choose</option>
-					  <option [value]="3" [selected]="item?.status == 3">Interview scheduled</option>
+				  <h6 class="text-danger" *ngIf="item?.job_posting?.status == 0 && item?.status !=6 && item?.status !=2 && item?.status !=4  " > Closed JOB </h6>
+					<select *ngIf="item?.job_posting?.status != 0 && item?.status !=6 && item?.status !=2 && item?.status !=4  " class="form-control form-control-td"  (change)="onChangeStatus(item, $event?.target?.value)">
+					  <option [value]="1" [selected]="item?.status == 1" *ngIf="item?.status <= 1 ">Choose</option>
+					  <option [value]="3" [selected]="item?.status == 3"  *ngIf="item?.status <= 3 " >Interview scheduled</option>
 					  <ng-container *ngIf="item?.job_posting?.screening_process?.length;">
-						<option *ngFor="let option of item?.job_posting?.screening_process; index as i"
-							[value]="i+7" [selected]="item?.status == i+7"> {{ option.title }}</option>
+					  <ng-container  *ngFor="let option of item?.job_posting?.screening_process; index as i">
+						<option *ngIf="item?.status <= i+7 "
+							[value]="i+7" [selected]="item?.status == i+7"> <span >{{ option.title }} </span></option>
+					  </ng-container>
 					  </ng-container>
 					  <option [value]="5" [selected]="item?.status == 5">On Hold</option>
 					  <option [value]="6" [selected]="item?.status == 6">Not Available</option>

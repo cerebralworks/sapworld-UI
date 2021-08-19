@@ -310,7 +310,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	onGetPostedJob(companyId) {
 		let requestParams: any = {};
 		requestParams.page = 1;
-		requestParams.status = 1;
+		//requestParams.status = 1;
 		requestParams.limit = 1000;
 		requestParams.expand = 'company';
 		requestParams.company = companyId;

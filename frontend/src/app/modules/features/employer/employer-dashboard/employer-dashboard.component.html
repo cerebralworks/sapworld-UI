@@ -3,7 +3,11 @@
 		<div class="row">
 			<div class="col-lg-5">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
+					<li *ngIf="currentTabInfo.tabNumber == 1" class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
+					<li *ngIf="currentTabInfo.tabNumber == 2" class="breadcrumb-item active" aria-current="page">Matching Candidates</li>
+					<li *ngIf="currentTabInfo.tabNumber == 3" class="breadcrumb-item active" aria-current="page">Applicants</li>
+					<li *ngIf="currentTabInfo.tabNumber == 4" class="breadcrumb-item active" aria-current="page">Shortlisted</li>
+					<li *ngIf="currentTabInfo.tabNumber == 5" class="breadcrumb-item active" aria-current="page">Saved Profile</li>
 				</ol>
 			</div>
 			<div class="col-lg-7 clearfix d-none">

@@ -239,8 +239,8 @@ export class PostJobLayoutComponent implements OnInit {
 				exp_type: ['years', [Validators.required]]
 			})]),
 			skills: new FormControl(null),
-			programming_skills: new FormControl(null),
-			optinal_skills: new FormControl(null),
+			programming_skills: new FormControl(null, Validators.required),
+			optinal_skills: new FormControl(null, Validators.required),
 			work_authorization: new FormControl(null),
 			visa_sponsorship: new FormControl(false, Validators.required),
 			need_reference: new FormControl(false, Validators.required),
@@ -305,16 +305,47 @@ export class PostJobLayoutComponent implements OnInit {
 				this.postJobForm.controls.otherPref['controls']['others'].removeAt(0);
 				i=0;
 			}
-			
+			this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [1],
+					title: ['Should have done client facing role'],
+					value: [null]
+				}));
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [2],
+					title: ['Should have experience in training'],
+					value: [null]
+				}));
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [3],
+					title: ['Should have experience in design, build & configure applications'],
+					value: [null]
+				}));
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [4],
+					title: ['Should have experience in data intergation'],
+					value: [null]
+				}));
+			  this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+					id: [5],
+					title: ['Should have experience in data migration'],
+					value: [null]
+				}));
+				
 			this.postedJobsDetails.others.map((value, index) => {
-				var id = value['id'];
+				var id = parseInt(value['id']);
 				var title = value['title'];
 				var values = value['value'];
-				this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
-					id: [id],
-					title: [title],
-					value: [values]
-				}));
+				if(id>5){
+					this.postJobForm.controls.otherPref['controls']['others'].push(this.formBuilder.group({
+						id: [id],
+						title: [title],
+						value: [values]
+					}));
+				}else{
+					id = id-1;
+					this.postJobForm.controls.otherPref['controls']['others']['controls'][id]["controls"]['value'].setValue(values);
+					this.postJobForm.controls.otherPref['controls']['others']['controls'][id]["controls"]['value'].updateValueAndValidity();
+				}
 			});
 		}
 		  if (this.postedJobsDetails.extra_criteria != null) {

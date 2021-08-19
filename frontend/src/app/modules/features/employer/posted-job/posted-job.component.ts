@@ -124,12 +124,20 @@ export class PostedJobComponent implements OnInit {
 		if (value && !this.utilsHelperService.isEmptyObj(job)) {
 			this.currentValueOfStatus = value;
 			this.currentValueOfJob = job;
-			this.mbRef = this.modelService.open(this.deleteModal, {
+			if(value==0){
+				this.statusGlossary = "closed";	
+			}if(value==1){
+				this.statusGlossary = "active";	
+			}else{
+				this.statusGlossary = "paused";				
+			}			
+			this.onChangeStatus();
+			/* this.mbRef = this.modelService.open(this.deleteModal, {
 				windowClass: 'modal-holder',
 				centered: true,
 				backdrop: 'static',
 				keyboard: false
-			});
+			}); */
 		}
 	}
 	
@@ -144,7 +152,12 @@ export class PostedJobComponent implements OnInit {
 		requestParams.status_glossary = this.statusGlossary;
 		this.employerService.changeJobStatus(requestParams).subscribe(
 			response => {
-				this.onStatusModelClose();
+				//this.onStatusModelClose();
+				this.onGetPostedJob(this.currentEmployerDetails.id);
+				this.onGetPostedJobCount(this.currentEmployerDetails.id);
+				this.onGetAppliedJobCount(this.currentEmployerDetails.id);
+				this.onGetShortListJobCount(this.currentEmployerDetails.id);
+				this.getDataCount = true;
 			}, error => {
 			}
 		)
@@ -179,6 +192,8 @@ export class PostedJobComponent implements OnInit {
 		}else {
 			this.isStatusValue = null;
 		}
+		this.page = 1;
+		this.limit = 10;
 		this.onGetPostedJob(this.currentEmployerDetails.id, this.isStatusValue);
 	}
 	

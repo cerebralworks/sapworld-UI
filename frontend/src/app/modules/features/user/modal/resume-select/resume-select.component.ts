@@ -82,10 +82,8 @@ export class ResumeSelectComponent implements OnInit {
 				if(tempFilterdata.length==1){
 					if(tempFilterdata[0]['nicename'].toLocaleLowerCase() == this.currentJobDetails['country'].toLocaleLowerCase()){
 						 this.isShowValidShow = true
-					}else if(this.userInfo['country'].toLocaleLowerCase() == this.currentJobDetails['country'].toLocaleLowerCase()){
-						 if(this.userInfo['visa_type'] !=null && this.userInfo['visa_type']['length']&& this.userInfo['visa_type']['length']!=0){
+					}else if(this.userInfo['visa_type'] !=null && this.userInfo['visa_type']['length']&& this.userInfo['visa_type']['length']!=0){
 							this.isShowValidShow = true;
-						 }
 					}else if (this.currentJobDetails['visa_sponsorship'] == true){
 						this.isShowValidShow = true;
 					}

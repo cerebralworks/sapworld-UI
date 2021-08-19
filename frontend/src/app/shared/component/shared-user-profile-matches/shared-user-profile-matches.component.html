@@ -1,12 +1,12 @@
 <div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;">
-	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
-	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-	<button (click)="onShowMore($event)" id="moreBtnVal"  class="moreBtn  btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+	<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+	<button (click)="onShowMissing($event)" id="missBtnVal" [ngClass]="missingElement ? 'btn-fltr-active' : ''"   class="missBtn  btn-sm btn btn-fltr btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
+	<button (click)="onShowMore($event)" id="moreBtnVal" [ngClass]="moreElement ? 'btn-fltr-active' : ''"   class="moreBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
 	<!-- <button (click)="onReset()" class="btn btn-sm btn-light ml-1">
 	<i class="fas fa-sync"></i>
 	</button> -->
 </div>
-<div class="col-lg-12 info mt-3" [ngClass]="(isMultipleMatches === true)?'col-lg-6':'col-lg-12'">
+<div class="col-lg-12 info" [ngClass]="(isMultipleMatches === true)?'col-lg-6 mt-3-8':'col-lg-12 mt-3-3'">
 	<div class="score"  style="margin-top:25px;"[ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
 		{{"dashboard.score" | translate}}
 		<span>
@@ -14,9 +14,9 @@
 		</span>
 	</div>
 	<div class="row  info-box">
-		<div class="col-lg-12">
-			<div class="accordion mt-5 ">
-				<div style="margin-top:-5px;" *ngIf="postedJobsDetails?.match_select?.experience=='0'">
+		<div class="col-lg-12" [ngClass]="(isMultipleMatches === true)?'padd-55':''">
+			<div class="accordion mt-5 " >
+				<div *ngIf="postedJobsDetails?.match_select?.experience=='0'">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span class="matchTxt">
@@ -462,7 +462,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
+				<!-- <div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
 					<div *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index" >
 						<div   *ngIf="CheckExtraId(item?.title,'0')">
 							<ul class="list-group">
@@ -475,7 +475,7 @@
 							 </ul>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div *ngIf="isOtherRequired && !applicationShow">
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
@@ -500,7 +500,7 @@
 				</div>
 			</div>
 			<div class="accordion mt-3 " *ngIf="desired">
-			<div class="pj-titles"  [ngClass]="(isMultipleMatches === true)?'padd-10':'padd-5'" ><h6 type="button" class="mb-0"></h6></div>
+			<div class="pj-titless m-b-1"  [ngClass]="(isMultipleMatches === true)?'padd-5':'padd-10'" ><h6 type="button" class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='1'">
 					<ul class="list-group">
 						<li class="list-group-item">
@@ -947,7 +947,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
+				<!-- <div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
 					<div *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index" >
 						<div   *ngIf="CheckExtraId(item?.title,'1')">
 							<ul class="list-group">
@@ -960,7 +960,7 @@
 							 </ul>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div *ngIf="isOtherDesired && !applicationShow">
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
@@ -984,7 +984,7 @@
 					</div>
 				</div>
 			</div><div class="accordion mt-0 " *ngIf="nice">
-				<div class="pj-titles"  style="padding: 10px 0px;"><h6 type="button" class="mb-0"></h6></div>
+				<div class="pj-titles m-b-1"  style="padding: 10px 0px;"><h6 type="button" class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='2'">
 					<ul class="list-group">
 						<li class="list-group-item">
@@ -1431,7 +1431,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
+				<!-- <div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
 					<div *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index" >
 						<div   *ngIf="CheckExtraId(item?.title,'2')">
 							<ul class="list-group">
@@ -1444,7 +1444,7 @@
 							 </ul>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div *ngIf="isOtherNice && !applicationShow">
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
@@ -1469,7 +1469,7 @@
 				</div>
 			</div>
 			<div class="accordion mt-2" *ngIf="optional">
-				<div class="pj-titles"  style="padding: 5px 0px;" ><h6 type="button" class="mb-0"></h6></div>
+				<div class="pj-titles m-b-1"  style="padding: 10px 0px;" ><h6 type="button" class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience==''">
 					<ul class="list-group">
 						<li class="list-group-item">
@@ -1916,7 +1916,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
+				<!-- <div class="accordion" *ngIf="postedJobsDetails?.extra_criteria">
 					<div *ngFor="let item of postedJobsDetails?.extra_criteria; let i=index" >
 						<div   *ngIf="CheckExtraId(item?.title,'')">
 							<ul class="list-group">
@@ -1929,7 +1929,7 @@
 							 </ul>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div *ngIf="isOtherOptional && !applicationShow">
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >

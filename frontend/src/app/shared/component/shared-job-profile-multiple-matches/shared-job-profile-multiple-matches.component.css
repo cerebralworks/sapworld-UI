@@ -80,9 +80,19 @@
 .pj-titles  h6{
 	display: -webkit-inline-box !important;
 }
-.matchs-info {
+.matchs-infos {
     margin-top: 0px !important;
+	position: absolute;
+    right: 25px;
+    vertical-align: middle;
+    font-size: 12px;
 }
 p{
 	margin-bottom:0px !important;
+}
+.mt-27{
+	margin-top:1.5rem !important;
+}
+.mt-32{
+	margin-top:1.8rem !important;
 }
