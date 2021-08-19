@@ -431,6 +431,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 				this.onGetUserScoringById(true);
 			}
 		}
+		
 	}
 	
 	/**
@@ -597,21 +598,14 @@ export class CandidateJobMatchesComponent implements OnInit {
 
 	onShowMatches = (event) => {
 		var temp = event.target.className.split(' ');
-		if(temp[temp.length-1]=='btn-fltr-active'){
-		    event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light';
+		if(this.matchedElement == true){
 			this.matchedElement = false;
 		}else{
-			event.target.className = 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 			this.matchedElement = true;
-		}
-		if(event.target.childNodes['0']){
-			event.target.childNodes['0'].className='';
 		}
 		if(this.missingElement == false && this.matchedElement == false ){
 			this.missingElement = true;
 			this.matchedElement = true;
-			document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-			document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		}
 	}
 
@@ -621,21 +615,14 @@ export class CandidateJobMatchesComponent implements OnInit {
 
 	onShowMissing = (event) => {
 		var temp = event.target.className.split(' ');
-		if(temp[temp.length-1]=='btn-fltr-active'){
-		    event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
+		if(this.missingElement ==true){
 			this.missingElement = false;
 		}else{
-			event.target.className = 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 			this.missingElement = true;
-		}
-		if(event.target.childNodes['0']){
-			event.target.childNodes['0'].className='';
 		}
 		if(this.missingElement == false && this.matchedElement == false ){
 			this.missingElement = true;
 			this.matchedElement = true;
-			document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-			document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		}
 	}
 	

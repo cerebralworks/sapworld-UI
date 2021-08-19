@@ -161,7 +161,7 @@ export class MatchingJobComponent implements OnInit {
 				}
 			}
 		);
-		this.onGetPostedJob();
+		this.onGetPostedJob('');
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};    
@@ -203,13 +203,19 @@ export class MatchingJobComponent implements OnInit {
 	**	Assign the values in the Array
 	**/
 	
-	onGetPostedJob() {
+	onGetPostedJob(value:any) {
 		let requestParams: any = {...this.queryParams};
 		requestParams.page = this.page;
 		requestParams.limit = this.limit;
 		requestParams.expand = 'company';
 		requestParams.skills_filter = 'false';
-		requestParams.status = '1';
+		if(value){			
+			requestParams.status = value;
+			requestParams.is_user_get = true;
+		}else{
+			requestParams.status = '1';
+			requestParams.is_user_get = false;
+		}
 		requestParams.work_authorization = '';
 		requestParams.visa_sponsered = false;
 		requestParams.user_list = true;	
@@ -455,7 +461,7 @@ export class MatchingJobComponent implements OnInit {
 				
 					this.Country = this.Country.filter(function(a,b){ return a != value});
 			}
-			this.onGetPostedJob();
+			this.onGetPostedJob('');
 		}
 	}
 	
@@ -471,7 +477,7 @@ export class MatchingJobComponent implements OnInit {
 			event.target.style.color='#000';
 			this.visa = false;
 		}
-		this.onGetPostedJob();
+		this.onGetPostedJob('');
 	}
 	
 	/**
@@ -484,7 +490,7 @@ export class MatchingJobComponent implements OnInit {
 		}
 		this.isOpenedResumeSelectModal = false;
 		this.onEvent.emit(true);
-		this.onGetPostedJob();
+		this.onGetPostedJob('');
 	}
 	
 	onToggleResumeSelectModals = (status, item?) => {
@@ -493,12 +499,12 @@ export class MatchingJobComponent implements OnInit {
 		}
 		this.isOpenedResumeSelectModal = status;
 		this.onEvent.emit(true);
-		this.onGetPostedJob();
+		this.onGetPostedJob('');
 	}
 
 	onLoadMoreJob = () => {
 		this.page = this.page + 1;
-		this.onGetPostedJob();
+		this.onGetPostedJob('');
 	}
 
 	/**
@@ -654,7 +660,7 @@ export class MatchingJobComponent implements OnInit {
 		//this.pageSize = event.pageSize;
 		this.limit = event.pageSize;
 		this.page = event.pageIndex+1;
-		this.onGetPostedJob();
+		this.onGetPostedJob('');
 	}
 	
 	/**
@@ -677,6 +683,42 @@ export class MatchingJobComponent implements OnInit {
 			}
 		}
 		return [];
+	}
+	
+	checkStatus(value){
+		if(this.postedJobMeta['status'] && this.postedJobMeta['status']['length']){
+			value = parseInt(value);
+			var values:any = this.postedJobMeta['status'].filter(function(a,b){ return a.status == value });
+			if(values && values.length !=0){
+				return true;
+			}
+		}
+		return false;
+	}
+	checkStatusCount(value){
+		if(this.postedJobMeta['status'] && this.postedJobMeta['status']['length']){
+			value = parseInt(value);
+			var values:any = this.postedJobMeta['status'].filter(function(a,b){ return a.status == value });
+			if(values && values.length !=0){
+				return values[0]['count'];
+			}
+		}
+		return '0';
+	}
+	
+	statusChange(value,event){
+		if(event.target.style.color!="rgb(255, 41, 114)"){
+			event.target.style.color="rgb(255, 41, 114)";
+			this.page = 1;
+			this.limit = 10;
+			this.onGetPostedJob(value);
+		}else{
+			event.target.style.color='#000';
+			this.page = 1;
+			this.limit = 10;
+			this.onGetPostedJob('');
+		}
+		
 	}
 
 }

@@ -47,10 +47,16 @@
                 </td>
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
                 <td class="text-center">
-                  <a  [routerLink]="['/employer/dashboard']"
-                  [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a></td>
-                <td class="text-center"><a  [routerLink]="['/employer/dashboard']"
-                  [queryParams]="{activeTab: 'applicants', id: item?.id}" > {{ CheckAppliedCount(item?.id)}}</a></td>
+                  <a  [routerLink]="['/employer/dashboard']" *ngIf="item.status != 0 ||  CheckMatchesCount(item?.id) !=0 "
+                  [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
+				   <a   *ngIf="item.status == 0 "
+                   href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
+				  </td>
+                <td class="text-center">
+				<a  [routerLink]="['/employer/dashboard']"
+                  [queryParams]="{activeTab: 'applicants', id: item?.id}" *ngIf="CheckMatchesCount(item?.id) !=0 " > {{ CheckAppliedCount(item?.id)}}</a>
+				  <a  *ngIf="CheckMatchesCount(item?.id) ==0 " > {{ CheckAppliedCount(item?.id)}}</a>
+				  </td>
                 <td class="text-center"><a  [routerLink]="['/employer/dashboard']"
                   [queryParams]="{activeTab: 'shortlisted', id: item?.id}" > {{CheckShortlistedCount(item?.id)}}</a></td>
                 <td class="text-center" *ngIf="item.status != 0">
@@ -67,7 +73,8 @@
                 </select>
                 </td>
                 <td class="text-center">
-                <a href="javascript:;"  [routerLink]="['/employer/post-job']" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+                <!-- <a href="javascript:;" disabled style="cursor: no-drop;" *ngIf="item.status == 0 "  class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a> -->
+                <a href="javascript:;"  *ngIf="item.status != 0 "[routerLink]="['/employer/post-job']" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
                 <a href="javascript:;" (click)="onDeleteJobConfirm(item, i)" class="text-danger"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
                 </td>
               </tr>

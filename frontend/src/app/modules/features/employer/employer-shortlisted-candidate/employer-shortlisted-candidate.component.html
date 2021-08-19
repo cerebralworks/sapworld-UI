@@ -57,8 +57,7 @@
 				  <h6 class="text-success" *ngIf="item?.status == 2">Hired </h6>
 				  <h6 class="text-danger" *ngIf="item?.status == 4"> Rejected</h6>
 				  <h6 class="text-danger" *ngIf="item?.job_posting?.status == 0 && item?.status !=6 && item?.status !=2 && item?.status !=4  " > Closed JOB </h6>
-				  <h6 class="text-warning" *ngIf="item?.job_posting?.status == 98 && item?.status !=6 && item?.status !=2 && item?.status !=4  " > Paused JOB</h6>
-					<select *ngIf="item?.job_posting?.status != 0 && item?.job_posting?.status != 98 && item?.status !=6 && item?.status !=2 && item?.status !=4  " class="form-control form-control-td"  (change)="onChangeStatus(item, $event?.target?.value)">
+					<select *ngIf="item?.job_posting?.status != 0 && item?.status !=6 && item?.status !=2 && item?.status !=4  " class="form-control form-control-td"  (change)="onChangeStatus(item, $event?.target?.value)">
 					  <option [value]="1" [selected]="item?.status == 1" *ngIf="item?.status <= 1 ">Choose</option>
 					  <option [value]="3" [selected]="item?.status == 3"  *ngIf="item?.status <= 3 " >Interview scheduled</option>
 					  <ng-container *ngIf="item?.job_posting?.screening_process?.length;">

@@ -153,7 +153,7 @@ export class PostedJobComponent implements OnInit {
 		this.employerService.changeJobStatus(requestParams).subscribe(
 			response => {
 				//this.onStatusModelClose();
-				//this.onGetPostedJob(this.currentEmployerDetails.id);
+				this.onGetPostedJob(this.currentEmployerDetails.id);
 				this.onGetPostedJobCount(this.currentEmployerDetails.id);
 				this.onGetAppliedJobCount(this.currentEmployerDetails.id);
 				this.onGetShortListJobCount(this.currentEmployerDetails.id);

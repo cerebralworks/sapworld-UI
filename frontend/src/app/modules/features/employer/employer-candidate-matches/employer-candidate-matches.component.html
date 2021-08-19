@@ -197,7 +197,7 @@
                         </a>
                       </span>
                       <span class="ml-1">
-												<a *ngIf="utilsHelperService.isEmptyObj(item?.job_application)" (click)="onToggleSendMail(true, item)" class="btn btn-outline-orange btn-sm" href="javascript:;">
+												<a *ngIf="utilsHelperService.isEmptyObj(item?.job_application) && selectedJob?.status ==1 " (click)="onToggleSendMail(true, item)" class="btn btn-outline-orange btn-sm" href="javascript:;">
 												<i class="fas fa-paper-plane"></i> Send Mail</a>
 											</span>
                     </div>

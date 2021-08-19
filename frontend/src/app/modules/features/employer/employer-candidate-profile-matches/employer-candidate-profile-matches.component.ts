@@ -501,112 +501,50 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 
   onShowMatches = (event) => {
 	  var temp = event.target.className.split(' ');
-	  if(temp[temp.length-1]=='btn-fltr-active'){
-		    document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light';
+	  if(this.matchedElement ==true){
 			this.matchedElement = false;
 	 }else{
-		  document.getElementById('matchBtnVal').className = 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.matchedElement = true;
 	  }
-	   if(event.target.childNodes['0']){
-		event.target.childNodes['0'].className='';
-	  }
 	this.missingElement = false;
-	document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light';
-	
 
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
 		this.moreElement = true;
-		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-	  }
-	  if(document.getElementById('matchBtnVal').childNodes['0']){
-		document.getElementById('matchBtnVal').childNodes['0'].className='';
-	  }
-	  if(document.getElementById('missBtnVal').childNodes['0']){
-		document.getElementById('missBtnVal').childNodes['0'].className='';
-	  }
-	  if(document.getElementById('moreBtnVal').childNodes['0']){
-		document.getElementById('moreBtnVal').childNodes['0'].className='';
-	  }
+	}
+	 
   }
 
   onShowMissing = (event) => {
-	  var temp = event.target.className.split(' ');
-	  	  if(temp[temp.length-1]=='btn-fltr-active'){
-		  event.target.className = 'missBtn btn-sm btn btn-fltr btn-light';
-			this.missingElement = false;
-			document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
+	  if(this.missingElement ==true){
+		this.missingElement = false;
 		this.matchedElement = true;
 		this.moreElement = true;
 	 }else{
-		  event.target.className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.missingElement = true;
-		  document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light ';
-		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light ';
 		this.matchedElement = false;
 		this.moreElement = false;
 	  }
-
-	   if(event.target.childNodes['0']){
-		event.target.childNodes['0'].className='';
-	  }
-
 	  if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
 		this.moreElement = true;
-		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-	  }
-	  if(document.getElementById('matchBtnVal').childNodes['0']){
-		document.getElementById('matchBtnVal').childNodes['0'].className='';
-	  }
-	  if(document.getElementById('missBtnVal').childNodes['0']){
-		document.getElementById('missBtnVal').childNodes['0'].className='';
-	  }
-	  if(document.getElementById('moreBtnVal').childNodes['0']){
-		document.getElementById('moreBtnVal').childNodes['0'].className='';
 	  }
     
   }
 
   onShowMore = (event) => {
-	  var temp = event.target.className.split(' ');
-	  if(temp[temp.length-1]=='btn-fltr-active'){
-		  document.getElementById('moreBtnVal').className = 'moreBtn btn-sm btn btn-fltr btn-light';
+	  if(this.moreElement ==true){
 			this.moreElement = false;
 	 }else{
-		  document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
 		  this.moreElement = true;
 	  }
-	   if(event.target.childNodes['0']){
-		event.target.childNodes['0'].className='';
-	  }
 	this.missingElement = false;
-	document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light';
-	
     if(this.missingElement == false && this.matchedElement == false && this.moreElement == false){
 		this.missingElement = true;
 		this.matchedElement = true;
 		this.moreElement = true;
-		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-	  }
-	  if(document.getElementById('matchBtnVal').childNodes['0']){
-		document.getElementById('matchBtnVal').childNodes['0'].className='';
-	  }
-	  if(document.getElementById('missBtnVal').childNodes['0']){
-		document.getElementById('missBtnVal').childNodes['0'].className='';
-	  }
-	  if(document.getElementById('moreBtnVal').childNodes['0']){
-		document.getElementById('moreBtnVal').childNodes['0'].className='';
 	  }
   }
 
@@ -615,9 +553,6 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
     this.moreElement = true;
     this.matchedElement = true;
     this.missingElement = false;
-		document.getElementById('matchBtnVal').className= 'matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
-		document.getElementById('missBtnVal').className= 'missBtn btn-sm btn btn-fltr btn-light';
-		document.getElementById('moreBtnVal').className= 'moreBtn btn-sm btn btn-fltr btn-light btn-fltr-active';
   }
 
 

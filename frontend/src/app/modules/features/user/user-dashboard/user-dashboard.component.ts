@@ -269,6 +269,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		requestParams.view = 'users';
 		requestParams.company = this.userInfo.id;
 		requestParams.visa_sponsered = false;
+		requestParams.is_user_get = false;
 		requestParams.sort = 'created_at.desc';
 		if( this.userInfo &&  this.userInfo.visa_sponsered){
 			requestParams.visa_sponsered = this.userInfo.visa_sponsered;

@@ -52,9 +52,8 @@
                 <td class="text-capitalize"> {{item?.job_posting?.title ? item?.job_posting?.title : '--'}}</td>
                 <td class="text-center text-capitalize" *ngIf="item.short_listed !=false">
                   <h6 class="text-danger" *ngIf="item?.job_posting?.status == 0 " > Closed JOB </h6>
-				  <h6 class="text-warning" *ngIf="item?.job_posting?.status == 98 " > Paused JOB</h6>
 					
-				  <select *ngIf="item?.job_posting?.status != 98 && item?.job_posting?.status != 0" class="form-control form-control-td" (change)="onShortListUser(item, $event?.target?.value)">
+				  <select *ngIf=" item?.job_posting?.status != 0" class="form-control form-control-td" (change)="onShortListUser(item, $event?.target?.value)">
                     <option [value]="null" [selected]="true" >Select</option>
                     <option [value]="true" [selected]="item?.short_listed == true">Shortlist for Interview</option>
                     <option [value]="false">Not a Fit</option>
