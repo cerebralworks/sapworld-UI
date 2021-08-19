@@ -60,7 +60,7 @@
 														{{matchingJob?.jobs?.company_name }}
 													</h6>
 													<div style="position: initial !important;margin-top:0px !important;"class="matchs-info " [ngClass]="isMultipleMatches ? 'd-none' : ''" >
-														<button (click)="onShowMatches($event)" id="matchBtnVal"  [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light btn-fltr-active"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+														<button (click)="onShowMatches($event)" id="matchBtnVal"  [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 														<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn btn-sm btn btn-fltr btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-2"> Missing </button>
 														<!-- <button (click)="onReset()" class="btn btn-sm btn-light ml-1">
 															<i class="fas fa-sync"></i>

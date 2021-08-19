@@ -318,6 +318,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		this.employerService.getPostedJob(requestParams).subscribe(
 			response => {
 				if(response && response.items && response.items.length > 0) {
+					response.items = response.items.filter(function(a,b){ return a.status !=0 });
 					this.postedJobs = [...response.items];
 					if(this.postedJobs && this.postedJobs.length && this.postedJobs[0]) {
 						if(this.selectedJob && this.selectedJob.id) {

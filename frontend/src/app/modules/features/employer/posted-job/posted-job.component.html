@@ -49,16 +49,18 @@
                 <td class="text-center">
                   <a  [routerLink]="['/employer/dashboard']" *ngIf="item.status != 0 ||  CheckMatchesCount(item?.id) !=0 "
                   [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
-				   <a   *ngIf="item.status == 0 "
+				   <a   *ngIf="item.status == 0 " style="cursor: no-drop;"
                    href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
 				  </td>
                 <td class="text-center">
 				<a  [routerLink]="['/employer/dashboard']"
-                  [queryParams]="{activeTab: 'applicants', id: item?.id}" *ngIf="CheckMatchesCount(item?.id) !=0 " > {{ CheckAppliedCount(item?.id)}}</a>
-				  <a  *ngIf="CheckMatchesCount(item?.id) ==0 " > {{ CheckAppliedCount(item?.id)}}</a>
+                  [queryParams]="{activeTab: 'applicants', id: item?.id}" *ngIf="CheckAppliedCount(item?.id) !=0 " > {{ CheckAppliedCount(item?.id)}}</a>
+				  <a  *ngIf="CheckAppliedCount(item?.id) ==0 " style="cursor: no-drop;" > {{ CheckAppliedCount(item?.id)}}</a>
 				  </td>
-                <td class="text-center"><a  [routerLink]="['/employer/dashboard']"
-                  [queryParams]="{activeTab: 'shortlisted', id: item?.id}" > {{CheckShortlistedCount(item?.id)}}</a></td>
+                <td class="text-center"><a *ngIf="CheckShortlistedCount(item?.id) !=0 " [routerLink]="['/employer/dashboard']"
+                  [queryParams]="{activeTab: 'shortlisted', id: item?.id}" > {{CheckShortlistedCount(item?.id)}}</a>
+				  <a  *ngIf="CheckShortlistedCount(item?.id) ==0 "  style="cursor: no-drop;" > {{CheckShortlistedCount(item?.id)}}</a>
+				  </td>
                 <td class="text-center" *ngIf="item.status != 0">
                 <select (change)="onSelectStatus($event?.target?.value, item)" class="form-control form-control-td">
                   <option disabled [selected]="true">Select</option>
