@@ -27,6 +27,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	selectable = true;
 	removable = true;
 	addOnBlur = true;
+	public sapExpError: boolean = false;
+	public totalExpError: boolean = false;
 	readonly separatorKeysCodes = [ENTER, COMMA] as const;
 	programming_skills = [ ];
 	optinal_skills = [ ];
@@ -168,6 +170,23 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			{  text: 'Masters' },
 			{ text: 'Doctorate' }
 		];
+	}
+	
+	/**
+	**	To detect keyPress event
+	**/
+	
+	keyPress() {
+	if(this.childForm.value.requirement.sap_experience !="" && this.childForm.value.requirement.experience != ""){
+		if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience){
+			this.totalExpError = false;
+			this.sapExpError = false;
+		}else{
+			this.totalExpError = true;
+			this.sapExpError = true;
+		}
+		}
+		
 	}
 
 	/**
