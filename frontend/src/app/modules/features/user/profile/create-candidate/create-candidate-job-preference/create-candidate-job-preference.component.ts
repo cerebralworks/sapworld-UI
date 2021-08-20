@@ -142,8 +142,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						for(let i=0;i<temps.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
 							if(vali.length==1){
-								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
-									tempCoun.push(vali[0]['iso']);
+								if(parseInt(vali[0]['id'])==parseInt("254")){
+									var EUCountry =["AT","LI","BE","LT",
+										"LU","DK","MT","EE","FI","NO","CZ",
+										"FR","PL","DE","PT","GR","SK","HU","NL",
+										"SI","IS","ES","IT","SE","LV","CH","IE"
+										]
+										for(let j=0;j<EUCountry.length;j++){
+											tempCoun.push(EUCountry[j]);
+										}
+								}else{
+									if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+										tempCoun.push(vali[0]['iso']);
+									}
 								}
 								
 							}
@@ -163,8 +174,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						for(let i=0;i<temps1.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps1[i])});
 							if(vali.length==1){
-								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
-									tempCoun.push(vali[0]['iso']);
+								if(parseInt(vali[0]['id'])==parseInt("254")){
+									var EUCountry =["AT","LI","BE","LT",
+										"LU","DK","MT","EE","FI","NO","CZ",
+										"FR","PL","DE","PT","GR","SK","HU","NL",
+										"SI","IS","ES","IT","SE","LV","CH","IE"
+										]
+										for(let j=0;j<EUCountry.length;j++){
+											tempCoun.push(EUCountry[j]);
+										}
+								}else{
+									if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+										tempCoun.push(vali[0]['iso']);
+									}
 								}
 								
 							}
@@ -188,8 +210,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					if(temps){
 						var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps)});
 						if(vali.length==1){
-							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
-								tempCoun.push(vali[0]['iso']);
+							if(parseInt(vali[0]['id'])==parseInt("254")){
+								var EUCountry =["AT","LI","BE","LT",
+									"LU","DK","MT","EE","FI","NO","CZ",
+									"FR","PL","DE","PT","GR","SK","HU","NL",
+									"SI","IS","ES","IT","SE","LV","CH","IE"
+									]
+									for(let j=0;j<EUCountry.length;j++){
+										tempCoun.push(EUCountry[j]);
+									}
+							}else{
+								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+									tempCoun.push(vali[0]['iso']);
+								}
 							}
 								
 						}
@@ -206,8 +239,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					if(temps){
 						var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps)});
 						if(vali.length==1){
-							if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
-								tempCoun.push(vali[0]['iso']);
+							if(parseInt(vali[0]['id'])==parseInt("254")){
+								var EUCountry =["AT","LI","BE","LT",
+									"LU","DK","MT","EE","FI","NO","CZ",
+									"FR","PL","DE","PT","GR","SK","HU","NL",
+									"SI","IS","ES","IT","SE","LV","CH","IE"
+									]
+									for(let j=0;j<EUCountry.length;j++){
+										tempCoun.push(EUCountry[j]);
+									}
+							}else{
+								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+									tempCoun.push(vali[0]['iso']);
+								}
 							}
 								
 						}
@@ -267,9 +311,20 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						for(let i=0;i<temps.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
 							if(vali.length==1){
+								if(parseInt(vali[0]['id'])==parseInt("254")){
+								var EUCountry =["AT","LI","BE","LT",
+									"LU","DK","MT","EE","FI","NO","CZ",
+									"FR","PL","DE","PT","GR","SK","HU","NL",
+									"SI","IS","ES","IT","SE","LV","CH","IE"
+									]
+									for(let j=0;j<EUCountry.length;j++){
+										tempCoun.push(EUCountry[j]);
+									}
+							}else{
 								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 									tempCoun.push(vali[0]['iso']);
 								}
+							}
 								
 							}
 							
@@ -283,8 +338,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						for(let i=0;i<temps1.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps1[i])});
 							if(vali.length==1){
-								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
-									tempCoun.push(vali[0]['iso']);
+								if(parseInt(vali[0]['id'])==parseInt("254")){
+									var EUCountry =["AT","LI","BE","LT",
+										"LU","DK","MT","EE","FI","NO","CZ",
+										"FR","PL","DE","PT","GR","SK","HU","NL",
+										"SI","IS","ES","IT","SE","LV","CH","IE"
+										]
+										for(let j=0;j<EUCountry.length;j++){
+											tempCoun.push(EUCountry[j]);
+										}
+								}else{
+									if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
+										tempCoun.push(vali[0]['iso']);
+									}
 								}
 								
 							}
