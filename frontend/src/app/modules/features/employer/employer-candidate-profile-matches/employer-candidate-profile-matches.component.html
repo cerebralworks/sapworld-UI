@@ -90,12 +90,12 @@
 																</a>
 														</div>
 														<div class="col-lg-4">
-															<span class="mr-2">														
+															<span class="mr-2"  style="display: inline-block;">														
 																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-orange btn-sm" data-toggle="modal" data-target="#resumeModal">
 																		<small><i class="fas fa-file-alt"></i> Cover Letter</small>
 																	</a>	
 															</span>	
-															<span>
+															<span  style="display: inline-block;">
 																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
 																		<small><i class="fas fa-file-alt"></i> Resume</small>
 																	</a>	
@@ -237,7 +237,7 @@
 																{{matchingUsersNew?.profile?.country ? matchingUsersNew?.profile?.country : ''}}
 															</span>
 														</h6>
-														<form class="form-inline">
+														<form class="form-inline"  style="display: inline-block;">
 															<a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i> Resume</small>
 															</a>

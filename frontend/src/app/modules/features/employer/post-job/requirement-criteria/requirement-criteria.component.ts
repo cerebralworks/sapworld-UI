@@ -177,6 +177,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	**/
 	
 	keyPress() {
+		if(this.childForm.value.requirement.sap_experience && this.childForm.value.requirement.experience ){
+	
 	if(this.childForm.value.requirement.sap_experience !="" && this.childForm.value.requirement.experience != ""){
 		if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience){
 			this.totalExpError = false;
@@ -184,6 +186,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		}else{
 			this.totalExpError = true;
 			this.sapExpError = true;
+		}
 		}
 		}
 		

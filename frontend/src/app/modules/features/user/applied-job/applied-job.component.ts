@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { UserService } from '@data/service/user.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {PageEvent} from '@angular/material/paginator';
 import { EmployerService } from '@data/service/employer.service';
 
@@ -22,6 +23,9 @@ export class AppliedJobComponent implements OnInit {
 	pageIndex = 1;
 	pageSizeOptions = [ 10, 20,50,100];
 	showFirstLastButtons = true;
+	public toggleMatchesModal: boolean = false;
+	@ViewChild('matchesModal', { static: false }) matchesModal: TemplateRef<any>;
+	public mbRefs: NgbModalRef;
 	public statusvalue: any[] = [
 		{id:1,text:'APPLICATION UNDER REVIEW'},
 		{id:2,text:'Hired'},
@@ -37,7 +41,9 @@ export class AppliedJobComponent implements OnInit {
 	**/
 	
 	constructor(
-		private userService: UserService,private employerService : EmployerService
+		private userService: UserService,
+		private modelService: NgbModal,
+		private employerService : EmployerService
 	) { }
 
 	/**
@@ -84,6 +90,28 @@ export class AppliedJobComponent implements OnInit {
 		this.page = event.pageIndex + 1;
 		this.onGetAppliedJobs();
 	}
+	
+	/**
+	** Open the Popup
+	**/
+	
+	openPopupView(){
+		this.toggleMatchesModal = true;
+		setTimeout(() => {
+			this.mbRefs = this.modelService.open(this.matchesModal, {
+				windowClass: 'modal-holder',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		});
+	}
+	
+	closeMatches(){
+		this.toggleMatchesModal = false;
+		this.mbRefs.close();
+	}
+	
 	/**
 	**	To assign the collapse id and href
 	**/	
