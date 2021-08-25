@@ -28,6 +28,7 @@ const routes = {
     jobPostingUpdate: '/jobpostings/update',
     skillTagList: '/skill-tags/list',
     countryList: '/country/list',
+    programList: '/program/list',
     languageList: '/language/list',
     employerList: '/employers/list',
     forgotPassword: '/accounts/request-reset-password',
