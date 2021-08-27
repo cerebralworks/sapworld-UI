@@ -46,6 +46,8 @@ const routes = {
     employerCompanyProfile: '/employers/company-profile',
     employersUpdate: '/employers/update',
     applicationDelete: '/user/application/delete',
+    adminDashboardCount: '/admins/list',
+    adminDashboardDetails: '/admins/dashboard-details',
 }
 
 module.exports = routes;

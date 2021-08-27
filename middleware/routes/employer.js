@@ -4,6 +4,21 @@ module.exports = (app, env, rp) => {
   const IncomingForm = require("formidable").IncomingForm;
   const fs = require("fs");
   
+	/**
+	* Admin Dashboard details GET
+	*/
+	app.get("/api/admin/dashboard", (req, res) => {
+		let requestBody = { ...req.query };    
+		requestCustom.get(`${serverRoutes.adminDashboardCount}`, req, res, requestBody);
+	});
+	/**
+	* Admin Dashboard details GET
+	*/
+	app.post("/api/admin/dashboard/details", (req, res) => {
+		let requestBody = { ...req.body };  
+		requestCustom.post(`${serverRoutes.adminDashboardDetails}`, req, res, requestBody);
+	});
+	
    /**
    * User crm for restaurant
    */
