@@ -48,6 +48,8 @@ const routes = {
     applicationDelete: '/user/application/delete',
     adminDashboardCount: '/admins/list',
     adminDashboardDetails: '/admins/dashboard-details',
+    adminDashboardEmployeeDetails: '/admins/employee-list',
+    adminDashboardUserDetails: '/admins/user-list',
 }
 
 module.exports = routes;

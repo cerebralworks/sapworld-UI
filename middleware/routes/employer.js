@@ -18,6 +18,20 @@ module.exports = (app, env, rp) => {
 		let requestBody = { ...req.body };  
 		requestCustom.post(`${serverRoutes.adminDashboardDetails}`, req, res, requestBody);
 	});
+	/**
+	* Admin Dashboard details GET
+	*/
+	app.post("/api/admin/employeers/details", (req, res) => {
+		let requestBody = { ...req.body };  
+		requestCustom.post(`${serverRoutes.adminDashboardEmployeeDetails}`, req, res, requestBody);
+	});
+	/**
+	* Admin Dashboard details GET
+	*/
+	app.post("/api/admin/users/details", (req, res) => {
+		let requestBody = { ...req.body };  
+		requestCustom.post(`${serverRoutes.adminDashboardUserDetails}`, req, res, requestBody);
+	});
 	
    /**
    * User crm for restaurant
