@@ -48,6 +48,14 @@ export class EmployerService extends CacheService {
     );
   };
 
+  getProgram = (params: any): Observable<GetResponse> => {
+    return this.apiService.get('/api/program/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+
   getSkill = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/skill-tags/list', params).pipe(
       map(data => {

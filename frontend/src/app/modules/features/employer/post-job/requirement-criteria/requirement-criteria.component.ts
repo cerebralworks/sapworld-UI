@@ -1,6 +1,6 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit,ElementRef, SimpleChanges, ViewChild } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
@@ -11,6 +11,9 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-requirement-criteria',
@@ -48,6 +51,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	public isLoading: boolean;
 	public industriesItems: any[] = [];
 	public educationItems: any[] = [];
+	public programItems: any[] = [];
   
 	public getPostedJobsDetails: JobPosting;
 	public jobId: string;
@@ -56,7 +60,12 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	ngSelect: NgSelectComponent;
     @ViewChild('myselect') myselect;
     optionsSelect:Array<any>;
-
+	public searchCallback = (search: string, item) => true; 
+	programCtrl = new FormControl();
+	filteredProgram: Observable<any[]>;
+	@ViewChild('programInput') programInput: ElementRef<HTMLInputElement>;
+	@ViewChild('auto') matAutocomplete: MatAutocomplete;
+	
 	constructor(
 		private parentF: FormGroupDirective,
 		private formBuilder: FormBuilder,
@@ -65,11 +74,15 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		private route: ActivatedRoute,
 		private sharedService: SharedService,
 		public utilsHelperService: UtilsHelperService
-	) { }
+	) { 
 	
-	add(event: MatChipInputEvent): void {
-		
-		const value = (event.value || '').trim();
+	this.filteredProgram = this.programCtrl.valueChanges.pipe(
+        startWith(null),
+        map((fruit: string | null) => fruit ? this._filter(fruit) : []));
+	}
+	
+	selected(event: MatAutocompleteSelectedEvent): void {
+		const value = (event.option.value || '').trim();
 
 		if (value) {
 			const index = this.programming_skills.indexOf(value);
@@ -84,9 +97,30 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			});}
 			
 		}
+		 this.programInput.nativeElement.value = '';
+	}
+	
+	add(event: MatChipInputEvent): void {
+		if (!this.matAutocomplete.isOpen) {
+			const value = (event.value || '').trim();
 
-		// Clear the input value
-		event.chipInput!.clear();
+			if (value) {
+				const index = this.programming_skills.indexOf(value);
+				if (index >= 0) {
+					
+				}else{
+				this.programming_skills.push(value);
+				this.childForm.patchValue({
+				  requirement: {
+					['programming_skills']: this.programming_skills,
+				  }
+				});}
+				
+			}
+
+			// Clear the input value
+			event.chipInput!.clear();
+		}
 	}
 
 	remove(visa): void {
@@ -156,6 +190,17 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			}
 		  }
 		);
+		this.dataService.getProgramDataSource().subscribe(
+		  response => {
+			if (response && response.items) {
+			 
+			  this.programItems = [...response.items];
+			}
+		  },
+		  error => {
+			this.programItems = [];
+		  }
+		);
 		this.travelArray = [
 		  { id: 0, text: 'No' },
 		  { id: 25, text: '25%' },
@@ -172,6 +217,20 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		];
 	}
 	
+	
+	private _filter(value: string): string[] {
+		const filterValue = value.toLowerCase();
+		var prp =  this.programming_skills;
+		var filters = this.programItems.filter(function(a,b){ return !prp.includes(a.name) })
+
+		return filters.filter(fruit => fruit.name.toLowerCase().includes(filterValue));
+	  }
+	  
+	private _filtersdata(): string[] {
+		var prp =  this.programming_skills;
+		return this.programItems.filter(function(a,b){ return !prp.includes(a.name) })
+	  }
+	  
 	/**
 	**	To detect keyPress event
 	**/
@@ -607,4 +666,23 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
       this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
 	}
   }
+  
+  
+	/**
+	**	To handle match select
+	**/
+	
+	handleChange(event,value){
+		if(this.childForm.value.requirement.work_authorization == value){
+			this.childForm.controls.requirement['controls']['work_authorization'].setValue(null);
+			this.childForm.controls.requirement['controls']['work_authorization'].updateValueAndValidity();
+		}else{
+			this.childForm.patchValue({
+				requirement: {
+					'work_authorization': value,
+				}
+			});
+		}
+	}
+	
 }

@@ -1,5 +1,399 @@
-<div class="d-flex align-items-center justify-content-center">
-    <h2>
-        Welcome to SAP WORLD ADMIN
-    </h2>
+<div class="main-panel">
+	<div class="container-fluid" >
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-header clearfix">
+					<div class="page-title float-left">
+						<h1>Admin Dashboard</h1>
+					</div>
+					<div class="float-right">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2" >
+			<div class="col-lg-6">	
+				<div class="myCard"> 
+					<div class="myCard-header"> 								
+						<h1>Employers</h1>
+					</div>
+					<div class="myCard-body row"> 
+						<div class="col-lg-4"> 							
+							<div class="profile-card" (click)="clickTotal()"   style="cursor: pointer;">
+								<h3 class="blue-badge">Total Employers</h3>	
+								<h1>{{employeeDetails.total}}</h1>	
+							</div>
+						</div>							
+						<div class="col-lg-4"> 							
+							<div class="profile-card"   (click)="clickActive()"  style="cursor: pointer;">
+								<h3 class="green-badge">Active</h3>	
+								<h1>{{employeeDetails.active}}</h1>	
+							</div>
+						</div>							
+						<div class="col-lg-4"> 							
+							<div class="profile-card"  (click)="clickInActive()"  style="cursor: pointer;">
+								<h3 class="orange-badge">Inactive</h3>	
+								<h1>{{employeeDetails.inactive}}</h1>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">	
+				<div class="myCard"> 
+					<div class="myCard-header"> 								
+						<h1>Job Seekers</h1>
+					</div>
+					<div class="myCard-body row"> 							
+						<div class="col-lg-4"> 							
+							<div class="profile-card"  (click)="clickTotalJobseeker()"  style="cursor: pointer;">
+								<h3 class="purple-badge">Total Job Seekers</h3>	
+								<h1>{{jobSeekerDetails.total}}</h1>	
+							</div>
+						</div>							
+						<div class="col-lg-4"> 							
+							<div class="profile-card"  (click)="clickAvailableJobseeker()"  style="cursor: pointer;">
+								<h3 class="aqua-badge">Available</h3>	
+								<h1>{{jobSeekerDetails.available}}</h1>	
+							</div>
+						</div>							
+						<div class="col-lg-4"> 							
+							<div class="profile-card"  (click)="clickNotAvailableJobseeker()"  style="cursor: pointer;">
+								<h3 class="yallow-badge">Not Open for Roles</h3>	
+								<h1>{{jobSeekerDetails.notavailable}}</h1>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>	
+		<div>	
+			<!--TOTAL EMPLOYERS-->
+			<div class="col-lg-12 " *ngIf="ShowEmployeeTotal" >	
+				<div class="myCard"> 
+					<div class="myCard-header blue-hedr "> 								
+						<h1>Total Jobs</h1>
+					</div>
+					<div class="myCard-body"> 	
+						<div class="row mb-2">
+							<div class="col-lg-5">
+								<div class="profile-card">
+									<h3>Number of Jobs Posted in</h3>	
+										<a  [ngClass]="(today === true)?'badge-primary':'badge-secondary'" (click)="ChangeDate('today')" class="badge badge-pill mb-3 px-2 pt-1">Today</a>
+										<a  [ngClass]="(seven === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('seven')" class="badge badge-pill  mb-3 px-2 pt-1">7 Days</a>
+										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
+										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
+										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+									<h1>{{total}}</h1>	
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<form class="form-inline float-right  mt-4">
+									<div class="form-group">
+										<label class="mr-3">Search </label>
+										<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+									</div>
+								</form>
+							</div>
+						</div>	
+						<div class="row mb-2">
+							<div class="col-lg-12">	
+								<!-- Table start -->
+								<div class="table-container">
+									<div class="table-responsive">
+										<table datatable id="DataTable" [dtOptions]="dtOptions" class="sort-table table custom-table m-0">
+											<thead>
+												<tr>
+													<th>Job Title</th>
+													<th>Employer</th>
+													<th>Posted on</th>
+													<th class="text-center">Applicants</th>
+													<th class="text-center">Hired</th>
+													<th class="text-center">Rejected</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								<!-- Table end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>	
+			<!--TOTAL EMPLOYERS-->
+			<div class="col-lg-12 " *ngIf="ShowEmployeeActive" >	
+				<div class="myCard"> 
+					<div class="myCard-header green-hedr "> 								
+						<h1>Active</h1>
+					</div>
+					<div class="myCard-body">
+						<div class="row mb-2">
+							<div class="col-lg-5">
+								<div class="profile-card">
+									<h3>Number of Jobs Posted in</h3>	
+										<a  [ngClass]="(today === true)?'badge-primary':'badge-secondary'" (click)="ChangeDate('today')" class="badge badge-pill mb-3 px-2 pt-1">Today</a>
+										<a  [ngClass]="(seven === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('seven')" class="badge badge-pill  mb-3 px-2 pt-1">7 Days</a>
+										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
+										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
+										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+									<h1>{{total}}</h1>	
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<form class="form-inline float-right  mt-4">
+									<div class="form-group">
+										<label class="mr-3">Search </label>
+										<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+									</div>
+								</form>
+							</div>
+						</div>	
+						<div class="row mb-2">
+							<div class="col-lg-12">	
+								<!-- Table start -->
+								<div class="table-container">
+									<div class="table-responsive">
+										<table  datatable id="DataTableActive" [dtOptions]="dtOptions"  class="sort-table table custom-table m-0" >
+											<thead>
+												<tr>
+													<th>Job Title</th>
+													<th>Employer</th>
+													<th>Posted on</th>
+													<th class="text-center">Applicants</th>
+													<th class="text-center">Hired</th>
+													<th class="text-center">Rejected</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- Table end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<!--TOTAL EMPLOYERS-->
+			<div class="col-lg-12 " *ngIf="ShowEmployeeInActive" >	
+				<div class="myCard"> 
+					<div class="myCard-header orange-hedr "> 								
+						<h1>Inactive</h1>
+					</div>
+					<div class="myCard-body"> 
+						<div class="row mb-2">
+							<div class="col-lg-5">
+								<div class="profile-card">
+									<h3>Number of Jobs Posted in</h3>	
+										<a  [ngClass]="(today === true)?'badge-primary':'badge-secondary'" (click)="ChangeDate('today')" class="badge badge-pill mb-3 px-2 pt-1">Today</a>
+										<a  [ngClass]="(seven === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('seven')" class="badge badge-pill  mb-3 px-2 pt-1">7 Days</a>
+										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
+										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
+										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+									<h1>{{total}}</h1>	
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<form class="form-inline float-right  mt-4">
+									<div class="form-group">
+										<label class="mr-3">Search </label>
+										<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+									</div>
+								</form>
+							</div>
+						</div>	
+						<div class="row mb-2">
+							<div class="col-lg-12">	
+								<!-- Table start -->
+								<div class="table-container">
+									<div class="table-responsive">
+										<table  datatable id="DataTableInActive" [dtOptions]="dtOptions"   class="sort-table table custom-table m-0" >
+											<thead>
+												<tr>
+													<th>Job Title</th>
+													<th>Employer</th>
+													<th>Posted on</th>
+													<th class="text-center">Applicants</th>
+													<th class="text-center">Hired</th>
+													<th class="text-center">Rejected</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- Table end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			
+			
+			<!--TOTAL EMPLOYERS-->
+			<div class="col-lg-12 " *ngIf="ShowJobTotal" >	
+				<div class="myCard"> 
+					<div class="myCard-header purpl-hedr "> 								
+						<h1>Total Job Seekers</h1>
+					</div>
+					<div class="myCard-body"> 	
+						<div class="row mb-2">
+							<div class="col-lg-5">
+								<div class="profile-card">
+									<h3>Active Since</h3>	
+										<a  [ngClass]="(today === true)?'badge-primary':'badge-secondary'" (click)="ChangeDate('today')" class="badge badge-pill mb-3 px-2 pt-1">Today</a>
+										<a  [ngClass]="(seven === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('seven')" class="badge badge-pill  mb-3 px-2 pt-1">7 Days</a>
+										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
+										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
+										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+									<h1>{{total}}</h1>	
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<form class="form-inline float-right  mt-4">
+									<div class="form-group">
+										<label class="mr-3">Search </label>
+										<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+									</div>
+								</form>
+							</div>
+						</div>	
+						<div class="row mb-2">
+							<div class="col-lg-12">	
+								<!-- Table start -->
+								<div class="table-container">
+									<div class="table-responsive">
+										<table  datatable id="DataTable" [dtOptions]="dtOptions"  class="sort-table table custom-table m-0" >
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Title</th>
+													<th>Location</th>
+													<th>Active Since</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- Table end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<!--TOTAL EMPLOYERS-->
+			<div class="col-lg-12 " *ngIf="ShowJobAcive" >	
+				<div class="myCard"> 
+					<div class="myCard-header aqua-hedr "> 								
+						<h1>Available</h1>
+					</div>
+					<div class="myCard-body"> 	
+						<div class="row mb-2">
+							<div class="col-lg-5">
+								<div class="profile-card">
+									<h3>Active Since</h3>	
+										<a  [ngClass]="(today === true)?'badge-primary':'badge-secondary'" (click)="ChangeDate('today')" class="badge badge-pill mb-3 px-2 pt-1">Today</a>
+										<a  [ngClass]="(seven === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('seven')" class="badge badge-pill  mb-3 px-2 pt-1">7 Days</a>
+										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
+										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
+										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+									<h1>{{total}}</h1>	
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<form class="form-inline float-right  mt-4">
+									<div class="form-group">
+										<label class="mr-3">Search </label>
+										<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+									</div>
+								</form>
+							</div>
+						</div>	
+						<div class="row mb-2">
+							<div class="col-lg-12">	
+								<!-- Table start -->
+								<div class="table-container">
+									<div class="table-responsive">
+										<table  datatable id="DataTableOpen" [dtOptions]="dtOptions" class="sort-table table custom-table m-0" >
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Title</th>
+													<th>Location</th>
+													<th>Active Since</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- Table end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<!--TOTAL EMPLOYERS-->
+			<div class="col-lg-12 " *ngIf="ShowJobInActive" >	
+				<div class="myCard"> 
+					<div class="myCard-header yallow-hedr "> 								
+						<h1>Not Open for Roles</h1>
+					</div>
+					<div class="myCard-body"> 
+						<div class="row mb-2">
+							<div class="col-lg-5">
+								<div class="profile-card">
+									<h3>Active Since</h3>	
+										<a  [ngClass]="(today === true)?'badge-primary':'badge-secondary'" (click)="ChangeDate('today')" class="badge badge-pill mb-3 px-2 pt-1">Today</a>
+										<a  [ngClass]="(seven === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('seven')" class="badge badge-pill  mb-3 px-2 pt-1">7 Days</a>
+										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
+										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
+										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+									<h1>{{total}}</h1>	
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<form class="form-inline float-right  mt-4">
+									<div class="form-group">
+										<label class="mr-3">Search </label>
+										<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+									</div>
+								</form>
+							</div>
+						</div>	
+						<div class="row mb-2">
+							<div class="col-lg-12">	
+								<!-- Table start -->
+								<div class="table-container">
+									<div class="table-responsive">
+										<table  datatable id="DataTableNotOpen" [dtOptions]="dtOptions"  class="sort-table table custom-table m-0" >
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Title</th>
+													<th>Location</th>
+													<th>Active Since</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- Table end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+
+	</div>
 </div>

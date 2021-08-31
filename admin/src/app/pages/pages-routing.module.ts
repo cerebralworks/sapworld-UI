@@ -11,8 +11,31 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-      },
-      {
+      },{
+        path: 'employers',
+        loadChildren: () =>
+          import('./employers/employers.module').then((m) => m.EmployersModule),
+      },{
+        path: 'jobseeker',
+        loadChildren: () =>
+          import('./jobseeker/jobseeker.module').then((m) => m.JobSeekerModule),
+      },{ 
+        path: 'skills',
+        loadChildren: () =>
+          import('./skills/skills.module').then((m) => m.SkillsModule),
+      },{
+        path: 'industry',
+        loadChildren: () =>
+          import('./industry/industry.module').then((m) => m.IndustryModule),
+      },{
+        path: 'workauthorization',
+        loadChildren: () =>
+          import('./workauthorization/workauthorization.module').then((m) => m.WorkAuthorizationModule),
+      },{
+        path: 'technical-skills',
+        loadChildren: () =>
+          import('./technical-skills/technical-skills.module').then((m) => m.TechnicalSkillsModule),
+      },{
         path: 'employer',
         loadChildren: () =>
           import('../modules/employer/employer.module').then(

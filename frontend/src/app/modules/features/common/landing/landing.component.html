@@ -1,0 +1,209 @@
+<!-- Landing Page -->
+<section class="landing-section">
+	<div class="container-fluid">
+		<div class="landing-content">
+			<div class="row">	
+				<div class="col-lg-6">			
+					<div class="left-sec animate__animated  animate__fadeInLeft">					
+						<h1>Employer</h1>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+						<a (click)="onRedirectUrl('/auth/employer/login')"  type="button" class="btn empl-btn my-3">View More</a>
+					</div>
+				</div>
+				<div class="col-lg-6">	
+					<div class="right-sec animate__animated  animate__fadeInRight">						
+						<h1>Talent</h1>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+						<a (click)="onRedirectUrl('/auth/user/login')" type="button" class="btn tale-btn my-3">View More</a>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</section>
+<!-- //Login Section -->
+
+ <!-- Company Section -->
+ <section class="top-companies">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title">
+          <h1>Top Company Registered</h1>
+          <span class="section-title-bg">Employer </span>
+          <h5>Some of the companies we've helped recruit excellent applicants over the years.</h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <owl-carousel-o [options]="customOptions">
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer1.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer2.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer3.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer4.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer5.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer6.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer7.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer8.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer9.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer10.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer11.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+          <ng-template carouselSlide>
+            <a href="javascript:;"><img src="assets/images/employer/employer12.png" class="img-fluid mx-auto"/></a>
+          </ng-template>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+  </section>
+  <!-- //Company Section -->
+
+	<!-- SAPW Info Section -->
+	<section class="sapw-info">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="heading">
+						<h1>Solving recruitment sensibly</h1>
+						<h5>Study says employer make up their mind in 7.4 seconds for screening a profile. We provide details that's most needed</h5>
+						
+					</div>
+					<div class="mt-5 d-flex">
+						<div class="card mr-3">
+							<div class="media">
+								<img src="assets/images/sapw-info-icon1.png" class="mr-3">
+								<div class="media-body">
+									<h3 class="mt-0">Matches</h3>
+									<p>View matches simply based on the must met critriea</p>
+								</div>
+							</div>
+						</div>
+						<div class="card ml-2">
+							<div class="media">
+								<img src="assets/images/sapw-info-icon2.png" class="mr-3">
+								<div class="media-body">
+									<h3 class="mt-0">Compare profile</h3>
+									<p>Compare the best fit across all matches</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mt-4 d-flex">
+						<div class="card mr-3">
+							<div class="media">
+								<img src="assets/images/sapw-info-icon3.png" class="mr-3">
+								<div class="media-body">
+									<h3 class="mt-0">Holistic view</h3>
+									<p>Provide elagant view of skills matching,missing and more</p>
+								</div>
+							</div>
+						</div>
+						<div class="card  ml-2">
+							<div class="media">
+								<img src="assets/images/sapw-info-icon4.png" class="mr-3">
+								<div class="media-body">
+									<h3 class="mt-0">Full control</h3>
+									<p>Have control on you profile </p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- //SAPW Info Section -->
+	
+	<!-- Contact Form Section -->
+	<section class="contact-form ">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title">
+						<h1>Get in touch with us</h1>
+						<span class="section-title-bg">CONTACT </span>
+						<h5>&nbsp;</h5>
+					</div>
+				</div>
+				<div class="col-lg-6 cform-img">
+					<ul class="contact-info">
+						<li class="d-flex">
+							<div class="icon">
+								<i class="fas fa-map-marker-alt"></i>
+							</div> 
+							<div class="text">
+								<h4>Location</h4>
+								<span>Chennai, Tamilnadu,<br> INDIA</span>
+							</div> 
+						</li>
+						<li class="d-flex">
+							<div class="icon">
+								<i class="fas fa-mobile-alt"></i>
+							</div>
+							<div class="text">
+								<h4>Phone</h4>
+								<span>+91-123-456-7890 <br>+91-123-456-7890</span>
+							</div>
+						</li>
+						<li class="d-flex">
+							<div class="icon">
+								<i class="fas fa-paper-plane"></i>
+							</div>
+							<div class="text">
+								<h4>Email</h4>
+								<span>info@sapworld.com<br>admin@sapworld.com</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-6 bg-light">
+					<form class="p-5">
+						<div class="form-group">
+							<label>Your Name</label>
+							<input type="text" class="form-control" placeholder="Your Full Name">
+						</div>
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Your Email</label>
+							<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Your Email Address">
+						</div>
+						<div class="form-group">
+							<label>Subject</label>
+							<input type="text" class="form-control" placeholder="Subject">
+						</div>
+						<div class="form-group">
+							<label>Your Message</label>
+							<textarea class="form-control" placeholder="Message" rows="5"></textarea>
+						</div>
+						<div class="form-group mt-5">
+							<button type="button" class="btn btn-theme-blue btn-block btn-lg">Send Message</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- //Contact Form  Section -->

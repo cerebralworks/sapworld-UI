@@ -8,6 +8,7 @@
           <li *ngIf="currentTabInfo.tabNumber == 2" class="breadcrumb-item active" aria-current="page">Matching Jobs</li>
           <li *ngIf="currentTabInfo.tabNumber == 4" class="breadcrumb-item active" aria-current="page">Applied Jobs</li>
           <li *ngIf="currentTabInfo.tabNumber == 6" class="breadcrumb-item active" aria-current="page">My Attachments</li>
+          <li *ngIf="currentTabInfo.tabNumber == 7" class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
         </ol>
       </div>
       <!-- <div class="col-lg-7 clearfix">
@@ -35,6 +36,12 @@
     <div class="row">
       <div class="col-lg-12">
         <ul class="nav">
+          <li class="nav-item">
+            <a (click)="onTabChange({tabName: 'chart', tabNumber: 7})"
+              [ngClass]="{'active': currentTabInfo.tabNumber == 7}" class="nav-link" href="javascript:;">
+             {{"dashboard.dashboard" | translate}}
+            </a>
+          </li>
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'profile', tabNumber: 1})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">
@@ -92,6 +99,9 @@
 
   <app-shortlisted-job *ngIf="currentTabInfo.tabNumber == 5">
   </app-shortlisted-job>
+  
+  <app-user-chart *ngIf="currentTabInfo.tabNumber == 7">
+  </app-user-chart>
 
 <app-user-resume *ngIf="currentTabInfo.tabNumber == 6 && dashboardView">
 </app-user-resume>

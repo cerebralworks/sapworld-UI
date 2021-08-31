@@ -5,15 +5,16 @@ import { Role } from '@data/schema/role';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
+  
   {
     path: 'home',
     loadChildren: () =>
       import('@modules/features/common/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('@modules/features/common/landing/landing.module').then(m => m.LandingModule)
   },
   {
     path: 'find-candidates',

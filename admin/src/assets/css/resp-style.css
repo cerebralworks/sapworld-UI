@@ -1,0 +1,79 @@
+/*--font-family: 'Montserrat', sans-serif;--*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap');
+
+/*-- Small devices (landscape phones,359px and up)--*/
+@media screen and (max-width:320px)  {
+}
+/*-- Small devices (landscape phones, 576px and up)--*/
+@media (min-width: 320px) and (max-width: 767.98px) {
+ }
+
+/*-- Medium devices (tablets, 768px and up)--*/
+@media (min-width: 768px) and (max-width: 1023.98px) {
+}
+
+/*-- Large devices (desktops, large desktops, 1024px and up)--*/
+@media (min-width: 1024px) { 
+}
+
+/*-- Large devices (desktops, large desktops, 1024px and up)--*/
+@media (min-width: 992px){
+	.sidebar-icon-only .navbar .navbar-brand-wrapper {
+    width: 70px;
+}
+.sidebar-icon-only .navbar .navbar-brand-wrapper .brand-logo {
+    display: none;
+}
+.sidebar-icon-only .navbar .navbar-brand-wrapper .brand-logo-mini {
+    display: inline-block;
+}
+	.sidebar-icon-only .navbar .navbar-menu-wrapper {
+		width: calc(100% - 70px);
+	}
+	.sidebar-icon-only .navbar .navbar-brand-wrapper {
+		width: 60px;
+	}
+	.sidebar-icon-only .sidebar {
+		width: 62px;
+	}
+	.sidebar-icon-only .sidebar .nav {
+		overflow: visible;
+	}
+	.sidebar-icon-only .sidebar .nav .nav-item {
+		position: relative;
+		padding: 1rem 0;
+	}
+	.sidebar-icon-only .sidebar .nav .nav-item .nav-link {
+		display: block;
+		text-align: center;
+	}
+	.sidebar-icon-only .sidebar .nav .nav-item .nav-link .menu-title {
+		border-radius: 0 100px 100px 0px;
+	}
+	.sidebar-icon-only .sidebar .nav .nav-item .nav-link .menu-title, .sidebar-icon-only .sidebar .nav .nav-item .nav-link .badge, .sidebar-icon-only .sidebar .nav .nav-item .nav-link .menu-sub-title {
+		display: none;
+	}
+	.sidebar-icon-only .sidebar .nav .nav-item .nav-link i.menu-icon {
+		margin-right: 0;
+		margin-left: 0;
+	}
+	.sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link .menu-title {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		background: #1bc2ff;
+		padding: 0.5rem 0.75rem;
+		left: 59px;
+		position: absolute;
+		text-align: left;
+		top: 0;
+		bottom: 0;
+		min-width: 160px;
+		z-index: 1;
+		line-height: 1.8;
+	}
+}
+

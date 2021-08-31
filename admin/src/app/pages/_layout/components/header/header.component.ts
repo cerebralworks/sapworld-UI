@@ -19,6 +19,8 @@ import KTLayoutHeader from '../../../../../assets/js/layout/base/header';
 import KTLayoutHeaderMenu from '../../../../../assets/js/layout/base/header-menu';
 import { KTUtil } from '../../../../../assets/js/components/util';
 import { Subscription, Observable, BehaviorSubject } from 'rxjs';
+import { AuthService } from '@modules/auth/_services/auth.service';
+import { AccountService } from '@data/service/account.service';
 
 @Component({
   selector: 'app-header',
@@ -44,7 +46,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   );
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
-  constructor(private layout: LayoutService, private router: Router) {
+  constructor(
+    private accountService: AccountService,private layout: LayoutService, private authService: AuthService, private router: Router) {
     this.loader$ = this.loaderSubject;
     // page progress bar percentage
     const routerSubscription = this.router.events.subscribe((event) => {
@@ -121,7 +124,28 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       KTLayoutHeaderMenu.init('kt_header_menu', 'kt_header_menu_wrapper');
     });
   }
+  
+  changeDashBoard(){
+	  var idName =document.getElementById('kt_body').className;
+	  if(idName){
+		  if(idName.indexOf('sidebar-icon-only') !=-1){
+			  document.getElementById('kt_body').className = 'page-loaded '
+		  }else{
+			  document.getElementById('kt_body').className = 'page-loaded sidebar-icon-only';
+		  }
+	  }
+  }
 
+  logout() {
+    //this.authService.logout();
+	//localStorage.clear();
+   // document.location.reload();
+   this.accountService.logout();
+        this.authService.logout();
+		localStorage.clear();
+      
+  }
+  
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
     if (this.routerLoaderTimout) {

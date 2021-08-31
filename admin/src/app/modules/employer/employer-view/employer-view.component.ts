@@ -42,7 +42,8 @@ export class EmployerViewComponent implements OnInit {
   onGetProfileInfo() {
     let requestParams: any = {};
     requestParams.id = this.employerId;
-    requestParams.expand = 'account';
+    requestParams.expand = 'account,company,job';
+    requestParams.company = 'company';
     this.employerService.profileView(requestParams).subscribe(
       (response: any) => {
         this.companyProfileInfo = { ...response.details };

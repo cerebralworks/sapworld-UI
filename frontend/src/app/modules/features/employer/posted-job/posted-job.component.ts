@@ -234,6 +234,10 @@ export class PostedJobComponent implements OnInit {
 					this.postedJobs.splice(this.currentJobIndex, 1);
 					this.postedJobMeta.total = this.postedJobMeta.total ? this.postedJobMeta.total - 1 : this.postedJobMeta.total;
 				}
+				this.onGetPostedJob(this.currentEmployerDetails.id);
+				this.onGetPostedJobCount(this.currentEmployerDetails.id);
+				this.onGetAppliedJobCount(this.currentEmployerDetails.id);
+				this.onGetShortListJobCount(this.currentEmployerDetails.id);
 				this.isLoading = false;
 			}, error => {
 				this.onDeleteJobConfirmed(false);

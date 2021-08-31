@@ -12,6 +12,7 @@ console.log(baseUrl);
 export const environment = {
   production: false,
   serverUrl: 'http://localhost:5000',
+  adminUrl: 'http://localhost:4201',
   envName: 'DEV',
   API_URL: 'assets/api',
   clientUrl: `${baseUrl}:${port}`

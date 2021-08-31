@@ -221,9 +221,26 @@ onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => 
   }
   address.state = this.findTypeLongName(addr, "administrative_area_level_1");
   address.stateShort = this.findTypeShortName(addr, "administrative_area_level_1");
+  if(address.state ==null){
+	address.state = this.findTypeLongName(addr, "neighborhood");
+	  
+  }
+  if(address.stateShort ==null){
+	address.stateShort = this.findTypeShortName(addr, "locality" );
+	  
+  }
+  
   address.zipcode = this.findTypeLongName(addr, "postal_code");
   address.country = this.findTypeLongName(addr, "country");
-
+	if(address.city==address.country){
+	  if(addr.formatted_address){
+		  var splits = addr.formatted_address.split(',');
+		  if(splits[0]){
+			  address.city =splits[0];
+		  }
+	  }
+	  
+  }
   address.validated = houseNumber != null && street != null && address.city != null && address.state != null && address.zipcode != null;
 
   return address;

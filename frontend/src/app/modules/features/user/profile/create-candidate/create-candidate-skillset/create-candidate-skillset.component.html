@@ -105,11 +105,19 @@
 							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 						</mat-chip>
 						<input placeholder=""
+						#programInput
+						[formControl]="programCtrl"
+							[matAutocomplete]="auto"
 							[matChipInputFor]="chipList"
 							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 							[matChipInputAddOnBlur]="addOnBlur"
 							(matChipInputTokenEnd)="add($event)">
 					</mat-chip-list>
+					<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+						<mat-option *ngFor="let program of filteredProgram  | async" [value]="program.name">
+							{{program.name}}
+						</mat-option>
+					</mat-autocomplete>
 				</mat-form-field>
 			</div>	
 		</div>	

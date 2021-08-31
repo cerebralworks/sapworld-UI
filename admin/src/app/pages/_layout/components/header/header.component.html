@@ -1,40 +1,45 @@
-<!--begin::Container-->
-<div
-  [ngClass]="headerContainerCSSClasses"
-  class="d-flex align-items-stretch justify-content-between"
->
-  <ng-container *ngIf="loader$ | async as _loader">
-    <ngb-progressbar
-      class="loading-bar"
-      height="3px"
-      [value]="_loader"
-    ></ngb-progressbar>
-  </ng-container>
-
-  <ng-container *ngIf="headerMenuSelfDisplay">
-    <!--begin::Header Menu Wrapper-->
-    <div
-      class="header-menu-wrapper header-menu-wrapper-left"
-      id="kt_header_menu_wrapper"
-    >
-      <ng-container *ngIf="!asideSelfDisplay">
-        <!--begin::Header Logo-->
-        <div class="header-logo">
-          <a routerLink="/">
-            <img alt="Logo" [attr.src]="headerLogo" />
-          </a>
-        </div>
-        <!--end::Header Logo-->
-      </ng-container>
-      
-    </div>
-    <!--end::Header Menu Wrapper-->
-  </ng-container>
-
-  <ng-container *ngIf="!headerMenuSelfDisplay">
-    <div></div>
-  </ng-container>
-
-  <app-topbar class="topbar"></app-topbar>
-</div>
-<!--end::Container-->
+<header id="myHeader">
+		<nav class="navbar navbar-expand-lg">
+			<!--LOGO-->
+			<div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
+			  <a class="navbar-brand brand-logo" ><img src="./assets/media/logos/logo.png" alt="logo"></a>
+			  <a class="navbar-brand brand-logo-mini" ><img src="./assets/media/logos/logo.png" alt="logo"></a>
+			</div>
+			<!--SIDEBAR TOGGLER-->
+			<a class="sidebar-toggler"  style="cursor:pointer;" (click)="changeDashBoard()">
+				<i class="fas fa-stream"></i>
+			</a>
+			  
+			<!--MENU-->
+			<div class="ml-auto" id="navbarNav" ngbDropdown>
+				<ul class="navbar-nav">
+					<li class="dropdown">
+						<a class="nav-link dropdown-toggle nav-user" ngbDropdownToggle style="cursor:pointer;">
+							<span class="account-user-avatar"> 
+								<img src="assets/img/user-avatar-01.png" class="rounded-circle">
+							</span>
+							<span class="account-user-name">Sundar Selvam R</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right dropdown-menu-animated"  ngbDropdownMenu aria-labelledby="dropdownMenuButton" style="">
+							<a ngbDropdownItem class="dropdown-item">
+								<i class="fas fa-user-circle"></i>
+								<span>My Profile</span>
+							</a>
+							<a ngbDropdownItem class="dropdown-item">
+								<i class="fas fa-envelope"></i>
+								<span>My Messages</span>
+							</a>
+							<a ngbDropdownItem class="dropdown-item">
+								<i class="fas fa-cog"></i>
+								<span>Account Setting</span>
+							</a>
+							<a ngbDropdownItem class="dropdown-item" (click)="logout()">
+								<i class="fas fa-sign-out-alt"></i>
+								<span>Logout</span>
+							</a>
+						</div>
+					</li>
+				</ul>				
+			</div>
+		</nav>
+    </header>

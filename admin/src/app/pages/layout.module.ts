@@ -15,14 +15,10 @@ import { FooterComponent } from './_layout/components/footer/footer.component';
 import { HeaderComponent } from './_layout/components/header/header.component';
 import { HeaderMenuComponent } from './_layout/components/header/header-menu/header-menu.component';
 import { TopbarComponent } from './_layout/components/topbar/topbar.component';
-// import { ExtrasModule } from '../_metronic/partials/layout/extras/extras.module';
 import { LanguageSelectorComponent } from './_layout/components/topbar/language-selector/language-selector.component';
 import { CoreModule } from '../core';
 import { SubheaderModule } from '@partials/layout/subheader/subheader.module';
 import { ExtrasModule } from '@partials/layout/extras/extras.module';
-// import { SubheaderModule } from '../_metronic/partials/layout/subheader/subheader.module';
-// import { AsideDynamicComponent } from './_layout/components/aside-dynamic/aside-dynamic.component';
-// import { HeaderMenuDynamicComponent } from './_layout/components/header/header-menu-dynamic/header-menu-dynamic.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +31,6 @@ import { ExtrasModule } from '@partials/layout/extras/extras.module';
     HeaderMenuComponent,
     TopbarComponent,
     LanguageSelectorComponent,
-    // AsideDynamicComponent,
-    // HeaderMenuDynamicComponent,
   ],
   imports: [
     CommonModule,

@@ -1,3 +1,49 @@
+<div class="main-panel">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-header clearfix">
+					<div class="page-title float-left">
+						<h1>Employers</h1>
+					</div>
+					<div class="float-right">
+						<button type="button" class="btn btn-outline-secondary btn-sm my-1" onclick="history.go(-1)">
+							<i class="ri-arrow-left-circle-line align-middle"></i> Back
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2">	
+			<div class="col-lg-12">	
+				<div class="myCard ">
+					<div class="myCard-body"> 
+						<div class="row">	
+							<div class="col-lg-4">	
+								<div class="profile-card">
+									<h3>Employer Info</h3>	
+									<h6 class="text-Capitalize">{{companyProfileInfo?.company}}</h6>	
+									<h6 *ngIf="companyProfileInfo?.company_profile &&companyProfileInfo?.company_profile.contact && companyProfileInfo?.company_profile.contact.length ">{{companyProfileInfo?.company_profile.contact[0]}}</h6>
+									<h6><a href="mailto:companyProfileInfo?.email">{{companyProfileInfo?.email}}</a></h6>
+									<h6 class="text-Capitalize">{{companyProfileInfo?.company_profile.city}}, {{companyProfileInfo?.company_profile.state}}, {{companyProfileInfo?.company_profile.country}} </h6>
+								</div>
+							</div>	
+							<div class="col-lg-4">	
+								<div class="profile-card">
+									<h3>Poster Jobs</h3>	
+									<h1>{{companyProfileInfo?.jobs}}</h1><h1>
+									</h1>
+								</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 
 <div class="card card-custom gutter-b">
   <div class="card-header">
     <div class="card-title">
@@ -16,7 +62,6 @@
     </div>
   </div>
   <div class="card-body">
-    <!-- begin:Table -->
     <div class="table-responsive angular-bootstrap-table">
       <table class="table table-head-custom table-vertical-center overflow-hidden">
         <thead>
@@ -58,13 +103,6 @@
               </td>
             </tr>
           </ng-container>
-          <!-- <ng-template #elseTemplate>
-                  <tr>
-                      <td colspan="7">
-                          No record found
-                      </td>
-                  </tr>
-              </ng-template> -->
 
 
         </tbody>
@@ -96,4 +134,4 @@
       
     </div>
   </div>
-</ng-template>
+</ng-template> -->

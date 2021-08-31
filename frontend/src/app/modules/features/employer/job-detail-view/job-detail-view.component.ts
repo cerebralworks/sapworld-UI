@@ -30,12 +30,14 @@ export class JobDetailViewComponent implements OnInit {
 	public previousUrl: string;
 	public postedJobs: any[] = [];
 	public postedJobMeta: any = {};
+	public selectedColor: any = [];
 	public companyIdValue: any = '';
 	public page: number = 1;
 	public limit: number = 10;
 	length = 0;
 	pageIndex = 1;
 	pageSizeOptions = [10, 25,50,100];
+	CommonColor = ["blue","orange","purple","red","yallow","dblue","green"];
 	public validateSubscribe: number = 0;
 
 	constructor(
@@ -296,6 +298,22 @@ export class JobDetailViewComponent implements OnInit {
 		this.limit = event.pageSize;
 		this.page = event.pageIndex+1;
 		this.onGetPostedJob(this.companyIdValue);
+	}
+	
+	/**
+	**	Class changing
+	**/
+	
+	renderClassed(index){
+		if(index){
+			if(this.selectedColor.length ==0){
+				this.selectedColor = ["blue","orange","purple","red","yallow","dblue","green"];
+			}
+			var returnVal = this.selectedColor[0];
+			this.selectedColor.splice(0, 1);
+			return returnVal;
+		}
+		//return 'blue';
 	}
 
 }

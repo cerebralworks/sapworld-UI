@@ -2438,3 +2438,375 @@ a:hover {
 	border:none !important;
 	outline:none !important;
 }
+
+
+
+/*----*/
+ul.statusHistory {
+    list-style-type: none;
+    position: relative;
+    white-space: initial;
+    padding-left: 15px;
+    margin: 15px 0px;
+}
+ul.statusHistory:before {
+    content: ' ';
+    background: #eaeaea;
+    display: inline-block;
+    position: absolute;
+    left: 19.25%;
+    width: 4px;
+    height: 100%;
+    z-index: 0;
+}
+ul.statusHistory li {
+   position: relative;
+}
+ul.statusHistory .date {
+    display: block;
+    width: 25%;
+    padding-right: 60px;
+    position: absolute;
+}
+ul.statusHistory .date h5{
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #000000;
+}
+ul.statusHistory .icon {
+    width: 40px;
+    height: 40px;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 1.4em;
+    line-height: 40px;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    color: #fff;
+    background: #b0b0b0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px #f0f0f0;
+    text-align: center;
+    left: 18.5%;
+    top: 0;
+    margin: 0 0 0 -25px;
+}
+ul.statusHistory .success .icon{
+	background: #11b771!important;
+}
+ul.statusHistory .process .icon{
+	background: #385edf!important;
+}
+ul.statusHistory .pending .icon{
+	background: #ffb100!important;
+}
+ul.statusHistory .rejected .icon{
+	background: #dc3545!important;
+}
+ul.statusHistory .content {
+    margin: 0 0 25px 25%;
+    background: #f8f8f8;
+    padding: 1.0em;
+    position: relative;
+    border-radius: 5px;
+}
+ul.statusHistory .content:after {
+       right: 100%;
+       border: solid transparent;
+       content: " ";
+       height: 0;
+       width: 0;
+       position: absolute;
+       pointer-events: none;
+       border-right-color: #f8f8f8;
+       border-width: 8px;
+       top: 8px;
+}
+ul.statusHistory .content h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+ul.statusHistory .content p{
+    margin-bottom: 0;
+}
+/*--TIMELINE--*/
+ul.timeline {
+    list-style-type: none;
+    position: relative;
+}
+ul.timeline:before {
+    content: ' ';
+    background: #e1e1e1;
+    display: inline-block;
+    position: absolute;
+    left: 20px;
+    width: 2px;
+    height: 100%;
+    z-index: 400;
+    margin: -5px 0;
+}
+ul.timeline > li {
+    margin: 30px 0;
+    padding-left: 5px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 15px; 
+}
+ul.timeline > li:before {
+    content: "\f13a";
+    background: white;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    /* border: 3px solid #385edf; */
+    left: 12px;
+    width: 15px;
+    height: 15px;
+    z-index: 400;
+    font-size: 18px;
+    font-family: Font Awesome\ 5 Free;
+    margin-top: 2px;
+    line-height: 18px;
+    font-weight: 600;
+}
+ul.timeline > .dblue:before {
+    color: #385edf!important;
+}
+ul.timeline > .blue:before {
+    color: #00bfff!important;
+}
+ul.timeline > .green:before {
+    color: #11b771!important;
+}
+ul.timeline > .orange:before {
+    color: #e98752!important;
+}
+ul.timeline > .purple:before {
+    color: #9c62e8!important;
+}
+ul.timeline > .red:before {
+    color: #ff6a4b!important;
+}
+ul.timeline > .yallow:before {
+    color: #ffbc3f!important;
+}
+ul.timeline > li span {
+    transition: 0.25s;
+}
+ul.timeline > li span:hover {
+    padding-left: 8px;
+}
+
+
+
+/*-- Contact Form Section --*/
+.contact-form {
+    padding: 75px 0;
+}
+.cform-img {
+    background: url(../images/contact-form-img.jpg)no-repeat center center;
+    background-size: cover;
+    padding: 6rem 3rem!important;
+    position: relative;
+    z-index: 1;
+}
+.cform-img:after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: #000000;
+    z-index: -1;
+    opacity: 0.7;
+}
+.cform-img ul {
+    margin: 0;
+    list-style-type: none;
+}
+.cform-img .contact-info li {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.cform-img .contact-info li h4 {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 1.25rem;
+}
+.cform-img .contact-info li .icon i {
+  color: #ffffff;
+  display: inline-block;
+  font-size:36px;
+  margin-bottom: 15px;
+}
+.cform-img .contact-info li span {
+  color: #ffffff;
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+}
+.cform-img .contact-info li:last-child {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.cform-img .text {
+    margin-left: 20px;
+}
+.contact-form label{
+   text-transform: uppercase;
+}
+.contact-form .form-control {
+    padding: 8px 15px;
+    border: 1px solid #ccd1d6;
+    width: 100%;
+    color: #454545;
+    font-size: 13px;
+}
+/*---Landing Page---*/
+.landing-section {
+    background: linear-gradient( 90deg, #4c85ca 50%, #fdd936 50%);
+}
+.landing-content{
+	background: url(../images/landing-bg.png)no-repeat center top;
+	height: 650px;
+	padding-top: 120px;
+}
+.left-sec {
+    position: absolute;
+    left: 30px;
+    top: 25%;
+    width: 35%;
+    color: #009cdb;
+    min-height: 330px;
+}
+.left-sec h1{
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.left-sec h1:before {
+    content: '';
+    border-bottom: 3px solid #ffffff;
+    width: 20px;
+    position: absolute;
+    l: 0px;
+    top: 38px;
+}
+.left-sec h1:after {
+    content: '';
+    border-bottom: 3px solid #ffffff;
+    width: 60px;
+    position: absolute;
+    left: 26px;
+    top: 38px;
+}
+.left-sec p{
+	font-size: 18px;
+	line-height: 30px;
+	color: #ffffff;
+	margin-bottom: 1.5rem;
+	font-weight: 600;
+}
+.right-sec {
+    position: absolute;
+    right: 30px;
+    top: 25%;
+    width: 35%;
+    text-align: right;
+    color: #e1effb;
+    min-height: 330px;
+}
+.right-sec h1{
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000000;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.right-sec h1:before {
+    content: '';
+    border-bottom: 3px solid #000000;
+    width: 20px;
+    position: absolute;
+    right: 0px;
+    top: 38px;
+}
+.right-sec h1:after {
+    content: '';
+    border-bottom: 3px solid #000000;
+    width: 60px;
+    position: absolute;
+    right: 26px;
+    top: 38px;
+}
+.right-sec p{
+	font-size: 18px;
+	line-height: 30px;
+	color: #000000;
+	margin-bottom: 1.5rem;
+	font-weight: 600;
+}
+.empl-btn {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+.empl-btn:hover {
+    color: #34538d;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.empl-btn.focus, .empl-btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(225 239 251 / 30%);
+}
+.tale-btn{
+	 color: #000000;
+	 border-color: #000000;
+}
+.tale-btn:hover {
+    color: #ffe871;
+    background-color: #000000;
+    border-color: #000000;
+}
+.tale-btn.focus, .tale-btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(225 239 251 / 30%);
+}
+/*----*/
+.chart-center-label {
+	position: absolute;
+	top: 62%;
+	left: 63%;
+	transform: translate(-50%, -50%);
+	font-weight: 800;
+	z-index: -2;
+	font-size:1.75rem;
+	color:#07315c;
+}
+
+.chartTitle {
+    color: #374c6d;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid #ebebeb;
+}
+.chartBdr {
+    background: #f8f8f8;
+    height: 15px;
+    width: 100%;
+    border: none;
+    margin-top: 45px;
+}

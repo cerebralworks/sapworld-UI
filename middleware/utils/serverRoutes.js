@@ -50,6 +50,7 @@ const routes = {
     adminDashboardDetails: '/admins/dashboard-details',
     adminDashboardEmployeeDetails: '/admins/employee-list',
     adminDashboardUserDetails: '/admins/user-list',
+    userDashboard: '/users/user-dashboard',
 }
 
 module.exports = routes;

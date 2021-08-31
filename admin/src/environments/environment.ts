@@ -11,6 +11,7 @@ const port = hostName[1];
 export const environment = {
   production: false,
   serverUrl: 'http://localhost:5000',
+  subPath: '',
   envName: 'DEV',
   API_URL: 'assets/api',
   clientUrl: `${baseUrl}:${port}`,
