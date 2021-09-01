@@ -155,11 +155,19 @@
 							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 						</mat-chip>
 						<input placeholder=""
+							#programInput
+							[formControl]="programCtrl"
 							[matChipInputFor]="chipList"
+							[matAutocomplete]="auto"
 							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 							[matChipInputAddOnBlur]="addOnBlur"
 							(matChipInputTokenEnd)="add($event)">
 					</mat-chip-list>
+					<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+						<mat-option *ngFor="let program of filteredProgram  | async" [value]="program.name">
+							{{program.name}}
+						</mat-option>
+					</mat-autocomplete>
 				</mat-form-field>
 			</div>	
 		</div>	
@@ -218,22 +226,22 @@
 				<label class="font-weight-bold">{{"postJob.workAuthorization" | translate }} </label>
 				<div class="mt-2">
 					<div class="custom-control custom-radio custom-control-inline">
-						<input (change)="onChangeFieldValue('work_authorization', 0)" [value]="0" formControlName="work_authorization" type="radio" id="customRadioInline5"
+						<input  (click)="handleChange($event,0)" [value]="0" formControlName="work_authorization" type="radio" id="customRadioInline0"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
-							for="customRadioInline5">{{"postJob.shouldBeACitizenPr" | translate }}</label>
+							for="customRadioInline0">{{"postJob.shouldBeACitizenPr" | translate }}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
-						<input (change)="onChangeFieldValue('work_authorization', 1)" [value]="1" formControlName="work_authorization" type="radio" id="customRadioInline6"
+						<input  (click)="handleChange($event,1)"[value]="1" formControlName="work_authorization" type="radio" id="customRadioInline1"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
-							for="customRadioInline6">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
+							for="customRadioInline1">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
-						<input (change)="onChangeFieldValue('work_authorization', 2)" [value]="2" formControlName="work_authorization" type="radio" id="customRadioInline7"
+						<input (click)="handleChange($event,2)" [value]="2" formControlName="work_authorization" type="radio" id="customRadioInline2"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
-							for="customRadioInline7">Should be a Citizen / PR / Authorized to Work</label>
+							for="customRadioInline2">Should be a Citizen / PR / Authorized to Work</label>
 					</div>
 				</div>
 			</div>

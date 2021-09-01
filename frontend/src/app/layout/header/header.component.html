@@ -1,8 +1,8 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light theme-nav" *ngIf="!loggedUserInfo?.isLoggedIn">
     <div class="container">
-      <a [routerLink]="['/home']" href="javascript:;" class="navbar-brand">
-        <img src="assets/images/logo.png" height="80" /></a>
+      <a [routerLink]="['/']" href="javascript:;" class="navbar-brand">
+        <img src="assets/images/logo.png" /></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -13,13 +13,22 @@
       </select> -->
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          <li *ngIf="!router?.url?.includes('/employer') " class="nav-item mr-3 my-1">
+			 <li class="nav-item" *ngIf="!router?.url?.includes('/employer')  &&( !router?.url?.includes('/home')  &&  !router?.url?.includes('/login') ) " >
+				<a href="#" class="h5 mx-1 text-secondary"><i class="fab fa-linkedin"></i></a>
+			  </li>	
+			  <li class="nav-item" *ngIf="!router?.url?.includes('/employer')  &&( !router?.url?.includes('/home')  &&  !router?.url?.includes('/login') )" >
+				<a href="#" class="h5 mx-1 text-secondary"><i class="fab fa-twitter-square"></i></a>
+			  </li>	
+			  <li class="nav-item" *ngIf="!router?.url?.includes('/employer')  &&( !router?.url?.includes('/home')   &&  !router?.url?.includes('/login') )" >
+				<a href="#" class="h5 mx-1 text-secondary"><i class="fab fa-facebook-square"></i></a>
+			  </li>	
+          <li *ngIf="!router?.url?.includes('/employer')  && ( router?.url?.includes('/home') || router?.url?.includes('/login') )" class="nav-item mr-3 my-1">
             <a [class.disabled]="router?.url?.includes('/verify')"  (click)="onRedirectUrl('/auth/employer/login')" class="btn btn-outline-blue py-2 px-3"
               href="javascript:;">
               <i class="fas fa-handshake pr-1 align-middle"></i> {{"home.employer" | translate}}
             </a>
           </li>
-          <li *ngIf="!router?.url?.includes('/user')" class="nav-item mr-3 my-1">
+          <li *ngIf="!router?.url?.includes('/user')  && ( router?.url?.includes('/home') || router?.url?.includes('/login') )" class="nav-item mr-3 my-1">
             <a  [class.disabled]="router?.url?.includes('/verify')"  (click)="onRedirectUrl('/auth/user/login')" class="btn btn-outline-green py-2 px-3" href="javascript:;">
               <i class="fas fa-user-tie pr-1 align-middle"></i> {{"home.jobseeker" | translate}}
             </a>

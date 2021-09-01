@@ -1045,19 +1045,19 @@
 				<label class="font-weight-bold">{{"postJob.workAuthorization" | translate }} </label>
 				<div class="mt-2">
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
-						<input (change)="onChangeFieldValue('work_authorization', 0)" value="0" formControlName="work_authorization" type="radio" id="customRadioInline05"
+						<input (click)="onChangeFieldValuesAuth('work_authorization', 0)" value="0" formControlName="work_authorization" type="radio" id="customRadioInline05"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
 							for="customRadioInline05">{{"postJob.shouldBeACitizenPr" | translate }}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
-						<input (change)="onChangeFieldValue('work_authorization', 1)" value="1" formControlName="work_authorization" type="radio" id="customRadioInline06"
+						<input (click)="onChangeFieldValuesAuth('work_authorization', 1)" value="1" formControlName="work_authorization" type="radio" id="customRadioInline06"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
 							for="customRadioInline06">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
-						<input (change)="onChangeFieldValue('work_authorization', 2)" value="2" formControlName="work_authorization" type="radio" id="customRadioInline07"
+						<input (click)="onChangeFieldValuesAuth('work_authorization', 2)" value="2" formControlName="work_authorization" type="radio" id="customRadioInline07"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
 							for="customRadioInline07">Should be a Citizen / PR / Authorized to Work</label>

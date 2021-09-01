@@ -89,14 +89,13 @@
           </h2>
         </div>
 		<div class="sidebar-widget px-4" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">
-			<div class="row mt-3 mb-3" *ngFor="let items of postedJobsDetails?.screening_process;let i=index">
-				<div class="col-lg-2 col-md-3 text-left">
-					<h6 class="font-weight-bold">{{i+1}}.</h6> 
-				</div>	
-				<div class="col-lg-10 col-md-9 text-left">
-					<h6>{{items.title}}</h6>
-				</div>	
-			</div>
+			<ul class="timeline">
+			<ng-container *ngFor="let items of postedJobsDetails?.screening_process;let i=index">
+				<li [ngClass]="renderClassed(i+1)">	
+					<span>{{items.title}}</span>
+				</li>
+			</ng-container>
+			</ul>
 		</div>
         <div class="title mt-4" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobs?.length && postedJobs?.length !=1 && !postedJobs?.includes(postedJobsDetails?.id)">
           <h2>

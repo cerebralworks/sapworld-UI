@@ -111,6 +111,9 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 				case 'resume':
 					this.onTabChange({tabName: 'resume', tabNumber: 6})
 					break;
+				case 'chart':
+					this.onTabChange({tabName: 'chart', tabNumber: 7})
+					break;
 				default:
 					break;
 			}

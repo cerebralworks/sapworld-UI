@@ -17,6 +17,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AccountService } from '@data/service/account.service';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { environment } from '@env';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { environment } from '@env';
     BrowserModule,
     BrowserAnimationsModule,
     // HttpClientModule,
-
+	ChartsModule,
     // app
     AppRoutingModule,
 

@@ -876,6 +876,19 @@ export class JobPreviewComponent implements OnInit {
 	}
 	
 	
+	onChangeFieldValuesAuth(event,value){
+		if(this.postJobForm.value.requirement.work_authorization == value){
+			this.postJobForm.controls.requirement['controls']['work_authorization'].setValue(null);
+			this.postJobForm.controls.requirement['controls']['work_authorization'].updateValueAndValidity();
+		}else{
+			this.postJobForm.patchValue({
+				requirement: {
+					'work_authorization': value,
+				}
+			});
+		}
+	}	
+	
   onRemoveSkillEvent = async (skillId) => {
     if(skillId) {
 		var temp = this.commonSkills.filter(function(a,b){ return a.id == skillId });

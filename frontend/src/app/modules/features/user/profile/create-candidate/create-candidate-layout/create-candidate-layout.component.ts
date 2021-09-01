@@ -97,6 +97,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		//this.onGetCountry('');
 		//this.onGetLanguage('');
 		this.onGetSkill();
+		this.onGetProgram('');
 		this.onGetIndustries();
 		this.dataService.getUserPhoto().subscribe(
 		response => {
@@ -549,6 +550,20 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		this.requestParams.search = query;
 
 		this.SharedAPIService.onGetCountry(this.requestParams);
+		 
+	  }
+  
+	/**
+	**	To get program Info
+	**/
+    onGetProgram(query) {
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 100000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
+
+		this.SharedAPIService.onGetProgram(this.requestParams);
 		 
 	  }
 	/**

@@ -5,6 +5,7 @@ import { AccountService } from '@data/service/account.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { AppComponent } from 'src/app/app.component';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import { environment as env } from '@env';
 
 @Component({
   selector: 'app-login-form',
@@ -86,7 +87,10 @@ export class LoginFormComponent implements OnInit {
 				  this.router.navigate(['/employer/create-profile']);
 			  }
             
-          }
+          }else if (response.isLoggedIn && response.role.includes(2)) {
+				  window.location.href=`${env.adminUrl}`;
+			}
+            
         }, error => {
           this.isLoading = false;
         }

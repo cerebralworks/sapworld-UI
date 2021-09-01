@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit,ViewChild,ElementRef, SimpleChanges } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -8,6 +8,9 @@ import { SharedApiService } from '@shared/service/shared-api.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-candidate-skillset',
@@ -35,6 +38,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	public skillItems: any[] = [];
 	public skillsItems: any[] = [];
 	public commonSkills: any[] = [];
+	public programItems: any[] = [];
 	public userInfo: any;
 	savedUserDetails: any;
 	@Input('userDetails')
@@ -43,7 +47,11 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	}
 	public requestParams: any;	
 	public searchCallback = (search: string, item) => true; 
-
+	programCtrl = new FormControl();
+	filteredProgram: Observable<any[]>;
+	@ViewChild('programInput') programInput: ElementRef<HTMLInputElement>;
+	@ViewChild('auto') matAutocomplete: MatAutocomplete;
+	
   constructor(
     private parentF: FormGroupDirective,
     public sharedService: SharedService,
@@ -52,7 +60,13 @@ export class CreateCandidateSkillsetComponent implements OnInit {
     private userSharedService: UserSharedService,
 		private SharedAPIService: SharedApiService,
     public utilsHelperService: UtilsHelperService
-  ) { }
+  ) { 
+	
+	this.filteredProgram = this.programCtrl.valueChanges.pipe(
+        startWith(null),
+        map((fruit: string | null) => fruit ? this._filter(fruit) : []));
+		
+  }
 	
 	/**
 	**	To initialize the skillset tab
@@ -77,6 +91,17 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			this.commonSkills = [];
 		  }
 		)
+		this.dataService.getProgramDataSource().subscribe(
+		  response => {
+			if (response && response.items) {
+			 
+			  this.programItems = [...response.items];
+			}
+		  },
+		  error => {
+			this.programItems = [];
+		  }
+		)
 
 		this.userSharedService.getUserProfileDetails().subscribe(
 		  response => {
@@ -85,12 +110,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		)
 	}
 	
-	/**
-	**	To add the programmingSkills data
-	**/
-	add(event: MatChipInputEvent): void {
-		
-		const value = (event.value || '').trim();
+	selected(event: MatAutocompleteSelectedEvent): void {
+		const value = (event.option.value || '').trim();
 
 		if (value) {
 			const index = this.programmingSkills.indexOf(value);
@@ -105,9 +126,47 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			});}
 			
 		}
+		 this.programInput.nativeElement.value = '';
+	}
+	
+	private _filter(value: string): string[] {
+		const filterValue = value.toLowerCase();
+		var prp =  this.programmingSkills;
+		var filters = this.programItems.filter(function(a,b){ return !prp.includes(a.name) })
 
-		// Clear the input value
-		event.chipInput!.clear();
+		return filters.filter(fruit => fruit.name.toLowerCase().includes(filterValue));
+	  }
+	  
+	private _filtersdata(): string[] {
+		var prp =  this.programmingSkills;
+		return this.programItems.filter(function(a,b){ return !prp.includes(a.name) })
+	  }
+	
+	/**
+	**	To add the programmingSkills data
+	**/
+	add(event: MatChipInputEvent): void {
+		if (!this.matAutocomplete.isOpen) {
+			const value = (event.value || '').trim();
+
+			if (value) {
+				var values = value.replace(/\b\w/g, l => l.toUpperCase()); 
+				const index = this.programmingSkills.indexOf(values);
+				if (index >= 0) {
+					
+				}else{
+				this.programmingSkills.push(values);
+				this.childForm.patchValue({
+				  skillSet: {
+					['programming_skills']: this.programmingSkills,
+				  }
+				});}
+				
+			}
+
+			// Clear the input value
+			event.chipInput!.clear();
+		}
 	}
 	
 	/**
@@ -265,6 +324,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
         }
 		if (this.savedUserDetails.programming_skills != null) {
 			this.programmingSkills = this.savedUserDetails.programming_skills;
+			var prp =  this.programmingSkills;
+			//this.filteredProgram = this.programItems.filter(function(a,b){ return !prp.includes(a.name) })
 		}
 		if (this.savedUserDetails.other_skills != null) {
 			this.othersSkills = this.savedUserDetails.other_skills;
@@ -300,6 +361,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		  }
 		if (this.childForm.controls.skillSet.value.programming_skills != null) {
 			this.programmingSkills = this.childForm.controls.skillSet.value.programming_skills;
+			var prp =  this.programmingSkills;
+			//this.filteredProgram = this.programItems.filter(function(a,b){ return !prp.includes(a.name) })
 		}
 		if (this.childForm.controls.skillSet.value.other_skills != null) {
 			this.othersSkills = this.childForm.controls.skillSet.value.other_skills;

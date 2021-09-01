@@ -1,0 +1,85 @@
+<!-- //Nav Tab Section -->
+<section class="my-4">
+	<div class="container">
+		<div class="row mb-3">
+			<div class="col-lg-12">
+				<p class="mb-0 text-sblue">Hello</p>
+				<h5 class="text-blue" style="text-transform: capitalize;">{{(currentUserDetails?.first_name ? currentUserDetails?.first_name : '') + ' ' + (currentUserDetails?.last_name ? currentUserDetails?.last_name : '')}}</h5>
+			</div>
+		</div>
+		<div class="row mb-5">
+			
+			<div class="col-lg-4" *ngIf="showMatches">					
+				<div class="chartTitle mb-4">
+					Total No of Matches
+				</div>
+				<canvas baseChart 
+					[data]="doughnutChartData"
+					[labels]="doughnutChartLabels"
+					[BorderWidth]="doughnutBorderWidth"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					>
+				  </canvas>
+				<div class="chart-center-label">{{totalMatches}}</div>
+			</div>
+			<div class="col-lg-4" *ngIf="showApplied">					
+				<div class="chartTitle mb-4">
+					Applied Jobs
+				</div>
+				<canvas baseChart 
+					[data]="doughnutChartDataApplied"
+					[labels]="doughnutChartLabelsApplied"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					>
+				  </canvas>
+				<div class="chart-center-label">{{totalApplied}}</div>
+			</div>
+			<div class="col-lg-4" *ngIf="showAvailiability">				
+				<div class="chartTitle mb-4">
+					By Availability
+				</div>
+				<canvas baseChart 
+					[data]="doughnutChartDataAvailability"
+					[labels]="doughnutChartLabelsAvailability"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					>
+				  </canvas>
+				<div class="chart-center-label" >{{totalAvailability}}</div>
+			</div>
+			<div class="col-lg-4" *ngIf="showType">					
+				<div class="chartTitle mb-4">
+					By Job Type
+				</div>
+				<canvas baseChart 
+					[data]="doughnutChartDataType"
+					[labels]="doughnutChartLabelsType"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					>
+				  </canvas>
+				<div class="chart-center-label" >{{totalType}}</div>
+			</div>
+			<div class="col-lg-4" *ngIf="showVisa">					
+				<div class="chartTitle mb-4">
+					Visa Sponsord Jobs
+				</div>
+				<canvas baseChart 
+					[data]="doughnutChartDataVisa"
+					[labels]="doughnutChartLabelsVisa"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					>
+				  </canvas>
+				<div class="chart-center-label" >{{totalVisa}}</div>
+			</div>
+		</div>
+	</div>
+</section>

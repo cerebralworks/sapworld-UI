@@ -21,6 +21,14 @@ module.exports = (app, env, rp) => {
     let requestBody = { ...req.query };    
     requestCustom.get(`${serverRoutes.userProfile}`, req, res, requestBody);
   });
+  
+	/**
+	* To get the users profile
+	*/
+	app.post("/api/users/user-dashboard", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.userDashboard}`, req, res, requestBody);
+	});
 
   /**
    * User crm for restaurant

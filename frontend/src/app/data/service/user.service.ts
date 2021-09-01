@@ -40,6 +40,14 @@ export class UserService extends CacheService {
       })
     );
   }
+  
+  getUserDashboard = (params?) => {
+    return this.apiService.post('/api/users/user-dashboard', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
 
   photoUpdate = (params?) => {
     return this.apiService.post('/api/users/update-photo', params).pipe(

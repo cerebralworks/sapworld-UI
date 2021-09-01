@@ -27,6 +27,20 @@ export class SharedApiService {
       }
     )
   }
+  
+  onGetProgram(requestParams: any): any {
+    this.employerService.getProgram(requestParams).subscribe(
+      response => {
+        if(response && response.items) {
+          this.dataService.setProgramDataSource(response);
+        }else {
+          this.dataService.clearProgramDataSource();
+        }
+      }, error => {
+        this.dataService.clearProgramDataSource();
+      }
+    )
+  }
 
   onGetSkill(requestParams: any): any {
     this.employerService.getSkill(requestParams).subscribe(

@@ -1,0 +1,70 @@
+<div class="main-panel">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="page-header clearfix">
+					<div class="page-title float-left">
+						<h1>Employers</h1>
+					</div>
+					<div class="float-right">
+						<button type="button" class="btn btn-outline-secondary btn-sm my-1" onclick="history.go(-1)">
+							<i class="ri-arrow-left-circle-line align-middle"></i> Back
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2">	
+			<div class="col-lg-12">	
+				<div class="myCard"> 
+					<div class="myCard-body"> 							
+						<div class="row">	
+							<div class="col-lg-12 mt-3">
+								<div class="profile-card">
+									<h3>Posted Jobs - By Countries</h3>	
+								</div>
+							</div>		
+							<div class="col-lg-12 mt-4" >	
+								<owl-carousel [options]="SlideOptions" [items]="totalEmployersCountry" [carouselClasses]="['owl-theme', 'sliding']" >  
+									<ng-container carouselSlide *ngFor="let item of totalEmployersCountry" >	
+										<div class="item"  >
+											<a >
+												<h5 class="text-Capitalize">{{item.country}}</h5>
+												<h3>{{item.count}}</h3>
+											</a>
+										</div>
+									</ng-container>
+								</owl-carousel> 
+							</div>
+						</div>
+						<div class="row mt-3">	
+							<div class="col-lg-12">	
+								<!-- Table start -->
+								<div class="table-container">
+									<div class="table-container">
+										<div class="table-responsive">
+											<table  datatable id="DataTable" [dtOptions]="dtOptionss"  class="sort-table table custom-table m-0">
+												<thead>
+													<tr>
+														<th>Employer Name</th>
+														<th>Phone</th>
+														<th>Email</th>
+														<th>Posted Jobs</th>
+														<th>Last Posted on</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<!-- Table end -->
+									</div>	
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

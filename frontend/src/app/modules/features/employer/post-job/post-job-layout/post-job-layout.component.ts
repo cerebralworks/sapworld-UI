@@ -78,6 +78,7 @@ export class PostJobLayoutComponent implements OnInit {
   ngOnInit(): void {
 		this.onGetCountry('');
 		this.onGetLanguage('');
+		this.onGetProgram('');
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
@@ -116,6 +117,20 @@ export class PostJobLayoutComponent implements OnInit {
   onHeaderTabChange = (currentTabInfo: tabInfo) => {
     this.currentTabInfo = { ...currentTabInfo};
   }
+  
+	/**
+	**	To get program Info
+	**/
+    onGetProgram(query) {
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 100000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
+
+		this.SharedAPIService.onGetProgram(this.requestParams);
+		 
+	  }
 
   onFooterTabChange = (currentTabInfo: tabInfo) => {
     if(currentTabInfo.tabNumber > this.currentTabInfo.tabNumber) {
@@ -451,7 +466,7 @@ onGetCountry(query) {
 					temps = temps.map(JSON.stringify).reverse().filter(function (e, i, a) {
 						return a.indexOf(e, i+1) === -1;
 					}).reverse().map(JSON.parse);
-					this.screeningProcess = temps;
+					this.screeningProcess = temps.slice(0, 5);
 				}
 				
 			}, error => {

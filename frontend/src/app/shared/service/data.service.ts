@@ -6,6 +6,7 @@ import { UtilsHelperService } from './utils-helper.service';
 export class DataService {
   private skillTags = new BehaviorSubject<any>({});
   private countryLists = new BehaviorSubject<any>({});
+  private programLists = new BehaviorSubject<any>({});
   private languageLists = new BehaviorSubject<any>({});
   private industries = new BehaviorSubject<any>({});
   private userPhoto = new BehaviorSubject<any>({});
@@ -59,6 +60,18 @@ export class DataService {
 
   getIndustriesDataSource(): Observable<any> {
     return this.industries.asObservable();
+  }
+
+  setProgramDataSource(data: {}) {
+    this.programLists.next(data);
+  }
+
+  clearProgramDataSource(): any {
+    this.programLists.next({});
+  }
+
+  getProgramDataSource(): Observable<any> {
+    return this.programLists.asObservable();
   }
 
   setUserPhoto(data: {}) {
