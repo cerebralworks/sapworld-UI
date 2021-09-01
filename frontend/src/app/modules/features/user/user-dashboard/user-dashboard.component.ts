@@ -21,8 +21,8 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	**/
 	
 	public currentTabInfo: tabInfo = {
-		tabName: 'Profile',
-		tabNumber: 1
+		tabName: 'chart',
+		tabNumber: 7
 	};
 	public toggleResumeModal: boolean;
 	public dashboardView: boolean = false;

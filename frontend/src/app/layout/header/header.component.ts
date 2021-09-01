@@ -116,7 +116,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.accountService.logout().subscribe(
       response => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['']);
         localStorage.clear();
       },
       error => {
