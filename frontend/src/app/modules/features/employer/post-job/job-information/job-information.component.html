@@ -2,14 +2,14 @@
 	<div class="row mt-5">
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postJob.jobTitle" | translate}}</label>
+				<label>{{"shared.jobTitle" | translate}}</label>
 				<input appMarkAsterisk formControlName="title" type="text" class="form-control text-capitalize" [placeholder]="'postJob.jobTitle' | translate"/>
 			</div>
 			<app-control-messages [control]="f['title']"></app-control-messages>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postYourResume.roleType" | translate }}</label>
+				<label>{{"userProfile.roleType" | translate }}</label>
 				<select formControlName="employer_role_type" class="form-control text-capitalize">
 					<option value="" selected="" >Select Role Type</option>
 					<option  value="Technical">Technical</option>
@@ -23,7 +23,7 @@
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postJob.jobType" | translate}}</label>
+				<label>{{"shared.jobType" | translate}}</label>
 				<select (change)="onChangeJobType($event?.target?.value)" appMarkAsterisk formControlName="type" class="form-control" name="type">
 					<option value="" selected="" >Select Job Type</option>
 					<option  value="1000">Full Time</option>
@@ -37,16 +37,16 @@
 		</div>
 		<div class="col-lg-4 col-md-6" *ngIf="isContractDuration || childForm?.value?.jobInfo?.type == '1002'">
 			<div class=" form-group">
-				<label>{{"postJob.duration" | translate}} <small>( {{"postJob.months" | translate}} )</small></label>
+				<label>{{"shared.duration" | translate}} <small>( {{"shared.months" | translate}} )</small></label>
 				<input appMarkAsterisk numbersOnly formControlName="contract_duration" type="text" class="form-control" placeholder="Ex: 6 months">
 				<app-control-messages [control]="f['contract_duration']"></app-control-messages>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6 d-flex">
 			<div class=" form-group w-50">
-				<label>{{"postJob.pay" | translate}}</label>
+				<label>{{"shared.pay" | translate}}</label>
 				<select appMarkAsterisk formControlName="salary_type" class="form-control" name="job-type">
-					<option value="" selected="" disabled="">{{"common.select" | translate}} {{"postJob.pay" | translate}}</option>
+					<option value="" selected="" disabled="">{{"shared.select" | translate}} {{"shared.pay" | translate}}</option>
 					<option [value]="0">Hourly </option>
 					<option [value]="2">Monthly</option>
 					<option [value]="1">Annual</option>
@@ -70,7 +70,7 @@
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postYourResume.city" | translate}}</label>
+				<label>{{"shared.city" | translate}}</label>
 				<input autocomplete="disabled" appMarkAsterisk ngx-google-places-autocomplete
 				(onAddressChange)="handleAddressChange($event)"
 				formControlName="city" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.city' | translate">
@@ -79,7 +79,7 @@
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postYourResume.state" | translate}}</label>
+				<label>{{"shared.state" | translate}}</label>
 				<input  autocomplete="disabled"  appMarkAsterisk formControlName="state" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.state' | translate">
 				<app-control-messages [control]="f['state']"></app-control-messages>
 			</div>
@@ -88,14 +88,14 @@
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postYourResume.zipCode" | translate}}</label>
+				<label>{{"shared.zipCode" | translate}}</label>
 				<input autocomplete="disabled" appMarkAsterisk  OnlyNumber="true" formControlName="zipcode" type="text" class="form-control" [placeholder]="'postYourResume.zipCode' | translate">
 			</div>
 			<app-control-messages [control]="f['zipcode']"></app-control-messages>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postJob.country" | translate}}</label>
+				<label>{{"shared.country" | translate}}</label>
 				<input  autocomplete="disabled"  appMarkAsterisk formControlName="country" type="text" class="form-control text-uppercase" [placeholder]="'postYourResume.country' | translate">
 			</div>
 			<app-control-messages [control]="f['country']"></app-control-messages>
@@ -104,9 +104,9 @@
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postJob.availability" | translate}}</label>
+				<label>{{"userProfile.availability" | translate}}</label>
 				<select appMarkAsterisk formControlName="availability" class="form-control">
-					<option [value]="null">{{"common.select" | translate }}</option>
+					<option [value]="null">{{"shared.select" | translate }}</option>
 					<option *ngFor="let type of availabilityArray" [value]="type.id">{{ type.text }}</option>
 				</select>
 				<app-control-messages [control]="f['availability']"></app-control-messages>
@@ -114,15 +114,15 @@
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"postJob.remote" | translate}} </label>
+				<label>{{"userProfile.remote" | translate}} </label>
 				<div appMarkAsterisk class="mt-2">
 					<div class="custom-control custom-radio custom-control-inline">
 						<input [value]="true" id="remote_PJ_Y" formControlName="remote" type="radio" class="custom-control-input">
-						<label class="custom-control-label" for="remote_PJ_Y">{{"common.yes" | translate}}</label>
+						<label class="custom-control-label" for="remote_PJ_Y">{{"shared.yes" | translate}}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
 						<input [value]="false" id="remote_PJ_N" formControlName="remote" type="radio" class="custom-control-input">
-						<label class="custom-control-label" for="remote_PJ_N">{{"common.no" | translate}}</label>
+						<label class="custom-control-label" for="remote_PJ_N">{{"shared.no" | translate}}</label>
 					</div>
 				</div>
 			</div>
@@ -148,7 +148,7 @@
 	<div class="row mt-2">
 		<div class="col-md-12">
 			<div class="form-group">
-				<label>{{"postJob.jobDescription" | translate}}</label>
+				<label>{{"shared.description" | translate}}</label>
 				<angular-editor appMarkAsterisk formControlName="description" [config]="editorConfig" [placeholder]="'postJob.jobDescription' | translate"></angular-editor>
 			</div>
 			<app-control-messages [control]="f['description']"></app-control-messages>
@@ -156,82 +156,82 @@
 	</div>
 	<div class="row mt-2">
 		<div class="col-md-12 mb-2">
-			<label>{{"postJob.perksBenfits" | translate}}</label>
+			<label>{{"jobs.perksBenfits" | translate}}</label>
 		</div>
 		<div class="col-md-3" formGroupName="health_wellness">
-			<h6>{{"postJob.healthWellness" | translate}}</h6>
+			<h6>{{"jobs.healthWellness" | translate}}</h6>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="dental"  id="dentalInsurance">
-				<label class="custom-control-label" for="dentalInsurance">{{"postJob.dentalInsurance" | translate}}</label>
+				<label class="custom-control-label" for="dentalInsurance">{{"jobs.dentalInsurance" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				 <input type="checkbox" class="custom-control-input" formControlName="vision"  id="visionInsurance">
-				 <label class="custom-control-label" for="visionInsurance">{{"postJob.visionInsurance" | translate}}</label>
+				 <label class="custom-control-label" for="visionInsurance">{{"jobs.visionInsurance" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="health"  id="healthInsurance">
-				<label class="custom-control-label" for="healthInsurance">{{"postJob.healthInsurance" | translate}}</label>
+				<label class="custom-control-label" for="healthInsurance">{{"jobs.healthInsurance" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input"  formControlName="life" id="lifeInsurance">
-				<label class="custom-control-label" for="lifeInsurance">{{"postJob.lifeInsurance" | translate}}</label>
+				<label class="custom-control-label" for="lifeInsurance">{{"jobs.lifeInsurance" | translate}}</label>
 			</div>
 		</div>
 		<div class="col-md-3"  formGroupName="paid_off">
-			<h6>{{"postJob.paidTimeOff" | translate}}</h6>
+			<h6>{{"jobs.paidTimeOff" | translate}}</h6>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input"  formControlName="vacation_policy" id="vacationPolicy">
-				<label class="custom-control-label" for="vacationPolicy">{{"postJob.vacationPolicy" | translate}}</label>
+				<label class="custom-control-label" for="vacationPolicy">{{"jobs.vacationPolicy" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="paid_holidays"  id="paidHolidays">
-				<label class="custom-control-label" for="paidHolidays">{{"postJob.paidHolidays" | translate}}</label>
+				<label class="custom-control-label" for="paidHolidays">{{"jobs.paidHolidays" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="maternity"  id="maternity">
-				<label class="custom-control-label" for="maternity">{{"postJob.maternity" | translate}}</label>
+				<label class="custom-control-label" for="maternity">{{"jobs.maternity" | translate}}</label>
 			</div>
 		</div>
 		<div class="col-md-3" formGroupName="financial_benefits">
-			<h6>{{"postJob.financialBenefits" | translate}}</h6>
+			<h6>{{"jobs.financialBenefits" | translate}}</h6>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="retirement_plan"  id="retirementPlan">
-				<label class="custom-control-label" for="retirementPlan">{{"postJob.retirementPlan" | translate}}</label>
+				<label class="custom-control-label" for="retirementPlan">{{"jobs.retirementPlan" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="performance_bonus"  id="performanceBonus">
-				<label class="custom-control-label" for="performanceBonus">{{"postJob.performanceBonus" | translate}}</label>
+				<label class="custom-control-label" for="performanceBonus">{{"jobs.performanceBonus" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="tuition_reimbursement"  id="tuitionReimbursement">
-				<label class="custom-control-label" for="tuitionReimbursement">{{"postJob.tuitionReimbursement" | translate}}</label>
+				<label class="custom-control-label" for="tuitionReimbursement">{{"jobs.tuitionReimbursement" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 			  <input type="checkbox" class="custom-control-input" formControlName="purchase_plan"  id="purchasePlan">
-			  <label class="custom-control-label" for="purchasePlan">{{"postJob.purchasePlan" | translate}}</label>
+			  <label class="custom-control-label" for="purchasePlan">{{"jobs.purchasePlan" | translate}}</label>
 			</div>
 		</div>
 		<div class="col-md-3" formGroupName="office_perks">
-			<h6>Office Perks</h6>
+			<h6>{{"jobs.officePerks" | translate}}</h6>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="free_food"  id="freeFood">
-				<label class="custom-control-label" for="freeFood">{{"postJob.freeFood" | translate}}</label>
+				<label class="custom-control-label" for="freeFood">{{"jobs.freeFood" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 			  <input type="checkbox" class="custom-control-input"  formControlName="home_policy" id="homePolicy">
-			  <label class="custom-control-label" for="homePolicy">{{"postJob.homePolicy" | translate}}</label>
+			  <label class="custom-control-label" for="homePolicy">{{"jobs.homePolicy" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 			  <input type="checkbox" class="custom-control-input" formControlName="pet_friendly"  id="petFriendly">
-			  <label class="custom-control-label" for="petFriendly">{{"postJob.petFriendly" | translate}}</label>
+			  <label class="custom-control-label" for="petFriendly">{{"jobs.petFriendly" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 			  <input type="checkbox" class="custom-control-input" formControlName="social_outings"  id="socialOutings">
-			  <label class="custom-control-label" for="socialOutings">{{"postJob.socialOutings" | translate}}</label>
+			  <label class="custom-control-label" for="socialOutings">{{"jobs.socialOutings" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 			  <input type="checkbox" class="custom-control-input"  formControlName="office_space" id="officeSpace">
-			  <label class="custom-control-label" for="officeSpace">{{"postJob.officeSpace" | translate}}</label>
+			  <label class="custom-control-label" for="officeSpace">{{"jobs.officeSpace" | translate}}</label>
 			</div>
 		</div>
 	</div>

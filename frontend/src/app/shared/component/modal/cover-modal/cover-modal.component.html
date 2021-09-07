@@ -1,6 +1,6 @@
 <ng-template #coverModal let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">View Cover</h5>
+    <h5 class="modal-title" id="exampleModalLabel">{{"shared.coverLetter" | translate}}</h5>
     <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -18,9 +18,9 @@
 </ngx-doc-viewer>
     </div>
     <div class="modal-footer">
-    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+    <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{"shared.cancel" | translate}}</button>
     <a [href]="(url ? url : 'javascript:;')">
-      <button type="button" class="btn btn-primary btn-sm" >Download Resume</button>
+      <button type="button" class="btn btn-primary btn-sm" >{{"shared.download" | translate}}</button>
     </a>
     </div>
 </ng-template>

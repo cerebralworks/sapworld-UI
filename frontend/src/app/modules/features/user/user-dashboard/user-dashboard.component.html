@@ -4,11 +4,11 @@
     <div class="row">
       <div class="col-lg-5">
         <ol class="breadcrumb">
-          <li *ngIf="currentTabInfo.tabNumber == 1" class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
-          <li *ngIf="currentTabInfo.tabNumber == 2" class="breadcrumb-item active" aria-current="page">Matching Jobs</li>
-          <li *ngIf="currentTabInfo.tabNumber == 4" class="breadcrumb-item active" aria-current="page">Applied Jobs</li>
-          <li *ngIf="currentTabInfo.tabNumber == 6" class="breadcrumb-item active" aria-current="page">My Attachments</li>
-          <li *ngIf="currentTabInfo.tabNumber == 7" class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
+          <li *ngIf="currentTabInfo.tabNumber == 1" class="breadcrumb-item active" aria-current="page">{{"header.profile" | translate}}</li>
+          <li *ngIf="currentTabInfo.tabNumber == 2" class="breadcrumb-item active" aria-current="page">{{"nav.matchingJobs" | translate}}</li>
+          <li *ngIf="currentTabInfo.tabNumber == 4" class="breadcrumb-item active" aria-current="page">{{"nav.appliedJobs" | translate}}</li>
+          <li *ngIf="currentTabInfo.tabNumber == 6" class="breadcrumb-item active" aria-current="page">{{"nav.myAttachments" | translate}}</li>
+          <li *ngIf="currentTabInfo.tabNumber == 7" class="breadcrumb-item active" aria-current="page">{{"header.dashboard" | translate}}</li>
         </ol>
       </div>
       <!-- <div class="col-lg-7 clearfix">
@@ -39,18 +39,18 @@
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'chart', tabNumber: 7})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 7}" class="nav-link" href="javascript:;">
-             {{"dashboard.dashboard" | translate}}
+             {{"header.dashboard" | translate}}
             </a>
           </li>
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'profile', tabNumber: 1})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">
-              {{"dashboard.profile" | translate}}
+              {{"header.profile" | translate}}
             </a>
           </li>
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'matches', tabNumber: 2})"
-              [ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}}
+              [ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"tabs.matches" | translate}}
               <small id="matchesCountValue" >(0)</small> 
             </a>
           </li>
@@ -62,7 +62,7 @@
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'applied', tabNumber: 4})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">
-              {{"dashboard.jobsApplied" | translate}}
+              {{"tabs.jobsApplied" | translate}}
                <small id="appliedCountValue" >(0)</small> 
             </a>
           </li>
@@ -75,7 +75,7 @@
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'resume', tabNumber: 6})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 6}" class="nav-link" href="javascript:;">
-              {{"dashboard.myResumes" | translate}}
+              {{"tabs.myResumes" | translate}}
             </a>
           </li>
         </ul>
@@ -109,16 +109,16 @@
 <ng-template *ngIf="toggleResumeModal" #deleteModal let-modal let-d="dismiss">
   <div class="full-width">
     <div class="modal-header bg-dblue text-white">
-      <h3 class="modal-title" id="exampleModalLabel">Upload Resume</h3>
+      <h3 class="modal-title" id="exampleModalLabel">{{"shared.uploadResume" | translate}}</h3>
     </div>
     <div class="modal-body">
-      Please upload your resume. Click the below button to redirect resume upload page.
+      {{"shared.uploadTitle" | translate}}
     </div>
     <div class="modal-footer full-width">
       <button type="button" class="btn btn-theme-orange"
-      (click)="mbRef?.close()">Later</button> 
+      (click)="mbRef?.close()">{{"shared.later" | translate}}</button> 
 	  <button type="button" class="btn btn-primary"
-      (click)="OpenAddResume()">Upload</button>
+      (click)="OpenAddResume()">{{"shared.upload" | translate}}</button>
     </div>
   </div>
 </ng-template>
@@ -127,12 +127,12 @@
 	<div class="modal-content">
 		<div class="modal-body text-center">
 			<h1 class="text-green mx-auto pt-4"><i class="far fa-check-circle"></i></h1>
-			<h6 class="mt-3" style="font-size: 20px;">Great, you have a new match!!</h6>
+			<h6 class="mt-3" style="font-size: 20px;"> {{"shared.uploadSuccess" | translate}} </h6>
 		</div>
 		<div class="modal-footer">
 			<div class=" mx-auto">
-				<button type="button" class="btn btn-theme-blue" style="margin-right:10px;" (click)="closeMatches()"  data-dismiss="modal">Ok</button>
-				<button type="button" class="btn btn-theme-green"  (click)="navigateMatches()" >Go to Matches</button>
+				<button type="button" class="btn btn-theme-blue" style="margin-right:10px;" (click)="closeMatches()"  data-dismiss="modal">{{"shared.ok" | translate}}</button>
+				<button type="button" class="btn btn-theme-green"  (click)="navigateMatches()" > {{"shared.goMatches" | translate}} </button>
 			</div>
 		</div>
 	</div>	

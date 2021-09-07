@@ -3,13 +3,13 @@
 		<div class="row mt-3" >
 			<div class="col-lg-12">
 				<div class="pj-title mb-3">
-					<h6>{{"common.resume" | translate}} </h6>
+					<h6>{{"shared.resume" | translate}} </h6>
 				</div>
 			</div>
 			<div class="col-lg-12"  *ngIf="userProfileInfo?.doc_resume?.length > 1" >
 				<div class="custom-control custom-checkbox mr-sm-2">
 					<input [checked]="onCheck(userProfileInfo?.doc_resume, 'default')" (click)="onChooseDefaultResume({}, $event.target.checked, true)" type="checkbox" class="custom-control-input" id="chooseApplying">
-					<label class="custom-control-label h6" for="chooseApplying">{{"dashboard.iWillChooseWhileApplying" | translate}}</label>
+					<label class="custom-control-label h6" for="chooseApplying">{{"shared.iWillChooseWhileApplying" | translate}}</label>
 				</div>
 			</div>
 		</div>
@@ -26,13 +26,13 @@
 				</a>
 				<div class="form-group form-check  mb-0">
 					<input (click)="onChooseDefaultResume(item, $event.target.checked)" [checked]="(item.default == 1 || item.default == '1')" type="checkbox" class="form-check-input" id="resumeCheck_{{i}}">
-					<label class="form-check-label" for="resumeCheck_{{i}}">{{"common.default" | translate}} </label>
+					<label class="form-check-label" for="resumeCheck_{{i}}">{{"shared.default" | translate}} </label>
 				</div>
 			</div>
 			<div class="col-lg-2 alert">
 				<label class="text-black-50">
 					<h1 class="text-black-50 mb-0"><i class="far fa-plus-square"></i></h1>
-					{{"common.addResume" | translate}}
+					{{"shared.addResume" | translate}}
 					<input #userResume type="file" hidden (change)="handleFileInput($event,'resume');">
 				</label>
 			</div>
@@ -40,7 +40,7 @@
 		<div class="row mt-3" >
 			<div class="col-lg-12">
 				<div class="pj-title mb-3">
-					<h6>{{"common.coverLetter" | translate}} </h6>
+					<h6>{{"shared.coverLetter" | translate}} </h6>
 				</div>
 			</div>
 		</div>
@@ -57,13 +57,13 @@
 				</a>
 				<div class="form-group form-check  mb-0" style="display:none;">
 					<input (click)="onChooseDefaultResume(item, $event.target.checked)" [checked]="(item.default == 1 || item.default == '1')" type="checkbox" class="form-check-input" id="resumeCheck_{{i}}">
-					<label class="form-check-label" for="resumeCheck_{{i}}">{{"common.default" | translate}} </label>
+					<label class="form-check-label" for="resumeCheck_{{i}}">{{"shared.default" | translate}} </label>
 				</div>
 			</div>
 			<div class="col-lg-2 alert" *ngIf="userProfileInfo?.doc_cover==null || userProfileInfo?.doc_cover.length == 0 ">
 				<label class="text-black-50">
 					<h1 class="text-black-50 mb-0"><i class="far fa-plus-square"></i></h1>
-					{{"common.addCover" | translate}}
+					{{"shared.addCover" | translate}}
 					<input #userCover type="file" hidden (change)="handleFileInput($event,'cover');">
 				</label>
 			</div>
@@ -88,21 +88,21 @@
 <ng-template #resumeTitleModal let-modal>
   <form method="post" (ngSubmit)="onSaveResume()" #resumeNgForm="ngForm" [formGroup]="resumeForm">
     <div class="modal-header">
-      <h5 class="modal-title">Add Resume Tilte</h5>
+      <h5 class="modal-title">{{"shared.add" | translate}} {{"shared.addResumeTitle" | translate}} </h5>
       <button type="button" (click)="mbRef?.close()" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
       </div>
       <div class="modal-body">
       <div class=" form-group">
-        <label class="h5">Resume Title</label>
+        <label class="h5">{{"shared.addResumeTitle" | translate}}</label>
         <input formControlName="title" type="text" class="form-control" placeholder="Enter Resume Title">
         <app-control-messages [control]="f['title']"></app-control-messages>
       </div>
       </div>
       <div class="modal-footer">
-      <button type="button" (click)="mbRef?.close()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button [disabled]="!resumeForm.valid" type="button" (click)="onSaveResume()" class="btn btn-theme-blue " data-dismiss="modal">Save</button>
+      <button type="button" (click)="mbRef?.close()" class="btn btn-secondary" data-dismiss="modal">{{"shared.cancel" | translate}}</button>
+      <button [disabled]="!resumeForm.valid" type="button" (click)="onSaveResume()" class="btn btn-theme-blue " data-dismiss="modal">{{"shared.save" | translate}}</button>
       </div>
   </form>
 
@@ -111,21 +111,21 @@
 <ng-template #coverTitleModal let-modal>
   <form method="post" (ngSubmit)="onSaveCover()" #coverNgForm="ngForm" [formGroup]="coverForm">
     <div class="modal-header">
-      <h5 class="modal-title">Add Cover Tilte</h5>
+      <h5 class="modal-title">{{"shared.add" | translate}}  {{"shared.addCoverTitle" | translate}} </h5>
       <button type="button" (click)="mbRef?.close()" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
       </div>
       <div class="modal-body">
       <div class=" form-group">
-        <label class="h5">Cover Title</label>
+        <label class="h5">{{"shared.addCoverTitle" | translate}}</label>
         <input formControlName="title" type="text" class="form-control" placeholder="Enter Resume Title">
         <app-control-messages [control]="f['title']"></app-control-messages>
       </div>
       </div>
       <div class="modal-footer">
-      <button type="button" (click)="mbRef?.close()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button [disabled]="!coverForm.valid" type="button" (click)="onSaveCover()" class="btn btn-theme-blue " data-dismiss="modal">Save</button>
+      <button type="button" (click)="mbRef?.close()" class="btn btn-secondary" data-dismiss="modal">{{"shared.cancel" | translate}} </button>
+      <button [disabled]="!coverForm.valid" type="button" (click)="onSaveCover()" class="btn btn-theme-blue " data-dismiss="modal">{{"shared.save" | translate}} </button>
       </div>
   </form>
 

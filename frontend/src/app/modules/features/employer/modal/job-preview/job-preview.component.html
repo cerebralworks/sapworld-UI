@@ -1,7 +1,7 @@
 <ng-template #jobPreviewModal let-modal>
   <div formGroupName="jobPrev">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">{{"postJob.jobPreview" | translate }} </h5>
+      <h5 class="modal-title" id="exampleModalLabel">{{"shared.jobPreview" | translate }} </h5>
       <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">×</span>
       </button>
@@ -36,10 +36,10 @@
       <div class="row mt-3 info-box">
         <div class="col-lg-4 caption">
           <ul class="list-group">
-            <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfExperience" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.handsOnWith" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.totalYearsOfExperience" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.domainExperience" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.handsOnWith" | translate }}</li>
           </ul>
         </div>
         <div class="col-lg-6 info">
@@ -58,11 +58,11 @@
         <div class="col-lg-12 border-top pt-3"> </div>
         <div class="col-lg-4 caption">
           <ul class="list-group">
-            <li class="list-group-item text-capitalize lg-mh-40">{{"dashboard.knowledgeOn" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.niceToHave" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
+            <li class="list-group-item text-capitalize lg-mh-40">{{"userProfile.knowledgeOn" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.programmingSkills" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.niceToHave" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.certification" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
           </ul>
         </div>
         <div class="col-lg-6 info">
@@ -82,14 +82,14 @@
 
         <div class="col-lg-4 caption">
           <ul class="list-group">
-            <li class="list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.jobType" | translate}}</li>
             <!-- <li class="list-group-item text-capitalize" *ngIf="jobInfo?.type == '6'">{{"postJob.contractDuration" | translate}}</li> -->
-            <li class="list-group-item text-capitalize">{{"postJob.salary" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.remote" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.startTime" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.travelRequired" | translate}}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.workAuthorization" | translate }}</li>
-            <li class="list-group-item text-capitalize">{{"postJob.visaSponsorship" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"shared.salary" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.remote" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.startTime" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.travelRequired" | translate}}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.workAuthorization" | translate }}</li>
+            <li class="list-group-item text-capitalize">{{"userProfile.visaSponsorship" | translate }}</li>
           </ul>
         </div>
         <div class="col-lg-6 info">
@@ -140,14 +140,14 @@
         <div class="col-lg-12 border-top pt-3"> </div>
 
         <div class="col-lg-12">
-          <h6>{{"postJob.jobDescription" | translate}}</h6>
+          <h6>{{"shared.description" | translate}}</h6>
           <p [innerHTML]="jobInfo?.description"></p>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-theme-blue" data-dismiss="modal" data-toggle="modal" data-target="#successMsg">Send Mail</button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">{{"shared.clsoe" | translate}}</button>
+			<button type="button" class="btn btn-theme-blue" data-dismiss="modal" data-toggle="modal" data-target="#successMsg">{{"shared.sendMail" | translate}}</button>
 		  </div>
   </div>
 </ng-template>

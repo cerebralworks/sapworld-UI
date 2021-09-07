@@ -3,14 +3,14 @@
 		<div class="accordion mt-3 ">
 			<div class="pj-titler "  *ngIf="required">
 				<h6 class="mb-0" >
-					Required Skills
+					{{"jobs.requiredSkils" | translate }} 
 				 </h6>
 			</div>
 			<div class="row  mt-3  info-box" *ngIf="jobInfo?.match_select?.experience=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.totalYearsOfExperience" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.shorttotalYearsOfExperience" | translate }}</li>
+						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExperience" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -22,8 +22,8 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperienceShort" | translate }}</li>
+						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -35,7 +35,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.domain=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
+						<li class="list-group-item text-capitalize">{{"userProfile.domainExperience" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -47,8 +47,8 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWith" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWithShort" | translate }}</li>
+						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnWith" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -71,7 +71,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.skills=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" >{{"dashboard.knowledgeOn" | translate }}</li>
+						<li class=" list-group-item text-capitalize" >{{"userProfile.knowledgeOn" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -95,7 +95,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.programming_skills=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.programmingSkills" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -107,7 +107,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.optinal_skills=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"dashboard.otherSkills" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.otherSkills" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -119,7 +119,7 @@
 			<div class="row info-box" *ngIf="jobInfo?.match_select?.certification=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.certification" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -131,7 +131,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.type=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.jobType" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -147,7 +147,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.employer_role_type=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.jobRole" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.jobRole" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -161,7 +161,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.availability=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.availability" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.availability" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -176,20 +176,20 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.work_authorization=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.workAuthorisation" | translate}}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.workAuthorisationShort" | translate}}</li>
+						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" >
-							{{"postJob.shouldBeACitizenPr" | translate }}
+							{{"userProfile.shouldBeACitizenPr" | translate }}
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" >
-							{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+							{{"userProfile.shouldBeHavingAWorkPermit" | translate }}
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{"postJob.shouldBeACitizenPrWork" | translate }}
+							{{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }}
 						</li>
 					 </ul>
 				</div>
@@ -231,8 +231,8 @@
 			<div class="row info-box" *ngIf="jobInfo?.match_select?.end_to_end_implementation=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.endToEndImplementationShort" | translate }}</li>
+						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -244,7 +244,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.education=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.education" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.education" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -256,7 +256,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.travel_opportunity=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.travelRequired" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -298,7 +298,7 @@
 			<div class="row   info-box" *ngIf="jobInfo?.match_select?.language=='0'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.languageknown" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.languageKnown" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -313,7 +313,7 @@
 				<div class="row info-box"  >
 					<div class="col-lg-5 caption">
 						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize text-blue">Others</li>
+							 <li class=" list-group-item text-capitalize text-blue">{{"userProfile.others" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-7 info" >
@@ -328,14 +328,14 @@
 		<div class="accordion" *ngIf="desired">
 			<div class="pj-titler m-b-1" >
 				<h6 class="mb-0" >
-					{{"dashboard.desiredSkills" | translate }}
+					{{"jobs.desired" | translate }}
 				 </h6>
 			</div>
 			<div class="row  mt-3  info-box" *ngIf="jobInfo?.match_select?.experience=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.totalYearsOfExperience" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.shorttotalYearsOfExperience" | translate }}</li>
+						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExperience" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>
 					
 					</ul>
 				</div>
@@ -348,8 +348,8 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperienceShort" | translate }}</li>
+						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -361,7 +361,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.domain=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
+						<li class="list-group-item text-capitalize">{{"userProfile.domainExperience" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -373,8 +373,8 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWith" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWithShort" | translate }}</li>
+						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnWith" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -397,7 +397,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.skills=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" >{{"dashboard.knowledgeOn" | translate }}</li>
+						<li class=" list-group-item text-capitalize" >{{"userProfile.knowledgeOn" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -421,7 +421,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.programming_skills=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.programmingSkills" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -433,7 +433,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.optinal_skills=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"dashboard.otherSkills" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.otherSkills" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -445,7 +445,7 @@
 			<div class="row info-box" *ngIf="jobInfo?.match_select?.certification=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.certification" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -457,7 +457,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.type=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.jobType" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -473,7 +473,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.employer_role_type=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.jobRole" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.jobRole" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -487,7 +487,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.availability=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.availability" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.availability" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -502,20 +502,20 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.work_authorization=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.workAuthorisation" | translate}}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.workAuthorisationShort" | translate}}</li>
+						<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" >
-							{{"postJob.shouldBeACitizenPr" | translate }}
+							{{"userProfile.shouldBeACitizenPr" | translate }}
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" >
-							{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+							{{"userProfile.shouldBeHavingAWorkPermit" | translate }}
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{"postJob.shouldBeACitizenPrWork" | translate }}
+							{{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }}
 						</li>
 					 </ul>
 				</div>
@@ -557,8 +557,8 @@
 			<div class="row info-box" *ngIf="jobInfo?.match_select?.end_to_end_implementation=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.endToEndImplementationShort" | translate }}</li>
+						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -570,7 +570,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.education=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.education" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.education" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -582,7 +582,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.travel_opportunity=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.travelRequired" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -624,7 +624,7 @@
 			<div class="row   info-box" *ngIf="jobInfo?.match_select?.language=='1'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.languageknown" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.languageKnown" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -639,7 +639,7 @@
 				<div class="row info-box"  >
 					<div class="col-lg-5 caption">
 						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize text-blue">Others</li>
+							 <li class=" list-group-item text-capitalize text-blue">{{"userProfile.others" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-7 info" >
@@ -655,14 +655,14 @@
 		<div class="accordion" *ngIf="nice">
 			<div class="pj-titler m-b-1"  >
 				<h6 class="mb-0" >
-					{{"postJob.niceToHave" | translate }}
+					{{"jobs.niceToHave" | translate }}
 				 </h6>
 			</div>
 			<div class="row  mt-3  info-box" *ngIf="jobInfo?.match_select?.experience=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.totalYearsOfExperience" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.shorttotalYearsOfExperience" | translate }}</li>
+						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExperience" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>
 					
 					</ul>
 				</div>
@@ -675,8 +675,8 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.totalYearsOfSapExperienceShort" | translate }}</li>
+						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -688,7 +688,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.domain=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
+						<li class="list-group-item text-capitalize">{{"userProfile.domainExperience" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -700,8 +700,8 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWith" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWithShort" | translate }}</li>
+						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnWith" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -724,7 +724,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.skills=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" >{{"dashboard.knowledgeOn" | translate }}</li>
+						<li class=" list-group-item text-capitalize" >{{"userProfile.knowledgeOn" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -748,7 +748,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.programming_skills=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.programmingSkills" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -760,7 +760,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.optinal_skills=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"dashboard.otherSkills" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.otherSkills" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -772,7 +772,7 @@
 			<div class="row info-box" *ngIf="jobInfo?.match_select?.certification=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.certification" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -784,7 +784,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.type=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.jobType" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -800,7 +800,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.employer_role_type=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.jobRole" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.jobRole" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -814,7 +814,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.availability=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.availability" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.availability" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -829,20 +829,20 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.work_authorization=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.workAuthorisation" | translate}}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.workAuthorisationShort" | translate}}</li>
+						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" >
-							{{"postJob.shouldBeACitizenPr" | translate }}
+							{{"userProfile.shouldBeACitizenPr" | translate }}
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" >
-							{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+							{{"userProfile.shouldBeHavingAWorkPermit" | translate }}
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{"postJob.shouldBeACitizenPrWork" | translate }}
+							{{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }}
 						</li>
 					 </ul>
 				</div>
@@ -884,8 +884,8 @@
 			<div class="row info-box" *ngIf="jobInfo?.match_select?.end_to_end_implementation=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.endToEndImplementationShort" | translate }}</li>
+						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -897,7 +897,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.education=='2'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.education" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.education" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -909,7 +909,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.travel_opportunity=='2' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.travelRequired" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -951,7 +951,7 @@
 			<div class="row   info-box" *ngIf="jobInfo?.match_select?.language=='2'">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.languageknown" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.languageKnown" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -966,7 +966,7 @@
 				<div class="row info-box"  >
 					<div class="col-lg-5 caption">
 						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize text-blue">Others</li>
+							 <li class=" list-group-item text-capitalize text-blue">{{"userProfile.others" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-7 info" >
@@ -982,13 +982,13 @@
 		<div class="accordion"  *ngIf="optional">
 			<div class="pj-titler m-b-1"  >
 				<h6 class="mb-0" >
-					{{"dashboard.otherPreferences" | translate }}
+					{{"jobs.otherPreferences" | translate }}
 				 </h6>
 			</div>
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.domain=='' && jobInfo?.domain ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize">{{"postJob.domainExperience" | translate }}</li>
+						<li class="list-group-item text-capitalize">{{"userProfile.domainExperience" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1000,8 +1000,8 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience==''  && jobInfo?.hands_on_experience.length ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWith" | translate }}</li>
-						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"postJob.handsOnWithShort" | translate }}</li>
+						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnWith" | translate }}</li>
+						<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1024,7 +1024,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.skills=='' && jobInfo?.skills?.length ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" >{{"dashboard.knowledgeOn" | translate }}</li>
+						<li class=" list-group-item text-capitalize" >{{"userProfile.knowledgeOn" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1048,7 +1048,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.programming_skills=='' && jobInfo?.programming_skills ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.programmingSkills" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.programmingSkills" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1060,7 +1060,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.optinal_skills=='' && jobInfo?.optinal_skills ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"dashboard.otherSkills" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.otherSkills" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1072,7 +1072,7 @@
 			<div class="row info-box" *ngIf="jobInfo?.match_select?.certification=='' && jobInfo?.certification ">
 				<div class="col-lg-5 caption" *ngIf="jobInfo?.certification.length!=0">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.certification" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.certification" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info" *ngIf="jobInfo?.certification.length!=0" >
@@ -1084,7 +1084,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.type=='' && jobInfo?.type ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.jobType" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.jobType" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1100,7 +1100,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.employer_role_type=='' && jobInfo?.employer_role_type">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.jobRole" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.jobRole" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1114,7 +1114,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.availability  && jobInfo?.match_select?.availability=='' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.availability" | translate}}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.availability" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1129,20 +1129,20 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.work_authorization=='' &&(jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2 )">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.workAuthorisation" | translate}}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.workAuthorisationShort" | translate}}</li>
+						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" >
-							{{"postJob.shouldBeACitizenPr" | translate }}
+							{{"userProfile.shouldBeACitizenPr" | translate }}
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" >
-							{{"postJob.shouldBeHavingAWorkPermit" | translate }}
+							{{"userProfile.shouldBeHavingAWorkPermit" | translate }}
 						</li>
 						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
-							{{"postJob.shouldBeACitizenPrWork" | translate }}
+							{{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }}
 						</li>
 					 </ul>
 				</div>
@@ -1184,8 +1184,8 @@
 			<div class="row info-box" *ngIf="jobInfo?.end_to_end_implementation && jobInfo?.match_select?.end_to_end_implementation=='' ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"postJob.endToEndImplementation" | translate }}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"postJob.endToEndImplementationShort" | translate }}</li>
+						 <li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1197,7 +1197,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.education=='' && jobInfo?.education">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.education" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.education" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1209,7 +1209,7 @@
 			<div class="row  info-box" *ngIf="jobInfo?.match_select?.travel_opportunity=='' && jobInfo?.travel_opportunity ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.travelRequired" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.travelRequired" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1251,7 +1251,7 @@
 			<div class="row   info-box" *ngIf="jobInfo?.match_select?.language=='' && jobInfo?.language ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
-						 <li class=" list-group-item text-capitalize">{{"postJob.languageknown" | translate }}</li>
+						 <li class=" list-group-item text-capitalize">{{"userProfile.languageKnown" | translate }}</li>
 					</ul>
 				</div>
 				<div class="col-lg-7 info">
@@ -1266,7 +1266,7 @@
 				<div class="row info-box"  >
 					<div class="col-lg-5 caption">
 						<ul class="list-group">
-							 <li class=" list-group-item text-capitalize text-blue">Others</li>
+							 <li class=" list-group-item text-capitalize text-blue">{{"userProfile.others" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-7 info" >
@@ -1283,37 +1283,37 @@
 		<div class="accordion" *ngIf="IsShown && !isHideData">
 			<div class="pj-titler m-b-1" >
 				<h6 class="mb-0" >
-					{{"postJob.perksBenfits" | translate}}
+					{{"jobs.perksBenfits" | translate}}
 				 </h6>
 			</div>
 			<div class="d-flex mt-3 " *ngIf="jobInfo?.paid_off ||  jobInfo?.health_wellness  || jobInfo?.financial_benefits" >
 				<div class="mr-3 col-lg" *ngIf="jobInfo?.health_wellness?.life == true || jobInfo?.health_wellness?.health  == true|| jobInfo?.health_wellness?.vision == true || jobInfo?.health_wellness?.dental == true"  >
-					<p class="font-weight-bold mb-2">{{"postJob.healthWellness" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.dental == true" >{{"postJob.dentalInsurance" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.vision == true" >{{"postJob.visionInsurance" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.health == true" >{{"postJob.healthInsurance" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.life == true" >{{"postJob.lifeInsurance" | translate}}</p>
+					<p class="font-weight-bold mb-2">{{"jobs.healthWellness" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.dental == true" >{{"jobs.dentalInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.vision == true" >{{"jobs.visionInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.health == true" >{{"jobs.healthInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.health_wellness?.life == true" >{{"jobs.lifeInsurance" | translate}}</p>
 				</div>
 				<div class="mr-3 col-lg"  *ngIf="jobInfo?.paid_off?.maternity == true ||  jobInfo?.paid_off?.paid_holidays == true || jobInfo?.paid_off?.vacation_policy == true" >
-					<p class="font-weight-bold mb-2">{{"postJob.paidTimeOff" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.vacation_policy == true" >{{"postJob.vacationPolicy" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.paid_holidays == true" >{{"postJob.paidHolidays" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.maternity == true" >{{"postJob.maternity" | translate}}</p>
+					<p class="font-weight-bold mb-2">{{"jobs.paidTimeOff" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.vacation_policy == true" >{{"jobs.vacationPolicy" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.paid_holidays == true" >{{"jobs.paidHolidays" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.paid_off?.maternity == true" >{{"jobs.maternity" | translate}}</p>
 				</div>
 				<div class="mr-3 col-lg"  *ngIf="jobInfo?.financial_benefits.purchase_plan == true || jobInfo?.financial_benefits.tuition_reimbursement == true || jobInfo?.financial_benefits.performance_bonus == true || jobInfo?.financial_benefits.retirement_plan == true" >
-					<p class="font-weight-bold mb-2">{{"postJob.financialBenefits" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.retirement_plan == true" >{{"postJob.retirementPlan" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.performance_bonus == true" >{{"postJob.performanceBonus" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.tuition_reimbursement == true" >{{"postJob.tuitionReimbursement" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.purchase_plan == true" >{{"postJob.purchasePlan" | translate}}</p>
+					<p class="font-weight-bold mb-2">{{"jobs.financialBenefits" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.retirement_plan == true" >{{"jobs.retirementPlan" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.performance_bonus == true" >{{"jobs.performanceBonus" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.tuition_reimbursement == true" >{{"jobs.tuitionReimbursement" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.financial_benefits.purchase_plan == true" >{{"jobs.purchasePlan" | translate}}</p>
 				</div>
 				<div class="mr-3 col-lg" *ngIf="jobInfo?.office_perks?.office_space == true || jobInfo?.office_perks?.social_outings == true || jobInfo?.office_perks?.pet_friendly == true || jobInfo?.office_perks?.home_policy == true || jobInfo?.office_perks?.free_food == true" >
-					<p class="font-weight-bold mb-2">Office Perks</p>
-					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.free_food == true" >{{"postJob.freeFood" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.home_policy == true" >{{"postJob.homePolicy" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.pet_friendly == true" >{{"postJob.petFriendly" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.social_outings == true" >{{"postJob.socialOutings" | translate}}</p>
-					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.office_space == true" >{{"postJob.officeSpace" | translate}}</p>
+					<p class="font-weight-bold mb-2">{{"jobs.officePerks" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.free_food == true" >{{"jobs.freeFood" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.home_policy == true" >{{"jobs.homePolicy" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.pet_friendly == true" >{{"jobs.petFriendly" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.social_outings == true" >{{"jobs.socialOutings" | translate}}</p>
+					<p class=" mb-1" *ngIf="jobInfo?.office_perks?.office_space == true" >{{"jobs.officeSpace" | translate}}</p>
 				</div>
 			</div>
 		</div>

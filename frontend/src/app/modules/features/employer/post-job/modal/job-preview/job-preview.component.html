@@ -1,7 +1,7 @@
 <ng-template #jobPreviewModal let-modal>
 	<div formGroupName="jobPrev">
 		<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">{{"postJob.jobPreview" | translate }} </h5>
+			<h5 class="modal-title" id="exampleModalLabel">{{"shared.jobPreview" | translate }} </h5>
 			<button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 			</button> 
@@ -31,18 +31,18 @@
 						</div>
 						<div class="col-lg-6" style="text-align: right;">
 							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
-								<h6 class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / hr'}}</h6>
+								<h6 class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / hr'}}</h6>
 							</ng-container>
 							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==1">
-								<h6 class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / Annual '}}</h6>
+								<h6 class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / Annual '}}</h6>
 							</ng-container>
 							<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
-								<h6 class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / month'}}</h6>
+								<h6 class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / month'}}</h6>
 							</ng-container>
 							<ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
 								--
 							</ng-container>
-							<h6 class="text-capitalize job-cardh6">{{"postJob.remote" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}} </h6>
+							<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}} </h6>
 							<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.willing_to_relocate)}} </h6> -->
 						</div>
 						</div>
@@ -54,14 +54,14 @@
 		<div class="row mt-3 info-box">
 			<div class="offset-lg-8 col-lg-4 text-center">
 					<div class="d-flex" >
-					<div class="rdn-radio">Required</div>
-					<div class="rdn-radio">Desired</div>
-					<div class="rdn-radio">Nice to have</div>
+					<div class="rdn-radio">{{"jobs.required" | translate}}</div>
+					<div class="rdn-radio">{{"jobs.desired" | translate}}</div>
+					<div class="rdn-radio">{{"jobs.niceToHave" | translate}}</div>
 				</div>	
 			</div>
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.totalYearsOfExperience" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.totalYearsOfExperience" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -99,7 +99,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.totalYearsOfSapExperience" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"matches.totalYearsOfSapExperience" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -137,7 +137,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.domainExperience" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.domainExperience" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -175,7 +175,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.handsOnWith" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.handsOnWith" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -224,7 +224,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"dashboard.knowledgeOn" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.knowledgeOn" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -237,12 +237,12 @@
 								</span>
 							 </span>
 							<button *ngIf="!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 " style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button>
+			data-target="#addCriteria">{{"shared.add" | translate}}  </button>
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 						  
 							<button *ngIf="!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 " style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button>
+			data-target="#addCriteria">{{"shared.add" | translate}}  </button>
 						</ng-template>
 				  </li>
 				</ul>
@@ -303,7 +303,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"dashboard.programmingSkills" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.programmingSkills" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -348,7 +348,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"dashboard.otherSkills" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.otherSkills" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -397,7 +397,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.certification"  | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.certification"  | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -407,11 +407,11 @@
 								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
 							</small> 
 							<button *ngIf="postJobForm?.value?.otherPref?.certification.length==0" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button>
+			data-target="#addCriteria">{{"shared.add" | translate}}  </button>
 					</li>
 					<li class="list-group-item text-uppercase" *ngIf="!postJobForm?.value?.otherPref?.certification">
 					<button style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button></li>
+			data-target="#addCriteria">{{"shared.add" | translate}}  </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4" *ngIf="!postJobForm?.value?.otherPref?.certification || postJobForm?.value?.otherPref?.certification=='' ">
@@ -470,7 +470,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.jobType"  | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"shared.jobType"  | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -511,7 +511,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.jobRole"  | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.jobRole"  | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -521,7 +521,7 @@
 					</li>
 					<li class="list-group-item " *ngIf="!postJobForm?.value?.jobInfo?.employer_role_type || postJobForm?.value?.jobInfo?.employer_role_type =='' ">
 					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('jobtype')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button></li>
+			data-target="#addCriteria">{{"shared.add" | translate}}  </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4" *ngIf="!postJobForm?.value?.jobInfo?.employer_role_type || postJobForm?.value?.jobInfo?.employer_role_type==''">
@@ -580,7 +580,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.availability"  | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.availability"  | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -620,7 +620,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.workAuthorisation"  | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.workAuthorisation"  | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -630,7 +630,7 @@
 					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 2">{{"postJob.shouldBeACitizenPrWork" | translate }}</li>
 					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization != 0 && (postJobForm?.value?.requirement?.work_authorization == '' || postJobForm?.value?.requirement?.work_authorization == null)">
 					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('work_authorization')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button></li>
+			data-target="#addCriteria">{{"shared.add" | translate}}  </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
@@ -688,7 +688,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.endToEndImplementation" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.endToEnd" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -726,7 +726,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.education" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.education" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -734,7 +734,7 @@
 					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.education && postJobForm?.value?.requirement?.education !='' ">{{postJobForm?.value?.requirement?.education}}</li>
 					<li class="list-group-item " *ngIf="!postJobForm?.value?.requirement?.education || postJobForm?.value?.requirement?.education =='' ">
 					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('education')" type="button" class="btn btn-theme-green" data-toggle="modal"
-			data-target="#addCriteria">Add </button></li>
+			data-target="#addCriteria">{{"shared.add" | translate}} </button></li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
@@ -767,7 +767,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.travelRequired" | translate }}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.travelRequired" | translate }}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -805,7 +805,7 @@
 		<div class="row info-box">
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
-					<li class="list-group-item text-capitalize m-0">{{"postJob.languageknown" | translate}}</li>
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.languageKnown" | translate}}</li>
 				</ul>
 			</div>
 			<div class="col-lg-5 info">
@@ -845,7 +845,7 @@
 			<div class="row info-box" *ngFor="let others of childForm?.value?.otherPref?.others; let i = index">
 				<div class="col-lg-3 caption" *ngIf="others?.value == true">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize" *ngIf="others?.id == isShowOthers">Others</li>
+						<li class="list-group-item text-capitalize" *ngIf="others?.id == isShowOthers">{{"userProfile.others" | translate}}</li>
 					</ul>
 				</div>
 				<div class="col-lg-5 info" *ngIf="others?.value == true">
@@ -885,42 +885,42 @@
 		</div>		
 		
 		<div class="col-lg-12 border-top pt-3"> </div>
-		<h6 class="font-weight-bold mb-2" >{{"postJob.jobDescription" | translate}}</h6>
+		<h6 class="font-weight-bold mb-2" >{{"shared.description" | translate}}</h6>
         <div class="col-lg-12 mb-4">
 			
 			<p style="word-break: break-all;"[innerHTML]="sanitizer.bypassSecurityTrustHtml(postJobForm?.value?.jobInfo?.description)"></p>
 		</div>	
 		<div class="row mt-2">
 		<div class="col-md-12 mb-2">
-			<h6>{{"postJob.perksBenfits" | translate}}</h6>
+			<h6>{{"jobs.perksBenfits" | translate}}</h6>
 			<div class="d-flex" >
 				<div class="mr-5">
-					<p class="font-weight-bold mb-2">{{"postJob.healthWellness" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.dental == true" >{{"postJob.dentalInsurance" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.vision == true" >{{"postJob.visionInsurance" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.health == true" >{{"postJob.healthInsurance" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.life == true" >{{"postJob.lifeInsurance" | translate}}</p>
+					<p class="font-weight-bold mb-2">{{"jobs.healthWellness" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.dental == true" >{{"jobs.dentalInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.vision == true" >{{"jobs.visionInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.health == true" >{{"jobs.healthInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.life == true" >{{"jobs.lifeInsurance" | translate}}</p>
 				</div>
 				<div class="mr-5">
-					<p class="font-weight-bold mb-2">{{"postJob.paidTimeOff" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.vacation_policy == true" >{{"postJob.vacationPolicy" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.paid_holidays == true" >{{"postJob.paidHolidays" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.maternity == true" >{{"postJob.maternity" | translate}}</p>
+					<p class="font-weight-bold mb-2">{{"jobs.paidTimeOff" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.vacation_policy == true" >{{"jobs.vacationPolicy" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.paid_holidays == true" >{{"jobs.paidHolidays" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.maternity == true" >{{"jobs.maternity" | translate}}</p>
 				</div>
 				<div class="mr-5">
-					<p class="font-weight-bold mb-2">{{"postJob.financialBenefits" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.retirement_plan == true" >{{"postJob.retirementPlan" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.performance_bonus == true" >{{"postJob.performanceBonus" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.tuition_reimbursement == true" >{{"postJob.tuitionReimbursement" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.purchase_plan == true" >{{"postJob.purchasePlan" | translate}}</p>
+					<p class="font-weight-bold mb-2">{{"jobs.financialBenefits" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.retirement_plan == true" >{{"jobs.retirementPlan" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.performance_bonus == true" >{{"jobs.performanceBonus" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.tuition_reimbursement == true" >{{"jobs.tuitionReimbursement" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.purchase_plan == true" >{{"jobs.purchasePlan" | translate}}</p>
 				</div>
 				<div class="mr-5">
 					<p class="font-weight-bold mb-2">Office Perks</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.free_food == true" >{{"postJob.freeFood" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.home_policy == true" >{{"postJob.homePolicy" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.pet_friendly == true" >{{"postJob.petFriendly" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.social_outings == true" >{{"postJob.socialOutings" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.office_space == true" >{{"postJob.officeSpace" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.free_food == true" >{{"jobs.freeFood" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.home_policy == true" >{{"jobs.homePolicy" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.pet_friendly == true" >{{"jobs.petFriendly" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.social_outings == true" >{{"jobs.socialOutings" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.office_space == true" >{{"jobs.officeSpace" | translate}}</p>
 				</div>
 			</div>
 		</div>
@@ -929,7 +929,7 @@
     <div class="modal-footer">
 		<div class="form-inline mr-auto">
 			<div class="form-group mr-2">
-				<label>{{"postJob.enterNumberOfPositions" | translate}}</label>
+				<label>{{"shared.enterNumberOfPositions" | translate}}</label>
 			</div>
 			<div appMarkAsterisk class="form-group">
 				<input style="width: 100px !important;" numbersOnly formControlName="number_of_positions" class="form-control form-control-sm w-50" type="text" placeholder="Numbers"/>
@@ -960,7 +960,7 @@
 			<div formGroupName="jobInfo">
 				<div class="col-lg-12 col-md-12">
 					<div class=" form-group">
-						<label>{{"postYourResume.roleType" | translate }}</label>
+						<label>{{"userProfile.roleType" | translate }}</label>
 						<select formControlName="employer_role_type" class="form-control text-capitalize">
 							<option value="" selected="" >Select Role Type</option>
 							<option  value="Technical">Technical</option>
@@ -974,7 +974,7 @@
 	<div class="modal-body"  *ngIf="certificationBoolean">
 		<div class="col-lg-12 col-md-12" formGroupName="otherPref">	
 			<div class=" form-group">
-				<label >{{"postJob.certification" | translate }}</label>
+				<label >{{"userProfile.certification" | translate }}</label>
 				<mat-form-field class="example-chip-list" style="width: 100%;" >
 					
 					<mat-chip-list #chipLists aria-label="certification">
@@ -996,7 +996,7 @@
 	<div class="modal-body"  *ngIf="skills">
 		<div class="col-lg-12 col-md-6" formGroupName="requirement">
 			<div class=" form-group">
-				<label>{{"dashboard.knowledgeOn" | translate }} </label>
+				<label>{{"userProfile.knowledgeOn" | translate }} </label>
 				<ngx-select
 					class="text-capitalize"
 					[placeholder]="'Select Other SAP Skills'"
@@ -1026,7 +1026,7 @@
 	<div class="modal-body"  *ngIf="education">
 		<div class="col-lg-12 col-md-6" formGroupName="requirement">
 			<div class=" form-group">
-				<label>{{"postJob.education" | translate }}</label>	
+				<label>{{"userProfile.education" | translate }}</label>	
 				<ngx-select
 					[placeholder]="'Select Degree'"
 					class="text-capitalize"
@@ -1042,25 +1042,25 @@
 			</div>
 	<div class="modal-body"  *ngIf="work_authorization">
 			<div class=" form-group"  formGroupName="requirement" >
-				<label class="font-weight-bold">{{"postJob.workAuthorization" | translate }} </label>
+				<label class="font-weight-bold">{{"userProfile.workAuthorization" | translate }} </label>
 				<div class="mt-2">
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
 						<input (click)="onChangeFieldValuesAuth('work_authorization', 0)" value="0" formControlName="work_authorization" type="radio" id="customRadioInline05"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
-							for="customRadioInline05">{{"postJob.shouldBeACitizenPr" | translate }}</label>
+							for="customRadioInline05">{{"userProfile.shouldBeACitizenPr" | translate }}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
 						<input (click)="onChangeFieldValuesAuth('work_authorization', 1)" value="1" formControlName="work_authorization" type="radio" id="customRadioInline06"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
-							for="customRadioInline06">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</label>
+							for="customRadioInline06">{{"userProfile.shouldBeHavingAWorkPermit" | translate }}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
 						<input (click)="onChangeFieldValuesAuth('work_authorization', 2)" value="2" formControlName="work_authorization" type="radio" id="customRadioInline07"
 							name="work_authorization" class="custom-control-input">
 						<label class="custom-control-label"
-							for="customRadioInline07">Should be a Citizen / PR / Authorized to Work</label>
+							for="customRadioInline07"> {{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }} </label>
 					</div>
 				</div>
 			</div>
@@ -1070,10 +1070,10 @@
 			
 		<div class="modal-footer">
 			<button (click)="closeAdd()" type="button" class="btn btn-theme-orange">
-				close
+				{{"shared.close" | translate }}
 			</button>
 			<button (click)="closeSave()" type="button" class="btn btn-theme-blue">
-				save
+				{{"shared.save" | translate }}
 			</button>
 		</div>
 	
@@ -1081,14 +1081,14 @@
 
 <ng-template *ngIf="isCheckModel" #checkModal let-modal>
 		<div class="modal-body" style="text-align: center;">
-			<h5 >Do you want to Save ? </h5>
+			<h5 >{{"shared.doYouSave" | translate }} </h5>
 		</div>
 		<div class="modal-footer" style="justify-content: center;">
 			<button (click)="cancelCheck()" style="width: 25%;" type="button" class="btn btn-outline-orange">
-				No
+				{{"shared.no" | translate }}
 			</button>
 			<button (click)="closeSaveCheck()" style="width: 25%;" type="button" class="btn btn-outline-green">
-				Yes
+				{{"shared.Yes" | translate }}
 			</button>
 		</div>
 	

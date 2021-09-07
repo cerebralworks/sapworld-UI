@@ -1,6 +1,6 @@
 <ng-template #coverSelectModal let-modal>
     <div class="modal-header">
-      <h5 class="modal-title">Cover Letter</h5>
+      <h5 class="modal-title">{{"shared.coverLetter" | translate}}</h5>
       <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -9,7 +9,7 @@
 		<div class="col-lg alert">
 				<label class="text-black-50">
 					<h1 class="text-black-50 mb-0"><i class="far fa-plus-square"></i></h1>
-					{{"common.addCover" | translate}}
+					{{"shared.add" | translate}}
 					<input #userResume type="file" hidden (change)="handleFileInput($event,'cover');">
 				</label>
 		</div>
@@ -21,21 +21,21 @@
 <ng-template #coverTitleModal let-modal>
   <form method="post" (ngSubmit)="onSaveCover()" #coverNgForm="ngForm" [formGroup]="coverSelectForm">
     <div class="modal-header">
-      <h5 class="modal-title">Add Cover Tilte</h5>
+      <h5 class="modal-title">{{"shared.add" | translate}} {{"shared.addCoverTitle" | translate}}</h5>
       <button type="button" (click)="mbRef?.close()" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
       </div>
       <div class="modal-body">
       <div class=" form-group">
-        <label class="h5">Cover Title</label>
+        <label class="h5">{{"shared.addCoverTitle" | translate}}</label>
         <input formControlName="title" name="title" type="text" class="form-control" placeholder="Enter Cover Title">
         <app-control-messages [control]="f['title']"></app-control-messages>
       </div>
       </div>
       <div class="modal-footer">
-      <button type="button" (click)="mbRef?.close()" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      <button [disabled]="!coverSelectForm.valid" type="button" (click)="onSaveCover()" class="btn btn-theme-blue " data-dismiss="modal">Save</button>
+      <button type="button" (click)="mbRef?.close()" class="btn btn-secondary" data-dismiss="modal">{{"shared.cancel" | translate}}</button>
+      <button [disabled]="!coverSelectForm.valid" type="button" (click)="onSaveCover()" class="btn btn-theme-blue " data-dismiss="modal">{{"shared.save" | translate}}</button>
       </div>
   </form>
 

@@ -6,11 +6,11 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">{{"postJob.jobTitle" | translate}}</th>
-								<th scope="col">{{"dashboard.employer" | translate}}</th>
-								<th scope="col">{{"postJob.location" | translate}}</th>
-								<th scope="col">Applied Date</th>
-								<th scope="col">{{"dashboard.status" | translate}}</th>
+								<th scope="col">{{"shared.jobTitle" | translate}}</th>
+								<th scope="col">{{"header.employer" | translate}}</th>
+								<th scope="col">{{"shared.location" | translate}}</th>
+								<th scope="col">{{"shared.appliedDate" | translate}} </th>
+								<th scope="col">{{"shared.status" | translate}}</th>
 								<!--  <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
 							</tr>
 						</thead>
@@ -179,11 +179,11 @@
 		<div class="modal-content">
 			<div class="modal-body text-center">
 				<!-- <h1 class="text-danger mx-auto pt-4"><i class="far fa-check-circle"></i></h1> -->
-				<h6 class="mt-3" style="font-size: 20px;">This job is not available anymore</h6>
+				<h6 class="mt-3" style="font-size: 20px;">{{"shared.notAvailable" | translate}}</h6>
 			</div>
 			<div class="modal-footer">
 				<div class=" mx-auto">
-					<button type="button" class="btn btn-theme-blue" style="margin-right:10px;" (click)="closeMatches()"  data-dismiss="modal">Ok</button>
+					<button type="button" class="btn btn-theme-blue" style="margin-right:10px;" (click)="closeMatches()"  data-dismiss="modal">{{"shared.ok" | translate}}</button>
 				</div>
 			</div>
 		</div>	

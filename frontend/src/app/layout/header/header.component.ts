@@ -38,7 +38,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.randomNum = Math.random();
     this.translateService.addLangs(this.appGlobals.availableLanguages);
-    this.translateService.use('en');
+	if(!this.translateService.store.currentLang){
+		this.translateService.use('en');
+	}
+    
     this.accountUserSubscription = this.accountService
       .isCurrentUser()
       .subscribe(response => {

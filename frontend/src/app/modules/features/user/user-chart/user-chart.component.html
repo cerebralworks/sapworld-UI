@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row mb-3">
 			<div class="col-lg-12">
-				<p class="mb-0 text-sblue">Hello</p>
+				<p class="mb-0 text-sblue">{{"shared.greeting" | translate}}</p>
 				<h5 class="text-blue" style="text-transform: capitalize;">{{(currentUserDetails?.first_name ? currentUserDetails?.first_name : '') + ' ' + (currentUserDetails?.last_name ? currentUserDetails?.last_name : '')}}</h5>
 				<hr class="border-bottom pb-1">
 			</div>
@@ -12,7 +12,7 @@
 			
 			<div class="col-lg-4" *ngIf="showMatches">					
 				<div class="noselect chartTitle mb-4">
-					Total No of Matches
+					{{"shared.totalMatches" | translate}}
 				</div>
 				<canvas baseChart #chart
 					[data]="doughnutChartData"
@@ -24,11 +24,11 @@
 					(chartClick)="chartClickEvent($event)"
 					>
 				  </canvas>
-				<div class="noselect chart-center-label">{{totalMatches}}</div>
+				<div class="noselect chart-center-label" style="left:66%;">{{totalMatches}}</div>
 			</div>
 			<div class="col-lg-4" *ngIf="showApplied">					
 				<div class="noselect chartTitle mb-4">
-					Applied Jobs
+					{{"nav.appliedJobs" | translate}} 
 				</div>
 				<canvas baseChart   #chart
 					[data]="doughnutChartDataApplied"
@@ -39,11 +39,11 @@
 					(chartClick)="checkTotalChartApplied($event)"
 					>
 				  </canvas>
-				<div class="noselect chart-center-label">{{totalApplied}}</div>
+				<div class="noselect chart-center-label" style="left:64%;">{{totalApplied}}</div>
 			</div>
 			<div class="col-lg-4" *ngIf="showAvailiability">				
 				<div class="noselect chartTitle mb-4">
-					By Availability
+					{{"shared.byAvailability" | translate}} 
 				</div>
 				<canvas baseChart    #chart
 					[data]="doughnutChartDataAvailability"
@@ -54,11 +54,11 @@
 					(chartClick)="checkTotalChartAvailability($event)"
 					>
 				  </canvas>
-				<div class="noselect chart-center-label"  style="left:60%;">{{totalAvailability}}</div>
+				<div class="noselect chart-center-label"  style="left:62%;">{{totalAvailability}}</div>
 			</div>
 			<div class="col-lg-4" *ngIf="showType">					
 				<div class="noselect chartTitle mb-4">
-					By Job Type
+					{{"shared.byJobType" | translate}} 
 				</div>
 				<canvas baseChart    #chart
 					[data]="doughnutChartDataType"
@@ -69,11 +69,11 @@
 					(chartClick)="checkTotalChartType($event)"
 					>
 				  </canvas>
-				<div class="noselect chart-center-label" style="left:58%;">{{totalType}}</div>
+				<div class="noselect chart-center-label" style="left:62%;">{{totalType}}</div>
 			</div>
 			<div class="col-lg-4" *ngIf="showVisa">					
 				<div class="noselect chartTitle mb-4">
-					Visa Sponsord Jobs
+					{{"shared.byVisa" | translate}} 
 				</div>
 				<canvas baseChart    #chart
 					[data]="doughnutChartDataVisa"
@@ -84,7 +84,7 @@
 					(chartClick)="checkTotalChartVisa($event)"
 					>
 				  </canvas>
-				<div class="noselect chart-center-label" >{{totalVisa}}</div>
+				<div class="noselect chart-center-label" style="left:66%;">{{totalVisa}}</div>
 			</div>
 		</div>
 	</div>

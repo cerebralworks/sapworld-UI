@@ -1,12 +1,12 @@
 <div formGroupName="educationExp">
-  <h6 class="font-weight-bold mt-4">{{"postYourResume.education" | translate }}</h6>
+  <h6 class="font-weight-bold mt-4">{{"userProfile.education" | translate }}</h6>
   <div class="row mt-3" *ngFor="let ticket of t.controls; let i = index; let last = last">
     <ng-container [formGroup]="ticket">
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
-          <label>{{"postYourResume.degree" | translate }} </label>
+          <label>{{"userProfile.degree" | translate }} </label>
           <select (change)="onChangeDegreeValue($event?.target?.value, i)" formControlName="degree" class="form-control text-capitalize">
-            <option [value]="''">{{"common.select" | translate }} {{"postYourResume.degree" | translate }}
+            <option [value]="''">{{"common.select" | translate }} {{"userProfile.degree" | translate }}
             </option>
             <ng-container *ngFor="let education of educations; let i = index">
               <option [style.display]="educationsSelectedArrayCheck(education,ticket) ? 'none' : 'block'" [value]="education">
@@ -19,14 +19,14 @@
       </div>
       <div class="col-lg-4 col-md-5">
         <div class=" form-group">
-          <label>{{"postYourResume.fieldOfStudy" | translate }}</label>
+          <label>{{"userProfile.fieldOfStudy" | translate }}</label>
           <input (change)="onChangeStudyValue($event?.target?.value, i)" formControlName="field_of_study" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.fieldOfStudy' | translate">
           <app-control-messages [control]="ticket['controls']['field_of_study']"></app-control-messages>
         </div>
       </div>
       <div class="col-lg-2 col-md-5">
         <div class=" form-group">
-          <label>{{"postYourResume.yearOfCompletionGraduation" | translate }}</label>
+          <label>{{"userProfile.yearOfCompletionGraduation" | translate }}</label>
           <input maxlength="4" (change)="onChangeCompletionValue($event?.target?.value, i)" numbersOnly formControlName="year_of_completion" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.yearOfCompletionGraduation' | translate">
           <app-control-messages [control]="ticket['controls']['year_of_completion']"></app-control-messages>
 		 
@@ -41,11 +41,11 @@
     </ng-container>
   </div>
 
-  <h6 class="font-weight-bold mt-4">{{"postYourResume.experience" | translate }}</h6>
+  <h6 class="font-weight-bold mt-4">{{"userProfile.experience" | translate }}</h6>
   <div class="row mt-3">
     <div class="col-lg-3 col-md-6">
       <div class=" form-group">
-        <label>{{"postJob.totalYearsOfExperience" | translate }}</label>
+        <label>{{"userProfile.totalYearsOfExp" | translate }}</label>
         <input (ngModelChange)="keyPress()" appMarkAsterisk numbersOnly formControlName="experience" type="text" class="form-control w-40 text-center" placeholder="+8">
         <app-control-messages [control]="f['experience']"></app-control-messages>
 		 <small *ngIf="totalExpError"  class="text-danger">Total is greater than SAP Experience</small>
@@ -53,7 +53,7 @@
     </div>
     <div class="col-lg-3 col-md-6">
       <div class=" form-group">
-        <label>{{"postJob.totalYearsOfSapExperience" | translate }}</label>
+        <label>{{"matches.totalYearsOfSapExperience" | translate }}</label>
         <input (ngModelChange)="keyPress()" appMarkAsterisk numbersOnly formControlName="sap_experience" type="text" class="form-control w-50 text-center"  placeholder="+5">
         <app-control-messages [control]="f['sap_experience']"></app-control-messages>
 		 <small *ngIf="sapExpError" class="text-danger">SAP is not greater than Total Experience</small>
@@ -61,7 +61,7 @@
     </div>
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
-        <label>{{"postYourResume.currentEmployer" | translate }}</label>
+        <label>{{"userProfile.currentEmployer" | translate }}</label>
         <input appMarkAsterisk formControlName="current_employer" type="text" class="form-control text-capitalize" placeholder="Current Employer Name">
         <app-control-messages [control]="f['current_employer']"></app-control-messages>
       </div>
@@ -71,14 +71,14 @@
   <div class="row mt-2">
     <div class="col-lg-6 ">
       <div class=" form-group">
-        <label>{{"postYourResume.currentRole" | translate }}</label>
+        <label>{{"userProfile.currentRole" | translate }}</label>
         <input appMarkAsterisk formControlName="current_employer_role" type="text" class="form-control text-capitalize" placeholder="Current Role">
         <app-control-messages [control]="f['current_employer_role']"></app-control-messages>
       </div>
     </div>
     <div class="col-lg-4">
       <div class=" form-group">
-        <label>{{"postYourResume.roleType" | translate }}</label>
+        <label>{{"userProfile.roleType" | translate }}</label>
           <select formControlName="employer_role_type" class="form-control text-capitalize">
               <option value=''>Select Role Type</option>
               <option  value="Technical">Technical</option>
@@ -93,13 +93,13 @@
   <div class="row mt-2">
     <div class="col-lg-10">
       <div class=" form-group">
-        <label>{{"postYourResume.DomainsWorked" | translate }}</label>
+        <label>{{"userProfile.domainsWorked" | translate }}</label>
         <!-- <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label"
           bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
           formControlName="domains_worked">
         </ng-select> -->
         <ngx-select
-        [placeholder]="'postYourResume.DomainsWorked' | translate"
+        [placeholder]="'userProfile.domainsWorked' | translate"
         appMarkAsterisk
         class="text-capitalize"
         [items]="industryItems"
@@ -132,7 +132,7 @@
   <div class="row mt-2">
     <div class="col-lg-4">
       <div class=" form-group">
-        <label>End to End Implementation</label>
+        <label>{{"userProfile.endToEnd" | translate }}</label>
         <input numbersOnlys formControlName="end_to_end_implementation" type="text" class="form-control w-25">
       </div>
     </div>

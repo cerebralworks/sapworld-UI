@@ -1,7 +1,13 @@
 <div *ngIf="!isDashboard">
   <div class="row mb-5" *ngFor="let item of profileSettings; let i=index">
     <div class="col-lg-4 col-md-6">
-      <h5>{{item.label}}</h5>
+		<h5 *ngIf="item?.field == 'photo'">{{"profileSettings.photo" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'phone'">{{"profileSettings.phone" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'email'">{{"profileSettings.email" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'current_employer'">{{"profileSettings.current_employer" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'reference'">{{"profileSettings.reference" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'available_for_opportunity'">{{"profileSettings.available_for_opportunity" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'opportunity'">{{"profileSettings.available_for_opportunity" | translate }}</h5>
     </div>
     <div class="col-lg-3 col-md-6">
       <div class="showhideswitch">
@@ -21,40 +27,18 @@
 <div *ngIf="isDashboard">
 
   <div class="title">
-    <h2>Profile Settings</h2>
+    <h2>{{"shared.profileSetting" | translate }}</h2>
   </div>
   <div class="sidebar-widget text-left">
-    <!-- <div class="row mb-4">
-      <div class="col-lg-6">
-        <p>First Name</p>
-      </div>
-      <div class="col-lg-6 clearfix">
-        <div class="showhideswitch float-right">
-          <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch6" checked>
-          <label class="showhideswitch-label" for="myshowhideswitch6">
-            <span class="showhideswitch-inner"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-4">
-      <div class="col-lg-6">
-        <p>Last Name</p>
-      </div>
-      <div class="col-lg-6 clearfix">
-        <div class="showhideswitch float-right">
-          <input type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch7" checked>
-          <label class="showhideswitch-label" for="myshowhideswitch7">
-            <span class="showhideswitch-inner"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div> -->
     <div class="row mb-4" *ngFor="let item of profileSettings; let i=index">
       <div class="col-lg-8">
-        <p >{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item?.label}}</p>
+		<p *ngIf="item?.field == 'photo'">{{"profileSettings.photo" | translate }}</p>
+        <p *ngIf="item?.field == 'phone'">{{"profileSettings.phone" | translate }}</p>
+        <p *ngIf="item?.field == 'email'">{{"profileSettings.email" | translate }}</p>
+        <p *ngIf="item?.field == 'current_employer'">{{"profileSettings.current_employer" | translate }}</p>
+        <p *ngIf="item?.field == 'reference'">{{"profileSettings.reference" | translate }}</p>
+        <p *ngIf="item?.field == 'available_for_opportunity'">{{"profileSettings.available_for_opportunity" | translate }}</p>
+        <p *ngIf="item?.field == 'opportunity'">{{"profileSettings.available_for_opportunity" | translate }}</p>
       </div>
       <div class="col-lg-4 clearfix">
         <div class="showhideswitch float-right">
