@@ -128,6 +128,21 @@
   "enterNumberOfPositions": "Introduzca el número de posiciones",
   "validStatus": "Seleccione el estado válido"
   },
+  "auth":{
+	  "findRightPlace":"Encuentra tu lugar correcto",
+	  "loginTitle": "Explore su trayectoria profesional con Eazy Recruitz",
+	  "login":"Acceso",
+	  "employeeTitle":"Encuentra los empleados",
+	  "employeeSubTitle":"Contrata a tu próxima candidata en Eazy Recruitz",
+	  "employeeHeadContent":"Contratar ahora es simple",
+	  "email":"Correo electrónico",
+	  "register":"Registrarse",
+	  "terms":"Termino del servicio y política de privacidad",
+	  "password":"Contraseña",
+	  "rememberMe":"Recuérdame",
+	  "forgotPassword":"¿Has olvidado tu contraseña?",
+	  "haveAccount":"¿No tienes una cuenta?"
+  },
   "profileSettings": {
   "photo": "Imagen de perfil",
   "phone": "Número de teléfono",

@@ -253,7 +253,7 @@
 			<div class=" form-group">
 				<label>{{"userProfile.travel" | translate }} </label>
 				<select appMarkAsterisk formControlName="travel_opportunity" class="form-control">
-					<option [value]="null" disabled >{{"common.select" | translate }}</option>
+					<option [value]="null" disabled >{{"shared.select" | translate }}</option>
 					<option *ngFor="let travel of travelArray; let i = index" [value]="travel?.id">
 						{{travel?.text}}
 					</option>

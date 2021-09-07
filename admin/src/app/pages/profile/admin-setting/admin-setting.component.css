@@ -1,0 +1,46 @@
+:host{
+width:100%;
+}
+.form-group{
+  margin-bottom: 15px;
+}
+.input-group-text {
+    border-radius: 0 10px 10px 0;
+    border: 2px solid #ccd1d6;
+    border-left: 0;
+}
+.input-with-icon{
+  position: relative;
+}
+.input-with-icon input,
+.input-with-icon select{
+  padding-left: 40px;
+}
+.input-with-icon i{
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  font-size: 18px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: #bec2c6;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+.input-with-icon input:focus + i,
+.input-with-icon select:focus + i{
+  color: #727b82;
+}
+.custom-control-input:focus ~ .custom-control-label::before {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.required-asterisk {
+    color: red;
+    font-weight: bold;
+    margin-left: 3px;
+    font-size: 1.2em;
+}

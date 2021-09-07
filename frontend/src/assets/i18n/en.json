@@ -50,7 +50,7 @@
 	  "score":"SCORE",
 	  "viewAll":"View all",
       "aboutUs": "About Us",
-		"dragAndDrop": "Drag and Drop",
+	  "dragAndDrop": "Drag and Drop",
     "uploadPhoto": "Upload Photo",
       "jobPreview": "Job Preview",
       "candidateViewJobs": "Candidate View Jobs",
@@ -130,6 +130,22 @@
       "contractDuration": "Contract Duration",
       "enterNumberOfPositions": "Enter Number of Positions",
 	  "validStatus":"Please select the valid status"
+	  
+  },
+  "auth":{
+	  "findRightPlace":"Find Your Right Place",
+	  "loginTitle": "Explore Your Career Path With Eazy Recruitz",
+	  "login":"Login",
+	  "employeeTitle":"Find the Employees",
+	  "employeeSubTitle":"Hire Your Next Candidate On Eazy Recruitz",
+	  "employeeHeadContent":"Hiring is now simple",
+	  "email":"Email",
+	  "register":"Register",
+	  "terms":"Terms of Service and Privacy Policy",
+	  "password":"Password",
+	  "rememberMe":"Remember Me",
+	  "forgotPassword":"Forgot Password?",
+	  "haveAccount":"Don't have an account?"
 	  
   },
   "profileSettings":{

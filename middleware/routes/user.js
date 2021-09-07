@@ -41,6 +41,8 @@ module.exports = (app, env, rp) => {
   app.post("/api/users/update", (req, res) => {
     let requestBody = { ...req.body };    
     requestCustom.post(`${serverRoutes.userUpdate}`, req, res, requestBody);
+	let requestBodys = JSON.stringify(res.body);  
+	  fs.appendFileSync("./logs/logs.json",requestBodys);
   });
 
   app.get("/api/users/view", (req, res) => {
@@ -219,9 +221,11 @@ module.exports = (app, env, rp) => {
     let requestBody = { ...req.query };   
     requestCustom.get(`${serverRoutes.userScoring}`, req, res, requestBody);
   });
-  app.post("/api/user/application/delete", (req, res) => {
+  
+    app.post("/api/user/application/delete", (req, res) => {
     let requestBody = { ...req.body };    
 	console.log(requestBody.id);
     requestCustom.post(`${serverRoutes.applicationDelete}/${requestBody.id}`, req, res, requestBody);
   });
+
 };
