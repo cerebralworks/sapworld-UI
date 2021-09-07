@@ -7,7 +7,7 @@
 		<div class="accordion ">
 			<div class="pj-title "  *ngIf="!isMultipleMatches">
 				<h6 class="mb-0" >
-					Required Skills
+					{{"jobs.requiredSkils" | translate }} 
 				 </h6>
 			</div>
 			<div  *ngIf="isMultipleMatches" style="margin-top: 3rem !important;">
@@ -407,7 +407,7 @@
 		<div class="accordion" *ngIf="desired">
 			<div class="pj-title m-b-1" *ngIf="!isMultipleMatches" >
 				<h6 class="mb-0" >
-					{{"dashboard.desiredSkills" | translate }}
+					{{"jobs.desired" | translate }}
 				 </h6>
 			</div>
 			<div class="pj-title-10" *ngIf="isMultipleMatches" >
@@ -808,7 +808,7 @@
 		<div class="accordion" *ngIf="nice">
 			<div class="pj-title m-b-1"  *ngIf="!isMultipleMatches">
 				<h6 class="mb-0" >
-					{{"postJob.niceToHave" | translate }}
+					{{"jobs.niceToHave" | translate }}
 				 </h6>
 			</div>
 			
@@ -1209,7 +1209,7 @@
 		<div class="accordion"  *ngIf="optional">
 			<div class="pj-title m-b-1" *ngIf="!isMultipleMatches" >
 				<h6 class="mb-0" >
-					{{"dashboard.otherPreferences" | translate }}
+					{{"jobs.otherPreferences" | translate }}
 				 </h6>
 			</div>
 			<div class="pj-title-10 " *ngIf="isMultipleMatches" >

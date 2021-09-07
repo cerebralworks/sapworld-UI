@@ -62,19 +62,19 @@
       <div class="col-lg-8 col-md-12 company-info-tab">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="company-tab" data-toggle="tab" href="#company" role="tab" aria-controls="company" aria-selected="true">About Company</a>
+            <a class="nav-link active" id="company-tab" data-toggle="tab" href="#company" role="tab" aria-controls="company" aria-selected="true"> {{"nav.aboutCompany" | translate}} </a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="jobs-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="false">Open Jobs</a>
+            <a class="nav-link" id="jobs-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="false"> {{"nav.openJobs" | translate}}</a>
           </li>
-           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="employees-tab" data-toggle="tab" href="#employees" role="tab" aria-controls="employees" aria-selected="false">Employees</a>
-          </li> 
+           <!-- <li class="nav-item" role="presentation">
+            <a class="nav-link" id="employees-tab" data-toggle="tab" href="#employees" role="tab" aria-controls="employees" aria-selected="false">{{"nav.employees" | translate}}</a>
+          </li>  -->
         </ul>
         <div class="tab-content" id="myTabContent">
           <!--About Company-->
           <div class="tab-pane fade show active" id="company" role="tabpanel" aria-labelledby="company-tab">
-            <h6>Description</h6>
+            <h6>{{"shared.description" | translate}}</h6>
             <ng-container *ngIf="companyProfileInfo?.description; else elseDesTemplate">
               <div style="word-break: break-all;" [innerHTML]="companyProfileInfo?.description">
               </div>
@@ -144,18 +144,18 @@
       <!--Side Section-->
       <div class="col-lg-4">
         <div class="title">
-          <h2>Contact Us</h2>
+          <h2> {{"shared.contactUs" | translate}} </h2>
         </div>
         <div class="sidebar-widget text-left bg-white">
           <div class="row  mb-3">
             <div class="col">
-              <p class="mb-0">Email Address</p>
+              <p class="mb-0">{{"shared.emailAddress" | translate}}</p>
               <h5>{{companyProfileInfo?.email_id ? companyProfileInfo?.email_id : employerDetails?.email ? employerDetails?.email : '--'}}</h5>
             </div>
           </div>
           <div class="row  mb-3">
             <div class="col">
-              <p class="mb-0">Phone Number</p>
+              <p class="mb-0">{{"shared.mobileNumber" | translate}}</p>
               <ng-container *ngIf="companyProfileInfo?.contact; else elsePhoneTemplate">
                 <h5 *ngFor="let item of companyProfileInfo?.contact; let i=index">
                   {{item ? (item | phone) : ''}}
@@ -171,7 +171,7 @@
         </div>
 
         <div class="title mt-5">
-          <h2>Profile Settings</h2>
+          <h2>{{"shared.profileSetting" | translate}} </h2>
         </div>
         <div class="sidebar-widget text-left  bg-white">
 		<div class="row mb-4" *ngFor="let item of profileSettings; let i=index">

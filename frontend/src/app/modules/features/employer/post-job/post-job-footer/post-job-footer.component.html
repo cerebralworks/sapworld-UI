@@ -6,32 +6,32 @@
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 2">
 		<div class="form-group">
-			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">{{"common.previous" | translate}}</button>
+			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">{{"shared.previous" | translate}}</button>
 		</div>
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 2">
 		<div class="form-group">
-			<button [disabled]="!postJobForm.controls.requirement.valid || postJobForm.controls.requirement.value.sap_experience > postJobForm.controls.requirement.value.experience || postJobForm.controls.requirement.value.sap_experience==0 || postJobForm.controls.requirement.value.experience==0 " (click)="onNext()" type="button" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"common.next" | translate}}</button>
+			<button [disabled]="!postJobForm.controls.requirement.valid || postJobForm.controls.requirement.value.sap_experience > postJobForm.controls.requirement.value.experience || postJobForm.controls.requirement.value.sap_experience==0 || postJobForm.controls.requirement.value.experience==0 " (click)="onNext()" type="button" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"shared.next" | translate}}</button>
 		</div>
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 3">
 		<div class="form-group">
-			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">{{"common.previous" | translate}}</button>
+			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">{{"shared.previous" | translate}}</button>
 		</div>
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 3">
 		<div class="form-group">
-			<button [disabled]="!postJobForm.controls.otherPref.valid" (click)="onNext()" type="button" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"common.next" | translate}}</button>
+			<button [disabled]="!postJobForm.controls.otherPref.valid" (click)="onNext()" type="button" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"shared.next" | translate}}</button>
 		</div>
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 4">
 		<div class="form-group">
-			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">{{"common.previous" | translate}}</button>
+			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block btn-lg btnPrev">{{"shared.previous" | translate}}</button>
 		</div>
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 4">
 		<div class="form-group">
-			<button [disabled]="!postJobForm.value.screeningProcess.screening_process.length >= 1  || postJobForm.controls.requirement.value.sap_experience > postJobForm.controls.requirement.value.experience || postJobForm.controls.requirement.value.sap_experience==0 || postJobForm.controls.requirement.value.experience==0 "(click)="onToggleJobPreviewModal(true)" type="button" class="btn btn-theme-green  btn-block btn-lg btnSubmit">{{"common.submit" | translate}}</button>
+			<button [disabled]="!postJobForm.value.screeningProcess.screening_process.length >= 1  || postJobForm.controls.requirement.value.sap_experience > postJobForm.controls.requirement.value.experience || postJobForm.controls.requirement.value.sap_experience==0 || postJobForm.controls.requirement.value.experience==0 "(click)="onToggleJobPreviewModal(true)" type="button" class="btn btn-theme-green  btn-block btn-lg btnSubmit">{{"shared.submit" | translate}}</button>
 		</div>
 	</div>
 </div>

@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-lg-5">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active" aria-current="page">Create Profile</li>
+          <li class="breadcrumb-item active" aria-current="page">{{"shared.createProfile" | translate}}</li>
         </ol>
       </div>
     </div>
@@ -16,24 +16,24 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 title">
-          <h2>Company Details</h2>
+          <h2>{{"shared.companyDetails" | translate}}</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class=" form-group">
-            <label>First Name</label>
+            <label>{{"shared.firstName" | translate}}</label>
             <input formControlName="firstName" type="text" class="form-control text-capitalize" placeholder="First Name" value="">
 
           </div>
           <div class=" form-group">
-            <label>Company Name</label>
+            <label>{{"shared.companyName" | translate}}</label>
             <input appMarkAsterisk formControlName="name" type="text" class="form-control text-capitalize" placeholder="Company Name" value="">
             <app-control-messages [control]="f['name']"></app-control-messages>
           </div>
 
           <div class=" form-group">
-            <label>Email Address</label>
+            <label>{{"shared.emailAddress" | translate}}</label>
             <input formControlName="email_id" type="email" class="form-control" placeholder="username@mail.com" value="sapfi-department22@gmail.com">
             <app-control-messages [control]="f['email_id']"></app-control-messages>
           </div>
@@ -44,33 +44,33 @@
           </div> -->
 
           <div class=" form-group">
-            <label>{{"postYourResume.city" | translate}}</label>
+            <label>{{"shared.city" | translate}}</label>
             <input autocomplete="disabled" appMarkAsterisk ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)"
               formControlName="city" type="text" class="form-control text-capitalize"
-              [placeholder]="'postYourResume.city' | translate">
+              [placeholder]="'shared.city' | translate">
               <app-control-messages [control]="f['city']"></app-control-messages>
           </div>
           <div class=" form-group">
-            <label>{{"postYourResume.zipCode" | translate}}</label>
+            <label>{{"shared.zipCode" | translate}}</label>
             <input autocomplete="disabled" [maxLength]="8" autocomplete="disabled"  OnlyNumber="true" formControlName="zipcode" type="text" class="form-control"
-              [placeholder]="'postYourResume.zipCode' | translate">
+              [placeholder]="'shared.zipCode' | translate">
               <app-control-messages [control]="f['zipcode']"></app-control-messages>
           </div>
 
         </div>
         <div class="col-lg-4 col-md-6">
           <div class=" form-group">
-            <label>Last Name</label>
+            <label>{{"shared.lastName" | translate}}</label>
             <input formControlName="lastName" type="text" class="form-control text-capitalize" placeholder="Last Name" value="">
 
           </div>
           <div class="form-group">
-            <label>Company Url</label>
+            <label>{{"shared.companyUrl" | translate}} </label>
             <input appMarkAsterisk formControlName="website" type="text" class="form-control" placeholder="www.wipro.com">
             <app-control-messages [control]="f['website']"></app-control-messages>
           </div>
           <div class="form-group">
-            <label>Phone Number</label>
+            <label>{{"shared.mobileNumber" | translate}}</label>
 			<ngx-intl-tel-input (ngModelChange)="checkNumber()"
 			  [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
 			  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
@@ -84,16 +84,16 @@
 			<small *ngIf="invalidMobile"class="text-danger">Invalid mobile number</small>
           </div>
           <div class="form-group">
-            <label>{{"postYourResume.state" | translate}}</label>
+            <label>{{"shared.state" | translate}}</label>
             <input autocomplete="disabled"  appMarkAsterisk formControlName="state" type="text" class="form-control text-capitalize"
-              [placeholder]="'postYourResume.state' | translate">
+              [placeholder]="'shared.state' | translate">
             <app-control-messages [control]="f['state']"></app-control-messages>
           </div>
 
           <div class="form-group">
-            <label>{{"postJob.country" | translate}}</label>
+            <label>{{"shared.country" | translate}}</label>
             <input autocomplete="disabled"  appMarkAsterisk formControlName="country" type="text" class="form-control text-uppercase"
-              [placeholder]="'postYourResume.country' | translate">
+              [placeholder]="'shared.country' | translate">
               <app-control-messages [control]="f['country']"></app-control-messages>
           </div>
         </div>
@@ -111,7 +111,7 @@
               <!-- <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple=""> -->
               <label for="file-5" *ngIf="!defaultProfilePic && employerDetails?.photo =='default.png'" >
                 <i class="fas fa-user-tie"></i>
-                <span>{{"postYourResume.uploadPhotoCompany" | translate }} <br> ({{"postYourResume.dragAndDrop" | translate
+                <span>{{"userProfile.uploadPhotoCompany" | translate }} <br> ({{"userProfile.dragAndDrop" | translate
                   }})</span>
               </label>
             </div>
@@ -120,9 +120,9 @@
 
 
         <div class="col-md-8 form-group">
-          <label>{{"dashboard.aboutUs" | translate}}</label>
+          <label>{{"shared.aboutUs" | translate}}</label>
           <angular-editor appMarkAsterisk formControlName="description" [config]="editorConfig"
-            [placeholder]="'dashboard.aboutUs' | translate"></angular-editor>
+            [placeholder]="'shared.aboutUs' | translate"></angular-editor>
             <app-control-messages [control]="f['description']"></app-control-messages>
         </div>
 
@@ -130,7 +130,7 @@
       <div class="row">
 				<div class="col-lg-4 col-md-6">
 					<h6 class="font-weight-bold clearfix cursor-pointer" (click)="show = !show">
-            {{"postYourResume.myLinks" | translate }}<i class="fas fa-caret-down pt-3 ml-3"></i>
+            {{"shared.myLinks" | translate }}<i class="fas fa-caret-down pt-3 ml-3"></i>
           </h6>
 				</div>
 
@@ -178,12 +178,12 @@
       <div class="row mt-5">
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <button type="button" [routerLink]="[ '/employer/profile' ]" class="btn btn-secondary btn-block btn-lg">Cancel</button>
+            <button type="button" [routerLink]="[ '/employer/profile' ]" class="btn btn-secondary btn-block btn-lg">{{"shared.cancel" | translate }}</button>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <button [disabled]="!createCompanyForm.valid && !invalidMobile" type="submit" class="btn btn-theme-blue btn-block btn-lg">Submit</button>
+            <button [disabled]="!createCompanyForm.valid && !invalidMobile" type="submit" class="btn btn-theme-blue btn-block btn-lg">{{"shared.submit" | translate }}</button>
           </div>
         </div>
       </div>
@@ -209,8 +209,8 @@
       </image-cropper>
     </div>
     <div class="modal-footer mt-3">
-      <button type="button" class="btn btn-gren" data-dismiss="modal" (click)="SetPreviousProfilePic()">Cancel</button>
-      <button type="button" class="btn btn-gren" data-dismiss="modal" (click)="onImageCropSave()">Save</button>
+      <button type="button" class="btn btn-gren" data-dismiss="modal" (click)="SetPreviousProfilePic()">{{"shared.cancel" | translate }}</button>
+      <button type="button" class="btn btn-gren" data-dismiss="modal" (click)="onImageCropSave()">{{"shared.save" | translate }}</button>
     </div>
   </form>
 </ng-template>

@@ -3,28 +3,28 @@
     <a
     (click)="onTabChange({tabName: 'Job Information', tabNumber: 1})"
      href="javascript:;" class="nav-link" [ngClass]="{'active': currentTabInfo.tabNumber == 1}">
-     {{"postJob.jobInformation" | translate}}
+     {{"tabs.jobInformation" | translate}}
     </a>
   </li>
   <li class="nav-item" [ngClass]="{'active': currentTabInfo.tabNumber == 2}">
     <a
     (click)="onTabChange({tabName: 'Requirement Criteria', tabNumber: 2})"
     href="javascript:;" class="nav-link" [ngClass]="{'active': currentTabInfo.tabNumber == 2}">
-    {{"postJob.requirementCriteria" | translate}}
+    {{"tabs.requirementCriteria" | translate}}
     </a>
   </li>
   <li class="nav-item" [ngClass]="{'active': currentTabInfo.tabNumber == 3}">
     <a
     (click)="onTabChange({tabName: 'Other Prefernece', tabNumber: 3})"
     href="javascript:;" class="nav-link" [ngClass]="{'active': currentTabInfo.tabNumber == 3}">
-    Other Preference
+    {{"tabs.otherPreference" | translate}}
     </a>
   </li>
   <li class="nav-item" [ngClass]="{'active': currentTabInfo.tabNumber == 4}">
     <a
     (click)="onTabChange({tabName: 'Screening Process', tabNumber: 4})"
     href="javascript:;" class="nav-link" [ngClass]="{'active': currentTabInfo.tabNumber == 4}">
-	Screening Process
+	{{"shared.screeningProcess" | translate}}
     </a>
   </li>
 </ul>

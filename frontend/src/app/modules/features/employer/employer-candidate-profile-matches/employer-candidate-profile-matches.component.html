@@ -6,7 +6,7 @@
 					<i class="fas fa-arrow-left"></i>
 				</button>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item active" aria-current="page">{{"dashboard.candidateMatches" | translate }}</li>
+					<li class="breadcrumb-item active" aria-current="page">{{"shared.candidateMatches" | translate }}</li>
 				</ol>
 			</div>
 			<div class="col-lg-7 clearfix">
@@ -40,21 +40,21 @@
 								<div class="pc-btn">
 									
 									<a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2" href="javascript:;">
-										<i class="fas fa-file-alt"></i> Description
+										<i class="fas fa-file-alt"></i> {{"shared.description" | translate }}
 									</a>
 									<a *ngIf="!isMultipleMatches" class="btn btn-outline-green btn-sm mr-1"
 									  (click)="onViewOtherMatches()"
 										 href="javascript:;">
 										<!-- {{"dashboard.matches" | translate}} -->
 										<i class="fas fa-tasks"></i>
-										matches
+										{{"tabs.matches" | translate }}
 									</a>
 									<div class="media "  [ngClass]="(isMultipleMatches === true)?'moreTxt':'mt-2'">
 										<div class="media-body">
-											<h6 *ngIf="postedJobsDetails?.salary_type == 0" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / hr'}}</h6>
-											<h6 *ngIf="postedJobsDetails?.salary_type == 1" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual '}}</h6>
-											<h6 *ngIf="postedJobsDetails?.salary_type == 2" class="text-capitalize job-cardh6">{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / month'}}</h6>
-											<h6 class="text-capitalize job-cardh6">{{"postJob.remote" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.remote)}} </h6>
+											<h6 *ngIf="postedJobsDetails?.salary_type == 0" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / hr'}}</h6>
+											<h6 *ngIf="postedJobsDetails?.salary_type == 1" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual '}}</h6>
+											<h6 *ngIf="postedJobsDetails?.salary_type == 2" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / month'}}</h6>
+											<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.remote)}} </h6>
 											<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}} </h6> -->
 										</div>
 									</div>
@@ -92,12 +92,12 @@
 														<div class="col-lg-4">
 															<span class="mr-2"  style="display: inline-block;">														
 																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-orange btn-sm" data-toggle="modal" data-target="#resumeModal">
-																		<small><i class="fas fa-file-alt"></i> Cover Letter</small>
+																		<small><i class="fas fa-file-alt"></i> {{"shared.coverLetter" | translate}}</small>
 																	</a>	
 															</span>	
 															<span  style="display: inline-block;">
 																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-																		<small><i class="fas fa-file-alt"></i> Resume</small>
+																		<small><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
 																	</a>	
 															</span>	
 														</div>
@@ -141,16 +141,16 @@
 														</div>
 														<div class="col-lg-3">
 															<a [class.disabled]="OpenMatchPopups(matchingUsers)" [ngClass]="(OpenMatchPopups(matchingUsers) == true)?'':'a-class'"  (click)="OpenMatchPopup(matchingUsers)"  >
-																		<small><i class="fab fa-buffer"></i> View Other Matches</small>
+																		<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
 																	</a>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="matchs-info" >
-												<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
-												<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-												<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''"  class="moreBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+												<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/matchs-icon.png" width="16px"> {{"shared.matches" | translate}}  </button>
+												<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> {{"shared.missing" | translate}}  </button>
+												<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''"  class="moreBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/info-icon.png"  width="16px"> {{"shared.moreSkills" | translate}} </button>
 												<!-- <button (click)="onReset()" class="btn btn-sm btn-light ml-1" style="margin-top: -12px;">
 												<i class="fas fa-sync"></i>
 												</button> -->
@@ -181,10 +181,10 @@
 														</h6>
 														<form class="form-inline">
 															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
-																<small><i class="fas fa-file-alt"></i> Resume</small>
+																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}  </small>
 															</a>
 															<a [class.disabled]="OpenMatchPopups(matchingUsers)"  (click)="OpenMatchPopup(matchingUsers)" class="mr-3" >
-																<small><i class="fab fa-buffer"></i> View Other Matches</small>
+																<small><i class="fab fa-buffer"></i>  {{"shared.viewOtherMatches" | translate}}  </small>
 															</a><!-- 
 															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
@@ -194,9 +194,9 @@
 												</div>
 											</div>
 											<div class="matchs-info" *ngIf="!isMultipleMatches">
-												<button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
-												<button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-												<button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+												<button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px">  {{"shared.matches" | translate}}  </button>
+												<button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0">  {{"shared.missing" | translate}}  </button>
+												<button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px"> {{"shared.moreSkills" | translate}}   </button>
 												<button (click)="onReset()" class="btn btn-sm btn-light ml-1">
 												<i class="fas fa-sync"></i>
 												</button>
@@ -208,7 +208,7 @@
 										</app-shared-user-profile-matches>
 										<div class="col-lg-12 info" style="text-align:end;">
 											<button *ngIf="!matchingUsers?.application && postedJobsDetails?.status == 1 " (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
-												class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
+												class="fas fa-paper-plane"></i> {{"shared.sendMail" | translate}}</button>
 										</div>
 									</div>
 								</div>
@@ -239,10 +239,10 @@
 														</h6>
 														<form class="form-inline"  style="display: inline-block;">
 															<a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
-																<small><i class="fas fa-file-alt"></i> Resume</small>
+																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}</small>
 															</a>
 															<a [class.disabled]="OpenMatchPopups(matchingUsersNew)"  (click)="OpenMatchPopup(matchingUsersNew)" class="mr-3" >
-																<small><i class="fab fa-buffer"></i> View Other Matches</small>
+																<small><i class="fab fa-buffer"></i>  {{"shared.viewOtherMatches" | translate}} </small>
 															</a><!-- 
 															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsersNew?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
 																<small><i class="fab fa-buffer"></i> View Other Matches</small>
@@ -252,9 +252,9 @@
 												</div>
 											</div>
 											<div class="matchs-info" *ngIf="!isMultipleMatches">
-												<button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
-												<button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-												<button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+												<button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px">  {{"shared.matches" | translate}} </button>
+												<button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0">  {{"shared.missing" | translate}} </button>
+												<button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px"> {{"shared.moreSkills" | translate}} </button>
 												<button (click)="onReset()" class="btn btn-sm btn-light ml-1">
 												<i class="fas fa-sync"></i>
 												</button>
@@ -266,7 +266,7 @@
 										</app-shared-user-profile-matches>
 										<div class="col-lg-12 info" style="text-align:end;">
 											<button  [disabled]="matchingUsersNew?.application && postedJobsDetails?.status == 1 " (click)="onToggleSendMail(true, matchingUsersNew?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
-												class="fas fa-paper-plane"></i> {{"dashboard.sendMail" | translate}}</button>
+												class="fas fa-paper-plane"></i> {{"shared.sendMail" | translate}}</button>
 										</div>
 									</div>
 								</div>
@@ -309,7 +309,7 @@
 <ng-template *ngIf="toggleMatchModal" #deleteModal let-modal let-d="dismiss">
 	<div class="full-width">
 		<div class="modal-header bg-dblue text-white">
-			<h3 class="modal-title" id="exampleModalLabel">Match Other Posts</h3>
+			<h3 class="modal-title" id="exampleModalLabel"> {{"shared.matchOtherPosts" | translate}} </h3>
 			<button (click)="mbRef?.close()" type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
@@ -318,7 +318,7 @@
 		<div class="modal-body">
 			<div class="form-row">
 				<div class="col-12 my-2 border-bottom">
-					<h6 class="text-blue">Jobs that Match</h6>
+					<h6 class="text-blue">{{"shared.jobsThatMatch" | translate}} </h6>
 				</div>
 			</div>
 				<div class="form-row">
@@ -332,9 +332,9 @@
 		</div>
 		<div class="modal-footer full-width">
 			<button type="button" class="btn btn-secondary"
-				(click)="mbRef?.close()">Close</button> 
+				(click)="mbRef?.close()">{{"shared.close" | translate}} </button> 
 			<button type="button" class="btn btn-theme-blue"
-				(click)="MatchCandidate()">Match</button>
+				(click)="MatchCandidate()">{{"shared.match" | translate}} </button>
 		</div>
 	</div>
 </ng-template>

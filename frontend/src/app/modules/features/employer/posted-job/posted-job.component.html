@@ -3,13 +3,13 @@
     <div class="row mb-4">
       <div class="col-lg-12 text-right">
         <button type="button" [ngClass]="{'active': isStatusValue == 1}" class="btn btn-sm btn-outline-success px-3 mr-1" (click)="onGetChangedStatus(1)">
-          {{"dashboard.active" | translate}}
+          {{"shared.active" | translate}}
         </button>
         <button type="button" [ngClass]="{'warning': isStatusValue == 98}"  class="btn btn-sm btn-outline-warning px-3 mr-1" (click)="onGetChangedStatus(98)">
-          {{"dashboard.paused" | translate}}
+          {{"shared.paused" | translate}}
         </button>
         <button type="button" [ngClass]="{'closed': isStatusValue == 0}" class="btn btn-sm btn-outline-danger px-3" (click)="onGetChangedStatus(0)">
-          {{"dashboard.closed" | translate}}
+          {{"shared.closed" | translate}}
         </button>
       </div>
     </div>
@@ -19,15 +19,15 @@
           <table class="table">
             <thead>
             <tr>
-              <th scope="col">{{"postJob.jobTitle" | translate}}</th>
+              <th scope="col">{{"shared.jobTitle" | translate}}</th>
               <!-- <th scope="col">{{"dashboard.employer" | translate}}</th> -->
-              <th scope="col">{{"postJob.location" | translate}}</th>
-              <th scope="col">{{"dashboard.postedDated" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.matches" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.applications" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.shortlisted" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.status" | translate}}</th>
-              <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th>
+              <th scope="col">{{"shared.location" | translate}}</th>
+              <th scope="col">{{"shared.postedDated" | translate}}</th>
+              <th scope="col" class="text-center">{{"tabs.matches" | translate}}</th>
+              <th scope="col" class="text-center">{{"nav.applications" | translate}}</th>
+              <th scope="col" class="text-center">{{"nav.shortlisted" | translate}}</th>
+              <th scope="col" class="text-center">{{"shared.status" | translate}}</th>
+              <th scope="col" class="text-center">{{"shared.action" | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -119,7 +119,7 @@
 <ng-template #statusModal let-modal let-d="dismiss">
   <div class="full-width">
     <div class="modal-header bg-dblue text-white text-capitalize">
-      <h3 class="modal-title" id="exampleModalLabel">Reason for job status change</h3>
+      <h3 class="modal-title" id="exampleModalLabel"> {{"shared.reasonJobChange" | translate}} </h3>
     </div>
     <div class="modal-body">
       <textarea
@@ -129,8 +129,8 @@
       ></textarea>
     </div>
     <div class="modal-footer full-width">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onStatusModelClose()">Cancel</button>
-      <button type="button" [disabled]="!statusGlossary" class="btn btn-primary" data-dismiss="modal" (click)="onStatusModelSubmit()">Submit</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onStatusModelClose()"> {{"shared.cancel" | translate}}</button>
+      <button type="button" [disabled]="!statusGlossary" class="btn btn-primary" data-dismiss="modal" (click)="onStatusModelSubmit()"> {{"shared.submit" | translate}}</button>
     </div>
   </div>
 </ng-template>

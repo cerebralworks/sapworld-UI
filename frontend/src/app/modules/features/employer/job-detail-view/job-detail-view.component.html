@@ -7,7 +7,7 @@
         </button>
         <ol class="breadcrumb">
           <li class="breadcrumb-item active" aria-current="page">
-            Back To Jobs
+            {{"shared.backToJobs" | translate}}
             <!-- {{"dashboard.postJobDetailView" | translate}} -->
           </li>
         </ol>
@@ -38,9 +38,9 @@
                     </h5>
                   </div>
                   <div class="col-lg-5 ">
-                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobsDetails?.status != 0 " class="btn btn-outline-warning btn-sm mr-1" [routerLink]="['/employer/post-job']" [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;" title="Edit"><i class="fas fa-pencil-alt"></i> {{"dashboard.edit" | translate}}</a>
-                    <a class="btn btn-outline-blue btn-sm mr-1" href="javascript:;" (click)="onToggleJDModal(true)"><i class="fas fa-file-alt"></i> {{"dashboard.description" | translate}}</a>
-                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobsDetails?.status != 0" class="btn btn-outline-green btn-sm" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches', id: postedJobsDetails?.id}" href="javascript:;" title="Matches"><i class="fas fa-tasks"></i> {{"dashboard.matches" | translate}}</a>
+                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobsDetails?.status != 0 " class="btn btn-outline-warning btn-sm mr-1" [routerLink]="['/employer/post-job']" [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;" title="Edit"><i class="fas fa-pencil-alt"></i> {{"shared.edit" | translate}}</a>
+                    <a class="btn btn-outline-blue btn-sm mr-1" href="javascript:;" (click)="onToggleJDModal(true)"><i class="fas fa-file-alt"></i> {{"shared.description" | translate}}</a>
+                    <a *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobsDetails?.status != 0" class="btn btn-outline-green btn-sm" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab: 'matches', id: postedJobsDetails?.id}" href="javascript:;" title="Matches"><i class="fas fa-tasks"></i> {{"tabs.matches" | translate}}</a>
                   </div>
                 </div>
 				<div class="row mt-2">
@@ -60,18 +60,18 @@
                 </div>
 				<div class="col-lg-5" >
 							<ng-container *ngIf="postedJobsDetails?.salary_type == 0">
-								<h6 class="text-capitalize job-cardh6" >{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + '/ hr'}}</h6>
+								<h6 class="text-capitalize job-cardh6" >{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + '/ hr'}}</h6>
 							</ng-container>
 							<ng-container *ngIf="postedJobsDetails?.salary_type ==1">
-								<h6 class="text-capitalize job-cardh6" >{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual'}}</h6>
+								<h6 class="text-capitalize job-cardh6" >{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual'}}</h6>
 							</ng-container>
 							<ng-container *ngIf="postedJobsDetails?.salary_type ==2">
-								<h6 class="text-capitalize job-cardh6" >{{"postJob.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Monthly'}}</h6>
+								<h6 class="text-capitalize job-cardh6" >{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Monthly'}}</h6>
 							</ng-container>
 							<ng-container  *ngIf="postedJobsDetails?.salary_type < 0">
 								--
 							</ng-container>
-							<h6 class="text-capitalize job-cardh6" >{{"postJob.remote" | translate }} : {{utilsHelperService.onGetYesOrNoValue(postedJobsDetails?.remote)}}</h6>
+							<h6 class="text-capitalize job-cardh6" >{{"userProfile.remote" | translate }} : {{utilsHelperService.onGetYesOrNoValue(postedJobsDetails?.remote)}}</h6>
 							<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate }} : {{utilsHelperService.onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}}</h6> -->
 						</div>
 					</div>
@@ -85,7 +85,7 @@
       <div class="col-lg-4" >
 		<div class="title" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">
           <h2>
-            Screening Process           
+            {{"shared.screeningProcess" | translate}}        
           </h2>
         </div>
 		<div class="sidebar-widget px-4" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">
@@ -99,7 +99,7 @@
 		</div>
         <div class="title mt-4" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role?.includes(1) && postedJobs?.length && postedJobs?.length !=1 && !postedJobs?.includes(postedJobsDetails?.id)">
           <h2>
-            Other Post
+				{{"shared.otherPost" | translate}}        
             <!-- {{"dashboard.yourPostJobs" | translate }} -->
           </h2>
         </div>

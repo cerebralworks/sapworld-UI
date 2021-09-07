@@ -3,11 +3,12 @@
 		<div class="row">
 			<div class="col-lg-5">
 				<ol class="breadcrumb">
-					<li *ngIf="currentTabInfo.tabNumber == 1" class="breadcrumb-item active" aria-current="page">{{"dashboard.dashboard" | translate}}</li>
-					<li *ngIf="currentTabInfo.tabNumber == 2" class="breadcrumb-item active" aria-current="page">Matching Candidates</li>
-					<li *ngIf="currentTabInfo.tabNumber == 3" class="breadcrumb-item active" aria-current="page">Applicants</li>
-					<li *ngIf="currentTabInfo.tabNumber == 4" class="breadcrumb-item active" aria-current="page">Shortlisted</li>
-					<li *ngIf="currentTabInfo.tabNumber == 5" class="breadcrumb-item active" aria-current="page">Saved Profile</li>
+					<li *ngIf="currentTabInfo.tabNumber == 1" class="breadcrumb-item active" aria-current="page">{{"nav.postedJobs" | translate}}</li>
+					<li *ngIf="currentTabInfo.tabNumber == 6" class="breadcrumb-item active" aria-current="page">{{"header.dashboard" | translate}}</li>
+					<li *ngIf="currentTabInfo.tabNumber == 2" class="breadcrumb-item active" aria-current="page">{{"nav.matchingCandidates" | translate}}</li>
+					<li *ngIf="currentTabInfo.tabNumber == 3" class="breadcrumb-item active" aria-current="page">{{"nav.applicants" | translate}}</li>
+					<li *ngIf="currentTabInfo.tabNumber == 4" class="breadcrumb-item active" aria-current="page">{{"nav.shortlisted" | translate}}</li>
+					<li *ngIf="currentTabInfo.tabNumber == 5" class="breadcrumb-item active" aria-current="page">{{"nav.savedProfile" | translate}}</li>
 				</ol>
 			</div>
 			<div class="col-lg-7 clearfix d-none">
@@ -35,31 +36,35 @@
 			<div class="col-lg-12">
 				<ul class="nav">
 					<li class="nav-item">
+						<a (click)="onTabChange({tabName: 'dashboard', tabNumber: 6})"
+							[ngClass]="{'active': currentTabInfo.tabNumber == 6}" class="nav-link" href="javascript:;">{{"header.dashboard" | translate}}</a>
+					 </li>
+					<li class="nav-item">
 						<a (click)="onTabChange({tabName: 'postedJobs', tabNumber: 1})"
-							[ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">{{"dashboard.postedJobs" | translate}}</a>
+							[ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">{{"nav.postedJobs" | translate}}</a>
 					 </li>
 					 <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'matches', tabNumber: 2})"
-							[ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"dashboard.matches" | translate}}
+							[ngClass]="{'active': currentTabInfo.tabNumber == 2}" class="nav-link" href="javascript:;">{{"tabs.matches" | translate}}
 							<small id="MatchesCount" >(0)</small>
 						</a>
 					  </li>
 					  <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'applicants', tabNumber: 3})"
-							[ngClass]="{'active': currentTabInfo.tabNumber == 3}" class="nav-link" href="javascript:;">{{"dashboard.applicants" | translate}}
+							[ngClass]="{'active': currentTabInfo.tabNumber == 3}" class="nav-link" href="javascript:;">{{"nav.applicants" | translate}}
 							<small id="ApplicantsCount" >(0)</small> 
 						</a>
 					  </li>
 					  <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'shortlisted', tabNumber: 4})"
-							[ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">{{"dashboard.shortlisted" | translate}}
+							[ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">{{"nav.shortlisted" | translate}}
 							<small id="ApplicantsShortListCount" >(0)</small> 
 						  </a>
 					  </li>
 					 <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'savedProfile', tabNumber: 5})"
 							[ngClass]="{'active': currentTabInfo.tabNumber == 5}"
-							class="nav-link" href="javascript:;">{{"dashboard.savedProfile" | translate}}
+							class="nav-link" href="javascript:;">{{"nav.savedProfile" | translate}}
 							<small id="SavedCount">(0)</small>
 						</a>
 					 </li>
@@ -85,6 +90,9 @@
 
   <app-saved-profile  *ngIf="currentTabInfo.tabNumber == 5">
   </app-saved-profile>
+  
+  <app-employee-chart *ngIf="currentTabInfo.tabNumber == 6">
+  </app-employee-chart>
 
   <app-employer-subscription
   *ngIf="isOpenedSendMailModal"

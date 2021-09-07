@@ -18,8 +18,8 @@ export class EmployerDashboardComponent implements OnInit {
 	**/
 	
 	public currentTabInfo: tabInfo = {
-		tabName: 'Profile',
-		tabNumber: 1
+		tabName: 'dashboard',
+		tabNumber: 6
 	};
 	public isOpenedSendMailModal: any;
 	public queryParams: any = {};
@@ -84,6 +84,9 @@ export class EmployerDashboardComponent implements OnInit {
 				  break;
 				case 'savedProfile':
 				  this.onTabChange({tabName: 'savedProfile', tabNumber: 5})
+				  break;
+				case 'dashboard':
+				  this.onTabChange({tabName: 'dashboard', tabNumber: 6})
 				  break;
 				default:
 				  break;

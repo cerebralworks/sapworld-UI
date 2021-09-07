@@ -25,12 +25,12 @@
           <li *ngIf="!router?.url?.includes('/employer')  && ( router?.url?.includes('/home') || router?.url?.includes('/login') )" class="nav-item mr-3 my-1">
             <a [class.disabled]="router?.url?.includes('/verify')"  (click)="onRedirectUrl('/auth/employer/login')" class="btn btn-outline-blue py-2 px-3"
               href="javascript:;">
-              <i class="fas fa-handshake pr-1 align-middle"></i> {{"home.employer" | translate}}
+              <i class="fas fa-handshake pr-1 align-middle"></i> {{"header.employer" | translate}}
             </a>
           </li>
           <li *ngIf="!router?.url?.includes('/user')  && ( router?.url?.includes('/home') || router?.url?.includes('/login') )" class="nav-item mr-3 my-1">
             <a  [class.disabled]="router?.url?.includes('/verify')"  (click)="onRedirectUrl('/auth/user/login')" class="btn btn-outline-green py-2 px-3" href="javascript:;">
-              <i class="fas fa-user-tie pr-1 align-middle"></i> {{"home.jobseeker" | translate}}
+              <i class="fas fa-user-tie pr-1 align-middle"></i> {{"header.jobseeker" | translate}}
             </a>
           </li>
           <!-- <li *ngIf="!router?.url?.includes('/agency')" class="nav-item mr-3 my-1">
@@ -52,7 +52,7 @@
             </ng-container>
 
 
-            <ul *ngIf="isLangMenuOpen" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin: 3.25rem 0 0;">
+            <ul *ngIf="isLangMenuOpen" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
               <ng-container *ngFor="let lang of translateService.getLangs()">
                 <li class="submenu" *ngIf="lang != translateService.currentLang">
                   <a (click)="useLanguage(lang)" class="text-capitalize dropdown-item" href="javascript:;">
@@ -73,14 +73,14 @@
 
   <nav class="navbar navbar-expand-lg navbar-light theme-nav" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
     <div class="container">
-      <a  [routerLink]="['/home']" href="javascript:;" class="navbar-brand" ><img src="assets/images/logo.png"/></a>
+      <a  [routerLink]="['/employer/dashboard']" href="javascript:;" class="navbar-brand" ><img src="assets/images/logo.png"/></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-          <a  [class.disabled]="router?.url?.includes('/create-profile') && !currentCompanyDetails?.email_id"  class="btn btn-outline-blue btn-sm" [routerLink]="['/employer/post-job']" routerLinkActive="router-link-active" ><i class="fab fa-telegram-plane"></i> Post  Job</a>
+          <a  [class.disabled]="router?.url?.includes('/create-profile') && !currentCompanyDetails?.email_id"  class="btn btn-outline-blue btn-sm" [routerLink]="['/employer/post-job']" routerLinkActive="router-link-active" ><i class="fab fa-telegram-plane"></i> {{"home.postJob" | translate}}</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-2">
@@ -93,11 +93,11 @@
           </span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li class="submenu"> <a [routerLink]="['/employer/dashboard']" class="dropdown-item" href="javascript:;">Dashboard</a></li>
-            <li class="submenu"> <a [routerLink]="['/employer/profile']" class="dropdown-item" href="javascript:;">Profile</a></li>
-            <li class="submenu"> <a [routerLink]="['/notification']" class="dropdown-item" href="javascript:;">Notification</a></li>
-            <li class="submenu"> <a [routerLink]="['/employer/setting']" class="dropdown-item" href="javascript:;">Settings</a></li>
-            <li class="submenu"> <a (click)="logout()" class="dropdown-item" href="javascript:;">Logout</a></li>
+            <li class="submenu"> <a [routerLink]="['/employer/dashboard']" class="dropdown-item" href="javascript:;">{{"header.dashboard" | translate}}</a></li>
+            <li class="submenu"> <a [routerLink]="['/employer/profile']" class="dropdown-item" href="javascript:;">{{"header.profile" | translate}}</a></li>
+            <li class="submenu"> <a [routerLink]="['/notification']" class="dropdown-item" href="javascript:;">{{"header.notification" | translate}}</a></li>
+            <li class="submenu"> <a [routerLink]="['/employer/setting']" class="dropdown-item" href="javascript:;">{{"header.settings" | translate}}</a></li>
+            <li class="submenu"> <a (click)="logout()" class="dropdown-item" href="javascript:;">{{"header.logout" | translate}}</a></li>
           </ul>
           </li>
         </ul>
@@ -113,7 +113,7 @@
             </ng-container>
 
 
-            <ul *ngIf="isLangMenuOpen" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin: 3.25rem 0 0;">
+            <ul *ngIf="isLangMenuOpen" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
               <ng-container *ngFor="let lang of translateService.getLangs()">
                 <li class="submenu" *ngIf="lang != translateService.currentLang">
                   <a (click)="useLanguage(lang)" class="text-capitalize dropdown-item" href="javascript:;">
@@ -134,7 +134,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light theme-nav" *ngIf="loggedUserInfo?.isLoggedIn && loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
     <div class="container">
-      <a [routerLink]="['/home']" href="javascript:;" class="navbar-brand"><img src="assets/images/logo.png"
+      <a [routerLink]="['/user/dashboard']" href="javascript:;" class="navbar-brand"><img src="assets/images/logo.png"
           width="100" /></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -162,11 +162,11 @@
               </span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/dashboard']" href="javascript:;">Dashboard</a></li>
-              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/create-candidate']" href="javascript:;">Profile</a></li>
-              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/notification']" href="javascript:;">Notification</a></li>
-              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/profile-setting']" href="javascript:;">Settings</a></li>
-              <li class="submenu"> <a class="dropdown-item" (click)="logout()" href="javascript:;">Logout</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/dashboard']" href="javascript:;">{{"header.dashboard" | translate}}</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/create-candidate']" href="javascript:;">{{"header.profile" | translate}}</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/notification']" href="javascript:;">{{"header.notification" | translate}}</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/profile-setting']" href="javascript:;">{{"header.settings" | translate}}</a></li>
+              <li class="submenu"> <a class="dropdown-item" (click)="logout()" href="javascript:;">{{"header.logout" | translate}}</a></li>
             </ul>
           </li>
         </ul>
@@ -181,7 +181,7 @@
             </ng-container>
 
 
-            <ul *ngIf="isLangMenuOpen" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin: 3.25rem 0 0;">
+            <ul *ngIf="isLangMenuOpen" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
               <ng-container *ngFor="let lang of translateService.getLangs()">
                 <li class="submenu" *ngIf="lang != translateService.currentLang">
                   <a (click)="useLanguage(lang)" class="text-capitalize dropdown-item" href="javascript:;">

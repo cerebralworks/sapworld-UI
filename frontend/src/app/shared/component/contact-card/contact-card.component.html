@@ -131,29 +131,29 @@
           <a *ngIf="!isUploadShow || selectedCover?.file"
           [class.disabled]="!selectedCover?.file"
           (click)="selectedCover?.file && onToggleCoverForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedCover?.file))" class="btn btn-outline-orange  btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> Cover Lettter
+            <i class="fas fa-file-alt"></i>  {{"shared.coverLetter" | translate }}
           </a>
 		  <a *ngIf="isUploadShow && !selectedCover?.file"
           (click)="openCoverselect(true)" class="btn btn-outline-orange  btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> Add cover
+            <i class="fas fa-file-alt"></i>  {{"shared.addCover" | translate }}
           </a>
         </span>
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
           <a *ngIf="!isUploadShowResume || selectedResume?.file" style="margin-top: .25rem;"
           [class.disabled]="!selectedResume?.file"
           (click)="selectedResume?.file && onToggleResumeForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> {{"dashboard.resume" | translate }}
+            <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
           </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="margin-top: .25rem;"
          (click)="openResumselect(true)"  id="addResumeFile"
            class="btn btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> Add Resume
+            <i class="fas fa-file-alt"></i>  {{"shared.addResume" | translate }}
           </a>
         </span>
 		<a *ngIf="!isMail && isMatchesView " (click)="onTabChange()" style="margin-top: .25rem;display:inline-block;" class="btn btn-outline-green btn-sm profile-btn" href="javascript:;" title="Edit"><i
-            class="fas fa-tasks" ></i> Matches </a>
+            class="fas fa-tasks" ></i>  {{"shared.matches" | translate }} </a>
         <span  *ngIf="isMail && jobInfo?.id  && jobInfo['status'] == 1 "  style="display: inline-block;">
           <a (click)="onToggleSendMail(true)"  style="margin-top: .25rem;" class="btn btn-outline-orange btn-sm profile-btn profile-btn" href="javascript:;">
-          <i class="fas fa-paper-plane"></i> Send Mail</a>
+          <i class="fas fa-paper-plane"></i>  {{"shared.sendMail" | translate }}  </a>
         </span>
 		<!-- <div *ngIf="isMatchView">
 		<div class="form-inline float-right mt-2">
@@ -263,8 +263,8 @@
 	  <div class="col-lg-12 text-right" *ngIf="isMatchView">
 		<div class="form-inline float-right mt-2">
 			<div class="selectDD">
-				<select class="selectpicker" [(ngModel)]="selected" id="selectpicker" data-none-selected-text="Choose Jobs " multiple data-live-search="true">
-					<option class="d-none" disabled selected >Choose Jobs </option>
+				<select class="selectpicker" [(ngModel)]="selected" id="selectpicker" data-none-selected-text="View Other Matches" multiple data-live-search="true">
+					<option class="d-none" disabled selected >  {{"shared.viewOtherMatches" | translate }}  </option>
 					<option *ngFor="let item of postedJobsMatchDetails" [value]="item.id">{{item.title}}</option>
 				</select>
 			</div>

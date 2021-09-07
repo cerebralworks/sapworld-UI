@@ -39,6 +39,14 @@ export class EmployerService extends CacheService {
       })
     );
   };
+  
+  getEmployeeDashboard = (params?) => {
+    return this.apiService.post('/api/employers/employers-dashboard', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
 
   getIndustries = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/industries/list', params).pipe(

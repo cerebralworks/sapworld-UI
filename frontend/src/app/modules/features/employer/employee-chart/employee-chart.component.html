@@ -1,0 +1,117 @@
+<!-- //Nav Tab Section -->
+<section class="my-4">
+	<div class="container">
+		<div class="row mb-3">
+			<div class="col-lg-12">
+				<p class="mb-0 text-sblue">{{"shared.greeting" | translate}}</p>
+				<h5 class="text-blue" style="text-transform: capitalize;">{{(currentEmployerDetails?.first_name ? currentEmployerDetails?.first_name : '') + ' ' + (currentEmployerDetails?.last_name ? currentEmployerDetails?.last_name : '')}}</h5>
+				<hr class="border-bottom pb-1">
+			</div>
+		</div>
+		<div class="row mb-5">
+			
+			<div class="col-lg-4" *ngIf="showCountry">					
+				<div class="noselect chartTitle mb-4">
+					{{"shared.byLocation" | translate}}
+				</div>
+				<canvas baseChart #chart
+					[data]="doughnutChartData"
+					[labels]="doughnutChartLabels"
+					[BorderWidth]="doughnutBorderWidth"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOption"
+					[colors]="doughnutChartColors"
+					(chartClick)="chartClickEvent($event)"
+					>
+				  </canvas>
+				<div class="noselect chart-center-label" style="left:70%;">{{totalCountry}}</div>
+			</div>
+			
+			<div class="col-lg-4" *ngIf="showPostedJob">					
+				<div class="noselect chartTitle mb-4">
+					{{"shared.jobPosted" | translate}}
+				</div>
+				<canvas baseChart #chart
+					[data]="doughnutChartDataJobs"
+					[labels]="doughnutChartLabelsJobs"
+					[BorderWidth]="doughnutBorderWidth"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					(chartClick)="chartClickEventPostedJob($event)"
+					>
+				  </canvas>
+				<div class="noselect chart-center-label" style="left:61%;">{{totalPostedJobs}}</div>
+			</div>
+			
+			<div class="col-lg-4" *ngIf="showMatches">					
+				<div class="noselect chartTitle mb-4">
+					{{"shared.matches" | translate}}
+				</div>
+				<canvas baseChart #chart
+					[data]="doughnutChartDataMatches"
+					[labels]="doughnutChartLabelsMatches"
+					[BorderWidth]="doughnutBorderWidth"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					(chartClick)="chartClickEventMatches($event)"
+					>
+				  </canvas>
+				<div class="noselect chart-center-label" style="left:73%;">{{totalMatches}}</div>
+			</div>
+			
+			<div class="col-lg-4" *ngIf="showApplicants">					
+				<div class="noselect chartTitle mb-4">
+					{{"nav.applicants" | translate}}
+				</div>
+				<canvas baseChart #chart
+					[data]="doughnutChartDataApplicants"
+					[labels]="doughnutChartLabelsApplicants"
+					[BorderWidth]="doughnutBorderWidth"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					(chartClick)="chartClickEventApplicants($event)"
+					>
+				  </canvas>
+				<div class="noselect chart-center-label" style="left:73%;">{{totalApplicants}}</div>
+			</div>
+			
+			<div class="col-lg-4" *ngIf="showShortlisted">					
+				<div class="noselect chartTitle mb-4">
+					{{"nav.shortlisted" | translate}}
+				</div>
+				<canvas baseChart #chart
+					[data]="doughnutChartDataShortlisted"
+					[labels]="doughnutChartLabelsShortlisted"
+					[BorderWidth]="doughnutBorderWidth"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					(chartClick)="chartClickEventShortlisted($event)"
+					>
+				  </canvas>
+				<div class="noselect chart-center-label" style="left:73%;">{{totalShortlisted}}</div>
+			</div>
+			
+			<div class="col-lg-4" *ngIf="showHired">					
+				<div class="noselect chartTitle mb-4">
+					{{"shared.hired" | translate}}
+				</div>
+				<canvas baseChart #chart
+					[data]="doughnutChartDataHired"
+					[labels]="doughnutChartLabelsHired"
+					[BorderWidth]="doughnutBorderWidth"
+					[chartType]="doughnutChartType"
+					[options]="doughnutOptions"
+					[colors]="doughnutChartColors"
+					(chartClick)="chartClickEventHired($event)"
+					>
+				  </canvas>
+				<div class="noselect chart-center-label" style="left:70%;">{{totalHired}}</div>
+			</div>
+			
+		</div>
+	</div>
+</section>

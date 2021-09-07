@@ -56,6 +56,46 @@ export class UserChartComponent implements OnInit {
 				"#59c1dc",
 				"#7db861",
 				"#ffce45",
+				"#07315c",
+				"#f9863e",
+				"#59c1dc",
+				"#7db861",
+				"#ffce45",
+				"#07315c",
+				"#f9863e",
+				"#59c1dc",
+				"#7db861",
+				"#ffce45",
+				"#07315c",
+				"#f9863e",
+				"#59c1dc",
+				"#7db861",
+				"#ffce45",
+				"#07315c",
+				"#f9863e",
+				"#59c1dc",
+				"#7db861",
+				"#ffce45",
+				"#07315c",
+				"#f9863e",
+				"#59c1dc",
+				"#7db861",
+				"#ffce45",
+				"#07315c",
+				"#f9863e",
+				"#59c1dc",
+				"#7db861",
+				"#ffce45",
+				"#07315c",
+				"#f9863e",
+				"#59c1dc",
+				"#7db861",
+				"#ffce45",
+				"#07315c",
+				"#f9863e",
+				"#59c1dc",
+				"#7db861",
+				"#ffce45",
 				"#07315c"
 			]
 		}]
@@ -139,11 +179,6 @@ export class UserChartComponent implements OnInit {
           }
         }
       )
-		this.onGetMatchesDetails();
-		this.onGetVisaDetails();
-		this.onGetAvailabilityDetails('');
-		this.onGetTypeDetails('');		
-		this.onGetAppliedJobs('');
 	}
 
 	/**
@@ -157,8 +192,16 @@ export class UserChartComponent implements OnInit {
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
+				for(let i=0;i<response.data.length;i++){
+					var temp = response.data[i]['city'].length;
+					if(temp<=15){
+						for(let j=temp;j<16;j++){
+							response.data[i]['city'] = response.data[i]['city']+' ';						
+						}
+					}
+				}
 				this.MatchesTotal = response.data;
-				var filterData = response.data.map(function(a,b){ return a.country.charAt(0).toUpperCase() + a.country.substr(1) });
+				var filterData = response.data.map(function(a,b){ return a.city.charAt(0).toUpperCase() + a.city.substr(1) });
 				var filterValue = response.data.map(function(a,b){ return a.count });
 				this.doughnutChartLabels = filterData;
 				this.doughnutChartData = [filterValue];
@@ -172,16 +215,24 @@ export class UserChartComponent implements OnInit {
       )
 	}
 	
-	onGetAppliedJobs = (country) => {
+	onGetAppliedJobs = (city) => {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'applied';
-      requestParams.country = country;
+      requestParams.city = city;
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
+				for(let i=0;i<response.data.length;i++){
+					var temp = response.data[i]['city'].length;
+					if(temp<=15){
+						for(let j=temp;j<16;j++){
+							response.data[i]['city'] = response.data[i]['city']+' ';						
+						}
+					}
+				}
 				this.AppliedTotal = response.data;
-				var filterData = response.data.map(function(a,b){ return   a.country.charAt(0).toUpperCase() + a.country.substr(1) });
+				var filterData = response.data.map(function(a,b){ return   a.city.charAt(0).toUpperCase() + a.city.substr(1) });
 				var filterValue = response.data.map(function(a,b){ return a.count });
 				this.doughnutChartLabelsApplied = filterData;
 				this.doughnutChartDataApplied = [filterValue];
@@ -193,11 +244,11 @@ export class UserChartComponent implements OnInit {
         }
       )
 	}
-	onGetAvailabilityDetails = (country) => {
+	onGetAvailabilityDetails = (city) => {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'availability';
-      requestParams.country = country;
+      requestParams.city = city;
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -206,7 +257,7 @@ export class UserChartComponent implements OnInit {
 					if(this.AppliedAvailability[i].availability =='0'){
 						this.AppliedAvailability[i].availability = 'Immediate'
 					}else{
-						this.AppliedAvailability[i].availability = this.AppliedAvailability[i].availability+' Days'
+						this.AppliedAvailability[i].availability = this.AppliedAvailability[i].availability+' Days  '
 					}
 				}
 				var filterData = this.AppliedAvailability.map(function(a,b){ return a.availability  });
@@ -222,11 +273,11 @@ export class UserChartComponent implements OnInit {
       )
 	}
 	
-	onGetTypeDetails = (country) => {
+	onGetTypeDetails = (city) => {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'type';
-      requestParams.country = country;
+      requestParams.city = city;
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -238,7 +289,7 @@ export class UserChartComponent implements OnInit {
 					}if(a.type =='1001'){
 						this.AppliedType[i].type = 'Part Time'
 					}if(a.type =='1002'){
-						this.AppliedType[i].type = 'Contract'
+						this.AppliedType[i].type = 'Contract '
 					}if(a.type =='1003'){
 						this.AppliedType[i].type = 'Freelance'
 					}if(a.type =='1004'){
@@ -266,8 +317,16 @@ export class UserChartComponent implements OnInit {
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
+				for(let i=0;i<response.data.length;i++){
+					var temp = response.data[i]['city'].length;
+					if(temp<=15){
+						for(let j=temp;j<16;j++){
+							response.data[i]['city'] = response.data[i]['city']+' ';						
+						}
+					}
+				}
 				this.AppliedVisa =response.data;
-				var filterData = response.data.map(function(a,b){ return a.country.charAt(0).toUpperCase() + a.country.substr(1) });
+				var filterData = response.data.map(function(a,b){ return a.city.charAt(0).toUpperCase() + a.city.substr(1) });
 				var filterValue = response.data.map(function(a,b){ return a.count });
 				this.doughnutChartLabelsVisa = filterData;
 				this.doughnutChartDataVisa = [filterValue];
@@ -295,7 +354,7 @@ export class UserChartComponent implements OnInit {
 				Check = Check.map(function(a,b){ return a.text.toLowerCase() });
 				Check = this.MatchesTotal.filter((f) => {
 				  return Check.some((el) => {
-					return f.country.toLowerCase() === el.toLowerCase()
+					return f.city.toLowerCase() === el.toLowerCase()
 				  });
 				});
 				if(Check.length !=0){
@@ -321,7 +380,7 @@ export class UserChartComponent implements OnInit {
 				Check = Check.map(function(a,b){ return a.text.toLowerCase() });
 				Check = this.AppliedTotal.filter((f) => {
 				  return Check.some((el) => {
-					return f.country.toLowerCase() === el.toLowerCase()
+					return f.city.toLowerCase() === el.toLowerCase()
 				  });
 				});
 				if(Check.length !=0){
@@ -422,7 +481,7 @@ export class UserChartComponent implements OnInit {
 				Check = Check.map(function(a,b){ return a.text.toLowerCase() });
 				Check = this.AppliedVisa.filter((f) => {
 				  return Check.some((el) => {
-					return f.country.toLowerCase() === el.toLowerCase()
+					return f.city.toLowerCase() === el.toLowerCase()
 				  });
 				});
 				if(Check.length !=0){

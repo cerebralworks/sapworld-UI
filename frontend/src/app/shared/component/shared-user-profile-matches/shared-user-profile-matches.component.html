@@ -1,14 +1,14 @@
 <div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;">
-	<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
-	<button (click)="onShowMissing($event)" id="missBtnVal" [ngClass]="missingElement ? 'btn-fltr-active' : ''"   class="missBtn  btn-sm btn btn-fltr btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-	<button (click)="onShowMore($event)" id="moreBtnVal" [ngClass]="moreElement ? 'btn-fltr-active' : ''"   class="moreBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/info-icon.png"  width="16px">More Skills </button>
+	<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/matchs-icon.png" width="16px"> {{"shared.matches" | translate }} </button>
+	<button (click)="onShowMissing($event)" id="missBtnVal" [ngClass]="missingElement ? 'btn-fltr-active' : ''"   class="missBtn  btn-sm btn btn-fltr btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> {{"shared.missing" | translate }} </button>
+	<button (click)="onShowMore($event)" id="moreBtnVal" [ngClass]="moreElement ? 'btn-fltr-active' : ''"   class="moreBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/info-icon.png"  width="16px"> {{"shared.moreSkills" | translate }}</button>
 	<!-- <button (click)="onReset()" class="btn btn-sm btn-light ml-1">
 	<i class="fas fa-sync"></i>
 	</button> -->
 </div>
 <div class="col-lg-12 info" [ngClass]="(isMultipleMatches === true)?'col-lg-6 mt-3-8':'col-lg-12 mt-3-3'">
 	<div class="score"  style="margin-top:25px;"[ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
-		{{"dashboard.score" | translate}}
+		{{"shared.score" | translate}}
 		<span>
 			{{matchingUsers?.score ? matchingUsers?.score : 0}}/10
 		</span>
