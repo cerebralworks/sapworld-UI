@@ -33,6 +33,34 @@ module.exports = (app, env, rp) => {
 		requestCustom.post(`${serverRoutes.adminDashboardUserDetails}`, req, res, requestBody);
 	});
 	
+	
+	app.post("/api/skill-tags/data",(req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.skillData}`, req, res, requestBody);
+	})
+	
+	app.get("/api/skill-tags/find", (req, res) => {
+		let requestBody = { ...req.query };    
+		requestCustom.get(`${serverRoutes.skillTagFind}`, req, res, requestBody);
+	});
+	/**
+	* Skills details POST
+	*/
+	app.post("/api/skill-tags/creates",(req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.skillTagCreates}`, req, res, requestBody);
+	})
+	//Skills Delete
+	app.delete("/api/skill-tags/delete/:id",(req, res) => {
+		let requestBody = req.params.id ;   
+		requestCustom.delete(`${serverRoutes.skillTagDelete}/${requestBody}`, req, res, requestBody);
+	})
+	//skill update
+	app.post("/api/skill-tags/update/:id",(req, res) => {
+		let requestBody = { ...req.body } ;   
+		requestCustom.post(`${serverRoutes.skillTagUpdate}/${requestBody.id}`, req, res, requestBody);
+	})
+	
    /**
    * User crm for restaurant
    */
@@ -76,6 +104,14 @@ module.exports = (app, env, rp) => {
     requestCustom.post(`${serverRoutes.jobPostingCreate}`, req, res, requestBody);
   });
 
+  /**
+   * Job Updating
+   */
+  app.post("/api/employers/employers-dashboard", (req, res) => {
+    let requestBody = { ...req.body };    
+    requestCustom.post(`${serverRoutes.employerDashboard}`, req, res, requestBody);
+  });
+  
    /**
    * Change Job Status
    */

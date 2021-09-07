@@ -632,6 +632,29 @@ findLanguageArray(value){
 		}
 		return '--';
 	}
+	
+	
+	checkValuesField(id,dataValue){
+		
+		if(id && this.application && this.application['others']&& this.application['others']['length']){
+			id = parseInt(id);
+			var temp = this.application['others'].filter(function(a,b){ return a.id ==id });
+			if(temp.length !=0){
+				if(temp[0]['value']){
+					if(temp[0]['value'].toLowerCase() ==dataValue.toLowerCase()){
+						return true
+					}else{
+						return false
+					}
+				}
+			}
+		}
+		if(dataValue == 'false'){
+			return true
+		}else{
+			return false
+		}
+	}
 	checkDataOthers(data,value){
 		  if(data == value){
 			  return true;

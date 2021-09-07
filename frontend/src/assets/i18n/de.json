@@ -135,6 +135,22 @@
 
 	  
   },
+  "auth":{
+	  "findRightPlace":"Finden Sie Ihren richtigen Ort",
+	  "loginTitle": "Entdecken Sie Ihren Karriereweg mit Eazy Recruitz",
+	  "login":"Anmeldung",
+	  "employeeTitle":"Finden Sie die Mitarbeiter",
+	  "employeeSubTitle":"Stellen Sie Ihren nächsten Kandidaten bei Eazy Recruitz ein",
+	  "employeeHeadContent":"Die Einstellung ist jetzt einfach",
+	  "email":"Email",
+	  "register":"Registrieren",
+	  "terms":"Nutzungsbedingungen und Datenschutzbestimmungen",
+	  "password":"Passwort",
+	  "rememberMe":"Remember Me",
+	  "forgotPassword":"Passwort vergessen?",
+	  "haveAccount":"Sie haben kein Konto?"
+	  
+  },
   "profileSettings":{
   "photo": "Profilbild",
   "phone": "Telefonnummer",

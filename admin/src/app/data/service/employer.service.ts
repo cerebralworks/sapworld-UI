@@ -201,4 +201,50 @@ export class EmployerService extends CacheService {
     );
   }
 
+  //creating the industry data
+  postIndustries =(data : any): Observable<any> => {
+    return this.apiService.post('/api/industries/create', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //deleting the Industry data
+  deleteIndustry = (params: any): Observable<any> => {
+    return this.apiService.delete('/api/industries/delete/'+ params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //update Industry Data
+  updateIndustry = (id: any , data : any): Observable<any> => {
+    return this.apiService.post('/api/industries/update/'+id, data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  
+  
+  //creating the skills
+  createSkills(data : any){
+    return this.apiService.post('/api/skill-tags/creates',data)
+  }
+  //deleting the skills
+  deleteskill = (params: any): Observable<any> => {
+    return this.apiService.delete('/api/skill-tags/delete/'+ params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //update skills
+  updateskill = (id: any , data : any): Observable<any> => {
+    return this.apiService.post('/api/skill-tags/update/'+id, data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
 }

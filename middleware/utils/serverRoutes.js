@@ -51,6 +51,17 @@ const routes = {
     adminDashboardEmployeeDetails: '/admins/employee-list',
     adminDashboardUserDetails: '/admins/user-list',
     userDashboard: '/users/user-dashboard',
+    employerDashboard: '/employers/employers-dashboard',
+	
+	skillTagFind : '/skill-tags/find',
+	skillTagCreates : '/skill-tags/creates',
+	skillTagDelete : '/skill-tags/delete',
+	skillTagUpdate : '/skill-tags/update',
+	skillData : '/skill-tags/data',
+	industriesList : 'industries/list',
+	industriesCreate : 'industries/create',
+	industriesDelete : 'industries/delete',
+	industriesUpdate : 'industries/update',
 }
 
 module.exports = routes;

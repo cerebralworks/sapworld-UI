@@ -9,6 +9,23 @@ module.exports = (app, env, rp) => {
     let requestBody = { ...req.query }
     requestCustom.get(serverRoutes.listIndustries, req, res, requestBody)
   })
+  
+	//Industry post
+	app.post("/api/industries/create",(req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.industriesCreate}`, req, res, requestBody);
+	})
+	//Industry delete
+	app.delete("/api/industries/delete/:id",(req, res) => {
+		let requestBody = req.params.id ;   
+		requestCustom.delete(`${serverRoutes.industriesDelete}/${requestBody}`, req, res, requestBody);
+	})
+	//Industry update
+	app.post("/api/industries/update/:id",(req, res) => {
+		let requestBody = { ...req.body } ;   
+		requestCustom.post(`${serverRoutes.industriesUpdate}/${requestBody.id}`, req, res, requestBody);
+	})
+	
 	/**
    * Vendor Hoppoints.
    */

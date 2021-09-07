@@ -21,7 +21,7 @@
 								<div class="row">
 									<div class="offset-lg-2 col-lg-8">
 										<!-- Alert start -->
-										<div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+										<div *ngIf="show" class="alert alert-success alert-dismissible fade show" role="alert" >
 										  <strong>Successfully !</strong> Added New Industry
 										  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 											<span aria-hidden="true">×</span>
@@ -31,15 +31,19 @@
 								</div>	
 								<!-- Alert end -->
 								<!-- Form start -->
-								<form class="myadmin-form mt-4">
+								<form [formGroup]="addindustry" class="myadmin-form mt-4" (ngSubmit)="submit()" autocomplete="off">
 									<div class="row">
 										<div class="form-group offset-lg-2 col-lg-6">
 											<label>Industry Name</label>
-											<input type="text" class="form-control" placeholder="Ex: Aerospace &amp; Defense">
+											<input type="text" class="form-control" name="name" formControlName="name" placeholder="Ex: Aerospace &amp; Defense">
+											<div *ngIf="submitted && f.name.errors">
+												<span class="warn" *ngIf="f.name.errors.required">Field is Required</span>
+											</div>
+											<span class="warn" *ngIf="empty">Space Not Allowed</span>
 										</div>									
 										<div class="form-group col-lg-2">
 											<label>&nbsp;</label>										
-											<button type="button" class="btn mybtn btn-blue btn-block" id="addSkill" href="javascript:;">Add Industry</button>
+											<button type="submit" class="btn mybtn btn-blue btn-block" id="addind">Add Industry</button>
 										</div>
 									</div>
 								</form>								
@@ -50,86 +54,14 @@
 									<div class="offset-lg-2 col-lg-8">
 										<div class="table-container">
 											<div class="table-responsive">
-												<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="top"></div><table class="sort-table table custom-table m-0 dataTable no-footer" id="DataTables_Table_0" role="grid">
+												<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="top"></div><table datatable [dtOptions]="dtOption" class="sort-table table custom-table m-0 dataTable no-footer" id="DataTables_Table_0" role="grid">
 													<thead>
 														<tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Industry Name: activate to sort column ascending" style="width: 383.484px;">Industry Name</th><th class="text-center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 220.516px;">Action</th></tr>
 													</thead>
 													<tbody>
-														
-														
-														
-														
-														
-														
-														
-														
-														
-														
-														
-														
-														
-													<tr role="row" class="odd">
-															<td>Aerospace &amp; Defense</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="even">
-															<td>Automotive</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="odd">
-															<td>Banking</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="even">
-															<td>Chemicals</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="odd">
-															<td>Consumer Products</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="even">
-															<td>Defense &amp; Security</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="odd">
-															<td>Healthcare</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="even">
-															<td>Industrial Machinery</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="odd">
-															<td>Insurance</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr><tr role="row" class="even">
-															<td>Logistics Service Prod.</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr></tbody>
-												</table><div class="bottom"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">Next</a></li></ul></div></div><div class="clear"></div></div>
+													</tbody>
+													</table>
+													</div>
 											</div>
 										</div>
 									</div>

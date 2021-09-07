@@ -36,6 +36,18 @@ const routes: Routes = [
         loadChildren: () =>
           import('./technical-skills/technical-skills.module').then((m) => m.TechnicalSkillsModule),
       },{
+        path: 'profile-settings',
+        loadChildren: () =>
+          import('./profile/admin-setting/admin-setting.module').then((m) => m.AdminSettingModule),
+      },{
+        path: 'profile-view',
+        loadChildren: () =>
+          import('./profile/admin-profile/admin-profile.module').then((m) => m.AdminProfileModule),
+      },{
+        path: 'profile-edit',
+        loadChildren: () =>
+          import('./profile/create-admin-profile/create-admin-profile.module').then((m) => m.CreateAdminProfileModule),
+      },{
         path: 'employer',
         loadChildren: () =>
           import('../modules/employer/employer.module').then(

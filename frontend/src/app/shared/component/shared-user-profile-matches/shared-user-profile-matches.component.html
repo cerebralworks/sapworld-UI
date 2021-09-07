@@ -492,7 +492,8 @@
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
 								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'0')" >
-								  <span *ngIf="matchedElement" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} </span>
+								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} </span>
+								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} </span>
 								</li>
 							 </ul>
 						</div>
@@ -977,7 +978,9 @@
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
 								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'1')" >
-								  <span *ngIf="matchedElement" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} </span>
+								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} </span>
+								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} </span>
+								
 								</li>
 							 </ul>
 						</div>
@@ -1461,7 +1464,9 @@
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
 								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'2')" >
-								  <span *ngIf="matchedElement" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} </span>
+								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} </span>
+								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} </span>
+								
 								</li>
 							 </ul>
 						</div>
@@ -1946,7 +1951,9 @@
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
 								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'')" >
-								  <span *ngIf="matchedElement" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} </span>
+								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} </span>
+								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} </span>
+								
 								</li>
 							 </ul>
 						</div>
