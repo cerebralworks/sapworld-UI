@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
+import { EmployerService } from '@data/service/employer.service';
+import { UtilsHelperService } from '@shared/services/utils-helper.service';
 
 @Component({
   selector: 'app-admin-profile',
@@ -24,7 +27,13 @@ export class AdminProfileComponent implements OnInit {
 	public privacyProtection: any;
 
 	constructor(
-	) { }
+		private employerService: EmployerService,
+		private ref: ChangeDetectorRef,
+		private employerSharedService: EmployerSharedService,
+		public utilsHelperService: UtilsHelperService
+	) { 
+		this.onGetProfileInfo();
+	}
 
 	updateUrl = (event) => {
 		console.log(event);
@@ -35,18 +44,45 @@ export class AdminProfileComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-		this.profileSettings = [
-		  {field: 'phone', label: 'Phone Numer'},
-		  {field: 'email', label: 'Email ID'},
-		  {field: 'open_jobs', label: 'Open Jobs'},
-		  {field: 'emplyees', label: 'Employees'}
-		];
-		this.randomNum = Math.random();
 		
+		this.randomNum = Math.random();
+		this.employerSharedService.getEmployerProfileDetails().subscribe(
+			details => {
+				if (!this.utilsHelperService.isEmptyObj(details) && this.validateSubscribe == 0) {
+					this.employerDetails = details;
+					this.privacyProtection = details.privacy_protection;
+					if(this.privacyProtection==null || this.privacyProtection ==undefined){
+						this.privacyProtection={
+						  'phone':false,
+						  'email':false,
+						  'open_jobs':false,
+						  'emplyees':false
+						}
+					}
+					this.validateSubscribe ++;
+				}
+			}
+		)
+		this.ref.detectChanges();
+		this.ref.detectChanges();
 	}
 	
-
 	
+	/**
+	**	To get the profile information
+	**/
 	
-
+	onGetProfileInfo() {
+		let requestParams: any = {};
+		this.employerService.getCompanyProfileInfo(requestParams).subscribe(
+			(response: any) => {
+				this.companyProfileInfo = { ...response.details };
+				this.companyProfileInfo['meta'] = response.meta;
+				this.ref.detectChanges();
+			}, error => {
+				this.companyProfileInfo = {};
+			}
+		)
+	}
+	
 }

@@ -47,6 +47,9 @@ const routes = {
     employersUpdate: '/employers/update',
     applicationDelete: '/user/application/delete',
     adminDashboardCount: '/admins/list',
+    adminProfile: '/admins/profile',
+    adminsCreate: '/admins/create',
+    adminPhotoUpdate: '/admins/update-photo',
     adminDashboardDetails: '/admins/dashboard-details',
     adminDashboardEmployeeDetails: '/admins/employee-list',
     adminDashboardUserDetails: '/admins/user-list',
@@ -62,6 +65,12 @@ const routes = {
 	industriesCreate : 'industries/create',
 	industriesDelete : 'industries/delete',
 	industriesUpdate : 'industries/update',
+	
+	programList : 'program/list',
+	programCreate : 'program/create',
+	programDelete : 'program/delete',
+	programUpdate : 'program/update',
+
 }
 
 module.exports = routes;

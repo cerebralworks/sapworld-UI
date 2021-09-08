@@ -44,3 +44,16 @@ width:100%;
     margin-left: 3px;
     font-size: 1.2em;
 }
+.btn-theme-blue {
+    color: #fff;
+    background-color: #385edf;
+    border-color: #385edf;
+}.input-group-text i {
+    position: unset!important;
+    top: 50%!important;
+    left: unset!important;
+    font-size: 18px!important;
+    transform: unset!important;
+    color: #333;
+    transition: unset!important;
+}

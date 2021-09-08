@@ -1,0 +1,205 @@
+<!-- //Sub Header Section -->
+<section class="my-5">
+  <form method="post" #companyNgForm="ngForm" [formGroup]="createCompanyForm" (ngSubmit)="onSaveComapnyInfo()">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 title">
+          <!-- <h2>Company Details</h2> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class=" form-group">
+            <label>First Name
+			<span class="required-asterisk">*</span>
+			</label>
+            <input formControlName="first_name" type="text" class="form-control text-capitalize" placeholder="First Name" value="">
+			<app-control-messages [control]="f['first_name']"></app-control-messages>
+          </div>
+          <div class=" form-group">
+            <label>Company Name<span class="required-asterisk">*</span></label>
+            <input appMarkAsterisk formControlName="name" type="text" class="form-control text-capitalize" placeholder="Company Name" value="">
+            <app-control-messages [control]="f['name']"></app-control-messages>
+          </div>
+
+          <div class=" form-group">
+            <label>Email<span class="required-asterisk">*</span></label>
+            <input formControlName="email" type="email" class="form-control" placeholder="username@mail.com" value="sapfi-department22@gmail.com">
+            <app-control-messages [control]="f['email']"></app-control-messages>
+          </div>
+          <!-- <div class=" form-group">
+            <label>Address</label>
+            <input formControlName="address" type="text" class="form-control" placeholder="Ex. Plot No/Street">
+            <app-control-messages [control]="f['address']"></app-control-messages>
+          </div> -->
+
+          <div class=" form-group">
+            <label>City<span class="required-asterisk">*</span></label>
+            <input autocomplete="disabled" appMarkAsterisk ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)"
+              formControlName="city" type="text" class="form-control text-capitalize"
+              placeholder="city">
+              <app-control-messages [control]="f['city']"></app-control-messages>
+          </div>
+          <div class=" form-group">
+            <label>Zipcode<span class="required-asterisk">*</span></label>
+            <input autocomplete="disabled" [maxLength]="8" autocomplete="disabled"  OnlyNumber="true" formControlName="zipcode" type="text" class="form-control"
+              placeholder="Zipcode">
+              <app-control-messages [control]="f['zipcode']"></app-control-messages>
+          </div>
+
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class=" form-group">
+            <label>Last Name<span class="required-asterisk">*</span></label>
+            <input formControlName="last_name" type="text" class="form-control text-capitalize" placeholder="Last Name" value="">
+			<app-control-messages [control]="f['last_name']"></app-control-messages>
+          </div>
+          <div class="form-group">
+            <label>Company URL <span class="required-asterisk">*</span></label>
+            <input appMarkAsterisk formControlName="website" type="text" class="form-control" placeholder="www.wipro.com">
+            <app-control-messages [control]="f['website']"></app-control-messages>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number</label>
+			<ngx-intl-tel-input (ngModelChange)="checkNumber()"
+			  [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
+			  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+			  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+			  [selectedCountryISO]="CountryISO.UnitedStates" 
+			  [phoneValidation]="true" [separateDialCode]="separateDialCode"
+			  [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="contact">
+			</ngx-intl-tel-input>
+            <!-- <input formControlName="contact" type="text" class="form-control" placeholder="+00 004 1234567"> -->
+            <app-control-messages [control]="f['contact']"></app-control-messages>
+			<small *ngIf="invalidMobile"class="text-danger">Invalid mobile number</small>
+          </div>
+          <div class="form-group">
+            <label>State<span class="required-asterisk">*</span></label>
+            <input autocomplete="disabled"  appMarkAsterisk formControlName="state" type="text" class="form-control text-capitalize"
+              placeholder="State">
+            <app-control-messages [control]="f['state']"></app-control-messages>
+          </div>
+
+          <div class="form-group">
+            <label>Country<span class="required-asterisk">*</span></label>
+            <input autocomplete="disabled"  appMarkAsterisk formControlName="country" type="text" class="form-control text-uppercase"
+              placeholder="Country">
+              <app-control-messages [control]="f['country']"></app-control-messages>
+          </div>
+        </div>
+        <div class="col-lg-3 mt-4 mt-4" style="z-index: 1;">
+          <div class="upload-box">
+            <div class="box text-center upload-image">
+              <img *ngIf="(defaultProfilePic || employerDetails?.photo !='default.png')"
+                [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo+'?v='+ randomNum"
+                alt="upload-photo" class="img-fluid mx-auto rounded-circle border border-primary"
+                style="width:150px;height:150px;">
+              <input  *ngIf="!defaultProfilePic && employerDetails?.photo =='default.png'" [style.top]="(defaultProfilePic || employerDetails?.photo) ? '0px' : '0px'" type="file" class="upload-input" #companyImage
+                (change)="handleFileInput($event, CropImage);" />
+              <input  *ngIf="(defaultProfilePic || employerDetails?.photo !='default.png')" [style.top]="(defaultProfilePic || employerDetails?.photo) ? '-150px' : '0px'" type="file" class="upload-input" #companyImage
+                (change)="handleFileInput($event, CropImage);" />
+              <!-- <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple=""> -->
+              <label for="file-5" *ngIf="!defaultProfilePic && employerDetails?.photo =='default.png'" >
+                <i class="fas fa-user-tie"></i>
+                <span>Upload Image <br> (Drag & Drop)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-8 form-group">
+          <label>About Us<span class="required-asterisk">*</span></label>
+          <angular-editor appMarkAsterisk formControlName="description" [config]="editorConfig"
+            placeholder="About Us"></angular-editor>
+            <app-control-messages [control]="f['description']"></app-control-messages>
+        </div>
+
+      </div>
+      <div class="row">
+				<div class="col-lg-4 col-md-6">
+					<h6 class="font-weight-bold clearfix cursor-pointer" (click)="show = !show">
+            My Links <i class="fas fa-caret-down pt-3 ml-3"></i>
+          </h6>
+				</div>
+
+				<div class="col-lg-12 col-md-6 mt-2" *ngIf="show || companyProfileInfo?.social_media_link?.length > 0" [@slideInOut]>
+					<div>
+						<div class="row mt-4 mb-5">
+							<div class="col-lg-4 col-md-6">
+								<div class="d-flex">
+									<div class="linkIcon in"><i class="fab fa-linkedin in"></i></div>
+									<input formControlName="linkedin" type="text" class="form-control form-control-sm"
+                placeholder="Linkedin URL">
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="showhideswitch mt-2">
+									<input  formControlName="linkedinBoolen" (change)="onSetLinks('linkedin', $event?.target?.checked);" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch5" >
+                  <label class="showhideswitch-label" for="myshowhideswitch5">
+                    <span class="showhideswitch-inner"></span>
+                    <span class="showhideswitch-switch"></span>
+                  </label>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-5">
+							<div class="col-lg-4 col-md-6">
+								<div class="d-flex">
+									<div class="linkIcon pf"><i class="fas fa-laptop-code pf"></i></div>
+									<input formControlName="portfolio" type="text" class="form-control form-control-sm"
+                placeholder="Enter Url">
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="showhideswitch mt-2">
+									<input formControlName="portfolioBoolen" (change)="onSetLinks('portfolio', $event?.target?.checked);" [value]="true" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch9" >
+                  <label class="showhideswitch-label" for="myshowhideswitch9">
+                    <span class="showhideswitch-inner"></span>
+                    <span class="showhideswitch-switch"></span>
+                  </label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+      <div class="row mt-5">
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+            <button type="button" [routerLink]="[ '/profile-view' ]" class="btn btn-secondary btn-block btn-lg">Cancel</button>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="form-group">
+            <button [disabled]="!createCompanyForm.valid && !invalidMobile" type="submit" class="btn btn-theme-blue btn-block btn-lg">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</section>
+
+
+<ng-template #CropImage let-modal let-d="dismiss">
+  <form>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+        (click)="mbRef.close('Closed from Close button')">
+        <!-- <span>Close</span> -->
+        <i class="fas fa-times right ml-2" style="font-size: 30px;"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+        [autoCrop]="true" [resizeToWidth]="295" format="png" (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed($event)">
+      </image-cropper>
+    </div>
+    <div class="modal-footer mt-3">
+      <button type="button" class="btn btn-gren" data-dismiss="modal" (click)="SetPreviousProfilePic()">Cancel</button>
+      <button type="button" class="btn btn-gren" data-dismiss="modal" (click)="onImageCropSave()">Save</button>
+    </div>
+  </form>
+</ng-template>

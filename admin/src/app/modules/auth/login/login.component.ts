@@ -6,7 +6,8 @@ import { UserModel } from '../_models/user.model';
 import { AuthService } from '../_services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';
-// import { AccountService } from '../_services/account.service';
+import { EmployerService } from '@data/service/employer.service';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
+		private employerService: EmployerService,
+		private employerSharedService: EmployerSharedService,
     private accountService: AccountService
   ) {
     this.isLoading$ = this.authService.isLoading$;
@@ -91,6 +94,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         response => {
+			this.onGetProfileInfo();
           if (response && response.isLoggedIn) {            
             this.router.navigate([this.returnUrl]);
           } else {
@@ -105,7 +109,19 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.unsubscribe.push(loginSubscr);
     }
   }
-
+	
+	
+	onGetProfileInfo() {
+		let requestParams: any = {};
+		this.employerService.getCompanyProfileInfo(requestParams).subscribe(
+			(response: any) => {
+				this.employerSharedService.saveEmployerProfileDetails(response.details[0]);
+			}, error => {
+				
+			}
+		)
+	}
+	
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
