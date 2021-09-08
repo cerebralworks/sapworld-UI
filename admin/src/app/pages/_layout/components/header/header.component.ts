@@ -5,6 +5,7 @@ import {
   ElementRef,
   AfterViewInit,
   OnDestroy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   Router,
@@ -21,6 +22,8 @@ import { KTUtil } from '../../../../../assets/js/components/util';
 import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 import { AuthService } from '@modules/auth/_services/auth.service';
 import { AccountService } from '@data/service/account.service';
+import { EmployerService } from '@data/service/employer.service';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +40,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   headerMenuCSSClasses: string;
   headerMenuHTMLAttributes: any = {};
   routerLoaderTimout: any;
+  public companyProfileInfo: any;
+	public randomNum: number;
 
   @ViewChild('ktHeaderMenu', { static: true }) ktHeaderMenu: ElementRef;
   loader$: Observable<number>;
@@ -47,8 +52,13 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
   constructor(
-    private accountService: AccountService,private layout: LayoutService, private authService: AuthService, private router: Router) {
+    private accountService: AccountService,
+		private employerService: EmployerService,
+		private ref: ChangeDetectorRef,private layout: LayoutService,
+		private employerSharedService: EmployerSharedService, private authService: AuthService, private router: Router) {
     this.loader$ = this.loaderSubject;
+	this.onGetProfileInfo();
+		this.randomNum = Math.random();
     // page progress bar percentage
     const routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -73,9 +83,20 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
     this.unsubscribe.push(routerSubscription);
+		
   }
 
+	
   ngOnInit(): void {
+	this.employerSharedService.getEmployerProfileDetails().subscribe(
+		(response: any) => {
+			this.onGetProfileInfo();
+			this.ref.detectChanges();
+		}, error => {
+			this.onGetProfileInfo();
+			this.ref.detectChanges();
+		}
+	)
     this.headerContainerCSSClasses = this.layout.getStringCSSClasses(
       'header_container'
     );
@@ -146,6 +167,28 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       
   }
   
+		
+	/**
+	**	To get the profile information
+	**/
+	
+	onGetProfileInfo() {
+		let requestParams: any = {};
+		this.employerService.getCompanyProfileInfo(requestParams).subscribe(
+			(response: any) => {
+				this.ref.detectChanges();
+				this.companyProfileInfo = { ...response.details };
+				this.companyProfileInfo['meta'] = response.meta;
+				this.ref.detectChanges();
+			}, error => {
+				this.companyProfileInfo = {};
+			}
+		)
+	}
+	
+	updateUrl = (event) => {
+		console.log(event);
+	}
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
     if (this.routerLoaderTimout) {

@@ -1,0 +1,64 @@
+<section class="my-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 title">
+      </div>
+    </div>
+    <form formGroup="changePasswordForm" (ngSubmit)="change()">
+<div class="row">
+  <div class="col-lg-4 col-md-6">
+      <div class="form-group">
+        <label>User Name</label>
+        <div class="input-with-icon">
+          <input type="text" class="form-control" [placeholder]="'User Name'" formControlName="userNames">
+          <i class="fas fa-lock"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Current Password</label>
+        <div appMarkAsterisk class="input-with-icon">
+          <input type="password" class="form-control" [placeholder]="'Current Password'" formControlName="current_password">
+          <i class="fas fa-lock"></i>
+        </div>
+        <app-control-messages [control]="f['current_password']"></app-control-messages>
+      </div>
+      <div class="form-group">
+        <label>New Password</label>
+        <div appMarkAsterisk class="input-with-icon input-group">
+          <input appPassword type="password" class="form-control" [placeholder]="'New Password'" formControlName="password">
+          <i class="fas fa-lock"></i>
+		  <div class="input-group-append"><span style="cursor: pointer;" class="btn input-icon input-group-text"><i class="fas fa-eye"></i></span></div>
+        </div>
+        <app-control-messages [control]="f['password']"></app-control-messages>
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <div appMarkAsterisk class="input-with-icon input-group">
+          <input appPassword type="password" class="form-control" [placeholder]="'Confirm Password'" formControlName="confirmPassword">
+          <i class="fas fa-lock"></i>
+		  <div class="input-group-append"><span style="cursor: pointer;" class="btn input-icon input-group-text"><i class="fas fa-eye"></i></span></div>
+        </div>
+        <app-control-messages [control]="f['confirmPassword']"></app-control-messages>
+      </div>
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col-lg-4 col-md-6">
+    <div class="form-group">
+      <button type="button" class="btn btn-secondary btn-block btn-lg">Cancel</button>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+    <div class="form-group">
+      <button  [disabled]="changePasswordForm.invalid" type="submit" class="btn btn-theme-blue btn-block btn-lg">
+        <span [hidden]="isLoading">Submit</span>
+          <span [hidden]="!isLoading">
+            <i class="fa fa-spinner" aria-hidden="true"></i>
+          </span>
+      </button>
+    </div>
+  </div>
+</div>
+</form>
+  </div>
+</section>

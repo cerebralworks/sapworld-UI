@@ -1,197 +1,111 @@
 <!-- Sub Header Section -->
 <section class="sub-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10">
-        <div class="company-info">
-          <div class="media">
-            <div class="media-head" *ngIf="employerDetails?.photo !='default.png'">
-              <img (error)="updateUrl($event)" src="employerDetails?.photo" [src]="employerDetails?.photo ? (employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
-            </div>
-			<div style="padding: 30px;" class="media-head" *ngIf="employerDetails?.photo =='default.png'">
-            </div>
-            <div class="media-body">
-              <h5 class="mt-0">{{employerDetails?.company ? employerDetails?.company : ''}}</h5>
-              <h6 class="text-capitalize">
-                {{companyProfileInfo?.city ? companyProfileInfo?.city : ''}}
-                {{companyProfileInfo?.state ? ', ' + companyProfileInfo?.state : ''}}
-                <span class="text-uppercase">
-                  {{companyProfileInfo?.country ? ', ' + companyProfileInfo?.country : ''}}
-                </span>
-              </h6>
-              <h6>
-                {{companyProfileInfo?.website}}
-              </h6>
-              <h4 *ngIf="companyProfileInfo?.social_media_link?.length">
-                <a class="mr-1" *ngFor="let item of companyProfileInfo?.social_media_link" href="{{item.url}}" target="_blank">
-                  <ng-container [ngSwitch]="item?.media">
-                    <ng-container *ngSwitchCase="'youtube'">
-                      <i class="fab fa-youtube-square"></i>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'portfolio'">
-                      <i class="fas fa-laptop-code"></i>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="'blog'">
-                      <i class="fas fa-blog"></i>
-                    </ng-container>
-                    <ng-container *ngSwitchDefault>
-                      <i class="fab fa-{{item.media}}"></i>
-                    </ng-container>
-                  </ng-container>
-                </a>
-              </h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2">
-        <div class="company-folw">
-          <button [routerLink]="[ '/employer/create-profile']" class="btn btn-outline-warning btn-block"><i class="fas fa-pencil-alt"></i> Edit</button> <br>
-          <button [routerLink]="[ '/employer/post-job']" class="btn btn-outline-primary btn-block"><i class="fab fa-telegram-plane"></i> Post Job</button>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="container" >
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="company-info">
+					<div class="media">
+						<div class="media-head" *ngIf="companyProfileInfo?.photo !='default.png'">
+							<img (error)="updateUrl($event)" src="companyProfileInfo?.photo" [src]="companyProfileInfo?.photo ? (companyProfileInfo?.meta?.photo?.path+'/'+ companyProfileInfo?.meta?.photo?.folder+'/'+companyProfileInfo?.meta?.photo?.sizes?.medium+'/'+companyProfileInfo?.photo)+'?v='+ randomNum: 'assets/img/user-avatar-01.png'">
+						</div>
+						<div style="padding: 30px;" class="media-head" *ngIf="companyProfileInfo?.photo =='default.png'">
+						</div>
+						<div class="media-body">
+							<h5 class="mt-0">{{companyProfileInfo?.name ? companyProfileInfo?.name : ''}}</h5>
+							<h6 class="text-capitalize">
+								{{companyProfileInfo?.city ? companyProfileInfo?.city : ''}}
+								{{companyProfileInfo?.state ? ', ' + companyProfileInfo?.state : ''}}
+								<span class="text-uppercase">
+									{{companyProfileInfo?.country ? ', ' + companyProfileInfo?.country : ''}}
+								</span>
+							</h6>
+							<h6>
+								{{companyProfileInfo?.website}}
+							</h6>
+							<h4 *ngIf="companyProfileInfo?.social_media_link?.length">
+								<a class="mr-1" *ngFor="let item of companyProfileInfo?.social_media_link" href="{{item.url}}" target="_blank">
+									<ng-container [ngSwitch]="item?.media">
+										<ng-container *ngSwitchCase="'youtube'">
+										  <i class="fab fa-youtube-square"></i>
+										</ng-container>
+										<ng-container *ngSwitchCase="'portfolio'">
+										  <i class="fas fa-laptop-code"></i>
+										</ng-container>
+										<ng-container *ngSwitchCase="'blog'">
+										  <i class="fas fa-blog"></i>
+										</ng-container>
+										<ng-container *ngSwitchDefault>
+										  <i class="fab fa-{{item.media}}"></i>
+										</ng-container>
+									</ng-container>
+								</a>
+							</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="company-folw">
+					<button [routerLink]="[ '/profile-edit']" class="btn btn-outline-warning btn-block"><i class="fas fa-pencil-alt"></i> Edit</button> <br>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
   <!-- //Sub Header Section -->
 
 <section class="my-5">
-  <div class="container">
-    <div class="row">
-      <!--Tab Section-->
-      <div class="col-lg-8 col-md-12 company-info-tab">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="company-tab" data-toggle="tab" href="#company" role="tab" aria-controls="company" aria-selected="true">About Company</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" id="jobs-tab" data-toggle="tab" href="#jobs" role="tab" aria-controls="jobs" aria-selected="false">Open Jobs</a>
-          </li>
-           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="employees-tab" data-toggle="tab" href="#employees" role="tab" aria-controls="employees" aria-selected="false">Employees</a>
-          </li> 
-        </ul>
-        <div class="tab-content" id="myTabContent">
-          <!--About Company-->
-          <div class="tab-pane fade show active" id="company" role="tabpanel" aria-labelledby="company-tab">
-            <h6>Description</h6>
-            <ng-container *ngIf="companyProfileInfo?.description; else elseDesTemplate">
-              <div style="word-break: break-all;" [innerHTML]="companyProfileInfo?.description">
-              </div>
-            </ng-container>
-            <ng-template #elseDesTemplate>
-              No description was found
-            </ng-template>
+	<div class="container">
+		<div class="row">
+			<!--Tab Section-->
+			<div class="col-lg-8 col-md-12 company-info-tab">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" id="company-tab" data-toggle="tab" role="tab" aria-controls="company" aria-selected="true">About</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<!--About Company-->
+					<div class="tab-pane fade show active" id="company" role="tabpanel" >
+						<h6>Description</h6>
+						<ng-container *ngIf="companyProfileInfo?.description; else elseDesTemplate">
+							<div style="word-break: break-all;" [innerHTML]="companyProfileInfo?.description">
+							</div>
+						</ng-container>
+						<ng-template #elseDesTemplate>
+							No description was found
+						</ng-template>
+					</div>          
+				</div>
+			</div>
 
-
-          </div>
-          <!--Open Jobs-->
-          <div class="tab-pane fade" id="jobs" role="tabpanel" aria-labelledby="jobs-tab">
-            <div class="row">
-              <ng-container *ngIf="postedJobs.length; else elseTemplate">
-                <div class="col-lg-6" *ngFor="let item of postedJobs; let i=index">
-                  <div class="company-jbcard">
-                    <h4 class="text-capitalize"><a [routerLink]="['/employer/job-detail-view', item?.id]" href="javascript:;">{{item?.title}}</a></h4>
-                    <h5 class="text-capitalize">
-                      {{item?.city ? item?.city : ''}}
-                      {{item?.state ? ', ' + item?.state : ''}}
-                      <span class="text-uppercase">
-                        {{item?.country ? ', ' + item?.country : ''}}
-                      </span>
-                    </h5>
-                    <h5><i class="far fa-clock"></i>
-                      {{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}
-                    </h5>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-template #elseTemplate>
-                <div class="col-lg-6">
-                  No data found
-                </div>
-              </ng-template>
-
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="employees" role="tabpanel" aria-labelledby="employees-tab">
-            <div class="row">
-              <div class="col-lg-6 mb-4">
-                <h5 class="mb-1">Anand Balakrishna</h5>
-                <p>Recruiter</p>
-                <p>anand@cerebral-works.com</p>
-              </div>
-              <div class="col-lg-6 mb-4">
-                <h5 class="mb-1">Manikandan</h5>
-                <p>Recruiter</p>
-                <p>manikandan@cerebral-works.com</p>
-              </div>
-              <div class="col-lg-6 mb-4">
-                <h5 class="mb-1">Pradeep Paramasivam</h5>
-                <p>Recruiter</p>
-                <p>pradeep@cerebral-works.com</p>
-              </div>
-              <div class="col-lg-6 mb-4">
-                <h5 class="mb-1">Sundar</h5>
-                <p>Recruiter</p>
-                <p>sundar@cerebral-works.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--Side Section-->
-      <div class="col-lg-4">
-        <div class="title">
-          <h2>Contact Us</h2>
-        </div>
-        <div class="sidebar-widget text-left bg-white">
-          <div class="row  mb-3">
-            <div class="col">
-              <p class="mb-0">Email Address</p>
-              <h5>{{companyProfileInfo?.email_id ? companyProfileInfo?.email_id : employerDetails?.email ? employerDetails?.email : '--'}}</h5>
-            </div>
-          </div>
-          <div class="row  mb-3">
-            <div class="col">
-              <p class="mb-0">Phone Number</p>
-              <ng-container *ngIf="companyProfileInfo?.contact; else elsePhoneTemplate">
-                <h5 *ngFor="let item of companyProfileInfo?.contact; let i=index">
-                  {{item ? (item ) : ''}}
-                </h5>
-              </ng-container>
-              <ng-template #elsePhoneTemplate>
-                --
-              </ng-template>
-
-
-            </div>
-          </div>
-        </div>
-
-        <div class="title mt-5">
-          <h2>Profile Settings</h2>
-        </div>
-        <div class="sidebar-widget text-left  bg-white">
-		<div class="row mb-4" *ngFor="let item of profileSettings; let i=index">
-      <div class="col-lg-6">
-        <p >{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item?.label}}</p>
-      </div>
-      <div class="col-lg-6 clearfix">
-        <div class="showhideswitch float-right">
-          <input
-          [checked]="(employerDetails?.privacy_protection && privacyProtection[item?.field] == true)"
-          type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch_dash_{{i}}">
-          <label class="showhideswitch-label" for="myshowhideswitch_dash_{{i}}">
-            <span class="showhideswitch-inner" [ngClass]="{'yesno': item?.field == 'opportunity'}"></span>
-            <span class="showhideswitch-switch"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-        </div>
-      </div>
-    </div>
-  </div>
+			<!--Side Section-->
+			<div class="col-lg-4">
+				<div class="title">
+					<h2>Contact Us</h2>
+				</div>
+				<div class="sidebar-widget text-left bg-white">
+					<div class="row  mb-3">
+						<div class="col">
+							<p class="mb-0">Email Address</p>
+							<h5>{{companyProfileInfo?.email ? companyProfileInfo?.email : companyProfileInfo?.email ? companyProfileInfo?.email : '--'}}</h5>
+						</div>
+					</div>
+					<div class="row  mb-3">
+						<div class="col">
+							<p class="mb-0">Phone Number</p>
+							<ng-container *ngIf="companyProfileInfo?.contact; else elsePhoneTemplate">
+								<h5 *ngFor="let item of companyProfileInfo?.contact; let i=index">
+									{{item ? (item ) : ''}}
+								</h5>
+							</ng-container>
+							<ng-template #elsePhoneTemplate>
+								--
+							</ng-template>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

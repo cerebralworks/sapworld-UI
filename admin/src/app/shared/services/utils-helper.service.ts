@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import { DataService } from './data.service';
-import { SharedService } from './shared.service';
 
 declare const require;
 // const bowser = require('bowser');

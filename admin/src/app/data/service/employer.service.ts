@@ -18,7 +18,48 @@ export class EmployerService extends CacheService {
   constructor(private apiService: ApiService) {
     super();
   }
+	
+	//collecting Technical Skill data
+  getTechskill = (params: any): Observable<GetResponse> => {
+    return this.apiService.get('/api/program/list',params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //creating the Technical skill data
+  postTechskill =(data : any): Observable<any> => {
+    return this.apiService.post('/api/program/create', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //deleting the Technical skil data
+  deleteTechskill = (params: any): Observable<any> => {
+    return this.apiService.delete('/api/program/delete/'+ params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //update Technical skill Data
+  updateTechskill = (id: any , data : any): Observable<any> => {
+    return this.apiService.post('/api/program/update/'+id, data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
 
+
+	profile = (params?) => {
+    return this.apiService.get('/api/admins/profile', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
   jobUpdate = (jobInfo: JobPosting): Observable<JobPosting> => {
     return this.apiService.post('/api/jobpostings/update', jobInfo).pipe(
       map(data => {
@@ -72,14 +113,6 @@ export class EmployerService extends CacheService {
       })
     );
   };
-
-  profile = (params?) => {
-    return this.apiService.get('/api/employers/profile', params).pipe(
-      map(data => {
-        return data;
-      })
-    );
-  }
 
   profileView = (params?) => {
     return this.apiService.get('/api/employers/view', params).pipe(
@@ -154,7 +187,7 @@ export class EmployerService extends CacheService {
   };
 
   updateCompanyProfile = (params) => {
-    return this.apiService.post('/api/employers/update-company-profile', params).pipe(
+    return this.apiService.post('/api/admins/create', params).pipe(
       map(data => {
         return data;
       })
@@ -162,7 +195,7 @@ export class EmployerService extends CacheService {
   };
 
   getCompanyProfileInfo = (params: any): Observable<GetResponse> => {
-    return this.apiService.get('/api/employers/company-profile', params).pipe(
+    return this.apiService.get('/api/admins/profile', params).pipe(
       map(data => {
         return data;
       })
@@ -170,7 +203,7 @@ export class EmployerService extends CacheService {
   };
 
   photoUpdate = (params?) => {
-    return this.apiService.post('/api/employers/update-photo', params).pipe(
+    return this.apiService.post('/api/admins/update-photo', params).pipe(
       map(data => {
         return data;
       })

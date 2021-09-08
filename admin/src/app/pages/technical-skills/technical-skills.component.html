@@ -21,7 +21,7 @@
 								<div class="row">
 									<div class="offset-lg-2 col-lg-8">
 										<!-- Alert start -->
-										<div class="alert alert-success alert-dismissible fade show" role="alert">
+										<div *ngIf="show" class="alert alert-success alert-dismissible fade show" role="alert">
 										  <strong>Successfully !</strong> Added New Technical Skills
 										  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
@@ -31,15 +31,20 @@
 								</div>	
 								<!-- Alert end -->
 								<!-- Form start -->
-								<form class="myadmin-form mt-4">
+								<form [formGroup]="addTech" class="myadmin-form mt-4" (ngSubmit)="submit()" autocomplete="off">
 									<div class="row">
 										<div class="form-group offset-lg-2 col-lg-6">
 											<label>Technical Name</label>
-											<input type="text" class="form-control" placeholder="Ex: Financial Accounting">
+											<input type="text" class="form-control" name="name" formControlName="name" placeholder="Ex: Financial Accounting">
+											<div *ngIf="submitted && f.name.errors">
+												<span class="warn" *ngIf="f.name.errors.required">Field is Required</span>
+											</div>
+											<span class="warn" *ngIf="empty">Space Not Allowed</span>
+											<span class="warn" *ngIf="dup">Already exist</span>
 										</div>									
 										<div class="form-group col-lg-2">
 											<label>&nbsp;</label>										
-											<button type="button" class="btn mybtn btn-blue btn-block" id="addSkill" href="javascript:;" >Add Technical</button>
+											<button type="submit" class="btn mybtn btn-blue btn-block" id="addTs" href="javascript:;" >Add Technical</button>
 										</div>
 									</div>
 								</form>								
@@ -50,70 +55,15 @@
 									<div class="offset-lg-2 col-lg-8">
 										<div class="table-container">
 											<div class="table-responsive">
-												<table class="sort-table table custom-table m-0">
+												<table datatable [dtOptions]="dtOption" class="sort-table table custom-table m-0">
 													<thead>
 														<tr>
-															<th>Technical Name</th>
+															<th>TECHNICAL NAME</th>
 															<th class="text-center">Action</th>
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<td>Financial Accounting</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr>
-														<tr>
-															<td>Material Management</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr>
-														<tr>
-															<td>Sales and Distribution</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr>
-														<tr>
-															<td>Human Capital Management</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr>
-														<tr>
-															<td>Project System</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr>
-														<tr>
-															<td>Plant Maintenance</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr>
-														<tr>
-															<td>Production Planning</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr>
-														<tr>
-															<td>Quality Management</td>
-															<td class="text-center">
-																<a href="#" class="btn btn-outline-primary btn-xs mr-2"><i class="ri-pencil-fill"></i></a>
-																<a href="#" class="btn btn-outline-danger btn-xs"><i class="ri-delete-bin-fill"></i></a>
-															</td>
-														</tr>
+														
 													</tbody>
 												</table>
 											</div>

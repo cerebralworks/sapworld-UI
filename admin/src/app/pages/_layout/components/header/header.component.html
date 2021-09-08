@@ -15,13 +15,13 @@
 				<ul class="navbar-nav">
 					<li class="dropdown">
 						<a class="nav-link dropdown-toggle nav-user" ngbDropdownToggle style="cursor:pointer;">
-							<span class="account-user-avatar"> 
-								<img src="assets/img/user-avatar-01.png" class="rounded-circle">
+							<span class="account-user-avatar" *ngIf="companyProfileInfo?.photo"> 
+								<img (error)="updateUrl($event)" src="companyProfileInfo?.photo" [src]="companyProfileInfo?.photo ? (companyProfileInfo?.meta?.photo?.path+'/'+ companyProfileInfo?.meta?.photo?.folder+'/'+companyProfileInfo?.meta?.photo?.sizes?.medium+'/'+companyProfileInfo?.photo)+'?v='+ randomNum: 'assets/img/user-avatar-01.png'" class="rounded-circle">
 							</span>
-							<span class="account-user-name">Sundar Selvam R</span>
+							<span class="account-user-name">{{companyProfileInfo?.first_name }} {{companyProfileInfo?.last_name  }}</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right dropdown-menu-animated"  ngbDropdownMenu aria-labelledby="dropdownMenuButton" style="">
-							<a ngbDropdownItem class="dropdown-item">
+							<a ngbDropdownItem [routerLink]="[ '/profile-view' ]" class="dropdown-item">
 								<i class="fas fa-user-circle"></i>
 								<span>My Profile</span>
 							</a>

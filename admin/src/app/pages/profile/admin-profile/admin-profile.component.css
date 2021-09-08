@@ -1,0 +1,98 @@
+:host{
+	width:100%;
+	background:#fff;
+}
+.company-info-tab .nav-link.active {
+    background-color: #fff;
+    border: 0;
+    color: #11b771;
+    border-bottom: 5px solid;
+}
+.company-info-tab .nav-tabs .nav-item {
+    color: #385edf;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.title {
+    margin-bottom: 30px;
+}
+.title h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #465666;
+    margin-bottom: 0;
+    position: relative;
+}
+.title h2:before {
+    content: '';
+    border-bottom: 3px solid #385edf;
+    width: 20px;
+    position: absolute;
+    left: 0px;
+    top: 25px;
+}
+.title h2:after {
+    content: '';
+    border-bottom: 3px solid #11b771;
+    width: 60px;
+    position: absolute;
+    left: 26px;
+    top: 25px;
+}
+.company-info .media-head {
+    margin: 30px 20px 30px 0;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 3px 12px rgb(0 0 0 / 10%);
+    padding: 15px;
+}
+.company-info .media-head img {
+    width: 90px;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+.company-info .media-body h5 {
+    color: #385edf;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.company-info .media-body {
+    margin-top: 45px;
+}
+.company-info .media-body h6 {
+    margin-bottom: .25rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+.media h6 {
+    font-weight: 700;
+    font-size: 13px;
+    color: #465666;
+    margin-bottom: 5px;
+}.company-folw {
+    margin-top: 30px;
+    text-align: right;
+}.sidebar-widget {
+    padding: 10px 10px 5px;
+    background-color: #f8f8f8;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #dfdfdf;
+}.company-info-tab .tab-pane {
+    min-height: 600px;
+    width: 100%;
+    padding: 25px 0;
+}.company-info-tab .tab-pane h6 {
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-bottom: 15px;
+}.h6, h6 {
+    font-size: 1rem;
+}
