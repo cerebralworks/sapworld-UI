@@ -97,7 +97,7 @@ module.exports = (app, env, rp) => {
 	//Skills Delete
 	app.delete("/api/skill-tags/delete/:id",(req, res) => {
 		let requestBody = req.params.id ;   
-		requestCustom.delete(`${serverRoutes.skillTagDelete}/${requestBody}`, req, res, requestBody);
+		requestCustom.post(`${serverRoutes.skillTagDelete}/${requestBody}`, req, res, requestBody);
 	})
 	//skill update
 	app.post("/api/skill-tags/update/:id",(req, res) => {
@@ -119,7 +119,7 @@ module.exports = (app, env, rp) => {
 	//program delete
 	app.delete("/api/program/delete/:id",(req, res) => {
 		let requestBody = req.params.id ;   
-		requestCustom.delete(`${serverRoutes.programDelete}/${requestBody}`, req, res, requestBody);
+		requestCustom.post(`${serverRoutes.programDelete}/${requestBody}`, req, res, requestBody);
 	})
 	//program update
 	app.post("/api/program/update/:id",(req, res) => {
