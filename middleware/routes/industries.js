@@ -18,7 +18,7 @@ module.exports = (app, env, rp) => {
 	//Industry delete
 	app.delete("/api/industries/delete/:id",(req, res) => {
 		let requestBody = req.params.id ;   
-		requestCustom.delete(`${serverRoutes.industriesDelete}/${requestBody}`, req, res, requestBody);
+		requestCustom.post(`${serverRoutes.industriesDelete}/${requestBody}`, req, res, requestBody);
 	})
 	//Industry update
 	app.post("/api/industries/update/:id",(req, res) => {
