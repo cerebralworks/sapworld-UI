@@ -106,6 +106,27 @@ module.exports = (app, env, rp) => {
 	})
 	
 	
+	//workauthorization GET
+	app.get("/api/workauthorization/list", (req, res) => {
+		let requestBody = { ...req.query };    
+		requestCustom.get(`${serverRoutes.workauthorizationList}`, req, res, requestBody);
+	});
+	//workauthorization POST
+	app.post("/api/workauthorization/create",(req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.workauthorizationCreate}`, req, res, requestBody);
+	})
+	//workauthorization delete
+	app.delete("/api/workauthorization/delete/:id",(req, res) => {
+		let requestBody = req.params.id ;   
+		requestCustom.post(`${serverRoutes.workauthorizationDelete}/${requestBody}`, req, res, requestBody);
+	})
+	//workauthorization update
+	app.post("/api/workauthorization/update/:id",(req, res) => {
+		let requestBody = { ...req.body } ;   
+		requestCustom.post(`${serverRoutes.workauthorizationUpdate}/${requestBody.id}`, req, res, requestBody);
+	})
+	
 	//program GET
 	app.get("/api/program/list", (req, res) => {
 		let requestBody = { ...req.query };    

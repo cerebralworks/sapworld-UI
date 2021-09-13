@@ -4,6 +4,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '@env';
 import { DataTableDirective } from 'angular-datatables';
+//import { error } from 'console';
 class DataTablesResponse {
   data: any[];
   draw: number;
@@ -221,17 +222,25 @@ var val = this.addTech.value.name;
       }, 2000);
     }
     else{
-
       this.es.postTechskill(this.addTech.value).subscribe(data=>{
         this.storage = data;
-        console.log(this.storage)
+        this.show = true;
+        this.submitted = false;
         this.ref.detectChanges();
         this.rerender()
-      }), Error=>{
-        this.err = Error;
-      }
-      this.submitted = false;
-      this.show = true;
+      }, error=>{
+        this.err = error["error"]["details"].rule;
+        if(this.err==="unique"){
+          this.dup = true;
+          this.submitted=false;
+          this.ref.detectChanges();
+          setTimeout(() => {
+            this.dup=false;
+            this.ref.detectChanges()
+          },2000);
+        }  
+      })
+      
       this.addTech.reset()
       setTimeout(() => {
         this.show = false;

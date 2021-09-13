@@ -22,6 +22,9 @@ import { LoggedIn } from '@data/schema/account';
 // import { TableExtendedService } from './shared';
 // import { TableExtendedService } from '@shared/crud-table';
 // import { TableExtendedService } from './_metronic/shared/crud-table';
+import { ActivatedRoute, Event } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'body[root]',
@@ -32,12 +35,14 @@ import { LoggedIn } from '@data/schema/account';
 export class AppComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
   public loggedInResponse: LoggedIn;
+  public loaderEnabled: boolean = false;
 
   constructor(
     private translationService: TranslationService,
     private splashScreenService: SplashScreenService,
     private router: Router,
     private tableService: TableExtendedService,
+    private ngxService: NgxUiLoaderService,
     private accountService: AccountService
   ) {
     // register translations
@@ -56,7 +61,15 @@ export class AppComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationStart) {
         this.checkUserLoggedIn();
       }
+	  
       if (event instanceof NavigationEnd) {
+		  
+		  if(event.url == '/home') {
+        this.loaderEnabled = false;
+       }else {
+        this.loaderEnabled = true;
+       }
+	   
         // clear filtration paginations and others
         this.tableService.setDefaults();
         // hide splash screen

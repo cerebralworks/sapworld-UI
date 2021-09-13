@@ -1,2 +1,7 @@
 <app-splash-screen></app-splash-screen>
 <router-outlet></router-outlet>
+<div style="position: relative">
+  <!-- the position of the parent container must be set to relative -->
+  <!-- It is really important to set loaderId for non-master loader -->
+  <ngx-ui-loader *ngIf="loaderEnabled" [pbColor]="'#e98752'" [fgsColor]="'#e98752'"></ngx-ui-loader>
+</div>

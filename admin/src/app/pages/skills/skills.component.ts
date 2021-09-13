@@ -24,9 +24,6 @@ export class SkillsComponent implements OnInit {
 	storage : any = "";
 	limit : number = 10;
 	show : boolean = false;
-	s1 : boolean = false;
-	s2 : boolean = true;
-	previous : boolean = false;
 	pages : number = 1;
 	sorting : string = 'ASC'
 	column : string = 'id'
@@ -38,6 +35,10 @@ export class SkillsComponent implements OnInit {
 	arrval : any ="" ;
 	tempText : any ="";
 	tempVal : any ="";
+	err : any ="";
+	dup : boolean = false;
+	empty : boolean = false;
+	empty1 : boolean = false;
 	@ViewChild(DataTableDirective, {static: false})
 	dtElement:  DataTableDirective;
 	
@@ -228,7 +229,13 @@ export class SkillsComponent implements OnInit {
 	*/
 	update(id:any,datas : any){
 		this.es.updateskill(id,datas).subscribe(data=>{
-			this.storage=data;
+			//this.storage=data;
+			this.tempText='';
+			this.tempVal ='';
+			this.rerender();
+			this.ref.detectChanges()
+		},error=>{
+			//this.storage=data;
 			this.tempText='';
 			this.tempVal ='';
 			this.rerender();
@@ -243,17 +250,43 @@ export class SkillsComponent implements OnInit {
 	submit(){
 		this.submitted = true;
 		if(this.addskills.invalid){return}
+		var val = this.addskills.value.long_tag;
+		var val1 = this.addskills.value.tag;      
+    	if(val.trim()<=0 ||val1.trim()<=0 ){
+     	this.empty=true
+     	setTimeout(() => {
+    	 this.empty = false
+      	 this.ref.detectChanges();
+      	}, 2000);
+    	}
+		else{
 		this.es.createSkills(this.addskills.value).subscribe(data=>{
 			this.storage = data;
+			this.show=true;
+			this.submitted= false
 			this.rerender();
 			this.ref.detectChanges();
+		},error=>{
+			this.err = error['error'].meesage;
+			//console.log(this.err)
+			if(this.err==="already exist"){
+				this.show=false;
+				this.dup = true;
+				this.submitted= false
+          		this.ref.detectChanges();
+          		setTimeout(() => {
+            	this.dup=false;
+            	this.ref.detectChanges()
+          		},2000);
+         }			
 		})
-		this.show = true
+		//this.show = true
 		this.addskills.reset()
-		this.submitted= false
+		
 		setTimeout(() => {
 			this.show = false
 			this.ref.detectChanges();
 		}, 2000);
 	}
+}
 }

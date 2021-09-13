@@ -54,6 +54,9 @@ export class JobSeekerComponent implements OnInit {
 			ajax:  (dataTablesParameters: any, callback) => {
 				this.paramsEmployee['page'] = dataTablesParameters.start;
 				this.paramsEmployee['limit'] = dataTablesParameters.length;
+				var cloumns =dataTablesParameters.order[0].column;
+				this.paramsEmployee['column'] = dataTablesParameters.columns[cloumns]["data"];
+				this.paramsEmployee['sort'] = dataTablesParameters.order[0].dir;
 				this.http.post<DataTablesResponse>(
 					`${env.serverUrl}`+'/api/admin/users/details',
 					this.paramsEmployee,({  withCredentials: true })

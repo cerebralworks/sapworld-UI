@@ -32,6 +32,8 @@ export class IndustryComponent implements OnInit {
 	valDel : any ="";
 	valUpd : any ="";
 	ipVal : any ="";
+	dup : boolean = false;
+	err : any = "";
 	dtOption : DataTables.Settings = {};
 	@ViewChild(DataTableDirective, {static: false})
 	dtElement:  DataTableDirective;
@@ -220,10 +222,22 @@ export class IndustryComponent implements OnInit {
 		}else{
 			this.es.postIndustries(this.addindustry.value).subscribe(data=>{
 				this.storage=data;
+				this.show = true;
 				this.ref.detectChanges();
 				this.rerender();
-			})
-			this.show = true
+			}, error=>{
+				this.err = error['error']['errors'][0].field;
+				if(this.err==="name"){
+				  this.dup = true;
+				  this.submitted=false;
+				  this.ref.detectChanges();
+				  setTimeout(() => {
+					this.dup=false;
+					this.ref.detectChanges()
+				  },2000);
+				} 
+			  })
+			
 			this.addindustry.reset()
 			this.submitted= false
 			setTimeout(() => {
