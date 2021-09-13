@@ -71,6 +71,11 @@ const routes = {
 	programDelete : 'program/delete',
 	programUpdate : 'program/update',
 
+	workauthorizationList : 'workauthorization/list',
+	workauthorizationCreate : 'workauthorization/create',
+	workauthorizationDelete : 'workauthorization/delete',
+	workauthorizationUpdate : 'workauthorization/update',
+	
 }
 
 module.exports = routes;

@@ -39,6 +39,8 @@
 											<div *ngIf="submitted && f.long_tag.errors">
 												<span class="warning" *ngIf="f.long_tag.errors.required">Field is Required</span>
 											</div>
+											<span class="warning" *ngIf="empty">Space Not Allowed</span>
+											<span class="warning" *ngIf="dup">Already Exist</span>
 										</div>	
 										<div class="form-group  col-lg-2">
 											<label>Skill Code</label>
@@ -46,6 +48,7 @@
 											<div *ngIf="submitted && f.tag.errors">
 												<span class="warning" *ngIf="f.tag.errors.required">Field is Required</span>
 											</div>
+											
 										</div>									
 										<div class="form-group col-lg-2">
 											<label>&nbsp;</label>										

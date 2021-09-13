@@ -21,6 +21,7 @@ import { AccountService } from '@data/service/account.service';
 import { SharedModule } from '@shared/shared.module';
 // #fake-end#
 import { DataTablesModule } from "angular-datatables";
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -52,8 +53,15 @@ function appInitializer(authService: AuthService) {
       : [],
     // #fake-end#
     AppRoutingModule,
+    NgxUiLoaderModule, // import NgxUiLoaderModule
     InlineSVGModule.forRoot(),
     NgbModule,
+    NgxUiLoaderHttpModule.forRoot({
+      showForeground: true,
+      exclude: [
+        environment.serverUrl + "/api/isLoggedIn",
+      ],
+    })
   ],
   providers: [
     {

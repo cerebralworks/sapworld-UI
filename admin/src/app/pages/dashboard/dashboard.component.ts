@@ -192,12 +192,14 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 							
 							this.totalEmployers =response['data'];
 							this.total= response['Count'][0]['count'];
+							this.ref.detectChanges();
 						}
 						callback({
 								recordsTotal: response['Count'][0]['count'],
 								recordsFiltered: response['Count'][0]['count'],
-							data: response['data']
+								data: response['data']
 						});
+							this.ref.detectChanges();
 					});
 				},
 				'columnDefs': [{
@@ -391,7 +393,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
 		 }
-		
+		this.ref.detectChanges();
 		
 	  }
 	  clickActive(){
@@ -419,6 +421,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		this.paramsEmployee['day'] =1;
 		this.handlePageEvent('today');
 		 }
+		 this.ref.detectChanges();
 	  }
 	  clickInActive(){
 		  this.dtTrigger.closed=false;
@@ -444,6 +447,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
 			 }
+			 this.ref.detectChanges();
 	  }
 	  clickTotalJobseeker(){
 		  this.dtTrigger.closed=false;
@@ -469,6 +473,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
 	   }
+	   this.ref.detectChanges();
 	  }
 	  clickAvailableJobseeker(){
 		  this.dtTrigger.closed=false;
@@ -494,6 +499,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
 	   }
+	   this.ref.detectChanges();
 	  }
 	  clickNotAvailableJobseeker(){
 		  this.dtTrigger.closed=false;
@@ -519,6 +525,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
 	   }
+	   this.ref.detectChanges();
 	  }
 	/**
 	**	To triggers when the pagination 
@@ -598,6 +605,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['search'] ='';
 		}
 		this.onGetEmployerData();
+		this.ref.detectChanges();
 	}
 	
 	ChangeDate(data){
@@ -673,6 +681,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		}
 		
 		this.rerender();
+		this.ref.detectChanges();
 		
 	}
 	

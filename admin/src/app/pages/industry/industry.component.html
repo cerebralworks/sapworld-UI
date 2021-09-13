@@ -40,6 +40,7 @@
 												<span class="warn" *ngIf="f.name.errors.required">Field is Required</span>
 											</div>
 											<span class="warn" *ngIf="empty">Space Not Allowed</span>
+											<span class="warn" *ngIf="dup">Already Exist</span>
 										</div>									
 										<div class="form-group col-lg-2">
 											<label>&nbsp;</label>										

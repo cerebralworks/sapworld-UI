@@ -26,6 +26,11 @@ export class ApiService {
     return this.http.get(`${env.serverUrl}${path}`, { params, withCredentials: true })
       .pipe(catchError(this.formatErrors));
   }
+  
+  delete(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+    return this.http.delete(`${env.serverUrl}${path}`, { params, withCredentials: true })
+      .pipe(catchError(this.formatErrors));
+  }
 
   put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(
@@ -41,9 +46,9 @@ export class ApiService {
     ).pipe(catchError(this.formatErrors));
   }
 
-  delete(path): Observable<any> {
+  /* delete(path): Observable<any> {
     return this.http.delete(
       `${env.serverUrl}${path}`
     ).pipe(catchError(this.formatErrors));
-  }
+  } */
 }

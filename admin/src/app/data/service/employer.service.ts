@@ -234,6 +234,46 @@ export class EmployerService extends CacheService {
     );
   }
 
+  //Get country
+  getCountry = (): Observable<GetResponse> => {
+    return this.apiService.get('/api/country/list?limit=1000').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //collecting workautherization data
+  getWorkauth = (params: any): Observable<GetResponse> => {
+    return this.apiService.get('/api/workauthorization/list',params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //deleting the workautherization data
+  deleteWrkauth = (params: any): Observable<any> => {
+    return this.apiService.delete('/api/workauthorization/delete/'+ params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //posting the workautherization data
+  postWorkauth =(data : any): Observable<any> => {
+    return this.apiService.post('/api/workauthorization/create', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  //update  workautherization Data
+  updateWrkauth = (id: any , data : any): Observable<any> => {
+    return this.apiService.post('/api/workauthorization/update/'+id, data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
   //creating the industry data
   postIndustries =(data : any): Observable<any> => {
     return this.apiService.post('/api/industries/create', data).pipe(
