@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -31,6 +31,7 @@ export class EmployerProfileComponent implements OnInit {
 		private employerService: EmployerService,
 		private toastrService: ToastrService,
 		private employerSharedService: EmployerSharedService,
+		private ref: ChangeDetectorRef,
 		public utilsHelperService: UtilsHelperService
 	) { }
 
@@ -52,7 +53,7 @@ export class EmployerProfileComponent implements OnInit {
 		this.randomNum = Math.random();
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
-				if (!this.utilsHelperService.isEmptyObj(details) && this.validateSubscribe == 0) {
+				if (!this.utilsHelperService.isEmptyObj(details) ) {
 					this.employerDetails = details;
 					this.privacyProtection = details.privacy_protection;
 					if(this.privacyProtection==null || this.privacyProtection ==undefined){

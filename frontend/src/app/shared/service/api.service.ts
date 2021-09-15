@@ -10,7 +10,9 @@ import { environment as env } from '@env';
 export class ApiService {
   constructor(
     private http: HttpClient,
-  ) { }
+  ) { 
+	this.loadGameData();
+  }
 
   private formatErrors(error: any) {
     if (error instanceof HttpErrorResponse) {
@@ -21,7 +23,14 @@ export class ApiService {
     }
 
   }
-
+loadGameData() {
+	var r = Math.floor(Math.random() * 100) + 1;
+    return this.http
+      .get(`/assets/i18n/en.json?v=${r}`)
+      .toPromise()
+      .then(data => {
+      });
+  }
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.get(`${env.serverUrl}${path}`, { params, withCredentials: true })
       .pipe(catchError(this.formatErrors));

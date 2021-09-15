@@ -49,6 +49,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	public authorized_country: any[] = [];
 	public childForm;
 	public isLoading: boolean;
+	public errorShown: boolean = false;
 	public industriesItems: any[] = [];
 	public educationItems: any[] = [];
 	public programItems: any[] = [];
@@ -434,8 +435,10 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				experience: ['', [Validators.required,]],
 				exp_type: ['years', [Validators.required]]
 			})]),
+			new_skills: new FormArray([]),
 			skills: new FormControl(null),
-			programming_skills: new FormControl(null, Validators.required),
+			skills_Data: new FormControl(null),
+			programming_skills: new FormControl(null),
 			optinal_skills: new FormControl(null, Validators.required),
 			work_authorization: new FormControl(null),
 			visa_sponsorship: new FormControl(false, Validators.required),
@@ -462,6 +465,52 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		return this.f.hands_on_experience as FormArray;
 	}
 
+	get newskills() {
+		return this.f.new_skills as FormArray;
+	}
+	 
+	
+	
+	/**
+	**	create a new hands_on_experience
+	**/
+	
+	onDuplicateOthers = () => {
+		var value = this.childForm.value.requirement.skills_Data;
+		this.errorShown = false;
+		if(value !=null && value !=undefined && value !=''){
+			var Checking = this.commonSkills.filter(function(a,b){ return a.tag.toLowerCase() == value.toLowerCase() }).length;
+			var CheckingSkills = this.newskills.value.filter(function(a,b){ return a.tag.toLowerCase() == value.toLowerCase() }).length;
+			if(Checking==0 && CheckingSkills ==0 ){
+				this.newskills.push(this.formBuilder.group({
+					tag: [value, Validators.required],
+					status: [1, Validators.required],
+					long_tag: [value, Validators.required]
+				}));
+				this.childForm.patchValue({
+					requirement : {
+						skills_Data :null
+					}
+				});
+			}else{
+				this.errorShown = true;
+			}
+		}
+		
+	}
+	
+	/**
+	**	Remove the hands_on_experience
+	**/
+	
+	onRemoveOthers = (index) => {
+		if(index == 0 &&this.newskills.value.length==1) {
+			this.newskills.removeAt(index);
+		}else {
+			this.newskills.removeAt(index);
+		}
+	}
+	
 	/**
 	**	Get the Industries Data
 	**/

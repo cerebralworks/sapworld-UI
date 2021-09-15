@@ -8,7 +8,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '@data/service/user.service';
 
-import * as $ from 'jquery';
+import jquery from 'jquery';
 
 declare var $: any;
 

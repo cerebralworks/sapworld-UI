@@ -114,6 +114,10 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 				  if(this.application !=null){
 					  this.applicationShow = true;
 				  }
+				  if(this.postedJobsDetails['programming_skills'] ==null || this.postedJobsDetails['programming_skills'] ==undefined || this.postedJobsDetails['programming_skills']['length'] ==0){
+					this.postedJobsDetails.match_select['programming_skills']="false";
+					  
+				  } 
 				  this.isShownRequiements = false;
 				 if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
 					  for(let i=0;i<this.postedJobsDetails.others.length;i++){

@@ -1,4 +1,38 @@
-<!-- Landing Page -->
+    <!-- Header Section
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light theme-nav">
+			<div class="container-fluid">
+				<a href="#" class="navbar-brand"><img src="assets/images/logo.png"/></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav ml-auto ">
+					   <li class="nav-item dropdown bg-white">
+						<a class="btn btn-sm btn-outline-primary px-3 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin-top:23px;">						 
+							<li class="submenu"> <a class="dropdown-item" (click)="onRedirectUrl('/auth/employer/login')"  type="button">Employer</a></li>								
+							<li class="submenu"> <a class="dropdown-item" (click)="onRedirectUrl('/auth/user/login')"  type="button">Jobseeker</a></li>								
+						</ul>
+					  </li>
+					</ul>
+					<ul class="navbar-nav ml-2">
+					  <li class="nav-item">
+						<a href="#" class="m-1 btn btn-sm btn-secondary"><i class="fab fa-linkedin-in"></i></a>
+					  </li>	
+					  <li class="nav-item">
+						<a href="#" class="m-1 btn btn-sm btn-secondary"><i class="fab fa-twitter"></i></a>
+					  </li>	
+					  <li class="nav-item">
+						<a href="#" class="m-1 btn btn-sm btn-secondary"><i class="fab fa-facebook-f" style="width:12.25px;"></i></a>
+					  </li>	
+					</ul>
+				</div>
+		    </div>
+		</nav>
+    </header>-->
+
+<!-- Landing Page-->
 <section class="landing-section">
 	<div class="container-fluid">
 		<div class="landing-content">
@@ -7,14 +41,14 @@
 					<div class="left-sec animate__animated  animate__fadeInLeft">					
 						<h1>Employer</h1>
 						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
-						<a (click)="onRedirectUrl('/auth/employer/login')"  type="button" class="btn empl-btn my-3">View More</a>
+						<a (click)="onRedirectUrl('/auth/employer/login')"  type="button" class="btn empl-btn my-3">Get Started</a>
 					</div>
 				</div>
 				<div class="col-lg-6">	
 					<div class="right-sec animate__animated  animate__fadeInRight">						
 						<h1>Talent</h1>
 						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
-						<a (click)="onRedirectUrl('/auth/user/login')" type="button" class="btn tale-btn my-3">View More</a>
+						<a (click)="onRedirectUrl('/auth/user/login')" type="button" class="btn tale-btn my-3">Get Started</a>
 					</div>
 				</div>	
 			</div>

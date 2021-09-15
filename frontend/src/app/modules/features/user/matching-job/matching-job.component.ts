@@ -217,7 +217,7 @@ export class MatchingJobComponent implements OnInit {
 			requestParams.is_user_get = false;
 		}
 		requestParams.work_authorization = '';
-		requestParams.visa_sponsered = false;
+		//requestParams.visa_sponsered = false;
 		requestParams.user_list = true;	
 		requestParams.user_id = this.userInfo.id;	
 		if(this.visa ==true){
@@ -229,7 +229,10 @@ export class MatchingJobComponent implements OnInit {
 		}
 		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true ) {
 			requestParams.work_authorization = this.userInfo.work_authorization;
-			requestParams.visa_sponsered = this.userInfo.visa_sponsered;
+			if(this.userInfo.visa_sponsered ==true || this.userInfo.visa_sponsered =='true'){
+				requestParams.visa_sponsered = this.userInfo.visa_sponsered;
+			}
+			
 			requestParams.city = [this.userInfo.city];
 			if(this.userInfo && this.userInfo.preferred_locations) {
 				if(this.userInfo.preferred_locations.length !=0) {

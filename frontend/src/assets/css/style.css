@@ -29,6 +29,9 @@ a {
   color: #385edf;
   transition: all .5s ease;
 }
+.breadcrumb-item a {
+	color: #385edf !important;
+}
 a:hover {
   color: #11b771;
   text-decoration: none;
@@ -108,7 +111,7 @@ a:hover {
 }
 .btn-sm{font-size: 12px;height: 28px;}
 .sm-btn{width:36px;}
-.btn {border-radius: 7px!important;}
+/* .btn {border-radius: 7px!important;} */
 .btn-group-lg>.btn, .btn-lg {
     padding: .6rem 1.75rem;
     font-size: 1.0rem;
@@ -202,6 +205,12 @@ a:hover {
 .btn-outline-orange .focus, .btn-outline-orange :focus {
     box-shadow: 0 0 0 0.2rem rgb(255 134 69 / 0.35);
 }
+.breadcrumb-item+.breadcrumb-item {
+    padding-left: .5rem;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+	display:none !important;
+}
 /*----*/
 .breadcrumb {
     display: -ms-flexbox;
@@ -214,12 +223,13 @@ a:hover {
     background-color: transparent;
     border-radius: .25rem;
     float: left;
-    font-size: 13px;
+    font-size: 14px;
 }
 .breadcrumb-item.active {
-    color: #385edf;
-    font-size: 16px;
-    font-weight: 600;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
 }
 /*--Form--*/
 .form-control::-webkit-input-placeholder{
@@ -1107,7 +1117,7 @@ a:hover {
 /*--Sub Page--*/
 .sub-header{
 	background:#f8f8f8;
-	padding: 10px 0;
+	padding: 2px 0;
 	color: #fff;
 }
 .sub-header h1{
@@ -2235,11 +2245,16 @@ a:hover {
 }
 
 /*--Video Section--*/
+
 .video-info {
-    padding: 75px 0;
+    padding: 90px 0;
     background-color: #ffffff;
-    background-image: url(../images/section-bg1.png);
+    background-image: url(../images/video-secbg1.jpg);
     background-position: right top;
+    position: relative;
+    background-size: cover;
+    overflow: hidden;
+    background-attachment: fixed;
 }
 .video-info p {
     text-align: justify;
@@ -2258,16 +2273,18 @@ a:hover {
 	font-size: 1.2rem;
 	font-weight: 700;
 }
-.video-sec {
-    background: #fff;
-    padding: 9px 9px 3px;
-    box-shadow: 2px 2px 4px 2px rgb(51 51 51 / 0.05);
-    width: 90%;
-}
+
 /*--SAPW Features Section--*/
 .sapw-features {
-    padding: 75px 0;
-    background: #fbfbfb;
+    padding: 0;
+    background: #f1fcff;
+}
+.video-sec {
+    background: #000000;
+    padding: 9px 9px 4px;
+    box-shadow: 2px 2px 4px 2px rgb(51 51 51 / 5%);
+    /* width: 60%; */
+    margin: 0 auto;
 }
 .sapw-features h3 {
     font-size: 20px;

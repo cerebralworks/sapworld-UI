@@ -116,3 +116,14 @@ ul.statusHistory .content p{
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+.btn-sm {
+    font-size: 12px;
+    height: 26px;
+    padding: .25rem .435rem;
+	border-radius: 50rem!important;
+}
+
+.small, small {
+    font-weight: 900;
+}

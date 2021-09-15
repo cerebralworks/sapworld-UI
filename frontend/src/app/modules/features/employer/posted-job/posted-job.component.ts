@@ -61,10 +61,11 @@ export class PostedJobComponent implements OnInit {
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
-		this.employerSharedService.getEmployerProfileDetails().subscribe(
-			details => {
-				if(details) {
-					this.currentEmployerDetails = details;
+		this.employerService.profile().subscribe(
+        details => {
+          if(details) {
+            this.currentEmployerDetails = details['details'];
+				
 					if(this.currentEmployerDetails.id && this.validateSubscribe == 0) {
 						if(this.getDataCount == false){
 							this.onGetPostedJobCount(this.currentEmployerDetails.id);
