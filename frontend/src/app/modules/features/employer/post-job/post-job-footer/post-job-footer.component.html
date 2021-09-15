@@ -1,7 +1,7 @@
 <div class="row mt-5 ">
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 1 ">
 		<div class="form-group">
-			<button [disabled]="!postJobForm.controls.jobInfo.valid" (click)="onNext()" type="button" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"common.next" | translate}}</button>
+			<button [disabled]="!postJobForm.controls.jobInfo.valid" (click)="onNext()" type="button" class="btn btn-theme-blue btn-block btn-lg btnNext">{{"shared.next" | translate}}</button>
 		</div>
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 2">

@@ -35,11 +35,13 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	public userID: string;
 	public jobId: string;
 	public employeeID: any;
+	public applicationID: any;
 	public pathUser: any;
 	public postedJobsDetails: JobPosting;
 	public postedJobsMatchDetails:any[] =[];
 	public postedJobsMatchDetailsArray:any[] =[];
 	public nationality: any[] = [];
+	public applicationDetails: any = {};
 
 	constructor(
 		private userService: UserService,
@@ -65,6 +67,9 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 				if(urlQueryParams && urlQueryParams.employee) {
 					sessionStorage.setItem('employeeID',urlQueryParams.employee);
 				}
+				if(urlQueryParams && urlQueryParams.applicationId) {
+					sessionStorage.setItem('applicationID',urlQueryParams.applicationId);
+				}
 				if(urlQueryParams.path){
 					sessionStorage.setItem('view-user-path',urlQueryParams.path);
 					this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
@@ -79,10 +84,12 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 			userIds = parseInt(sessionStorage.getItem('userId'));
 		}if(sessionStorage.getItem('employeeID')){
 			this.employeeID = parseInt(sessionStorage.getItem('employeeID'));
+		}if(sessionStorage.getItem('applicationID')){
+			this.applicationID = parseInt(sessionStorage.getItem('applicationID'));
 		}
 		this.jobId = jobIds;
 		this.userID = userIds;
-		this.router.navigate([], {queryParams: {id: null,jobId:null,path:null,employee:null}, queryParamsHandling: 'merge'});
+		this.router.navigate([], {queryParams: {id: null,applicationId: null,jobId:null,path:null,employee:null}, queryParamsHandling: 'merge'});
 	}
 	
 	/**
@@ -103,6 +110,9 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		)
 		if(this.jobId) {
 			this.onGetPostedJob();
+		}
+		if(this.applicationID) {
+			this.onGetApplication();
 		}
 		this.dataService.getCountryDataSource().subscribe(
 			response => {
@@ -132,6 +142,22 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		}else{
 			this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
 		}
+	}
+	
+	/**
+	**	To get the posted job details
+	**/
+	
+	onGetApplication() {
+		this.employerService.applicationsData(this.applicationID).subscribe(
+			response => {
+				if (response && response.details) {
+					this.applicationDetails = response.details;
+				}
+				
+			}, error => {
+			}
+		)
 	}
 	
 	/**

@@ -2,10 +2,11 @@
 	<div class="container  container-big">
 		<div class="row">
 			<div class="col-lg-5 d-flex align-items-center">
-				<button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
+				<!-- <button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
 					<i class="fas fa-arrow-left"></i>
-				</button>
+				</button> -->
 				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a (click)="onRedirectBack();" ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
 					<li class="breadcrumb-item active" aria-current="page">{{"shared.candidateMatches" | translate }}</li>
 				</ol>
 			</div>
@@ -140,7 +141,7 @@
 															</div>	
 														</div>
 														<div class="col-lg-3">
-															<a [class.disabled]="OpenMatchPopups(matchingUsers)" [ngClass]="(OpenMatchPopups(matchingUsers) == true)?'':'a-class'"  (click)="OpenMatchPopup(matchingUsers)"  >
+															<a [class.disabled]="OpenMatchPopups(matchingUsers)" [ngClass]="(OpenMatchPopups(matchingUsers) == true)?'':'a-class'"  [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsers?.profile?.id,employeeId: postedJobsDetails?.company.id }" href="javascript:;" >
 																		<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
 																	</a>
 														</div>
@@ -183,7 +184,9 @@
 															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}  </small>
 															</a>
-															<a [class.disabled]="OpenMatchPopups(matchingUsers)"  (click)="OpenMatchPopup(matchingUsers)" class="mr-3" >
+															<a [class.disabled]="OpenMatchPopups(matchingUsers)"  
+															  [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsers?.profile?.id,employeeId: postedJobsDetails?.company.id }" href="javascript:;"
+															class="mr-3" >
 																<small><i class="fab fa-buffer"></i>  {{"shared.viewOtherMatches" | translate}}  </small>
 															</a><!-- 
 															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
@@ -241,7 +244,7 @@
 															<a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}</small>
 															</a>
-															<a [class.disabled]="OpenMatchPopups(matchingUsersNew)"  (click)="OpenMatchPopup(matchingUsersNew)" class="mr-3" >
+															<a [class.disabled]="OpenMatchPopups(matchingUsersNew)"    [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsersNew?.profile?.id,employeeId: postedJobsDetails?.company.id }" href="javascript:;" class="mr-3" >
 																<small><i class="fab fa-buffer"></i>  {{"shared.viewOtherMatches" | translate}} </small>
 															</a><!-- 
 															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsersNew?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >

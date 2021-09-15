@@ -216,6 +216,10 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		  if(!this.utilsHelperService.isEmptyObj(filteredValue)) {
 			return this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1).file;
 		  }
+		  const filteredValues = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 0);
+		  if(!this.utilsHelperService.isEmptyObj(filteredValues)) {
+			return filteredValues.file;
+		  }
 		}
 		return "";
 	}

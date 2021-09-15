@@ -7,7 +7,7 @@
 	  "upload":"Hochladen",
 	  "uploadSuccess":"Super, du hast ein neues Spiel!!",
 	  "ok":"Okay",
-	  "jobDesc":"Arbeitsbeschreibung",
+	  "jobDesc":"Rollen und Verantwortlichkeiten",
 	  "download":"Herunterladen",
 	  "goMatches":"Gehe zu Spiele",
 	  "greeting":"Hallo",
@@ -109,6 +109,10 @@
       "viewOtherMatches": "Andere Spiele ansehen",
       "matchOtherPosts": "Übereinstimmung mit anderen Beiträgen",
       "jobsThatMatch": "Jobs, die passen",
+	  "sapModule":"SAP-Modul",
+	  "knowledgeOnSAP":"Kenntnisse in weiteren SAP Skills",
+	  "couldNotFind":"Ihre SAP-Kenntnisse konnten nicht gefunden werden",
+	  "addNewSkills":"Bitte fügen Sie neue SAP-Kenntnisse hinzu",
 	  
 	  
   "match": "Streichholz",
@@ -169,6 +173,7 @@
   "logout": "Logout"
 },
   "nav":{
+	  "hiringTrend":"Einstellungstrend",
   "matchingJobs": "Passende Jobs",
   "postedJobs": "Veröffentlichte Jobs",
   "matchingCandidates": "Passende Kandidaten",

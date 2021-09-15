@@ -3,10 +3,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-5 d-flex align-items-center">
-		<button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
+		<!-- <button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
 					<i class="fas fa-arrow-left"></i>
-				</button>
+				</button> -->
         <ol class="breadcrumb">
+			<li class="breadcrumb-item"><a (click)="onRedirectBack();" ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
           <li class="breadcrumb-item active" aria-current="page">{{"shared.candidateProfile" | translate }}</li>
         </ol>
       </div>
@@ -35,7 +36,7 @@
 
           </div>
         </div>
-        <app-shared-user-profile [userInfo]="userDetails"></app-shared-user-profile>
+        <app-shared-user-profile [userInfo]="userDetails" [applicationDetails]="applicationDetails"></app-shared-user-profile>
        
       </div>
       <div class="col-lg-4">

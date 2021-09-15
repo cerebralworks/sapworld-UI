@@ -236,12 +236,19 @@
 									{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
 								</span>
 							 </span>
-							<button *ngIf="!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 " style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+							<button *ngIf="(!postJobForm?.value?.requirement?.new_skills?.length ==0 )&&(!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button>
+						</ng-container>
+						<ng-container *ngIf="postJobForm?.value?.requirement?.new_skills?.length">
+							<span class="m-0 float-left" *ngFor="let item of postJobForm?.value?.requirement?.new_skills; let i = index; let last = last;">
+								<span style="cursor: pointer;" class="float-left skils-short" tooltipClass="my-custom-class"  container="body"  placement="top" [ngbTooltip]="item?.long_tag">
+									{{item?.tag}}{{last ? '' : ',&nbsp;'}}
+								</span>
+							 </span>
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 						  
-							<button *ngIf="!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 " style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+							<button *ngIf="(!postJobForm?.value?.requirement?.new_skills?.length ==0 )&& (!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button>
 						</ng-template>
 				  </li>
@@ -309,16 +316,44 @@
 			<div class="col-lg-5 info">
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase">
-						<ng-container *ngIf="postJobForm?.value?.requirement?.programming_skills.length; else elseSkillsTemplate">
+						<ng-container *ngIf="postJobForm?.value?.requirement?.programming_skills.length; else elseSkillsTemplates">
 							{{postJobForm?.value?.requirement?.programming_skills}}
 						</ng-container>
-						<ng-template #elseSkillsTemplate>
-							<li>--</li>
+						<ng-template #elseSkillsTemplates>
+							<button *ngIf="postJobForm?.value?.requirement?.programming_skills?.length==0 " style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('programming_skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			>{{"shared.add" | translate}}  </button>
 						</ng-template>
+						
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4" *ngIf="!postJobForm?.value?.requirement?.programming_skills || !postJobForm?.value?.requirement?.programming_skills?.length || postJobForm?.value?.requirement?.programming_skills?.length==0 ">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0  m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" (click)="handleChange($event)" disabled   value="0"  id="customRadio10A" name="programming_skills" formControlName="programming_skills"  class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio10A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" (click)="handleChange($event)" disabled  value="1"  id="customRadio10B" name="programming_skills" formControlName="programming_skills"  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio10B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" (click)="handleChange($event)"  disabled  value="2"  id="customRadio10C" name="programming_skills" formControlName="programming_skills"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio10C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-4" *ngIf="postJobForm?.value?.requirement?.programming_skills && postJobForm?.value?.requirement?.programming_skills?.length && postJobForm?.value?.requirement?.programming_skills?.length !=0 ">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -625,9 +660,9 @@
 			</div>
 			<div class="col-lg-5 info">
 				<ul class="list-group">
-					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 0">{{"postJob.shouldBeACitizenPr" | translate }}</li>
-					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 1">{{"postJob.shouldBeHavingAWorkPermit" | translate }}</li>
-					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 2">{{"postJob.shouldBeACitizenPrWork" | translate }}</li>
+					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 0">{{"userProfile.shouldBeACitizenPr" | translate }}</li>
+					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 1">{{"userProfile.shouldBeHavingAWorkPermit" | translate }}</li>
+					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 2">{{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }}</li>
 					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization != 0 && (postJobForm?.value?.requirement?.work_authorization == '' || postJobForm?.value?.requirement?.work_authorization == null)">
 					<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('work_authorization')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button></li>
@@ -885,7 +920,7 @@
 		</div>		
 		
 		<div class="col-lg-12 border-top pt-3"> </div>
-		<h6 class="font-weight-bold mb-2" >{{"shared.description" | translate}}</h6>
+		<h6 class="font-weight-bold mb-2" >{{"shared.jobDesc" | translate}} </h6>
         <div class="col-lg-12 mb-4">
 			
 			<p style="word-break: break-all;"[innerHTML]="sanitizer.bypassSecurityTrustHtml(postJobForm?.value?.jobInfo?.description)"></p>
@@ -938,10 +973,10 @@
 		</div>
 		<button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
 			data-dismiss="modal">Edit</button>
-		<button *ngIf="!postJobForm.valid" disabled="!postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
+		<button *ngIf="!postJobForm.valid || f['number_of_positions']['value'] == 0 " disabled="!postJobForm.valid || f['number_of_positions']['value'] == 0 " (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
 			{{jobId ? 'Update & Close' : 'Save & Close'}}
 		</button>
-		<button *ngIf="postJobForm.valid" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
+		<button *ngIf="postJobForm.valid && f['number_of_positions']['value'] != 0 " (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
 			{{jobId ? 'Update & Close' : 'Save & Close'}}
 		</button>
 	</div>
@@ -1040,6 +1075,38 @@
 			</div>
 			</div>
 			</div>
+			<div class="modal-body"  *ngIf="programming_skills">
+				<div class="col-lg-12 col-md-6" formGroupName="requirement">
+					<div class=" form-group">
+						<label >{{"userProfile.programmingSkills" | translate }}</label>
+						<mat-form-field class="example-chip-list" style="width: 100%;" >
+							
+							<mat-chip-list #chipList aria-label="programmingSkills">
+								<mat-chip *ngFor="let programmingSkill of programming_skillss" [selectable]="selectable"
+									[removable]="removable" (removed)="removes(programmingSkill)">
+									{{programmingSkill}}
+									<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+								</mat-chip>
+								<input placeholder=""
+									#programInput
+									[formControl]="programCtrl"
+									[matChipInputFor]="chipList"
+									
+									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+									[matChipInputAddOnBlur]="addOnBlur"
+									(matChipInputTokenEnd)="adds($event)">
+							</mat-chip-list>
+							<!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selecteds($event)">
+								<mat-option *ngFor="let program of filteredProgram  | async" [value]="program.name">
+									{{program.name}}
+								</mat-option>
+							</mat-autocomplete> -->
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+			
+			
 	<div class="modal-body"  *ngIf="work_authorization">
 			<div class=" form-group"  formGroupName="requirement" >
 				<label class="font-weight-bold">{{"userProfile.workAuthorization" | translate }} </label>
@@ -1088,7 +1155,7 @@
 				{{"shared.no" | translate }}
 			</button>
 			<button (click)="closeSaveCheck()" style="width: 25%;" type="button" class="btn btn-outline-green">
-				{{"shared.Yes" | translate }}
+				{{"shared.yes" | translate }}
 			</button>
 		</div>
 	

@@ -132,9 +132,19 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 							response['count'][i]['score']=response['count'][i]['score'].toFixed(1);
 							this.TotalMatchJobs.push(response['count'][i])
 						}
+					}else if(this.jobID =='all'){
+						this.TotalMatchJobs = [];
+						for(let i=0;i<response['count'].length;i++){
+							if(this.TotalMatchJobs.length!=0){
+								response['count'][i]['match_select']=this.TotalMatchJobs[0]['match_select'];
+							}
+							response['count'][i]['score']=response['count'][i]['score'].toFixed(1);
+							this.TotalMatchJobs.push(response['count'][i])
+						}
 					}else{
 						for(let i=0;i<response['count'].length;i++){
 							var idVal = parseInt(response['count'][i]['id']);
+							
 							var temp = this.jobID.filter(function(a,b){ return a == idVal})
 							if(temp.length!=0){
 								idVal = parseInt(temp[0]);
@@ -147,6 +157,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 									this.TotalMatchJobs.push(temp[0])
 								}
 							}
+							
 						}
 					}
 				}

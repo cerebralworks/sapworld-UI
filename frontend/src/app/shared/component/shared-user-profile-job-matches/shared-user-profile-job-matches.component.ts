@@ -92,6 +92,10 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 					this.postedJobsDetails.match_select.work_authorization="false";
 					  
 				  }
+				  if(this.postedJobsDetails['programming_skills'] ==null || this.postedJobsDetails['programming_skills'] ==undefined || this.postedJobsDetails['programming_skills']['length'] ==0){
+					this.postedJobsDetails.match_select['programming_skills']="false";
+					  
+				  } 
 				  if(this.postedJobsDetails.extra_criteria && this.postedJobsDetails.extra_criteria.length){
 						for(let j=0;j<this.postedJobsDetails.extra_criteria.length;j++){
 							var value= this.postedJobsDetails.extra_criteria[j]['title']

@@ -452,21 +452,26 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						
 						var idVals = this.childForm.value.personalDetails.nationality;
 						//this.savedUserDetails.preferred_countries = [idVals];
-							
-						this.childForm.patchValue({
-								educationExp : {
+						
+						if(!this.childForm.controls.educationExp || this.childForm.controls.educationExp ==undefined || this.childForm.controls.educationExp.status =="INVALID"){	
+							this.childForm.patchValue({
+									educationExp : {
+										...this.savedUserDetails
+									},
+								});
+							}
+					}
+						
+					let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
+					if(skillSetIndex == -1) {
+						
+						if(!this.childForm.controls.skillSet || this.childForm.controls.skillSet == undefined || this.childForm.controls.skillSet.status =="INVALID"){
+							this.childForm.patchValue({
+								skillSet : {
 									...this.savedUserDetails
 								},
 							});
 						}
-						
-					let skillSetIndex = this.tabInfos.findIndex(val => val.tabNumber == 3);
-					if(skillSetIndex == -1) {
-						this.childForm.patchValue({
-							skillSet : {
-								...this.savedUserDetails
-							},
-						});
 					}
 				}
 		  

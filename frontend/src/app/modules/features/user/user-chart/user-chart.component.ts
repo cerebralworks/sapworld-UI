@@ -6,6 +6,9 @@ import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { ChartOptions,ChartType,BorderWidth,ChartTooltipItem,ChartData } from 'chart.js';
 import { MultiDataSet, Label,Color ,BaseChartDirective } from 'ng2-charts';
+import { DaterangepickerComponent,DaterangepickerConfig   } from 'ng2-daterangepicker';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-chart',
@@ -19,7 +22,9 @@ export class UserChartComponent implements OnInit {
 	**/
 	
 		public currentUserDetails:any ;
-		
+		@ViewChild(DaterangepickerComponent)
+		private picker: DaterangepickerComponent;
+	
 		// Doughnut
 		@ViewChildren(BaseChartDirective) chart: QueryList<BaseChartDirective>;
 		@ViewChild(BaseChartDirective) chartVisa: BaseChartDirective;
@@ -52,6 +57,12 @@ export class UserChartComponent implements OnInit {
 		public doughnutBorderWidth: BorderWidth = 0; 
 		public doughnutChartColors: Color[] = [{
 			backgroundColor: [
+				"#7cd7ff",
+				"#f68383",
+				"#6bc182",
+				"#ffc455",
+				"#a37bda",
+				"#936ec5",
 				"#f9863e",
 				"#59c1dc",
 				"#7db861",
@@ -144,6 +155,13 @@ export class UserChartComponent implements OnInit {
 		public showVisa :boolean = false;
 		public showData :boolean = false;
 		
+		public isActive:boolean = false;
+		public isClosed:boolean = false;
+		public isDeleted:boolean = false;
+		public isPaused:boolean = false;
+		
+		public startDate:any;
+		public endDate:any;
 		
 	/**	
 	**	To implement the package section constructor
@@ -153,9 +171,22 @@ export class UserChartComponent implements OnInit {
 		private userService: UserService,
 		private modelService: NgbModal,
 		private employerService : EmployerService,
+		private daterangepickerOptions: DaterangepickerConfig,
 		private userSharedService: UserSharedService
 	) { 
-		
+		this.daterangepickerOptions.settings = {
+            locale: { format: 'MMMM D, YYYY' },
+            alwaysShowCalendars: false,
+            maxDate: moment(),	
+			ranges: {
+			   'Today': [moment(), moment()],
+			   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+			   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+			   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+			   'This Month': [moment().startOf('month'), moment().endOf('month')],
+			   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+			}
+        };
 	}
 
 	/**
@@ -163,24 +194,81 @@ export class UserChartComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-      this.userSharedService.getUserProfileDetails().subscribe(
+      this.userService.profile().subscribe(
         details => {
           if(details) {
-			  
-            this.currentUserDetails = details;
+            this.currentUserDetails = details['details'];
 			if(this.showData ==false && this.currentUserDetails.email ){
-				this.onGetMatchesDetails();
-				this.onGetVisaDetails();
-				this.onGetAvailabilityDetails('');
-				this.onGetTypeDetails('');		
-				this.onGetAppliedJobs('');
+				this.getDataStatus('');
 				this.showData = true;
 			}
           }
         }
       )
 	}
-
+	
+	public selectedDate(event) {
+       // this.picker.datePicker.setStartDate('2017-03-27');
+       // this.picker.datePicker.setEndDate('2017-04-08');
+    }
+	public calendarCanceled(event) {
+       // this.picker.datePicker.setStartDate('2017-03-27');
+       // this.picker.datePicker.setEndDate('2017-04-08');
+    }
+	public calendarApplied(event) {
+      this.getDataStatus('');
+    }
+	
+	public getDataStatus(data){
+		if(data=='active'){
+			if(this.isActive==true){
+				this.isActive = false;
+			}else{
+				this.isActive = true;
+			}
+			
+		}
+		if(data=='closed'){
+			if(this.isClosed==true){
+				this.isClosed = false;
+			}else{
+				this.isClosed = true;
+			}
+			
+		}
+		if(data=='paused'){
+			if(this.isPaused==true){
+				this.isPaused = false;
+			}else{
+				this.isPaused = true;
+			}
+			
+		}
+		if(data=='deleted'){
+			if(this.isDeleted==true){
+				this.isDeleted = false;
+			}else{
+				this.isDeleted = true;
+			}
+			
+		}
+		var tempStartDate = this.picker.datePicker.startDate.date();
+		var tempStartMonth = this.picker.datePicker.startDate.month()+1;
+		var tempStartYear = this.picker.datePicker.startDate.year();
+		var tempEndDate = this.picker.datePicker.endDate.date();
+		var tempEndMonth = this.picker.datePicker.endDate.month()+1;
+		var tempEndYear = this.picker.datePicker.endDate.year();
+		this.startDate = tempStartYear+'-'+tempStartMonth+'-'+tempStartDate+' 0:00:00';
+		this.endDate = tempEndYear+'-'+tempEndMonth+'-'+tempEndDate+' 23:59:59';
+		
+		this.onGetMatchesDetails();
+		this.onGetVisaDetails();
+		this.onGetAvailabilityDetails('');
+		this.onGetTypeDetails('');		
+		this.onGetAppliedJobs('');
+				
+	}
+	
 	/**
 	**	To get the Applied Jobs Details API Calls
 	**/
@@ -189,9 +277,16 @@ export class UserChartComponent implements OnInit {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'matches';
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
+		
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
-			if(response.count !=0 && response.count>=1){
+			if(response.count !=0 && response.count<=1){
 				for(let i=0;i<response.data.length;i++){
 					var temp = response.data[i]['city'].length;
 					if(temp<=15){
@@ -208,6 +303,8 @@ export class UserChartComponent implements OnInit {
 				this.showMatches = true;
 				this.totalMatches = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
+			}else{
+				this.showMatches = false;				
 			}
 			
         }, error => {
@@ -220,6 +317,12 @@ export class UserChartComponent implements OnInit {
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'applied';
       requestParams.city = city;
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -239,6 +342,8 @@ export class UserChartComponent implements OnInit {
 				this.showApplied = true;
 				this.totalApplied = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
+			}else{
+				this.showApplied = false;				
 			}
         }, error => {
         }
@@ -249,6 +354,12 @@ export class UserChartComponent implements OnInit {
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'availability';
       requestParams.city = city;
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -267,6 +378,8 @@ export class UserChartComponent implements OnInit {
 				this.showAvailiability = true;
 				this.totalAvailability = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
+			}else{
+				this.showAvailiability = false;				
 			}
         }, error => {
         }
@@ -278,6 +391,12 @@ export class UserChartComponent implements OnInit {
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'type';
       requestParams.city = city;
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -303,6 +422,8 @@ export class UserChartComponent implements OnInit {
 				this.showType = true;
 				this.totalType = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
+			}else{
+				this.showType = false;				
 			}
         }, error => {
         }
@@ -314,6 +435,12 @@ export class UserChartComponent implements OnInit {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'visa';
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -333,6 +460,8 @@ export class UserChartComponent implements OnInit {
 				this.showVisa = true;
 				this.totalVisa = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
+			}else{
+				this.showVisa = false;				
 			}
         }, error => {
         }

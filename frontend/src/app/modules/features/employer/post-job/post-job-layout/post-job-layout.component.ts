@@ -63,6 +63,7 @@ export class PostJobLayoutComponent implements OnInit {
 	public requestParams: any;
 	public screeningProcess : any=[];
 	public others : any=[];
+	public skils : any=[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -151,9 +152,8 @@ export class PostJobLayoutComponent implements OnInit {
   get f() {
     return this.postJobForm.controls;
   }
-
-  postJob = () => {
-    this.isLoading = true;
+	 postJobValidate = () => {
+		   this.isLoading = true;
     let jobInfo: JobPosting = {
       ...this.postJobForm.value.jobInfo,
       ...this.postJobForm.value.otherPref,
@@ -182,18 +182,53 @@ export class PostJobLayoutComponent implements OnInit {
     if(Array.isArray(tempSkill) && Array.isArray(jobInfo.skills)) {
       jobInfo.skills = lodash.uniq([...tempSkill, ...jobInfo.skills]);
     }
+	if(jobInfo.skills && jobInfo.skills.length && jobInfo.skills.length!=0){
+		for(let i=0;i<this.skils.length;i++){
+			var temp = this.skils[i];
+			jobInfo.skills.push(temp);
+		}
+	}else{
+		jobInfo.skills = this.skils;
+	}
 	if(jobInfo.extra_criteria){
 	jobInfo.extra_criteria = jobInfo.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
 	}
    delete jobInfo.temp_extra_criteria;
+		 if (this.postJobForm.valid) {
+		  if(this.jobId) {
+			this.onJobUpdate(jobInfo);
+		  }else {
+			this.onJobPost(jobInfo);
+		  }
+		}
+	 }
+  postJob = () => {
+  
+	
+	if(this.postJobForm.value.requirement.new_skills.length==0){
+		this.postJobValidate();
+	}else{
+		this.postSkills();
+	}
+    
+  }
+  
+  postSkills(){
 
-    if (this.postJobForm.valid) {
-      if(this.jobId) {
-        this.onJobUpdate(jobInfo);
-      }else {
-        this.onJobPost(jobInfo);
-      }
-    }
+	  for(let i=0;i<this.postJobForm.value.requirement.new_skills.length;i++){
+		  var val=this.postJobForm.value.requirement.new_skills[i];
+		  this.employerService.createSkills(val).subscribe(
+			response => {
+				if(response && response['details']){
+					this.skils.push(response['details']['id'])
+				}
+				if(this.skils.length == this.postJobForm.value.requirement.new_skills.length){
+					this.postJobValidate();
+				}
+			}, error => {
+			}
+		)
+	  }
   }
 
   onJobPost = (jobInfo: JobPosting) => {
@@ -253,8 +288,10 @@ export class PostJobLayoutComponent implements OnInit {
 				experience: ['', [Validators.required,]],
 				exp_type: ['years', [Validators.required]]
 			})]),
+			new_skills: new FormArray([]),
 			skills: new FormControl(null),
-			programming_skills: new FormControl(null, Validators.required),
+			skills_Data: new FormControl(null),
+			programming_skills: new FormControl(null),
 			optinal_skills: new FormControl(null, Validators.required),
 			work_authorization: new FormControl(null),
 			visa_sponsorship: new FormControl(false, Validators.required),

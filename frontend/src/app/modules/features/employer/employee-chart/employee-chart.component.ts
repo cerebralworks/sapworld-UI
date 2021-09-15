@@ -5,9 +5,12 @@ import {PageEvent} from '@angular/material/paginator';
 import { EmployerService } from '@data/service/employer.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { UserSharedService } from '@data/service/user-shared.service';
-import { ChartOptions,ChartType,BorderWidth,ChartTooltipItem,ChartData } from 'chart.js';
+import { ChartOptions,ChartType,BorderWidth,ChartTooltipItem,ChartData, ChartDataSets } from 'chart.js';
 import { MultiDataSet, Label,Color ,BaseChartDirective } from 'ng2-charts';
 
+import { DaterangepickerComponent,DaterangepickerConfig   } from 'ng2-daterangepicker';
+
+import * as moment from 'moment';
 @Component({
   selector: 'app-employee-chart',
   templateUrl: './employee-chart.component.html',
@@ -21,6 +24,8 @@ export class EmployeeChartComponent implements OnInit {
 	
 		public currentUserDetails:any ;
 		public currentEmployerDetails:any ;
+		@ViewChild(DaterangepickerComponent)
+		private picker: DaterangepickerComponent;
 		
 		// Doughnut
 		@ViewChildren(BaseChartDirective) chart: QueryList<BaseChartDirective>;
@@ -57,7 +62,7 @@ export class EmployeeChartComponent implements OnInit {
 		public showShortlisted :boolean = false;
 		//Hired Variable
 		public doughnutChartLabelsHired: Label[] = [];
-		public doughnutChartDataHired: MultiDataSet = [];		
+		public doughnutChartDataHired: ChartDataSets[] = [];		
 		public hiredTotal:any[]=[];
 		public totalHired :any =0;
 		public showHired :boolean = false;
@@ -65,8 +70,15 @@ export class EmployeeChartComponent implements OnInit {
 		
 		public doughnutChartType: ChartType = 'doughnut'; 
 		public doughnutBorderWidth: BorderWidth = 0; 
+		
 		public doughnutChartColors: Color[] = [{
 			backgroundColor: [
+				"#7cd7ff",
+				"#f68383",
+				"#6bc182",
+				"#ffc455",
+				"#a37bda",
+				"#936ec5",
 				"#5259ad",
 				"#7ae013",
 				"#e56996",
@@ -132,8 +144,27 @@ export class EmployeeChartComponent implements OnInit {
 			}
 		};
 		
+		
+		public doughnutBarType: ChartType = 'bar'; 
+		public myBarChart: ChartOptions ={
+			scales: {
+			  yAxes: [{
+				ticks: {
+				  min: 0,
+				}
+			  }]
+			}
+		};
+		
 		public showData :boolean = false;
 		
+		public isActive:boolean = false;
+		public isClosed:boolean = false;
+		public isDeleted:boolean = false;
+		public isPaused:boolean = false;
+		
+		public startDate:any;
+		public endDate:any;
 		
 	/**	
 	**	To implement the package section constructor
@@ -144,8 +175,22 @@ export class EmployeeChartComponent implements OnInit {
 		private modelService: NgbModal,
 		private employerService : EmployerService,
 		private employerSharedService: EmployerSharedService,
+		private daterangepickerOptions: DaterangepickerConfig,
 		private userSharedService: UserSharedService
 	) { 
+		this.daterangepickerOptions.settings = {
+            locale: { format: 'MMMM D, YYYY' },
+            alwaysShowCalendars: false,
+            maxDate: moment(),
+			ranges: {
+			   'Today': [moment(), moment()],
+			   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+			   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+			   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+			   'This Month': [moment().startOf('month'), moment().endOf('month')],
+			   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+			}
+        };
 		
 	}
 
@@ -154,18 +199,12 @@ export class EmployeeChartComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-      this.employerSharedService.getEmployerProfileDetails().subscribe(
+      this.employerService.profile().subscribe(
         details => {
           if(details) {
-			  
-            this.currentEmployerDetails = details;
+            this.currentEmployerDetails = details['details'];
 			if(this.showData ==false && this.currentEmployerDetails.email ){
-				this.onGetCountryDetails();
-				this.onGetJobsDetails();
-				this.onGetJobsMatchesDetails();
-				this.onGetJobsApplicantsDetails();
-				this.onGetShortlistedDetails();
-				this.onGetHiredDetails();
+				this.getDataStatus('');
 				this.showData = true;
 			}
           }
@@ -173,7 +212,69 @@ export class EmployeeChartComponent implements OnInit {
       )
 		
 	}
+	
+	
+	public selectedDate(event) {
+       // this.picker.datePicker.setStartDate('2017-03-27');
+       // this.picker.datePicker.setEndDate('2017-04-08');
+    }
+	public calendarCanceled(event) {
+       // this.picker.datePicker.setStartDate('2017-03-27');
+       // this.picker.datePicker.setEndDate('2017-04-08');
+    }
+	public calendarApplied(event) {
+      this.getDataStatus('');
+    }
+	
+	public getDataStatus(data){
+		if(data=='active'){
+			if(this.isActive==true){
+				this.isActive = false;
+			}else{
+				this.isActive = true;
+			}
+			
+		}
+		if(data=='closed'){
+			if(this.isClosed==true){
+				this.isClosed = false;
+			}else{
+				this.isClosed = true;
+			}
+			
+		}
+		if(data=='paused'){
+			if(this.isPaused==true){
+				this.isPaused = false;
+			}else{
+				this.isPaused = true;
+			}
+			
+		}
+		if(data=='deleted'){
+			if(this.isDeleted==true){
+				this.isDeleted = false;
+			}else{
+				this.isDeleted = true;
+			}
+			
+		}
+		var tempStartDate = this.picker.datePicker.startDate.date();
+		var tempStartMonth = this.picker.datePicker.startDate.month()+1;
+		var tempStartYear = this.picker.datePicker.startDate.year();
+		var tempEndDate = this.picker.datePicker.endDate.date();
+		var tempEndMonth = this.picker.datePicker.endDate.month()+1;
+		var tempEndYear = this.picker.datePicker.endDate.year();
+		this.startDate = tempStartYear+'-'+tempStartMonth+'-'+tempStartDate+' 0:00:00';
+		this.endDate = tempEndYear+'-'+tempEndMonth+'-'+tempEndDate+' 23:59:59';
 
+		this.onGetCountryDetails();
+		this.onGetJobsDetails();
+		this.onGetJobsMatchesDetails();
+		this.onGetHiredTrendDetails();
+		
+	}
+	
 	/**
 	**	To get the Location Jobs Details API Calls
 	**/
@@ -182,6 +283,12 @@ export class EmployeeChartComponent implements OnInit {
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'location';
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -201,6 +308,8 @@ export class EmployeeChartComponent implements OnInit {
 				this.showCountry = true;
 				this.totalCountry = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
+			}else{
+				this.showCountry = false;
 			}
 			
         }, error => {
@@ -217,6 +326,12 @@ export class EmployeeChartComponent implements OnInit {
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'matches';
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -237,78 +352,8 @@ export class EmployeeChartComponent implements OnInit {
 				this.showMatches = true;
 				this.totalMatches = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
-			}
-			
-        }, error => {
-        }
-      )
-	}
-
-
-	/**
-	**	To get the Applicants Jobs Details API Calls
-	**/
-
-	onGetJobsApplicantsDetails = () => {
-      let requestParams: any = {};
-      requestParams.id = this.currentEmployerDetails['id'];
-      requestParams.view = 'applicant';
-      this.employerService.getEmployeeDashboard(requestParams).subscribe(
-        response => {
-			if(response.count !=0 && response.count>=1){
-				for(let i=0;i<response.data.length;i++){
-					var temp = response.data[i]['title'].length;
-					if(temp<=25){
-						for(let j=temp;j<25;j++){
-							response.data[i]['title'] = response.data[i]['title']+' ';						
-						}
-					}
-					response.data[i]['title'] = response.data[i]['title'].substring(0,25);
-				}
-				this.applicantsTotal = response.data;
-				var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
-				var filterValue = response.data.map(function(a,b){ return a.count });
-				this.doughnutChartLabelsApplicants = filterData;
-				this.doughnutChartDataApplicants = [filterValue];
-				this.showApplicants = true;
-				this.totalApplicants = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
-				console.log(filterData);
-			}
-			
-        }, error => {
-        }
-      )
-	}
-
-
-	/**
-	**	To get the Shortlisted Jobs Details API Calls
-	**/
-
-	onGetShortlistedDetails = () => {
-      let requestParams: any = {};
-      requestParams.id = this.currentEmployerDetails['id'];
-      requestParams.view = 'shortlisted';
-      this.employerService.getEmployeeDashboard(requestParams).subscribe(
-        response => {
-			if(response.count !=0 && response.count>=1){
-				for(let i=0;i<response.data.length;i++){
-					var temp = response.data[i]['title'].length;
-					if(temp<=25){
-						for(let j=temp;j<25;j++){
-							response.data[i]['title'] = response.data[i]['title']+' ';						
-						}
-					}
-					response.data[i]['title'] = response.data[i]['title'].substring(0,25);
-				}
-				this.shortlistedTotal = response.data;
-				var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
-				var filterValue = response.data.map(function(a,b){ return a.count });
-				this.doughnutChartLabelsShortlisted = filterData;
-				this.doughnutChartDataShortlisted = [filterValue];
-				this.showShortlisted = true;
-				this.totalShortlisted = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
-				console.log(filterData);
+			}else{
+				this.showMatches = false;
 			}
 			
         }, error => {
@@ -320,10 +365,16 @@ export class EmployeeChartComponent implements OnInit {
 	**	To get the Hired Jobs Details API Calls
 	**/
 
-	onGetHiredDetails = () => {
+	onGetHiredTrendDetails = () => {
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
-      requestParams.view = 'hired';
+      requestParams.view = 'hiringtrend';
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -338,12 +389,42 @@ export class EmployeeChartComponent implements OnInit {
 				}
 				this.hiredTotal = response.data;
 				var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
-				var filterValue = response.data.map(function(a,b){ return a.count });
+				var filterApplicant = response.data.map(function(a,b){ return a.applicant });
+				var filterHired = response.data.map(function(a,b){ return a.hired });
+				var filterShortlist = response.data.map(function(a,b){ return a.shortlist });
 				this.doughnutChartLabelsHired = filterData;
-				this.doughnutChartDataHired = [filterValue];
+				this.doughnutChartDataHired = [{
+					label: "Applicants",	
+					data: filterApplicant,
+					backgroundColor: '#6bc182', 
+					borderColor: '#6bc182', 
+					hoverBackgroundColor: '#6bc182',
+					hoverBorderColor: '#6bc182',
+					borderWidth: 1
+				  }, 
+				  {
+					label: "Shortlisted",
+					data: filterShortlist,
+					backgroundColor: '#ffc455', 
+					borderColor: '#ffc455', 
+					hoverBackgroundColor: '#ffc455',
+					hoverBorderColor: '#ffc455',
+					borderWidth: 1
+				  }, 
+				  {
+					label: "Hired",
+					data: filterHired,
+					backgroundColor: '#936ec5',  
+					borderColor: '#936ec5',  
+					hoverBackgroundColor: '#936ec5',
+					hoverBorderColor: '#936ec5',
+					borderWidth: 1
+				  }];
 				this.showHired = true;
-				this.totalHired = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
+				this.totalHired = 0 ;
 				console.log(filterData);
+			}else{
+				this.showHired = false;
 			}
 			
         }, error => {
@@ -359,6 +440,12 @@ export class EmployeeChartComponent implements OnInit {
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'type';
+      requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
@@ -384,6 +471,8 @@ export class EmployeeChartComponent implements OnInit {
 				this.showPostedJob = true;
 				this.totalPostedJobs = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
+			}else{
+				this.showPostedJob = false;
 			}
 			
         }, error => {

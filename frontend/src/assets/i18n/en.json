@@ -7,7 +7,7 @@
 	  "upload":"Upload",
 	  "uploadSuccess":"Great, you have a new match!!",
 	  "ok":"Ok",
-	  "jobDesc":"Job Description",
+	  "jobDesc":"Roles and responsibilities",
 	  "download":"Download",
 	  "goMatches":"Go to Matches",
 	  "greeting":"Hello",
@@ -17,7 +17,7 @@
 	  "jobPosted":"Job Posted",
 	  "byJobType":"By Job Type",
       "default": "Default",
-	  "byVisa":"Visa Sponsord Jobs" ,
+	  "byVisa":"Visa Sponsord Jobs" , 
 	  "coverLetter":"Cover Lettter",
 	  "addCover":"Add cover",
 	  "addCoverTitle":" Cover Tilte",
@@ -129,7 +129,11 @@
       "months": "in months",
       "contractDuration": "Contract Duration",
       "enterNumberOfPositions": "Enter Number of Positions",
-	  "validStatus":"Please select the valid status"
+	  "validStatus":"Please select the valid status",
+	  "sapModule":"SAP Module",
+	  "knowledgeOnSAP":"Knowledge on other SAP Skills",
+	  "couldNotFind":"Could not find your SAP skills",
+	  "addNewSkills":"Please Add New SAP Skill"
 	  
   },
   "auth":{
@@ -166,6 +170,7 @@
       "logout": "Logout" 
   },
   "nav":{
+	  "hiringTrend":"Hiring Trend",
 	  "matchingJobs":"Matching Jobs",
 	  "postedJobs":"Posted Jobs",
 	  "matchingCandidates":"Matching Candidates",

@@ -40,6 +40,7 @@ export class SharedUserProfileComponent implements OnInit {
 	**	variable declaration
 	**/
 	@Input() userInfo: CandidateProfile;
+	@Input() applicationDetails: any;
 	@Input() fieldsExclude: any;
 	@Input() isMatches: boolean = false;
 	@Input() isShowUserData: boolean = false;

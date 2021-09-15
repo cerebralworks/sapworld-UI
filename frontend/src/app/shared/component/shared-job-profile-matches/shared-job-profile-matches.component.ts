@@ -106,6 +106,10 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 					this.jobInfo.match_select.work_authorization="false";
 					  
 				  }
+				  if(this.jobInfo['programming_skills'] ==null || this.jobInfo['programming_skills'] ==undefined || this.jobInfo['programming_skills']['length'] ==0){
+					this.jobInfo.match_select['programming_skills']="false";
+					  
+				  } 
 				  if(this.jobInfo.extra_criteria && this.jobInfo.extra_criteria.length){
 						for(let j=0;j<this.jobInfo.extra_criteria.length;j++){
 							var value= this.jobInfo.extra_criteria[j]['title']
@@ -196,6 +200,10 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 					this.jobInfo.match_select['training_experience']="false";
 					  
 				  }
+				  if(this.jobInfo['programming_skills'] ==null || this.jobInfo['programming_skills'] ==undefined || this.jobInfo['programming_skills']['length'] ==0){
+					this.jobInfo.match_select['programming_skills']="false";
+					  
+				  } 
 				  this.jobInfo.match_select['facing_role']="false";
 				  this.jobInfo.match_select['training_experience']="false";
 				  if(this.jobInfo.extra_criteria && this.jobInfo.extra_criteria.length){

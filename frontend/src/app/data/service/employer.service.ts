@@ -39,6 +39,14 @@ export class EmployerService extends CacheService {
       })
     );
   };
+  //creating the skills
+  createSkills = (data : any): Observable<JobPosting> => {
+    return this.apiService.post('/api/skill-tags/creates', data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
   
   getEmployeeDashboard = (params?) => {
     return this.apiService.post('/api/employers/employers-dashboard', params).pipe(
@@ -145,6 +153,13 @@ export class EmployerService extends CacheService {
 
   applicationsList = (params?) => {
     return this.apiService.get('/api/jobpostings/applications/list', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+  applicationsData = (params?) => {
+    return this.apiService.get('/api/jobpostings/applications/view/'+params).pipe(
       map(data => {
         return data;
       })

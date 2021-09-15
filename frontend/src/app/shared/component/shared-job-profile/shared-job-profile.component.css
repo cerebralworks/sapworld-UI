@@ -70,3 +70,6 @@
 p{
 	margin-bottom:0px !important;
 }
+.min-handsExps{
+	min-width: 250px !important;
+}

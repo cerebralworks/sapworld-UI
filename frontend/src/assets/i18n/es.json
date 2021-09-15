@@ -9,7 +9,7 @@
   "uploadPhoto": "Subir foto",
     "ok": "De acuerdo",
     "download": "Descargar",
-    "jobDesc": "Descripción del trabajo",
+    "jobDesc": "Funciones y responsabilidades",
     "goMatches": "Ir a Partidos",
     "greeting": "Hola",
     "totalMatches": "Número total de partidos",
@@ -126,7 +126,11 @@
   "months": "en meses",
   "contractDuration": "Duración del contrato",
   "enterNumberOfPositions": "Introduzca el número de posiciones",
-  "validStatus": "Seleccione el estado válido"
+  "validStatus": "Seleccione el estado válido",
+	  "sapModule":"Módulo SAP",
+	  "knowledgeOnSAP":"Conocimiento sobre otras habilidades de SAP",
+	  "couldNotFind":"No pude encontrar sus habilidades de SAP",
+	  "addNewSkills":"Agregue una nueva habilidad de SAP"
   },
   "auth":{
 	  "findRightPlace":"Encuentra tu lugar correcto",
@@ -162,6 +166,7 @@
   "logout": "Cerrar sesión"
 } ,
   "nav": {
+	  "hiringTrend":"Tendencia de contratación",
   "matchingJobs": "Trabajos coincidentes",
   "postedJobs": "Empleos publicados",
   "matchingCandidates": "Emparejamiento de candidatos",
