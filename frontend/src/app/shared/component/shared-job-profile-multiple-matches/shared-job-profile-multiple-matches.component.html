@@ -27,7 +27,7 @@
                      </li>
                 </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.sap_experience=='0'">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.sap_experience=='0'  && jobInfo?.entry==false  ">
 				<ul class="list-group">
 					<li class="list-group-item">
                         <span *ngIf="matchedElement && (jobInfo.sap_experience <= userInfo?.sap_experience)">
@@ -59,7 +59,7 @@
                    </li>
                </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='0'">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='0' && jobInfo?.entry==false ">
 				<ul class="list-group">
 					<li class="list-group-item handsExp text-uppercase" style="min-height: 48px;">
                       <ng-container *ngIf="jobInfo.hands_on_experience?.length; else elseHandsTemplate">
@@ -427,7 +427,7 @@
                      </li>
                 </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.sap_experience=='1'">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.sap_experience=='1' && jobInfo?.entry==false ">
 				<ul class="list-group">
 					<li class="list-group-item">
                         <span *ngIf="matchedElement && (jobInfo.sap_experience <= userInfo?.sap_experience)">
@@ -459,7 +459,7 @@
                    </li>
                </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='1'">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='1' && jobInfo?.entry==false ">
 				<ul class="list-group">
 					<li class="list-group-item handsExp text-uppercase" style="min-height: 48px;">
                       <ng-container *ngIf="jobInfo.hands_on_experience?.length; else elseHandsTemplate">
@@ -829,7 +829,7 @@
                      </li>
                 </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.sap_experience=='2'">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.sap_experience=='2' && jobInfo?.entry==false ">
 				<ul class="list-group">
 					<li class="list-group-item">
                         <span *ngIf="matchedElement && (jobInfo.sap_experience <= userInfo?.sap_experience)">
@@ -861,7 +861,7 @@
                    </li>
                </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='2'">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='2' && jobInfo?.entry==false ">
 				<ul class="list-group">
 					<li class="list-group-item handsExp text-uppercase" style="min-height: 48px;">
                       <ng-container *ngIf="jobInfo.hands_on_experience?.length; else elseHandsTemplate">
@@ -1231,7 +1231,7 @@
                      </li>
                 </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.sap_experience==''">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.sap_experience=='' && jobInfo?.entry==false ">
 				<ul class="list-group">
 					<li class="list-group-item">
                         <span *ngIf="matchedElement && (jobInfo.sap_experience <= userInfo?.sap_experience)">
@@ -1263,7 +1263,7 @@
                    </li>
                </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience==''">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='' && jobInfo?.entry==false ">
 				<ul class="list-group">
 					<li class="list-group-item handsExp text-uppercase" style="min-height: 48px;">
                       <ng-container *ngIf="jobInfo.hands_on_experience?.length; else elseHandsTemplate">

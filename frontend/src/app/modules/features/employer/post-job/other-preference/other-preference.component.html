@@ -7,7 +7,7 @@
 				<div class=" form-group">
 					<div class="custom-control custom-checkbox mb-2">
 						<input type="checkbox" class="custom-control-input" value="true" [checked]="ticket.value.value" (change)="changeStatus(ticket.value.id,$event)" [name]="ticket.value.id" [id]="ticket.value.id">
-						<label class="custom-control-label font-weight-bold text-dark" [for]="ticket.value.id"> {{ticket.value.title}}</label>
+						<label class="custom-control-label font-weight-bold text-dark" [for]="ticket.value.id" style="word-break: break-all;"> {{ticket.value.title}}</label>
 					</div>
 				</div>
 			</div>

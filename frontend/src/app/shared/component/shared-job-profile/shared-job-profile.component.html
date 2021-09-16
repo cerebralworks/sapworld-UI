@@ -19,7 +19,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='0'">
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='0' && jobInfo?.entry==false ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
 						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
@@ -44,7 +44,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='0'">
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='0' && jobInfo?.entry==false ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
 						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnWith" | translate }}</li>
@@ -345,7 +345,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='1'">
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='1' && jobInfo?.entry==false ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
 						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
@@ -370,7 +370,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='1'">
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='1' && jobInfo?.entry==false ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
 						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnWith" | translate }}</li>
@@ -672,7 +672,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='2' ">
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.sap_experience=='2' && jobInfo?.entry==false  ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
 						<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
@@ -697,7 +697,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='2' ">
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.hands_on_experience=='2' && jobInfo?.entry==false ">
 				<div class="col-lg-5 caption">
 					<ul class="list-group">
 						<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnWith" | translate }}</li>

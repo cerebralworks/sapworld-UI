@@ -39,6 +39,7 @@ export interface JobPosting {
   others: Array<string>;
   work_authorization: number;
   visa_sponsorship: boolean;
+  entry: boolean;
   willing_to_relocate: boolean;
   company: any;
   is_job_applied: any;

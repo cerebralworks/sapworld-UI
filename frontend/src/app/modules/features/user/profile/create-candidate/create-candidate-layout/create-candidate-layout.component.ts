@@ -263,10 +263,10 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			}));
 			this.candidateForm.addControl('skillSet', new FormGroup({
 				hands_on_experience: new FormArray([this.formBuilder.group({
-					skill_id: [null, Validators.required],
+					skill_id: [''],
 					skill_name: ['dasdasd'],
-					experience: ['', [Validators.required,]],
-					exp_type: ['years', [Validators.required]]
+					experience: [''],
+					exp_type: ['years']
 				})]),
 				skills: new FormControl(null),
 					programming_skills: new FormControl(null, Validators.required),
@@ -281,8 +281,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					year_of_completion: ['']
 				})]),
 				employer_role_type: new FormControl(null),
-				experience: new FormControl('', Validators.required),
-				sap_experience: new FormControl('', Validators.required),
+				experience: new FormControl(''),
+				sap_experience: new FormControl(''),
 				current_employer: new FormControl('', Validators.required),
 				current_employer_role: new FormControl('', Validators.required),
 				domains_worked: new FormControl('', Validators.required),
@@ -344,12 +344,12 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	}
 
 	validationType = {
-		'experience': [Validators.required],
-		'sap_experience': [Validators.required],
+		//'experience': [Validators.required],
+		//'sap_experience': [Validators.required],
 		'current_employer': [Validators.required],
 		'current_employer_role': [Validators.required],
 		'domains_worked': [Validators.required],
-		'skill_id': [Validators.required],
+		//'skill_id': [Validators.required],
 		'exp_type': [Validators.required],
 		//'skills': [Validators.required],
 		'programming_skills': [Validators.required],
@@ -397,6 +397,16 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	**	To validate the form details
 	**/
 	createCandidate = () => {
+		
+		if(this.candidateForm.value.personalDetails.entry==true){
+			if(this.candidateForm.value.educationExp.experience =='' ){
+				this.candidateForm.value.educationExp.experience = 0
+			}
+			if(this.candidateForm.value.educationExp.sap_experience =='' ){
+				this.candidateForm.value.educationExp.sap_experience = 0
+			}
+			
+		}
 		let candidateInfo: CandidateProfile = {
 			...this.candidateForm.value.personalDetails,
 			...this.candidateForm.value.educationExp,
@@ -442,7 +452,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		if(Array.isArray(tempSkill) && Array.isArray(candidateInfo.skills)) {
 		  candidateInfo.skills = lodash.uniq([...tempSkill, ...candidateInfo.skills]);
 		}
-
+		
 		if (this.candidateForm.valid) {
 			if(this.userPhotoInfo && this.userPhotoInfo.photoBlob) {
 				this.onUserPhotoUpdate(candidateInfo);
@@ -451,6 +461,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			}
 			
 		}
+		
 	}
     
 	randomString(length, chars) {

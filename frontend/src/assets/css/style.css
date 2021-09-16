@@ -2275,6 +2275,61 @@ a:hover {
 }
 
 /*--SAPW Features Section--*/
+
+
+.sapw-features {
+    padding: 0;
+    background: #f1fcff;
+}
+.sapw-features .content-left{
+    padding: 15% 40% 0 0;
+}
+.sapw-features .content-left h3 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 15px;
+    position: relative;
+}
+.sapw-features .content-left h5 {
+    font-size: 1.15rem;
+    line-height: 1.95rem;
+    margin-bottom: 1.75rem;
+    color: #000000;
+}
+.sapw-features  h6 {
+    text-transform: uppercase;
+    color: #385edf;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.sapw-features .image-left {
+    position: relative;
+    left:0;
+}
+
+.sapw-features .content-right{
+    padding: 15% 0 0 40%;
+}
+.sapw-features .content-right h3 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 10px;
+    position: relative;
+}
+.sapw-features .content-right h5 {
+    font-size: 1.15rem;
+    line-height: 1.95rem;
+    margin-bottom: 1.75rem;
+    color: #000000;
+}
+.sapw-features .image-right {
+    position: relative;
+    right:0;
+}
+
 .sapw-features {
     padding: 0;
     background: #f1fcff;
@@ -2286,29 +2341,8 @@ a:hover {
     /* width: 60%; */
     margin: 0 auto;
 }
-.sapw-features h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #465666;
-    margin-bottom: 30px;
-    position: relative;
-}
-.sapw-features h3:before {
-    content: '';
-    border-bottom: 3px solid #385edf;
-    width: 20px;
-    position: absolute;
-    left: 0px;
-    top: 25px;
-}
-.sapw-features h3:after {
-    content: '';
-    border-bottom: 3px solid #11b771;
-    width: 60px;
-    position: absolute;
-    left: 26px;
-    top: 25px;
-}
+
+
 .sapw-features p {
     line-height: 24px;
 }

@@ -64,9 +64,15 @@
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.totalYearsOfExperience" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 info" *ngIf="postJobForm?.value?.jobInfo?.entry ==false" >
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{postJobForm?.value?.requirement?.experience}} Years</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 info" *ngIf="postJobForm?.value?.jobInfo?.entry == true" >
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0" *ngIf="!postJobForm?.value?.requirement?.experience || postJobForm?.value?.requirement?.experience ==0 ">Fresher</li>
+					<li class="list-group-item text-capitalize m-0" *ngIf="postJobForm?.value?.requirement?.experience && postJobForm?.value?.requirement?.experience !=0">{{postJobForm?.value?.requirement?.experience}} Years</li>
 				</ul>
 			</div>
 			<div class="col-lg-4">
@@ -96,7 +102,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="row info-box">
+		<div class="row info-box" *ngIf="postJobForm?.value?.jobInfo?.entry ==false" >
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"matches.totalYearsOfSapExperience" | translate }}</li>
@@ -172,7 +178,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="row info-box">
+		<div class="row info-box" *ngIf="postJobForm?.value?.jobInfo?.entry ==false" >
 			<div class="col-lg-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.handsOnWith" | translate }}</li>
@@ -236,7 +242,7 @@
 									{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : ',&nbsp;'}}
 								</span>
 							 </span>
-							<button *ngIf="(!postJobForm?.value?.requirement?.new_skills?.length ==0 )&&(!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+							<button *ngIf="(postJobForm?.value?.requirement?.new_skills?.length ==0 )&&(!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button>
 						</ng-container>
 						<ng-container *ngIf="postJobForm?.value?.requirement?.new_skills?.length">
@@ -248,13 +254,13 @@
 						</ng-container>
 						<ng-template #elseSkillsTemplate>
 						  
-							<button *ngIf="(!postJobForm?.value?.requirement?.new_skills?.length ==0 )&& (!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+							<button *ngIf="(postJobForm?.value?.requirement?.new_skills?.length ==0 )&& (!postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button>
 						</ng-template>
 				  </li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="!postJobForm?.value?.requirement?.skills || !postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 ">
+			<div class="col-lg-4" *ngIf="postJobForm?.value?.requirement?.new_skills?.length ==0  &&(!postJobForm?.value?.requirement?.skills || !postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -280,7 +286,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="postJobForm?.value?.requirement?.skills?.length && utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length !=0 ">
+			<div class="col-lg-4" *ngIf="postJobForm?.value?.requirement?.new_skills?.length !=0 || (postJobForm?.value?.requirement?.skills?.length && utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length !=0 )">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -1088,19 +1094,11 @@
 									<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 								</mat-chip>
 								<input placeholder=""
-									#programInput
-									[formControl]="programCtrl"
-									[matChipInputFor]="chipList"
-									
+									[matChipInputFor]="chipList"									
 									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 									[matChipInputAddOnBlur]="addOnBlur"
 									(matChipInputTokenEnd)="adds($event)">
 							</mat-chip-list>
-							<!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selecteds($event)">
-								<mat-option *ngFor="let program of filteredProgram  | async" [value]="program.name">
-									{{program.name}}
-								</mat-option>
-							</mat-autocomplete> -->
 						</mat-form-field>
 					</div>
 				</div>
