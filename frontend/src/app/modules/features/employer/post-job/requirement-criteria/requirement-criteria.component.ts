@@ -424,28 +424,57 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	createForm() {
 		
 		this.childForm = this.parentF.form;
-		this.childForm.addControl('requirement', new FormGroup({
-			experience: new FormControl(null, Validators.required),
-			education: new FormControl(null),
-			sap_experience: new FormControl(null, Validators.required),
-			domain: new FormControl(null, Validators.required),
-			hands_on_experience: new FormArray([this.formBuilder.group({
-				skill_id: [null, Validators.required],
-				skill_name: [''],
-				experience: ['', [Validators.required,]],
-				exp_type: ['years', [Validators.required]]
-			})]),
-			new_skills: new FormArray([]),
-			skills: new FormControl(null),
-			skills_Data: new FormControl(null),
-			programming_skills: new FormControl(null),
-			optinal_skills: new FormControl(null, Validators.required),
-			work_authorization: new FormControl(null),
-			visa_sponsorship: new FormControl(false, Validators.required),
-			need_reference: new FormControl(false, Validators.required),
-			travel_opportunity: new FormControl(null, Validators.required),
-			end_to_end_implementation: new FormControl(null)
-		}));
+		if(this.childForm.value.jobInfo.entry==false){
+			
+			this.childForm.addControl('requirement', new FormGroup({
+				experience: new FormControl(null, Validators.required),
+				education: new FormControl(null),
+				sap_experience: new FormControl(null, Validators.required),
+				domain: new FormControl(null, Validators.required),
+				hands_on_experience: new FormArray([this.formBuilder.group({
+					skill_id: [null, Validators.required],
+					skill_name: [''],
+					experience: ['', [Validators.required,]],
+					exp_type: ['years', [Validators.required]]
+				})]),
+				new_skills: new FormArray([]),
+				skills: new FormControl(null),
+				skills_Data: new FormControl(null),
+				skills_Datas: new FormControl(null),
+				programming_skills:  new FormArray([]),
+				optinal_skills: new FormControl(null, Validators.required),
+				work_authorization: new FormControl(null),
+				visa_sponsorship: new FormControl(false, Validators.required),
+				need_reference: new FormControl(false, Validators.required),
+				travel_opportunity: new FormControl(null, Validators.required),
+				end_to_end_implementation: new FormControl(null)
+			}));
+		}else{
+			
+			this.childForm.addControl('requirement', new FormGroup({
+				experience: new FormControl(null),
+				education: new FormControl(null),
+				sap_experience: new FormControl(null),
+				domain: new FormControl(null, Validators.required),
+				hands_on_experience: new FormArray([this.formBuilder.group({
+					skill_id: [''],
+					skill_name: [''],
+					experience: [''],
+					exp_type: ['years']
+				})]),
+				new_skills: new FormArray([]),
+				skills: new FormControl(null),
+				skills_Data: new FormControl(null),
+				skills_Datas: new FormControl(null),
+				programming_skills:  new FormArray([]),
+				optinal_skills: new FormControl(null, Validators.required),
+				work_authorization: new FormControl(null),
+				visa_sponsorship: new FormControl(false, Validators.required),
+				need_reference: new FormControl(false, Validators.required),
+				travel_opportunity: new FormControl(null, Validators.required),
+				end_to_end_implementation: new FormControl(null)
+			}));
+		}
 
 	}
 
@@ -477,19 +506,21 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	
 	onDuplicateOthers = () => {
 		var value = this.childForm.value.requirement.skills_Data;
+		var skills_Datas = this.childForm.value.requirement.skills_Datas;
 		this.errorShown = false;
-		if(value !=null && value !=undefined && value !=''){
+		if(value !=null && value !=undefined && value !='' && skills_Datas !=null && skills_Datas !=undefined && skills_Datas !=''){
 			var Checking = this.commonSkills.filter(function(a,b){ return a.tag.toLowerCase() == value.toLowerCase() }).length;
 			var CheckingSkills = this.newskills.value.filter(function(a,b){ return a.tag.toLowerCase() == value.toLowerCase() }).length;
 			if(Checking==0 && CheckingSkills ==0 ){
 				this.newskills.push(this.formBuilder.group({
 					tag: [value, Validators.required],
 					status: [1, Validators.required],
-					long_tag: [value, Validators.required]
+					long_tag: [skills_Datas, Validators.required]
 				}));
 				this.childForm.patchValue({
 					requirement : {
-						skills_Data :null
+						skills_Data :null,
+						skills_Datas :null
 					}
 				});
 			}else{

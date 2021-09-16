@@ -13,9 +13,7 @@ import { DataService } from '@shared/service/data.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import {MatChipInputEvent} from '@angular/material/chips';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+
 @Component({
   selector: 'app-job-preview',
   templateUrl: './job-preview.component.html',
@@ -92,11 +90,6 @@ export class JobPreviewComponent implements OnInit {
 
     @ViewChild('myselect') myselect;
     optionsSelect:Array<any>;
-	public searchCallback = (search: string, item) => true; 
-	programCtrl = new FormControl();
-	filteredProgram: Observable<any[]>;
-	@ViewChild('programInput') programInput: ElementRef<HTMLInputElement>;
-	@ViewChild('auto') matAutocomplete: MatAutocomplete;
 	
 	constructor(private dataService: DataService,
 		private modalService: NgbModal,
@@ -110,30 +103,7 @@ export class JobPreviewComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService
 	) { 
 	
-	
-	this.filteredProgram = this.programCtrl.valueChanges.pipe(
-        startWith(null),
-        map((fruit: string | null) => fruit ? this._filter(fruit) : []));
-	}
-	
-	selecteds(event: MatAutocompleteSelectedEvent): void {
-		const value = (event.option.value || '').trim();
-
-		if (value) {
-			const index = this.programming_skillss.indexOf(value);
-			if (index >= 0) {
-				
-			}else{
-			this.programming_skillss.push(value);
-			this.childForm.patchValue({
-			  requirement: {
-				['programming_skills']: this.programming_skillss,
-			  }
-			});}
-			
-		}
-		 this.programInput.nativeElement.value = '';
-	}
+	}	
 	
 	adds(event: MatChipInputEvent): void {
 		//if (!this.matAutocomplete.isOpen) {
@@ -172,20 +142,6 @@ export class JobPreviewComponent implements OnInit {
 		}
 	}
 	
-	
-	
-	private _filter(value: string): string[] {
-		const filterValue = value.toLowerCase();
-		var prp =  this.programming_skillss;
-		var filters = this.programItems.filter(function(a,b){ return !prp.includes(a.name) })
-
-		return filters.filter(fruit => fruit.name.toLowerCase().includes(filterValue));
-	  }
-	  
-	private _filtersdata(): string[] {
-		var prp =  this.programming_skillss;
-		return this.programItems.filter(function(a,b){ return !prp.includes(a.name) })
-	  }
 	  
 	/**
 	**	To triggers when the page loads
@@ -903,7 +859,7 @@ export class JobPreviewComponent implements OnInit {
 				backdrop: 'static',
 				keyboard: false
 			});
-			}, 300);
+			}, 10);
 		}else if (this.isOpenCriteriaModal) {
 			setTimeout(() => {
 				this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
@@ -912,7 +868,7 @@ export class JobPreviewComponent implements OnInit {
 					backdrop: 'static',
 					keyboard: false
 				});
-			}, 300);
+			}, 10);
 		}
 	}
   

@@ -152,21 +152,40 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   createForm() {
     this.childForm = this.parentF.form;
 
-    this.childForm.addControl('educationExp', new FormGroup({
-      employer_role_type: new FormControl(null),
-      education_qualification: new FormArray([this.formBuilder.group({
-        degree: [''],
-        field_of_study: [null],
-        year_of_completion: [null, [Validators.min(4)]]
-      })]),
-      experience: new FormControl('', Validators.required),
-      sap_experience: new FormControl('', Validators.required),
-      current_employer: new FormControl('', Validators.required),
-      current_employer_role: new FormControl('', Validators.required),
-      domains_worked: new FormControl('', Validators.required),
-      //clients_worked: new FormControl(''),
-      end_to_end_implementation: new FormControl(null),
-    }));
+		if(this.childForm.value.personalDetails.entry==false){
+			this.childForm.addControl('educationExp', new FormGroup({
+			  employer_role_type: new FormControl(null),
+			  education_qualification: new FormArray([this.formBuilder.group({
+				degree: [''],
+				field_of_study: [null],
+				year_of_completion: [null, [Validators.min(4)]]
+			  })]),
+			  experience: new FormControl('', Validators.required),
+			  sap_experience: new FormControl('', Validators.required),
+			  current_employer: new FormControl('', Validators.required),
+			  current_employer_role: new FormControl('', Validators.required),
+			  domains_worked: new FormControl('', Validators.required),
+			  //clients_worked: new FormControl(''),
+			  end_to_end_implementation: new FormControl(null),
+			}));
+		}else{
+			this.childForm.addControl('educationExp', new FormGroup({
+			  employer_role_type: new FormControl(null),
+			  education_qualification: new FormArray([this.formBuilder.group({
+				degree: [''],
+				field_of_study: [null],
+				year_of_completion: [null, [Validators.min(4)]]
+			  })]),
+			  experience: new FormControl(''),
+			  sap_experience: new FormControl(''),
+			  current_employer: new FormControl('', Validators.required),
+			  current_employer_role: new FormControl('', Validators.required),
+			  domains_worked: new FormControl('', Validators.required),
+			  //clients_worked: new FormControl(''),
+			  end_to_end_implementation: new FormControl(null),
+			}));
+
+		}
   }
 
   get f() {

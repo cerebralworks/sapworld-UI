@@ -32,7 +32,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.sap_experience=='0'">
+				<div  *ngIf="postedJobsDetails?.match_select?.sap_experience=='0'  && postedJobsDetails?.entry==false ">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span *ngIf="matchedElement && (matchingUsers?.profile?.sap_experience >= postedJobsDetails?.sap_experience)">
@@ -71,7 +71,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='0'">
+				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='0'  && postedJobsDetails?.entry==false ">
 					<ul class="list-group">
 						<li class="list-group-item text-uppercase d-flex handsExps" style="min-height: 55px;">
 							<ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
@@ -518,7 +518,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.sap_experience=='1'">
+				<div  *ngIf="postedJobsDetails?.match_select?.sap_experience=='1'  && postedJobsDetails?.entry==false  ">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span *ngIf="matchedElement && (matchingUsers?.profile?.sap_experience >= postedJobsDetails?.sap_experience)">
@@ -557,7 +557,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='1'">
+				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='1'  && postedJobsDetails?.entry==false ">
 					<ul class="list-group">
 						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 55px;">
 							<ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
@@ -1004,7 +1004,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.sap_experience=='2'">
+				<div  *ngIf="postedJobsDetails?.match_select?.sap_experience=='2' && postedJobsDetails?.entry==false ">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span *ngIf="matchedElement && (matchingUsers?.profile?.sap_experience >= postedJobsDetails?.sap_experience)">
@@ -1043,7 +1043,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='2'">
+				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='2'  && postedJobsDetails?.entry==false ">
 					<ul class="list-group">
 						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 55px;">
 							<ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
@@ -1491,7 +1491,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.sap_experience==''">
+				<div  *ngIf="postedJobsDetails?.match_select?.sap_experience=='' && postedJobsDetails?.entry==false ">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<span *ngIf="matchedElement && (matchingUsers?.profile?.sap_experience >= postedJobsDetails?.sap_experience)">
@@ -1530,7 +1530,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience==''">
+				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience==''  && postedJobsDetails?.entry==false ">
 					<ul class="list-group">
 						<li class="list-group-item text-uppercase d-flex handsExps"  style="min-height: 55px;">
 							<ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">

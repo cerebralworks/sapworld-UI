@@ -18,3 +18,13 @@
     border-radius: 31px;
     margin-top: 0;
 }
+.dropdown-toggles::after {
+    display: inline-block!important;
+    margin-left: 0.255em!important;
+    vertical-align: 0.055em!important;
+    content: ""!important;
+    border-top: .4em solid!important;
+    border-right: .4em solid transparent!important;
+    border-bottom: 0!important;
+    border-left: .4em solid transparent!important;
+}

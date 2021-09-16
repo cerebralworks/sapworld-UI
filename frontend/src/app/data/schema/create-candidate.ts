@@ -26,6 +26,7 @@ export interface CandidateProfile {
   availability: number;
   remote_only: boolean;
   visa_sponsered: boolean;
+  entry: boolean;
   experience: number;
   sap_experience: number;
   latlng: string;

@@ -2,16 +2,19 @@
 	<div class="row mt-5 ">
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
-				<label>{{"userProfile.totalYearsOfExperience" | translate }}(Min)</label>
-				<input  (ngModelChange)="keyPress()"  appMarkAsterisk numbersOnly formControlName="experience" type="text" class="form-control w-25 text-center" value="8+">
+				<label  *ngIf="!this.childForm.value.jobInfo.entry">{{"userProfile.totalYearsOfExperience" | translate }}(Min)</label>
+				<label *ngIf="this.childForm.value.jobInfo.entry">{{"userProfile.totalYearsOfExperience" | translate }}</label>
+				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
+				<input  (ngModelChange)="keyPress()"  numbersOnly formControlName="experience" type="text" class="form-control w-25 text-center" value="8+">
 				<app-control-messages [control]="f['experience']"></app-control-messages>
 				<small *ngIf="totalExpError"  class="text-danger">Total is greater than SAP Experience</small>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-6">
+		<div class="col-lg-4 col-md-6"  *ngIf="!this.childForm.value.jobInfo.entry">
 			<div class=" form-group">
 				<label>{{"matches.totalYearsOfSapExperience" | translate }}(Min)</label>
-				<input  (ngModelChange)="keyPress()"  appMarkAsterisk numbersOnly formControlName="sap_experience" type="text" class="form-control w-25 text-center" value="5+">
+				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
+				<input  (ngModelChange)="keyPress()"   numbersOnly formControlName="sap_experience" type="text" class="form-control w-25 text-center" value="5+">
 				<app-control-messages [control]="f['sap_experience']"></app-control-messages>
 				<small *ngIf="sapExpError" class="text-danger">SAP is not greater than Total Experience</small>
 			</div>
@@ -53,62 +56,63 @@
 			</div>
 		</div>
 	</div>
-	<div class="row mt-2">
-		<div class="col-lg-12 col-md-6">
-			<label>{{"userProfile.handsOnWith" | translate }} </label>
-			<div appMarkAsterisk></div>
+	<ng-container  *ngIf="!this.childForm.value.jobInfo.entry">
+		<div class="row mt-2"  *ngIf="!this.childForm.value.jobInfo.entry">
+			<div class="col-lg-12 col-md-6">
+				<label>{{"userProfile.handsOnWith" | translate }} </label>
+				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
+			</div>
 		</div>
-	</div>
-	<div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
-		<ng-container [formGroup]="ticket">
-			<div class="col-lg-6 col-md-8">
-				<ngx-select
-					(select)="onSelectSkillEvent($event, i)"
-					[placeholder]="'Select SAP Skills'"
-					class="text-capitalize"
-					appMarkAsterisk
-					[items]="skillItems"
-					formControlName="skill_id"
-					optionValueField="id"
-					optionTextField="tags"
-					autoClearSearch="true"
-					noResultsFound="No results found"
-				>
-					<ng-template ngx-select-option-selected let-option let-text="text">
-						{{option?.text ? option?.text?.split('--')[0] : ''}}
-					</ng-template>
+		<div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
+			<ng-container [formGroup]="ticket">
+				<div class="col-lg-6 col-md-8">
+					<ngx-select
+						(select)="onSelectSkillEvent($event, i)"
+						[placeholder]="'Select SAP Skills'"
+						class="text-capitalize"
+						appMarkAsterisk
+						[items]="skillItems"
+						formControlName="skill_id"
+						optionValueField="id"
+						optionTextField="tags"
+						autoClearSearch="true"
+						noResultsFound="No results found"
+					>
+						<ng-template ngx-select-option-selected let-option let-text="text">
+							{{option?.text ? option?.text?.split('--')[0] : ''}}
+						</ng-template>
 
-					<ng-template ngx-select-option let-option let-text="text">
-						<span *ngIf="indexOfFilter(option?.value,i) ==true " >{{option?.text}}</span>
-					</ng-template>
+						<ng-template ngx-select-option let-option let-text="text">
+							<span *ngIf="indexOfFilter(option?.value,i) ==true " >{{option?.text}}</span>
+						</ng-template>
 
-					<ng-template ngx-select-option-not-found>
-						Nothing found
-					</ng-template>
-				</ngx-select>
-				<app-control-messages [control]="ticket['controls']['skill_id']"></app-control-messages>
-			</div>
-			<div class="col-lg-2 col-md-4">
-				<div class="input-group mb-3">
-					<input numbersOnly formControlName="experience" type="text" class="form-control" placeholder="Exp">
-					<div class="input-group-append ">
-						<select formControlName="exp_type" class="input-group-text" id="basic-addon2">
-							<option value="years">Yrs</option>
-							<option value="months">Mon</option>
-						</select>
-					</div>
-					<app-control-messages [control]="ticket['controls']['experience']"></app-control-messages>
+						<ng-template ngx-select-option-not-found>
+							Nothing found
+						</ng-template>
+					</ngx-select>
+					<app-control-messages [control]="ticket['controls']['skill_id']"></app-control-messages>
 				</div>
-			</div>
-			<div class="col-lg-2 col-md-4">
-				<button type="button" class="btn btn-outline-danger"
-					style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
-				<button *ngIf="last" (click)="onDuplicate(i)" type="button" class="btn btn-outline-green ml-2"
-					style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
-			</div>
-		</ng-container>
-	</div>
-	
+				<div class="col-lg-2 col-md-4">
+					<div class="input-group mb-3">
+						<input numbersOnly formControlName="experience" type="text" class="form-control" placeholder="Exp">
+						<div class="input-group-append ">
+							<select formControlName="exp_type" class="input-group-text" id="basic-addon2">
+								<option value="years">Yrs</option>
+								<option value="months">Mon</option>
+							</select>
+						</div>
+						<app-control-messages [control]="ticket['controls']['experience']"></app-control-messages>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-4">
+					<button type="button" class="btn btn-outline-danger"
+						style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
+					<button *ngIf="last" (click)="onDuplicate(i)" type="button" class="btn btn-outline-green ml-2"
+						style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
+				</div>
+			</ng-container>
+		</div>
+	</ng-container>
 	
 	<div class="row mt-3">
 		<div class="col-lg-12 col-md-6">									
@@ -126,7 +130,7 @@
 						<div class="col-lg-6 col-md-10">
 							<div class=" form-group">
 								<div class="custom-control mb-2">
-									<label class=" font-weight-bold text-dark" >{{itemss.value.tag}}</label>
+									<label class=" font-weight-bold text-dark" style="word-break: break-all;">{{itemss.value.tag}} - {{itemss.value.long_tag}}  </label>
 								</div>
 							</div>
 						</div>
@@ -145,10 +149,13 @@
 				<label>{{"shared.addNewSkills" | translate }}</label>
 				<div>				
 					<div class="row">
-						<div class="col-lg-7 col-md-9">
-							<input type="text" formControlName="skills_Data"  class="form-control" placeholder="Ex: SAP Skill">
+						<div class="col-lg-5 col-md-5">
+							<input type="text" formControlName="skills_Data"  class="form-control" placeholder="Ex: SAP DS">
+						</div>	
+						<div class="col-lg-5 col-md-5">
+							<input type="text" formControlName="skills_Datas"  class="form-control" placeholder="Ex: Data Science">
 						</div>							
-						<div class="col-lg-2 col-md-3">
+						<div class="col-lg-2 col-md-2">
 							<button type="button" (click)="onDuplicateOthers()" class="btn btn-outline-success" style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
 						</div>
 					</div>	

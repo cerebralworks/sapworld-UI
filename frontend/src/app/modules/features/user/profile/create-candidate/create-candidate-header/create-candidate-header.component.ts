@@ -83,12 +83,12 @@ export class CreateCandidateHeaderComponent implements OnInit {
 	}
 
   validationType = {
-    'experience': [Validators.required],
-    'sap_experience': [Validators.required],
+   // 'experience': [Validators.required],
+    //'sap_experience': [Validators.required],
     'current_employer': [Validators.required],
     'current_employer_role': [Validators.required],
     'domains_worked': [Validators.required],
-    'skill_id': [Validators.required],
+   // 'skill_id': [Validators.required],
     'exp_type': [Validators.required],
     //'skills': [Validators.required],
     'programming_skills': [Validators.required],

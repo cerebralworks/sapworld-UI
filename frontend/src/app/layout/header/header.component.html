@@ -38,7 +38,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto ">
            <li class="nav-item dropdown bg-white">
-          <a class="btn btn-sm btn-outline-primary px-3 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+          <a class="btn btn-sm btn-outline-primary px-3 dropdown-toggle dropdown-toggles " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin-top:23px;">						 
             <li class="submenu"> <a class="dropdown-item" (click)="onRedirectUrl('/auth/employer/login')"  type="button">Employer</a></li>								
             <li class="submenu"> <a class="dropdown-item" (click)="onRedirectUrl('/auth/user/login')"  type="button">Jobseeker</a></li>								
@@ -99,14 +99,14 @@
             </a>
           </li> -->
         </ul>
-     <!---  <ul class="navbar-nav lang-icon">
+      <ul class="navbar-nav lang-icon">
           <li class="dropdown test-{{translateService.currentLang}}">
             <ng-container *ngFor="let lang of translateService.getLangs()">
 
               <a (click)="onOpenLangMenu()" *ngIf="lang === translateService.currentLang"
                class="text-capitalize dropdown-toggle" href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img [src]="onGetLangImage(lang)" width="16" class="mr-2"/>
-                 {{onGetLangNames(translateService.currentLang)}} 
+                 
               </a>
             </ng-container>
 
@@ -121,11 +121,9 @@
                 </li>
               </ng-container> 
 
-              <li class="submenu"> <a class="dropdown-item" href="#"><img src="assets/images/english.png" width="16" class="mr-2"/> English</a></li>
-              <li class="submenu"> <a class="dropdown-item" href="#"><img src="assets/images/español.png" width="16" class="mr-2"/> Español</a></li>
-            </ul> 
+             </ul> 
           </li>
-        </ul>-->
+        </ul>
       </div>
     </div>
   </nav>
@@ -234,7 +232,7 @@
             <ng-container *ngFor="let lang of translateService.getLangs()">
 
               <a (click)="onOpenLangMenu()" *ngIf="lang === translateService.currentLang"
-               class="text-capitalize dropdown-toggle" href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               class="text-capitalize dropdown-toggle " href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img [src]="onGetLangImage(lang)" width="16" class="mr-2"/>
               </a>
             </ng-container>

@@ -147,10 +147,11 @@ export class EmployeeChartComponent implements OnInit {
 		
 		public doughnutBarType: ChartType = 'bar'; 
 		public myBarChart: ChartOptions ={
+			responsive: true,
 			scales: {
 			  yAxes: [{
 				ticks: {
-				  min: 0,
+				 min: 0
 				}
 			  }]
 			}
@@ -400,6 +401,7 @@ export class EmployeeChartComponent implements OnInit {
 					borderColor: '#6bc182', 
 					hoverBackgroundColor: '#6bc182',
 					hoverBorderColor: '#6bc182',
+					barThickness: 40,
 					borderWidth: 1
 				  }, 
 				  {
@@ -409,6 +411,7 @@ export class EmployeeChartComponent implements OnInit {
 					borderColor: '#ffc455', 
 					hoverBackgroundColor: '#ffc455',
 					hoverBorderColor: '#ffc455',
+					barThickness: 40,
 					borderWidth: 1
 				  }, 
 				  {
@@ -418,6 +421,7 @@ export class EmployeeChartComponent implements OnInit {
 					borderColor: '#936ec5',  
 					hoverBackgroundColor: '#936ec5',
 					hoverBorderColor: '#936ec5',
+					barThickness: 40,
 					borderWidth: 1
 				  }];
 				this.showHired = true;

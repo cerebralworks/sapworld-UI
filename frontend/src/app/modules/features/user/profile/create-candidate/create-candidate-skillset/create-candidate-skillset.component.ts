@@ -287,10 +287,10 @@ export class CreateCandidateSkillsetComponent implements OnInit {
             this.savedUserDetails.hands_on_experience.map((value, index) => {
               value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
               this.t.push(this.formBuilder.group({
-				  skill_id: [null, Validators.required],
+				  skill_id: [''],
 				  skill_name: [''],
-				  experience: ['', [Validators.required,]],
-				  exp_type: ['years', [Validators.required]]
+				  experience: [''],
+				  exp_type: ['years']
 				}));
             });
 			
@@ -445,20 +445,36 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	**/
   createForm() {
     this.childForm = this.parentF.form;
+	if(this.childForm.value.personalDetails.entry==false){
+		this.childForm.addControl('skillSet', new FormGroup({
+		  hands_on_experience: new FormArray([this.formBuilder.group({
+			skill_id: [null, Validators.required],
+			skill_name: [''],
+			experience: ['', [Validators.required,]],
+			exp_type: ['years', [Validators.required]]
+		  })]),
+		  skills: new FormControl(null),
+		  programming_skills: new FormControl(null, Validators.required),
+		  other_skills: new FormControl(null, Validators.required),
+		  certification: new FormControl(null),
+		  bio: new FormControl('Lorem Ipsum')
+		}));
+	}else{
+		this.childForm.addControl('skillSet', new FormGroup({
+		  hands_on_experience: new FormArray([this.formBuilder.group({
+			skill_id: [''],
+			skill_name: [''],
+			experience: [''],
+			exp_type: ['years']
+		  })]),
+		  skills: new FormControl(null),
+		  programming_skills: new FormControl(null, Validators.required),
+		  other_skills: new FormControl(null, Validators.required),
+		  certification: new FormControl(null),
+		  bio: new FormControl('Lorem Ipsum')
+		}));
 
-    this.childForm.addControl('skillSet', new FormGroup({
-      hands_on_experience: new FormArray([this.formBuilder.group({
-        skill_id: [null, Validators.required],
-        skill_name: [''],
-        experience: ['', [Validators.required,]],
-        exp_type: ['years', [Validators.required]]
-      })]),
-      skills: new FormControl(null),
-      programming_skills: new FormControl(null, Validators.required),
-      other_skills: new FormControl(null, Validators.required),
-      certification: new FormControl(null),
-      bio: new FormControl('Lorem Ipsum')
-    }));
+	}
   }
 
   get f() {
