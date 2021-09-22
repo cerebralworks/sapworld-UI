@@ -56,6 +56,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
 	public show: boolean = false;
+	public hideEmployee: boolean = false;
 	public showAuthorization : boolean = true;
 	public invalidMobile: boolean = false;
 	public userInfo: any = {};
@@ -525,8 +526,19 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		
 	  }
 				}
+		this.onChangeData();
+
 	  }); 
   }
+	
+	
+	onChangeData(){
+		if(this.childForm.value.personalDetails.entry == true){
+			this.hideEmployee = true;
+		}else{
+			this.hideEmployee = false;
+		}
+	}
 	
 	/**
 	**	To check the mobile number
@@ -551,6 +563,50 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		}
 	}
 	
+	/**
+	**	To handle match select
+	**/
+	
+	handleChange(event,val){
+		if(val ==0){
+			if(this.childForm.value.personalDetails.work_authorization == 0 ){
+				this.childForm.controls.personalDetails['controls']['work_authorization'].setValue(null);
+				this.childForm.controls.personalDetails['controls']['work_authorization'].updateValueAndValidity();
+				this.showAuthorization = false;
+				this.visa_types =[];
+				this.childForm.get('personalDetails').controls['visa_type'].setValidators(null)
+				this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
+				
+				this.onChangeCountry(this.childForm.value.personalDetails.nationality);
+				this.childForm.patchValue({
+				  personalDetails: {
+					['visa_type']: null,
+				  }
+				});
+			}else{
+				this.onChangeFieldValue(event,val);
+			}
+		}else if(val ==1){
+			if(this.childForm.value.personalDetails.work_authorization == 1 ){
+				this.childForm.controls.personalDetails['controls']['work_authorization'].setValue(null);
+				this.childForm.controls.personalDetails['controls']['work_authorization'].updateValueAndValidity();
+				this.showAuthorization = false;
+				this.visa_types =[];
+				this.childForm.get('personalDetails').controls['visa_type'].setValidators(null)
+				this.childForm.get('personalDetails').controls['visa_type'].updateValueAndValidity();
+				
+				this.onChangeCountry(this.childForm.value.personalDetails.nationality);
+				this.childForm.patchValue({
+				  personalDetails: {
+					['visa_type']: null,
+				  }
+				});
+			}else{
+				this.onChangeFieldValue(event,val);
+				
+			}
+		}
+	}
 	/**
 	**	To check the authorized_country
 	**/

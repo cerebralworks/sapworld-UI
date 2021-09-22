@@ -63,7 +63,8 @@
     <div class="col-lg-4 col-md-6">
       <div class=" form-group">
         <label>{{"userProfile.currentEmployer" | translate }}</label>
-        <input appMarkAsterisk formControlName="current_employer" type="text" class="form-control text-capitalize" placeholder="Current Employer Name">
+		<div appMarkAsterisk *ngIf="!this.childForm.value.personalDetails.entry" ></div>
+        <input formControlName="current_employer" type="text" class="form-control text-capitalize" placeholder="Current Employer Name">
         <app-control-messages [control]="f['current_employer']"></app-control-messages>
       </div>
     </div>
@@ -73,7 +74,8 @@
     <div class="col-lg-6 ">
       <div class=" form-group">
         <label>{{"userProfile.currentRole" | translate }}</label>
-        <input appMarkAsterisk formControlName="current_employer_role" type="text" class="form-control text-capitalize" placeholder="Current Role">
+		<div appMarkAsterisk *ngIf="!this.childForm.value.personalDetails.entry" ></div>
+        <input formControlName="current_employer_role" type="text" class="form-control text-capitalize" placeholder="Current Role">
         <app-control-messages [control]="f['current_employer_role']"></app-control-messages>
       </div>
     </div>
@@ -95,13 +97,14 @@
     <div class="col-lg-10">
       <div class=" form-group">
         <label>{{"userProfile.domainsWorked" | translate }}</label>
+		<div appMarkAsterisk *ngIf="!this.childForm.value.personalDetails.entry" ></div>
         <!-- <ng-select appMarkAsterisk id="programmingSkills" [addTag]="true" addTagText="Add Programming Skill" bindValue="label"
           bindLabel="label" placeholder="Select item" appendTo="body" multiple="true"
           formControlName="domains_worked">
         </ng-select> -->
         <ngx-select
         [placeholder]="'userProfile.domainsWorked' | translate"
-        appMarkAsterisk
+        
         class="text-capitalize"
         [items]="industryItems"
         [multiple]="true"

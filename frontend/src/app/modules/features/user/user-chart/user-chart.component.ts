@@ -155,10 +155,10 @@ export class UserChartComponent implements OnInit {
 		public showVisa :boolean = false;
 		public showData :boolean = false;
 		
-		public isActive:boolean = false;
+		public isActive:boolean = true;
 		public isClosed:boolean = false;
 		public isDeleted:boolean = false;
-		public isPaused:boolean = false;
+		public isPaused:boolean = true;
 		
 		public startDate:any;
 		public endDate:any;
@@ -177,7 +177,9 @@ export class UserChartComponent implements OnInit {
 		this.daterangepickerOptions.settings = {
             locale: { format: 'MMMM D, YYYY' },
             alwaysShowCalendars: false,
-            maxDate: moment(),	
+			startDate: moment().subtract(6, 'days'),
+			endDate:  moment(),
+            maxDate: moment(),
 			ranges: {
 			   'Today': [moment(), moment()],
 			   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -286,7 +288,7 @@ export class UserChartComponent implements OnInit {
 		
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
-			if(response.count !=0 && response.count<=1){
+			if(response.count !=0 && response.count>=1){
 				for(let i=0;i<response.data.length;i++){
 					var temp = response.data[i]['city'].length;
 					if(temp<=15){

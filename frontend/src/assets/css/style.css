@@ -190,7 +190,7 @@ a:hover {
     border-color: #11b771;
 }
 .btn-outline-green:hover a {
-    color: #fff;
+    color: #fff !important;
 }
 .btn-outline-green.focus, .btn-outline-green:focus {
     box-shadow: 0 0 0 0.2rem rgb(125 177 56 / 0.5);

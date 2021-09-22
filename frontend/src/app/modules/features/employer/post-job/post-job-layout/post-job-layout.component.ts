@@ -289,7 +289,7 @@ export class PostJobLayoutComponent implements OnInit {
 			experience: new FormControl(null, Validators.required),
 			education: new FormControl(null),
 			sap_experience: new FormControl(null, Validators.required),
-			domain: new FormControl(null, Validators.required),
+			domain: new FormControl(null),
 			hands_on_experience: new FormArray([this.formBuilder.group({
 				skill_id: [null, Validators.required],
 				skill_name: [''],
@@ -300,7 +300,7 @@ export class PostJobLayoutComponent implements OnInit {
 			skills: new FormControl(null),
 			skills_Data: new FormControl(null),
 			programming_skills:  new FormControl(null),
-			optinal_skills: new FormControl(null, Validators.required),
+			optinal_skills: new FormControl(null),
 			work_authorization: new FormControl(null),
 			visa_sponsorship: new FormControl(false, Validators.required),
 			need_reference: new FormControl(false, Validators.required),
