@@ -204,7 +204,15 @@ export class PostJobLayoutComponent implements OnInit {
 	 }
   postJob = () => {
   
-	
+	if(!this.postJobForm.value.requirement.experience || this.postJobForm.value.requirement.experience ==undefined){
+		this.postJobForm.value.requirement.experience =0;
+	}
+	if(!this.postJobForm.value.requirement.sap_experience || this.postJobForm.value.requirement.sap_experience ==undefined){
+		this.postJobForm.value.requirement.sap_experience =0;
+	}
+	if(!this.postJobForm.value.requirement.programming_skills || this.postJobForm.value.requirement.programming_skills ==undefined){
+		this.postJobForm.value.requirement.programming_skills =[];
+	}
 	if(this.postJobForm.value.requirement.new_skills.length==0){
 		this.postJobValidate();
 	}else{
@@ -281,7 +289,7 @@ export class PostJobLayoutComponent implements OnInit {
 			experience: new FormControl(null, Validators.required),
 			education: new FormControl(null),
 			sap_experience: new FormControl(null, Validators.required),
-			domain: new FormControl(null, Validators.required),
+			domain: new FormControl(null),
 			hands_on_experience: new FormArray([this.formBuilder.group({
 				skill_id: [null, Validators.required],
 				skill_name: [''],
@@ -291,8 +299,8 @@ export class PostJobLayoutComponent implements OnInit {
 			new_skills: new FormArray([]),
 			skills: new FormControl(null),
 			skills_Data: new FormControl(null),
-			programming_skills: new FormControl(null),
-			optinal_skills: new FormControl(null, Validators.required),
+			programming_skills:  new FormControl(null),
+			optinal_skills: new FormControl(null),
 			work_authorization: new FormControl(null),
 			visa_sponsorship: new FormControl(false, Validators.required),
 			need_reference: new FormControl(false, Validators.required),

@@ -36,3 +36,11 @@
 .isMatchesView{
 	padding:0px !important;
 }
+.btn-outline-green a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.btn-outline-green a {
+    color: #11b771;
+    text-decoration: none;
+}

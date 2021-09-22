@@ -21,39 +21,142 @@
 			</div>
 		</div>
 		<div class="row mb-5">
-			
-			<div class="col-lg-4" *ngIf="showMatches">					
-				<div class="noselect chartTitle mb-4">
-					{{"shared.totalMatches" | translate}}
+			<ng-container *ngIf="showMatches">		
+				<div class="col-lg-4" *ngIf="MatchesTotal.length<8">
+					<div class="noselect chartTitle mb-4">
+						{{"shared.totalMatches" | translate}}
+					</div>
+					<canvas baseChart #chart
+						[data]="doughnutChartData"
+						[labels]="doughnutChartLabels"
+						[BorderWidth]="doughnutBorderWidth"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOption"
+						[colors]="doughnutChartColors"
+						(chartClick)="chartClickEvent($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" style="left:66%;">{{totalMatches}}</div>
 				</div>
-				<canvas baseChart #chart
-					[data]="doughnutChartData"
-					[labels]="doughnutChartLabels"
-					[BorderWidth]="doughnutBorderWidth"
-					[chartType]="doughnutChartType"
-					[options]="doughnutOption"
-					[colors]="doughnutChartColors"
-					(chartClick)="chartClickEvent($event)"
-					>
-				  </canvas>
-				<div class="noselect chart-center-label" style="left:66%;">{{totalMatches}}</div>
-			</div>
-			<div class="col-lg-4" *ngIf="showApplied">					
-				<div class="noselect chartTitle mb-4">
-					{{"nav.appliedJobs" | translate}} 
+				<div class="col-lg-12"  *ngIf="MatchesTotal.length>=8 && MatchesTotal.length<=21" >
+					<div class="noselect chartTitle mb-4">
+						{{"shared.totalMatches" | translate}}
+					</div>
+					<canvas baseChart #chart
+						[data]="doughnutChartData"
+						[labels]="doughnutChartLabels"
+						[BorderWidth]="doughnutBorderWidth"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOption"
+						[colors]="doughnutChartColors"
+						(chartClick)="chartClickEvent($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=8 && MatchesTotal.length<=11"  style="left:66%;bottom:19%;" >{{totalMatches}}</div>
+					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=12 && MatchesTotal.length<=21" style="left:76%;bottom:19%;">{{totalMatches}}</div>
 				</div>
-				<canvas baseChart   #chart
-					[data]="doughnutChartDataApplied"
-					[labels]="doughnutChartLabelsApplied"
-					[chartType]="doughnutChartType"
-					[options]="doughnutOptions"
-					[colors]="doughnutChartColors"
-					(chartClick)="checkTotalChartApplied($event)"
-					>
-				  </canvas>
-				<div class="noselect chart-center-label" style="left:64%;">{{totalApplied}}</div>
-			</div>
-			<div class="col-lg-4" *ngIf="showAvailiability">				
+				<div class="col-lg-9" *ngIf="MatchesTotal.length>=22 && MatchesTotal.length<=53" >
+					<div class="noselect chartTitle mb-4">
+						{{"shared.totalMatches" | translate}}
+					</div>
+					<canvas baseChart #chart
+						[data]="doughnutChartData"
+						[labels]="doughnutChartLabels"
+						[BorderWidth]="doughnutBorderWidth"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOption"
+						[colors]="doughnutChartColors"
+						(chartClick)="chartClickEvent($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=22 && MatchesTotal.length<=32"  style="left:68%;bottom:19%" >{{totalMatches}}</div>
+					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=33 && MatchesTotal.length<=53"   style="left:76%;bottom:19%" >{{totalMatches}}</div>
+				</div>
+				<div class="col-lg-12" *ngIf="MatchesTotal.length>=54">
+					<div class="noselect chartTitle mb-4">
+						{{"shared.totalMatches" | translate}}
+					</div>
+					<canvas baseChart #chart
+						[data]="doughnutChartData"
+						[labels]="doughnutChartLabels"
+						[BorderWidth]="doughnutBorderWidth"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOption"
+						[colors]="doughnutChartColors"
+						(chartClick)="chartClickEvent($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=54 && MatchesTotal.length<=82"  style="left:69%;bottom:20%" >{{totalMatches}}</div>
+					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=83"  style="left:66%;">{{totalMatches}}</div>
+				</div>
+			</ng-container >
+			<ng-container *ngIf="showApplied">		
+				<div class="col-lg-4" *ngIf="AppliedTotal.length<8">
+					<div class="noselect chartTitle mb-4">
+						{{"nav.appliedJobs" | translate}} 
+					</div>
+					<canvas baseChart   #chart
+						[data]="doughnutChartDataApplied"
+						[labels]="doughnutChartLabelsApplied"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOptions"
+						[colors]="doughnutChartColors"
+						(chartClick)="checkTotalChartApplied($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" style="left:66%;">{{totalApplied}}</div>
+				</div>
+				<div class="col-lg-12"  *ngIf="AppliedTotal.length>=8 && AppliedTotal.length<=21" >
+					<div class="noselect chartTitle mb-4">
+						{{"nav.appliedJobs" | translate}} 
+					</div>
+					<canvas baseChart   #chart
+						[data]="doughnutChartDataApplied"
+						[labels]="doughnutChartLabelsApplied"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOptions"
+						[colors]="doughnutChartColors"
+						(chartClick)="checkTotalChartApplied($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=8 && AppliedTotal.length<=11"  style="left:66%;bottom:19%;" >{{totalApplied}}</div>
+					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=12 && AppliedTotal.length<=21" style="left:76%;bottom:19%;">{{totalApplied}}</div>
+				</div>
+				<div class="col-lg-9" *ngIf="AppliedTotal.length>=22 && AppliedTotal.length<=53" >
+					<div class="noselect chartTitle mb-4">
+						{{"nav.appliedJobs" | translate}} 
+					</div>
+					<canvas baseChart   #chart
+						[data]="doughnutChartDataApplied"
+						[labels]="doughnutChartLabelsApplied"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOptions"
+						[colors]="doughnutChartColors"
+						(chartClick)="checkTotalChartApplied($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=22 && AppliedTotal.length<=32"  style="left:68%;bottom:19%" >{{totalApplied}}</div>
+					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=33 && AppliedTotal.length<=53"   style="left:76%;bottom:19%" >{{totalApplied}}</div>
+				</div>
+				<div class="col-lg-12" *ngIf="AppliedTotal.length>=54">
+					<div class="noselect chartTitle mb-4">
+						{{"nav.appliedJobs" | translate}} 
+					</div>
+					<canvas baseChart   #chart
+						[data]="doughnutChartDataApplied"
+						[labels]="doughnutChartLabelsApplied"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOptions"
+						[colors]="doughnutChartColors"
+						(chartClick)="checkTotalChartApplied($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=54 && AppliedTotal.length<=82"  style="left:69%;bottom:20%" >{{totalApplied}}</div>
+					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=83"  style="left:66%;">{{totalApplied}}</div>
+				</div>
+			</ng-container >
+		
+			<div class="col-lg-4" *ngIf="showAvailiability" style="max-height: 230px;">				
 				<div class="noselect chartTitle mb-4">
 					{{"shared.byAvailability" | translate}} 
 				</div>
@@ -68,7 +171,7 @@
 				  </canvas>
 				<div class="noselect chart-center-label"  style="left:62%;">{{totalAvailability}}</div>
 			</div>
-			<div class="col-lg-4" *ngIf="showType">					
+			<div class="col-lg-4" *ngIf="showType" style="max-height: 230px;">					
 				<div class="noselect chartTitle mb-4">
 					{{"shared.byJobType" | translate}} 
 				</div>
@@ -83,21 +186,71 @@
 				  </canvas>
 				<div class="noselect chart-center-label" style="left:62%;">{{totalType}}</div>
 			</div>
-			<div class="col-lg-4" *ngIf="showVisa">					
-				<div class="noselect chartTitle mb-4">
-					{{"shared.byVisa" | translate}} 
+			<ng-container *ngIf="showVisa">		
+				<div class="col-lg-4" *ngIf="AppliedVisa.length<8">
+					<div class="noselect chartTitle mb-4">
+						{{"shared.byVisa" | translate}} 
+					</div>
+					<canvas baseChart    #chart
+						[data]="doughnutChartDataVisa"
+						[labels]="doughnutChartLabelsVisa"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOptions"
+						[colors]="doughnutChartColors"
+						(chartClick)="checkTotalChartVisa($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" style="left:66%;">{{totalVisa}}</div>
 				</div>
-				<canvas baseChart    #chart
-					[data]="doughnutChartDataVisa"
-					[labels]="doughnutChartLabelsVisa"
-					[chartType]="doughnutChartType"
-					[options]="doughnutOptions"
-					[colors]="doughnutChartColors"
-					(chartClick)="checkTotalChartVisa($event)"
-					>
-				  </canvas>
-				<div class="noselect chart-center-label" style="left:66%;">{{totalVisa}}</div>
-			</div>
+				<div class="col-lg-12"  *ngIf="AppliedVisa.length>=8 && AppliedVisa.length<=21" >
+					<div class="noselect chartTitle mb-4">
+						{{"shared.byVisa" | translate}} 
+					</div>
+					<canvas baseChart    #chart
+						[data]="doughnutChartDataVisa"
+						[labels]="doughnutChartLabelsVisa"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOptions"
+						[colors]="doughnutChartColors"
+						(chartClick)="checkTotalChartVisa($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=8 && AppliedVisa.length<=11"  style="left:66%;bottom:19%;" >{{totalVisa}}</div>
+					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=12 && AppliedVisa.length<=21" style="left:76%;bottom:19%;">{{totalVisa}}</div>
+				</div>
+				<div class="col-lg-9" *ngIf="AppliedVisa.length>=22 && AppliedVisa.length<=53" >
+					<div class="noselect chartTitle mb-4">
+						{{"shared.byVisa" | translate}} 
+					</div>
+					<canvas baseChart    #chart
+						[data]="doughnutChartDataVisa"
+						[labels]="doughnutChartLabelsVisa"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOptions"
+						[colors]="doughnutChartColors"
+						(chartClick)="checkTotalChartVisa($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=22 && AppliedVisa.length<=32"  style="left:68%;bottom:19%" >{{totalVisa}}</div>
+					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=33 && AppliedVisa.length<=53"   style="left:76%;bottom:19%" >{{totalVisa}}</div>
+				</div>
+				<div class="col-lg-12" *ngIf="AppliedVisa.length>=54">
+					<div class="noselect chartTitle mb-4">
+						{{"shared.byVisa" | translate}} 
+					</div>
+					<canvas baseChart    #chart
+						[data]="doughnutChartDataVisa"
+						[labels]="doughnutChartLabelsVisa"
+						[chartType]="doughnutChartType"
+						[options]="doughnutOptions"
+						[colors]="doughnutChartColors"
+						(chartClick)="checkTotalChartVisa($event)"
+						>
+					  </canvas>
+					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=54 && AppliedVisa.length<=82"  style="left:69%;bottom:20%" >{{totalVisa}}</div>
+					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=83"  style="left:66%;">{{totalVisa}}</div>
+				</div>
+			</ng-container >
 		</div>
 	</div>
 </section>

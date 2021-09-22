@@ -52,7 +52,8 @@
 												</span>
 											</h6>
 											<h6>
-												{{item?.experience ? item?.experience + ' Years Exp.' : ''}} <span *ngIf="item?.type">{{' , '}}</span>{{item?.type ? sharedService.onGetJobType(item?.type) : ''}} 
+												<span *ngIf="item?.experience ==0 || !item?.experience ">Entry level</span>
+												<span *ngIf="item?.experience !=0 && item?.experience ">{{item?.experience ? item?.experience + ' Years Exp.' : ''}} </span><span *ngIf="item?.type">{{' , '}}</span>{{item?.type ? sharedService.onGetJobType(item?.type) : ''}} 
 												<span *ngIf="item?.remote" class="remote pl-2">Remote</span>
 											</h6>
 											<div class="mt-2">

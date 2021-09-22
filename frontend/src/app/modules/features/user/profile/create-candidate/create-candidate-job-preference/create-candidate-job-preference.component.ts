@@ -510,7 +510,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				stateShort: [''],
 				country: ['']
 			  })]),
-			availability : new FormControl(''),
+			availability : new FormControl('', Validators.required),
 			remote_only: new FormControl(false, Validators.required),
 			visa_sponsered: new FormControl(false, Validators.required),
 		}));

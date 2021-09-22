@@ -85,6 +85,8 @@ export class EmployerProfileComponent implements OnInit {
 		requestParams.sort = 'created_at.desc';
 		this.employerService.getPostedJob(requestParams).subscribe(
 			response => {
+				this.postedJobs=[];
+				this.postedJobMeta ={};
 				if(response && response.items && response.items.length > 0) {
 					this.postedJobs = [...this.postedJobs, ...response.items];
 				}

@@ -13,7 +13,7 @@
     border-bottom: 1px solid #ccc;
     width: fit-content;
 }.job-card .media a:hover {
-    color: #fff !important;
+    color: #11b771 !important;
 }
 .job-card .selectDD {
     width: 235px;

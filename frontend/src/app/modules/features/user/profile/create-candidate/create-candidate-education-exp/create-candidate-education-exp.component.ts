@@ -178,9 +178,9 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 			  })]),
 			  experience: new FormControl(''),
 			  sap_experience: new FormControl(''),
-			  current_employer: new FormControl('', Validators.required),
-			  current_employer_role: new FormControl('', Validators.required),
-			  domains_worked: new FormControl('', Validators.required),
+			  current_employer: new FormControl(null),
+			  current_employer_role: new FormControl(null),
+			  domains_worked: new FormControl(''),
 			  //clients_worked: new FormControl(''),
 			  end_to_end_implementation: new FormControl(null),
 			}));

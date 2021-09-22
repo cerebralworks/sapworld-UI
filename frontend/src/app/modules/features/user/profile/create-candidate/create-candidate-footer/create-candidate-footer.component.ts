@@ -158,7 +158,7 @@ export class CreateCandidateFooterComponent implements OnInit {
 	
   onToggleRegisterReview = (status) => {
 	 
-    if(this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >=this.createCandidateForm.value.educationExp.sap_experience ) {
+    if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >=this.createCandidateForm.value.educationExp.sap_experience ) {
 		
 		if(this.createCandidateForm.value.personalDetails.authorized_country_select){
 		

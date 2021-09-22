@@ -45,7 +45,7 @@
                     {{item?.country ? item?.country : ''}}
                   </span>
                 </td>
-                <td>{{item.created_at ? (item.created_at | date: "MMM dd, y") : '-'}}</td>
+                <td>{{item.created_at ? (item.created_at | date: "MMM dd, y" : 'UTC') : '-'}}</td>
                 <td class="text-center">
                   <a  [routerLink]="['/employer/dashboard']" *ngIf="item.status != 0 ||  CheckMatchesCount(item?.id) !=0 "
                   [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>

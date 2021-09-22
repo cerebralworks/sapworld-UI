@@ -11,7 +11,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {MatAutocompleteSelectedEvent, MatAutocomplete,MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
@@ -66,7 +66,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	filteredProgram: Observable<any[]>;
 	@ViewChild('programInput') programInput: ElementRef<HTMLInputElement>;
 	@ViewChild('auto') matAutocomplete: MatAutocomplete;
-	
+	@ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
+
 	constructor(
 		private parentF: FormGroupDirective,
 		private formBuilder: FormBuilder,
@@ -121,6 +122,27 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 
 			// Clear the input value
 			event.chipInput!.clear();
+		}else{
+			const value = (event.value || '').trim();
+
+			if (value) {
+				const index = this.programming_skills.indexOf(value);
+				if (index >= 0) {
+					
+				}else{
+				this.programming_skills.push(value);
+				this.childForm.patchValue({
+				  requirement: {
+					['programming_skills']: this.programming_skills,
+				  }
+				});}
+				
+			}
+
+			// Clear the input value
+			event.chipInput!.clear();
+			this.autocomplete.closePanel(); 
+
 		}
 	}
 
@@ -441,7 +463,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				skills: new FormControl(null),
 				skills_Data: new FormControl(null),
 				skills_Datas: new FormControl(null),
-				programming_skills:  new FormArray([]),
+				programming_skills:  new FormControl(null),
 				optinal_skills: new FormControl(null, Validators.required),
 				work_authorization: new FormControl(null),
 				visa_sponsorship: new FormControl(false, Validators.required),
@@ -455,7 +477,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				experience: new FormControl(null),
 				education: new FormControl(null),
 				sap_experience: new FormControl(null),
-				domain: new FormControl(null, Validators.required),
+				domain: new FormControl(null),
 				hands_on_experience: new FormArray([this.formBuilder.group({
 					skill_id: [''],
 					skill_name: [''],
@@ -466,8 +488,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				skills: new FormControl(null),
 				skills_Data: new FormControl(null),
 				skills_Datas: new FormControl(null),
-				programming_skills:  new FormArray([]),
-				optinal_skills: new FormControl(null, Validators.required),
+				programming_skills:  new FormControl(null),
+				optinal_skills: new FormControl(null),
 				work_authorization: new FormControl(null),
 				visa_sponsorship: new FormControl(false, Validators.required),
 				need_reference: new FormControl(false, Validators.required),

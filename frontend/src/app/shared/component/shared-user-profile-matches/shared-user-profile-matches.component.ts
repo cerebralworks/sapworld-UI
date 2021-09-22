@@ -104,7 +104,7 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 					  
 				  }else{
 					  this.postedJobsDetails.match_select.training_experience="false";
-				  }if(!this.postedJobsDetails.skills || this.postedJobsDetails.match_select['skills'] =='' || this.postedJobsDetails.skills==undefined){
+				  }if(!this.postedJobsDetails.skills || this.postedJobsDetails['skills']['length'] ==0 || this.postedJobsDetails.skills==undefined){
 					this.postedJobsDetails.match_select.skills="false";
 					  
 				  }if(this.postedJobsDetails.work_authorization ==null || this.postedJobsDetails.match_select['work_authorization']=='' || this.postedJobsDetails.work_authorization==undefined){

@@ -3,7 +3,7 @@
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
 				<div class="custom-control custom-checkbox mb-2">
-				  <input type="checkbox" class="custom-control-input" formControlName="entry" id="customCheckRemote01">
+				  <input type="checkbox" class="custom-control-input" formControlName="entry" (change)="onChangeData()" id="customCheckRemote01">
 				<label class="custom-control-label font-weight-bold" for="customCheckRemote01"> <a > Entry Level</a></label>
 				</div>
 			</div>
@@ -125,8 +125,8 @@
 		</div>	 -->
 		<div class="col-lg-6 col-md-12" >	
 			<div class=" form-group">
-				<label >{{"userProfile.previousEmployers" | translate }}</label>
-				<mat-form-field appMarkAsterisk class="example-chip-list" >
+				<label >{{"userProfile.previousEmployers" | translate }} <span *ngIf="!hideEmployee" class="required-asterisk">*</span></label>
+				<mat-form-field class="example-chip-list" >
 					
 					<mat-chip-list #chipList aria-label="Previous Employer">
 						<mat-chip *ngFor="let employer of employers" [selectable]="selectable"
@@ -150,13 +150,13 @@
 			<label>{{"userProfile.workAuthorization" | translate }}</label>
 			<div class="mt-2">
 			  <div class="custom-control custom-radio custom-control-inline">
-				<input (change)="onChangeFieldValue('work_authorization', 0)" [value]="0" formControlName="work_authorization" type="radio" id="customRadioInline5"
+				<input  (click)="handleChange('work_authorization',0)"  [value]="0" formControlName="work_authorization" type="radio" id="customRadioInline5"
 				  name="work_authorization" class="custom-control-input">
 				<label class="custom-control-label"
 				  for="customRadioInline5">{{"userProfile.iHaveWorkAuthorization" | translate }}</label>
 			  </div>
 			  <div class="custom-control custom-radio custom-control-inline">
-				<input (change)="onChangeFieldValue('work_authorization', 1)" [value]="1" formControlName="work_authorization" type="radio" id="customRadioInline6"
+				<input (click)="handleChange('work_authorization',1)"  [value]="1" formControlName="work_authorization" type="radio" id="customRadioInline6"
 				  name="work_authorization" class="custom-control-input">
 				<label class="custom-control-label"
 				  for="customRadioInline6">{{"userProfile.iNeedVisaAponsorship" | translate }}</label>

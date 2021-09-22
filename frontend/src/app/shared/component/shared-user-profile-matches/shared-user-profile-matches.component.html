@@ -40,7 +40,7 @@
 								{{matchingUsers?.profile?.sap_experience ? matchingUsers?.profile?.sap_experience + ' Years' :'--'}}
 							</span>
 							<span *ngIf="missingElement && (matchingUsers?.profile?.sap_experience < postedJobsDetails?.sap_experience)">
-								<i class="fas fa-check text-green "></i>
+								<i class="fas fa-times text-danger "></i>
 								{{matchingUsers?.profile?.sap_experience ? matchingUsers?.profile?.sap_experience + ' Years' :'--'}}
 							</span>
 						</li>
