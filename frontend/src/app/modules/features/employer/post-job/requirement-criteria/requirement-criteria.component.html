@@ -40,8 +40,8 @@
 		<div class="col-lg-12 col-md-6">
 			<div class=" form-group">
 				<label>{{"userProfile.domainExperience" | translate }}</label>
+				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
 				<ngx-select
-					appMarkAsterisk
 					[placeholder]="'Select Domain'"
 					class="text-capitalize"
 					[items]="industriesItems"
@@ -214,7 +214,7 @@
 							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 						</mat-chip>
 						<input placeholder=""
-							#programInput
+							#programInput #trigger="matAutocompleteTrigger"
 							[formControl]="programCtrl"
 							[matChipInputFor]="chipList"
 							[matAutocomplete]="auto"
@@ -233,7 +233,8 @@
 		<div class="col-lg-9 col-md-12" >	
 			<div class=" form-group">
 				<label >{{"userProfile.otherSkills" | translate }}</label>
-				<mat-form-field appMarkAsterisk class="example-chip-list" style="width: 100%;" >
+				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
+				<mat-form-field class="example-chip-list" style="width: 100%;" >
 					
 					<mat-chip-list #chipLists aria-label="niceToHave">
 						<mat-chip *ngFor="let optinal_skill of optinal_skills" [selectable]="selectable"
@@ -263,7 +264,8 @@
 		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
 				<label >{{"userProfile.endToEnd" | translate }} </label>
-				<input appMarkAsterisk numbersOnly type="text" class="form-control w-25" formControlName="end_to_end_implementation">
+				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
+				<input numbersOnly type="text" class="form-control w-25" formControlName="end_to_end_implementation">
 			</div>
 		</div>
 	</div>

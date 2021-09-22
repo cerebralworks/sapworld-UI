@@ -148,10 +148,12 @@ export class EmployeeChartComponent implements OnInit {
 		public doughnutBarType: ChartType = 'bar'; 
 		public myBarChart: ChartOptions ={
 			responsive: true,
+			maintainAspectRatio: false,
 			scales: {
 			  yAxes: [{
 				ticks: {
-				 min: 0
+				 min: 0,
+				 stepSize: 1
 				}
 			  }]
 			}
@@ -159,10 +161,10 @@ export class EmployeeChartComponent implements OnInit {
 		
 		public showData :boolean = false;
 		
-		public isActive:boolean = false;
+		public isActive:boolean = true;
 		public isClosed:boolean = false;
 		public isDeleted:boolean = false;
-		public isPaused:boolean = false;
+		public isPaused:boolean = true;
 		
 		public startDate:any;
 		public endDate:any;
@@ -182,6 +184,8 @@ export class EmployeeChartComponent implements OnInit {
 		this.daterangepickerOptions.settings = {
             locale: { format: 'MMMM D, YYYY' },
             alwaysShowCalendars: false,
+			startDate: moment().subtract(6, 'days'),
+			endDate:  moment(),
             maxDate: moment(),
 			ranges: {
 			   'Today': [moment(), moment()],
@@ -260,12 +264,14 @@ export class EmployeeChartComponent implements OnInit {
 			}
 			
 		}
-		var tempStartDate = this.picker.datePicker.startDate.date();
-		var tempStartMonth = this.picker.datePicker.startDate.month()+1;
-		var tempStartYear = this.picker.datePicker.startDate.year();
-		var tempEndDate = this.picker.datePicker.endDate.date();
-		var tempEndMonth = this.picker.datePicker.endDate.month()+1;
-		var tempEndYear = this.picker.datePicker.endDate.year();
+		var start =this.picker.datePicker.startDate;
+		var end = this.picker.datePicker.endDate;
+		var tempStartDate = start.date();
+		var tempStartMonth = start.month()+1;
+		var tempStartYear = start.year();
+		var tempEndDate = end.date();
+		var tempEndMonth = end.month()+1;
+		var tempEndYear = end.year();
 		this.startDate = tempStartYear+'-'+tempStartMonth+'-'+tempStartDate+' 0:00:00';
 		this.endDate = tempEndYear+'-'+tempEndMonth+'-'+tempEndDate+' 23:59:59';
 
@@ -281,6 +287,7 @@ export class EmployeeChartComponent implements OnInit {
 	**/
 
 	onGetCountryDetails = () => {
+	  this.showCountry = false;
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'location';
@@ -301,6 +308,9 @@ export class EmployeeChartComponent implements OnInit {
 						}
 					}
 				}
+				/* for(let i=0;i<69;i++){					
+					response.data.push(response.data[0])
+				}  */
 				this.countryTotal = response.data;
 				var filterData = response.data.map(function(a,b){ return a.city.charAt(0).toUpperCase() + a.city.substr(1) });
 				var filterValue = response.data.map(function(a,b){ return a.count });
@@ -367,6 +377,7 @@ export class EmployeeChartComponent implements OnInit {
 	**/
 
 	onGetHiredTrendDetails = () => {
+		this.showHired = false;
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'hiringtrend';
@@ -386,44 +397,79 @@ export class EmployeeChartComponent implements OnInit {
 							response.data[i]['title'] = response.data[i]['title']+' ';						
 						}
 					}
-					response.data[i]['title'] = response.data[i]['title'].substring(0,25);
+					response.data[i]['title'] = response.data[i]['title'];
 				}
+				
 				this.hiredTotal = response.data;
 				var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
 				var filterApplicant = response.data.map(function(a,b){ return a.applicant });
 				var filterHired = response.data.map(function(a,b){ return a.hired });
 				var filterShortlist = response.data.map(function(a,b){ return a.shortlist });
 				this.doughnutChartLabelsHired = filterData;
-				this.doughnutChartDataHired = [{
-					label: "Applicants",	
-					data: filterApplicant,
-					backgroundColor: '#6bc182', 
-					borderColor: '#6bc182', 
-					hoverBackgroundColor: '#6bc182',
-					hoverBorderColor: '#6bc182',
-					barThickness: 40,
-					borderWidth: 1
-				  }, 
-				  {
-					label: "Shortlisted",
-					data: filterShortlist,
-					backgroundColor: '#ffc455', 
-					borderColor: '#ffc455', 
-					hoverBackgroundColor: '#ffc455',
-					hoverBorderColor: '#ffc455',
-					barThickness: 40,
-					borderWidth: 1
-				  }, 
-				  {
-					label: "Hired",
-					data: filterHired,
-					backgroundColor: '#936ec5',  
-					borderColor: '#936ec5',  
-					hoverBackgroundColor: '#936ec5',
-					hoverBorderColor: '#936ec5',
-					barThickness: 40,
-					borderWidth: 1
-				  }];
+				if(this.hiredTotal['length']<6){
+					this.doughnutChartDataHired = [{
+						label: "Applicants",	
+						data: filterApplicant,
+						backgroundColor: '#6bc182', 
+						borderColor: '#6bc182', 
+						hoverBackgroundColor: '#6bc182',
+						hoverBorderColor: '#6bc182',
+						barThickness: 40,
+						borderWidth: 1
+					  }, 
+					  {
+						label: "Shortlisted",
+						data: filterShortlist,
+						backgroundColor: '#ffc455', 
+						borderColor: '#ffc455', 
+						hoverBackgroundColor: '#ffc455',
+						hoverBorderColor: '#ffc455',
+						barThickness: 40,
+						borderWidth: 1
+					  }, 
+					  {
+						label: "Hired",
+						data: filterHired,
+						backgroundColor: '#936ec5',  
+						borderColor: '#936ec5',  
+						hoverBackgroundColor: '#936ec5',
+						hoverBorderColor: '#936ec5',
+						barThickness: 40,
+						borderWidth: 1
+					  }];
+				}else{
+					this.doughnutChartDataHired = [{
+						label: "Applicants",	
+						data: filterApplicant,
+						backgroundColor: '#6bc182', 
+						borderColor: '#6bc182', 
+						hoverBackgroundColor: '#6bc182',
+						hoverBorderColor: '#6bc182',
+						//barThickness: 40,
+						borderWidth: 2
+					  }, 
+					  {
+						label: "Shortlisted",
+						data: filterShortlist,
+						backgroundColor: '#ffc455', 
+						borderColor: '#ffc455', 
+						hoverBackgroundColor: '#ffc455',
+						hoverBorderColor: '#ffc455',
+						//barThickness: 40,
+						borderWidth: 2
+					  }, 
+					  {
+						label: "Hired",
+						data: filterHired,
+						backgroundColor: '#936ec5',  
+						borderColor: '#936ec5',  
+						hoverBackgroundColor: '#936ec5',
+						hoverBorderColor: '#936ec5',
+						//barThickness: 40,
+						borderWidth: 2
+					  }];
+
+				}
 				this.showHired = true;
 				this.totalHired = 0 ;
 				console.log(filterData);

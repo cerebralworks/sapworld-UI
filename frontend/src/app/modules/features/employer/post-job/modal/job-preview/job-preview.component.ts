@@ -84,9 +84,13 @@ export class JobPreviewComponent implements OnInit {
 	public certificationBoolean: boolean =false;
 	public work_authorization: boolean =false;
 	public programming_skills: boolean =false;
+	public optinal_skill: boolean =false;
+	public domain: boolean =false;
+	public end_to_end_implementation: boolean =false;
 	public ShowData: boolean =false;
 	public programItems: any[] = [];
 	programming_skillss = [ ];
+	optinal_skills = [ ];
 
     @ViewChild('myselect') myselect;
     optionsSelect:Array<any>;
@@ -105,42 +109,6 @@ export class JobPreviewComponent implements OnInit {
 	
 	}	
 	
-	adds(event: MatChipInputEvent): void {
-		//if (!this.matAutocomplete.isOpen) {
-			const value = (event.value || '').trim();
-
-			if (value) {
-				const index = this.programming_skillss.indexOf(value);
-				if (index >= 0) {
-					
-				}else{
-				this.programming_skillss.push(value);
-				this.childForm.patchValue({
-				  requirement: {
-					['programming_skills']: this.programming_skillss,
-				  }
-				});}
-				
-			}
-
-			// Clear the input value
-			event.chipInput!.clear();
-		//}
-	}
-
-	removes(visa): void {
-		
-		const index = this.programming_skillss.indexOf(visa);
-
-		if (index >= 0) {
-			this.programming_skillss.splice(index, 1);
-			this.childForm.patchValue({
-			  requirement: {
-				['programming_skills']: this.programming_skillss,
-			  }
-			});
-		}
-	}
 	
 	  
 	/**
@@ -251,6 +219,22 @@ export class JobPreviewComponent implements OnInit {
 		}else{
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['programming_skills'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['programming_skills'].updateValueAndValidity();
+		}
+		if( !this.postJobForm.value.requirement.optinal_skills || !this.postJobForm.value.requirement.optinal_skills.length || this.postJobForm.value.requirement.optinal_skills.length ==0){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['optinal_skills'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['optinal_skills'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['optinal_skills'].updateValueAndValidity();
+		}else{
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['optinal_skills'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['optinal_skills'].updateValueAndValidity();
+		}
+		if( !this.postJobForm.value.requirement.domain || !this.postJobForm.value.requirement.domain.length || this.postJobForm.value.requirement.domain.length ==0){
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['domain'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['domain'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['domain'].updateValueAndValidity();
+		}else{
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['domain'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['domain'].updateValueAndValidity();
 		}
 	}
 	
@@ -723,6 +707,90 @@ export class JobPreviewComponent implements OnInit {
 			});
 		}
 	}
+
+	/**
+	**	To add the chip inputs
+	**/
+
+	adds(event: MatChipInputEvent): void {
+		//if (!this.matAutocomplete.isOpen) {
+			const value = (event.value || '').trim();
+
+			if (value) {
+				const index = this.programming_skillss.indexOf(value);
+				if (index >= 0) {
+					
+				}else{
+				this.programming_skillss.push(value);
+				this.postJobForm.patchValue({
+				  requirement: {
+					['programming_skills']: this.programming_skillss,
+				  }
+				});}
+				
+			}
+
+			// Clear the input value
+			event.chipInput!.clear();
+		//}
+	}
+	
+	/**
+	**	To remove the programming_skills details
+	**/
+	
+	removes(data): void {
+		
+		const index = this.programming_skillss.indexOf(data);
+
+		if (index >= 0) {
+			this.programming_skillss.splice(index, 1);
+			this.postJobForm.patchValue({
+			  requirement: {
+				['programming_skills']: this.programming_skillss,
+			  }
+			});
+		}
+	}
+	
+	
+
+	addOptional(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.optinal_skills.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.optinal_skills.push(value);
+			this.postJobForm.patchValue({
+			  requirement: {
+				['optinal_skills']: this.optinal_skills,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+
+	removeOptional(employer): void {
+		
+		const index = this.optinal_skills.indexOf(employer);
+
+		if (index >= 0) {
+			this.optinal_skills.splice(index, 1);
+			this.postJobForm.patchValue({
+			  requirement: {
+				['optinal_skills']: this.optinal_skills,
+			  }
+			});
+		}
+	}
+	
 	
 	/**
 	**	To close after the add popup close
@@ -776,10 +844,32 @@ export class JobPreviewComponent implements OnInit {
 			});
 		}else if(this.programming_skills==true){
 			var temp = null;
-			this.programming_skillss = [];
 			this.postJobForm.patchValue({
 			  requirement : {
 				programming_skills:[]
+			  }
+			});
+			this.programming_skillss = [];
+		}else if(this.optinal_skill==true){
+			var temp = null;
+			this.postJobForm.patchValue({
+			  requirement : {
+				optinal_skills:[]
+			  }
+			});
+			this.optinal_skills = [];
+		}else if(this.domain==true){
+			var temp = null;
+			this.postJobForm.patchValue({
+			  requirement : {
+				domain:[]
+			  }
+			});
+		}else if(this.end_to_end_implementation==true){
+			var temp = null;
+			this.postJobForm.patchValue({
+			  requirement : {
+				end_to_end_implementation:null
 			  }
 			});
 		}
@@ -791,6 +881,9 @@ export class JobPreviewComponent implements OnInit {
 		this.work_authorization=false;
 		this.skills=false;
 		this.programming_skills=false;
+		this.optinal_skill=false;
+		this.domain=false;
+		this.end_to_end_implementation=false;
 	}
 	
 	/**
@@ -824,6 +917,15 @@ export class JobPreviewComponent implements OnInit {
 		}else if(this.programming_skills==true){
 			
 			this.programming_skills=false;
+		}else if(this.optinal_skill==true){
+			
+			this.optinal_skill=false;
+		}else if(this.domain==true){
+			
+			this.domain=false;
+		}else if(this.end_to_end_implementation==true){
+			
+			this.end_to_end_implementation=false;
 		}
 	}
 	
@@ -848,6 +950,12 @@ export class JobPreviewComponent implements OnInit {
 			this.skills=true;
 		}else if(value == 'programming_skills'){
 			this.programming_skills=true;
+		}else if(value == 'optinal_skill'){
+			this.optinal_skill=true;
+		}else if(value == 'domain'){
+			this.domain=true;
+		}else if(value == 'end_to_end_implementation'){
+			this.end_to_end_implementation=true;
 		}
 		this.isOpenCriteriaModal = true;
 		if (this.isOpenCriteriaModal && this.work_authorization == true) {
@@ -919,6 +1027,24 @@ export class JobPreviewComponent implements OnInit {
 			 
 		}else if(this.programming_skills==true){
 			if( !this.postJobForm.value.requirement.programming_skills || !this.postJobForm.value.requirement.programming_skills.length || this.postJobForm.value.requirement.programming_skills.length ==0){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+			 
+		}else if(this.optinal_skill==true){
+			if( !this.postJobForm.value.requirement.optinal_skills || !this.postJobForm.value.requirement.optinal_skills.length || this.postJobForm.value.requirement.optinal_skills.length ==0){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+			 
+		}else if(this.domain==true){
+			if( !this.postJobForm.value.requirement.domain || !this.postJobForm.value.requirement.domain.length || this.postJobForm.value.requirement.domain.length ==0){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+			 
+		}else if(this.end_to_end_implementation==true){
+			if( !this.postJobForm.value.requirement.end_to_end_implementation || !this.postJobForm.value.requirement.end_to_end_implementation.length || this.postJobForm.value.requirement.end_to_end_implementation.length ==0){
 				this.closeAdd();
 				this.isCheckModel = false;
 			}

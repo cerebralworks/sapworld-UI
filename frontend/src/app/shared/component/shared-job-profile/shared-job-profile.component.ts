@@ -82,7 +82,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 					  
 				  }else{
 					  this.jobInfo.match_select['training_experience']="false";
-				  }if(this.jobInfo['skills'] ==null || this.jobInfo.match_select['skills'] =='' || this.jobInfo['skills'] ==undefined){
+				  }if(this.jobInfo['skills'] ==null || this.jobInfo['skills']['length'] ==0 || this.jobInfo['skills'] ==undefined){
 					this.jobInfo.match_select['skills']="false";
 					  
 				  }if(this.jobInfo['work_authorization'] ==null || this.jobInfo.match_select['work_authorization'] =='' || this.jobInfo['work_authorization'] ==undefined){
@@ -91,6 +91,14 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 				  }
 				  if(this.jobInfo['programming_skills'] ==null || this.jobInfo['programming_skills'] ==undefined || this.jobInfo['programming_skills']['length'] ==0){
 					this.jobInfo.match_select['programming_skills']="false";
+					  
+				  } 
+				  if(this.jobInfo['optinal_skills'] ==null || this.jobInfo['optinal_skills'] ==undefined || this.jobInfo['optinal_skills']['length'] ==0){
+					this.jobInfo.match_select['optinal_skills']="false";
+					  
+				  } 
+				  if(this.jobInfo['domain'] ==null || this.jobInfo['domain'] ==undefined || this.jobInfo['domain']['length'] ==0){
+					this.jobInfo.match_select['domain']="false";
 					  
 				  } 
 				  this.isShownRequiements = false;
@@ -186,7 +194,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 					  
 				  }else{
 					  this.jobInfo.match_select['training_experience']="false";
-				  }if(this.jobInfo['skills'] ==null || this.jobInfo.match_select['skills'] =='' || this.jobInfo['skills'] ==undefined){
+				  }if(this.jobInfo['skills'] ==null || this.jobInfo['skills']['length'] ==0 || this.jobInfo['skills'] ==undefined){
 					this.jobInfo.match_select['skills']="false";
 					  
 				  }if(this.jobInfo['work_authorization'] ==null || this.jobInfo.match_select['work_authorization'] =='' || this.jobInfo['work_authorization'] ==undefined){
@@ -195,6 +203,14 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 				  } 
 				  if(this.jobInfo['programming_skills'] ==null || this.jobInfo['programming_skills'] ==undefined || this.jobInfo['programming_skills']['length'] ==0){
 					this.jobInfo.match_select['programming_skills']="false";
+					  
+				  } 
+				  if(this.jobInfo['optinal_skills'] ==null || this.jobInfo['optinal_skills'] ==undefined || this.jobInfo['optinal_skills']['length'] ==0){
+					this.jobInfo.match_select['optinal_skills']="false";
+					  
+				  } 
+				  if(this.jobInfo['domain'] ==null || this.jobInfo['domain'] ==undefined || this.jobInfo['domain']['length'] ==0){
+					this.jobInfo.match_select['domain']="false";
 					  
 				  } 
 				  this.isShownRequiements = false;

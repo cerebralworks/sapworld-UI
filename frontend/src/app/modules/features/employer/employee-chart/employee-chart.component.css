@@ -125,3 +125,20 @@ ul.statusHistory .content p{
 .small, small {
     font-weight: 900;
 }
+
+.chartWrapper {
+    position: relative;
+    overflow-x: scroll;
+    
+}
+
+.chartWrapper > canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events:none;
+}
+
+.chartAreaWrapper {
+    
+}
