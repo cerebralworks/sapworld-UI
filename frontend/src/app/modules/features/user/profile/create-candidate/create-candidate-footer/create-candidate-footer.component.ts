@@ -157,32 +157,55 @@ export class CreateCandidateFooterComponent implements OnInit {
 	**/
 	
   onToggleRegisterReview = (status) => {
-	 
-    if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >=this.createCandidateForm.value.educationExp.sap_experience ) {
-		
-		if(this.createCandidateForm.value.personalDetails.authorized_country_select){
-		
-			if(this.createCandidateForm.value.personalDetails.authorized_country){
-				this.requestParams = {'Check Authorized Country Aftre':'footer','Check Before concat authorized_country':'footer','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams);
-				var val= this.createCandidateForm.value.personalDetails.authorized_country.concat(this.createCandidateForm.value.personalDetails.authorized_country_select);
-				val= [...new Set(val)];
-				
-				this.createCandidateForm.patchValue({personalDetails:{authorized_country:val}})
-				
-			}else{
-				
-				var value = this.createCandidateForm.value.personalDetails.authorized_country_select
-				this.createCandidateForm.patchValue({personalDetails:{authorized_country:value}	})
-				
+	 if(this.checValue()){
+		if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >=this.createCandidateForm.value.educationExp.sap_experience ) {
+			
+			if(this.createCandidateForm.value.personalDetails.authorized_country_select){
+			
+				if(this.createCandidateForm.value.personalDetails.authorized_country){
+					this.requestParams = {'Check Authorized Country Aftre':'footer','Check Before concat authorized_country':'footer','time':new Date().toLocaleString()};
+					this.SharedAPIService.onSaveLogs(this.requestParams);
+					var val= this.createCandidateForm.value.personalDetails.authorized_country.concat(this.createCandidateForm.value.personalDetails.authorized_country_select);
+					val= [...new Set(val)];
+					
+					this.createCandidateForm.patchValue({personalDetails:{authorized_country:val}})
+					
+				}else{
+					
+					var value = this.createCandidateForm.value.personalDetails.authorized_country_select
+					this.createCandidateForm.patchValue({personalDetails:{authorized_country:value}	})
+					
+				}
+			}
+			
+			this.onEnableJobPreviewModal.emit(status);
+			
+		}
+	 }
+  }
+	
+	checValue(){
+		if(this.createCandidateForm.value.personalDetails['entry']==false){
+			if( !this.createCandidateForm.value.personalDetails['clients_worked'] || !this.createCandidateForm.value.personalDetails['clients_worked']['length']|| this.createCandidateForm.value.personalDetails['clients_worked']['length']==0){
+				return false;
+			}if( !this.createCandidateForm.value.educationExp['domains_worked'] || !this.createCandidateForm.value.educationExp['domains_worked']['length']|| this.createCandidateForm.value.educationExp['domains_worked']['length']==0){
+				return false;
+			}if( !this.createCandidateForm.value.educationExp['current_employer_role'] || this.createCandidateForm.value.educationExp['current_employer_role']==''){
+				return false;
+			}if( !this.createCandidateForm.value.educationExp['sap_experience'] || this.createCandidateForm.value.educationExp['sap_experience']==''){
+				return false;
+			}if( !this.createCandidateForm.value.educationExp['experience'] || this.createCandidateForm.value.educationExp['experience']==''){
+				return false;
+			}if( !this.createCandidateForm.value.educationExp['current_employer'] || this.createCandidateForm.value.educationExp['current_employer']==''){
+				return false;
+			}if( !this.createCandidateForm.value.skillSet['programming_skills'] || !this.createCandidateForm.value.skillSet['programming_skills']['length']|| this.createCandidateForm.value.skillSet['programming_skills']['length']==0){
+				return false;
+			}if( !this.createCandidateForm.value.skillSet['other_skills'] || !this.createCandidateForm.value.skillSet['other_skills']['length']|| this.createCandidateForm.value.skillSet['other_skills']['length']==0){
+				return false;
 			}
 		}
-		
-		this.onEnableJobPreviewModal.emit(status);
-		
-    }
-  }
-
+		return true;
+	}
   getErrors = (formGroup: FormGroup, errors: any = {}) => {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);

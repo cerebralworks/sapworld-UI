@@ -270,9 +270,12 @@
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-						<li class="list-group-item">
+						<li class="list-group-item" *ngIf="childForm?.value?.educationExp?.domains_worked && childForm?.value?.educationExp?.domains_worked.length && childForm?.value?.educationExp?.domains_worked.length !=0">
 						  {{sharedService.onFindDomainFromID(childForm?.value?.educationExp?.domains_worked)}}
 						</li>
+						<li class="list-group-item" *ngIf="!childForm?.value?.educationExp?.domains_worked || !childForm?.value?.educationExp?.domains_worked.length || childForm?.value?.educationExp?.domains_worked.length ==0">
+						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('domains_worked')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">{{"shared.add" | translate }} </button></li>
 					</ul>
 				</div>
 			</div>
@@ -316,11 +319,14 @@
 							</small>
 							</ng-container>
 				<ng-template #elseSkillsTemplate>
-					<li>--</li>
+						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">{{"shared.add" | translate }} </button>
 				</ng-template>
 						</li>
 						<ng-template *ngIf="!childForm?.value?.skillSet?.skills">
-							<li>--</li>
+							<<li class="list-group-item" >
+						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">{{"shared.add" | translate }} </button></li>
 				</ng-template>
 					</ul>
 				</div>
@@ -332,8 +338,12 @@
 					</ul>
 				</div>
 				<div class="col-lg-8 info">
-					<ul class="list-group">
-						<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
+					<ul class="list-group" >
+						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.skillSet?.programming_skills && childForm?.value?.skillSet?.programming_skills?.length && childForm?.value?.skillSet?.programming_skills?.length !=0">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
+					
+						<li class="list-group-item" *ngIf="!childForm?.value?.skillSet?.programming_skills || !childForm?.value?.skillSet?.programming_skills?.length || childForm?.value?.skillSet?.programming_skills?.length ==0">
+						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('programming_skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">{{"shared.add" | translate }} </button></li>
 					</ul>
 				</div>
 			</div>
@@ -344,8 +354,15 @@
 					</ul>
 				</div>
 				<div class="col-lg-8 info">
-					<ul class="list-group">
+					<!-- <ul class="list-group">
 						<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}}</li>
+					</ul> -->
+					<ul class="list-group" >
+						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.skillSet?.other_skills && childForm?.value?.skillSet?.other_skills?.length && childForm?.value?.skillSet?.other_skills?.length !=0">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}} </li>
+					
+						<li class="list-group-item" *ngIf="!childForm?.value?.skillSet?.other_skills || !childForm?.value?.skillSet?.other_skills?.length || childForm?.value?.skillSet?.other_skills?.length ==0">
+						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('other_skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">{{"shared.add" | translate }} </button></li>
 					</ul>
 				</div>
 			</div>
@@ -357,9 +374,16 @@
 				</div>
 				<div class="col-lg-8 info">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize">
+						<!-- <li class="list-group-item text-capitalize">
 							{{utilsHelperService.onConvertArrayToString(childForm?.value?.personalDetails?.clients_worked)}}
-						</li>
+						</li> -->
+						
+						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.personalDetails?.clients_worked && childForm?.value?.personalDetails?.clients_worked?.length && childForm?.value?.personalDetails?.clients_worked?.length !=0">{{utilsHelperService.onConvertArrayToString(childForm?.value?.personalDetails?.clients_worked)}}</li>
+					
+						<li class="list-group-item" *ngIf="!childForm?.value?.personalDetails?.clients_worked || !childForm?.value?.personalDetails?.clients_worked?.length || childForm?.value?.personalDetails?.clients_worked?.length ==0">
+						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('clients_worked')" type="button" class="btn btn-theme-green" data-toggle="modal"
+			data-target="#addCriteria">{{"shared.add" | translate }} </button></li>
+			
 					</ul>
 				</div>
 			</div>
@@ -707,6 +731,132 @@
 			</div>
 			
 			
+		<div class="modal-body"  *ngIf="domains_worked">
+			<div formGroupName="educationExp">
+				<div class="col-lg-12 col-md-12" >	
+					<div class=" form-group">
+						<label >{{"userProfile.domainsWorked" | translate }}</label>
+						<ngx-select
+							[placeholder]="'userProfile.domainsWorked' | translate"
+							
+							class="text-capitalize"
+							[items]="industryItems"
+							[multiple]="true"
+							autoClearSearch="true"
+							noResultsFound="No results found"
+							formControlName="domains_worked"
+							optionValueField="id"
+							optionTextField="name"
+							 ></ngx-select>
+					</div>	
+				</div>
+			</div>
+		</div>	
+		
+		<div class="modal-body"  *ngIf="skills">
+			<div formGroupName="skillSet">
+				<div class="col-lg-12 col-md-12" >	
+					<div class=" form-group">
+						<label >{{"userProfile.knowledgeOn" | translate }}</label>
+						 <ngx-select
+							class="text-capitalize"
+							[placeholder]="'Select Skills'"
+							[multiple]="true"
+							[items]="skillItems"
+							formControlName="skills"
+							optionValueField="id"
+							optionTextField="tags"
+							autoClearSearch="true"
+							noResultsFound="No results found"
+							 >
+							 <ng-template ngx-select-option-selected let-option let-text="text">
+							  {{option?.text ? option?.text?.split('--')[0] : ''}}
+							</ng-template>
+
+							<ng-template ngx-select-option let-option let-text="text">
+								{{option?.text}}
+							</ng-template>
+
+							<ng-template ngx-select-option-not-found>
+								Nothing found
+							</ng-template>
+							</ngx-select>
+					</div>	
+				</div>
+			</div>
+		</div>	
+		<div class="modal-body"  *ngIf="programming_skills">
+			<div formGroupName="skillSet">
+				<div class="col-lg-12 col-md-12" >	
+					<div class=" form-group">
+						<label >{{"userProfile.programmingSkills" | translate }}</label>
+						 <mat-form-field  class="example-chip-list" style="width: 100%;" >
+							<mat-chip-list #chipList aria-label="programmingSkills">
+								<mat-chip *ngFor="let programmingSkill of programmingSkills" [selectable]="selectable"
+									[removable]="removable" (removed)="removeProgram(programmingSkill)">
+									{{programmingSkill}}
+									<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+								</mat-chip>
+								<input placeholder=""
+									[matChipInputFor]="chipList"
+									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+									[matChipInputAddOnBlur]="addOnBlur"
+									(matChipInputTokenEnd)="addProgram($event)">
+							</mat-chip-list>
+						</mat-form-field>
+					</div>	
+				</div>
+			</div>
+		</div>	
+		<div class="modal-body"  *ngIf="clients_worked">
+			<div formGroupName="personalDetails">
+				<div class="col-lg-12 col-md-12" >	
+					<div class=" form-group">
+						<label >{{"userProfile.previousEmployers" | translate }}</label>
+						 <mat-form-field class="example-chip-list" style="width: 100%;"  >
+					
+							<mat-chip-list #chipList aria-label="Previous Employer">
+								<mat-chip *ngFor="let employer of employers" [selectable]="selectable"
+									[removable]="removable" (removed)="removeEmplyee(employer)">
+									{{employer}}
+									<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+								</mat-chip>
+								<input placeholder=""
+									[matChipInputFor]="chipList"
+									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+									[matChipInputAddOnBlur]="addOnBlur"
+									(matChipInputTokenEnd)="addEmplyee($event)">
+							</mat-chip-list>
+						</mat-form-field>
+					</div>	
+				</div>
+			</div>
+		</div>	
+		
+		<div class="modal-body"  *ngIf="other_skills">
+			<div formGroupName="skillSet">
+				<div class="col-lg-12 col-md-12" >	
+					<div class=" form-group">
+						<label >{{"userProfile.others" | translate }}</label>
+						 <mat-form-field  class="example-chip-list" style="width: 100%;" >
+							<mat-chip-list #chipLists aria-label="othersSkills">
+								<mat-chip *ngFor="let othersSkill of othersSkills" [selectable]="selectable"
+									[removable]="removable" (removed)="removeOthersSkills(othersSkill)">
+									{{othersSkill}}
+									<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+								</mat-chip>
+								<input placeholder=""
+									[matChipInputFor]="chipLists"
+									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+									[matChipInputAddOnBlur]="addOnBlur"
+									(matChipInputTokenEnd)="addOthersSkills($event)">
+							</mat-chip-list>
+						</mat-form-field>
+					</div>	
+				</div>
+			</div>
+		</div>		
+			
 		<div class="modal-footer">
 			<button (click)="closeAdd()" type="button" class="btn btn-theme-orange">
 				{{"shared.close" | translate }} 
@@ -727,7 +877,7 @@
 				{{"shared.no" | translate }} 
 			</button>
 			<button (click)="closeSaveCheck()" style="width: 25%;" type="button" class="btn btn-outline-green">
-				{{"shared.Yes" | translate }} 
+				{{"shared.yes" | translate }} 
 			</button>
 		</div>
 	

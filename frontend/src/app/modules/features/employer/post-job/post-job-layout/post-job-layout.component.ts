@@ -299,6 +299,7 @@ export class PostJobLayoutComponent implements OnInit {
 			new_skills: new FormArray([]),
 			skills: new FormControl(null),
 			skills_Data: new FormControl(null),
+			skills_Datas: new FormControl(null),
 			programming_skills:  new FormControl(null),
 			optinal_skills: new FormControl(null),
 			work_authorization: new FormControl(null),

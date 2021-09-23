@@ -198,7 +198,9 @@ export class SharedUserProfileMatchesComponent implements OnInit {
   onLoweCase(array: any[] = []) {
     if (array && array.length) {
       return array.map(v => v.toLowerCase());
-    }
+    }else{
+		return [];
+	}
   }
 
   onDiff = (arr1: any[] = [], arr2: any[] = []) => {

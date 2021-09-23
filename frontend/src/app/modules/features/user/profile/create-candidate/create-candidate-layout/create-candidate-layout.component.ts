@@ -269,8 +269,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					exp_type: ['years']
 				})]),
 				skills: new FormControl(null),
-					programming_skills: new FormControl(null, Validators.required),
-					other_skills: new FormControl(null, Validators.required),
+					programming_skills: new FormControl(null),
+					other_skills: new FormControl(null),
 					certification: new FormControl(null),
 					bio: new FormControl('Lorem Ipsum'),
 				}));

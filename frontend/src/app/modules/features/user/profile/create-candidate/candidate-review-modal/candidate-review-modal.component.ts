@@ -108,7 +108,20 @@ export class CandidateReviewModalComponent implements OnInit {
 	options  = {
 		componentRestrictions: { country:[] }
 	};
-
+	
+	public industryItems: any[] = [];
+	public othercountry: any[] = [];
+	public domains_worked: boolean = false;
+	
+	public skillItems: any[] = [];
+	public skills: boolean = false;
+	public programmingSkills: any[] = [];
+	public programming_skills: boolean = false;
+	public othersSkills: any[] = [];
+	public other_skills: boolean = false;
+	public employers: any[] = [];
+	public clients_worked: boolean = false;
+	
 	@ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
 	@ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
 	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
@@ -149,6 +162,7 @@ export class CandidateReviewModalComponent implements OnInit {
 		response => {
 			if (response && Array.isArray(response) && response.length) {
 			  this.nationality = response;
+			  this.othercountry = response;
 			}
 		});
 		this.dataService.getLanguageDataSource().subscribe(
@@ -157,6 +171,32 @@ export class CandidateReviewModalComponent implements OnInit {
 			  this.languageSource = response;
 			}
 		});
+		
+		this.dataService.getIndustriesDataSource().subscribe(
+		  response => {
+			if (response && response.items) {
+			  this.industryItems = [...response.items];
+			}
+		  },
+		  error => {
+			this.industryItems = [];
+		  }
+		)
+		
+		this.dataService.getSkillDataSource().subscribe(
+		  response => {
+			if (response && response.items) {
+			 for(let i=0;i<response.items.length;i++){
+				  response['items'][i]['tags'] =response['items'][i]['tag']+' -- '+response['items'][i]['long_tag'];
+			  } 
+			  this.skillItems = [...response.items];
+			}
+		  },
+		  error => {
+			this.skillItems = [];
+		  }
+		)
+		
 	}
 	
 	/**
@@ -173,16 +213,118 @@ export class CandidateReviewModalComponent implements OnInit {
 				keyboard: false
 			});
 			if(this.childForm.value.skillSet &&this.childForm.value.skillSet.skills){
+				this.childForm.controls.skillSet.value.skills = this.childForm.controls.skillSet.value.skills.filter(function(a,b){ return !Number.isNaN(a) });
 				if(!this.childForm.value.skillSet.skills || !this.childForm.value.skillSet.skills.length || this.childForm.value.skillSet.skills.length ==0){
 					var temFilter =this.childForm.value.skillSet.hands_on_experience.map(function(a,b){ return a.skill_id });
+					temFilter = temFilter.filter(function(a,b){ return a !=null});
+					temFilter = temFilter.filter(function(a,b){ return !Number.isNaN(a)});
 					this.childForm.patchValue({
 					  skillSet: {
 						['skills']: temFilter,
 					  }
 					});
 				}
+			}else{
+				this.childForm.controls.skillSet.value.skills = [] ;
+			}
+			this.checkPreferred();
+		}
+	}
+	
+	
+	checkPreferred(){
+		
+		var temps =this.childForm.value.personalDetails.authorized_country;
+		var temps1 =this.childForm.value.personalDetails.authorized_country_select;
+		var tempCountry =this.childForm.value.personalDetails.country;
+		var tempCoun =[];
+		if(!temps){
+			temps =[];
+		}
+		if(!temps || temps.length==0){
+			temps =[this.childForm.value.personalDetails.nationality];
+		}else{
+			temps[temps.length]=this.childForm.value.personalDetails.nationality;
+		}
+		if(temps.length){
+			for(let i=0;i<temps.length;i++){
+				var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
+				if(vali.length==1){
+					if(parseInt(vali[0]['id'])==parseInt("254")){
+						var EUCountry =["Austria","Belgium","Bulgaria","Croatia",
+							"Republic of Cyprus","Czech Republic","Denmark",
+							"Estonia","Finland","France","Germany",
+							"Greece","Hungary","Ireland","Latvia","Italy",
+							"Lithuania","Luxembourg","Malta",
+							"Netherlands","Poland","Romania","Portugal",
+							"Slovenia","Slovakia","Spain ","Sweden"
+							]
+							for(let j=0;j<EUCountry.length;j++){
+								tempCoun.push(EUCountry[j]);
+							}
+					}else{
+						if(vali[0]['nicename']!=null && vali[0]['nicename']!='' && vali[0]['nicename']!=undefined){
+							tempCoun.push(vali[0]['nicename']);
+						}
+					}
+					
+				}
+				
+
 			}
 		}
+		if(temps1){
+			temps1 =[];
+		}
+		if(!temps1 || temps1.length==0){
+			temps1 =[this.childForm.value.personalDetails.nationality];
+		}else{
+			temps1[temps1.length]=this.childForm.value.personalDetails.nationality;
+		}
+		if(temps1.length){
+			for(let i=0;i<temps1.length;i++){
+				var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps1[i])});
+				if(vali.length==1){
+					if(parseInt(vali[0]['id'])==parseInt("254")){
+						var EUCountry =["Austria","Belgium","Bulgaria","Croatia",
+							"Republic of Cyprus","Czech Republic","Denmark",
+							"Estonia","Finland","France","Germany",
+							"Greece","Hungary","Ireland","Latvia","Italy",
+							"Lithuania","Luxembourg","Malta",
+							"Netherlands","Poland","Romania","Portugal",
+							"Slovenia","Slovakia","Spain ","Sweden"
+							]
+							for(let j=0;j<EUCountry.length;j++){
+								tempCoun.push(EUCountry[j]);
+							}
+					}else{
+						if(vali[0]['nicename']!=null && vali[0]['nicename']!='' && vali[0]['nicename']!=undefined){
+							tempCoun.push(vali[0]['nicename']);
+						}
+					}
+					
+				}
+				
+
+			}
+		}
+		var CheckPreferred = this.childForm.value.jobPref.preferred_locations;
+		var tempPref=[];
+		if(CheckPreferred && CheckPreferred.length && CheckPreferred.length !=0){
+			for(let i=0;i<CheckPreferred.length;i++){
+				var checkVal = CheckPreferred[i]['country'];
+				var filterCoun = tempCoun.filter(function(a,b){ return a.toLowerCase() == checkVal.toLowerCase()}).length;
+				if(filterCoun !=0){
+					tempPref.push(CheckPreferred[i]);
+				}
+			}
+		}
+		this.childForm.patchValue({
+			jobPref: {
+				['preferred_locations']:tempPref,
+			}
+		});
+		this.childForm.value.jobPref.preferred_locations = tempPref;
 	}
 	
 	/**
@@ -393,6 +535,39 @@ export class CandidateReviewModalComponent implements OnInit {
 				  phone:null
 				}
 			  });
+		}else if(this.domains_worked == true){
+			this.childForm.patchValue({
+				educationExp: {
+				  domains_worked:[]
+				}
+			  });
+		}else if(this.skills == true){
+			this.childForm.patchValue({
+				skillSet: {
+				  skills:[]
+				}
+			  });
+		}else if(this.programming_skills == true){
+			this.childForm.patchValue({
+				skillSet: {
+				  programming_skills:[]
+				}
+			  });
+			  this.programmingSkills=[];
+		}else if(this.other_skills == true){
+			this.childForm.patchValue({
+				skillSet: {
+				  other_skills:[]
+				}
+			  });
+			  this.othersSkills=[];
+		}else if(this.clients_worked == true){
+			this.childForm.patchValue({
+				personalDetails: {
+				  clients_worked:[]
+				}
+			  });
+			  this.employers=[];
 		}
 		this.reference = false;
 		this.preferredLocation = false;
@@ -402,6 +577,11 @@ export class CandidateReviewModalComponent implements OnInit {
 		this.education = false;
 		this.show = true;
 		this.mobileNumber = false;
+		this.domains_worked = false;
+		this.skills = false;
+		this.programming_skills = false;
+		this.other_skills = false;
+		this.clients_worked = false;
 		this.criteriaModalRef.close();
 	}
 	
@@ -419,6 +599,11 @@ export class CandidateReviewModalComponent implements OnInit {
 		this.preferredLocation = false;
 		this.reference = false;
 		this.mobileNumber = false;
+		this.skills = false;
+		this.domains_worked = false;
+		this.programming_skills = false;
+		this.other_skills = false;
+		this.clients_worked = false;
 		this.criteriaModalRef.close();
 		
 	}
@@ -439,6 +624,16 @@ export class CandidateReviewModalComponent implements OnInit {
 			this.certificationBoolean = true;
 		}else if(value=='job_role'){
 			this.job_role = true;
+		}else if(value=='domains_worked'){
+			this.domains_worked = true;
+		}else if(value=='skills'){
+			this.skills = true;
+		}else if(value=='programming_skills'){
+			this.programming_skills = true;
+		}else if(value=='other_skills'){
+			this.other_skills = true;
+		}else if(value=='clients_worked'){
+			this.clients_worked = true;
 		}else if(value=='preferredLocation'){
 			this.preferredLocation = true;
 			
@@ -577,6 +772,31 @@ export class CandidateReviewModalComponent implements OnInit {
 			}
 		}else if(this.mobileNumber == true){
 			  if( this.childForm.value.personalDetails.phone==''  || this.childForm.value.personalDetails.phone==null){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.domains_worked == true){
+			  if(!this.childForm.value.educationExp.domains_worked ||this.childForm.value.educationExp.domains_worked.length==0 ){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.skills == true){
+			  if(!this.childForm.value.skillSet.skills ||this.childForm.value.skillSet.skills.length==0 ){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.programming_skills == true){
+			  if(!this.childForm.value.skillSet.programming_skills ||this.childForm.value.skillSet.programming_skills.length==0 ){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.other_skills == true){
+			  if(!this.childForm.value.skillSet.other_skills ||this.childForm.value.skillSet.other_skills.length==0 ){
+				this.closeAdd();
+				this.isCheckModel = false;
+			}
+		}else if(this.clients_worked == true){
+			  if(!this.childForm.value.personalDetails.clients_worked ||this.childForm.value.personalDetails.clients_worked.length==0 ){
 				this.closeAdd();
 				this.isCheckModel = false;
 			}
@@ -928,4 +1148,130 @@ export class CandidateReviewModalComponent implements OnInit {
 	  this.toggleresumeSelectModal = true;
 	}
 	
+	/**
+	**	To add the programmingSkills data
+	**/
+	addProgram(event: MatChipInputEvent): void {
+			const value = (event.value || '').trim();
+
+			if (value) {
+				var values = value.replace(/\b\w/g, l => l.toUpperCase()); 
+				const index = this.programmingSkills.indexOf(values);
+				if (index >= 0) {
+					
+				}else{
+				this.programmingSkills.push(values);
+				this.childForm.patchValue({
+				  skillSet: {
+					['programming_skills']: this.programmingSkills,
+				  }
+				});}
+				
+			}
+
+			// Clear the input value
+			event.chipInput!.clear();
+	}
+	
+	/**
+	**	To remove the programmingSkills data
+	**/
+	removeProgram(data): void {
+		
+		const index = this.programmingSkills.indexOf(data);
+
+		if (index >= 0) {
+			this.programmingSkills.splice(index, 1);
+			this.childForm.patchValue({
+			  skillSet: {
+				['programming_skills']: this.programmingSkills,
+			  }
+			});
+		}
+	}
+	
+	
+	/**
+	**	To add the other_skills data
+	**/
+	addOthersSkills(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.othersSkills.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.othersSkills.push(value);
+			this.childForm.patchValue({
+			  skillSet: {
+				['other_skills']: this.othersSkills,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+	
+	/**
+	**	To remove the other_skills data
+	**/
+	removeOthersSkills(data): void {
+		
+		const index = this.othersSkills.indexOf(data);
+
+		if (index >= 0) {
+			this.othersSkills.splice(index, 1);
+			this.childForm.patchValue({
+			  skillSet: {
+				['other_skills']: this.othersSkills,
+			  }
+			});
+		}
+	}
+	
+	/**
+	**	To add the company
+	**/
+	addEmplyee(event: MatChipInputEvent): void {
+		
+		const value = (event.value || '').trim();
+
+		if (value) {
+			const index = this.employers.indexOf(value);
+			if (index >= 0) {
+				
+			}else{
+			this.employers.push(value);
+			this.childForm.patchValue({
+			  personalDetails: {
+				['clients_worked']: this.employers,
+			  }
+			});}
+			
+		}
+
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+	
+	/**
+	**	To remove the company
+	**/
+	removeEmplyee(employer): void {
+		
+		const index = this.employers.indexOf(employer);
+
+		if (index >= 0) {
+			this.employers.splice(index, 1);
+			this.childForm.patchValue({
+			  personalDetails: {
+				['clients_worked']: this.employers,
+			  }
+			});
+		}
+	}
 }

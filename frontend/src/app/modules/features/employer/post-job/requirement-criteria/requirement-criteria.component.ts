@@ -285,6 +285,20 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				if (this.childForm.value.requirement.optinal_skills != null) {
 					this.optinal_skills = this.childForm.value.requirement.optinal_skills;
 				}
+				if (!this.childForm.value.requirement.hands_on_experience || !this.childForm.value.requirement.hands_on_experience.length || this.childForm.value.requirement.hands_on_experience==0 ) {
+					this.t.push(this.formBuilder.group({
+						skill_id: [null, Validators.required],
+						skill_name: [''],
+						experience: ['', [Validators.required,]],
+						exp_type: ['years', [Validators.required]]
+					}));
+				}if(this.childForm.value.jobInfo.entry==true){
+					this.childForm.patchValue({
+						requirement : {
+							['sap_experience']:0
+						}
+					});
+				}
 				if (this.childForm.value.requirement.programming_skills  != null) {
 					this.programming_skills = this.childForm.value.requirement.programming_skills;
 				}
@@ -328,6 +342,20 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 					}
 				});*/
 			}else{
+				if (!this.childForm.value.requirement.hands_on_experience || !this.childForm.value.requirement.hands_on_experience.length || this.childForm.value.requirement.hands_on_experience==0 ) {
+					this.t.push(this.formBuilder.group({
+						skill_id: [null, Validators.required],
+						skill_name: [''],
+						experience: ['', [Validators.required,]],
+						exp_type: ['years', [Validators.required]]
+					}));
+				}if(this.childForm.value.jobInfo.entry==true){
+					this.childForm.patchValue({
+						requirement : {
+							['sap_experience']:0
+						}
+					});
+				}
 				if (this.childForm.value.requirement.programming_skills != null) {
 					this.programming_skills = this.childForm.value.requirement.programming_skills;
 				}
@@ -529,6 +557,9 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	onDuplicateOthers = () => {
 		var value = this.childForm.value.requirement.skills_Data;
 		var skills_Datas = this.childForm.value.requirement.skills_Datas;
+		if(!skills_Datas || skills_Datas==undefined){
+
+		}
 		this.errorShown = false;
 		if(value !=null && value !=undefined && value !='' && skills_Datas !=null && skills_Datas !=undefined && skills_Datas !=''){
 			var Checking = this.commonSkills.filter(function(a,b){ return a.tag.toLowerCase() == value.toLowerCase() }).length;
