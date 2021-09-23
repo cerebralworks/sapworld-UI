@@ -318,4 +318,15 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		return '--';
 	}
 	
+	checkWork(){
+		var datas:any = '';
+		datas = this.userInfo['work_authorization'];
+		if( datas==0 ){
+			return true;
+		}
+		if( datas==1 ){
+			return true;
+		}
+		return false;
+	}
 }
