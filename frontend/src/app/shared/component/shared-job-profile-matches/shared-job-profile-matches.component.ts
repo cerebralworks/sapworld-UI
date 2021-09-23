@@ -638,5 +638,16 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
     
   }
   
+	checkWork(){
+		var datas:any = '';
+		datas = this.userInfo['work_authorization'];
+		if( datas==0 ){
+			return true;
+		}
+		if( datas==1 ){
+			return true;
+		}
+		return false;
+	}
   
 }
