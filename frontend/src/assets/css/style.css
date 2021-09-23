@@ -29,6 +29,12 @@ a {
   color: #385edf;
   transition: all .5s ease;
 }
+.btn{
+	border: 1px solid;
+}
+.mat-form-field-flex {
+	border-bottom: 1px solid;
+}
 .breadcrumb-item a {
 	color: #385edf !important;
 }

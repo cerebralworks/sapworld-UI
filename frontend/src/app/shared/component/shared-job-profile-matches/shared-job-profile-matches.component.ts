@@ -468,9 +468,12 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
   }
 
   onLoweCase(array: any[] = []) {
+	  
     if (array && array.length) {
       return array.map(v => v.toLowerCase());
-    }
+    }else{
+		return [];
+	}
   }
 
   onDiff = (arr1: any[] = [], arr2: any[] = []) => {
@@ -487,6 +490,9 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 	**	To convert string 
 	**/
   onChangeStringNumber(field1, field2, item, type, isString: boolean = false) {
+	  if(field1 =='programming_skills'){
+		  var awe='';
+	  }
     let lowerCaseJob = [];
     if (this.userInfo && this.userInfo[field1]) {
       lowerCaseJob = isString ? this.onLoweCase(this.userInfo[field1]) : this.userInfo[field1];

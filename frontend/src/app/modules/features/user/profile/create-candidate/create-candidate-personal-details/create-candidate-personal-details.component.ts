@@ -534,8 +534,12 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	
 	onChangeData(){
 		if(this.childForm.value.personalDetails.entry == true){
+			this.childForm.get('personalDetails').controls['clients_worked'].setValidators(null)
+			this.childForm.get('personalDetails').controls['clients_worked'].updateValueAndValidity();	
 			this.hideEmployee = true;
 		}else{
+			this.childForm.get('personalDetails').controls['clients_worked'].setValidators(Validators.required)
+			this.childForm.get('personalDetails').controls['clients_worked'].updateValueAndValidity();
 			this.hideEmployee = false;
 		}
 	}

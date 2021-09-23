@@ -181,7 +181,7 @@
 		</ul>
 	</div>
 </div>
-<div class="row">
+<div class="row" *ngIf="userInfo?.domains_worked && userInfo?.domains_worked.length && userInfo?.domains_worked.length !=0 " >
 	<div class="col-lg-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.domainsWorked" | translate }}</li>
@@ -240,8 +240,8 @@
 		</ul>
 	</div>
 </div>	
-<div class="row">
-	<div class="col-lg-4 caption">
+<div class="row"  *ngIf="userInfo?.programming_skills && userInfo?.programming_skills.length && userInfo?.programming_skills.length !=0 ">
+	<div class="col-lg-4 caption" >
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.programmingSkills" | translate }}</li>
 		</ul>
@@ -252,7 +252,7 @@
 		</ul>
 	</div>
 </div>
-<div class="row">
+<div class="row" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length && userInfo?.other_skills.length !=0 ">
 	<div class="col-lg-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.others" | translate }}</li>
@@ -264,7 +264,7 @@
 		</ul>
 	</div>
 </div>	
-<div class="row">
+<div class="row" *ngIf="userInfo?.clients_worked && userInfo?.clients_worked.length && userInfo?.clients_worked.length !=0 " >
 	<div class="col-lg-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item" *ngIf="!fieldsExclude?.clients_worked">{{"userProfile.previousEmployers" | translate}}</li>

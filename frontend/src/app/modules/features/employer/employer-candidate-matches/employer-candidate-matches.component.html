@@ -31,8 +31,8 @@
 				<!-- <button type="button" class="btn btn-fltr" (click)="handleChange($event);" id="filter_location">Job Location based User</button> -->
 				<button type="button" class="btn btn-fltr btn-fltr-active" *ngIf="selectedJob?.match_select?.experience=='0'" id="experience">{{"userProfile.totalYearsOfExp" | translate }}</button>
 				<button type="button" class="btn btn-fltr btn-fltr-active" *ngIf="selectedJob?.match_select?.sap_experience=='0'&& selectedJob?.entry ==false " id="sap_experience">{{"matches.totalYearsOfSapExperience" | translate }}</button>
-				<button type="button" (click)="handleChange($event);" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.domain=='0' && selectedJob?.entry ==false " id="domain">{{"userProfile.domainExperience" | translate }}</button>
-				<button type="button" class="btn btn-fltr btn-fltr-active" *ngIf="selectedJob?.match_select?.hands_on_experience=='0'" id="hands_on_experience">{{"userProfile.handsOnExperience" | translate }}</button>
+				<button type="button" (click)="handleChange($event);" class="btn btn-fltr" *ngIf="selectedJob?.match_select?.domain=='0' " id="domain">{{"userProfile.domainExperience" | translate }}</button>
+				<button type="button" class="btn btn-fltr btn-fltr-active" *ngIf="selectedJob?.match_select?.hands_on_experience=='0'  && selectedJob?.entry ==false " id="hands_on_experience">{{"userProfile.handsOnExperience" | translate }}</button>
 				<button type="button" (click)="handleChange($event);"  class="btn btn-fltr" *ngIf="selectedJob?.match_select?.skills=='0'" id="skills">{{"userProfile.knowledgeOn" | translate }}</button>
 				<button type="button" (click)="handleChange($event);"  class="btn btn-fltr" *ngIf="selectedJob?.match_select?.programming_skills=='0'" id="programming_skills">{{"userProfile.programmingSkills" | translate }}</button>
 				<button type="button" (click)="handleChange($event);"  class="btn btn-fltr" *ngIf="selectedJob?.match_select?.optinal_skills=='0'" id="optinal_skills">{{"userProfile.otherSkills" | translate }}</button>

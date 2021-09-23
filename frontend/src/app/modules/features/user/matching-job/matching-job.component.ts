@@ -227,6 +227,9 @@ export class MatchingJobComponent implements OnInit {
 			requestParams.city = this.userInfo.city;
 			requestParams.country = this.userInfo.country;
 		}
+		if(this.userInfo && this.userInfo.willing_to_relocate ){
+			requestParams.relocate = this.userInfo.willing_to_relocate;
+		}
 		if(this.userInfo && this.userInfo.city && this.userInfo.willing_to_relocate == true ) {
 			requestParams.work_authorization = this.userInfo.work_authorization;
 			if(this.userInfo.visa_sponsered ==true || this.userInfo.visa_sponsered =='true'){

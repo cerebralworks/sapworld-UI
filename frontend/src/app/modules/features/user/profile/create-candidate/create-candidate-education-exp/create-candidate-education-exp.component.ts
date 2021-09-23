@@ -87,7 +87,10 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   ngOnChanges(changes): void {
     setTimeout( async () => {
     if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
-      if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
+      if(this.childForm.value.personalDetails.entry){
+		  this.savedUserDetails['sap_experience']=0;
+	  }
+	  if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
         if(this.savedUserDetails.education_qualification.length == 0){
 			this.t.removeAt(0);
 			this.t.push(this.formBuilder.group({

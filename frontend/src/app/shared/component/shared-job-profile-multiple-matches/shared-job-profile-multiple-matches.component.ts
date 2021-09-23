@@ -402,7 +402,9 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
   onLoweCase(array: any[] = []) {
     if (array && array.length) {
       return array.map(v => v.toLowerCase());
-    }
+    }else{
+		return [];
+	}
   }
 
   onDiff = (arr1: any[] = [], arr2: any[] = []) => {

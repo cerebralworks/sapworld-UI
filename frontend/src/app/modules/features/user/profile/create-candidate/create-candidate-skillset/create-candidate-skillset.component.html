@@ -97,7 +97,8 @@
 	<div class="col-lg-9 col-md-12" >	
 			<div class=" form-group">
 				<label >{{"userProfile.programmingSkills" | translate }}</label>
-				<mat-form-field appMarkAsterisk class="example-chip-list" style="width: 100%;" >
+		<div appMarkAsterisk *ngIf="!this.childForm.value.personalDetails.entry" ></div>
+				<mat-form-field  class="example-chip-list" style="width: 100%;" >
 					
 					<mat-chip-list #chipList aria-label="programmingSkills">
 						<mat-chip *ngFor="let programmingSkill of programmingSkills" [selectable]="selectable"
@@ -136,7 +137,8 @@
   <div class="col-lg-9 col-md-12" >	
 			<div class=" form-group">
 				<label >{{"userProfile.others" | translate }}</label>
-				<mat-form-field appMarkAsterisk class="example-chip-list" style="width: 100%;" >
+		<div appMarkAsterisk *ngIf="!this.childForm.value.personalDetails.entry" ></div>
+				<mat-form-field  class="example-chip-list" style="width: 100%;" >
 					
 					<mat-chip-list #chipLists aria-label="othersSkills">
 						<mat-chip *ngFor="let othersSkill of othersSkills" [selectable]="selectable"

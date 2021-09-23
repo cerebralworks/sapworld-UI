@@ -341,17 +341,27 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		}}else{
 			
 		  if (this.childForm.controls.skillSet.value.hands_on_experience != null) {
+			if(!this.childForm.controls.skillSet.value.hands_on_experience || !this.childForm.controls.skillSet.value.hands_on_experience.length || this.childForm.controls.skillSet.value.hands_on_experience.length==0){
+				this.t.push(this.formBuilder.group({
+				  skill_id: [''],
+				  skill_name: [''],
+				  experience: [''],
+				  exp_type: ['years']
+				}));
+			}
 			for(let i=0;i<this.childForm.controls.skillSet.value.hands_on_experience.length;i++){
 				this.childForm.controls.skillSet.value.hands_on_experience[i]['skill_id']=parseInt(this.childForm.controls.skillSet.value.hands_on_experience[i]['skill_id']);
 				var temp_id:any = this.childForm.controls.skillSet.value['hands_on_experience'][i]["skill_id"]
 				this.skillsItems = this.skillsItems.filter(function(a,b){ return a.id != temp_id })
 			}
+			
 		  } 
-
-		if (this.childForm.controls.skillSet.value.skills != null) {
+		  
+		if (this.childForm.controls.skillSet.value.skills != null ) {
+			this.childForm.controls.skillSet.value.skills = this.childForm.controls.skillSet.value.skills.filter(function(a,b){ return !Number.isNaN(a) });
 		 var temp_ids:any = this.childForm.controls.skillSet.value['hands_on_experience'];
 			for(let i=0;i<this.childForm.controls.skillSet.value.skills.length;i++){
-				this.childForm.controls.skillSet.value.skills[i]=parseInt(this.savedUserDetails.skills[i]);
+				this.childForm.controls.skillSet.value.skills[i]=parseInt(this.childForm.controls.skillSet.value.skills[i]);
 				var temp_id:any =parseInt(this.childForm.controls.skillSet.value.skills[i]);
 				var checkData = temp_ids.filter(function(a,b){ return parseInt(a.skill_id)== temp_id }).length;
 				if(checkData ==0){
@@ -468,8 +478,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			exp_type: ['years']
 		  })]),
 		  skills: new FormControl(null),
-		  programming_skills: new FormControl(null, Validators.required),
-		  other_skills: new FormControl(null, Validators.required),
+		  programming_skills: new FormControl(null),
+		  other_skills: new FormControl(null),
 		  certification: new FormControl(null),
 		  bio: new FormControl('Lorem Ipsum')
 		}));
