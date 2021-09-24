@@ -254,14 +254,26 @@ export class UserChartComponent implements OnInit {
 			}
 			
 		}
-		var tempStartDate = this.picker.datePicker.startDate.date();
+		/* var tempStartDate = this.picker.datePicker.startDate.date();
 		var tempStartMonth = this.picker.datePicker.startDate.month()+1;
 		var tempStartYear = this.picker.datePicker.startDate.year();
 		var tempEndDate = this.picker.datePicker.endDate.date();
 		var tempEndMonth = this.picker.datePicker.endDate.month()+1;
 		var tempEndYear = this.picker.datePicker.endDate.year();
 		this.startDate = tempStartYear+'-'+tempStartMonth+'-'+tempStartDate+' 0:00:00';
+		this.endDate = tempEndYear+'-'+tempEndMonth+'-'+tempEndDate+' 23:59:59'; */
+		
+		var start =this.picker.datePicker.startDate;
+		var end = this.picker.datePicker.endDate;
+		var tempStartDate = start.date();
+		var tempStartMonth = start.month()+1;
+		var tempStartYear = start.year();
+		var tempEndDate = end.date();
+		var tempEndMonth = end.month()+1;
+		var tempEndYear = end.year();
+		this.startDate = tempStartYear+'-'+tempStartMonth+'-'+tempStartDate+' 0:00:00';
 		this.endDate = tempEndYear+'-'+tempEndMonth+'-'+tempEndDate+' 23:59:59';
+		
 		
 		this.onGetMatchesDetails();
 		this.onGetVisaDetails();

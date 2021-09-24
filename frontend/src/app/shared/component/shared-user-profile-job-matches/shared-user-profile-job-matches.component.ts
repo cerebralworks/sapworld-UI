@@ -19,11 +19,16 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 	@Input() userInfo: CandidateProfile;
 	@Input() fieldsExclude: any;
 	@Input() postedJobsDetails: any;
+	@Input() isShownRequiements: boolean = false;
 	@Input() isMatches: boolean = false;
 	@Input() isMultipleMatches: boolean = false;
 	public show: boolean = false;
 	public nationality: any[] = [];
 	public languageSource: any[] = [];
+	public isOtherRequired: boolean = false;
+	public isOtherOptional: boolean = false;
+	public isOtherNice: boolean = false;
+	public isOtherDesired: boolean = false;
 	public required: boolean = true;
 	public desired: boolean = true;
 	public optional: boolean = true;
@@ -118,12 +123,34 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 						}
 				  }
 				  
-				  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
+				 /*  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
 					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
 						  var id = this.postedJobsDetails.others[i]['id'];
 						  this.postedJobsDetails.match_select[id] = 'false';
 					  }
-				  }	
+				  }	 */
+				  
+				  
+				  this.isShownRequiements = false;
+				  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
+					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
+						  var id = this.postedJobsDetails.others[i]['id'];
+						  if(this.isShownRequiements == false){
+							  if(this.postedJobsDetails.match_select[id] =='0'){
+								  this.isOtherRequired = true;
+							  }if(this.postedJobsDetails.match_select[id] =='2'){
+								  this.isOtherNice = true;
+							  }if(this.postedJobsDetails.match_select[id] =='1'){
+								  this.isOtherDesired = true;
+							  }if(this.postedJobsDetails.match_select[id] ==''){
+								  this.isOtherOptional = true;
+							  }
+						  }else{
+							  this.postedJobsDetails.match_select[id] ='false';
+						  }
+					  }
+				  }
+				  
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 
 				});
