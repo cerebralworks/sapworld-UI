@@ -480,6 +480,17 @@ onGetCountry(query) {
 		 
 	  }
 	  
+	  onGetSkill() {
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 1000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
+
+		this.SharedAPIService.onGetSkill(this.requestParams);
+		 
+	  }
+	  
 	onGetLanguage(query) {
 		this.requestParams = {};
 		this.requestParams.page = 1;

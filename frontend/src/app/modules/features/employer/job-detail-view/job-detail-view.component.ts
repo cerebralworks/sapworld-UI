@@ -10,6 +10,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { filter, pairwise } from 'rxjs/operators';
 import {PageEvent} from '@angular/material/paginator';
+import { SharedApiService } from '@shared/service/shared-api.service';
 
 @Component({
   selector: 'app-job-detail-view',
@@ -44,6 +45,7 @@ export class JobDetailViewComponent implements OnInit {
 		public employerService: EmployerService,
 		private route: ActivatedRoute,
 		public sharedService: SharedService,
+		private SharedAPIService: SharedApiService,
 		private accountService: AccountService,
 		private location: Location,
 		public utilsHelperService: UtilsHelperService,
@@ -58,6 +60,7 @@ export class JobDetailViewComponent implements OnInit {
 	**/
 	 
 	ngOnInit(): void {
+		this.onGetSkills();
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};	
@@ -315,5 +318,17 @@ export class JobDetailViewComponent implements OnInit {
 		}
 		//return 'blue';
 	}
+	
+	
+	  onGetSkills() {
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = '';
+
+		this.SharedAPIService.onGetSkill(requestParams);
+		 
+	  }
 
 }

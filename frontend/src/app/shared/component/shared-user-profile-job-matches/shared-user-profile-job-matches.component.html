@@ -333,6 +333,22 @@
 					</div>
 				</div>
 			</div> -->
+			<div *ngIf="isOtherRequired">
+				<div class="row info-box"  >
+					<div class="col-lg-4 caption">
+						<ul class="list-group">
+							 <li class=" list-group-item text-capitalize text-blue">{{"userProfile.others" | translate }}</li>
+						</ul>
+					</div>
+					<div class="col-lg-8 info" >
+						<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
+							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '0'" >
+							  <span  >{{item?.title ? item?.title : '--'}}</span>
+							</li>
+						 </ul>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="accordion "  [ngClass]="isMultipleMatches ? ' mt-3' : ' mt-3'" *ngIf="desired">
 			<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'" ><h6  class="mb-0"></h6></div>
@@ -657,6 +673,24 @@
 					</div>
 				</div>
 			</div>
+			
+			<div *ngIf="isOtherDesired">
+				<div class="row info-box"  >
+					<div class="col-lg-4 caption">
+						<ul class="list-group">
+							 <li class=" list-group-item text-capitalize text-blue">{{"userProfile.others" | translate }}</li>
+						</ul>
+					</div>
+					<div class="col-lg-8 info" >
+						<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
+							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '1'" >
+							  <span  >{{item?.title ? item?.title : '--'}}</span>
+							</li>
+						 </ul>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 		<div class="accordion  " [ngClass]="isMultipleMatches ? ' mt-3' : ' mt-3'" *ngIf="nice">
 			<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'"><h6  class="mb-0"></h6></div>
@@ -978,6 +1012,25 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			<div *ngIf="isOtherNice">
+				<div class="row info-box"  >
+					<div class="col-lg-4 caption">
+						<ul class="list-group">
+							 <li class=" list-group-item text-capitalize text-blue">{{"userProfile.others" | translate }}</li>
+						</ul>
+					</div>
+					<div class="col-lg-8 info" >
+						<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
+							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '2'" >
+							  <span  >{{item?.title ? item?.title : '--'}}</span>
+							</li>
+						 </ul>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 		<div class="accordion   "  [ngClass]="isMultipleMatches ? ' mt-3' : ' mt-3'" *ngIf="optional">
 			<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'"><h6  class="mb-0"></h6></div>
@@ -1299,6 +1352,25 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			<div *ngIf="isOtherOptional">
+				<div class="row info-box"  >
+					<div class="col-lg-4 caption">
+						<ul class="list-group">
+							 <li class=" list-group-item text-capitalize text-blue">{{"userProfile.others" | translate }}</li>
+						</ul>
+					</div>
+					<div class="col-lg-8 info" >
+						<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
+							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == ''" >
+							  <span  >{{item?.title ? item?.title : '--'}}</span>
+							</li>
+						 </ul>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </div>                     
