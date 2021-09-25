@@ -333,7 +333,7 @@
 					</div>
 				</div>
 			</div> -->
-			<div *ngIf="isOtherRequired">
+			<div *ngIf="isOtherRequired && !isMultipleMatches">
 				<div class="row info-box"  >
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -674,7 +674,7 @@
 				</div>
 			</div>
 			
-			<div *ngIf="isOtherDesired">
+			<div *ngIf="isOtherDesired && !isMultipleMatches">
 				<div class="row info-box"  >
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1014,7 +1014,7 @@
 			</div>
 			
 			
-			<div *ngIf="isOtherNice">
+			<div *ngIf="isOtherNice && !isMultipleMatches">
 				<div class="row info-box"  >
 					<div class="col-lg-4 caption">
 						<ul class="list-group">
@@ -1354,7 +1354,7 @@
 			</div>
 			
 			
-			<div *ngIf="isOtherOptional">
+			<div *ngIf="isOtherOptional && !isMultipleMatches">
 				<div class="row info-box"  >
 					<div class="col-lg-4 caption">
 						<ul class="list-group">

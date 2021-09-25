@@ -110,6 +110,8 @@ export class SendMailJobPreviewComponent implements OnInit {
       let requestParams: any = {};
       requestParams.job_id = this.jobInfo.id;
       requestParams.email_id = this.userInfo.email;
+      requestParams.account = this.userInfo['account'];
+      requestParams.id = this.userInfo.id;
 
       this.employerService.sendMail(requestParams).subscribe(
         response => {

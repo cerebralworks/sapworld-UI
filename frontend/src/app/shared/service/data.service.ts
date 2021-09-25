@@ -11,6 +11,7 @@ export class DataService {
   private industries = new BehaviorSubject<any>({});
   private userPhoto = new BehaviorSubject<any>({});
   private tabInfo = new BehaviorSubject<any>({});
+  private notification = new BehaviorSubject<any>({});
   private profileCompletion: boolean = false;
   private matchesSuccessfull: boolean = false;
 
@@ -24,6 +25,17 @@ export class DataService {
 
   getSkillDataSource(): Observable<any> {
     return this.skillTags.asObservable();
+  }
+  setNotificationDataSource(data: {}) {
+    this.notification.next(data);
+  }
+
+  clearNotificationDataSource(): any {
+    this.notification.next({});
+  }
+
+  getNotificationDataSource(): Observable<any> {
+    return this.notification.asObservable();
   }
   
   setLanguageDataSource(data: {}) {
