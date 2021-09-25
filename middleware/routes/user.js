@@ -8,6 +8,22 @@ module.exports = (app, env, rp) => {
    /**
    * User crm for restaurant
    */
+  app.post("/api/notification/count", (req, res) => {
+		let requestBody = { ...req.body };     
+    requestCustom.post(`${serverRoutes.notification}`, req, res, requestBody);
+  });
+  
+   /**
+   * User crm for restaurant
+   */
+  app.post("/api/notification/details", (req, res) => {
+		let requestBody = { ...req.body };   
+    requestCustom.post(`${serverRoutes.notificationDetails}`, req, res, requestBody);
+  });
+  
+   /**
+   * User crm for restaurant
+   */
   app.post("/api/logs", (req, res) => {
 	  let requestBody = JSON.stringify(req.body);  
 	  fs.appendFileSync("./logs/logs.json",requestBody);

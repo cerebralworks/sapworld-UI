@@ -106,6 +106,12 @@ module.exports = (app, env, rp) => {
 	})
 	
 	
+	//applicant details GET
+	app.get("/api/jobpostings/applications/view/:id",(req, res) => {
+		let requestBody = req.params.id ;   
+		requestCustom.get(`${serverRoutes.applicationsGET}/${requestBody}`, req, res, requestBody);
+	});
+	
 	//workauthorization GET
 	app.get("/api/workauthorization/list", (req, res) => {
 		let requestBody = { ...req.query };    
