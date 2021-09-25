@@ -137,6 +137,10 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 						}
 				  }	
 				  this.isShownRequiements = false;
+				  this.isOtherRequired = false;
+				  this.isOtherNice = false;
+				  this.isOtherDesired = false;
+				  this.isOtherOptional = false;
 				  if(this.isMultipleMatches==true){
 					   if(this.jobInfo.others && this.jobInfo.others.length){
 						  for(let i=0;i<this.jobInfo.others.length;i++){
@@ -263,6 +267,10 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 				  }
 				  
 				  this.isShownRequiements = false;
+				  this.isOtherRequired = false;
+				  this.isOtherNice = false;
+				  this.isOtherDesired = false;
+				  this.isOtherOptional = false;
 				  if(this.isMultipleMatches==true){
 					   if(this.jobInfo.others && this.jobInfo.others.length){
 						  for(let i=0;i<this.jobInfo.others.length;i++){

@@ -123,16 +123,21 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 						}
 				  }
 				  
-				 /*  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
-					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
-						  var id = this.postedJobsDetails.others[i]['id'];
-						  this.postedJobsDetails.match_select[id] = 'false';
-					  }
-				  }	 */
 				  
 				  
 				  this.isShownRequiements = false;
-				  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
+				  this.isOtherRequired = false;
+				  this.isOtherNice = false;
+				  this.isOtherDesired = false;
+				  this.isOtherOptional = false;
+				 if(this.isMultipleMatches==true){
+					  if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
+						  for(let i=0;i<this.postedJobsDetails.others.length;i++){
+							  var id = this.postedJobsDetails.others[i]['id'];
+							  this.postedJobsDetails.match_select[id] = 'false';
+						  }
+					  }	 
+				  }else if(this.postedJobsDetails.others && this.postedJobsDetails.others.length){
 					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
 						  var id = this.postedJobsDetails.others[i]['id'];
 						  if(this.isShownRequiements == false){

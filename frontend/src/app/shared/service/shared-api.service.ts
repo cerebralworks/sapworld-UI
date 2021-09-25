@@ -27,6 +27,19 @@ export class SharedApiService {
       }
     )
   }
+  onGetNotification(requestParams: any): any {
+    this.employerService.onGetNotification(requestParams).subscribe(
+      response => {
+        if(response && response.items) {
+          this.dataService.setNotificationDataSource(response);
+        }else {
+          this.dataService.clearNotificationDataSource();
+        }
+      }, error => {
+        this.dataService.clearNotificationDataSource();
+      }
+    )
+  }
   
   onGetProgram(requestParams: any): any {
     this.employerService.getProgram(requestParams).subscribe(

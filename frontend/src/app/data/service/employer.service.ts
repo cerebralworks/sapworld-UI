@@ -80,6 +80,22 @@ export class EmployerService extends CacheService {
     );
   };
   
+  onGetNotification = (params: any): Observable<GetResponse> => {
+    return this.apiService.post('/api/notification/count',params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  
+  onGetNotificationDetails = (params: any): Observable<GetResponse> => {
+    return this.apiService.post('/api/notification/details',params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  
   getLanguage = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/language/list', params).pipe(
       map(data => {

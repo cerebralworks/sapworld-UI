@@ -11,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SharedApiService } from '@shared/service/shared-api.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -90,11 +92,38 @@ export class AppComponent {
     if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(1))){
       this.onGetEmployerProfile();
       this.getCommonData();
+	  this.getNotificationEmployee();
 	  
     }else if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role && this.loggedInResponse.role.includes(0))) {
       this.onGetUserProfile();
       this.getCommonData();
+	  this.getNotification();
     }
+  }
+ 
+  
+  getNotification(){
+	  if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role)) {
+		setTimeout(() => {
+			this.loaderEnabled = false;
+			let params:any ={};
+			params.view = 'user';
+			this.sharedApiService.onGetNotification(params);
+			//this.getNotification();
+			
+		},1500);
+	  }
+  }
+  
+  getNotificationEmployee(){
+		setTimeout(() => {
+			this.loaderEnabled = false;
+			let params:any ={};
+			params.view = 'employee';
+			this.sharedApiService.onGetNotification(params);
+			//this.getNotification();
+			
+		},1500);
   }
 
 getCommonData(){
