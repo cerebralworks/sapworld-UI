@@ -76,6 +76,10 @@ const routes = {
 	workauthorizationDelete : 'workauthorization/delete',
 	workauthorizationUpdate : 'workauthorization/update',
 	
+	applicationsGET : 'jobpostings/applications/view',
+	notification : 'notification/count',
+	notificationDetails : 'notification/details',
+	
 }
 
 module.exports = routes;
