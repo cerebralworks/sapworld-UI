@@ -10,6 +10,9 @@ import { UserService } from '@data/service/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import {
+    PushNotificationsService
+} from '@shared/service/notification.service';
 
 import * as moment from 'moment';
 
@@ -26,6 +29,7 @@ export class AppComponent {
   public userProfileInfo: any = {};
   public loaderEnabled: boolean = false;
   public returnEmployerUrl: any;
+  public totalValue: any = 0;
   public returnUserUrl: any;
 
   constructor(
@@ -39,7 +43,8 @@ export class AppComponent {
     private employerSharedService?: EmployerSharedService,
     private userSharedService?: UserSharedService,
     private route?: ActivatedRoute,
-    private ngxService?: NgxUiLoaderService
+    private ngxService?: NgxUiLoaderService, 
+	private _notificationService?: PushNotificationsService
   ) {
   }
 
@@ -108,9 +113,33 @@ export class AppComponent {
 			this.loaderEnabled = false;
 			let params:any ={};
 			params.view = 'user';
-			this.sharedApiService.onGetNotification(params);
-			//this.getNotification();
-			
+			this.employerService.onGetNotification(params).subscribe(
+			  response => {
+				if(response && response['data']) {
+					if(window.location.href.includes('notification')){
+						this.totalValue =0;
+					}
+					let data: Array < any >= response['data'];
+					data = data.map(elm => ({ title: elm.title, alertContent: elm.message}));
+					if(data.length !=0){
+						var val:any = document.getElementById('notifi_count');
+						  if(val){
+							  this.totalValue = this.totalValue  + response['count'];
+							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
+						  }
+						this._notificationService.generateNotification(data);						
+					}else{
+						var val:any = document.getElementById('notifi_count');
+						  if(val){
+							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
+						  }
+					  }
+				}
+			  }, error => {
+				  this.router.navigate(['/auth/user/login']);
+			  }
+			)
+			this.getNotification();
 		},1500);
 	  }
   }
@@ -120,8 +149,34 @@ export class AppComponent {
 			this.loaderEnabled = false;
 			let params:any ={};
 			params.view = 'employee';
-			this.sharedApiService.onGetNotification(params);
-			//this.getNotification();
+			this.employerService.onGetNotification(params).subscribe(
+			  response => {
+				if(response && response['data']) {
+					if(window.location.href.includes('notification')){
+						this.totalValue =0;
+					}
+					let data: Array < any >= response['data'];
+					data = data.map(elm => ({ title: elm.title, alertContent: elm.message}));
+					if(data.length !=0){
+						var val:any = document.getElementById('notifi_count');
+						  if(val){
+							  this.totalValue = this.totalValue  + response['count'];
+							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
+						   }
+						this._notificationService.generateNotification(data);						
+					}else{
+						var val:any = document.getElementById('notifi_count');
+						  if(val){
+							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
+						}
+					}
+				}
+			  }, error => {
+				  this.router.navigate(['/auth/employer/login']);
+				  
+			  }
+			)
+			this.getNotificationEmployee();
 			
 		},1500);
   }
@@ -167,4 +222,6 @@ getCommonData(){
     )
   }
 
+
+	
 }
