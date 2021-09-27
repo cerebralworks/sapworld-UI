@@ -15,6 +15,7 @@ import { ContactInfoComponent } from './component/modal/contact-info/contact-inf
 import { NotesViewComponent } from './component/modal/notes-view/notes-view.component';
 import { ControlMessagesComponent } from './component/control-messages/control-messages.component';
 import { ApiService } from './service/api.service';
+import { PushNotificationsService } from './service/notification.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
@@ -154,6 +155,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CarouselModule,
     ChangePasswordComponent
   ],
-  providers: [ApiService]
+  providers: [ApiService,PushNotificationsService]
 })
 export class SharedModule { }

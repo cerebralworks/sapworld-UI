@@ -7,6 +7,10 @@ import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import {
+    PushNotificationsService
+} from '@shared/service/notification.service';
+    
 
 @Component({
   selector: 'app-header',
@@ -32,10 +36,12 @@ export class HeaderComponent implements OnInit {
     private accountService: AccountService,
     private cdRef: ChangeDetectorRef,
     private employerSharedService: EmployerSharedService,
-    private userSharedService: UserSharedService
+    private userSharedService: UserSharedService,
+	private _notificationService: PushNotificationsService
   ) { }
 
   ngOnInit(): void {
+	  this._notificationService.requestPermission();
     this.randomNum = Math.random();
     this.translateService.addLangs(this.appGlobals.availableLanguages);
 	if(!this.translateService.store.currentLang){

@@ -80,6 +80,7 @@ export class UserProfileSettingComponent implements OnInit {
 			this.isLoading = true;
 			let requestParams = {...this.currentProfileInfo};
 			requestParams.privacy_protection = privacyProtection;
+			requestParams.privacy = 'privacy';
 			this.userService.update(requestParams).subscribe(
 				response => {
 					this.isLoading = false;

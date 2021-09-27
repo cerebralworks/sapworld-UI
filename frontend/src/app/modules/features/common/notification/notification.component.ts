@@ -17,7 +17,7 @@ export class NotificationComponent implements OnInit {
 	public loggedInResponse: LoggedIn;
 	public notificationDetails:any =[];
 	public notificationDetailsMeta:any ={};
-	public page: number = 1;
+	public page: number = 0;
 	public limit: number = 1000;
 	length = 0;
 	pageIndex = 1;

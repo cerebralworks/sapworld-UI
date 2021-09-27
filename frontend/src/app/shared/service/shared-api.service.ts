@@ -30,7 +30,7 @@ export class SharedApiService {
   onGetNotification(requestParams: any): any {
     this.employerService.onGetNotification(requestParams).subscribe(
       response => {
-        if(response && response.items) {
+        if(response && response['data']) {
           this.dataService.setNotificationDataSource(response);
         }else {
           this.dataService.clearNotificationDataSource();

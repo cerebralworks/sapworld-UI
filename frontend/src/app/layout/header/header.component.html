@@ -136,7 +136,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+		<li *ngIf="!router.url.includes('/agency')" class="nav-item  my-1 d-flex" style="margin-right:10px;">
+            <a [routerLink]="['/notification']" href="javascript:;"
+            class="py-1 px-2 d-flex align-items-center justify-content-center"
+            style="font-size: 22px;position: relative;"
+              href="javascript:;">
+              <i class="fas fa-bell" style="font-size: 26px;"></i>
+			  <span class="bell-span" ></span>
+			  <span class="bell-spans" id="notifi_count">0</span>
+            </a>
+          </li>
+          <li class="nav-item" style="margin-top: 10px;">
           <a  [class.disabled]="router?.url?.includes('/create-profile') && !currentCompanyDetails?.email_id"  class="btn btn-outline-blue btn-sm" [routerLink]="['/employer/post-job']" routerLinkActive="router-link-active" ><i class="fab fa-telegram-plane"></i> {{"home.postJob" | translate}}</a>
           </li>
         </ul>
@@ -200,12 +210,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          <li *ngIf="!router.url.includes('/agency')" class="nav-item mr-3 my-1 d-flex">
+          <li *ngIf="!router.url.includes('/agency')" class="nav-item  my-1 d-flex" style="margin-right:10px;">
             <a [routerLink]="['/notification']" href="javascript:;"
             class="py-1 px-2 d-flex align-items-center justify-content-center"
-            style="font-size: 22px;"
+            style="font-size: 22px;position: relative;"
               href="javascript:;">
-              <i class="fas fa-bell"></i>
+              <i class="fas fa-bell" style="font-size: 26px;"></i>
+			  <span class="bell-span" ></span>
+			  <span class="bell-spans" id="notifi_count">0</span>
             </a>
           </li>
           <li class="nav-item dropdown">

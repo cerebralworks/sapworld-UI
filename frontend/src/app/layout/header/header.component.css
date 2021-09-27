@@ -28,3 +28,24 @@
     border-bottom: 0!important;
     border-left: .4em solid transparent!important;
 }
+.bell-span{
+	font-size: 9px;
+    right: 1px;
+    top: -1px;
+    position: absolute;
+    color: #fff;
+    background: red;
+    border-radius: 50%;
+    padding: 10px;
+}
+.bell-spans{
+	
+    font-size: 9px;
+    right: -2px;
+    top: -7px;
+    position: absolute;
+    color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+
+}
