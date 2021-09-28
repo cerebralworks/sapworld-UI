@@ -7,10 +7,12 @@ import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { DataService } from '@shared/service/data.service';
 import {
     PushNotificationsService
 } from '@shared/service/notification.service';
-    
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-header',
@@ -35,6 +37,8 @@ export class HeaderComponent implements OnInit {
     public appGlobals: AppGlobals,
     private accountService: AccountService,
     private cdRef: ChangeDetectorRef,
+    private locations: Location,
+	private dataService: DataService,
     private employerSharedService: EmployerSharedService,
     private userSharedService: UserSharedService,
 	private _notificationService: PushNotificationsService
@@ -120,6 +124,14 @@ export class HeaderComponent implements OnInit {
 
   onOpenLangMenu = () => {
     this.isLangMenuOpen = true;
+  }
+  
+  navigateNotification(){
+	  
+	  this.router.navigate(['/notification']);
+	  if(this.locations.path() =='/notification'){
+		  this.dataService.setNotificationDataSource({total:true});
+	  }
   }
 
   logout() {
