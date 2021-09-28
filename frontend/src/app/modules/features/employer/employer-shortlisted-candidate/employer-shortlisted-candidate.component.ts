@@ -47,6 +47,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public isCheckModel: boolean = false;
 	public isErrorShown: boolean = false;
 	public isErrorShownValue: boolean = false;
+	public showJobs: boolean = false;
 	public checkModalRef: NgbModalRef;
 	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
 
@@ -82,8 +83,9 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				this.employeeValue =details;
 				if(details) {
 					if((details && details.id) && this.validateSubscribe == 0) {
-						this.onGetPostedJob(details.id);
+						this.onGetPostedJob(details.id); 
 						this.onGetPostedJobCount(details.id);
+						
 						this.validateSubscribe ++;
 					}
 				}
@@ -123,6 +125,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			response => {
 				if(response && response.items && response.items.length > 0) {
 					this.postedJobs = [...response.items];
+					this.showJobs = true;
 					if(this.postedJobs && this.postedJobs.length && this.postedJobs[0]) {
 						if(this.selectedJob && this.selectedJob.id) {
 							const filterJob = this.postedJobs.find((val) => {
@@ -132,10 +135,10 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 							if(filterJob && !this.utilsHelperService.isEmptyObj(filterJob)) {
 								this.selectedJob = filterJob;
 							}
-							this.onGetShortListedJobs();
+							//this.onGetShortListedJobs();
 						}else {
 							this.selectedJob = this.postedJobs[0];
-							this.onGetShortListedJobs();
+							//this.onGetShortListedJobs();
 						}
 					}
 				}
@@ -175,6 +178,12 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.employerService.getPostedJobCount(requestParams).subscribe(
 			response => {
 				if(response['count']){
+					if(!this.selectedJob){
+						this.selectedJob ={id:1};
+					}
+					var tempLen =response['count'].length-1;
+					this.selectedJob.id = response['count'][tempLen]['id'];
+					this.onGetShortListedJobs();
 					this.TotalCount =response['count'];
 					var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
 					if(document.getElementById('ApplicantsShortListCount')){

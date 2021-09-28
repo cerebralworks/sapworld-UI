@@ -67,8 +67,8 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 				if(details) {
 					if((details && details.id) && this.validateSubscribe == 0) {
 						this.Company = details.id;
-						this.onGetPostedJob(details.id);
 						this.onGetPostedJobCount(details.id);
+						this.onGetPostedJob(details.id);
 						this.validateSubscribe ++;
 					}
 				}
@@ -118,7 +118,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 							if(filterJob && !this.utilsHelperService.isEmptyObj(filterJob)) {
 								this.selectedJob = filterJob;
 							}
-							this.onGetAppliedJobs();
+							//this.onGetAppliedJobs();
 						}else {
 							if(!sessionStorage.getItem('view-application-job-id')){
 								this.selectedJob = this.postedJobs[0];
@@ -131,7 +131,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 									this.selectedJob = this.postedJobs[0];
 								}
 							}
-							this.onGetAppliedJobs();              
+							//this.onGetAppliedJobs();              
 						}
 					}
 				}
@@ -157,6 +157,12 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 		this.employerService.getPostedJobCount(requestParams).subscribe(
 			response => {
 				if(response['count']){
+					if(!this.selectedJob){
+						this.selectedJob ={id:1};
+					}
+					var tempLen =response['count'].length-1;
+					this.selectedJob.id = response['count'][tempLen]['id'];
+					this.onGetAppliedJobs();
 					this.TotalCount =response['count'];
 					var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
 					if(document.getElementById('ApplicantsCount')){

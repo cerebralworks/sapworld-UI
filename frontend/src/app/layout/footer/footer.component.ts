@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class FooterComponent implements OnInit {
 	
   public loggedUserInfo: AccountLogin;
-  
+  today: number = Date.now();
   public accountUserSubscription: Subscription;
   constructor(
     private accountService: AccountService
