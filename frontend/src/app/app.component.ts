@@ -10,6 +10,8 @@ import { UserService } from '@data/service/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import { DataService } from '@shared/service/data.service';
+
 import {
     PushNotificationsService
 } from '@shared/service/notification.service';
@@ -28,6 +30,7 @@ export class AppComponent {
   public employerProfileInfo: any = {};
   public userProfileInfo: any = {};
   public loaderEnabled: boolean = false;
+  public check: boolean = false;
   public returnEmployerUrl: any;
   public totalValue: any = 0;
   public returnUserUrl: any;
@@ -40,6 +43,7 @@ export class AppComponent {
     private accountService?: AccountService,
     private sharedApiService?: SharedApiService,
     private router?: Router,
+	private dataService?: DataService,
     private employerSharedService?: EmployerSharedService,
     private userSharedService?: UserSharedService,
     private route?: ActivatedRoute,
@@ -73,6 +77,15 @@ export class AppComponent {
        }
       }
     });
+	this.dataService.getNotificationDataSource().subscribe(
+	  response => {
+		if(response && response['total']) {
+			if(response['total'] ==true ){
+				this.totalValue =0;
+			}
+		}
+	  }, error => {
+	  });
   }
 
   public useLanguage(lang: string): void {
@@ -116,30 +129,36 @@ export class AppComponent {
 			this.employerService.onGetNotification(params).subscribe(
 			  response => {
 				if(response && response['data']) {
-					if(window.location.href.includes('notification')){
+					if(window.location.href.includes('notification') && this.check ==false){
 						this.totalValue =0;
+						this.check = true;
+					}else if(!window.location.href.includes('notification')){
+						this.check = false;
+						this.dataService.clearNotificationDataSource();
 					}
 					let data: Array < any >= response['data'];
 					data = data.map(elm => ({ title: elm.title, alertContent: elm.message}));
 					if(data.length !=0){
 						var val:any = document.getElementById('notifi_count');
 						  if(val){
-							  this.totalValue = this.totalValue  + response['count'];
+							  this.totalValue =  response['count'];
 							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
 						  }
 						this._notificationService.generateNotification(data);						
 					}else{
 						var val:any = document.getElementById('notifi_count');
 						  if(val){
+							  this.totalValue =  response['count'];
 							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
 						  }
 					  }
 				}
+				this.getNotification();
 			  }, error => {
-				  this.router.navigate(['/auth/user/login']);
+				  //this.router.navigate(['/auth/user/login']);
 			  }
 			)
-			this.getNotification();
+			
 		},1500);
 	  }
   }
@@ -152,31 +171,37 @@ export class AppComponent {
 			this.employerService.onGetNotification(params).subscribe(
 			  response => {
 				if(response && response['data']) {
-					if(window.location.href.includes('notification')){
+					if(window.location.href.includes('notification') && this.check ==false){
 						this.totalValue =0;
+						this.check = true;
+					}else if(!window.location.href.includes('notification')){
+						this.check = false;
+						this.dataService.clearNotificationDataSource();
 					}
 					let data: Array < any >= response['data'];
 					data = data.map(elm => ({ title: elm.title, alertContent: elm.message}));
 					if(data.length !=0){
 						var val:any = document.getElementById('notifi_count');
 						  if(val){
-							  this.totalValue = this.totalValue  + response['count'];
+							  this.totalValue =  response['count'];
 							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
-						   }
+						  }
 						this._notificationService.generateNotification(data);						
 					}else{
 						var val:any = document.getElementById('notifi_count');
 						  if(val){
+							  this.totalValue =  response['count'];
 							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
-						}
-					}
+						  }
+					  }
 				}
+				this.getNotificationEmployee();
 			  }, error => {
-				  this.router.navigate(['/auth/employer/login']);
+				  //this.router.navigate(['/auth/employer/login']);
 				  
 			  }
 			)
-			this.getNotificationEmployee();
+			
 			
 		},1500);
   }
