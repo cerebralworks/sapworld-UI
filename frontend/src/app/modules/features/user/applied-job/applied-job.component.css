@@ -11,7 +11,7 @@ ul.statusHistory:before {
     background: #eaeaea;
     display: inline-block;
     position: absolute;
-    left: 19.25%;
+    left: 22.25%;
     width: 4px;
     height: 100%;
     z-index: 0;
@@ -50,7 +50,7 @@ ul.statusHistory .icon {
     text-align: center;
     left: 18.5%;
     top: 0;
-    margin: 0 0 0 -25px;
+    margin: 0 0 0 0px;
 }
 ul.statusHistory .success .icon{
 	background: #11b771!important;
@@ -68,7 +68,7 @@ ul.statusHistory .orange .icon{
 	background: orange !important;
 }
 ul.statusHistory .content {
-    margin: 0 0 25px 25%;
+    margin: 0 0 25px 27%;
     background: #f8f8f8;
     padding: 1.0em;
     position: relative;

@@ -181,8 +181,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		  details => {
 			if(details) {
 			  if((details && details.id) && this.validateSubscribe == 0) {
-				this.onGetPostedJob(details.id);
 				this.onGetPostedJobCount(details.id);
+				this.onGetPostedJob(details.id);				
 				this.validateSubscribe ++;
 			  }
 			}
@@ -333,7 +333,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 							if(filterJob && !this.utilsHelperService.isEmptyObj(filterJob)) {
 								this.selectedJob = filterJob;
 							}
-							this.onGetCandidateList(this.selectedJob.id);
+							//this.onGetCandidateList(this.selectedJob.id);
 						}else {
 							if(!sessionStorage.getItem('match-job-id')){
 								this.selectedJob = this.postedJobs[0];
@@ -346,7 +346,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 									this.selectedJob = this.postedJobs[0];
 								}
 							}
-							this.onGetCandidateList(this.selectedJob.id);              
+							//this.onGetCandidateList(this.selectedJob.id);              
 						}
 					}
 				}
@@ -371,6 +371,12 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		this.employerService.getPostedJobCount(requestParams).subscribe(
 			response => {
 				if(response['count']){
+					if(!this.selectedJob){
+						this.selectedJob ={id:1};
+					}
+					var tempLen =response['count'].length-1;
+					this.selectedJob.id = response['count'][tempLen]['id'];
+					this.onGetCandidateList(this.selectedJob.id);
 					this.TotalCount =response['count'];
 					var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
 					if(document.getElementById('MatchesCount')){

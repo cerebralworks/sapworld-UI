@@ -25,14 +25,14 @@
     </div>
   <div class="footer-bottom">
     <div class="container">
-    <i class="fas fa-copyright mr-1"></i> 2021 <a href="#"> SAP World</a> All Rights Reserved.
+    <i class="fas fa-copyright mr-1"></i> {{today | date:'yyyy'}} <a href="#"> SAP World</a> All Rights Reserved.
     </div>
   </div>
 </footer>
  <footer *ngIf="!loggedUserInfo?.isLoggedIn">
  <div class="footer-bottom ">
 	  <div class="container">
-		<i class="fas fa-copyright mr-1"></i> 2021 <a href="#"> SAP World</a> All Rights Reserved.
+		<i class="fas fa-copyright mr-1"></i> {{today | date:'yyyy'}} <a href="#"> SAP World</a> All Rights Reserved.
 	  </div>
 	</div>
 </footer>

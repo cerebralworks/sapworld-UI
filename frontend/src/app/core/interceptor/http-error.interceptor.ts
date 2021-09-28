@@ -78,6 +78,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 					if(err.error.error.message =='Forbidden Access! :: IP Logged'){
 						this.accountService.logout();
 						location.reload();
+					}else if(err.error.error.message =='Unauthorized! Invalid credentials!'){
+						
 					}else{
 						this.toastrService.error(err.error.error.message, '');
 					}

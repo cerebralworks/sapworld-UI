@@ -135,6 +135,9 @@ export class SharedUserProfileComponent implements OnInit {
 	**/
 	findCountryArray(value){
 		if(value){
+			if(value.length !=0){
+				value = value.map(function(a,b){ return parseInt(a) });
+			}
 			if(this.nationality){
 				var array = this.nationality.filter(f=>{ return value.includes(f.id)})
 

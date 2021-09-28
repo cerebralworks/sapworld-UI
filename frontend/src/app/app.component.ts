@@ -138,20 +138,17 @@ export class AppComponent {
 					}
 					let data: Array < any >= response['data'];
 					data = data.map(elm => ({ title: elm.title, alertContent: elm.message}));
-					if(data.length !=0){
-						var val:any = document.getElementById('notifi_count');
-						  if(val){
-							  this.totalValue =  response['count'];
-							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
-						  }
-						this._notificationService.generateNotification(data);						
+					var val:any = document.getElementById('notifi_count');
+					this.totalValue =  response['count'];
+					if(this.totalValue !=0){
+						
+						document.getElementById('notifi_count')['style']['display']='block';
+						document.getElementById('notifi_color')['style']['display']='block';
+						document.getElementById('notifi_count')['innerHTML']=this.totalValue;
 					}else{
-						var val:any = document.getElementById('notifi_count');
-						  if(val){
-							  this.totalValue =  response['count'];
-							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
-						  }
-					  }
+						document.getElementById('notifi_count')['style']['display']='none';
+						document.getElementById('notifi_color')['style']['display']='none';
+					}
 				}
 				this.getNotification();
 			  }, error => {
@@ -180,20 +177,16 @@ export class AppComponent {
 					}
 					let data: Array < any >= response['data'];
 					data = data.map(elm => ({ title: elm.title, alertContent: elm.message}));
-					if(data.length !=0){
-						var val:any = document.getElementById('notifi_count');
-						  if(val){
-							  this.totalValue =  response['count'];
-							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
-						  }
-						this._notificationService.generateNotification(data);						
+					var val:any = document.getElementById('notifi_count');
+					this.totalValue =  response['count'];
+					if(this.totalValue !=0){
+						document.getElementById('notifi_count')['style']['display']='block';
+						document.getElementById('notifi_color')['style']['display']='block';
+						document.getElementById('notifi_count')['innerHTML']=this.totalValue;
 					}else{
-						var val:any = document.getElementById('notifi_count');
-						  if(val){
-							  this.totalValue =  response['count'];
-							  document.getElementById('notifi_count')['innerHTML']=this.totalValue;
-						  }
-					  }
+						document.getElementById('notifi_count')['style']['display']='none';
+						document.getElementById('notifi_color')['style']['display']='none';
+					}
 				}
 				this.getNotificationEmployee();
 			  }, error => {

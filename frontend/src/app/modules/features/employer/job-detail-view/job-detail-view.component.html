@@ -92,7 +92,69 @@
 		<div class="sidebar-widget px-4" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">
 			<ul class="timeline">
 			<ng-container *ngFor="let items of postedJobsDetails?.screening_process;let i=index">
-				<li [ngClass]="renderClassed(i+1)">	
+				<li class="blue" *ngIf="i==0">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="orange" *ngIf="i==1">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="purple" *ngIf="i==2">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="red" *ngIf="i==3">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="yallow" *ngIf="i==4">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="dblue" *ngIf="i==5">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="green" *ngIf="i==6">	
+					<span>{{items.title}}</span>
+				</li>
+				
+				<li class="blue" *ngIf="i==7">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="orange" *ngIf="i==8">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="purple" *ngIf="i==9">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="red" *ngIf="i==10">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="yallow" *ngIf="i==11">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="dblue" *ngIf="i==12">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="green" *ngIf="i==13">	
+					<span>{{items.title}}</span>
+				</li>
+				
+				<li class="blue" *ngIf="i==14">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="orange" *ngIf="i==15">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="purple" *ngIf="i==16">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="red" *ngIf="i==17">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="yallow" *ngIf="i==18">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="dblue" *ngIf="i==19">	
+					<span>{{items.title}}</span>
+				</li>
+				<li class="green" *ngIf="i==20">	
 					<span>{{items.title}}</span>
 				</li>
 			</ng-container>
