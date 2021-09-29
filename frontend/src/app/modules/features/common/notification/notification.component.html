@@ -44,6 +44,8 @@
 								</td>
 								<td>
 									{{items?.message ? items?.message : '--'}}
+									<a *ngIf="items?.path" class="primaryData" [routerLink]="['/employer/job-detail-view', 'details']" [queryParams]="{id: items?.job_id}" routerLinkActive="router-link-active"  >{{items?.path}}</a>
+									<a >{{items?.country}}</a>
 								</td>
 							</tr>
 						</tbody>

@@ -443,7 +443,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onRedirectBack = () => {
 		// this.location.back();
-		this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches', id: this.jobId} });
+		this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches',reset: 'true', id: this.jobId} });
 	}
 	
 	
@@ -483,6 +483,15 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
       this.currentUserInfo = item;
     }
     this.isOpenedSendMailModal = status;
+	if(status == false){
+		if(this.currentUserInfo['id']==this.matchingUsers['profile']['id']){
+			this.matchingUsers['profile']['mail'] =true;
+		}else{
+			this.matchingUsersNew['profile']['mail'] =true;
+		}
+		
+	}
+	
   }
 
   onGetFilteredValue(resumeArray: any[]): any {

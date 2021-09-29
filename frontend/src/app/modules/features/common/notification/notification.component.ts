@@ -78,6 +78,14 @@ export class NotificationComponent implements OnInit {
 		this.employerService.onGetNotificationDetails(requestParams).subscribe(
 		  response => {
 			if(response && response['details']) {
+				response['details'].forEach(item => {
+					if(item.title=='New Application Request'){
+						var temp = item.message.split('/');
+						item['message'] = temp[0];
+						item['path'] = temp[1];
+						item['country'] = temp[2];
+					}
+				});
 			  this.notificationDetails = response['details'];
 			  this.notificationDetailsMeta = response['meta'];
 			}

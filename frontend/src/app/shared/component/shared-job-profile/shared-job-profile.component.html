@@ -15,7 +15,8 @@
 				</div>
 				<div class="col-lg-7 info">
 					<ul class="list-group">
-						<li class="list-group-item text-capitalize ">{{jobInfo?.experience}} Years</li>
+						<li class="list-group-item text-capitalize " *ngIf="jobInfo?.experience ==0 ">--</li>
+						<li class="list-group-item text-capitalize " *ngIf="jobInfo?.experience !=0 ">{{jobInfo?.experience}} Years</li>
 					</ul>
 				</div>
 			</div>

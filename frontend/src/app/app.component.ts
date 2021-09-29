@@ -156,7 +156,7 @@ export class AppComponent {
 			  }
 			)
 			
-		},1500);
+		},5000);
 	  }
   }
   
@@ -196,7 +196,8 @@ export class AppComponent {
 			)
 			
 			
-		},1500);
+		},5000);
+		
   }
 
 getCommonData(){

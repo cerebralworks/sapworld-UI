@@ -177,7 +177,8 @@
 	</div>
 	<div class="col-lg-8 info">
 		<ul class="list-group">
-			<li class="list-group-item text-capitalize">{{userInfo?.sap_experience ? userInfo?.sap_experience + ' Years': '--'}} </li>
+			<li class="list-group-item text-capitalize" *ngIf="userInfo?.sap_experience ==0 ">-- </li>
+			<li class="list-group-item text-capitalize" *ngIf="userInfo?.sap_experience !=0 ">{{userInfo?.sap_experience ? userInfo?.sap_experience + ' Years': '--'}} </li>
 		</ul>
 	</div>
 </div>
