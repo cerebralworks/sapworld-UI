@@ -11,7 +11,11 @@
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
 }
-
+.btn-outline-orange-active {
+    color: #fff;
+    background-color: #e98752;
+    border-color: #e98752;
+}
 .corner-ribbon.bottom-right{
   top: auto;
   right: -50px;

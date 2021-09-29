@@ -160,7 +160,7 @@
 									</div>
 									<div class="col-lg-12 info" style="text-align:end;">
 										<button type="button"   *ngIf="!matchingJobNew?.jobs.is_job_applied "  [ngClass]="{'applied-btn-green': (matchingJobNew?.jobs.is_job_applied ), 'btn-outline-green': !matchingJobNew?.jobs.is_job_applied}" [disabled]="matchingJobNew?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJobNew?.jobs)" class="btn btn-outline-green ml-auto" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.apply" | translate}}</button>
-										<button type="button"  *ngIf="matchingJobNew?.jobs.is_job_applied " [disabled]="matchingJobNew?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJobNew?.jobs)" class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.applied" | translate}}</button>
+										<button type="button"  *ngIf="matchingJobNew?.jobs.is_job_applied " [disabled]="matchingJobNew?.jobs.is_job_applied "  class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.applied" | translate}}</button>
 									</div>
 								</div>
 							</div>
@@ -173,7 +173,7 @@
 					<small><i class="fab fa-buffer"></i> View All Jobs</small>
 				</a> -->
 				<div style="top:-35px;position: absolute;left: 10px;" >					
-						<span class="font-weight-bold" style="line-height: 28px;">  {{"shared.youHave" | translate}}{{matchingJobMeta?.count}} {{"shared.matches" | translate}}
+						<span class="font-weight-bold" style="line-height: 28px;">  {{"shared.youHave" | translate}} {{matchingJobMeta?.count}} {{"shared.matches" | translate}}
 						<button type="button" (click)="!isMultipleMatches && onViewOtherMatches()" class="btn btn-outline-blue btn-sm ml-2 " style=" z-index:99;width: 70px;">{{"shared.viewAll" | translate}}</button>
 						 </span>	
 				</div>
@@ -219,7 +219,7 @@
 
 <app-resume-select
 [toggleResumeSelectModal]="isOpenedResumeSelectModal"
-[currentJobDetails]="matchingJob?.jobs"
+[currentJobDetails]="currentJobDetails"
 *ngIf="isOpenedResumeSelectModal"
 (onEvent)="onToggleResumeSelectModal($event)">
 </app-resume-select>

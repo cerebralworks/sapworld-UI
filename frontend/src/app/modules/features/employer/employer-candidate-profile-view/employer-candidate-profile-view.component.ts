@@ -134,11 +134,11 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	onRedirectBack = () => {
 		//this.location.back();
 		if(sessionStorage.getItem('view-user-path')=='applicants'){
-			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'applicants'}});
+			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'applicants',reset: 'true'}});
 		}else if(sessionStorage.getItem('view-user-path')=='savedprofile'){
-			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'savedProfile'}});
+			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'savedProfile',reset: 'true'}});
 		}else if(sessionStorage.getItem('view-user-path')=='shortlisted'){
-			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
+			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'shortlisted',reset: 'true'}});
 		}else{
 			this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
 		}
@@ -166,8 +166,9 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	
 	onGetPostedJob() {
 		let requestParams: any = {};
-		requestParams.expand = 'company';
+		requestParams.expand = 'company,score';
 		requestParams.id = this.jobId;
+		requestParams.user_id = this.userID;
 		this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {
 				if (response && response.details) {

@@ -714,7 +714,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		}
 		this.isOpenedSendMailModal = status;
 		if(this.selectedJob &&this.selectedJob.id) {
-			this.onGetCandidateList(this.selectedJob.id);
+			setTimeout(() => {
+				this.onGetCandidateList(this.selectedJob.id);
+			},5000);
 		}
 	}
 

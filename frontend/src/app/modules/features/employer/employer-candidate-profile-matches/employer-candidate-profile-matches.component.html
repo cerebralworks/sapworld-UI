@@ -227,7 +227,7 @@
 										[matchedElement]="matchedElement" [missingElement]="missingElement"
 										[moreElement]="moreElement" [matchingUsers]="matchingUsers" [matchingUsersNew]="matchingUsersNew">
 										</app-shared-user-profile-matches>
-										<div class="col-lg-12 info" style="text-align:end;">
+										<div class="col-lg-12 info" style="text-align:end;" *ngIf="matchingUsers?.profile?.mail !=true">
 											<button *ngIf="!matchingUsers?.application && postedJobsDetails?.status == 1 " (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
 												class="fas fa-paper-plane"></i> {{"shared.sendMail" | translate}}</button>
 										</div>
@@ -296,7 +296,7 @@
 										[matchedElement]="matchedElement" [missingElement]="missingElement"  [application]="matchingUsersNew?.application" 
 										[moreElement]="moreElement" [matchingUsers]="matchingUsersNew" [matchingUsersNew]="matchingUsersNew">
 										</app-shared-user-profile-matches>
-										<div class="col-lg-12 info" style="text-align:end;">
+										<div class="col-lg-12 info" style="text-align:end;" *ngIf="matchingUsersNew?.profile?.mail !=true " >
 											<button  [disabled]="matchingUsersNew?.application && postedJobsDetails?.status == 1 " (click)="onToggleSendMail(true, matchingUsersNew?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
 												class="fas fa-paper-plane"></i> {{"shared.sendMail" | translate}}</button>
 										</div>

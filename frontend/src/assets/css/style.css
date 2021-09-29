@@ -2870,3 +2870,9 @@ ul.timeline > li span:hover {
     border: none;
     margin-top: 45px;
 }
+.primaryData{
+	color:blue;    
+	text-decoration: underline;
+    text-transform: uppercase;
+    cursor: pointer;
+}
