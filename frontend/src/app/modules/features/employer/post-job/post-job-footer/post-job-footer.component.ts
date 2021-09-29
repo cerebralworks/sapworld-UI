@@ -25,9 +25,9 @@ export class PostJobFooterComponent implements OnInit {
   }
 
   onPrevious = () => {
-    for (let key in this.postJobForm.controls.requirement['controls']) {
+    /* for (let key in this.postJobForm.controls.requirement['controls']) {
       this.removeError(this.postJobForm.controls.requirement['controls'][key], 'required')
-    }
+    } */
     this.btnType = 'prev';
     this.onTabChange();
   }

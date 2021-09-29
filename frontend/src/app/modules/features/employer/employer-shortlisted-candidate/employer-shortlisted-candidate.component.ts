@@ -50,6 +50,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public showJobs: boolean = false;
 	public checkModalRef: NgbModalRef;
 	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
+	public showCount: boolean = false;
+	public showJob: boolean = false;
 
 	constructor(
 		private employerService: EmployerService,
@@ -83,8 +85,9 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				this.employeeValue =details;
 				if(details) {
 					if((details && details.id) && this.validateSubscribe == 0) {
-						this.onGetPostedJob(details.id); 
+						
 						this.onGetPostedJobCount(details.id);
+						this.onGetPostedJob(details.id); 
 						
 						this.validateSubscribe ++;
 					}
@@ -124,7 +127,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.employerService.getPostedJob(requestParams).subscribe(
 			response => {
 				if(response && response.items && response.items.length > 0) {
-					this.postedJobs = [...response.items];
+					this.postedJobs = response.items;
 					this.showJobs = true;
 					if(this.postedJobs && this.postedJobs.length && this.postedJobs[0]) {
 						if(this.selectedJob && this.selectedJob.id) {
@@ -143,6 +146,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 					}
 				}
 				this.postedJobMeta = { ...response.meta };
+				this.showJob = true;
 			}, error => {
 			}
 		)
@@ -179,7 +183,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			response => {
 				if(response['count']){
 					if(!this.selectedJob){
-						this.selectedJob ={id:1};
+						this.selectedJob ={id:' '};
 					}
 					var tempLen =response['count'].length-1;
 					this.selectedJob.id = response['count'][tempLen]['id'];
@@ -192,6 +196,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				}else{
 			
 				}
+				this.showCount =true;
 			}, error => {
 			}
 		)

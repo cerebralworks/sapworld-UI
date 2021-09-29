@@ -575,12 +575,20 @@ export class CandidateJobMatchesComponent implements OnInit {
 			this.currentJobDetails = item;
 		}
 		this.isOpenedResumeSelectModal = false;
-		if(this.currentJobDetails.id == this.matchingJob.jobs.id){
-			this.matchingJob = { ...this.matchingJob, jobs: {} };
-			this.onGetUserScoringById(true);
-		}else if(this.currentJobDetails.id == this.matchingJob.jobs.id){
-			this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
-			this.onGetUserScoringByIdNew();		
+		if(status ==false ){
+			if(this.isMultipleMatches == true){
+				if(this.currentJobDetails.id == this.matchingJob.jobs.id){
+					this.matchingJob = { ...this.matchingJob, jobs: {} };
+					this.page--;
+					this.onGetUserScoringById(true);
+				}else if(this.currentJobDetails.id == this.matchingJobNew.jobs.id){
+					this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
+					this.onGetUserScoringByIdNew();		
+				}
+			}else if(this.currentJobDetails.id == this.matchingJob.jobs.id){
+				this.matchingJob = { ...this.matchingJob, jobs: {} };
+				this.onGetUserScoringById(true);
+			}
 		}
 
 	}

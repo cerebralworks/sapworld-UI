@@ -148,7 +148,7 @@ export class ResumeSelectComponent implements OnInit {
 	
 	ngOnDestroy(): void {
 		if(this.isShowValidShow !=true){
-			this.onClickCloseBtn(false);
+			//this.onClickCloseBtn(false);
 		}
 	}
 
@@ -262,6 +262,22 @@ export class ResumeSelectComponent implements OnInit {
 	
 	onClickCloseBtn(status) {
 		this.onEvent.emit(status);
+		if (status == false) {
+			if(this.mbRefsss){
+				this.mbRefsss.close();			
+			}
+			if(this.mbRef){
+				this.mbRef.close()				
+			}
+		}
+	}
+
+	/**
+	**	To Close the popup and output the status
+	**/
+	
+	onClickCloseBtns(status) {
+		this.onEvent.emit(true);
 		if (status == false) {
 			if(this.mbRefsss){
 				this.mbRefsss.close();			

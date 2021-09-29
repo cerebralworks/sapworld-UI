@@ -2,7 +2,7 @@
   <!-- <form [formGroup]="resumeSelectForm" (ngSubmit)="onApplyJob()"> -->
     <div class="modal-header">
       <h5 class="modal-title">Resume</h5>
-      <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <button (click)="onClickCloseBtns(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
       </div>
@@ -70,7 +70,7 @@
       </div>
       </div>
       <div class="modal-footer">
-      <button (click)="onClickCloseBtn(false)"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button (click)="onClickCloseBtns(false)"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       <button [disabled]="this.others.status =='INVALID' && resumeSelected" (click)="onApplyJob()" type="button" class="btn btn-theme-blue " data-dismiss="modal" data-toggle="modal" data-target="#successMsg" >Submit</button>
       </div>
   <!-- </form> -->

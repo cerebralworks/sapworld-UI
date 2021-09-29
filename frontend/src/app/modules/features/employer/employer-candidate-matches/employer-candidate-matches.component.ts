@@ -712,12 +712,17 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		if(item && !this.utilsHelperService.isEmptyObj(item)) {
 			this.currentUserInfo = item;
 		}
-		this.isOpenedSendMailModal = status;
-		if(this.selectedJob &&this.selectedJob.id) {
-			setTimeout(() => {
-				this.onGetCandidateList(this.selectedJob.id);
-			},5000);
-		}
+		if(status ==true && !item){
+			this.isOpenedSendMailModal = false;
+		}else{
+			this.isOpenedSendMailModal = status;
+				if(this.selectedJob &&this.selectedJob.id && status ==false) {
+				setTimeout(() => {
+					this.onGetCandidateList(this.selectedJob.id);
+				},5000);
+			}
+		}		
+		
 	}
 
 	/**

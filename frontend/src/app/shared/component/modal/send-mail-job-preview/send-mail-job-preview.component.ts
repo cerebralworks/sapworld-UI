@@ -56,7 +56,7 @@ export class SendMailJobPreviewComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.onClickCloseBtn(false);
+    //this.onClickCloseBtn(false);
     this.sendMailModalSub && this.sendMailModalSub.unsubscribe();
   }
 
@@ -65,6 +65,11 @@ export class SendMailJobPreviewComponent implements OnInit {
     if(status == false) {
       this.modalService.dismissAll()
     }
+  }
+  
+  onClickCloseBtns(status){
+    this.onEvent.emit(true);
+    this.modalService.dismissAll()
   }
   
   /**

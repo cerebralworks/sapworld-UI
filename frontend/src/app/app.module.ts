@@ -56,6 +56,7 @@ import { ChartsModule } from 'ng2-charts';
       showForeground: true,
       exclude: [
         environment.serverUrl + "/api/isLoggedIn",
+        environment.serverUrl + "/api/notification/count",
         environment.clientUrl + "/assets/i18n/en.json",
       ],
     })
