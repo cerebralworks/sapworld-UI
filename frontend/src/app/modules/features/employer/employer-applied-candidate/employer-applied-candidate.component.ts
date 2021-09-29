@@ -34,6 +34,8 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 	public Company: any ='';
 	public validateSubscribe: number = 0;
 	public shortlistModal: any = null;
+	public showCount: boolean = false;
+	public showJob: boolean = false;
 
 	constructor(
 		private employerService: EmployerService,
@@ -108,7 +110,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 		this.employerService.getPostedJob(requestParams).subscribe(
 			response => {
 				if(response && response.items && response.items.length > 0) {
-					this.postedJobs = [...response.items];
+					this.postedJobs = response.items;
 					if(this.postedJobs && this.postedJobs.length && this.postedJobs[0]) {
 						if(this.selectedJob && this.selectedJob.id) {
 							const filterJob = this.postedJobs.find((val) => {
@@ -136,6 +138,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 					}
 				}
 				this.postedJobMeta = { ...response.meta };
+				this.showJob = true;
 			}, error => {
 			}
 		)
@@ -158,7 +161,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 			response => {
 				if(response['count']){
 					if(!this.selectedJob){
-						this.selectedJob ={id:1};
+						this.selectedJob ={id:' '};
 					}
 					var tempLen =response['count'].length-1;
 					this.selectedJob.id = response['count'][tempLen]['id'];
@@ -171,6 +174,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 				}else{
 			
 				}
+				this.showCount = true;
 			}, error => {
 			}
 		)

@@ -482,7 +482,11 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
     if (item && !this.utilsHelperService.isEmptyObj(item)) {
       this.currentUserInfo = item;
     }
-    this.isOpenedSendMailModal = status;
+	if(status ==true && !item){
+		this.isOpenedSendMailModal = false;
+	}else{
+		this.isOpenedSendMailModal = status;
+	}
 	if(status == false){
 		if(this.currentUserInfo['id']==this.matchingUsers['profile']['id']){
 			this.matchingUsers['profile']['mail'] =true;

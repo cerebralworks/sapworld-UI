@@ -123,7 +123,7 @@ export class AppComponent {
   getNotification(){
 	  if(this.loggedInResponse.isLoggedIn && (this.loggedInResponse && this.loggedInResponse.role)) {
 		setTimeout(() => {
-			this.loaderEnabled = false;
+			//this.loaderEnabled = false;
 			let params:any ={};
 			params.view = 'user';
 			this.employerService.onGetNotification(params).subscribe(
@@ -162,7 +162,7 @@ export class AppComponent {
   
   getNotificationEmployee(){
 		setTimeout(() => {
-			this.loaderEnabled = false;
+			//this.loaderEnabled = false;
 			let params:any ={};
 			params.view = 'employee';
 			this.employerService.onGetNotification(params).subscribe(

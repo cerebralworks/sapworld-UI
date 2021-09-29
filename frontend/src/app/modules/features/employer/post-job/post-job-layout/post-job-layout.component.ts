@@ -285,29 +285,56 @@ export class PostJobLayoutComponent implements OnInit {
     requestParams.id = jobId;
     this.employerService.getPostedJobDetails(requestParams).subscribe(
       response => {
-		  this.postJobForm.addControl('requirement', new FormGroup({
-			experience: new FormControl(null, Validators.required),
-			education: new FormControl(null),
-			sap_experience: new FormControl(null, Validators.required),
-			domain: new FormControl(null),
-			hands_on_experience: new FormArray([this.formBuilder.group({
-				skill_id: [null, Validators.required],
-				skill_name: [''],
-				experience: ['', [Validators.required,]],
-				exp_type: ['years', [Validators.required]]
-			})]),
-			new_skills: new FormArray([]),
-			skills: new FormControl(null),
-			skills_Data: new FormControl(null),
-			skills_Datas: new FormControl(null),
-			programming_skills:  new FormControl(null),
-			optinal_skills: new FormControl(null),
-			work_authorization: new FormControl(null),
-			visa_sponsorship: new FormControl(false, Validators.required),
-			need_reference: new FormControl(false, Validators.required),
-			travel_opportunity: new FormControl(null, Validators.required),
-			end_to_end_implementation: new FormControl(null)
-		}));
+		  if(response['details']['entry'] == true){
+			 this.postJobForm.addControl('requirement', new FormGroup({
+				experience: new FormControl(null),
+				education: new FormControl(null),
+				sap_experience: new FormControl(null),
+				domain: new FormControl(null),
+				hands_on_experience: new FormArray([this.formBuilder.group({
+					skill_id: [''],
+					skill_name: [''],
+					experience: [''],
+					exp_type: ['years']
+				})]),
+				new_skills: new FormArray([]),
+				skills: new FormControl(null),
+				skills_Data: new FormControl(null),
+				skills_Datas: new FormControl(null),
+				programming_skills:  new FormControl(null),
+				optinal_skills: new FormControl(null),
+				work_authorization: new FormControl(null),
+				visa_sponsorship: new FormControl(false, Validators.required),
+				need_reference: new FormControl(false, Validators.required),
+				travel_opportunity: new FormControl(null, Validators.required),
+				end_to_end_implementation: new FormControl(null)
+			}));
+
+		  }else{
+			  this.postJobForm.addControl('requirement', new FormGroup({
+				experience: new FormControl(null, Validators.required),
+				education: new FormControl(null),
+				sap_experience: new FormControl(null, Validators.required),
+				domain: new FormControl(null),
+				hands_on_experience: new FormArray([this.formBuilder.group({
+					skill_id: [null, Validators.required],
+					skill_name: [''],
+					experience: ['', [Validators.required,]],
+					exp_type: ['years', [Validators.required]]
+				})]),
+				new_skills: new FormArray([]),
+				skills: new FormControl(null),
+				skills_Data: new FormControl(null),
+				skills_Datas: new FormControl(null),
+				programming_skills:  new FormControl(null),
+				optinal_skills: new FormControl(null),
+				work_authorization: new FormControl(null),
+				visa_sponsorship: new FormControl(false, Validators.required),
+				need_reference: new FormControl(false, Validators.required),
+				travel_opportunity: new FormControl(null, Validators.required),
+				end_to_end_implementation: new FormControl(null)
+			}));
+		  }
 		this.postJobForm.addControl('otherPref', new FormGroup({
 			facing_role: new FormControl(null),
 			training_experience: new FormControl(null),
@@ -433,7 +460,7 @@ export class PostJobLayoutComponent implements OnInit {
 				...this.postedJobsDetails
 			}
 		});
-		  if(this.postedJobsDetails && this.postedJobsDetails.hands_on_experience && Array.isArray(this.postedJobsDetails.hands_on_experience)) {
+		  if(this.postedJobsDetails &&this.postedJobsDetails.entry !=true && this.postedJobsDetails.hands_on_experience && Array.isArray(this.postedJobsDetails.hands_on_experience)) {
 					
 					for(let i=0;i<=this.postJobForm.controls.requirement['controls']['hands_on_experience'].length;i++){
 						this.postJobForm.controls.requirement['controls']['hands_on_experience'].removeAt(0);
