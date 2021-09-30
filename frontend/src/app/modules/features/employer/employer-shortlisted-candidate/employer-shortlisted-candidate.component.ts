@@ -209,7 +209,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	**/
 	 
 	onGetShortListedJobs = () => {
-		this.shortListedJobs =[];
+		
 		let requestParams: any = {};
 		requestParams.page = this.page;
 		requestParams.limit = this.limit;
@@ -219,6 +219,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		requestParams.short_listed = 1;
 		this.employerService.applicationsList(requestParams).subscribe(
 			response => {
+				this.shortListedJobs =[];
 				if(response && response.items && response.items.length > 0) {
 					this.shortListedJobs = [...this.shortListedJobs, ...response.items];
 				}
