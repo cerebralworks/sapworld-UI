@@ -63,6 +63,7 @@ export class AppliedJobComponent implements OnInit {
       requestParams.page = this.page;
       requestParams.limit = this.limit;
       requestParams.expand = "job_posting,user,employer";
+	  requestParams.sort = "updated_at.desc";
       this.userService.applicationsListForUser(requestParams).subscribe(
         response => {
 			this.appliedJobs=[];
