@@ -2873,6 +2873,5 @@ ul.timeline > li span:hover {
 .primaryData{
 	color:blue;    
 	text-decoration: underline;
-    text-transform: uppercase;
     cursor: pointer;
 }
