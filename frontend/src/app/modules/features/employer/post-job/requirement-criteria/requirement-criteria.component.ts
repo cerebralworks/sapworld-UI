@@ -91,6 +91,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			if (index >= 0) {
 				
 			}else{
+				this.programming_skills.pop();
 			this.programming_skills.push(value);
 			this.childForm.patchValue({
 			  requirement: {
@@ -139,10 +140,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				
 			}
 
-			// Clear the input value
 			event.chipInput!.clear();
-			this.autocomplete.closePanel(); 
-
 		}
 	}
 

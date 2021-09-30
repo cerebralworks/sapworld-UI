@@ -29,6 +29,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 	public selectedJob: any;
 	public queryParams: any;
 	public postedJobMeta: any;
+	public employerDetails: any;
 	public postedJobs: any[] = [];
 	public TotalCount: any[] = [];
 	public Company: any ='';
@@ -66,11 +67,11 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 	ngOnInit(): void {
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
+				this.employerDetails = details;
 				if(details) {
 					if((details && details.id) && this.validateSubscribe == 0) {
 						this.Company = details.id;
 						this.onGetPostedJobCount(details.id);
-						this.onGetPostedJob(details.id);
 						this.validateSubscribe ++;
 					}
 				}
@@ -120,7 +121,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 							if(filterJob && !this.utilsHelperService.isEmptyObj(filterJob)) {
 								this.selectedJob = filterJob;
 							}
-							//this.onGetAppliedJobs();
+							this.onGetAppliedJobs();
 						}else {
 							if(!sessionStorage.getItem('view-application-job-id')){
 								this.selectedJob = this.postedJobs[0];
@@ -133,7 +134,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 									this.selectedJob = this.postedJobs[0];
 								}
 							}
-							//this.onGetAppliedJobs();              
+							this.onGetAppliedJobs();              
 						}
 					}
 				}
@@ -159,13 +160,14 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 		requestParams.sort = 'created_at.desc';
 		this.employerService.getPostedJobCount(requestParams).subscribe(
 			response => {
+				this.onGetPostedJob(this.employerDetails.id);
 				if(response['count']){
 					if(!this.selectedJob){
 						this.selectedJob ={id:' '};
+						var tempLen =response['count'].length-1;
+						this.selectedJob.id = response['count'][tempLen]['id'];
+						this.onGetAppliedJobs();
 					}
-					var tempLen =response['count'].length-1;
-					this.selectedJob.id = response['count'][tempLen]['id'];
-					this.onGetAppliedJobs();
 					this.TotalCount =response['count'];
 					var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
 					if(document.getElementById('ApplicantsCount')){
@@ -203,6 +205,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 		requestParams.page = this.page;
 		requestParams.limit = this.limit;
 		requestParams.expand = "job_posting,user,employer";
+		requestParams.sort = "updated_at.desc";
 		requestParams.job_posting = this.selectedJob.id;
 		this.employerService.applicationsList(requestParams).subscribe(
 			response => {

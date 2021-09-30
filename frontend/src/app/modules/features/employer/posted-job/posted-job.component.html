@@ -47,9 +47,9 @@
                 </td>
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y" : 'UTC') : '-'}}</td>
                 <td class="text-center">
-                  <a  [routerLink]="['/employer/dashboard']" *ngIf="item.status != 0 ||  CheckMatchesCount(item?.id) !=0 "
+                  <a  [routerLink]="['/employer/dashboard']" *ngIf="item.status != 0 &&  CheckMatchesCount(item?.id) !=0 "
                   [queryParams]="{activeTab: 'matches', id: item?.id}" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
-				   <a   *ngIf="item.status == 0 " style="cursor: no-drop;"
+				   <a   *ngIf="item.status == 0 || CheckMatchesCount(item?.id) ==0 " style="cursor: no-drop;"
                    href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
 				  </td>
                 <td class="text-center">

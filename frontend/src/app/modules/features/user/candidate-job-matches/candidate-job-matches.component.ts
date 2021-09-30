@@ -575,7 +575,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 			this.currentJobDetails = item;
 		}
 		this.isOpenedResumeSelectModal = false;
-		if(status ==false ){
+		if(status ==true ){
 			if(this.isMultipleMatches == true){
 				if(this.currentJobDetails.id == this.matchingJob.jobs.id){
 					this.matchingJob = { ...this.matchingJob, jobs: {} };

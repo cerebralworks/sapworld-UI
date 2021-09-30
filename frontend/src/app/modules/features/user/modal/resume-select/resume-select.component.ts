@@ -277,7 +277,7 @@ export class ResumeSelectComponent implements OnInit {
 	**/
 	
 	onClickCloseBtns(status) {
-		this.onEvent.emit(true);
+		this.onEvent.emit(false);
 		if (status == false) {
 			if(this.mbRefsss){
 				this.mbRefsss.close();			

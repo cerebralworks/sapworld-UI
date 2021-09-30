@@ -87,7 +87,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 					if((details && details.id) && this.validateSubscribe == 0) {
 						
 						this.onGetPostedJobCount(details.id);
-						this.onGetPostedJob(details.id); 
+						//this.onGetPostedJob(details.id); 
 						
 						this.validateSubscribe ++;
 					}
@@ -138,10 +138,10 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 							if(filterJob && !this.utilsHelperService.isEmptyObj(filterJob)) {
 								this.selectedJob = filterJob;
 							}
-							//this.onGetShortListedJobs();
+							this.onGetShortListedJobs();
 						}else {
 							this.selectedJob = this.postedJobs[0];
-							//this.onGetShortListedJobs();
+							this.onGetShortListedJobs();
 						}
 					}
 				}
@@ -181,13 +181,15 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		requestParams.sort = 'created_at.desc';
 		this.employerService.getPostedJobCount(requestParams).subscribe(
 			response => {
+				this.onGetPostedJob(this.employeeValue.id); 
 				if(response['count']){
 					if(!this.selectedJob){
 						this.selectedJob ={id:' '};
+						var tempLen =response['count'].length-1;
+						this.selectedJob.id = response['count'][tempLen]['id'];
+						this.onGetShortListedJobs();
 					}
-					var tempLen =response['count'].length-1;
-					this.selectedJob.id = response['count'][tempLen]['id'];
-					this.onGetShortListedJobs();
+					
 					this.TotalCount =response['count'];
 					var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
 					if(document.getElementById('ApplicantsShortListCount')){
@@ -212,6 +214,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		requestParams.page = this.page;
 		requestParams.limit = this.limit;
 		requestParams.expand = "job_posting,user,employer";
+		requestParams.sort = "updated_at.desc";
 		requestParams.job_posting = this.selectedJob.id;
 		requestParams.short_listed = 1;
 		this.employerService.applicationsList(requestParams).subscribe(
