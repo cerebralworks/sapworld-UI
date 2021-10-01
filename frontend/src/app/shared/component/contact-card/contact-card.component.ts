@@ -155,10 +155,16 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   **	To get send email status
   **/
   onToggleSendMail = (status,item?) => {
-    if(item && !this.utilsHelperService.isEmptyObj(item)) {
-      this.currentUserInfo = item;
-    }
-    this.isOpenedSendMailModal = status;
+   
+	if(status ==true && !item){
+		this.isOpenedSendMailModal = false;
+	}else{
+		this.isOpenedSendMailModal = status;
+	}
+	if(status == false){
+		this.jobInfo['score']['mail'] =true;
+	}
+	
   }
 
   /**

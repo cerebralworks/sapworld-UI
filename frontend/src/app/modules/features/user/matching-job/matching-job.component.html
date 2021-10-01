@@ -99,7 +99,11 @@
 									<li class="list-group-item" *ngFor="let item of experienceFilter; let i=index">
 										<div class="custom-control custom-checkbox">
 											<input type="checkbox" [checked]="onCheckExpDefault(item)" (change)="onFiltertByExperience(item)" class="custom-control-input" id="experienceCheck_{{i}}">
-											<label class="custom-control-label" for="experienceCheck_{{i}}">{{item?.text}} </label>
+											<!-- <label class="custom-control-label" for="experienceCheck_{{i}}">{{item?.text}} </label> -->
+											<label class="custom-control-label" for="experienceCheck_{{i}}" *ngIf="item?.value?.min ==0">{{"shared.fresher" | translate }}</label>
+											<label class="custom-control-label" for="experienceCheck_{{i}}" *ngIf="item?.value?.min !=0 && item?.value?.max !=20">{{item?.text}} {{"shared.year" | translate }}</label>
+											<label class="custom-control-label" for="experienceCheck_{{i}}" *ngIf="item?.value?.max ==20">{{item?.text}} {{"shared.yearAbove" | translate }}</label>
+										  
 										</div>
 									</li>
 								</ul>
@@ -115,7 +119,13 @@
 									<li class="list-group-item" *ngFor="let item of sharedService.onGetJobType(); let i=index">
 										<div class="custom-control custom-checkbox">
 											<input [value]="item.id" [checked]="queryParams?.type?.includes(item.id)" (change)="onFiltertByJobType('type', item.id)" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
-											<label class="custom-control-label" for="customCheck_{{i}}">{{item.text}} </label>
+											<!-- <label class="custom-control-label" for="customCheck_{{i}}">{{item.text}} </label> -->
+											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1000">{{"shared.fullTime" | translate }} </label>
+											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1001">{{"shared.partTime" | translate }} </label>
+											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1002">{{"shared.contract" | translate }}</label>
+											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1003">{{"shared.freelance" | translate }} </label>
+											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1004">{{"shared.internship" | translate }} </label>
+										  
 										</div>
 									</li>
 								</ul>

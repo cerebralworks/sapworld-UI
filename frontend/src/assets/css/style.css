@@ -524,7 +524,8 @@ a:hover {
 .theme-nav .dropdown {
     background: #f8f8f8;
     border-radius: 10px;
-    width: 100%;
+   /*  width: 100%; */
+   width:77%;
 }
 .theme-nav .dropdown-menu {
     margin: 0.65rem 0 0;
@@ -2183,6 +2184,7 @@ a:hover {
     transform: translateY(-50%);
     letter-spacing: 10px;
 }
+
 /*--Top Companies Section--*/
 .top-companies {
     padding: 90px 0;
@@ -2874,4 +2876,465 @@ ul.timeline > li span:hover {
 	color:blue;    
 	text-decoration: underline;
     cursor: pointer;
+}
+
+
+/*--font-family: 'Montserrat', sans-serif;--*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap');
+
+/*-- Small devices (landscape phones,359px and up)--*/
+@media screen and (max-width:320px)  {
+	.container-big {
+		max-width: 100%!important;
+	}
+	.container-medium {
+		max-width: 100%!important;
+	}
+	.theme-nav {
+		padding: 0.5rem 0.5rem!important;
+		/* box-shadow: 0px 3px 6px #f6f6f6; */
+		z-index: 9;
+	}
+	.lang-icon {
+		position: absolute;
+		right: 0px;
+		top: 65px;
+	}
+	.home-carousel {
+		min-height: 300px;
+	}
+	.section-title-bg {
+		font-size: 70px;
+	}
+	.top-companies {
+		padding: 30px 0;
+	}
+	.sapw-banner {
+		background: #fff;
+		padding: 15px 0;
+		overflow: hidden;
+	}
+	.heading {
+		width: 85%;
+	}
+	.section-title h1 {
+		text-transform: capitalize;
+		font-weight: 600;
+		max-width: 100%;
+		font-size: 30px;
+		margin: 10px auto;
+		color: #385edf;
+	}
+	.sapw-info .heading h1 {
+		font-size: 1.75rem;
+		font-weight: 600;
+		color: #385edf;
+		margin-bottom: 15px;
+	}
+	.sapw-info .heading h5 {
+		font-size: 1.05rem;
+		line-height: 1.75rem;
+		font-weight: 700;
+		color: #000000;
+		margin-bottom: 5px;
+	}
+	#navbarNavDropdown .navbar-nav .dropdown-menu {
+		display: block!important;
+	}
+	.modal-dialog.modal-lg {
+		max-width: 730px!important;
+	}
+	.rdn-radio {
+		padding: 0px 5px;
+		font-weight: 600;
+		min-width: 65px;
+		text-align: center;
+		margin-bottom: 10px;
+		font-size: 11px;
+		min-height: 26px;
+	}
+	.caption .list-group-item, .info .list-group-item{
+		font-size: 12px;
+	}
+	.matching-post .custom-radio .custom-control-input~.custom-control-label {
+		height: 30px;
+		font-size: 12px;
+	}
+}
+/*-- Small devices (landscape phones, 576px and up)--*/
+@media (min-width: 320px) and (max-width: 767.98px) {
+	.container-big {
+		max-width: 100%!important;
+	}
+	.container-medium {
+		max-width: 100%!important;
+	}
+	.theme-nav {
+		padding: 0.5rem 0.5rem!important;
+		/* box-shadow: 0px 3px 6px #f6f6f6; */
+		z-index: 9;
+	}
+	.lang-icon {
+		position: absolute;
+		right: 0px;
+		top: 65px;
+	}
+	.home-carousel {
+		min-height: 300px;
+	}
+	.section-title-bg {
+		font-size: 70px;
+	}
+	.top-companies {
+		padding: 30px 0;
+	}
+	.sapw-banner {
+		background: #fff;
+		padding: 15px 0;
+		overflow: hidden;
+	}
+	.heading {
+		width: 85%;
+	}
+	.section-title h1 {
+		text-transform: capitalize;
+		font-weight: 600;
+		max-width: 100%;
+		font-size: 30px;
+		margin: 10px auto;
+		color: #385edf;
+	}
+	.sapw-info .heading h1 {
+		font-size: 1.75rem;
+		font-weight: 600;
+		color: #385edf;
+		margin-bottom: 15px;
+	}
+	.sapw-info .heading h5 {
+		font-size: 1.05rem;
+		line-height: 1.75rem;
+		font-weight: 700;
+		color: #000000;
+		margin-bottom: 5px;
+	}
+	.modal-dialog.modal-lg {
+		max-width: 730px!important;
+	}
+	.rdn-radio {
+		padding: 0px 5px;
+		font-weight: 600;
+		min-width: 65px;
+		text-align: center;
+		margin-bottom: 10px;
+		font-size: 11px;
+		min-height: 26px;
+	}
+	.caption .list-group-item, .info .list-group-item{
+		font-size: 12px;
+	}
+	.matching-post .custom-radio .custom-control-input~.custom-control-label {
+		height: 30px;
+		font-size: 12px;
+	}
+	.job-card .card-body {
+		padding: 10px;
+		min-height: 150px;
+	}
+	.job-card h5 {
+		width: 100%;
+		font-size: 15px;
+		height: 1.15em;
+	}
+	.job-card .media h6 {
+		font-size: 12px;
+	}
+	.matchs-info {
+		top: 148px;
+		left: 25px;
+		right: unset;
+	}
+	#myTab .nav-pills .nav-link {
+		border-radius: .25rem;
+		background-color: transparent;
+		font-size: 18px;
+		font-weight: 700;
+		color: #abb5c0;
+		padding: 0;
+		border-radius: 0;
+		margin-right: 30px;
+	}
+	#myTab .nav-pills .nav-link.active {
+		background-color: transparent;
+		font-size: 18px;
+		font-weight: 700;
+		color: #465666;
+		padding: 0;
+		border-radius: 0;
+		margin-right: 30px;
+	}
+	.matchs-info2 {
+		position: absolute;
+		left: unset;
+		right: 25px;
+		vertical-align: middle;
+		bottom: 10px;
+		font-size: 12px;
+		top: unset;
+	}
+	.landing-content {
+		background: unset!imporant;
+		height: 650px;
+		padding-top: 60px;
+	}
+ }
+
+/*-- Medium devices (tablets, 768px and up)--*/
+@media (min-width: 768px) and (max-width: 1023.98px) {
+	.container-big {
+		max-width: 100%!important;
+	}
+	.container-medium {
+		max-width: 100%!important;
+	}
+	
+	.theme-nav {
+		padding: 0.5rem 0.5rem!important;
+		/* box-shadow: 0px 3px 6px #f6f6f6; */
+		z-index: 9;
+	}
+	.lang-icon {
+		position: absolute;
+		right: 0px;
+		top: 65px;
+	}
+	.home-carousel {
+		min-height: 300px;
+	}
+	.section-title-bg {
+		font-size: 70px;
+	}
+	.top-companies {
+		padding: 30px 0;
+	}
+	.sapw-banner {
+		background: #fff;
+		padding: 15px 0;
+		overflow: hidden;
+	}
+	.heading {
+		width: 85%;
+	}
+	.section-title h1 {
+		text-transform: capitalize;
+		font-weight: 600;
+		max-width: 100%;
+		font-size: 30px;
+		margin: 10px auto;
+		color: #385edf;
+	}
+	.sapw-info .heading h1 {
+		font-size: 1.75rem;
+		font-weight: 600;
+		color: #385edf;
+		margin-bottom: 15px;
+	}
+	.sapw-info .heading h5 {
+		font-size: 1.05rem;
+		line-height: 1.75rem;
+		font-weight: 700;
+		color: #000000;
+		margin-bottom: 5px;
+	}
+	#navbarNavDropdown .navbar-nav .dropdown-menu {
+		display: block!important;
+	}
+	.modal-dialog.modal-lg {
+		max-width: 730px!important;
+	}
+	.rdn-radio {
+		padding: 0px 5px;
+		font-weight: 600;
+		min-width: 65px;
+		text-align: center;
+		margin-bottom: 10px;
+		font-size: 11px;
+		min-height: 26px;
+	}
+	.caption .list-group-item, .info .list-group-item{
+		font-size: 12px;
+		margin-bottom: 5px;
+	}
+	.matching-post .custom-radio .custom-control-input~.custom-control-label {
+		height: 30px;
+		font-size: 12px;
+	}
+	.job-card .card-body {
+		padding: 10px;
+		min-height: 180px;
+	}
+	.job-card .card-body110px {
+		padding: 10px;
+		min-height: 110px!important;
+	}
+	.modal-dialog .job-card .card-body {
+		padding: 10px;
+		min-height: 90px;
+	}
+	.job-card h5 {
+		width: 100%;
+		font-size: 15px;
+		height: 1.5em;
+	}
+	.job-card .media h6 {
+		font-size: 12px;
+	}
+	.matchs-info {
+		top: 148px;
+		left: 25px;
+		right: unset;
+	}
+	
+	#myTab .nav-pills .nav-link {
+		border-radius: .25rem;
+		background-color: transparent;
+		font-size: 18px;
+		font-weight: 700;
+		color: #abb5c0;
+		padding: 0;
+		border-radius: 0;
+		margin-right: 30px;
+	}
+	#myTab .nav-pills .nav-link.active {
+		background-color: transparent;
+		font-size: 18px;
+		font-weight: 700;
+		color: #465666;
+		padding: 0;
+		border-radius: 0;
+		margin-right: 30px;
+	}
+	.matchs-info2 {
+		position: absolute;
+		left: unset;
+		right: 25px;
+		vertical-align: middle;
+		bottom: 10px;
+		font-size: 12px;
+		top: unset;
+	}
+	
+	.landing-content {
+		background:transparent;
+		height: 650px;
+		padding-top: 60px;
+	}
+}
+
+/*-- Large devices (desktops, large desktops, 1024px and up)--*/
+@media (min-width: 1024px) and (max-width: 1024.98px){ 
+	.container-big {
+		max-width: 1440px!important;
+	}
+	.container-medium {
+		max-width: 1336px!important;
+	}
+	.job-card .card-body {
+		padding: 10px;
+		min-height: 190px;
+	}
+	.job-card .card-body110px {
+		padding: 10px;
+		min-height: 110px!important;
+	}
+	.modal-dialog .job-card .card-body {
+		padding: 10px;
+		min-height: 105px;
+	}
+	.matchs-info {
+		position: absolute;
+		right: unset;
+		left: 25px;
+		vertical-align: middle;
+		top: 160px;
+		font-size: 12px;
+	}
+	
+	#myTab .nav-pills .nav-link {
+		border-radius: .25rem;
+		background-color: transparent;
+		font-size: 18px;
+		font-weight: 700;
+		color: #abb5c0;
+		padding: 0;
+		border-radius: 0;
+		margin-right: 30px;
+	}
+	#myTab .nav-pills .nav-link.active {
+		background-color: transparent;
+		font-size: 18px;
+		font-weight: 700;
+		color: #465666;
+		padding: 0;
+		border-radius: 0;
+		margin-right: 30px;
+	}
+}
+
+/**--Big Container--**/
+@media (min-width: 1200px){
+	.container-big {
+		max-width: 1440px!important;
+	}
+	.container-medium {
+		max-width: 1336px!important;
+	}
+}
+
+@media (max-width: 450px){
+.section-title-bg{
+		font-size: 45px !important;
+}
+.sapw-info .card img{
+		width: 40px !important;
+}
+.sapw-info .card img{
+		font-size: 1rem !important;
+}
+.left-sec h1 {
+	font-size: 1.5rem !important;
+}
+.right-sec h1 {
+	font-size: 1.5rem !important;
+}
+.nav-profile{
+	display: -webkit-box !important;
+}
+.nav-profiles{
+	display: contents !important;
+}
+.mt-time{
+	margin-top:20px ;
+}
+.multi-date{
+	float: none;
+}
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+.col-md-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+.nav-language-80{
+	  top: 80px; 
+     display: block;
+}.nav-language-66{
+	  top: 66px; 
+     display: block;
+}
 }
