@@ -4,7 +4,7 @@
     </div>
     <div class="modal-body" style="height:550px; overflow-x:hidden; overflow-y:scroll;">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="card job-card">
 					<div class="card-body">
 						<div class="row">
@@ -68,49 +68,49 @@
 			</div>
 		</div>
 		<div class="row mt-3 info-box">
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="pj-title mb-3">
 					 <h6>{{"userProfile.personalDetails" | translate }}</h6>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.nationality" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{this.findCountry(childForm?.value?.personalDetails?.nationality)}}</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.relocate" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.willing_to_relocate)}}</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">
 							{{"userProfile.education" | translate }}
 						</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group ul-value text-capitalize" *ngIf="childForm?.value?.educationExp?.education_qualification">
 						<li class="list-group-item" *ngIf="this.findEducation(childForm?.value?.educationExp?.education_qualification) !=''">{{this.findEducation(childForm?.value?.educationExp?.education_qualification)}}</li>
 						<li class="list-group-item" *ngIf="this.findEducation(childForm?.value?.educationExp?.education_qualification) ==''"><button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('education')" type="button" class="btn btn-theme-green" data-toggle="modal"
@@ -119,42 +119,42 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.jobType" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group ul-value">
 							{{(childForm?.value?.jobPref?.job_type || childForm?.value?.jobPref?.job_type == 0) ? sharedService.onGetJobType(childForm?.value?.jobPref?.job_type) : '--'}}
 						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.availability" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{childForm?.value?.jobPref?.availability == 0 ? 'Immediate' : childForm?.value?.jobPref?.availability + ' Days'}}</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6" >
+			<div class="col-lg-6 col-md-6 col-sm-6" >
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.workAuthorisation" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group ul-value">
 							<li class="list-group-item" *ngIf="childForm?.value?.personalDetails?.work_authorization == 0 ">
 								 {{utilsHelperService.onConvertArrayToString(childForm?.value?.personalDetails?.visa_type)}}
@@ -166,54 +166,54 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.travel" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{childForm?.value?.jobPref?.travel == 0 ? 'No' : childForm?.value?.jobPref?.travel + '%'}}</li>
 						</ul>
 					</div>
 				</div>
 			</div>	
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.remote" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group">
 							<li class="list-group-item text-capitalize">{{utilsHelperService.onGetYesOrNoValue(childForm?.value?.jobPref?.remote_only)}}</li>
 						</ul>
 					</div>
 				</div>
 			</div>	
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.workAuthorisationIn" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info ul-value">
+					<div class="col-lg-6 col-md-6 col-sm-6 info ul-value">
 						{{this.findCountryArray(childForm?.value?.personalDetails?.authorized_country)}}				
 					</div>
 				</div>
 			</div>	
-			<div class="col-lg-6" *ngIf="childForm?.value?.jobPref?.willing_to_relocate">
+			<div class="col-lg-6 col-md-6 col-sm-6" *ngIf="childForm?.value?.jobPref?.willing_to_relocate">
 				<div class="row">
-					<div class="col-lg-6 caption">
+					<div class="col-lg-6 col-md-6 col-sm-6 caption">
 						<ul class="list-group">
 							<li class="list-group-item">{{"userProfile.preferredLocation" | translate }}</li>
 						</ul>
 					</div>
-					<div class="col-lg-6 info">
+					<div class="col-lg-6 col-md-6 col-sm-6 info">
 						<ul class="list-group ul-value text-capitalize" *ngIf="this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) !='' &&this.filterPrefered(childForm?.value?.jobPref?.preferred_locations) !='--' ">
 						{{this.filterPrefered(childForm?.value?.jobPref?.preferred_locations)}}
 						</ul>
@@ -226,18 +226,18 @@
 			</div>	
 		</div>
 		<div class="row mt-3 info-box">
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="pj-title mb-3">
 					 <h6>{{"userProfile.experienceAndSkills" | translate }}</h6>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.totalYearsOfExp" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item" *ngIf="!childForm?.value?.educationExp?.experience || childForm?.value?.educationExp?.experience =='' || childForm?.value?.educationExp?.experience==0">
 						  {{childForm?.value?.educationExp?.experience}} Years
@@ -248,13 +248,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row" *ngIf="!childForm?.value?.personalDetails?.entry">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row" *ngIf="!childForm?.value?.personalDetails?.entry">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"matches.totalYearsOfSapExperience" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item">
 						  {{childForm?.value?.educationExp?.sap_experience}} Years
@@ -262,13 +262,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.domainsWorked" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item" *ngIf="childForm?.value?.educationExp?.domains_worked && childForm?.value?.educationExp?.domains_worked.length && childForm?.value?.educationExp?.domains_worked.length !=0">
 						  {{sharedService.onFindDomainFromID(childForm?.value?.educationExp?.domains_worked)}}
@@ -279,13 +279,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row" *ngIf="!childForm?.value?.personalDetails?.entry">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row" *ngIf="!childForm?.value?.personalDetails?.entry">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.handsOnExperience" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item text-uppercase d-flex handsExps ">
 							<ng-container *ngIf="childForm?.value?.skillSet?.hands_on_experience?.length; else elseHandsTemplate">
@@ -302,13 +302,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.knowledgeOn" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item text-uppercase" *ngIf="childForm?.value?.skillSet?.skills"> 
 							<ng-container *ngIf="childForm?.value?.skillSet?.skills.length; else elseSkillsTemplate">
@@ -331,13 +331,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.programmingSkills" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group" >
 						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.skillSet?.programming_skills && childForm?.value?.skillSet?.programming_skills?.length && childForm?.value?.skillSet?.programming_skills?.length !=0">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.programming_skills)}} </li>
 					
@@ -347,13 +347,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.others" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<!-- <ul class="list-group">
 						<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(childForm?.value?.skillSet?.other_skills)}}</li>
 					</ul> -->
@@ -366,13 +366,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.previousEmployers" | translate}}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<!-- <li class="list-group-item text-capitalize">
 							{{utilsHelperService.onConvertArrayToString(childForm?.value?.personalDetails?.clients_worked)}}
@@ -387,13 +387,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.rolesLookingFor" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.jobPref?.job_role && childForm?.value?.jobPref?.job_role!=''">
 							{{childForm?.value?.jobPref?.job_role ? childForm?.value?.jobPref?.job_role : '--'}}
@@ -405,13 +405,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.roleType" | translate }}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.educationExp?.employer_role_type">
 							{{childForm?.value?.educationExp?.employer_role_type ? childForm?.value?.educationExp?.employer_role_type : '--'}}
@@ -423,13 +423,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.languageKnown" | translate}}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">
 							{{findLanguageArray(childForm?.value?.personalDetails?.language_known)}}
@@ -437,13 +437,13 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-12 row">
-				<div class="col-lg-4 caption">
+			<div class="col-lg-12 col-md-12 col-sm-12 row">
+				<div class="col-lg-4 col-md-4 col-sm-4 caption">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{"userProfile.endToEnd" | translate}}</li>
 					</ul>
 				</div>
-				<div class="col-lg-8 info">
+				<div class="col-lg-8 col-md-8 col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize" *ngIf="childForm?.value?.educationExp?.end_to_end_implementation">
 							{{childForm?.value?.educationExp?.end_to_end_implementation ? childForm?.value?.educationExp?.end_to_end_implementation : '--'}}
@@ -456,12 +456,12 @@
 			</div>
 		</div>
 		<div class="row mt-3 info-box" *ngIf="childForm?.value?.skillSet?.certification">
-			<div class="col-lg-12" >
+			<div class="col-lg-12 col-md-12 col-sm-12" >
 				<div class="pj-title mb-3">
 					 <h6>{{"userProfile.certification" | translate }}</h6>
 				</div>
 			</div>
-			<div class="col-lg-12" *ngIf="childForm.value.skillSet.certification && childForm?.value?.skillSet?.certification?.length != 0 ">
+			<div class="col-lg-12 col-md-12 col-sm-12" *ngIf="childForm.value.skillSet.certification && childForm?.value?.skillSet?.certification?.length != 0 ">
 				<div class="media mb-2" *ngFor="let certification of childForm.value.skillSet.certification">
 					<img src="assets/images/certifications-icon.png" width="26px" class="mr-2" alt="SAP">
 					<div class="media-body">
@@ -470,18 +470,18 @@
 				</div>
 			</div>
 			
-			<div class="col-lg-12" *ngIf="childForm?.value?.skillSet?.certification?.length == 0 ">
+			<div class="col-lg-12 col-md-12 col-sm-12" *ngIf="childForm?.value?.skillSet?.certification?.length == 0 ">
 				<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('certificationBoolean')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate }} </button>
 			</div>
 		</div>
 		<div class="row mt-3 info-box" *ngIf="!childForm?.value?.skillSet?.certification">
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="pj-title mb-3">
 					 <h6>{{"userProfile.certification" | translate }}</h6>
 				</div>
 			</div>
-			<div class="col-lg-12" >
+			<div class="col-lg-12 col-md-12 col-sm-12" >
 				<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('certificationBoolean')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate }} </button>
 			</div>
@@ -489,12 +489,12 @@
 		
 		<div class="row mt-3 info-box" *ngIf="childForm?.value?.personalDetails?.reference">	
 						
-			<div class="col-lg-12"  *ngIf="childForm?.value?.personalDetails?.reference?.length !=0">
+			<div class="col-lg-12 col-md-12 col-sm-12"  *ngIf="childForm?.value?.personalDetails?.reference?.length !=0">
 				<div class="pj-title mb-3 border-primary" *ngIf="childForm?.value?.personalDetails?.reference[0].name && childForm?.value?.personalDetails?.reference[0].email && childForm?.value?.personalDetails?.reference[0].company_name">
 					<h6 class="text-blue" role="button" (click)="show = !show"> {{"userProfile.reference" | translate }}  <i class="fas fa-angle-down"></i></h6>
 				</div>
 				<div *ngIf="show" [@slideInOut] class="row mt-2" style="padding:0px;">
-					<div class="col-lg-4 p-1" *ngFor="let reference of childForm.value.personalDetails.reference " >
+					<div class="col-lg-4 col-md-4 col-sm-4 p-1" *ngFor="let reference of childForm.value.personalDetails.reference " >
 						<div class="card job-card sm" style="min-height: 105px;" *ngIf="reference.name && reference.email && reference.company_name">
 							<div class="card-body">
 								<p class="text-blue font-weight-bold mb-1">{{reference.name}}</p>
@@ -505,7 +505,7 @@
 					</div>
 				</div>
 			</div>		
-			<div class="col-lg-12" >
+			<div class="col-lg-12 col-md-12 col-sm-12" >
 				<div class="pj-title mb-3 border-primary" *ngIf="childForm?.value?.personalDetails?.reference?.length !=0 && !childForm?.value?.personalDetails?.reference[0].name || !childForm?.value?.personalDetails?.reference[0].email || !childForm?.value?.personalDetails?.reference[0].company_name" >
 					<h6 class="text-blue" role="button" > {{"userProfile.reference" | translate }}   <i class="fas fa-angle-down"></i></h6>
 				</div>
@@ -517,7 +517,7 @@
 		</div>
 		<div class="row mt-3 info-box" *ngIf="!childForm?.value?.personalDetails?.reference">	
 				
-			<div class="col-lg-12">
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="pj-title mb-3 border-primary" >
 					<h6 class="text-blue" role="button" (click)="show = !show"> {{"userProfile.reference" | translate }}    <i class="fas fa-angle-down"></i></h6>
 				</div>
@@ -542,7 +542,7 @@
 		</div>
 		<div class="modal-body"  *ngIf="jobtype">
 			<div formGroupName="educationExp">
-				<div class="col-lg-12 col-md-12">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12">
 					<div class=" form-group">
 						<label>{{"userProfile.roleType" | translate }}</label>
 						<select formControlName="employer_role_type" class="form-control text-capitalize">
@@ -557,7 +557,7 @@
 		</div>	
 		<div class="modal-body"  *ngIf="end_to_end_implementation">
 			<div formGroupName="educationExp">
-				<div class="col-lg-6 col-md-12">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-md-12">
 				  <div class=" form-group">
 					<label>{{"userProfile.endToEnd" | translate }}</label>
 					<input numbersOnlys formControlName="end_to_end_implementation" type="text" class="form-control w-25">
@@ -585,7 +585,7 @@
 				  <app-control-messages [control]="ticket['controls']['degree']"></app-control-messages>
 				</div>
 			  </div>
-			  <div class="col-lg-4 col-md-5">
+			  <div class="col-lg-4 col-md-4 col-sm-4 col-md-5">
 				<div class=" form-group">
 				  <label>{{"userProfile.fieldOfStudy" | translate }}</label>
 				  <input (change)="onChangeStudyValue($event?.target?.value, i)" formControlName="field_of_study" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.fieldOfStudy' | translate">
@@ -600,7 +600,7 @@
 				 
 				</div>
 			  </div>
-			  <div class="col-lg-2 col-md-4 d-flex justify-content-center align-items-center">
+			  <div class="col-lg-2 col-md-2 col-sm-2 col-md-4 d-flex justify-content-center align-items-center">
 				<button type="button" class="btn btn-outline-danger"
 				  style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
 				<button *ngIf="last" (click)="onDuplicate(i)" type="button" class="btn btn-outline-green ml-2"
@@ -612,7 +612,7 @@
 		  </div>
 		<div class="modal-body"  *ngIf="certificationBoolean">
 			<div formGroupName="skillSet">
-				<div class="col-lg-12 col-md-12" >	
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12" >	
 					<div class=" form-group">
 						<label >{{"userProfile.certification" | translate }}</label>
 						<mat-form-field class="example-chip-list" style="width: 100%;" >
@@ -636,7 +636,7 @@
 		</div>	
 		<div class="modal-body"  *ngIf="preferredLocation">
 			<div formGroupName="jobPref">
-				<div class="col-lg-12 col-md-12" >	
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12" >	
 						<div class=" form-group">
 							<label >{{"userProfile.preferredLocation" | translate }}</label>
 							<mat-form-field class="example-chip-list" style="width: 100%;" >
@@ -663,7 +663,7 @@
 		</div>	
 		<div class="modal-body"  *ngIf="job_role">
 			<div formGroupName="jobPref">
-				<div class="col-lg-12 col-md-12">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12">
 					<div class=" form-group">
 						<label>{{"userProfile.rolesLookingFor" | translate }}</label>
 						<input formControlName="job_role" type="text" class="form-control text-capitalize" [placeholder]="'postYourResume.rolesLookingFor' | translate">
@@ -675,7 +675,7 @@
 		<div class="modal-body"  *ngIf="reference">
 			<div formGroupName="personalDetails">
 				<div class="row mt-5">
-					<div class="col-lg-12 col-md-6">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-md-6">
 					  <label>{{"userProfile.addreference" | translate }}</label>
 					  <div></div>
 					</div>
@@ -692,13 +692,13 @@
 							<input formControlName="email" type="email"  class="form-control text-lowercase" placeholder="Please Enter the E-mail">
 							<app-control-messages [control]="ticket['controls']['email']"></app-control-messages>
 					  </div>
-					  <div class="col-lg-4 col-md-6">
+					  <div class="col-lg-4 col-md-4 col-sm-4 col-md-6">
 							<label>{{"shared.companyName" | translate }}</label>
 							<input  formControlName="company_name" type="text" class="form-control text-capitalize" placeholder="Please Enter the Company Name">
 							<app-control-messages [control]="ticket['controls']['company_name']"></app-control-messages>
 					  </div>
 				   
-					<div class="col-lg-2 col-md-6" style="margin-top:30px;">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-md-6" style="margin-top:30px;">
 					  <button type="button" class="btn btn-outline-danger" 
 						style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemoveR(i)"><i class="fas fa-times"></i></button>
 					  <button *ngIf="last" (click)="onDuplicateR(i)" type="button" class="btn btn-outline-green "
@@ -711,7 +711,7 @@
 			</div>
 		<div class="modal-body"  *ngIf="mobileNumber">
 			<div formGroupName="personalDetails">
-				<div class="col-lg-12 col-md-12">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12">
         <div class=" form-group">
           <label>{{"shared.mobileNumber" | translate }}</label>
           <ngx-intl-tel-input (ngModelChange)="checkNumber()"
@@ -733,7 +733,7 @@
 			
 		<div class="modal-body"  *ngIf="domains_worked">
 			<div formGroupName="educationExp">
-				<div class="col-lg-12 col-md-12" >	
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12" >	
 					<div class=" form-group">
 						<label >{{"userProfile.domainsWorked" | translate }}</label>
 						<ngx-select
@@ -755,7 +755,7 @@
 		
 		<div class="modal-body"  *ngIf="skills">
 			<div formGroupName="skillSet">
-				<div class="col-lg-12 col-md-12" >	
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12" >	
 					<div class=" form-group">
 						<label >{{"userProfile.knowledgeOn" | translate }}</label>
 						 <ngx-select
@@ -787,7 +787,7 @@
 		</div>	
 		<div class="modal-body"  *ngIf="programming_skills">
 			<div formGroupName="skillSet">
-				<div class="col-lg-12 col-md-12" >	
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12" >	
 					<div class=" form-group">
 						<label >{{"userProfile.programmingSkills" | translate }}</label>
 						 <mat-form-field  class="example-chip-list" style="width: 100%;" >
@@ -810,7 +810,7 @@
 		</div>	
 		<div class="modal-body"  *ngIf="clients_worked">
 			<div formGroupName="personalDetails">
-				<div class="col-lg-12 col-md-12" >	
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12" >	
 					<div class=" form-group">
 						<label >{{"userProfile.previousEmployers" | translate }}</label>
 						 <mat-form-field class="example-chip-list" style="width: 100%;"  >
@@ -835,7 +835,7 @@
 		
 		<div class="modal-body"  *ngIf="other_skills">
 			<div formGroupName="skillSet">
-				<div class="col-lg-12 col-md-12" >	
+				<div class="col-lg-12 col-md-12 col-sm-12 col-md-12" >	
 					<div class=" form-group">
 						<label >{{"userProfile.others" | translate }}</label>
 						 <mat-form-field  class="example-chip-list" style="width: 100%;" >

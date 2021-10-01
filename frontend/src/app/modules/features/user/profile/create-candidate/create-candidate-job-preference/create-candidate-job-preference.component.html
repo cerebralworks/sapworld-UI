@@ -1,6 +1,6 @@
 <div formGroupName="jobPref">
 <div class="row mt-2">
-		<div class="col-lg-12 col-md-6">
+		<div class="col-lg-12 col-md-12">
 			<div class=" form-group">
 				<label>{{"userProfile.jobType" | translate }}</label>
 				<div appMarkAsterisk class="mt-2"></div>
@@ -19,14 +19,14 @@
 		</div>
 	</div>
 	<div class="row mt-5 ">
-		<div class="col-lg-4 col-md-6">
+		<div class="col-lg-4 col-md-12">
 			<div class=" form-group">
 				<label>{{"userProfile.rolesLookingFor" | translate }}</label>
 				<input formControlName="job_role" type="text" class="form-control text-capitalize" [placeholder]="'userProfile.rolesLookingFor' | translate">
 				<app-control-messages [control]="f['job_role']"></app-control-messages>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-6">
+		<div class="col-lg-4 col-md-12">
 			<div class=" form-group">
 				<label>{{"userProfile.arYouWillingToRelocate" | translate }}?</label>
 				<div appMarkAsterisk class="mt-2">
@@ -43,7 +43,7 @@
 		</div>
 	</div>
 	<div class="row mt-2 ">
-		<div class="col-lg-4 col-md-6">
+		<div class="col-lg-4 col-md-12">
 			<div class=" form-group">
 				<label>{{"userProfile.availability" | translate }}</label>
 				<select appMarkAsterisk formControlName="availability" class="form-control">
@@ -53,7 +53,7 @@
 				<app-control-messages [control]="f['availability']"></app-control-messages>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-6">
+		<div class="col-lg-4 col-md-12">
 			<div class=" form-group">
 				<label>&nbsp;</label>
 				<div class="mt-2">
@@ -66,7 +66,7 @@
 		</div>
 	</div>
 	<div class="row mt-2" *ngIf="!childForm?.value?.jobPref?.remote_only">
-		<div class="col-lg-4 col-md-6">
+		<div class="col-lg-4 col-md-12">
 			<div class=" form-group">
 				<label>{{"userProfile.travel" | translate }} </label>
 				<select appMarkAsterisk formControlName="travel" class="form-control">
@@ -157,7 +157,7 @@
 				</div>
 			</div>
 		</div> -->
-		<div class="col-lg-12 col-md-6">
+		<div class="col-lg-12 col-md-12">
 			<div class=" form-group">
 				<label>&nbsp;</label>
 				<div class="mt-2">
