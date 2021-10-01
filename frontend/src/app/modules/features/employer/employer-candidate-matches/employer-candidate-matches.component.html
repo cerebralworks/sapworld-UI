@@ -123,7 +123,7 @@
 		</div>
 	</div>
     <div class="row">
-      <div class="col-lg-8 col-md-7">
+      <div class="col-lg-8 col-md-12">
 		<div class="col-lg-12 mt-3">
             <div class="clearfix">
               <div  *ngFor="let item of postedJobCountry; let i=index" class="alert alert-find alert-dismissible " role="alert">
@@ -168,7 +168,7 @@
               <div class="card job-card">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-7 col-md-5">
                       <a href="javascript:;" [routerLink]="['/employer/job-candidate-matches/details/view']" [queryParams]="{jobId: selectedJob?.id, userId: item?.id}">
                         <h5 class="text-capitalize">
                           <span>{{(item?.first_name ? item?.first_name : '') + ' ' + (item?.last_name ? item?.last_name : '')}}</span>
@@ -180,7 +180,7 @@
                         <!-- </h6> -->
                       </a>
                     </div>
-                    <div class="col-lg-5 text-right mt-2">
+                    <div class="col-lg-5  col-md-7 text-right mt-2">
 
                       <span data-toggle="modal" data-target="#exampleModal">
                         <a
@@ -302,7 +302,7 @@
       </div>
 
       <!--Side Bar Section-->
-      <div class="col-lg-4 col-md-5">
+      <div class="col-lg-4 col-md-12">
         <div class="title">
           <h2> {{"shared.filter" | translate }}
             <button *ngIf="customObject?.keys(utilsHelperService.clean(tempQueryParams))?.length > 2" (click)="onClearFilter()" class="btn btn-sm btn-theme-blue ml-2 float-right" type="button">

@@ -20,13 +20,13 @@
 <section class="my-5">
 	<div class="container container-big">
 		<div class="row">
-			<div [ngClass]="(isMultipleMatches === true)?'col-lg-4':'col-lg-6'">
+			<div  class="top-pad" [ngClass]="(isMultipleMatches === true)?'col-lg-4':'col-lg-6'">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="card profile-card border p-2">
 							<div class="d-flex">
 								<div class="pc-info">
-									<a [routerLink]="['/employer/job-detail-view']" href="javascript:;">
+									<a [routerLink]="['/employer/job-detail-view/details']"  [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;">
 										<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
 									</a>
 									<h6 class="text-capitalize mt-2">{{postedJobsDetails?.company?.company}}</h6>
@@ -68,7 +68,7 @@
 					[fieldsExclude]="{salary: false, visa_sponsorship: false, end_to_end_implementation: true}">
 				</app-shared-job-profile>
 			</div>
-			<div [ngClass]="(isMultipleMatches === true)?'col-lg-8':'col-lg-6'">
+			<div  class="top-pad" [ngClass]="(isMultipleMatches === true)?'col-lg-8':'col-lg-6'">
 				<div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel">
 					<div class="carousel-inner">
 						<!--Profile1-->

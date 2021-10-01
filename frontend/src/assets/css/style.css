@@ -525,7 +525,7 @@ a:hover {
     background: #f8f8f8;
     border-radius: 10px;
    /*  width: 100%; */
-   width:77%;
+   width:100%;
 }
 .theme-nav .dropdown-menu {
     margin: 0.65rem 0 0;
@@ -2969,11 +2969,6 @@ ul.timeline > li span:hover {
 	.container-medium {
 		max-width: 100%!important;
 	}
-	.theme-nav {
-		padding: 0.5rem 0.5rem!important;
-		/* box-shadow: 0px 3px 6px #f6f6f6; */
-		z-index: 9;
-	}
 	.lang-icon {
 		position: absolute;
 		right: 0px;
@@ -3090,6 +3085,28 @@ ul.timeline > li span:hover {
 
 /*-- Medium devices (tablets, 768px and up)--*/
 @media (min-width: 768px) and (max-width: 1023.98px) {
+	.top-pad{
+	margin-top: 55px;
+}
+	.upload-box{
+		
+    top: -20rem;
+	}.uploads-image{
+		
+    top: -20rem;
+	}
+	.upload-box .box {
+    border: 1.25px dashed #cccccc !important;
+    padding: 0px;
+    position: absolute !important;
+    z-index: 99 !important;
+    min-height: 129px !important;
+    right: 20px !important;
+    background: #fefefe !important;
+    border-radius: 114px !important;
+    height: 100px !important;
+    width: 135px !important;
+}
 	.container-big {
 		max-width: 100%!important;
 	}
@@ -3145,9 +3162,7 @@ ul.timeline > li span:hover {
 		color: #000000;
 		margin-bottom: 5px;
 	}
-	#navbarNavDropdown .navbar-nav .dropdown-menu {
-		display: block!important;
-	}
+	
 	.modal-dialog.modal-lg {
 		max-width: 730px!important;
 	}
@@ -3325,10 +3340,21 @@ ul.timeline > li span:hover {
 .col-md-4 {
     flex: 0 0 33.333333%;
     max-width: 33.333333%;
+}.col-md-4 {
+    flex: 0 0 22.22222%;
+    max-width: 22.22222%;
 }
 .col-md-8 {
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
+}
+.col-md-5 {
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+}
+.col-md-7 {
+        flex: 0 0 58.333333%;
+    max-width: 58.333333%;
 }
 .nav-language-80{
 	  top: 80px; 
@@ -3337,4 +3363,41 @@ ul.timeline > li span:hover {
 	  top: 66px; 
      display: block;
 }
+.theme-nav .dropdown{
+	width:77% !important;
+}
+.info .list-group-item{
+	min-width: auto !important;
+}
+.iti--allow-dropdown{
+	    width: auto !important;
+}
+.upload-image{
+	top: -21rem !important;
+}.uploads-image{
+	top: -41rem !important;
+}
+.top-3-remove{
+	    margin: 0px !important;
+}
+.btn-lan{
+	    margin-left: 5px !important;
+    line-height: 1.75 !important;
+    padding: 4px !important;
+}
+.val-hide{
+	display:none;
+}
+.top-pad{
+	margin-top: 55px;
+}
+.btn-fltr{
+	    font-size: 10px !important;
+}
+.matchs-info {
+    margin-top: 125px !important;
+}
+}
+.navbar-nav {
+    flex-direction: row !important;
 }
