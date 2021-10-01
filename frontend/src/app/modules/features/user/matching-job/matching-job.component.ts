@@ -76,12 +76,12 @@ export class MatchingJobComponent implements OnInit {
 	) {
 		
 		this.experienceFilter = [
-		  {value: {min: 0, max: 1}, text: 'Freshers'},
-		  {value: {min: 1, max: 3}, text: '1 - 3 Years'},
-		  {value: {min: 3, max: 5}, text: '3 - 5 Years'},
-		  {value: {min: 5, max: 7}, text: '5 - 7 Years'},
-		  {value: {min: 7, max: 10}, text: '7 - 10 Years'},
-		  {value: {min: 10, max: 20}, text: '10 Years & above'}
+		  {value: {min: 0, max: 1}, text: ''},
+		  {value: {min: 1, max: 3}, text: '1 - 3'},
+		  {value: {min: 3, max: 5}, text: '3 - 5'},
+		  {value: {min: 5, max: 7}, text: '5 - 7'},
+		  {value: {min: 7, max: 10}, text: '7 - 10'},
+		  {value: {min: 10, max: 20}, text: '10'}
 		]
 		
 		/**

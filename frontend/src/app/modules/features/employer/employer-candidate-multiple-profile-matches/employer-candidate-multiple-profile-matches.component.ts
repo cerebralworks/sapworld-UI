@@ -291,7 +291,20 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 			this.postedJobsDetails = item;
 			this.currentUserInfo = this.userInfo;
 		}
-		this.isOpenedSendMailModal = status;
+		//this.isOpenedSendMailModal = status;
+		if(status ==true && !item){
+			this.isOpenedSendMailModal = false;
+		}else{
+			this.isOpenedSendMailModal = status;
+		}
+		if(status == false){
+			if(this.postedJobsDetails['id']==this.matchingJob['jobs']['id']){
+				this.matchingJob['jobs']['mail'] =true;
+			}else{
+				this.matchingJobNew['jobs']['mail'] =true;
+			}
+			
+		}
 	}
 	
 	/**

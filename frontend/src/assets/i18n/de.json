@@ -6,6 +6,16 @@
 	  "later":"Später",
 	  "upload":"Hochladen",
 	  "uploadSuccess":"Super, du hast ein neues Spiel!!",
+	 
+      "fullTime":"Vollzeit",
+	  "partTime":"Teilzeit",
+	  "contract":"Vertrag",
+	  "freelance":"Freiberuflich",
+	  "internship":"Praktikum",
+	  "year":"Jahre",
+	  "yearAbove":"Jahre und älter",
+	  "fresher":"Erstsemester",
+	  
 	  "ok":"Okay",
 	  "jobDesc":"Rollen und Verantwortlichkeiten",
 	  "download":"Herunterladen",

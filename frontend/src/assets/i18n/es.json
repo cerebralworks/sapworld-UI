@@ -7,6 +7,17 @@
     "upload": "Subir",
     "uploadSuccess": "¡¡Genial, tienes un nuevo partido!!",
   "uploadPhoto": "Subir foto",
+  
+  "fullTime":"Tiempo completo",
+	  "partTime":"Tiempo parcial",
+	  "contract":"Contrato",
+	  "freelance":"Lanza libre",
+	  "internship":"Internado",
+	  "year":"Años",
+	  "yearAbove":"Años y más",
+	  "fresher":"Freshers",
+	  
+	  
     "ok": "De acuerdo",
     "download": "Descargar",
     "jobDesc": "Funciones y responsabilidades",
