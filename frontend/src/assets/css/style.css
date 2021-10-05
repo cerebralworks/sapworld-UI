@@ -3173,7 +3173,7 @@ ul.timeline > li span:hover {
 		width: 50% !important;
 	}
 	.nav-tab .nav-item {
-    padding-right: 17px;
+    padding-right: 14px;
 }
 	.btn-smss {
     font-size: 6px;
@@ -3354,7 +3354,27 @@ ul.timeline > li span:hover {
 
 /*-- Large devices (desktops, large desktops, 1024px and up)--*/
 @media (min-width: 1024px) and (max-width: 1024.98px){ 
-	
+	.matchs-info {
+		top: 40px !important;
+		left: 10rem !important;
+	}
+	.change-lays{
+	position: absolute;
+    left: 17rem;
+}
+.change-lay{
+	position: absolute;
+    left: 13rem;
+}
+#matchBtnVal{
+		font-size: 9px !important;
+	}
+	#missBtnVal{
+		font-size: 9px !important;
+	}
+	#moreBtnVal{
+		font-size: 9px !important;
+	}
 	.container-big {
 		max-width: 1440px!important;
 	}
@@ -3363,7 +3383,7 @@ ul.timeline > li span:hover {
 	}
 	.job-card .card-body {
 		padding: 10px;
-		min-height: 190px;
+		/*min-height: 190px;*/
 	}
 	.job-card .card-body110px {
 		padding: 10px;
