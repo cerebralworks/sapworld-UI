@@ -71,7 +71,7 @@
   <div class="container">
     <div class="row">
       <!--Tab Section-->
-      <div class="col-lg-8 col-md-12 company-info-tab">
+      <div class="col-lg-8 col-md-8 matches-8 company-info-tab">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <a class="nav-link active" id="company-tab" data-toggle="tab" href="#company" role="tab" aria-controls="company" aria-selected="true"> {{"nav.aboutCompany" | translate}} </a>
@@ -154,7 +154,7 @@
       </div>
 
       <!--Side Section-->
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-4 matches-8">
         <div class="title">
           <h2> {{"shared.contactUs" | translate}} </h2>
         </div>
@@ -187,10 +187,10 @@
         </div>
         <div class="sidebar-widget text-left  bg-white">
 		<div class="row mb-4" *ngFor="let item of profileSettings; let i=index">
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-md-6 matches-6">
         <p >{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item?.label}}</p>
       </div>
-      <div class="col-lg-6 clearfix">
+      <div class="col-lg-6 col-md-6 clearfix">
         <div class="showhideswitch float-right">
           <input
           [checked]="(employerDetails?.privacy_protection && privacyProtection[item?.field] == true)"

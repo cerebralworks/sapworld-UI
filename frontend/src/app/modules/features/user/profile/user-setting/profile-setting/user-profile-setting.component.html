@@ -31,7 +31,7 @@
   </div>
   <div class="sidebar-widget text-left">
     <div class="row mb-4" *ngFor="let item of profileSettings; let i=index">
-      <div class="col-lg-8">
+      <div class="col-lg-8 col-md-8 matches-80">
 		<p *ngIf="item?.field == 'photo'">{{"profileSettings.photo" | translate }}</p>
         <p *ngIf="item?.field == 'phone'">{{"profileSettings.phone" | translate }}</p>
         <p *ngIf="item?.field == 'email'">{{"profileSettings.email" | translate }}</p>
@@ -40,7 +40,7 @@
         <p *ngIf="item?.field == 'available_for_opportunity'">{{"profileSettings.available_for_opportunity" | translate }}</p>
         <p *ngIf="item?.field == 'opportunity'">{{"profileSettings.available_for_opportunity" | translate }}</p>
       </div>
-      <div class="col-lg-4 clearfix">
+      <div class="col-lg-4 col-md-4 matches-20 clearfix">
         <div class="showhideswitch float-right">
           <input
           [checked]="(currentProfileInfo?.privacy_protection && currentProfileInfo?.privacy_protection[item?.field] == true)"

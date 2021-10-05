@@ -23,16 +23,16 @@
 <section class="my-5">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-8 col-md-12">
+			<div class="col-lg-8 col-md-8 matches-8">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="card job-card">
 							<div class="card-body">
 								<div class="row">
-									<div class="col-lg-6">
+									<div class="col-lg-6 col-md-6 matches-8 ">
 										<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
 									</div>
-									<div class="col-lg-6 text-right" >
+									<div class="col-lg-6 col-md-6 matches-8 text-right" >
 										<a class="btn btn-sm" *ngIf="postedJobsDetails['status'] == 3"  style="margin-right: 4px;    color: #fff;border-color: #b30606;background: #b71111;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.closed" | translate}}</a>
 										<a class="btn btn-outline-green btn-sm" *ngIf="postedJobsDetails?.is_job_applied == 0" (click)="onToggleResumeSelectModal(true, postedJobsDetails) && postedJobsDetails['status'] == 1" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.apply" | translate}}</a>
 										<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.is_job_applied != 0" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.applied" | translate}}</a>
@@ -80,7 +80,7 @@
 						[fieldsExclude]="{salary: true, visa_sponsorship: true, end_to_end_implementation: true}">
 				</app-shared-job-profile>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4 matches-8">
 				<div class="title" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">
 				  <h2>
 					{{"shared.screeningProcess" | translate}}        
@@ -88,10 +88,10 @@
 				</div>
 				<div class="sidebar-widget px-4" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">
 					<div class="row mt-3 mb-3" *ngFor="let items of postedJobsDetails?.screening_process;let i=index">
-						<div class="col-lg-2 col-md-3 text-left">
+						<div class="col-lg-2 col-md-3 matches-10 text-left">
 							<h6 class="font-weight-bold">{{i+1}}.</h6> 
 						</div>	
-						<div class="col-lg-10 col-md-9 text-left">
+						<div class="col-lg-10 col-md-9 matches-80 text-left">
 							<h6>{{items.title}}</h6>
 						</div>	
 					</div>

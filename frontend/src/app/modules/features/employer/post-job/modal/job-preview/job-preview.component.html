@@ -52,30 +52,30 @@
 		</div>
 		<div formGroupName="match_select" >
 		<div class="row mt-3 info-box">
-			<div class="offset-lg-8 col-lg-4 text-center">
+			<div class="offset-lg-8 col-lg-4 offset-md-8 col-md-4  text-center">
 					<div class="d-flex" >
 					<div class="rdn-radio">{{"jobs.required" | translate}}</div>
 					<div class="rdn-radio">{{"jobs.desired" | translate}}</div>
 					<div class="rdn-radio">{{"jobs.niceToHave" | translate}}</div>
 				</div>	
 			</div>
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.totalYearsOfExperience" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info" *ngIf="postJobForm?.value?.jobInfo?.entry ==false" >
+			<div class="col-lg-5 col-md-5 info" *ngIf="postJobForm?.value?.jobInfo?.entry ==false" >
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{postJobForm?.value?.requirement?.experience}} Years</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info" *ngIf="postJobForm?.value?.jobInfo?.entry == true" >
+			<div class="col-lg-5 col-md-5 info" *ngIf="postJobForm?.value?.jobInfo?.entry == true" >
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0" *ngIf="!postJobForm?.value?.requirement?.experience || postJobForm?.value?.requirement?.experience ==0 ">Fresher</li>
 					<li class="list-group-item text-capitalize m-0" *ngIf="postJobForm?.value?.requirement?.experience && postJobForm?.value?.requirement?.experience !=0">{{postJobForm?.value?.requirement?.experience}} Years</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4  col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -103,17 +103,17 @@
 			</div>
 		</div>
 		<div class="row info-box" *ngIf="postJobForm?.value?.jobInfo?.entry ==false" >
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3  col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"matches.totalYearsOfSapExperience" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5  col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{postJobForm?.value?.requirement?.sap_experience}} Years</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4  col-md-4 ">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -141,12 +141,12 @@
 			</div>
 		</div>
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3  col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.domainExperience" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.requirement?.domain">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.domain.length; else elseSkillsTemplatess">
@@ -165,7 +165,7 @@
 				</ul>
 				
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 " *ngIf="!postJobForm?.value?.requirement?.domain || !postJobForm?.value?.requirement?.domain?.length || postJobForm?.value?.requirement?.domain?.length==0 " >							
 						<div class="d-flex">
@@ -215,12 +215,12 @@
 			</div>
 		</div>
 		<div class="row info-box" *ngIf="postJobForm?.value?.jobInfo?.entry ==false" >
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.handsOnWith" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase d-flex handsExps">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.hands_on_experience?.length; else elseHandsTemplate">
@@ -236,7 +236,7 @@
 					 </li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -264,12 +264,12 @@
 			</div>
 		</div>
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.knowledgeOn" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class=" list-group-item text-uppercase">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.skills?.length; else elseSkillsTemplate">
@@ -296,7 +296,7 @@
 				  </li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="postJobForm?.value?.requirement?.new_skills?.length ==0  &&(!postJobForm?.value?.requirement?.skills || !postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )">
+			<div class="col-lg-4 col-md-4" *ngIf="postJobForm?.value?.requirement?.new_skills?.length ==0  &&(!postJobForm?.value?.requirement?.skills || !postJobForm?.value?.requirement?.skills?.length || utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length==0 )">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -322,7 +322,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="postJobForm?.value?.requirement?.new_skills?.length !=0 || (postJobForm?.value?.requirement?.skills?.length && utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length !=0 )">
+			<div class="col-lg-4 col-md-4" *ngIf="postJobForm?.value?.requirement?.new_skills?.length !=0 || (postJobForm?.value?.requirement?.skills?.length && utilsHelperService.differenceByPropValArray(postJobForm?.value?.requirement?.skills, postJobForm?.value?.requirement?.hands_on_experience, 'skill_id').length !=0 )">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -350,12 +350,12 @@
 			</div>
 		</div>
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.programmingSkills" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.requirement?.programming_skills">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.programming_skills.length; else elseSkillsTemplates">
@@ -373,7 +373,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="!postJobForm?.value?.requirement?.programming_skills || !postJobForm?.value?.requirement?.programming_skills?.length || postJobForm?.value?.requirement?.programming_skills?.length==0 ">
+			<div class="col-lg-4 col-md-4" *ngIf="!postJobForm?.value?.requirement?.programming_skills || !postJobForm?.value?.requirement?.programming_skills?.length || postJobForm?.value?.requirement?.programming_skills?.length==0 ">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -399,7 +399,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="postJobForm?.value?.requirement?.programming_skills && postJobForm?.value?.requirement?.programming_skills?.length && postJobForm?.value?.requirement?.programming_skills?.length !=0 ">
+			<div class="col-lg-4 col-md-4" *ngIf="postJobForm?.value?.requirement?.programming_skills && postJobForm?.value?.requirement?.programming_skills?.length && postJobForm?.value?.requirement?.programming_skills?.length !=0 ">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -427,12 +427,12 @@
 			</div>
 		</div>			
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.otherSkills" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.requirement?.optinal_skills">
@@ -452,7 +452,7 @@
 				</ul>
 				
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 " *ngIf="!postJobForm?.value?.requirement?.optinal_skills || !postJobForm?.value?.requirement?.optinal_skills?.length || postJobForm?.value?.requirement?.optinal_skills?.length==0 ">							
 						<div class="d-flex">
@@ -503,12 +503,12 @@
 		</div>
 		<div class="col-lg-12 border-top pt-3">	</div>			
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.certification"  | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.otherPref?.certification">
 							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification; let i = index; let last = last;">
@@ -522,7 +522,7 @@
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button></li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="!postJobForm?.value?.otherPref?.certification || postJobForm?.value?.otherPref?.certification=='' ">
+			<div class="col-lg-4 col-md-4" *ngIf="!postJobForm?.value?.otherPref?.certification || postJobForm?.value?.otherPref?.certification=='' ">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -548,7 +548,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="postJobForm?.value?.otherPref?.certification && postJobForm?.value?.otherPref?.certification!='' ">
+			<div class="col-lg-4 col-md-4" *ngIf="postJobForm?.value?.otherPref?.certification && postJobForm?.value?.otherPref?.certification!='' ">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -576,12 +576,12 @@
 			</div>
 		</div>						
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"shared.jobType"  | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item">
 						{{sharedService.onGetJobType([postJobForm?.value?.jobInfo?.type]) }}
@@ -589,7 +589,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -617,12 +617,12 @@
 			</div>
 		</div>						
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.jobRole"  | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item " *ngIf="postJobForm?.value?.jobInfo?.employer_role_type && postJobForm?.value?.jobInfo?.employer_role_type !='' ">
 					{{postJobForm?.value?.jobInfo?.employer_role_type}}
@@ -632,7 +632,7 @@
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button></li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="!postJobForm?.value?.jobInfo?.employer_role_type || postJobForm?.value?.jobInfo?.employer_role_type==''">
+			<div class="col-lg-4 col-md-4" *ngIf="!postJobForm?.value?.jobInfo?.employer_role_type || postJobForm?.value?.jobInfo?.employer_role_type==''">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -658,7 +658,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4" *ngIf="postJobForm?.value?.jobInfo?.employer_role_type && postJobForm?.value?.jobInfo?.employer_role_type!=''">
+			<div class="col-lg-4 col-md-4" *ngIf="postJobForm?.value?.jobInfo?.employer_role_type && postJobForm?.value?.jobInfo?.employer_role_type!=''">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0  m-0 ">							
 						<div class="d-flex">
@@ -686,19 +686,19 @@
 			</div>
 		</div>					
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.availability"  | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item ">
 					{{postJobForm?.value?.jobInfo?.availability}} days
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
@@ -726,12 +726,12 @@
 			</div>
 		</div>		
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.workAuthorisation"  | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 0">{{"userProfile.shouldBeACitizenPr" | translate }}</li>
 					<li class="list-group-item" *ngIf="  postJobForm?.value?.requirement?.work_authorization == 1">{{"userProfile.shouldBeHavingAWorkPermit" | translate }}</li>
@@ -741,7 +741,7 @@
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button></li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group" *ngIf="  postJobForm?.value?.requirement?.work_authorization != 0 &&  (postJobForm?.value?.requirement?.work_authorization == '' || postJobForm?.value?.requirement?.work_authorization == null)">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
@@ -794,12 +794,12 @@
 		</div>		
 		<div class="col-lg-12 border-top pt-3">	</div>		
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.endToEnd" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group" *ngIf="!postJobForm?.value?.requirement?.end_to_end_implementation">
 					<li class="list-group-item">
 						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('end_to_end_implementation')" type="button" class="btn btn-theme-green" data-toggle="modal"
@@ -810,7 +810,7 @@
 					<li class="list-group-item">{{postJobForm?.value?.requirement?.end_to_end_implementation}}</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0 m-0 " *ngIf="!postJobForm?.value?.requirement?.end_to_end_implementation">							
 						<div class="d-flex">
@@ -860,12 +860,12 @@
 			</div>
 		</div>			
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.education" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item" *ngIf="postJobForm?.value?.requirement?.education && postJobForm?.value?.requirement?.education !='' ">{{postJobForm?.value?.requirement?.education}}</li>
 					<li class="list-group-item " *ngIf="!postJobForm?.value?.requirement?.education || postJobForm?.value?.requirement?.education =='' ">
@@ -873,7 +873,7 @@
 			data-target="#addCriteria">{{"shared.add" | translate}} </button></li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
@@ -901,17 +901,17 @@
 			</div>
 		</div>			
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.travelRequired" | translate }}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item">{{(postJobForm?.value?.requirement?.travel_opportunity || postJobForm?.value?.requirement?.travel_opportunity==0) ? (postJobForm?.value?.requirement?.travel_opportunity == 0 ? 'No' : postJobForm?.value?.requirement?.travel_opportunity + '%') : '--'}}</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
@@ -939,17 +939,17 @@
 			</div>
 		</div>		
 		<div class="row info-box">
-			<div class="col-lg-3 caption">
+			<div class="col-lg-3 col-md-3 caption">
 				<ul class="list-group">
 					<li class="list-group-item text-capitalize m-0">{{"userProfile.languageKnown" | translate}}</li>
 				</ul>
 			</div>
-			<div class="col-lg-5 info">
+			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item">{{findLanguageArray(postJobForm?.value?.otherPref?.language)}}</li>
 				</ul>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
 					<li class="list-group-item border-0 p-0 m-0 ">							
 						<div class="d-flex">
@@ -979,17 +979,17 @@
 		<div class="col-lg-12 border-top pt-3">	</div>
 		<ng-container *ngIf="childForm?.value?.otherPref?.others?.length > 0 && pageShow">
 			<div class="row info-box" *ngFor="let others of childForm?.value?.otherPref?.others; let i = index">
-				<div class="col-lg-3 caption" *ngIf="others?.value == true">
+				<div class="col-lg-3 col-md-3 caption" *ngIf="others?.value == true">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize" *ngIf="others?.id == isShowOthers">{{"userProfile.others" | translate}}</li>
 					</ul>
 				</div>
-				<div class="col-lg-5 info" *ngIf="others?.value == true">
+				<div class="col-lg-5 col-md-5 info" *ngIf="others?.value == true">
 					<ul class="list-group">
 						<li class="list-group-item text-capitalize">{{others?.title}}</li>
 					</ul>
 				</div>
-				<div class="col-lg-4"  *ngIf="others?.value == true">
+				<div class="col-lg-4 col-md-4"  *ngIf="others?.value == true">
 					<ul class="list-group">
 						<li class="list-group-item border-0 p-0 m-0 ">							
 							<div class="d-flex">

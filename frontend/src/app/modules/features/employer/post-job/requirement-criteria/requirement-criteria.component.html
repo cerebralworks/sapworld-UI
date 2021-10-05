@@ -1,6 +1,6 @@
 <div formGroupName="requirement">
 	<div class="row mt-5 ">
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-4 matches-8">
 			<div class=" form-group">
 				<label  *ngIf="!this.childForm.value.jobInfo.entry">{{"userProfile.totalYearsOfExperience" | translate }}(Min)</label>
 				<label *ngIf="this.childForm.value.jobInfo.entry">{{"userProfile.totalYearsOfExperience" | translate }}</label>
@@ -10,7 +10,7 @@
 				<small *ngIf="totalExpError"  class="text-danger">Total is greater than SAP Experience</small>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-12"  *ngIf="!this.childForm.value.jobInfo.entry">
+		<div class="col-lg-4 col-md-4 matches-8"  *ngIf="!this.childForm.value.jobInfo.entry">
 			<div class=" form-group">
 				<label>{{"matches.totalYearsOfSapExperience" | translate }}(Min)</label>
 				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
@@ -19,7 +19,7 @@
 				<small *ngIf="sapExpError" class="text-danger">SAP is not greater than Total Experience</small>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-4 ">
 			<div class=" form-group">
 				<label>{{"userProfile.education" | translate }}</label>	
 				<ngx-select
@@ -65,7 +65,7 @@
 		</div>
 		<div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
 			<ng-container [formGroup]="ticket">
-				<div class="col-lg-6 col-md-12 ">
+				<div class="col-lg-6 col-md-6 matches-8">
 					<ngx-select
 						(select)="onSelectSkillEvent($event, i)"
 						[placeholder]="'Select SAP Skills'"
@@ -92,7 +92,7 @@
 					</ngx-select>
 					<app-control-messages [control]="ticket['controls']['skill_id']"></app-control-messages>
 				</div>
-				<div class="col-lg-2 col-md-6 col-sm-6">
+				<div class="col-lg-2 col-md-3 matches-6">
 					<div class="input-group mb-3">
 						<input numbersOnly formControlName="experience" type="text" class="form-control" placeholder="Exp">
 						<div class="input-group-append ">
@@ -104,7 +104,7 @@
 						<app-control-messages [control]="ticket['controls']['experience']"></app-control-messages>
 					</div>
 				</div>
-				<div class="col-lg-2 col-md-6 col-sm-6">
+				<div class="col-lg-2 col-md-3 matches-6">
 					<button type="button" class="btn btn-outline-danger"
 						style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
 					<button *ngIf="last" (click)="onDuplicate(i)" type="button" class="btn btn-outline-green ml-2"
@@ -115,7 +115,7 @@
 	</ng-container>
 	
 	<div class="row mt-3">
-		<div class="col-lg-12 col-md-6">									
+		<div class="col-lg-12 col-md-12">									
 			<div class=" form-group">
 				<div class="custom-control custom-checkbox mb-2">
 					<input type="checkbox" class="custom-control-input" id="customChecktitle11AA">
@@ -127,14 +127,14 @@
 			<div class="col-lg-12 col-md-6">		
 				<div class="row mt-2"  *ngFor="let itemss of newskills.controls;let i=index;">
 					<ng-container >
-						<div class="col-lg-6 col-md-8">
+						<div class="col-lg-6 col-md-8 matches-80">
 							<div class=" form-group">
 								<div class="custom-control mb-2">
 									<label class=" font-weight-bold text-dark" style="word-break: break-all;">{{itemss.value.tag}} - {{itemss.value.long_tag}}  </label>
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-2 col-md-1" >
+						<div class="col-lg-2 col-md-1 matches-20" >
 							<button type="button" class="text-danger btn p-0 btn-small"
 								style="line-height: 1.75; padding: .5rem 1.0rem;border:none;" (click)="onRemoveOthers(i)"><i class="fas fa-times"></i></button>
 						</div>
@@ -155,7 +155,7 @@
 						<div class="col-lg-5 col-md-5">
 							<input type="text" formControlName="skills_Datas"  class="form-control" placeholder="Ex: Data Science">
 						</div>							
-						<div class="col-lg-2 col-md-1">
+						<div class="col-lg-2 col-md-1 matches-10">
 							<button type="button" (click)="onDuplicateOthers()" class="btn btn-outline-success" style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
 						</div>
 					</div>	

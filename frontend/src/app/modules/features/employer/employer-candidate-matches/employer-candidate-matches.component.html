@@ -123,7 +123,7 @@
 		</div>
 	</div>
     <div class="row">
-      <div class="col-lg-8 col-md-12">
+      <div class="col-lg-8 col-md-8 matches-8">
 		<div class="col-lg-12 mt-3">
             <div class="clearfix">
               <div  *ngFor="let item of postedJobCountry; let i=index" class="alert alert-find alert-dismissible " role="alert">
@@ -302,7 +302,7 @@
       </div>
 
       <!--Side Bar Section-->
-      <div class="col-lg-4 col-md-12">
+      <div class="col-lg-4 col-md-4 matches-4">
         <div class="title">
           <h2> {{"shared.filter" | translate }}
             <button *ngIf="customObject?.keys(utilsHelperService.clean(tempQueryParams))?.length > 2" (click)="onClearFilter()" class="btn btn-sm btn-theme-blue ml-2 float-right" type="button">

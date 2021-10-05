@@ -4,7 +4,7 @@
 			 <h6>{{"userProfile.personalDetails" | translate }}</h6>
 		</div>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -18,7 +18,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -32,7 +32,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -76,7 +76,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6" *ngIf="userInfo?.visa_type">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6" *ngIf="userInfo?.visa_type">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -93,7 +93,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -107,7 +107,7 @@
 			</div>
 		</div>
 	</div>	
-	<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -121,7 +121,7 @@
 			</div>
 		</div>
 	</div>	
-	<div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -133,7 +133,7 @@
 			</div>
 		</div>
 	</div>	
-	<div class="col-lg-6 col-md-6 col-sm-6" *ngIf="userInfo?.willing_to_relocate">
+	<div class="col-lg-6 col-md-6 matches-8 col-sm-6" *ngIf="userInfo?.willing_to_relocate">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 caption">
 				<ul class="list-group">
@@ -157,12 +157,12 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.totalYearsOfExp" | translate }}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize" *ngIf="!userInfo?.experience  || userInfo?.experience ==0">Entry level</li>
 			<li class="list-group-item text-capitalize" *ngIf="userInfo?.experience  && userInfo?.experience !=0">{{userInfo?.experience ? userInfo?.experience + ' Years' : '--'}}</li>
@@ -170,12 +170,12 @@
 	</div>
 </div>
 <div class="row"  *ngIf="!userInfo?.entry">
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.totalSapExp" | translate }}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize" *ngIf="userInfo?.sap_experience ==0 ">-- </li>
 			<li class="list-group-item text-capitalize" *ngIf="userInfo?.sap_experience !=0 ">{{userInfo?.sap_experience ? userInfo?.sap_experience + ' Years': '--'}} </li>
@@ -183,25 +183,25 @@
 	</div>
 </div>
 <div class="row" *ngIf="userInfo?.domains_worked && userInfo?.domains_worked.length && userInfo?.domains_worked.length !=0 " >
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.domainsWorked" | translate }}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize">{{sharedService.onFindDomainFromID(userInfo?.domains_worked)}}</li>
 		</ul>
 	</div>
 </div>	
 <div class="row"  *ngIf="!userInfo?.entry">
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item" style="min-height: 46px;">{{"userProfile.handsOnExperience" | translate }}</li>
 		</ul>
 		
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-uppercase d-flex handsExps skills">
 				<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
@@ -219,12 +219,12 @@
 	</div>
 </div>
 <div class="row" *ngIf="utilsHelperService.differenceByPropValArray(userInfo?.skills, userInfo?.hands_on_experience, 'skill_id').length!=0">
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.knowledgeOn" | translate }}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			 <li class="list-group-item text-uppercase"> 
 				<ng-container *ngIf="userInfo?.skills?.length; else elseSkillsTemplate">
@@ -242,36 +242,36 @@
 	</div>
 </div>	
 <div class="row"  *ngIf="userInfo?.programming_skills && userInfo?.programming_skills.length && userInfo?.programming_skills.length !=0 ">
-	<div class="col-lg-4 col-md-4 col-sm-4 caption" >
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption" >
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.programmingSkills" | translate }}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
 		</ul>
 	</div>
 </div>
 <div class="row" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length && userInfo?.other_skills.length !=0 ">
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.others" | translate }}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
 		</ul>
 	</div>
 </div>	
 <div class="row" *ngIf="userInfo?.clients_worked && userInfo?.clients_worked.length && userInfo?.clients_worked.length !=0 " >
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item" *ngIf="!fieldsExclude?.clients_worked">{{"userProfile.previousEmployers" | translate}}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize"  *ngIf="!fieldsExclude?.clients_worked">
 				{{utilsHelperService.onConvertArrayToString(userInfo?.clients_worked)}}
@@ -280,12 +280,12 @@
 	</div>
 </div>	
 <div class="row">
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item">{{"userProfile.languageKnown" | translate}}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize">
 				{{findLanguageArray(userInfo?.language_known)}}
@@ -294,12 +294,12 @@
 	</div>
 </div>	
 <div class="row" *ngIf="userInfo?.end_to_end_implementation">
-	<div class="col-lg-4 col-md-4 col-sm-4 caption">
+	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item"> {{"userProfile.endToEnd" | translate}}</li>
 		</ul>
 	</div>
-	<div class="col-lg-8 col-md-8 col-sm-8 info">
+	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-capitalize">
 				{{userInfo?.end_to_end_implementation}}
@@ -308,12 +308,12 @@
 	</div>
 </div>	
 <div class="row mt-3 info-box" *ngIf="userInfo?.certification">
-	<div class="col-lg-12 col-md-12 col-sm-12" *ngIf="userInfo?.certification.length !=0">
+	<div class="col-lg-12 col-md-12  col-sm-12" *ngIf="userInfo?.certification.length !=0">
 		<div class="pj-title mb-3">
 			 <h6>{{"userProfile.certifications" | translate }}</h6>
 		</div>
 	</div> 
-	<div class="col-lg-12 col-md-12 col-sm-12" *ngIf="userInfo?.certification.length !=0">
+	<div class="col-lg-12 col-md-12  col-sm-12" *ngIf="userInfo?.certification.length !=0">
 		<div class="media mb-2" *ngFor="let certification of userInfo?.certification">
 			<img src="assets/images/certifications-icon.png" width="26px" class="mr-2" alt="SAP">
 			<div class="media-body">

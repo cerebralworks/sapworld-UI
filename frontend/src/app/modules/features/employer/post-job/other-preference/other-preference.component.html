@@ -3,7 +3,7 @@
 	</div>
 	<div class="row mt-2" *ngFor="let ticket of others.controls; let i = index; let last = last">
 		<ng-container [formGroup]="ticket">
-			<div class="col-lg-6 col-md-10">
+			<div class="col-lg-6 col-md-10 matches-80">
 				<div class=" form-group">
 					<div class="custom-control custom-checkbox mb-2">
 						<input type="checkbox" class="custom-control-input" value="true" [checked]="ticket.value.value" (change)="changeStatus(ticket.value.id,$event)" [name]="ticket.value.id" [id]="ticket.value.id">
@@ -11,7 +11,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-2 col-md-2" *ngIf="!(ticket.value.id <=5)">
+			<div class="col-lg-2 col-md-2 matches-10" *ngIf="!(ticket.value.id <=5)">
 				<button type="button" class="text-danger btn p-0 btn-small"
 					style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemoveOthers(i)"><i class="fas fa-times"></i></button>
 			</div>
