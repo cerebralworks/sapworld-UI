@@ -1,6 +1,6 @@
 <div formGroupName="jobInfo">
 	<div class="row mt-5">
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6">
 			<div class=" form-group">
 				<div class="custom-control custom-checkbox mb-2">
 				  <input type="checkbox" class="custom-control-input" formControlName="entry" id="customCheckRemote01">
@@ -10,14 +10,14 @@
 		</div>
 	</div>
 	<div class="row mt-2">
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"shared.jobTitle" | translate}}</label>
 				<input appMarkAsterisk formControlName="title" type="text" class="form-control text-capitalize" [placeholder]="'shared.jobTitle' | translate"/>
 			</div>
 			<app-control-messages [control]="f['title']"></app-control-messages>
 		</div>
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"userProfile.roleType" | translate }}</label>
 				<select formControlName="employer_role_type" class="form-control text-capitalize">
@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<div class="row mt-2">
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8 ">
 			<div class=" form-group">
 				<label>{{"shared.jobType" | translate}}</label>
 				<select (change)="onChangeJobType($event?.target?.value)" appMarkAsterisk formControlName="type" class="form-control" name="type">
@@ -45,14 +45,14 @@
 			</div>
 			<app-control-messages [control]="f['type']"></app-control-messages>
 		</div>
-		<div class="col-lg-4 col-md-6" *ngIf="isContractDuration || childForm?.value?.jobInfo?.type == '1002'">
+		<div class="col-lg-4 col-md-4" *ngIf="isContractDuration || childForm?.value?.jobInfo?.type == '1002'">
 			<div class=" form-group">
 				<label>{{"shared.duration" | translate}} <small>( {{"shared.months" | translate}} )</small></label>
 				<input appMarkAsterisk numbersOnly formControlName="contract_duration" type="text" class="form-control" placeholder="Ex: 6 months">
 				<app-control-messages [control]="f['contract_duration']"></app-control-messages>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-12 d-flex">
+		<div class="col-lg-4 col-md-6 matches-8 d-flex">
 			<div class=" form-group w-50">
 				<label>{{"shared.pay" | translate}}</label>
 				<select appMarkAsterisk formControlName="salary_type" class="form-control" name="job-type">
@@ -78,7 +78,7 @@
 		</div>
 	</div>
 	<div class="row mt-2">
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"shared.city" | translate}}</label>
 				<input autocomplete="disabled" appMarkAsterisk ngx-google-places-autocomplete
@@ -87,7 +87,7 @@
 			</div>
 			<app-control-messages [control]="f['city']"></app-control-messages>
 		</div>
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"shared.state" | translate}}</label>
 				<input  autocomplete="disabled"  appMarkAsterisk formControlName="state" type="text" class="form-control text-capitalize" [placeholder]="'shared.state' | translate">
@@ -96,14 +96,14 @@
 		</div>
 	</div>
 	<div class="row mt-2">
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"shared.zipCode" | translate}}</label>
 				<input autocomplete="disabled" appMarkAsterisk  OnlyNumber="true" formControlName="zipcode" type="text" class="form-control" [placeholder]="'shared.zipCode' | translate">
 			</div>
 			<app-control-messages [control]="f['zipcode']"></app-control-messages>
 		</div>
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"shared.country" | translate}}</label>
 				<input  autocomplete="disabled"  appMarkAsterisk formControlName="country" type="text" class="form-control text-uppercase" [placeholder]="'shared.country' | translate">
@@ -112,7 +112,7 @@
 		</div>
 	</div>
 	<div class="row mt-2">
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"userProfile.availability" | translate}}</label>
 				<select appMarkAsterisk formControlName="availability" class="form-control">
@@ -122,7 +122,7 @@
 				<app-control-messages [control]="f['availability']"></app-control-messages>
 			</div>
 		</div>
-		<div class="col-lg-4 col-md-12">
+		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"userProfile.remote" | translate}} </label>
 				<div appMarkAsterisk class="mt-2">

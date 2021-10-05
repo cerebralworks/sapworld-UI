@@ -15,10 +15,10 @@
 
     <ng-container *ngIf="savedProfile?.length; else elseTemplate">
       <!-- {{chunk(savedProfile, 3) | json}} -->
-      <ng-container *ngFor="let row of chunk(savedProfile, 3); let i = index">
-        <div class="row mb-5">
-          <ng-container *ngFor="let item of row">
-            <div class="col-lg-4" *ngIf="!utilsHelperService.isEmptyObj(item)">
+	  <div class="row ">
+      <ng-container *ngFor="let item of savedProfile; let i = index">
+		  
+            <div class="col-lg-4 mb-5 col-md-6 matches-8" *ngIf="!utilsHelperService.isEmptyObj(item)">
               <div class="card job-card sm" >
                 <div class="card-body">
                   <a  [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: item?.id,path:'savedprofile',employee:this.employerDetails.id}">
@@ -65,10 +65,11 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </ng-container>
-        </div>
+				</div>
+			
+        
       </ng-container>
+	  </div>
     </ng-container>
     <ng-template #elseTemplate>
       <div style="min-height: 180px;">

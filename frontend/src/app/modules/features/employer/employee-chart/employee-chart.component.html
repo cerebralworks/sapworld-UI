@@ -1,14 +1,14 @@
 <!-- //Nav Tab Section -->
 <section class="my-4">
 	<div class="container">
-		<div class="row my-5">
-			<div class="col-lg-7">
+		<div class="row ">
+			<div class="col-lg-7 col-md-7 matches-8 my-5">
 				<button (click)="getDataStatus('active')" [ngClass]="isActive ? 'active' : ''" type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 mr-1">Active <i class="fas fa-times small ml-1" ></i></button>
 				<button (click)="getDataStatus('paused')" [ngClass]="isPaused ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-info rounded-pill px-3 mr-1 ">Paused <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('closed')" [ngClass]="isClosed ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-warning rounded-pill px-3 mr-1">Closed <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('deleted')" [ngClass]="isDeleted ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 mr-1">Deleted <i class="fas fa-times small ml-1"></i></button>
 			</div>
-			<div class="col-lg-5 clearfix">
+			<div class="col-lg-5 col-md-5 matches-8 clearfix my-5">
 				<div id="multiDate" class="float-right">
 					<i class="fas fa-calendar-alt"></i>&nbsp;
 					<input type="text" style="width: 260px;background: #fbfbfb;border: none;
@@ -23,7 +23,7 @@
 		<div class="row mb-5">
 			
 			<ng-container *ngIf="showCountry">		
-				<div class="col-lg-4" *ngIf="countryTotal.length<8">
+				<div class="col-lg-4 col-md-6 col-sm-6 matches-8" *ngIf="countryTotal.length<8">
 					<div class="noselect chartTitle mb-4">
 						{{"shared.byLocation" | translate}}
 					</div>
@@ -39,7 +39,7 @@
 					  </canvas>
 					<div class="noselect chart-center-label" style="left:70%;">{{totalCountry}}</div>
 				</div>		
-				<div class="col-lg-6" *ngIf="countryTotal.length>=8 && countryTotal.length<=21">
+				<div class="col-lg-6 col-md-9 col-sm-9 matches-8" *ngIf="countryTotal.length>=8 && countryTotal.length<=21">
 					<div class="noselect chartTitle mb-4">
 						{{"shared.byLocation" | translate}}
 					</div>
@@ -56,7 +56,7 @@
 					<div class="noselect chart-center-label" *ngIf="countryTotal.length>=8 && countryTotal.length<=11" style="left:64%;bottom:19%;">{{totalCountry}}</div>
 					<div class="noselect chart-center-label" *ngIf="countryTotal.length>=12 && countryTotal.length<=21" style="left:76%;bottom:19%;">{{totalCountry}}</div>
 				</div>
-				<div class="col-lg-9" *ngIf="countryTotal.length>=22 && countryTotal.length<=53">
+				<div class="col-lg-9 col-md-12 col-sm-12 matches-8" *ngIf="countryTotal.length>=22 && countryTotal.length<=53">
 					<div class="noselect chartTitle mb-4">
 						{{"shared.byLocation" | translate}}
 					</div>
@@ -73,7 +73,7 @@
 					<div class="noselect chart-center-label" *ngIf="countryTotal.length>=22 && countryTotal.length<=32"  style="left:68%;bottom:19%">{{totalCountry}}</div>
 					<div class="noselect chart-center-label" *ngIf="countryTotal.length>=33 && countryTotal.length<=53" style="left:76%;bottom:19%">{{totalCountry}}</div>
 				</div>
-				<div class="col-lg-12" *ngIf="countryTotal.length>=54">
+				<div class="col-lg-12 col-md-12 col-sm-12 matches-8" *ngIf="countryTotal.length>=54">
 					<div class="noselect chartTitle mb-4">
 						{{"shared.byLocation" | translate}}
 					</div>
@@ -92,7 +92,7 @@
 				</div>
 			</ng-container>
 			
-			<div class="col-lg-4" *ngIf="showPostedJob" style="max-height: 230px;">					
+			<div class="col-lg-4 col-md-6 col-sm-6 matches-8" *ngIf="showPostedJob" style="max-height: 230px;">					
 				<div class="noselect chartTitle mb-4">
 					{{"shared.jobPosted" | translate}}
 				</div>
@@ -109,7 +109,7 @@
 				<div class="noselect chart-center-label" style="left:61%;">{{totalPostedJobs}}</div>
 			</div>
 			<ng-container *ngIf="showMatches" >
-				<div class="col-lg-4" *ngIf="matchesTotal.length<8">					
+				<div class="col-lg-4 col-md-6 col-sm-6 matches-8" *ngIf="matchesTotal.length<8">					
 					<div class="noselect chartTitle mb-4">
 						{{"shared.matches" | translate}}
 					</div>
@@ -125,7 +125,7 @@
 					  </canvas>
 					<div class="noselect chart-center-label" style="left:72%;">{{totalMatches}}</div>
 				</div>
-				<div class="col-lg-6" *ngIf="matchesTotal.length>=8 && matchesTotal.length<=21">					
+				<div class="col-lg-6 col-md-9 col-sm-9 matches-8" *ngIf="matchesTotal.length>=8 && matchesTotal.length<=21">					
 					<div class="noselect chartTitle mb-4">
 						{{"shared.matches" | translate}}
 					</div>
@@ -142,7 +142,7 @@
 					<div class="noselect chart-center-label" *ngIf="matchesTotal.length>=8 && matchesTotal.length<=11"  style="left:65%;bottom:19%;">{{totalMatches}}</div>
 					<div class="noselect chart-center-label" *ngIf="matchesTotal.length>=12 && matchesTotal.length<=21"  style="left:76%;bottom:19%;">{{totalMatches}}</div>
 				</div>
-				<div class="col-lg-9" *ngIf="matchesTotal.length>=22 && matchesTotal.length<=53">					
+				<div class="col-lg-9 col-md-12 col-sm-12 matches-8" *ngIf="matchesTotal.length>=22 && matchesTotal.length<=53">					
 					<div class="noselect chartTitle mb-4">
 						{{"shared.matches" | translate}}
 					</div>
@@ -159,7 +159,7 @@
 					<div class="noselect chart-center-label" *ngIf="matchesTotal.length>=22 && matchesTotal.length<=32"style="left:76%;bottom:19%;">{{totalMatches}}</div>
 					<div class="noselect chart-center-label" *ngIf="matchesTotal.length>=33 && matchesTotal.length<=53" style="left:76%;bottom:19%;">{{totalMatches}}</div>
 				</div>
-				<div class="col-lg-12" *ngIf="matchesTotal.length>=54">					
+				<div class="col-lg-12 col-md-12 col-sm-12 matches-8" *ngIf="matchesTotal.length>=54">					
 					<div class="noselect chartTitle mb-4">
 						{{"shared.matches" | translate}}
 					</div>
@@ -178,7 +178,7 @@
 				</div>
 			</ng-container>
 			
-			<div class="col-lg-12 "  *ngIf="showHired" >					
+			<div class="col-lg-12 col-md-12 col-sm-12 "  *ngIf="showHired" >					
 				<div class="chartTitle mb-4">
 					{{"nav.applicants" | translate}}
 				</div>

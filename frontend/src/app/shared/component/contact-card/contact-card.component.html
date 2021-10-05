@@ -1,7 +1,7 @@
 <div class="card job-card">
   <div class="card-body">
     <div class="row">
-      <div [ngClass]="(isMultipleMatches === true)?'col-lg-12':'col-lg-9'">
+      <div [ngClass]="(isMultipleMatches === true)?'col-lg-12 col-md-12':'col-lg-9 col-md-9'">
         <h5>
           <a  href="javascript:;" class="text-capitalize">
             {{userInfo?.first_name + ' ' + userInfo?.last_name}}
@@ -125,34 +125,34 @@
     </div>
     </div>
       </div>
-      <div class="col-lg-3 text-right" style="padding:0px;" [ngClass]="(isMultipleMatches === true)?'none-data':'col-lg-3'">
+      <div class="col-lg-3  col-md-3 text-right" style="padding:0px;" [ngClass]="(isMultipleMatches === true)?'none-data':'col-lg-3'">
 			
         <span class=" profile-btn" *ngIf="!isMultipleMatches" style="display: inline-block;">
           <a *ngIf="!isUploadShow || selectedCover?.file"
           [class.disabled]="!selectedCover?.file"
-          (click)="selectedCover?.file && onToggleCoverForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedCover?.file))" class="btn btn-outline-orange  btn-sm" href="javascript:;">
+          (click)="selectedCover?.file && onToggleCoverForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedCover?.file))" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.coverLetter" | translate }}
           </a>
-		  <a *ngIf="isUploadShow && !selectedCover?.file"
-          (click)="openCoverselect(true)" class="btn btn-outline-orange  btn-sm" href="javascript:;">
+		  <a *ngIf="isUploadShow && !selectedCover?.file" 
+          (click)="openCoverselect(true)" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.addCover" | translate }}
           </a>
         </span>
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
           <a *ngIf="!isUploadShowResume || selectedResume?.file" style="margin-top: .25rem;"
           [class.disabled]="!selectedResume?.file"
-          (click)="selectedResume?.file && onToggleResumeForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
+          (click)="selectedResume?.file && onToggleResumeForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedResume?.file))" class="btn btn-smss btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
           </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="margin-top: .25rem;"
-         (click)="openResumselect(true)"  id="addResumeFile"
-           class="btn btn-outline-blue btn-sm" href="javascript:;">
+         (click)="openResumselect(true)"  id="addResumeFile" 
+           class="btn  btn-smss btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.addResume" | translate }}
           </a>
         </span>
-		<a *ngIf="!isMail && isMatchesView " (click)="onTabChange()" style="margin-top: .25rem;display:inline-block;" class="btn btn-outline-green btn-sm profile-btn" href="javascript:;" title="Edit"><i
+		<a *ngIf="!isMail && isMatchesView " (click)="onTabChange()" style="margin-top: .25rem;display:inline-block;" class="btn btn-smss btn-outline-green btn-sm profile-btn" href="javascript:;" title="Edit"><i
             class="fas fa-tasks" ></i>  {{"shared.matches" | translate }} </a>
         <span  *ngIf="isMail && jobInfo?.id  && jobInfo['status'] == 1 && jobInfo['score'] && jobInfo['score']['mail'] !=true "  style="display: inline-block;">
-          <a (click)="onToggleSendMail(true,jobInfo)"  style="margin-top: .25rem;" class="btn btn-outline-orange btn-sm profile-btn profile-btn" href="javascript:;">
+          <a (click)="onToggleSendMail(true,jobInfo)"  style="margin-top: .25rem;" class="btn  btn-smss btn-outline-orange btn-sm profile-btn profile-btn" href="javascript:;">
           <i class="fas fa-paper-plane"></i>  {{"shared.sendMail" | translate }}  </a>
         </span>
 		<!-- <div *ngIf="isMatchView">

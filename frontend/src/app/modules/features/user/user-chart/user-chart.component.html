@@ -2,13 +2,13 @@
 <section class="my-4">
 	<div class="container">
 		<div class="row my-5">
-			<div class="col-lg-7 col-md-12">
+			<div class="col-lg-7 col-md-7 matches-8">
 				<button (click)="getDataStatus('active')" [ngClass]="isActive ? 'active' : ''" type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 mr-1">Active <i class="fas fa-times small ml-1" ></i></button>
 				<button (click)="getDataStatus('paused')" [ngClass]="isPaused ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-info rounded-pill px-3 mr-1 ">Paused <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('closed')" [ngClass]="isClosed ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-warning rounded-pill px-3 mr-1">Closed <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('deleted')" [ngClass]="isDeleted ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 mr-1">Deleted <i class="fas fa-times small ml-1"></i></button>
 			</div>
-			<div class="col-lg-5 col-md-12 mt-time clearfix">
+			<div class="col-lg-5 col-md-5 matches-8 mt-time clearfix">
 				<div id="multiDate" class="float-right multi-date">
 					<i class="fas fa-calendar-alt"></i>&nbsp;
 					<input type="text" style="width: 260px;background: #fbfbfb;border: none;
@@ -22,7 +22,7 @@
 		</div>
 		<div class="row mb-5">
 			<ng-container *ngIf="showMatches">		
-				<div class="col-lg-4" *ngIf="MatchesTotal.length<8">
+				<div class="col-lg-4 col-md-6 matches-8" *ngIf="MatchesTotal.length<8">
 					<div class="noselect chartTitle mb-4">
 						{{"shared.totalMatches" | translate}}
 					</div>
@@ -38,7 +38,7 @@
 					  </canvas>
 					<div class="noselect chart-center-label" style="left:66%;">{{totalMatches}}</div>
 				</div>
-				<div class="col-lg-12"  *ngIf="MatchesTotal.length>=8 && MatchesTotal.length<=21" >
+				<div class="col-lg-6 col-md-9 matches-8"  *ngIf="MatchesTotal.length>=8 && MatchesTotal.length<=21" >
 					<div class="noselect chartTitle mb-4">
 						{{"shared.totalMatches" | translate}}
 					</div>
@@ -55,7 +55,7 @@
 					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=8 && MatchesTotal.length<=11"  style="left:66%;bottom:19%;" >{{totalMatches}}</div>
 					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=12 && MatchesTotal.length<=21" style="left:76%;bottom:19%;">{{totalMatches}}</div>
 				</div>
-				<div class="col-lg-9" *ngIf="MatchesTotal.length>=22 && MatchesTotal.length<=53" >
+				<div class="col-lg-9 col-md-12 matches-8" *ngIf="MatchesTotal.length>=22 && MatchesTotal.length<=53" >
 					<div class="noselect chartTitle mb-4">
 						{{"shared.totalMatches" | translate}}
 					</div>
@@ -72,7 +72,7 @@
 					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=22 && MatchesTotal.length<=32"  style="left:68%;bottom:19%" >{{totalMatches}}</div>
 					<div class="noselect chart-center-label" *ngIf="MatchesTotal.length>=33 && MatchesTotal.length<=53"   style="left:76%;bottom:19%" >{{totalMatches}}</div>
 				</div>
-				<div class="col-lg-12" *ngIf="MatchesTotal.length>=54">
+				<div class="col-lg-12 col-md-12 matches-8" *ngIf="MatchesTotal.length>=54">
 					<div class="noselect chartTitle mb-4">
 						{{"shared.totalMatches" | translate}}
 					</div>
@@ -91,7 +91,7 @@
 				</div>
 			</ng-container >
 			<ng-container *ngIf="showApplied">		
-				<div class="col-lg-4" *ngIf="AppliedTotal.length<8">
+				<div class="col-lg-4 col-md-6 matches-8" *ngIf="AppliedTotal.length<8">
 					<div class="noselect chartTitle mb-4">
 						{{"nav.appliedJobs" | translate}} 
 					</div>
@@ -106,7 +106,7 @@
 					  </canvas>
 					<div class="noselect chart-center-label" style="left:66%;">{{totalApplied}}</div>
 				</div>
-				<div class="col-lg-12"  *ngIf="AppliedTotal.length>=8 && AppliedTotal.length<=21" >
+				<div class="col-lg-6 col-md-9 matches-8"  *ngIf="AppliedTotal.length>=8 && AppliedTotal.length<=21" >
 					<div class="noselect chartTitle mb-4">
 						{{"nav.appliedJobs" | translate}} 
 					</div>
@@ -122,7 +122,7 @@
 					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=8 && AppliedTotal.length<=11"  style="left:66%;bottom:19%;" >{{totalApplied}}</div>
 					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=12 && AppliedTotal.length<=21" style="left:76%;bottom:19%;">{{totalApplied}}</div>
 				</div>
-				<div class="col-lg-9" *ngIf="AppliedTotal.length>=22 && AppliedTotal.length<=53" >
+				<div class="col-lg-9 col-md-12 matches-8" *ngIf="AppliedTotal.length>=22 && AppliedTotal.length<=53" >
 					<div class="noselect chartTitle mb-4">
 						{{"nav.appliedJobs" | translate}} 
 					</div>
@@ -138,7 +138,7 @@
 					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=22 && AppliedTotal.length<=32"  style="left:68%;bottom:19%" >{{totalApplied}}</div>
 					<div class="noselect chart-center-label" *ngIf="AppliedTotal.length>=33 && AppliedTotal.length<=53"   style="left:76%;bottom:19%" >{{totalApplied}}</div>
 				</div>
-				<div class="col-lg-12" *ngIf="AppliedTotal.length>=54">
+				<div class="col-lg-12 col-md-12 matches-8" *ngIf="AppliedTotal.length>=54">
 					<div class="noselect chartTitle mb-4">
 						{{"nav.appliedJobs" | translate}} 
 					</div>
@@ -156,7 +156,7 @@
 				</div>
 			</ng-container >
 		
-			<div class="col-lg-4" *ngIf="showAvailiability" style="max-height: 230px;">				
+			<div class="col-lg-4 col-md-6 matches-8" *ngIf="showAvailiability" style="max-height: 230px;">				
 				<div class="noselect chartTitle mb-4">
 					{{"shared.byAvailability" | translate}} 
 				</div>
@@ -171,7 +171,7 @@
 				  </canvas>
 				<div class="noselect chart-center-label"  style="left:62%;">{{totalAvailability}}</div>
 			</div>
-			<div class="col-lg-4" *ngIf="showType" style="max-height: 230px;">					
+			<div class="col-lg-4 col-md-6 matches-8" *ngIf="showType" style="max-height: 230px;">					
 				<div class="noselect chartTitle mb-4">
 					{{"shared.byJobType" | translate}} 
 				</div>
@@ -187,7 +187,7 @@
 				<div class="noselect chart-center-label" style="left:62%;">{{totalType}}</div>
 			</div>
 			<ng-container *ngIf="showVisa">		
-				<div class="col-lg-4" *ngIf="AppliedVisa.length<8">
+				<div class="col-lg-4 col-md-6 matches-8" *ngIf="AppliedVisa.length<8">
 					<div class="noselect chartTitle mb-4">
 						{{"shared.byVisa" | translate}} 
 					</div>
@@ -202,7 +202,7 @@
 					  </canvas>
 					<div class="noselect chart-center-label" style="left:66%;">{{totalVisa}}</div>
 				</div>
-				<div class="col-lg-12"  *ngIf="AppliedVisa.length>=8 && AppliedVisa.length<=21" >
+				<div class="col-lg-6 col-md-9 matches-8"  *ngIf="AppliedVisa.length>=8 && AppliedVisa.length<=21" >
 					<div class="noselect chartTitle mb-4">
 						{{"shared.byVisa" | translate}} 
 					</div>
@@ -218,7 +218,7 @@
 					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=8 && AppliedVisa.length<=11"  style="left:66%;bottom:19%;" >{{totalVisa}}</div>
 					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=12 && AppliedVisa.length<=21" style="left:76%;bottom:19%;">{{totalVisa}}</div>
 				</div>
-				<div class="col-lg-9" *ngIf="AppliedVisa.length>=22 && AppliedVisa.length<=53" >
+				<div class="col-lg-9 col-md-12 matches-8" *ngIf="AppliedVisa.length>=22 && AppliedVisa.length<=53" >
 					<div class="noselect chartTitle mb-4">
 						{{"shared.byVisa" | translate}} 
 					</div>
@@ -234,7 +234,7 @@
 					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=22 && AppliedVisa.length<=32"  style="left:68%;bottom:19%" >{{totalVisa}}</div>
 					<div class="noselect chart-center-label" *ngIf="AppliedVisa.length>=33 && AppliedVisa.length<=53"   style="left:76%;bottom:19%" >{{totalVisa}}</div>
 				</div>
-				<div class="col-lg-12" *ngIf="AppliedVisa.length>=54">
+				<div class="col-lg-12 col-md-12 matches-8" *ngIf="AppliedVisa.length>=54">
 					<div class="noselect chartTitle mb-4">
 						{{"shared.byVisa" | translate}} 
 					</div>

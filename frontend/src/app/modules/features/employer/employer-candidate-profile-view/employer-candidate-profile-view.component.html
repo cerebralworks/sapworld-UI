@@ -20,7 +20,7 @@
 <section class="my-5">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-12" *ngIf="DetailsShown">
+      <div class="col-lg-8 col-md-8 matches-8" *ngIf="DetailsShown">
         <div class="row">
           <div class="col-lg-12" >
             <app-contact-card
@@ -39,7 +39,7 @@
         <app-shared-user-profile [userInfo]="userDetails" [applicationDetails]="applicationDetails"></app-shared-user-profile>
        
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-4 matches-8">
         <div class="title">
           <h2>{{"shared.matchings" | translate }}</h2>
         </div>

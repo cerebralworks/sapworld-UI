@@ -14,7 +14,7 @@
 			</div>
 		</div>
 		<div class="row ">
-			<div *ngFor="let item of userProfileInfo?.doc_resume; let i=index" class="col-lg-2 alert fade show">
+			<div *ngFor="let item of userProfileInfo?.doc_resume; let i=index" class="col-lg-2 col-md-3  matches-6 alert fade show">
 				<button (click)="onDeleteJobConfirm(item, i)" type="button" class="close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -29,7 +29,7 @@
 					<label class="form-check-label" for="resumeCheck_{{i}}">{{"shared.default" | translate}} </label>
 				</div>
 			</div>
-			<div class="col-lg-2 alert">
+			<div class="col-lg-2 col-md-3  matches-6 alert">
 				<label class="text-black-50">
 					<h1 class="text-black-50 mb-0"><i class="far fa-plus-square"></i></h1>
 					{{"shared.addResume" | translate}}
@@ -45,7 +45,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div *ngFor="let item of userProfileInfo?.doc_cover; let i=index" class="col-lg-2 alert fade show">
+			<div *ngFor="let item of userProfileInfo?.doc_cover; let i=index" class="col-lg-2 col-md-3 matches-6  alert fade show">
 				<button (click)="onDeleteCoverConfirm(item, i)" type="button" class="close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -60,7 +60,7 @@
 					<label class="form-check-label" for="resumeCheck_{{i}}">{{"shared.default" | translate}} </label>
 				</div>
 			</div>
-			<div class="col-lg-2 alert" *ngIf="userProfileInfo?.doc_cover==null || userProfileInfo?.doc_cover.length == 0 ">
+			<div class="col-lg-2 col-md-3 matches-6 alert" *ngIf="userProfileInfo?.doc_cover==null || userProfileInfo?.doc_cover.length == 0 ">
 				<label class="text-black-50">
 					<h1 class="text-black-50 mb-0"><i class="far fa-plus-square"></i></h1>
 					{{"shared.addCover" | translate}}
