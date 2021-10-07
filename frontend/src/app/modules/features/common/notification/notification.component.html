@@ -50,13 +50,13 @@
 							</tr>
 						</tbody>
 					</table>
-					<!-- <div class="d-flex justify-content-center" style="background: #f8f8f8;"  *ngIf="notificationDetailsMeta?.count > 0 && notificationDetailsMeta?.total > 10" >
+					<div class="d-flex justify-content-center" style="background: #f8f8f8;"  *ngIf="notificationDetailsMeta?.count > 0 && notificationDetailsMeta?.total > 20" >
 						<mat-paginator style="background: #f8f8f8;color: #000;" (page)="handlePageEvent($event)"
 							[length]="length"
 							[pageSize]="limit"  [pageSizeOptions]="pageSizeOptions"
-							[pageIndex]="page-1">
+							[pageIndex]="page">
 						</mat-paginator>
-					</div> -->
+					</div>
 				</div>
 			</div>
 		</div>

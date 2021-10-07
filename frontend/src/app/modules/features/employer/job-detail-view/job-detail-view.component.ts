@@ -319,7 +319,9 @@ export class JobDetailViewComponent implements OnInit {
 		//return 'blue';
 	}
 	
-	
+	/**
+	**	To get the skill details
+	**/
 	  onGetSkills() {
 		let requestParams: any = {};
 		requestParams.page = 1;

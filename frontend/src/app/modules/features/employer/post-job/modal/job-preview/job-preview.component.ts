@@ -753,7 +753,9 @@ export class JobPreviewComponent implements OnInit {
 		}
 	}
 	
-	
+	/**
+	**	To check the chip event
+	**/
 
 	addOptional(event: MatChipInputEvent): void {
 		
@@ -776,7 +778,11 @@ export class JobPreviewComponent implements OnInit {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the optional skills
+	**/
+	
 	removeOptional(employer): void {
 		
 		const index = this.optinal_skills.indexOf(employer);
@@ -1089,6 +1095,9 @@ export class JobPreviewComponent implements OnInit {
 		});
 	}
 	
+	/**
+	**	To set the work authorization details
+	**/
 	
 	onChangeFieldValuesAuth(event,value){
 		if(this.postJobForm.value.requirement.work_authorization == value){
@@ -1103,18 +1112,26 @@ export class JobPreviewComponent implements OnInit {
 		}
 	}	
 	
-  onRemoveSkillEvent = async (skillId) => {
-    if(skillId) {
-		var temp = this.commonSkills.filter(function(a,b){ return a.id == skillId });
-		//this.skillItems.push(temp[0]);
+	/**
+	**	To remove the skills details
+	**/
+	
+	onRemoveSkillEvent = async (skillId) => {
+		if(skillId) {
+			var temp = this.commonSkills.filter(function(a,b){ return a.id == skillId });
+			//this.skillItems.push(temp[0]);
+		}
 	}
-  }
-
-  onSelectSkillsEvent = async (skillId) => {
-    if(skillId) {
-      //this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
+	
+	/**
+	**	To select the skill event 
+	**/
+	
+	onSelectSkillsEvent = async (skillId) => {
+		if(skillId) {
+			//this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
+		}
 	}
-  }
   
   
 }

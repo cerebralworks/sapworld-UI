@@ -76,7 +76,9 @@ export class AccountService extends CacheService {
     return this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
   }
 
-
+  /**
+   * To get the user is login or not
+   */
   checkUserloggedIn = (): Observable<LoggedIn> => {
     return this.apiService.post('/api/isLoggedIn').pipe(
       map(data => {
@@ -85,7 +87,10 @@ export class AccountService extends CacheService {
       })
     );
   };
-
+  
+  /**
+   * To login the existing user
+   */
   login = (userCredentials: {}): Observable<LoggedIn> => {
     return this.apiService.post('/api/login', userCredentials).pipe(
       map(data => {
@@ -94,7 +99,9 @@ export class AccountService extends CacheService {
       })
     );
   };
-
+   /**
+   * To Signup the employer 
+   */
   employerSignup = (userInfo: {}): Observable<AccountSignup> => {
     return this.apiService.post('/api/employers/signup', userInfo).pipe(
       map(data => {
@@ -103,7 +110,10 @@ export class AccountService extends CacheService {
       })
     );
   };
-
+  
+  /**
+   * To Signup the user
+   */
   userSignup = (userInfo: {}): Observable<AccountSignup> => {
     return this.apiService.post('/api/users/signup', userInfo).pipe(
       map(data => {
@@ -112,7 +122,10 @@ export class AccountService extends CacheService {
       })
     );
   };
-
+   
+   /**
+   * To request to reset the user password
+   */
   getResetLink = (requestParams: any): Observable<any> => {
     return this.apiService.post('/api/accounts/request-reset-password', requestParams).pipe(
       map(data => {
@@ -120,7 +133,10 @@ export class AccountService extends CacheService {
       })
     );
   };
-
+  
+  /**
+   * To reset the user password
+   */
   resetPassword = (requestParams: any): Observable<any> => {
     return this.apiService.post('/api/accounts/reset-password', requestParams).pipe(
       map(data => {
@@ -129,6 +145,10 @@ export class AccountService extends CacheService {
     );
   };
 
+   /**
+   * To update the user password
+   */
+   
   changePassword = (requestParams: any): Observable<any> => {
     return this.apiService.post('/api/accounts/update-password', requestParams).pipe(
       map(data => {
@@ -137,7 +157,9 @@ export class AccountService extends CacheService {
     );
   };
 
-
+   /**
+   * To verify the user account
+   */
   verify = (userCredentials: VerifyAccount): Observable<VerifyAccount> => {
     return this.apiService.post('/api/accounts/verify', userCredentials).pipe(
       map(data => {
@@ -146,6 +168,9 @@ export class AccountService extends CacheService {
     );
   };
 
+  /**
+   * To logout the user
+   */
   logout = () => {
     return this.apiService.post('/api/logout').pipe(
       map(data => {
@@ -156,6 +181,10 @@ export class AccountService extends CacheService {
     // remove user from local storage to log user out
   };
 
+   /**
+   * To set the authentication of the user
+   */
+   
   setAuth(data: LoggedIn) {
     // Save logged in and sent from server in localstorage
     this.setItem('currentUser', data);
@@ -166,6 +195,10 @@ export class AccountService extends CacheService {
     this.isLoginSubject.next(isLoggedIn);
   }
 
+  /**
+   * To empty the authenticated user
+   */
+   
   purgeAuth() {
     // Remove logged in and sent from server in localstorage
     this.removeItem('currentUser');

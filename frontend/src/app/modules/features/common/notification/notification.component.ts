@@ -6,7 +6,7 @@ import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { DataService } from '@shared/service/data.service';
-//import {PageEvent} from '@angular/material/paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {
     PushNotificationsService
 } from '@shared/service/notification.service';
@@ -22,11 +22,11 @@ export class NotificationComponent implements OnInit {
 	public notificationDetails:any =[];
 	public notificationDetailsMeta:any ={};
 	public page: number = 0;
-	public limit: number = 1000;
+	public limit: number = 20;
 	length = 0;
 	public totalValue = 0;
 	pageIndex = 1;
-	pageSizeOptions = [ 10, 20,50,100];
+	pageSizeOptions = [ 20, 50,100,500];
 	
 	constructor(
 		private sharedApiService?: SharedApiService,
@@ -37,7 +37,10 @@ export class NotificationComponent implements OnInit {
 		private employerSharedService?: EmployerSharedService, 
 		private _notificationService?: PushNotificationsService
 	) { }
-
+	
+	/**
+	**	To intialize the component 
+	**/
 	ngOnInit(): void {
 		this.checkUserLoggedIn();
 		this.dataService.getNotificationDataSource().subscribe(
@@ -52,6 +55,9 @@ export class NotificationComponent implements OnInit {
 			  
 	}
 	
+	/**
+	**	To check the user is login or not
+	**/
 	checkUserLoggedIn = () => {
 		this.accountService.checkUserloggedIn().subscribe(
 		  response => {
@@ -64,6 +70,9 @@ export class NotificationComponent implements OnInit {
 		);
 	};
 	
+	/**
+	**	To get the notification details
+	**/
 	getNotificationDetails(){
 		
 		let requestParams:any ={};
@@ -88,6 +97,7 @@ export class NotificationComponent implements OnInit {
 				});
 			  this.notificationDetails = response['details'];
 			  this.notificationDetailsMeta = response['meta'];
+			  this.length = this.notificationDetailsMeta['total'];
 			}
 		  }, error => {
 		  }
@@ -99,9 +109,9 @@ export class NotificationComponent implements OnInit {
 	**	To handle the pagination
 	**/	
 	
-	/* handlePageEvent(event: PageEvent) {
+	handlePageEvent(event: PageEvent) {
 		this.limit = event.pageSize;
-		this.page = event.pageIndex + 1;
+		this.page = event.pageIndex;
 		this.getNotificationDetails();
-	} */
+	}
 }

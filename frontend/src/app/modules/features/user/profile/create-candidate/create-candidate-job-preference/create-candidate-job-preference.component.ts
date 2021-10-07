@@ -102,12 +102,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		});
 	}
 	
+	/**
+	**	To get chip add event
+	**/
 	
 	add(event: MatChipInputEvent): void {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the address
+	**/
+	
 	remove(data): void {
 		
 		const index = this.address.indexOf(data);
@@ -525,7 +532,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	onSetValue = (event) => {
 
 	}
-
+	
+	/**
+	**	To check job type value
+	**/
+	
 	onChangeJobType = (value) => {
 		if (value == 6 || value == '6') {
 		
@@ -533,7 +544,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		
 		}
 	}
-
+	
+	/**
+	**	To check the click event
+	**/
+	
 	onChangeFieldValue = (fieldName, value) => {
 		if(fieldName=='remote_only'){ 
 			this.childForm.patchValue({
@@ -634,81 +649,83 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				})
 	}
 	
-  get t() {
-    return this.f.preferred_locations as FormArray;
-  }
+	get t() {
+		return this.f.preferred_locations as FormArray;
+	}
   
 	/**
 	**	To add the preferred_location
 	**/
-  onDuplicate = () => {
+	onDuplicate = () => {
       this.t.push(this.formBuilder.group({
         city: [''],
         state: [''],
         stateShort: [''],
         country: ['']
       }));
-  }
+	}
+	
 	/**
 	**	To remove the preferred_location
 	**/
-  onRemove = (index) => {
-    let removedValue = this.t.value[index];
- 
-    if (index == 0 && this.t.length == 1) {
-      this.t.removeAt(0);
-      this.t.push(this.formBuilder.group({
-         city: [''],
-        state: [''],
-        stateShort: [''],
-        country: ['']
-      }));
-	  this.address=[];
-    } else {
-      this.t.removeAt(index);
-	  var tempData =[];
-		if(this.t.value){
-			 tempData = this.t.value.filter(function(a,b){ return a.city!=''||a.country!=''});
+	
+	onRemove = (index) => {
+		let removedValue = this.t.value[index];
+	 
+		if (index == 0 && this.t.length == 1) {
+		  this.t.removeAt(0);
+		  this.t.push(this.formBuilder.group({
+			 city: [''],
+			state: [''],
+			stateShort: [''],
+			country: ['']
+		  }));
+		  this.address=[];
+		} else {
+		  this.t.removeAt(index);
+		  var tempData =[];
+			if(this.t.value){
+				 tempData = this.t.value.filter(function(a,b){ return a.city!=''||a.country!=''});
+			}
+		  tempData = tempData.map(function(a,b){ 
+		a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+		return a.city+'-'+a.stateShort });
+		this.address=tempData;
 		}
-	  tempData = tempData.map(function(a,b){ 
-	a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
-	return a.city+'-'+a.stateShort });
-	this.address=tempData;
-
-    }
-  }
+	}
+	
 	/**
 	**	handle the address change
 	**/
 	
-  handleAddressChange = (event) => {
-    const address = this.sharedService.fromGooglePlace(event);
-	if(event.geometry){
-		var tempData =[];
-		if(this.t.value){
-			 tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateShort!=''});
-		}
-		
-		var datas:any = {
-        city: address.city ? address.city : event.formatted_address,
-        state: address.state,
-        stateShort: address.stateShort,
-        country: address.country
-		};
-		this.chipsInput.nativeElement.value='';
-		if(address['city'] !=null &&address['state'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
-			address['city'] !=undefined &&address['state'] !=undefined &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){ 
-			if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
-				this.onDuplicate();
-				tempData.push(datas);
-				this.t.patchValue(tempData);
-				tempData = tempData.map(function(a,b){ 
-					a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
-				return a.city+'-'+a.stateShort });
-				this.address=tempData;
+	handleAddressChange = (event) => {
+		const address = this.sharedService.fromGooglePlace(event);
+		if(event.geometry){
+			var tempData =[];
+			if(this.t.value){
+				 tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateShort!=''});
+			}
+			
+			var datas:any = {
+			city: address.city ? address.city : event.formatted_address,
+			state: address.state,
+			stateShort: address.stateShort,
+			country: address.country
+			};
+			this.chipsInput.nativeElement.value='';
+			if(address['city'] !=null &&address['state'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
+				address['city'] !=undefined &&address['state'] !=undefined &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){ 
+				if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
+					this.onDuplicate();
+					tempData.push(datas);
+					this.t.patchValue(tempData);
+					tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+					return a.city+'-'+a.stateShort });
+					this.address=tempData;
+				}
 			}
 		}
-	}
-		
-  };
+	};
+	
 }

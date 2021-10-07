@@ -18,7 +18,7 @@ import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap 
 
 
 @Component({
-  selector: 'app-home',
+	selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -87,16 +87,22 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
   onCheck = (event) => {
 console.log(event);
   }
-
-  ngOnInit(): void {
-    this.onCreateForm();
-    this.accountService
-      .isCurrentUser()
-      .subscribe(response => {
-        this.loggedUserInfo = response;
-      });
-  }
-
+	
+	/**
+   * To initialize the page
+   */
+	ngOnInit(): void {
+		this.onCreateForm();
+		this.accountService
+		  .isCurrentUser()
+		  .subscribe(response => {
+			this.loggedUserInfo = response;
+		  });
+	}
+	
+	/**
+   * TO create a 
+   */
   onCreateForm = () => {
     this.searchForm = this.formBuilder.group({
       search: new FormControl(''),
@@ -295,7 +301,10 @@ console.log(event);
       }
     }
   }
-
+ onRedirectUrl = (url: string) => {
+    this.router.navigate([url])
+  }
+  
   onReturnIDFronArray = (arrayOfObj: any [] =[], field: string, isString: boolean = false) => {
     if(Array.isArray(arrayOfObj) && arrayOfObj.length) {
       return arrayOfObj.map((val) => {
@@ -320,3 +329,6 @@ export const atLeastOne = (validator: ValidatorFn, controls: string[] = null) =>
     atLeastOne: true,
   };
 };
+
+
+  

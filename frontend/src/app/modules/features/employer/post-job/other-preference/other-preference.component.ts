@@ -80,7 +80,11 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the certification details
+	**/
+	
 	remove(visa): void {
 		
 		const index = this.certification.indexOf(visa);
@@ -157,6 +161,10 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 		
 	}
 	
+	/**
+	**	To reset the foem details
+	**/
+	
 	resetForm(){
 		 for(let i=0;i<=this.childForm.controls.otherPref['controls']['others'].value.length;i++){
 			this.childForm.controls.otherPref['controls']['others'].removeAt(0);
@@ -188,18 +196,23 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 			value: [null]
 		}));
 	}
+	
+	/**
+	**	To set the form controls to the Function
+	**/
+	
 	get f() {
 		return this.childForm.controls.otherPref.controls;
 	}
 	
-	  get t() {
+	get t() {
 		return this.f.extra_criteria as FormArray;
-	  }
-	  
-	  get others() {
+	}
+
+	get others() {
 		return this.f.others as FormArray;
-	  }
-	  
+	}
+
 	get tEX() {
 		return this.f.temp_extra_criteria as FormArray;
 	}

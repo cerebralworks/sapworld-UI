@@ -593,6 +593,10 @@ export class CandidateJobMatchesComponent implements OnInit {
 
 	}
 	
+	/**
+	**	To set the resume popup status
+	**/
+	
 	onToggleResumeSelectModals = (status, item?) => {
 		if (!this.utilsHelperService.isEmptyObj(item)) {
 			this.currentJobDetails = item;

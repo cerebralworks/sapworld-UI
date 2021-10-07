@@ -209,14 +209,15 @@ export class ResumeSelectComponent implements OnInit {
 		this.buildData();
 		
 	}
-		
-	  get others() {
+
+	get others() {
 		return this.ft.others as FormArray; 
-	  }
+	}
 	  
-	  changeStatus(id,event){
-		  
-	  }
+	changeStatus(id,event){
+	 
+	}
+	
 	buildData(){
 		
 	  if (this.currentJobDetails.others != null) {
@@ -442,6 +443,10 @@ export class ResumeSelectComponent implements OnInit {
 			//this.modalService.dismissAll();
 		})
 	}
+	
+	/**
+	**	To handle the page navigation
+	**/
 	
 	handleChange(event,index){
 		if(event.target.value){

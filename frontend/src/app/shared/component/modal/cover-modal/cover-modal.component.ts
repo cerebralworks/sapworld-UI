@@ -46,11 +46,19 @@ export class CoverModalComponent implements OnInit {
     }
   }
 
+  /**
+  **	To destroy page leave
+  **/
+  
   ngOnDestroy(): void {
     this.onClickCloseBtn(false);
     this.coverModalSub && this.coverModalSub.unsubscribe();
   }
 
+  /**
+  **	To close the popup
+  **/
+  
   onClickCloseBtn(status){
     this.onEvent.emit(status);
     if(status == false) {

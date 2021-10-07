@@ -293,6 +293,11 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 		
 		return '--';
 	}
+	
+	/**
+	**	To filter the country matches
+	**/
+	
 	findCountry(value){
 		if(value){
 			if(this.nationality){
@@ -314,6 +319,10 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 		return '--';
 	}
 	
+	/**
+	**	To check the matching field id
+	**/
+	
 	CheckExtraId(value,data){
 		if(value){
 			var val = false;
@@ -331,32 +340,43 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 		}
 		return false;
 	}
-onGetCountry(query) {
+	
+	/**
+	**	To get the country details
+	**/
+	
+	onGetCountry(query) {
 		let requestParams: any = {};
 		requestParams.page = 1;
 		requestParams.limit = 1000;
 		requestParams.status = 1;
 		requestParams.search = query;
-
 		this.sharedApiService.onGetCountry(requestParams);
-		 
-	  }
-	  
-	  onGetLanguage(query) {
+
+	}
+	
+	/**
+	**	To get the language details
+	**/
+	
+	onGetLanguage(query) {
 		let requestParams: any = {};
 		requestParams.page = 1;
 		requestParams.limit = 1000;
 		requestParams.status = 1;
 		requestParams.search = query;
-
 		this.sharedApiService.onGetLanguage(requestParams);
-	  }
-	  
-	  checkDataOthers(data,value){
+	}
+	
+	/**
+	**	To check others data
+	**/
+	
+	checkDataOthers(data,value){
 		  if(data == value){
 			  return true;
 		  }else{
 			return false;  
 		  }
-	  }
+	}
 }

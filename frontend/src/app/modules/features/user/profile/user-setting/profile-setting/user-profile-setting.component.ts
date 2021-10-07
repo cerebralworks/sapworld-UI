@@ -32,7 +32,7 @@ export class UserProfileSettingComponent implements OnInit {
 	/**
 	**	To initialize the page loads
 	**/	
-	  
+
 	ngOnInit(): void {
 		this.profileSettings = [
 		  {field: 'photo', label: 'Profile Image'},

@@ -49,48 +49,51 @@ const right = [
 })
 export class PostJobLayoutComponent implements OnInit {
 
-  public currentTabInfo: tabInfo = {tabNumber: 1, tabName: 'Job Information'};
-  public slidingCounter: number = 0;
-  public slindingList: Array<number> = [1, 2, 3, 4];
-  public isOpenedJobPreviewModal: boolean;
-  public isEnableJobPreviewModal: any;
-  public postJobForm: FormGroup;
-  public isLoading: boolean;
-  public getDataCount: boolean = false;
-  public formError: any;
-  public postedJobsDetails: JobPosting;
-  public jobId: string;
+	public currentTabInfo: tabInfo = {tabNumber: 1, tabName: 'Job Information'};
+	public slidingCounter: number = 0;
+	public slindingList: Array<number> = [1, 2, 3, 4];
+	public isOpenedJobPreviewModal: boolean;
+	public isEnableJobPreviewModal: any;
+	public postJobForm: FormGroup;
+	public isLoading: boolean;
+	public getDataCount: boolean = false;
+	public formError: any;
+	public postedJobsDetails: JobPosting;
+	public jobId: string;
 	public requestParams: any;
 	public screeningProcess : any=[];
 	public others : any=[];
 	public skils : any=[];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private employerService: EmployerService,
+	constructor(
+		private formBuilder: FormBuilder,
+		private employerService: EmployerService,
 		private employerSharedService: EmployerSharedService,
-    private modalService: NgbModal,
-    public router: Router,
+		private modalService: NgbModal,
+		public router: Router,
 		private SharedAPIService: SharedApiService,
-    private route: ActivatedRoute,
+		private route: ActivatedRoute,
 		public utilsHelperService: UtilsHelperService
-  ) { }
-
-  ngOnInit(): void {
+	) { }
+	
+	/**
+	**	To initialize the post-job layout
+	**/
+	
+	ngOnInit(): void {
 		this.onGetCountry('');
 		this.onGetLanguage('');
 		this.onGetProgram('');
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
-
-    this.buildForm();
-    this.jobId = this.route.snapshot.queryParamMap.get('id');
-    if(this.jobId) {
-      this.onGetPostedJob(this.jobId);
-    }
+		this.router.routeReuseStrategy.shouldReuseRoute = () => {
+		  return false;
+		};
+		this.buildForm();
+		this.jobId = this.route.snapshot.queryParamMap.get('id');
+		if(this.jobId) {
+		  this.onGetPostedJob(this.jobId);
+		}
 	
-	this.employerSharedService.getEmployerProfileDetails().subscribe(
+		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
 				if(details) {
 					if(details && details.id && this.getDataCount == false) {
@@ -101,23 +104,35 @@ export class PostJobLayoutComponent implements OnInit {
 			}
 		)
 		
-  }
-
-  onNext() {
-    if (this.slidingCounter != this.slindingList.length - 1) {
-      this.slidingCounter++;
-    }
-  }
-
-  onPrevious() {
-    if (this.slidingCounter > 0) {
-      this.slidingCounter--;
-    }
-  }
-
-  onHeaderTabChange = (currentTabInfo: tabInfo) => {
-    this.currentTabInfo = { ...currentTabInfo};
-  }
+	}
+	
+	/**
+	**	To slider changes for the tabInfo
+	**/
+	
+	onNext() {
+		if (this.slidingCounter != this.slindingList.length - 1) {
+			this.slidingCounter++;
+		}
+	}
+	
+	/**
+	**	To move previous tab
+	**/
+	
+	onPrevious() {
+		if (this.slidingCounter > 0) {
+			this.slidingCounter--;
+		}
+	}
+	
+	/**
+	**	On header change in the post-job
+	**/
+	
+	onHeaderTabChange = (currentTabInfo: tabInfo) => {
+		this.currentTabInfo = { ...currentTabInfo};
+	}
   
 	/**
 	**	To get program Info
@@ -128,158 +143,195 @@ export class PostJobLayoutComponent implements OnInit {
 		this.requestParams.limit = 100000;
 		this.requestParams.status = 1;
 		this.requestParams.search = query;
-
 		this.SharedAPIService.onGetProgram(this.requestParams);
-		 
-	  }
-
-  onFooterTabChange = (currentTabInfo: tabInfo) => {
-    if(currentTabInfo.tabNumber > this.currentTabInfo.tabNumber) {
-      this.onNext()
-    }
-    if(currentTabInfo.tabNumber < this.currentTabInfo.tabNumber) {
-      this.onPrevious();
-    }
-
-    this.currentTabInfo = { ...currentTabInfo};
-  }
-
-  onToggleJobPreviewModal = (status) => {
-    this.isOpenedJobPreviewModal = status;
-  }
-
-
-  get f() {
-    return this.postJobForm.controls;
-  }
-	 postJobValidate = () => {
-		   this.isLoading = true;
-    let jobInfo: JobPosting = {
-      ...this.postJobForm.value.jobInfo,
-      ...this.postJobForm.value.otherPref,
-      ...this.postJobForm.value.requirement,
-      ...this.postJobForm.value.screeningProcess,
-      ...this.postJobForm.value.jobPrev
-    };
-
-    let handsOnArray = [];
-    let tempSkill = [];
-    if(jobInfo && jobInfo.hands_on_experience && Array.isArray(jobInfo.hands_on_experience)) {
-      jobInfo.hands_on_experience.forEach((element: any) => {
-        if(element && element.skill_id && element.skill_id) {
-          handsOnArray.push({
-            skill_id: element.skill_id,
-            experience: element.experience,
-            skill_name: element.skill_name,
-            exp_type: element.exp_type
-          })
-          tempSkill.push(element.skill_id)
-        }
-      });
-    }
-    jobInfo.hands_on_experience = handsOnArray;
-
-    if(Array.isArray(tempSkill) && Array.isArray(jobInfo.skills)) {
-      jobInfo.skills = lodash.uniq([...tempSkill, ...jobInfo.skills]);
-    }
-	if(jobInfo.skills && jobInfo.skills.length && jobInfo.skills.length!=0){
-		for(let i=0;i<this.skils.length;i++){
-			var temp = this.skils[i];
-			jobInfo.skills.push(temp);
+	}
+	
+	/**
+	**	On footer change event calls
+	**/
+	
+	onFooterTabChange = (currentTabInfo: tabInfo) => {
+		if(currentTabInfo.tabNumber > this.currentTabInfo.tabNumber) {
+		  this.onNext()
 		}
-	}else{
-		jobInfo.skills = this.skils;
-	}
-	if(jobInfo.extra_criteria){
-	jobInfo.extra_criteria = jobInfo.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
-	}
-   delete jobInfo.temp_extra_criteria;
-		 if (this.postJobForm.valid) {
-		  if(this.jobId) {
-			this.onJobUpdate(jobInfo);
-		  }else {
-			this.onJobPost(jobInfo);
-		  }
+		if(currentTabInfo.tabNumber < this.currentTabInfo.tabNumber) {
+		  this.onPrevious();
 		}
-	 }
-  postJob = () => {
-  
-	if(!this.postJobForm.value.requirement.experience || this.postJobForm.value.requirement.experience ==undefined){
-		this.postJobForm.value.requirement.experience =0;
+		this.currentTabInfo = { ...currentTabInfo};
 	}
-	if(!this.postJobForm.value.requirement.sap_experience || this.postJobForm.value.requirement.sap_experience ==undefined){
-		this.postJobForm.value.requirement.sap_experience =0;
+	
+	/**
+	**	To job-preview popup status
+	**/
+	
+	onToggleJobPreviewModal = (status) => {
+		this.isOpenedJobPreviewModal = status;
 	}
-	if(!this.postJobForm.value.requirement.programming_skills || this.postJobForm.value.requirement.programming_skills ==undefined){
-		this.postJobForm.value.requirement.programming_skills =[];
-	}
-	if(this.postJobForm.value.requirement.new_skills.length==0){
-		this.postJobValidate();
-	}else{
-		this.postSkills();
-	}
-    
-  }
-  
-  postSkills(){
 
-	  for(let i=0;i<this.postJobForm.value.requirement.new_skills.length;i++){
-		  var val=this.postJobForm.value.requirement.new_skills[i];
-		  this.employerService.createSkills(val).subscribe(
+	/**
+	**	To get the form controls
+	**/
+	
+	get f() {
+		return this.postJobForm.controls;
+	}
+	
+	/**
+	**	To validate the post-job details
+	**/
+	
+	postJobValidate = () => {
+		this.isLoading = true;
+		let jobInfo: JobPosting = {
+		  ...this.postJobForm.value.jobInfo,
+		  ...this.postJobForm.value.otherPref,
+		  ...this.postJobForm.value.requirement,
+		  ...this.postJobForm.value.screeningProcess,
+		  ...this.postJobForm.value.jobPrev
+		};
+
+		let handsOnArray = [];
+		let tempSkill = [];
+		if(jobInfo && jobInfo.hands_on_experience && Array.isArray(jobInfo.hands_on_experience)) {
+		  jobInfo.hands_on_experience.forEach((element: any) => {
+			if(element && element.skill_id && element.skill_id) {
+			  handsOnArray.push({
+				skill_id: element.skill_id,
+				experience: element.experience,
+				skill_name: element.skill_name,
+				exp_type: element.exp_type
+			  })
+			  tempSkill.push(element.skill_id)
+			}
+		  });
+		}
+		jobInfo.hands_on_experience = handsOnArray;
+		if(Array.isArray(tempSkill) && Array.isArray(jobInfo.skills)) {
+		  jobInfo.skills = lodash.uniq([...tempSkill, ...jobInfo.skills]);
+		}
+		if(jobInfo.skills && jobInfo.skills.length && jobInfo.skills.length!=0){
+			for(let i=0;i<this.skils.length;i++){
+				var temp = this.skils[i];
+				jobInfo.skills.push(temp);
+			}
+		}else{
+			jobInfo.skills = this.skils;
+		}
+		if(jobInfo.extra_criteria){
+		jobInfo.extra_criteria = jobInfo.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
+		}
+	   delete jobInfo.temp_extra_criteria;
+		if (this.postJobForm.valid) {
+			if(this.jobId) {
+				this.onJobUpdate(jobInfo);
+			}else {
+				this.onJobPost(jobInfo);
+			}
+		}
+	}
+	
+	/**
+	**	To validate the post-job details
+	**/
+	
+	postJob = () => {
+  
+		if(!this.postJobForm.value.requirement.experience || this.postJobForm.value.requirement.experience ==undefined){
+			this.postJobForm.value.requirement.experience =0;
+		}
+		if(!this.postJobForm.value.requirement.sap_experience || this.postJobForm.value.requirement.sap_experience ==undefined){
+			this.postJobForm.value.requirement.sap_experience =0;
+		}
+		if(!this.postJobForm.value.requirement.programming_skills || this.postJobForm.value.requirement.programming_skills ==undefined){
+			this.postJobForm.value.requirement.programming_skills =[];
+		}
+		if(this.postJobForm.value.requirement.new_skills.length==0){
+			this.postJobValidate();
+		}else{
+			this.postSkills();
+		}
+		
+	}
+	
+	/**
+	**	To create a new skills
+	**/
+	
+	postSkills(){
+
+		for(let i=0;i<this.postJobForm.value.requirement.new_skills.length;i++){
+			var val=this.postJobForm.value.requirement.new_skills[i];
+			this.employerService.createSkills(val).subscribe(
+				response => {
+					if(response && response['details']){
+						this.skils.push(response['details']['id'])
+					}
+					if(this.skils.length == this.postJobForm.value.requirement.new_skills.length){
+						this.postJobValidate();
+					}
+				}, error => {
+				}
+			)
+		}
+	}
+	
+	/**
+	**	To post the job-details
+	**/
+	
+	onJobPost = (jobInfo: JobPosting) => {
+		this.employerService.jobPost(jobInfo).subscribe(
 			response => {
-				if(response && response['details']){
-					this.skils.push(response['details']['id'])
-				}
-				if(this.skils.length == this.postJobForm.value.requirement.new_skills.length){
-					this.postJobValidate();
-				}
+				this.router.navigate(['/employer/dashboard']).then(() => {
+				  this.modalService.dismissAll();
+				  this.onToggleJobPreviewModal(false)
+				});
+				this.isLoading = false;
 			}, error => {
+				if(error && error.error && error.error.errors)
+				this.formError = error.error.errors;
+				this.isLoading = false;
 			}
 		)
-	  }
-  }
-
-  onJobPost = (jobInfo: JobPosting) => {
-    this.employerService.jobPost(jobInfo).subscribe(
-      response => {
-        this.router.navigate(['/employer/dashboard']).then(() => {
-          this.modalService.dismissAll();
-          this.onToggleJobPreviewModal(false)
-        });
-        this.isLoading = false;
-      }, error => {
-        if(error && error.error && error.error.errors)
-        this.formError = error.error.errors;
-        this.isLoading = false;
-      }
-    )
-  }
-
-  onJobUpdate = (jobInfo: JobPosting) => {
-    const company: any = this.postedJobsDetails.company;
-    jobInfo.company = (company && company.id) ? company.id : company;
-    jobInfo.id = this.postedJobsDetails.id;
-    this.employerService.jobUpdate(jobInfo).subscribe(
-      response => {
-        this.router.navigate(['/employer/dashboard']).then(() => {
-          this.modalService.dismissAll();
-          this.onToggleJobPreviewModal(false)
-        });
-        this.isLoading = false;
-      }, error => {
-        if(error && error.error && error.error.errors)
-        this.formError = error.error.errors;
-        this.isLoading = false;
-      }
-    )
-  }
-
-  private buildForm(): void {
-    this.postJobForm = this.formBuilder.group({
-    });
-  }
-
-  onGetPostedJob(jobId) {
+	}
+	
+	/**
+	**	To update the job details
+	**/
+	
+	onJobUpdate = (jobInfo: JobPosting) => {
+		const company: any = this.postedJobsDetails.company;
+		jobInfo.company = (company && company.id) ? company.id : company;
+		jobInfo.id = this.postedJobsDetails.id;
+		this.employerService.jobUpdate(jobInfo).subscribe(
+		  response => {
+			this.router.navigate(['/employer/dashboard']).then(() => {
+			  this.modalService.dismissAll();
+			  this.onToggleJobPreviewModal(false)
+			});
+			this.isLoading = false;
+		  }, error => {
+			if(error && error.error && error.error.errors)
+			this.formError = error.error.errors;
+			this.isLoading = false;
+		  }
+		)
+	}
+	
+	/**
+	**	To build a form for post job
+	**/
+	
+	private buildForm(): void {
+		this.postJobForm = this.formBuilder.group({
+		});
+	}
+	
+	/**
+	**	To get the post-job details
+	**/
+	
+	onGetPostedJob(jobId) {
     let requestParams: any = {};
     requestParams.expand = 'company';
     requestParams.id = jobId;
@@ -496,43 +548,51 @@ export class PostJobLayoutComponent implements OnInit {
       }
     )
   }
-onGetCountry(query) {
+  
+	/**
+	**	To get the counry details
+	**/
+	
+	onGetCountry(query) {
 		this.requestParams = {};
 		this.requestParams.page = 1;
 		this.requestParams.limit = 1000;
 		this.requestParams.status = 1;
 		this.requestParams.search = query;
-
 		this.SharedAPIService.onGetCountry(this.requestParams);
-		 
-	  }
-	  
-	  onGetSkill() {
+
+	}
+	
+	/**
+	**	To get the skills details
+	**/
+	
+	onGetSkill() {
 		this.requestParams = {};
 		this.requestParams.page = 1;
 		this.requestParams.limit = 1000;
 		this.requestParams.status = 1;
 		this.requestParams.search = query;
-
 		this.SharedAPIService.onGetSkill(this.requestParams);
-		 
-	  }
-	  
+	}
+	
+	/**
+	**	To get the language details
+	**/
+	
 	onGetLanguage(query) {
 		this.requestParams = {};
 		this.requestParams.page = 1;
 		this.requestParams.limit = 1000;
 		this.requestParams.status = 1;
 		this.requestParams.search = query;
-
 		this.SharedAPIService.onGetLanguage(this.requestParams);
-	  }
-	  
-	  
+	}
+
 	/**
 	**	TO Get the Applied job details screeningProcess
 	**/
-	 
+
 	onGetScreening(companyId) {
 		let requestParams: any = {};
 		requestParams.limit = 50000;

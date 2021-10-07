@@ -497,7 +497,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	}
 	
   }
-
+	
+	/**
+	**	To filter the array values
+	**/
   onGetFilteredValue(resumeArray: any[]): any {
     if (resumeArray && Array.isArray(resumeArray)) {
       const filteredValue = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1);
@@ -511,7 +514,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
     }
     return "";
   }
-
+	
+	/**
+	**	To show the matches details 
+	**/
   onShowMatches = (event) => {
 	  var temp = event.target.className.split(' ');
 	  if(this.matchedElement ==true){
@@ -529,6 +535,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	 
   }
 
+	/**
+	**	To show the missing details
+	**/
   onShowMissing = (event) => {
 	  if(this.missingElement ==true){
 		this.missingElement = false;
@@ -546,7 +555,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	  }
     
   }
-
+	/**
+	**	To show the more details
+	**/
   onShowMore = (event) => {
 	  if(this.moreElement ==true){
 			this.moreElement = false;
@@ -560,7 +571,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		this.moreElement = true;
 	  }
   }
-
+	
+	/**
+	**	To reset the filter details
+	**/
   onReset = () => {
 	 
     this.moreElement = true;
@@ -568,7 +582,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
     this.missingElement = false;
   }
 
-
+	/**
+	**	To navigate the multiple matches details page
+	**/
 	
 	OpenMatchesWithID(profileId,companyId){
 		
@@ -608,6 +624,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		}
 	}
   }
+  
+    /**
+	**	To check the matches details
+	**/
   OpenMatchPopups = (details) => {
 	 if(details['meta']['matches']){
 		 if(details['meta']['matches']>1){
@@ -617,6 +637,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	 return true;
   }
   
+  /**
+	**	To check the matched details
+	**/
   updateSelectedTimeslots(event,id){
 	  if(id){
 		  if(event){
@@ -632,6 +655,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		}
 	}
   }
+  
+  /**
+	**	To navigate the job multiple matches details
+	**/
 	MatchCandidate(){
 		
 		if(this.checkArray.length!=0){

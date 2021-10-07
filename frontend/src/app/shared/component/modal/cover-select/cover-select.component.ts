@@ -74,15 +74,26 @@ export class CoverSelectComponent implements OnInit {
     }
   }
 
+  /**
+  **	To destroy the content if page leaves
+  **/
+  
   ngOnDestroy(): void {
     this.onClickCloseBtn(false);
   }
 
+  /**
+  **	To check the item change
+  **/
 
   onItemChange = (value) => {
     this.resumeSelected = value;
   }
 
+  /**
+  **	To build cover letter form
+  **/
+  
   private buildForm(): void {
     this.coverSelectForm = this.formBuilder.group({
       title: ['', [Validators.required]]
