@@ -231,6 +231,9 @@ export class EmployeeChartComponent implements OnInit {
       this.getDataStatus('');
     }
 	
+	/**
+	**	To get the status of the view
+	**/
 	public getDataStatus(data){
 		if(data=='active'){
 			if(this.isActive==true){
@@ -530,6 +533,9 @@ export class EmployeeChartComponent implements OnInit {
       )
 	}
 	
+	/**
+	**	To check the click view of the chart 
+	**/
 	chartClickEvent(event){
 			
 			//CheckMatchesTotal
@@ -555,7 +561,9 @@ export class EmployeeChartComponent implements OnInit {
 		},600);
 	}
 	
-	
+	/**
+	**	To check the click event in the postedjob details
+	**/
 	chartClickEventPostedJob(event){
 			//CheckMatchesTotal
 		setTimeout(()=>{
@@ -582,7 +590,9 @@ export class EmployeeChartComponent implements OnInit {
 		},600);
 	}
 	
-	
+	/**
+	**	To check the click event in the matches 
+	**/
 	chartClickEventMatches(event){
 			
 			//CheckMatchesTotal
@@ -614,6 +624,9 @@ export class EmployeeChartComponent implements OnInit {
 		
 	}
 	
+	/**
+	**	To check the click event in the application
+	**/
 	
 	chartClickEventApplicants(event){
 			//CheckMatchesTotal
@@ -647,7 +660,9 @@ export class EmployeeChartComponent implements OnInit {
 		},600);
 	}
 	
-	
+	/**
+	**	To check the click event in the shortlisted details 
+	**/
 	chartClickEventShortlisted(event){
 			//CheckMatchesTotal
 		setTimeout(()=>{
@@ -684,6 +699,9 @@ export class EmployeeChartComponent implements OnInit {
 		
 	}
 	
+	/**
+	**	To check the click event in the hired details
+	**/
 	
 	chartClickEventHired(event){
 			//CheckMatchesTotal

@@ -691,6 +691,10 @@ export class MatchingJobComponent implements OnInit {
 		return [];
 	}
 	
+	/**
+	**	To check the posted-job status
+	**/
+	
 	checkStatus(value){
 		if(this.postedJobMeta['status'] && this.postedJobMeta['status']['length']){
 			value = parseInt(value);
@@ -701,6 +705,11 @@ export class MatchingJobComponent implements OnInit {
 		}
 		return false;
 	}
+	
+	/**
+	**	To check the posted-job count
+	**/
+	
 	checkStatusCount(value){
 		if(this.postedJobMeta['status'] && this.postedJobMeta['status']['length']){
 			value = parseInt(value);
@@ -711,6 +720,10 @@ export class MatchingJobComponent implements OnInit {
 		}
 		return '0';
 	}
+	
+	/**
+	**	To change the status color
+	**/
 	
 	statusChange(value,event){
 		if(event.target.style.color!="rgb(255, 41, 114)"){

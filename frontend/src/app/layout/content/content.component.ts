@@ -17,7 +17,9 @@ export class ContentComponent implements OnInit, OnDestroy {
     private userSharedService: UserSharedService,
     private accountService: AccountService
     ) { }
-
+  /**
+   * To initialize the content component
+   */
   ngOnInit(): void {
     this.accountUserSubscription = this.accountService
       .isCurrentUser()
@@ -25,7 +27,9 @@ export class ContentComponent implements OnInit, OnDestroy {
         this.loggedUserInfo = response;
       });
   }
-
+  /**
+   * To destroy the page if leaves
+   */
   ngOnDestroy(): void {
     if(this.loggedUserInfo && !this.loggedUserInfo.isLoggedIn) {
       this.userSharedService.clearUserProfileDetails();

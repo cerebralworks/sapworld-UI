@@ -202,6 +202,10 @@ export class AppliedJobComponent implements OnInit {
       )
 	}
 	
+	/**
+	**	To filter the status of the applied job
+	**/
+	
 	itemReturn(id,application_status){
 		if(id !=null && id !=undefined ){
 			var valCheck = this.statusvalue.filter(function(a,b){ return parseInt(a.id) == parseInt(id)});

@@ -87,16 +87,22 @@ export class LandingComponent extends CacheService implements OnInit, AfterViewI
   onCheck = (event) => {
 console.log(event);
   }
-
-  ngOnInit(): void {
-    this.onCreateForm();
-    this.accountService
-      .isCurrentUser()
-      .subscribe(response => {
-        this.loggedUserInfo = response;
-      });
-  }
-
+	
+	/**
+   * To initialize the page
+   */
+	ngOnInit(): void {
+		this.onCreateForm();
+		this.accountService
+		  .isCurrentUser()
+		  .subscribe(response => {
+			this.loggedUserInfo = response;
+		  });
+	}
+	
+	/**
+   * TO create a 
+   */
   onCreateForm = () => {
     this.searchForm = this.formBuilder.group({
       search: new FormControl(''),

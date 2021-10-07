@@ -8,18 +8,18 @@ import { tabInfo } from '@data/schema/create-candidate';
 })
 export class SettingLayoutComponent implements OnInit {
 
-  public currentTabInfo: tabInfo = {
-    tabName: 'Profile Setting',
-    tabNumber: 1
-  };
+	public currentTabInfo: tabInfo = {
+		tabName: 'Profile Setting',
+		tabNumber: 1
+	};
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
-  onTabChange = (tabInfo: tabInfo) => {
-    this.currentTabInfo = tabInfo;
-  }
+	onTabChange = (tabInfo: tabInfo) => {
+		this.currentTabInfo = tabInfo;
+	}
 
 }

@@ -62,24 +62,30 @@ export class CreateCandidateFooterComponent implements OnInit {
 		  }
 		)
 	}
+	
 	/**
 	**	click the previous section
 	**/
+	
 	onPrevious = () => {
 		this.btnType = 'prev';
 		this.onTabChange();
 	}
+	
 	/**
 	**	click the next section
 	**/
+	
 	onNext = () => {
 		this.btnType = 'next';
 		this.onTabChange();
 	}
+	
 	/**
 	**	to detect the chnages in the tabs change
 	**/
-  onTabChange = () => {
+	
+	onTabChange = () => {
     if(this.btnType == 'next') {
 		if(this.currentTabInfo.tabNumber == 1 ){
 		if(this.createCandidateForm.value.personalDetails.authorized_country_select){
@@ -109,80 +115,87 @@ export class CreateCandidateFooterComponent implements OnInit {
 			}
 		}
 		if(this.createCandidateForm.value.jobPref !=null &&this.createCandidateForm.value.jobPref !=undefined  ){
-		if(this.createCandidateForm.value.jobPref.preferred_countries){
-		var intersection = this.createCandidateForm.value.personalDetails.authorized_country.filter(element => this.createCandidateForm.value.jobPref.preferred_countries.includes(element));
-		this.createCandidateForm.patchValue({
-			preferred_countries:{
-					authorized_country:intersection
-				}
-			})
-		}}}
-      let nextTabProgressor = {} as tabInfo;
-      nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
-      nextTabProgressor.tabName = this.onGetTabName(nextTabProgressor.tabNumber);
-      this.onTabChangeEvent.emit(nextTabProgressor);
-    }
-    if(this.btnType == 'prev') {
-      let prevTabProgressor = {} as tabInfo;
-      prevTabProgressor.tabNumber = this.currentTabInfo.tabNumber - 1;
-      prevTabProgressor.tabName = this.onGetTabName(prevTabProgressor.tabNumber);
-      this.onTabChangeEvent.emit(prevTabProgressor);
-    }
-  }
+			if(this.createCandidateForm.value.jobPref.preferred_countries){
+			var intersection = this.createCandidateForm.value.personalDetails.authorized_country.filter(element => this.createCandidateForm.value.jobPref.preferred_countries.includes(element));
+			this.createCandidateForm.patchValue({
+				preferred_countries:{
+						authorized_country:intersection
+					}
+				})
+			}}}
+		  let nextTabProgressor = {} as tabInfo;
+		  nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
+		  nextTabProgressor.tabName = this.onGetTabName(nextTabProgressor.tabNumber);
+		  this.onTabChangeEvent.emit(nextTabProgressor);
+		}
+		if(this.btnType == 'prev') {
+		  let prevTabProgressor = {} as tabInfo;
+		  prevTabProgressor.tabNumber = this.currentTabInfo.tabNumber - 1;
+		  prevTabProgressor.tabName = this.onGetTabName(prevTabProgressor.tabNumber);
+		  this.onTabChangeEvent.emit(prevTabProgressor);
+		}
+	}
+	
 	/**
 	**	Tabs section
 	**/
-  onGetTabName = (tabNumber: number) => {
-    let tabName: string = 'Personal Detail';
-    switch (tabNumber) {
-      case 1:
-        tabName = 'Personal Detail';
-        break;
-      case 2:
-        tabName = 'Education Experience';
-        break;
-      case 3:
-        tabName = 'Skillsets';
-        break;
-      case 4:
-        tabName = 'Job Preference';
-        break;
-      default:
-        break;
-    }
-    return tabName;
-  }
+	
+	onGetTabName = (tabNumber: number) => {
+		let tabName: string = 'Personal Detail';
+		switch (tabNumber) {
+		  case 1:
+			tabName = 'Personal Detail';
+			break;
+		  case 2:
+			tabName = 'Education Experience';
+			break;
+		  case 3:
+			tabName = 'Skillsets';
+			break;
+		  case 4:
+			tabName = 'Job Preference';
+			break;
+		  default:
+			break;
+		}
+		return tabName;
+	}
+	
   	/**
 	**	To open the review popup
 	**/
 	
-  onToggleRegisterReview = (status) => {
-	 if(this.checValue()){
-		if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >=this.createCandidateForm.value.educationExp.sap_experience ) {
-			
-			if(this.createCandidateForm.value.personalDetails.authorized_country_select){
-			
-				if(this.createCandidateForm.value.personalDetails.authorized_country){
-					this.requestParams = {'Check Authorized Country Aftre':'footer','Check Before concat authorized_country':'footer','time':new Date().toLocaleString()};
-					this.SharedAPIService.onSaveLogs(this.requestParams);
-					var val= this.createCandidateForm.value.personalDetails.authorized_country.concat(this.createCandidateForm.value.personalDetails.authorized_country_select);
-					val= [...new Set(val)];
-					
-					this.createCandidateForm.patchValue({personalDetails:{authorized_country:val}})
-					
-				}else{
-					
-					var value = this.createCandidateForm.value.personalDetails.authorized_country_select
-					this.createCandidateForm.patchValue({personalDetails:{authorized_country:value}	})
-					
+	onToggleRegisterReview = (status) => {
+		if(this.checValue()){
+			if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >=this.createCandidateForm.value.educationExp.sap_experience ) {
+				
+				if(this.createCandidateForm.value.personalDetails.authorized_country_select){
+				
+					if(this.createCandidateForm.value.personalDetails.authorized_country){
+						this.requestParams = {'Check Authorized Country Aftre':'footer','Check Before concat authorized_country':'footer','time':new Date().toLocaleString()};
+						this.SharedAPIService.onSaveLogs(this.requestParams);
+						var val= this.createCandidateForm.value.personalDetails.authorized_country.concat(this.createCandidateForm.value.personalDetails.authorized_country_select);
+						val= [...new Set(val)];
+						
+						this.createCandidateForm.patchValue({personalDetails:{authorized_country:val}})
+						
+					}else{
+						
+						var value = this.createCandidateForm.value.personalDetails.authorized_country_select
+						this.createCandidateForm.patchValue({personalDetails:{authorized_country:value}	})
+						
+					}
 				}
+				
+				this.onEnableJobPreviewModal.emit(status);
+				
 			}
-			
-			this.onEnableJobPreviewModal.emit(status);
-			
 		}
-	 }
-  }
+	}
+	
+	/**
+	**	To check the optional fields
+	**/
 	
 	checValue(){
 		if(this.createCandidateForm.value.personalDetails['entry']==false){
@@ -206,17 +219,22 @@ export class CreateCandidateFooterComponent implements OnInit {
 		}
 		return true;
 	}
-  getErrors = (formGroup: FormGroup, errors: any = {}) => {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        errors[field] = control.errors;
-      } else if (control instanceof FormGroup) {
-        errors[field] = this.getErrors(control);
-      }
-    });
-    return errors;
-  }
+	
+	/**
+	**	To get the errors of the form
+	**/
+	
+	getErrors = (formGroup: FormGroup, errors: any = {}) => {
+		Object.keys(formGroup.controls).forEach(field => {
+		  const control = formGroup.get(field);
+		  if (control instanceof FormControl) {
+			errors[field] = control.errors;
+		  } else if (control instanceof FormGroup) {
+			errors[field] = this.getErrors(control);
+		  }
+		});
+		return errors;
+	}
 
 
 }

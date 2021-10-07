@@ -15,34 +15,32 @@ import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 
 
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
 @Component({
-  selector: 'app-candidate-review-modal',
-  templateUrl: './candidate-review-modal.component.html',
-  styleUrls: ['./candidate-review-modal.component.css'],
+	selector: 'app-candidate-review-modal',
+	templateUrl: './candidate-review-modal.component.html',
+	styleUrls: ['./candidate-review-modal.component.css'],
 	encapsulation: ViewEncapsulation.None,
-  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({ height: '*', opacity: 0 })),
-      transition(':leave', [
-        style({ height: '*', opacity: 1 }),
+	viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
+	animations: [
+		trigger('slideInOut', [
+			state('in', style({ height: '*', opacity: 0 })),
+			transition(':leave', [
+				style({ height: '*', opacity: 1 }),
+				group([
+					animate(300, style({ height: 0 })),
+					animate('200ms ease-in-out', style({ 'opacity': '0' }))
+				])
 
-        group([
-          animate(300, style({ height: 0 })),
-          animate('200ms ease-in-out', style({ 'opacity': '0' }))
-        ])
+			]),
+			transition(':enter', [
+				style({ height: '0', opacity: 0 }),
+				group([
+					animate(300, style({ height: '*' })),
+					animate('400ms ease-in-out', style({ 'opacity': '1' }))
+				])
 
-      ]),
-      transition(':enter', [
-        style({ height: '0', opacity: 0 }),
-
-        group([
-          animate(300, style({ height: '*' })),
-          animate('400ms ease-in-out', style({ 'opacity': '1' }))
-        ])
-
-      ])
-    ])
-  ]
+			])
+		])
+	]
 })
 export class CandidateReviewModalComponent implements OnInit {
 	
@@ -231,6 +229,9 @@ export class CandidateReviewModalComponent implements OnInit {
 		}
 	}
 	
+	/**
+	**	To check the preferredCountries
+	**/
 	
 	checkPreferred(){
 		
@@ -709,34 +710,34 @@ export class CandidateReviewModalComponent implements OnInit {
 		}else if(value=='mobileNumber'){
 			this.mobileNumber = true;
 		}
-    this.isOpenCriteriaModal = true;
-    if (this.isOpenCriteriaModal && this.reference == true || this.education == true) {
-      setTimeout(() => {
-        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
-          windowClass: 'modal-holder',
-		  size: 'lg',
-          centered: true,
-          backdrop: 'static',
-          keyboard: false
-        });
-      }, 300);
-    }else{
-		setTimeout(() => {
-        this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
-          windowClass: 'modal-holder',
-          centered: true,
-          backdrop: 'static',
-          keyboard: false
-        });
-      }, 300);
+		this.isOpenCriteriaModal = true;
+		if (this.isOpenCriteriaModal && this.reference == true || this.education == true) {
+		  setTimeout(() => {
+			this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
+			  windowClass: 'modal-holder',
+			  size: 'lg',
+			  centered: true,
+			  backdrop: 'static',
+			  keyboard: false
+			});
+		  }, 300);
+		}else{
+			setTimeout(() => {
+			this.criteriaModalRef = this.modalService.open(this.criteriaModal, {
+			  windowClass: 'modal-holder',
+			  centered: true,
+			  backdrop: 'static',
+			  keyboard: false
+			});
+		  }, 300);
+		}
 	}
-  }
   
 	/**
 	**	To check the add popup data
 	**/
 	
-  openCheckPopup(){
+	openCheckPopup(){
 		this.isCheckModel = true;
 		if(this.jobtype == true){
 			if(this.childForm.value.employer_role_type=='' ||this.childForm.value.employer_role_type==null){
@@ -815,40 +816,42 @@ export class CandidateReviewModalComponent implements OnInit {
         });
       }, 300);
 		}
-  }
+	}
   
 	/**
 	**	To cancel the check model view
 	**/
 	
-  cancelCheck(){
-	 this.checkModalRef.close(); 
-  }
+	cancelCheck(){
+		this.checkModalRef.close(); 
+	}
   
 	/**
 	**	To destroy the popup view
 	**/
 	
-  closeSaveCheck(){
+	closeSaveCheck(){
 	  
-	this.checkModalRef.close();
-	  this.closeSave();
-  }
+		this.checkModalRef.close();
+		this.closeSave();
+	}
   
 	/**
 	**	To assign the education form controls to f
 	**/
 	
-  get f() {
-    return this.childForm.controls.educationExp.controls;
-  }
+	get f() {
+		return this.childForm.controls.educationExp.controls;
+	}
+	
 	/**
 	**	To assign the education_qualification form controls to t
 	**/
 	
-  get t() {
+	get t() {
     return this.f.education_qualification as FormArray;
-  }
+	}
+	
 	/**
 	**	To check the education array
 	**/
@@ -864,106 +867,114 @@ export class CandidateReviewModalComponent implements OnInit {
 			}
 		}
 	}
+	
 	/**
 	**	To detect any changes happens in the education_qualification
 	**/
 	
-  onChangeDegreeValue = (value, index) => {
-    this.educationsSelectedValue = value;
-    if (!this.educationsSelectedArray.includes(this.educationsSelectedValue)) {
-      this.educationsSelectedArray.push(this.educationsSelectedValue);
-    }
-    if(value && index > -1) {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }else {
-		if(this.childForm.get('educationExp.education_qualification').controls[index] != undefined && this.childForm.get('educationExp.education_qualification').controls[index] != null){
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }
-    }
-  }
-
-  onChangeStudyValue = (value, index) => {
-    if(value && index > -1) {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }else {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }
-  }
-
-  onChangeCompletionValue = (value, index) => {
-    if(value && index > -1) {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }else {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }
-  }
+	onChangeDegreeValue = (value, index) => {
+		this.educationsSelectedValue = value;
+		if (!this.educationsSelectedArray.includes(this.educationsSelectedValue)) {
+		  this.educationsSelectedArray.push(this.educationsSelectedValue);
+		}
+		if(value && index > -1) {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}else {
+			if(this.childForm.get('educationExp.education_qualification').controls[index] != undefined && this.childForm.get('educationExp.education_qualification').controls[index] != null){
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+			}
+		}
+	}
+	
+	/**
+	**	To check the education qualification details
+	**/
+	
+	onChangeStudyValue = (value, index) => {
+		if(value && index > -1) {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}else {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}
+	}
+	
+	/**
+	**	To change the education qualification
+	**/
+	
+	onChangeCompletionValue = (value, index) => {
+		if(value && index > -1) {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}else {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}
+	}
+	
 	/**
 	**	To add a new education data
 	**/
-  onDuplicate = (index) => {
-	  if(this.t.value[index]['field_of_study']== null ||this.t.value[index]['degree']== '' ||this.t.value[index]['year_of_completion']== null  ){
-		  
-	  }else if (this.t.length < 5) {
-      this.t.push(this.formBuilder.group({
-        degree: [''],
-        field_of_study: [null],
-        year_of_completion: [null, [Validators.min(4)]]
-      }));
-    }
-  }
+	onDuplicate = (index) => {
+		if(this.t.value[index]['field_of_study']== null ||this.t.value[index]['degree']== '' ||this.t.value[index]['year_of_completion']== null  ){
+		 
+		}else if (this.t.length < 5) {
+		  this.t.push(this.formBuilder.group({
+			degree: [''],
+			field_of_study: [null],
+			year_of_completion: [null, [Validators.min(4)]]
+		  }));
+		}
+	}
+	
 	/**
 	**	To removable add data in education
 	**/
-  onRemove = (index) => {
-    let removedValue = this.t.value[index];
-    if (removedValue && removedValue.degree) {
-      let indexDeg = this.educationsSelectedArray.indexOf(removedValue.degree);
-      this.educationsSelectedArray.splice(indexDeg, 1);
-    }
-
-    if (index == 0 && this.t.length == 1) {
-      this.t.removeAt(0);
-      this.t.push(this.formBuilder.group({
-        degree: [''],
-        field_of_study: [null],
-        year_of_completion: [null]
-      }));
-    } else {
-      this.t.removeAt(index);
-
-    }
-  }
-  
+	onRemove = (index) => {
+		let removedValue = this.t.value[index];
+		if (removedValue && removedValue.degree) {
+		  let indexDeg = this.educationsSelectedArray.indexOf(removedValue.degree);
+		  this.educationsSelectedArray.splice(indexDeg, 1);
+		}
+		if (index == 0 && this.t.length == 1) {
+		  this.t.removeAt(0);
+		  this.t.push(this.formBuilder.group({
+			degree: [''],
+			field_of_study: [null],
+			year_of_completion: [null]
+		  }));
+		} else {
+		  this.t.removeAt(index);
+		}
+	}
   
 	/**
 	**	To add the certification
@@ -990,9 +1001,11 @@ export class CandidateReviewModalComponent implements OnInit {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
+	
 	/**
 	**	To remove the certification
 	**/
+	
 	removeCertification(data): void {
 		
 		const index = this.certification.indexOf(data);
@@ -1006,12 +1019,21 @@ export class CandidateReviewModalComponent implements OnInit {
 			});
 		}
 	}
+	
+	/**
+	**	To check the add chip event
+	**/
+	
 	add(event: MatChipInputEvent): void {
 		// Clear the input value
 		this.idValueGet = event.chipInput.id;
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the chips data
+	**/
+	
 	remove(data): void {
 		
 		const index = this.address.indexOf(data);
@@ -1020,107 +1042,127 @@ export class CandidateReviewModalComponent implements OnInit {
 			this.address.splice(index, 1);
 		}
 	}
-	  get ts() {
-    return this.childForm.controls.jobPref.controls.preferred_locations as FormArray;
-  }
+	
+	/**
+	**	To assign form controls to ts function
+	**/
+	
+	get ts() {
+		return this.childForm.controls.jobPref.controls.preferred_locations as FormArray;
+	}
   
 	/**
 	**	To add the preferredLocation
 	**/
 	
-  onDuplicates = () => {
+	onDuplicates = () => {
       this.ts.push(this.formBuilder.group({
         city: [''],
         state: [''],
         stateShort: [''],
         country: ['']
       }));
-  }
+	}
+	
 	/**
 	**	To remove the preferredLocation by id
 	**/
-  onRemoves = (index) => {
-    let removedValue = this.ts.value[index];
- 
-    if (index == 0 && this.ts.length == 1) {
-      this.ts.removeAt(0);
-      this.ts.push(this.formBuilder.group({
-         city: [''],
-        state: [''],
-        stateShort: [''],
-        country: ['']
-      }));
-	  this.address=[];
-    } else {
-      this.ts.removeAt(index);
-	  var tempData =[];
-		if(this.ts.value){
-			 tempData = this.ts.value.filter(function(a,b){ return a.city!=''||a.country!=''});
-		}
-	  tempData = tempData.map(function(a,b){ 
-	a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
-	return a.city+'-'+a.stateShort });
-	this.address=tempData;
+	onRemoves = (index) => {
+		let removedValue = this.ts.value[index];
+	 
+		if (index == 0 && this.ts.length == 1) {
+		  this.ts.removeAt(0);
+		  this.ts.push(this.formBuilder.group({
+			 city: [''],
+			state: [''],
+			stateShort: [''],
+			country: ['']
+		  }));
+		  this.address=[];
+		} else {
+		  this.ts.removeAt(index);
+		  var tempData =[];
+			if(this.ts.value){
+				 tempData = this.ts.value.filter(function(a,b){ return a.city!=''||a.country!=''});
+			}
+		  tempData = tempData.map(function(a,b){ 
+		a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+		return a.city+'-'+a.stateShort });
+		this.address=tempData;
 
-    }
-  }
-  handleAddressChange = (event) => {
-    const address = this.sharedService.fromGooglePlace(event);
-	if(event.geometry){
-		var tempData =[];
-		if(this.ts.value){
-			 tempData = this.ts.value.filter(function(a,b){ return a.city!='' && b.stateShort!=''});
 		}
-		
-		var datas:any = {
-        city: address.city ? address.city : event.formatted_address,
-        state: address.state,
-        stateShort: address.stateShort,
-        country: address.country
-    };
-	//this.chipsInput.nativeElement.value='';
-	if(document.getElementById(this.idValueGet)){
-	document.getElementById(this.idValueGet)['value']='';
 	}
-	if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
-	this.onDuplicates();
-	tempData.push(datas);
-	this.ts.patchValue(tempData);
-	tempData = tempData.map(function(a,b){ 
-	a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
-	return a.city+'-'+a.stateShort });
-	this.address=tempData;
-	}}
-  };
+	
+	/**
+	**	To handle the address change event
+	**/
+	
+	handleAddressChange = (event) => {
+		const address = this.sharedService.fromGooglePlace(event);
+		if(event.geometry){
+			var tempData =[];
+			if(this.ts.value){
+				 tempData = this.ts.value.filter(function(a,b){ return a.city!='' && b.stateShort!=''});
+			}
+			
+			var datas:any = {
+			city: address.city ? address.city : event.formatted_address,
+			state: address.state,
+			stateShort: address.stateShort,
+			country: address.country
+		};
+		//this.chipsInput.nativeElement.value='';
+		if(document.getElementById(this.idValueGet)){
+		document.getElementById(this.idValueGet)['value']='';
+		}
+		if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
+		this.onDuplicates();
+		tempData.push(datas);
+		this.ts.patchValue(tempData);
+		tempData = tempData.map(function(a,b){ 
+		a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+		return a.city+'-'+a.stateShort });
+		this.address=tempData;
+		}}
+	};
   
-  get r() {
-    return this.childForm.controls.personalDetails.controls.reference as FormArray;
-  }
-
-  onDuplicateR = (index) => {
-	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
+	get r() {
+		return this.childForm.controls.personalDetails.controls.reference as FormArray;
+	}
+	
+	/**
+	**	To add the preference
+	**/
+	
+	onDuplicateR = (index) => {
+		if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
 		  
-	  }else{
-		this.r.push(this.formBuilder.group({
-			name: new FormControl(null),
-			email: new FormControl(''),
-			company_name: new FormControl(null)
-		}));
-	  }
-  }
-
-  onRemoveR = (index) => {
-	  if (index == 0  && this.r.value.length==1) {
-		this.r.reset();
-	  }else{
-		this.r.removeAt(index);
-    }
-  }
+		}else{
+			this.r.push(this.formBuilder.group({
+				name: new FormControl(null),
+				email: new FormControl(''),
+				company_name: new FormControl(null)
+			}));
+		}
+	}
+	
+	/**
+	**	To remove the preference
+	**/
+	
+	onRemoveR = (index) => {
+		if (index == 0  && this.r.value.length==1) {
+			this.r.reset();
+		}else{
+			this.r.removeAt(index);
+		}
+	}
+	
 	/**
 	**	To check the mobileNumber format
 	**/
 	
-  checkNumber(){
+	checkNumber(){
 		
 		if(this.childForm.controls.personalDetails.controls.phone.status=="INVALID"){
 			if (this.childForm.controls.personalDetails.controls.phone.errors.required) {
@@ -1139,9 +1181,14 @@ export class CandidateReviewModalComponent implements OnInit {
 		}
 	}
 	onCountryChange = (event) => {
-     }
-	 
-	 onToggleResumeSelectModal(status){
+     
+	}
+	
+	/**
+	**	To open the resume model
+	**/
+	
+	onToggleResumeSelectModal(status){
 		if(status==true){
 			
 		}
@@ -1154,26 +1201,27 @@ export class CandidateReviewModalComponent implements OnInit {
 	/**
 	**	To add the programmingSkills data
 	**/
+	
 	addProgram(event: MatChipInputEvent): void {
-			const value = (event.value || '').trim();
+		const value = (event.value || '').trim();
 
-			if (value) {
-				var values = value.replace(/\b\w/g, l => l.toUpperCase()); 
-				const index = this.programmingSkills.indexOf(values);
-				if (index >= 0) {
-					
-				}else{
-				this.programmingSkills.push(values);
-				this.childForm.patchValue({
-				  skillSet: {
-					['programming_skills']: this.programmingSkills,
-				  }
-				});}
+		if (value) {
+			var values = value.replace(/\b\w/g, l => l.toUpperCase()); 
+			const index = this.programmingSkills.indexOf(values);
+			if (index >= 0) {
 				
-			}
+			}else{
+			this.programmingSkills.push(values);
+			this.childForm.patchValue({
+			  skillSet: {
+				['programming_skills']: this.programmingSkills,
+			  }
+			});}
+			
+		}
 
-			// Clear the input value
-			event.chipInput!.clear();
+		// Clear the input value
+		event.chipInput!.clear();
 	}
 	
 	/**

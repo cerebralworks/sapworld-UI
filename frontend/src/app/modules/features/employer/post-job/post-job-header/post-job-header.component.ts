@@ -8,17 +8,21 @@ import { tabInfo } from '@data/schema/create-candidate';
 })
 export class PostJobHeaderComponent implements OnInit {
 
-  @Input() currentTabInfo: tabInfo;
-  @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
+	@Input() currentTabInfo: tabInfo;
+	@Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
-
-  onTabChange = (currentTabInfo: tabInfo) => {
-    this.currentTabInfo = currentTabInfo;
-	this.onTabChangeEvent.emit(currentTabInfo);
-  }
+	ngOnInit(): void {
+	}
+	
+	/**
+	**	To detect the tab change event
+	**/
+	
+	onTabChange = (currentTabInfo: tabInfo) => {
+		this.currentTabInfo = currentTabInfo;
+		this.onTabChangeEvent.emit(currentTabInfo);
+	}
 
 }

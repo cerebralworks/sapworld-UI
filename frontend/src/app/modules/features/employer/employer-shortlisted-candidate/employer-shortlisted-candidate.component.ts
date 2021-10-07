@@ -281,7 +281,9 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		 this.isErrorShownValue = false;
 	}
   
-	
+	/**
+	**	To send a message for the shortlisted candidate
+	**/
 	sendMessage(){
 		this.isErrorShown= false;
 		this.isErrorShownValue= false;

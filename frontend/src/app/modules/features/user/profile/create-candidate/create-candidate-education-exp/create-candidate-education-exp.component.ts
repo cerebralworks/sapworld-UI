@@ -37,15 +37,15 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 		this.savedUserDetails = inFo;
 	}
 	public requestParams: any;	
-  constructor(
-    private parentF: FormGroupDirective,
-    public sharedService: SharedService,
-    private formBuilder: FormBuilder,
-    private dataService: DataService,
-    private userSharedService: UserSharedService,
+	constructor(
+		private parentF: FormGroupDirective,
+		public sharedService: SharedService,
+		private formBuilder: FormBuilder,
+		private dataService: DataService,
+		private userSharedService: UserSharedService,
 		private SharedAPIService: SharedApiService,
-    public utilsHelperService: UtilsHelperService
-  ) { }
+		public utilsHelperService: UtilsHelperService
+	) { }
 	
 	/**
 	**	Initialize the education-exp tab
@@ -80,58 +80,58 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 		)
 	}
 	
-  /**
-  **	To detect onchange event in education-exp tabInfo
-  **/	
+	/**
+	**	To detect onchange event in education-exp tabInfo
+	**/	
   
-  ngOnChanges(changes): void {
-    setTimeout( async () => {
-    if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
-      if(this.childForm.value.personalDetails.entry){
-		  this.savedUserDetails['sap_experience']=0;
-	  }
-	  if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
-        if(this.savedUserDetails.education_qualification.length == 0){
-			this.t.removeAt(0);
-			this.t.push(this.formBuilder.group({
-				degree: [''],
-				field_of_study: [null],
-				year_of_completion: [null, [Validators.min(4)]]
-			  }));
-            this.onChangeDegreeValue('', 1);
-		}else if ((this.savedUserDetails.education_qualification.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.education_qualification && this.savedUserDetails.education_qualification.length)) {
-         this.t.removeAt(0);
-          this.savedUserDetails.education_qualification.map((value, index) => {
-            this.t.push(this.formBuilder.group({
-				degree: [''],
-				field_of_study: [null],
-				year_of_completion: [null, [Validators.min(4)]]
-			  }));
-            this.onChangeDegreeValue(value.degree, index);
-          });
-        }
-      }
-      if (this.savedUserDetails.education_qualification == null) {
-        delete this.savedUserDetails.education_qualification;
-      }
-	  
-	 
-      if (this.savedUserDetails.domains_worked != null) {
-        for(let i=0;i<this.savedUserDetails.domains_worked.length;i++){
-			this.savedUserDetails.domains_worked[i]=parseInt(this.savedUserDetails.domains_worked[i]);
-		}
-      }
-	  if(this.childForm.controls.educationExp.status =="INVALID"){
-		  this.childForm.patchValue({
-			educationExp: {
-			  ...this.savedUserDetails
+	ngOnChanges(changes): void {
+		setTimeout( async () => {
+		if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
+		  if(this.childForm.value.personalDetails.entry){
+			  this.savedUserDetails['sap_experience']=0;
+		  }
+		  if (this.savedUserDetails && this.savedUserDetails.education_qualification && Array.isArray(this.savedUserDetails.education_qualification)) {
+			if(this.savedUserDetails.education_qualification.length == 0){
+				this.t.removeAt(0);
+				this.t.push(this.formBuilder.group({
+					degree: [''],
+					field_of_study: [null],
+					year_of_completion: [null, [Validators.min(4)]]
+				  }));
+				this.onChangeDegreeValue('', 1);
+			}else if ((this.savedUserDetails.education_qualification.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.education_qualification && this.savedUserDetails.education_qualification.length)) {
+			 this.t.removeAt(0);
+			  this.savedUserDetails.education_qualification.map((value, index) => {
+				this.t.push(this.formBuilder.group({
+					degree: [''],
+					field_of_study: [null],
+					year_of_completion: [null, [Validators.min(4)]]
+				  }));
+				this.onChangeDegreeValue(value.degree, index);
+			  });
 			}
-		  })
-	  }
-      
-    }
-  });
-  }
+		  }
+		  if (this.savedUserDetails.education_qualification == null) {
+			delete this.savedUserDetails.education_qualification;
+		  }
+		  
+		 
+		  if (this.savedUserDetails.domains_worked != null) {
+			for(let i=0;i<this.savedUserDetails.domains_worked.length;i++){
+				this.savedUserDetails.domains_worked[i]=parseInt(this.savedUserDetails.domains_worked[i]);
+			}
+		  }
+		  if(this.childForm.controls.educationExp.status =="INVALID"){
+			  this.childForm.patchValue({
+				educationExp: {
+				  ...this.savedUserDetails
+				}
+			  })
+		  }
+		  
+		}
+	  });
+	}
   
 	/**
 	**	To detect keyPress event
@@ -152,9 +152,8 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	/**
 	**	To create a educationExp form
 	**/
-  createForm() {
-    this.childForm = this.parentF.form;
-
+	createForm() {
+		this.childForm = this.parentF.form;
 		if(this.childForm.value.personalDetails.entry==false){
 			this.childForm.addControl('educationExp', new FormGroup({
 			  employer_role_type: new FormControl(null),
@@ -187,20 +186,21 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 			  //clients_worked: new FormControl(''),
 			  end_to_end_implementation: new FormControl(null),
 			}));
-
 		}
-  }
+	}
 
-  get f() {
-    return this.childForm.controls.educationExp.controls;
-  }
+	get f() {
+		return this.childForm.controls.educationExp.controls;
+	}
 
-  get t() {
-    return this.f.education_qualification as FormArray;
-  }
+	get t() {
+		return this.f.education_qualification as FormArray;
+	}
+	
 	/**
 	**	To check the education Array data
 	**/
+	
 	educationsSelectedArrayCheck(value,index){
 		if(value==index['value']['degree']){
 			return false;
@@ -212,104 +212,112 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 			}
 		}
 	}
+	
 	/**
 	**	To detect the changes in the degree  
 	**/
 	
-  onChangeDegreeValue = (value, index) => {
-    this.educationsSelectedValue = value;
-    if (!this.educationsSelectedArray.includes(this.educationsSelectedValue)) {
-      this.educationsSelectedArray.push(this.educationsSelectedValue);
-    }
-    if(value && index > -1) {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }else {
-		if(this.childForm.get('educationExp.education_qualification').controls[index] != undefined && this.childForm.get('educationExp.education_qualification').controls[index] != null){
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }
-    }
-  }
+	onChangeDegreeValue = (value, index) => {
+		this.educationsSelectedValue = value;
+		if (!this.educationsSelectedArray.includes(this.educationsSelectedValue)) {
+		  this.educationsSelectedArray.push(this.educationsSelectedValue);
+		}
+		if(value && index > -1) {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}else {
+			if(this.childForm.get('educationExp.education_qualification').controls[index] != undefined && this.childForm.get('educationExp.education_qualification').controls[index] != null){
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
+			  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+			}
+		}
+	}
 
-  onChangeStudyValue = (value, index) => {
-    if(value && index > -1) {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }else {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }
-  }
-
-  onChangeCompletionValue = (value, index) => {
-    if(value && index > -1) {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }else {
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
-      this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
-    }
-  }
+	onChangeStudyValue = (value, index) => {
+		if(value && index > -1) {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}else {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}
+	}
+	
+	/**
+	**	To change the education value
+	**/
+	
+	onChangeCompletionValue = (value, index) => {
+		if(value && index > -1) {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators([Validators.required])
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}else {
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['degree'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['field_of_study'].updateValueAndValidity();
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].setValidators(null)
+		  this.childForm.get('educationExp.education_qualification').controls[index].controls['year_of_completion'].updateValueAndValidity();
+		}
+	}
+	
 	/**
 	**	To add a new education Array
 	**/
-  onDuplicate = (index) => {
-	  if(this.t.value[index]['field_of_study']== null ||this.t.value[index]['degree']== '' ||this.t.value[index]['year_of_completion']== null  ){
-		  
-	  }else if (this.t.length < 5) {
-      this.t.push(this.formBuilder.group({
-        degree: [''],
-        field_of_study: [null],
-        year_of_completion: [null, [Validators.min(4)]]
-      }));
-    }
-  }
+	onDuplicate = (index) => {
+		if(this.t.value[index]['field_of_study']== null ||this.t.value[index]['degree']== '' ||this.t.value[index]['year_of_completion']== null  ){
+
+		}else if (this.t.length < 5) {
+		  this.t.push(this.formBuilder.group({
+			degree: [''],
+			field_of_study: [null],
+			year_of_completion: [null, [Validators.min(4)]]
+		  }));
+		}
+	}
+	
 	/**
 	**	To remove the education Array
 	**/
-  onRemove = (index) => {
-    let removedValue = this.t.value[index];
-    if (removedValue && removedValue.degree) {
-      let indexDeg = this.educationsSelectedArray.indexOf(removedValue.degree);
-      this.educationsSelectedArray.splice(indexDeg, 1);
-    }
+	
+	onRemove = (index) => {
+		let removedValue = this.t.value[index];
+		if (removedValue && removedValue.degree) {
+		  let indexDeg = this.educationsSelectedArray.indexOf(removedValue.degree);
+		  this.educationsSelectedArray.splice(indexDeg, 1);
+		}
 
-    if (index == 0 && this.t.length == 1) {
-      this.t.removeAt(0);
-      this.t.push(this.formBuilder.group({
-        degree: [''],
-        field_of_study: [null],
-        year_of_completion: [null]
-      }));
-    } else {
-      this.t.removeAt(index);
+		if (index == 0 && this.t.length == 1) {
+		  this.t.removeAt(0);
+		  this.t.push(this.formBuilder.group({
+			degree: [''],
+			field_of_study: [null],
+			year_of_completion: [null]
+		  }));
+		} else {
+		  this.t.removeAt(index);
 
-    }
-  }
+		}
+	}
 
 }

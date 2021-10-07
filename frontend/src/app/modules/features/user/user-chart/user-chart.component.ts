@@ -221,6 +221,10 @@ export class UserChartComponent implements OnInit {
       this.getDataStatus('');
     }
 	
+	/**
+	**	To status of the chart data
+	**/
+	
 	public getDataStatus(data){
 		if(data=='active'){
 			if(this.isActive==true){
@@ -326,6 +330,10 @@ export class UserChartComponent implements OnInit {
       )
 	}
 	
+	/**
+	**	To get the applied job details
+	**/
+	
 	onGetAppliedJobs = (city) => {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
@@ -363,6 +371,11 @@ export class UserChartComponent implements OnInit {
         }
       )
 	}
+	
+	/**
+	**	To get the availability job details
+	**/
+	
 	onGetAvailabilityDetails = (city) => {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
@@ -399,6 +412,10 @@ export class UserChartComponent implements OnInit {
         }
       )
 	}
+	
+	/**
+	**	To get the job type details
+	**/
 	
 	onGetTypeDetails = (city) => {
       let requestParams: any = {};
@@ -444,6 +461,9 @@ export class UserChartComponent implements OnInit {
       )
 	}
 	
+	/**
+	**	To get the visa sponsered details
+	**/
 	
 	onGetVisaDetails = () => {
       let requestParams: any = {};
@@ -482,11 +502,19 @@ export class UserChartComponent implements OnInit {
       )
 	}
 	
+	/**
+	**	To detect the chart click event
+	**/
+	
 	chartClickEvent(event,index){
 		this.checkTotalChart();
 		this.graphClickEvent();		
-  }
-  
+	}
+	
+	/**
+	**	To check the total count of the chart
+	**/
+	
 	checkTotalChart(){
 		//CheckMatchesTotal
 		setTimeout(()=>{

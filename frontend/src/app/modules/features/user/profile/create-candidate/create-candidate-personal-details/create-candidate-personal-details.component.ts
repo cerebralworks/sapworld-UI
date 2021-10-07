@@ -611,6 +611,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			}
 		}
 	}
+	
 	/**
 	**	To check the authorized_country
 	**/
@@ -666,219 +667,240 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			this.onChangeCountry(id);
 		}
 	}
-  onFindMediaLinks = (mediaType: string, array: any[]) => {
-    if(mediaType) {
-      const link = array.find((val, index) => {
-        return val.media == mediaType;
-      });
-      return link ? link : ''
-    }
-    return ''
-  }
+	
+	onFindMediaLinks = (mediaType: string, array: any[]) => {
+		if(mediaType) {
+		  const link = array.find((val, index) => {
+			return val.media == mediaType;
+		  });
+		  return link ? link : ''
+		}
+		return ''
+	}
+  
 	/**
 	**	To create a personal-details form
 	**/
-  createForm() {
-    this.childForm = this.parentF.form;
+	
+	createForm() {
+		this.childForm = this.parentF.form;
+		this.childForm.addControl('personalDetails', new FormGroup({
+		  first_name: new FormControl('', Validators.required),
+		  last_name: new FormControl('', Validators.required),
+		  email: new FormControl(''),
+		  entry: new FormControl(false),
+		  phone: new FormControl(''),
+		  city: new FormControl('', Validators.required),
+		  state: new FormControl('', Validators.required),
+		  latlng: new FormControl({}, Validators.required),
+		  country: new FormControl('', Validators.required),
+		  zipcode: new FormControl(null, Validators.required),
+		  clients_worked: new FormControl(null, Validators.required),
+		  authorized_country: new FormControl(null),
+		  authorized_country_select: new FormControl(null),
+		  visa_type: new FormControl(null),
+		  nationality: new FormControl(null, Validators.required),
+		  social_media_link: new FormControl(null),
+		  linkedin: new FormControl(''),
+		  github: new FormControl(''),
+		  youtube: new FormControl(''),
+		  blog: new FormControl(''),
+		  portfolio: new FormControl(''),
+		  linkedinBoolen: new FormControl(false),
+		  githubBoolen: new FormControl(false),
+		  youtubeBoolen: new FormControl(false),
+		  blogBoolen: new FormControl(false),
+		  portfolioBoolen: new FormControl(false),
+		  work_authorization: new FormControl(null),
+		  language_known: new FormArray([this.formBuilder.group({
+			language: [null, Validators.required],
+			read: new FormControl(false),
+			write: new FormControl(false),
+			speak: new FormControl(false)
+		  })]),
+		  reference: new FormArray([this.formBuilder.group({
+			name: new FormControl(null),
+			email: new FormControl(''),
+			company_name: new FormControl(null)
+		  })]),
+		}));
 
-    this.childForm.addControl('personalDetails', new FormGroup({
-      first_name: new FormControl('', Validators.required),
-      last_name: new FormControl('', Validators.required),
-      email: new FormControl(''),
-      entry: new FormControl(false),
-      phone: new FormControl(''),
-      city: new FormControl('', Validators.required),
-      state: new FormControl('', Validators.required),
-      latlng: new FormControl({}, Validators.required),
-      country: new FormControl('', Validators.required),
-      zipcode: new FormControl(null, Validators.required),
-      clients_worked: new FormControl(null, Validators.required),
-      authorized_country: new FormControl(null),
-      authorized_country_select: new FormControl(null),
-      visa_type: new FormControl(null),
-      nationality: new FormControl(null, Validators.required),
-      social_media_link: new FormControl(null),
-      linkedin: new FormControl(''),
-      github: new FormControl(''),
-      youtube: new FormControl(''),
-      blog: new FormControl(''),
-      portfolio: new FormControl(''),
-      linkedinBoolen: new FormControl(false),
-      githubBoolen: new FormControl(false),
-      youtubeBoolen: new FormControl(false),
-      blogBoolen: new FormControl(false),
-      portfolioBoolen: new FormControl(false),
-      work_authorization: new FormControl(null),
-	  language_known: new FormArray([this.formBuilder.group({
-        language: [null, Validators.required],
-        read: new FormControl(false),
-        write: new FormControl(false),
-        speak: new FormControl(false)
-      })]),
-	  reference: new FormArray([this.formBuilder.group({
-        name: new FormControl(null),
-        email: new FormControl(''),
-        company_name: new FormControl(null)
-      })]),
-    }));
+	}
 
-  }
-
-  get f() {
-    return this.childForm.controls.personalDetails.controls;
-  }
+	get f() {
+		return this.childForm.controls.personalDetails.controls;
+	}
 	
 	/**
 	**	To detectChanges in address 
 	**/
-  handleAddressChange = (event) => {
-    const address = this.sharedService.fromGooglePlace(event);
-	if(event.geometry){
-    this.childForm.patchValue({
-      personalDetails: {
-        city: address.city ? address.city : event.formatted_address,
-        state: address.state,
-        country: address.country,
-        latlng: {
-          "lat": event.geometry.location.lat(),
-          "lng": event.geometry.location.lng()
-        }
-      }
-    });
-	}
-  };
+	
+	handleAddressChange = (event) => {
+		const address = this.sharedService.fromGooglePlace(event);
+		if(event.geometry){
+			this.childForm.patchValue({
+			  personalDetails: {
+				city: address.city ? address.city : event.formatted_address,
+				state: address.state,
+				country: address.country,
+				latlng: {
+				  "lat": event.geometry.location.lat(),
+				  "lng": event.geometry.location.lng()
+				}
+			  }
+			});
+		}
+	};
   
 	/**
 	**	To set the socialMediaLinks
 	**/
-  onSetLinks = (fieldName, status) => {
-	  if(this.socialMediaLinks==null || undefined){
-		  this.socialMediaLinks=[
-        {
-          "media": fieldName,
-          "url": this.childForm.value.personalDetails[fieldName],
-          "visibility": status
-        }
-      ];
-	  }else if(this.socialMediaLinks.length == 0) {
-		
-      this.socialMediaLinks.push(
-        {
-          "media": fieldName,
-          "url": this.childForm.value.personalDetails[fieldName],
-          "visibility": status
-        }
-      )
-    }else {
-		this.socialMediaLinks = this.socialMediaLinks.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
-      let findInex = this.socialMediaLinks.findIndex(val => ((val.media == fieldName) ))
-      if(findInex > -1) {
-        this.socialMediaLinks[findInex].visibility = status;
-      }else {
-        this.socialMediaLinks.push(
-          {
-            "media": fieldName,
-            "url": this.childForm.value.personalDetails[fieldName],
-            "visibility": status
-          }
-        )
-      }
-    }
-    this.childForm.patchValue({
-      personalDetails: {
-        social_media_link: this.socialMediaLinks
-      }
-    })
-  }
+	
+	onSetLinks = (fieldName, status) => {
+		if(this.socialMediaLinks==null || undefined){
+			  this.socialMediaLinks=[
+			{
+			  "media": fieldName,
+			  "url": this.childForm.value.personalDetails[fieldName],
+			  "visibility": status
+			}
+		  ];
+		  }else if(this.socialMediaLinks.length == 0) {
+			
+		  this.socialMediaLinks.push(
+			{
+			  "media": fieldName,
+			  "url": this.childForm.value.personalDetails[fieldName],
+			  "visibility": status
+			}
+		  )
+		}else {
+			this.socialMediaLinks = this.socialMediaLinks.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
+		  let findInex = this.socialMediaLinks.findIndex(val => ((val.media == fieldName) ))
+		  if(findInex > -1) {
+			this.socialMediaLinks[findInex].visibility = status;
+		  }else {
+			this.socialMediaLinks.push(
+			  {
+				"media": fieldName,
+				"url": this.childForm.value.personalDetails[fieldName],
+				"visibility": status
+			  }
+			)
+		  }
+		}
+		this.childForm.patchValue({
+		  personalDetails: {
+			social_media_link: this.socialMediaLinks
+		  }
+		})
+	}
 	/**
 	**	To upload the profile image
 	**/
-  handleFileInput(event, CropImagePopUp) {
-    let files: FileList = event.target.files;
-    if (files && files.length > 0) {
-      let fileToUpload = files.item(0);
-      let allowedExtensions = ["jpg", "jpeg", "png", "JPG", "JPEG"];
+	handleFileInput(event, CropImagePopUp) {
+		let files: FileList = event.target.files;
+		if (files && files.length > 0) {
+		  let fileToUpload = files.item(0);
+		  let allowedExtensions = ["jpg", "jpeg", "png", "JPG", "JPEG"];
 
-      let fileExtension = files
-        .item(0)
-        .name.split(".")
-        .pop();
-      if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
-        this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
-        return;
-      }
-      if (files.item(0).size > 3145728) {
-        this.toastrService.error('Size Should be less than or equal to 3 MB');
-        return;
-      }
-      this.open(CropImagePopUp);
-      this.imageChangedEvent = event;
-      let reader = new FileReader();
-      reader.onload = this._handleReaderLoaded.bind(this);
-      reader.readAsBinaryString(fileToUpload);
-    }
+		  let fileExtension = files
+			.item(0)
+			.name.split(".")
+			.pop();
+		  if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+			this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
+			return;
+		  }
+		  if (files.item(0).size > 3145728) {
+			this.toastrService.error('Size Should be less than or equal to 3 MB');
+			return;
+		  }
+		  this.open(CropImagePopUp);
+		  this.imageChangedEvent = event;
+		  let reader = new FileReader();
+		  reader.onload = this._handleReaderLoaded.bind(this);
+		  reader.readAsBinaryString(fileToUpload);
+		}
 
-  }
+	}
 
-  _handleReaderLoaded(readerEvt) {
-    var binaryString = readerEvt.target.result;
-    let base64textString = btoa(binaryString);
-    this.defaultProfilePic = base64textString;
-  }
+	_handleReaderLoaded(readerEvt) {
+		var binaryString = readerEvt.target.result;
+		let base64textString = btoa(binaryString);
+		this.defaultProfilePic = base64textString;
+	}
+	
+	/**
+	**	To open the image crop popup
+	**/
+	
+	open(content: any) {
+		this.mbRef = this.modalService.open(content, {
+		  windowClass: 'insurance-modal-zindex',
+		  size: "lg",
+		  centered: true
+		});
+	}
+  
+	/**
+	**	To crop the image
+	**/
+	
+	imageCropped(event: ImageCroppedEvent) {
+		this.profilePicValue = event.base64.split(",")[1];
+		let file = base64ToFile(event.base64);
+		this.croppedFile = file;
+		this.profilePicAsEvent = event;
+	}
 
-  open(content: any) {
-    this.mbRef = this.modalService.open(content, {
-      windowClass: 'insurance-modal-zindex',
-      size: "lg",
-      centered: true
-    });
-  }
-
-  imageCropped(event: ImageCroppedEvent) {
-    this.profilePicValue = event.base64.split(",")[1];
-    let file = base64ToFile(event.base64);
-    this.croppedFile = file;
-    this.profilePicAsEvent = event;
-
-  }
-
-  imageLoaded() {
+	imageLoaded() {
     // show cropper
-  }
+	}
+	
+	/**
+	**	To handle the image uploded error
+	**/
+	
+	loadImageFailed(event: any) {
+		this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
+		this.mbRef.close();
+	}
+	
+	/**
+	**	To crop the image and save
+	**/
+	
+	onImageCropSave() {
+		this.defaultProfilePic = this.profilePicValue;
+		this.previousProfilePic = this.defaultProfilePic;
+		this.dataService.setUserPhoto({ photoBlob: this.croppedFile, base64: this.defaultProfilePic })
+		this.mbRef.close();
+	}
+	
+	/**
+	**	To set the previous profile picture
+	**/
+	
+	SetPreviousProfilePic() {
+		this.defaultProfilePic = this.previousProfilePic;
+		this.previousProfilePic = this.defaultProfilePic;
+		this.userImage.nativeElement.value = null;
+		this.imageChangedEvent = null;
+		this.mbRef.close();
+	}
+  
+	/**
+	**	To convert url to image
+	**/
+	
+	convertToImage(imageString: string): string {
+		return this.utilsHelperService.convertToImageUrl(imageString);
+	}
 
-  loadImageFailed(event: any) {
-    this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
-    this.mbRef.close();
-  }
-
-  onImageCropSave() {
-    this.defaultProfilePic = this.profilePicValue;
-    this.previousProfilePic = this.defaultProfilePic;
-    this.dataService.setUserPhoto({ photoBlob: this.croppedFile, base64: this.defaultProfilePic })
-    this.mbRef.close();
-  }
-
-  SetPreviousProfilePic() {
-    this.defaultProfilePic = this.previousProfilePic;
-    this.previousProfilePic = this.defaultProfilePic;
-    this.userImage.nativeElement.value = null;
-    this.imageChangedEvent = null;
-    this.mbRef.close();
-  }
-
-  convertToImage(imageString: string): string {
-    return this.utilsHelperService.convertToImageUrl(imageString);
-  }
-
-  onCountryChange = (event) => {
-    // if(event && event.dialCode) {
-    //   this.childForm.patchValue({
-    //     personalDetails: {
-    //       dialCode: '+' + event.dialCode
-    //     }
-    //   })
-    // }
-  }
+	onCountryChange = (event) => {
+    
+	}
   
 	/**
 	**	To detect the language details control
@@ -905,25 +927,34 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].updateValueAndValidity();
 		}
 	}
+	
+	/**
+	**	To check the reference controls
+	**/
+	
 	onChangeLanguageValueReference = (value, index) => {
-    
-    if(value && index > -1) {
-      this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators(null)
-      this.childForm.get('personalDetails.reference').controls[index].controls['name'].updateValueAndValidity();
-      this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators('')
-      this.childForm.get('personalDetails.reference').controls[index].controls['email'].updateValueAndValidity();
-      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators(null)
-      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
-    }else {
-      this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators(null)
-      this.childForm.get('personalDetails.reference').controls[index].controls['name'].updateValueAndValidity();
-      this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators('')
-      this.childForm.get('personalDetails.reference').controls[index].controls['email'].updateValueAndValidity();
-      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators(null)
-      this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
-    }
-  }
-	  
+		
+		if(value && index > -1) {
+		  this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators(null)
+		  this.childForm.get('personalDetails.reference').controls[index].controls['name'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators('')
+		  this.childForm.get('personalDetails.reference').controls[index].controls['email'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators(null)
+		  this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
+		}else {
+		  this.childForm.get('personalDetails.reference').controls[index].controls['name'].setValidators(null)
+		  this.childForm.get('personalDetails.reference').controls[index].controls['name'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.reference').controls[index].controls['email'].setValidators('')
+		  this.childForm.get('personalDetails.reference').controls[index].controls['email'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].setValidators(null)
+		  this.childForm.get('personalDetails.reference').controls[index].controls['company_name'].updateValueAndValidity();
+		}
+	}
+  
+	/**
+	**	To change the optional fields
+	**/
+ 
 	onChangeFieldValue = (fieldName, value) => {
 		if(value==0){
 			this.visa_types =[];
@@ -951,16 +982,17 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			});
 		}
 		
-	  }
-	  
+	}
 	
-	 get t() {
-    return this.f.language_known as FormArray;
-  }
+	get t() {
+		return this.f.language_known as FormArray;
+	}
+  
 	/**
 	**	To add a new language 
 	**/
-  onDuplicate = (index) => {
+	
+	onDuplicate = (index) => {
    
 	 if(this.t.value[index]['language']=="" || this.t.value[index]['language']== null ){
 		  
@@ -972,22 +1004,29 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 				speak: [false]
 		}));
 	  }
-  }
+	}
+  
 	/**
 	**	To remove a language
 	**/
-  onRemove = (index) => {
-    if (index == 0  && this.t.value.length==1) {
-      this.t.reset();
-    } else {
-      this.t.removeAt(index);
-    }
-  }
-	 get r() {
-    return this.f.reference as FormArray;
-  }
-
-  onDuplicateR = (index) => {
+	
+	onRemove = (index) => {
+		if (index == 0  && this.t.value.length==1) {
+		  this.t.reset();
+		} else {
+		  this.t.removeAt(index);
+		}
+	}
+	
+	get r() {
+		return this.f.reference as FormArray;
+	}
+  
+	/**
+	**	To create a new reference
+	**/
+	
+	onDuplicateR = (index) => {
 	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
 		  
 	  }else{
@@ -997,21 +1036,25 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			company_name: new FormControl(null)
 		}));
 	  }
-  }
-
-  onRemoveR = (index) => {
-	  if (index == 0  && this.r.value.length==1) {
-		this.r.reset();
-	  }else{
-		this.r.removeAt(index);
-    }
-  }
+	}
+  
+	/**
+	**	To remove the data
+	**/
+	
+	onRemoveR = (index) => {
+		if (index == 0  && this.r.value.length==1) {
+			this.r.reset();
+		}else{
+			this.r.removeAt(index);
+		}
+	}
   
 	/**
 	**	To click the country info active or not
 	**/
 	
-  countryClick(value,clr){
+	countryClick(value,clr){
 	  var temp = clr.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		 
@@ -1045,9 +1088,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		}
 	  }
 	  console.log(value);
-  }
+	}
   
-  indexOfFilter(hasIndex) {
+	/**
+	**	To filter the index values
+	**/
+	
+	indexOfFilter(hasIndex) {
       
 	  if(this.t.value.filter(function(a,b){ return a.language == hasIndex }).length !=0 ){
 		  return false;
@@ -1056,4 +1103,4 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	  }
        
 	}
-	}
+}

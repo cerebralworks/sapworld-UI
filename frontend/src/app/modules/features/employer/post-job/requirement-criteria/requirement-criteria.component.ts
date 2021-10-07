@@ -78,10 +78,15 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		public utilsHelperService: UtilsHelperService
 	) { 
 	
-	this.filteredProgram = this.programCtrl.valueChanges.pipe(
-        startWith(null),
-        map((fruit: string | null) => fruit ? this._filter(fruit) : []));
+		this.filteredProgram = this.programCtrl.valueChanges.pipe(
+			startWith(null),
+			map((fruit: string | null) => fruit ? this._filter(fruit) : [])
+		);
 	}
+	
+	/**
+	**	To get the selected autocomplete
+	**/
 	
 	selected(event: MatAutocompleteSelectedEvent): void {
 		const value = (event.option.value || '').trim();
@@ -102,6 +107,10 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		}
 		 this.programInput.nativeElement.value = '';
 	}
+	
+	/**
+	**	To add the programming_skills
+	**/
 	
 	add(event: MatChipInputEvent): void {
 		if (!this.matAutocomplete.isOpen) {
@@ -143,7 +152,11 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			event.chipInput!.clear();
 		}
 	}
-
+	
+	/**
+	**	To remove the programming_skills
+	**/
+	
 	remove(visa): void {
 		
 		const index = this.programming_skills.indexOf(visa);
@@ -157,6 +170,11 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			});
 		}
 	}
+	
+	/**
+	**	To add the optinal_skills
+	**/
+	
 	addOptional(event: MatChipInputEvent): void {
 		
 		const value = (event.value || '').trim();
@@ -178,7 +196,11 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		// Clear the input value
 		event.chipInput!.clear();
 	}
-
+	
+	/**
+	**	To remove the optinal_skills
+	**/
+	
 	removeOptional(employer): void {
 		
 		const index = this.optinal_skills.indexOf(employer);
@@ -258,16 +280,15 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	
 	keyPress() {
 		if(this.childForm.value.requirement.sap_experience && this.childForm.value.requirement.experience ){
-	
-	if(this.childForm.value.requirement.sap_experience !="" && this.childForm.value.requirement.experience != ""){
-		if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience){
-			this.totalExpError = false;
-			this.sapExpError = false;
-		}else{
-			this.totalExpError = true;
-			this.sapExpError = true;
-		}
-		}
+			if(this.childForm.value.requirement.sap_experience !="" && this.childForm.value.requirement.experience != ""){
+				if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience){
+					this.totalExpError = false;
+					this.sapExpError = false;
+				}else{
+					this.totalExpError = true;
+					this.sapExpError = true;
+				}
+			}
 		}
 		
 	}
