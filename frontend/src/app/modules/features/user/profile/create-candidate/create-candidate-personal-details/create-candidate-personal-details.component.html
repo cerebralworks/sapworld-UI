@@ -233,12 +233,19 @@
 							{{visa_type}}
 							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 						</mat-chip>
-						<input placeholder=""
+						<input placeholder="" id="visaType"
+							(input)="getvisa($event.target.value)"
+							[matAutocomplete]="auto"
 							[matChipInputFor]="chipList"
 							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 							[matChipInputAddOnBlur]="addOnBlur"
 							(matChipInputTokenEnd)="add($event)">
 					</mat-chip-list>
+					<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selSug($event.option.value)">
+						<mat-option *ngFor="let items of filterVisatype " [value]="items.visa" >
+							{{items.visa}}
+						</mat-option>
+					</mat-autocomplete>
 				</mat-form-field>
 			</div>	
 		</div>	
