@@ -16,6 +16,9 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { UserService } from '@data/service/user.service';
 import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import { HttpClient } from '@angular/common/http';
+import { environment as env } from '@env';
 @Component({
 	selector: 'app-create-candidate-personal-details',
 	templateUrl: './create-candidate-personal-details.component.html',
@@ -73,6 +76,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	savedUserDetails: any;
 	othercountryValue: any;
 	randomNum: number;
+	workAuthDetails : any;
+	filterVisatype : any[] = [];
+	@ViewChild('visaType') visaType: ElementRef<HTMLInputElement>;
+	@ViewChild('auto') matAutocomplete: MatAutocomplete;
 	@Input('userDetails')
 	set userDetails(inFo: any) {
 		this.savedUserDetails = inFo;
@@ -98,15 +105,34 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		private utilsHelperService: UtilsHelperService,
 		private userService: UserService,
 		private SharedAPIService: SharedApiService,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		private http : HttpClient
 	) { }
 	
+	getvisa(e){
+		this.filterVisatype = this.workAuthDetails.filter(a=>{
+			if(a.visa.includes(e.toLowerCase()) && e!=''){
+				return a;
+			}
+		})
+	}
+	
+	selSug(e){
+		if(e!= ''){
+		var VT = this.visa_types.map(a=>{return a.toLowerCase()})
+		if(!VT.includes(e.toLowerCase())){
+		this.visa_types.pop();
+		this.visa_types.push(e.trim());
+		this.visaType.nativeElement.value = '';
+		}
+		}
+	}
 	/**
 	**	To add the visa type
 	**/
 	
 	add(event: MatChipInputEvent): void {
-		
+		//console.log(this.matAutocomplete)
 		const value = (event.value || '').trim();
 
 		if (value) {
@@ -114,7 +140,15 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			if (index >= 0) {
 				
 			}else{
+			var VT = this.visa_types.map(a=>{return a.toLowerCase()})
+			/*VT.map(a=>{
+				if(value.toLowerCase()!=a){
+				return this.visa_types.push(value);
+				}
+			})*/
+			if(!VT.includes(value.toLowerCase())){
 			this.visa_types.push(value);
+			}
 			this.childForm.patchValue({
 			  personalDetails: {
 				['visa_type']: this.visa_types,
@@ -122,10 +156,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			});}
 			
 		}
-
+		
 		// Clear the input value
 		event.chipInput!.clear();
-	}
+		}
 	
 	/**
 	**	To remove the visa type
@@ -191,7 +225,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-		
+		     this.http.get(
+          `${env.serverUrl}`+'/api/workauthorization/list?limit=1000').subscribe(response=>{
+			  this.workAuthDetails = response['items']
+		  })
 		this.randomNum = Math.random();
 		this.createForm();
 		
