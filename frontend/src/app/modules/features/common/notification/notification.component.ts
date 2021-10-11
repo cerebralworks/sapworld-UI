@@ -26,7 +26,7 @@ export class NotificationComponent implements OnInit {
 	length = 0;
 	public totalValue = 0;
 	pageIndex = 1;
-	pageSizeOptions = [ 20, 50,100,500];
+	pageSizeOptions = [ 20, 50,100,200];
 	
 	constructor(
 		private sharedApiService?: SharedApiService,

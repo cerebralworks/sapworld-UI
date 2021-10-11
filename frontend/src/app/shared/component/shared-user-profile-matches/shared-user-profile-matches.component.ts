@@ -137,6 +137,13 @@ export class SharedUserProfileMatchesComponent implements OnInit {
 						  }
 					  }
 				  }
+				  
+				  
+				  if(this.postedJobsDetails.need_reference ==false || !this.postedJobsDetails.need_reference || this.postedJobsDetails.need_reference =='false'){
+					this.postedJobsDetails.match_select['need_reference']="false";
+					  
+				  } 
+				  
 				Object.keys(this.postedJobsDetails.match_select).forEach(key => {
 					arr.push(this.postedJobsDetails.match_select[key]) 
 				});
@@ -668,4 +675,21 @@ findLanguageArray(value){
 			return false;  
 		  }
 	  }
+	  
+	  
+	checkMatchReference(jobInfo,userInfo){
+		var tempCheck = userInfo.reference.filter(function(a,b){ return a.email && a.name && a.company_name });
+		if(tempCheck['length'] !=0){
+			return true;
+		}
+		return false;
+	}
+	checkMissingReference(jobInfo,userInfo){
+		var tempCheck = userInfo.reference.filter(function(a,b){ return a.email && a.name && a.company_name });
+		if(tempCheck['length'] !=0){
+			return false;
+		}
+		return true;
+	}
+	
 }

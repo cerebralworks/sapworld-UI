@@ -109,6 +109,10 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 					this.postedJobsDetails.match_select['domain']="false";
 					  
 				  } 
+				  if(this.postedJobsDetails.need_reference ==false || !this.postedJobsDetails.need_reference || this.postedJobsDetails.need_reference =='false'){
+					this.postedJobsDetails.match_select['need_reference']="false";
+					  
+				  } 
 				  if(this.postedJobsDetails.extra_criteria && this.postedJobsDetails.extra_criteria.length){
 						for(let j=0;j<this.postedJobsDetails.extra_criteria.length;j++){
 							var value= this.postedJobsDetails.extra_criteria[j]['title']
@@ -361,4 +365,21 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		}
 		return false;
 	}
+	
+	
+	checkMatchReference(jobInfo,userInfo){
+		var tempCheck = userInfo.reference.filter(function(a,b){ return a.email && a.name && a.company_name });
+		if(tempCheck['length'] !=0){
+			return true;
+		}
+		return false;
+	}
+	checkMissingReference(jobInfo,userInfo){
+		var tempCheck = userInfo.reference.filter(function(a,b){ return a.email && a.name && a.company_name });
+		if(tempCheck['length'] !=0){
+			return false;
+		}
+		return true;
+	}
+	
 }

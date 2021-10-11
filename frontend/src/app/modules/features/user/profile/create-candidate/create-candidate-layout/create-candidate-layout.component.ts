@@ -315,6 +315,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				}
 			 }, 300);
 		}
+		window.scrollTo(0, 0);
 		//console.log({'Exist the onNext':'CreateCandidateLayoutComponent'})
 	}
 	
@@ -352,7 +353,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		//'skill_id': [Validators.required],
 		//'exp_type': [Validators.required],
 		//'skills': [Validators.required],
-		'programming_skills': [Validators.required],
+		//'programming_skills': [Validators.required],
 		//'other_skills': [Validators.required],
 		//'job_role': [Validators.required],
 		'willing_to_relocate': [Validators.required],
@@ -377,6 +378,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			}
 			this.slidingCounter--;
 		}
+		window.scrollTo(0, 0)
 	}
 
 	onHeaderTabChange = (currentTabInfo: tabInfo) => {

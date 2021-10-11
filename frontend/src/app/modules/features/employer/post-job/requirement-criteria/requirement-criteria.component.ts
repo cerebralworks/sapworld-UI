@@ -304,14 +304,36 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				if (this.childForm.value.requirement.optinal_skills != null) {
 					this.optinal_skills = this.childForm.value.requirement.optinal_skills;
 				}
-				if (!this.childForm.value.requirement.hands_on_experience || !this.childForm.value.requirement.hands_on_experience.length || this.childForm.value.requirement.hands_on_experience==0 ) {
+				if (this.childForm.value.jobInfo.entry == false && ( !this.childForm.value.requirement.hands_on_experience || !this.childForm.value.requirement.hands_on_experience.length || this.childForm.value.requirement.hands_on_experience==0  || ( this.childForm.value.requirement.hands_on_experience[0] && this.childForm.value.requirement.hands_on_experience[0]['experience'] =='' )) ) {
+					if(this.t && this.t.length && ( this.childForm.value.requirement.hands_on_experience[0] && this.childForm.value.requirement.hands_on_experience[0]['experience'] =='' )){
+						for(let i=0;i<=this.t.value.length;i++){
+							this.t.removeAt(0);
+							i=0;
+						}
+					}
 					this.t.push(this.formBuilder.group({
 						skill_id: [null, Validators.required],
 						skill_name: [''],
 						experience: ['', [Validators.required,]],
 						exp_type: ['years', [Validators.required]]
 					}));
-				}if(this.childForm.value.jobInfo.entry==true){
+				}
+				
+				if (this.childForm.value.jobInfo.entry == true) {
+					if(this.t && this.t.length){
+						for(let i=0;i<=this.t.value.length;i++){
+							this.t.removeAt(0);
+							i=0;
+						}
+					}
+					this.t.push(this.formBuilder.group({
+						skill_id: [null],
+						skill_name: [''],
+						experience: [''],
+						exp_type: ['years']
+					}));
+				}
+				if(this.childForm.value.jobInfo.entry==true){
 					this.childForm.patchValue({
 						requirement : {
 							['sap_experience']:0
@@ -361,14 +383,36 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 					}
 				});*/
 			}else{
-				if (!this.childForm.value.requirement.hands_on_experience || !this.childForm.value.requirement.hands_on_experience.length || this.childForm.value.requirement.hands_on_experience==0 ) {
+				if (this.childForm.value.jobInfo.entry ==false &&(!this.childForm.value.requirement.hands_on_experience || !this.childForm.value.requirement.hands_on_experience.length || this.childForm.value.requirement.hands_on_experience==0  || ( this.childForm.value.requirement.hands_on_experience[0] && this.childForm.value.requirement.hands_on_experience[0]['experience'] =='' ) )) {
+					if(this.t && this.t.length && ( this.childForm.value.requirement.hands_on_experience[0] && this.childForm.value.requirement.hands_on_experience[0]['experience'] =='' )){
+						for(let i=0;i<=this.t.value.length;i++){
+							this.t.removeAt(0);
+							i=0;
+						}
+					}
 					this.t.push(this.formBuilder.group({
 						skill_id: [null, Validators.required],
 						skill_name: [''],
 						experience: ['', [Validators.required,]],
 						exp_type: ['years', [Validators.required]]
 					}));
-				}if(this.childForm.value.jobInfo.entry==true){
+				}
+				
+				if (this.childForm.value.jobInfo.entry == true) {
+					if(this.t && this.t.length){
+						for(let i=0;i<=this.t.value.length;i++){
+							this.t.removeAt(0);
+							i=0;
+						}
+					}
+					this.t.push(this.formBuilder.group({
+						skill_id: [null],
+						skill_name: [''],
+						experience: [''],
+						exp_type: ['years']
+					}));
+				}
+				if(this.childForm.value.jobInfo.entry==true){
 					this.childForm.patchValue({
 						requirement : {
 							['sap_experience']:0

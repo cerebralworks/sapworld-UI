@@ -268,6 +268,20 @@
 					 </ul>
 				</div>
 			</div>
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.need_reference=='0' && (jobInfo?.need_reference ==true ||  jobInfo?.need_reference == 'true') ">
+				<div class="col-lg-5 col-md-5 col-sm-5 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"userProfile.needReferences" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-7 col-md-7 col-sm-7 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{"shared.yes" | translate }}
+						</li>
+					 </ul>
+				</div>
+			</div>
 			<!-- <div class="row info-box" *ngIf="jobInfo?.match_select?.remote=='0'">
 				<div class="col-lg-5 col-md-5 col-sm-5 caption">
 					<ul class="list-group">
@@ -590,6 +604,21 @@
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize">
 						{{(jobInfo?.travel_opportunity || jobInfo?.travel_opportunity==0) ? (jobInfo?.travel_opportunity == 0 ? 'No' : jobInfo?.travel_opportunity + '%') : '--'}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.need_reference=='1' && (jobInfo?.need_reference ==true ||  jobInfo?.need_reference == 'true') ">
+				<div class="col-lg-5 col-md-5 col-sm-5 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"userProfile.needReferences" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-7 col-md-7 col-sm-7 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{"shared.yes" | translate }}
 						</li>
 					 </ul>
 				</div>
@@ -921,6 +950,21 @@
 					 </ul>
 				</div>
 			</div>
+			
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.need_reference=='2' && (jobInfo?.need_reference ==true ||  jobInfo?.need_reference == 'true') ">
+				<div class="col-lg-5 col-md-5 col-sm-5 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"userProfile.needReferences" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-7 col-md-7 col-sm-7 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{"shared.yes" | translate }}
+						</li>
+					 </ul>
+				</div>
+			</div>
 			<!-- <div class="row info-box" *ngIf="jobInfo?.match_select?.remote=='2' ">
 				<div class="col-lg-5 col-md-5 col-sm-5 caption">
 					<ul class="list-group">
@@ -1217,6 +1261,21 @@
 					<ul class="list-group">
 						<li class=" list-group-item text-capitalize">
 						{{(jobInfo?.travel_opportunity || jobInfo?.travel_opportunity==0) ? (jobInfo?.travel_opportunity == 0 ? 'No' : jobInfo?.travel_opportunity + '%') : '--'}}
+						</li>
+					 </ul>
+				</div>
+			</div>
+			
+			<div class="row  info-box" *ngIf="jobInfo?.match_select?.need_reference=='' && (jobInfo?.need_reference ==true ||  jobInfo?.need_reference == 'true') ">
+				<div class="col-lg-5 col-md-5 col-sm-5 caption">
+					<ul class="list-group">
+						 <li class=" list-group-item text-capitalize">{{"userProfile.needReferences" | translate }}</li>
+					</ul>
+				</div>
+				<div class="col-lg-7 col-md-7 col-sm-7 info">
+					<ul class="list-group">
+						<li class=" list-group-item text-capitalize">
+						{{"shared.yes" | translate }}
 						</li>
 					 </ul>
 				</div>

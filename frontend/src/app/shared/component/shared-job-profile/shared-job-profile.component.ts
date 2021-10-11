@@ -101,6 +101,10 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 					this.jobInfo.match_select['domain']="false";
 					  
 				  } 
+				   if(this.jobInfo.need_reference ==false || !this.jobInfo.need_reference || this.jobInfo.need_reference =='false'){
+					this.jobInfo.match_select['need_reference']="false";
+					  
+				  }
 				  this.isShownRequiements = false;
 				  if(this.jobInfo.others && this.jobInfo.others.length){
 					  for(let i=0;i<this.jobInfo.others.length;i++){
@@ -211,6 +215,10 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 				  } 
 				  if(this.jobInfo['domain'] ==null || this.jobInfo['domain'] ==undefined || this.jobInfo['domain']['length'] ==0){
 					this.jobInfo.match_select['domain']="false";
+					  
+				  } 
+				  if(this.jobInfo.need_reference ==false || !this.jobInfo.need_reference || this.jobInfo.need_reference =='false'){
+					this.jobInfo.match_select['need_reference']="false";
 					  
 				  } 
 				  this.isShownRequiements = false;

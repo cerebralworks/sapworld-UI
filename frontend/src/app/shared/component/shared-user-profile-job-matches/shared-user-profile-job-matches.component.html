@@ -276,7 +276,24 @@
 						</ul>
 					</div>
 				</div>
-			</div><!-- 
+			</div>
+			
+			<div *ngIf="postedJobsDetails?.match_select?.need_reference=='0' &&(postedJobsDetails?.need_reference == true || postedJobsDetails?.need_reference == 'true' ) ">
+				<div class="row">
+					<div class="col-lg-4 col-md-55 col-sm-4 caption">
+						<ul class="list-group">
+							<li class="list-group-item">{{"userProfile.needReferences" | translate }}</li>
+						</ul>
+					</div>
+					<div class="col-lg-8 col-md-77 col-sm-8 info">
+						<ul class="list-group">
+							<li class="list-group-item text-capitalize" *ngIf="checkMatchReference(postedJobsDetails,userInfo)">{{"shared.yes" | translate }}</li>
+							<li class="list-group-item text-capitalize" *ngIf="checkMissingReference(postedJobsDetails,userInfo)">{{"shared.no" | translate }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- 
 			<div *ngIf="postedJobsDetails?.match_select?.remote=='0'">
 				<div class="row">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
@@ -627,7 +644,24 @@
 						</ul>
 					</div>
 				</div>
-			</div><!-- 
+			</div>
+			
+			<div *ngIf="postedJobsDetails?.match_select?.need_reference=='1' &&(postedJobsDetails?.need_reference == true || postedJobsDetails?.need_reference == 'true' ) ">
+				<div class="row">
+					<div class="col-lg-4 col-md-55 col-sm-4 caption">
+						<ul class="list-group">
+							<li class="list-group-item">{{"userProfile.needReferences" | translate }}</li>
+						</ul>
+					</div>
+					<div class="col-lg-8 col-md-77 col-sm-8 info">
+						<ul class="list-group">
+							<li class="list-group-item text-capitalize" *ngIf="checkMatchReference(postedJobsDetails,userInfo)">{{"shared.yes" | translate }}</li>
+							<li class="list-group-item text-capitalize" *ngIf="checkMissingReference(postedJobsDetails,userInfo)">{{"shared.no" | translate }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- 
 			<div *ngIf="postedJobsDetails?.match_select?.remote=='1'">
 				<div class="row">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
@@ -967,7 +1001,24 @@
 						</ul>
 					</div>
 				</div>
-			</div><!-- 
+			</div>
+			
+			<div *ngIf="postedJobsDetails?.match_select?.need_reference=='2' &&(postedJobsDetails?.need_reference == true || postedJobsDetails?.need_reference == 'true' ) ">
+				<div class="row">
+					<div class="col-lg-4 col-md-55 col-sm-4 caption">
+						<ul class="list-group">
+							<li class="list-group-item">{{"userProfile.needReferences" | translate }}</li>
+						</ul>
+					</div>
+					<div class="col-lg-8 col-md-77 col-sm-8 info">
+						<ul class="list-group">
+							<li class="list-group-item text-capitalize" *ngIf="checkMatchReference(postedJobsDetails,userInfo)">{{"shared.yes" | translate }}</li>
+							<li class="list-group-item text-capitalize" *ngIf="checkMissingReference(postedJobsDetails,userInfo)">{{"shared.no" | translate }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- 
 			<div *ngIf="postedJobsDetails?.match_select?.remote=='2'">
 				<div class="row">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
@@ -1307,7 +1358,25 @@
 						</ul>
 					</div>
 				</div>
-			</div><!-- 
+			</div>
+			<div *ngIf="postedJobsDetails?.match_select?.need_reference=='' &&(postedJobsDetails?.need_reference == true || postedJobsDetails?.need_reference == 'true' ) ">
+				<div class="row">
+					<div class="col-lg-4 col-md-55 col-sm-4 caption">
+						<ul class="list-group">
+							<li class="list-group-item">{{"userProfile.needReferences" | translate }}</li>
+						</ul>
+					</div>
+					<div class="col-lg-8 col-md-77 col-sm-8 info">
+						<ul class="list-group">
+							<li class="list-group-item text-capitalize" *ngIf="checkMatchReference(postedJobsDetails,userInfo)">{{"shared.yes" | translate }}</li>
+							<li class="list-group-item text-capitalize" *ngIf="checkMissingReference(postedJobsDetails,userInfo)">{{"shared.no" | translate }}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- 
 			<div *ngIf="postedJobsDetails?.match_select?.remote==''">
 				<div class="row">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">

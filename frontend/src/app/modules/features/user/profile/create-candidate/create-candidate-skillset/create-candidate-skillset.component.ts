@@ -359,14 +359,33 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			  }
 			});
 			}}else{
-				
-			  if (this.childForm.controls.skillSet.value.hands_on_experience != null) {
-				if(!this.childForm.controls.skillSet.value.hands_on_experience || !this.childForm.controls.skillSet.value.hands_on_experience.length || this.childForm.controls.skillSet.value.hands_on_experience.length==0){
+				if(this.childForm.controls.personalDetails.value.entry == true){
+					if(this.t && this.t.length){
+						for(let i=0;i<=this.t.value.length;i++){
+							this.t.removeAt(0);
+							i=0;
+						}
+					}
 					this.t.push(this.formBuilder.group({
 					  skill_id: [''],
 					  skill_name: [''],
 					  experience: [''],
 					  exp_type: ['years']
+					}));
+				}
+			  if (this.childForm.controls.skillSet.value.hands_on_experience != null) {
+				if( this.childForm.controls.personalDetails.value.entry == false && ( !this.childForm.controls.skillSet.value.hands_on_experience || !this.childForm.controls.skillSet.value.hands_on_experience.length || this.childForm.controls.skillSet.value.hands_on_experience.length==0 || ( this.childForm.controls.skillSet.value.hands_on_experience[0] && this.childForm.controls.skillSet.value.hands_on_experience[0]['experience'] =='' ) )) {
+					if(this.t && this.t.length){
+						for(let i=0;i<=this.t.value.length;i++){
+							this.t.removeAt(0);
+							i=0;
+						}
+					}
+					this.t.push(this.formBuilder.group({
+					  skill_id: [null,[Validators.required]],
+					  skill_name: [''],
+					  experience: ['',[Validators.required]],
+					  exp_type: ['years',[Validators.required]]
 					}));
 				}
 				for(let i=0;i<this.childForm.controls.skillSet.value.hands_on_experience.length;i++){
