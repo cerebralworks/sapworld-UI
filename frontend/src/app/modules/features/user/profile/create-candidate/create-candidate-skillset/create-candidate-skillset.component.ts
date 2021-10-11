@@ -304,15 +304,24 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			if (this.savedUserDetails && this.savedUserDetails.hands_on_experience && Array.isArray(this.savedUserDetails.hands_on_experience)) {
 			  if ((this.savedUserDetails.hands_on_experience.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.hands_on_experience && this.savedUserDetails.hands_on_experience.length)) {
 				this.t.removeAt(0);
-				this.savedUserDetails.hands_on_experience.map((value, index) => {
-				  value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
-				  this.t.push(this.formBuilder.group({
-					  skill_id: [''],
+				if(this.savedUserDetails.hands_on_experience.length ==0 && this.childForm.controls.personalDetails.value.entry == false ){
+					this.t.push(this.formBuilder.group({
+					  skill_id: [null,[Validators.required]],
 					  skill_name: [''],
-					  experience: [''],
-					  exp_type: ['years']
+					  experience: ['',[Validators.required]],
+					  exp_type: ['years',[Validators.required]]
 					}));
-				});
+				}else{
+					this.savedUserDetails.hands_on_experience.map((value, index) => {
+					  value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
+					  this.t.push(this.formBuilder.group({
+						  skill_id: [''],
+						  skill_name: [''],
+						  experience: [''],
+						  exp_type: ['years']
+						}));
+					});
+				}
 				
 			  }
 			 
@@ -375,7 +384,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 				}
 			  if (this.childForm.controls.skillSet.value.hands_on_experience != null) {
 				if( this.childForm.controls.personalDetails.value.entry == false && ( !this.childForm.controls.skillSet.value.hands_on_experience || !this.childForm.controls.skillSet.value.hands_on_experience.length || this.childForm.controls.skillSet.value.hands_on_experience.length==0 || ( this.childForm.controls.skillSet.value.hands_on_experience[0] && this.childForm.controls.skillSet.value.hands_on_experience[0]['experience'] =='' ) )) {
-					if(this.t && this.t.length){
+					if(this.t && this.t.length && ( this.childForm.controls.skillSet.value.hands_on_experience[0] && this.childForm.controls.skillSet.value.hands_on_experience[0]['experience'] =='' )){
 						for(let i=0;i<=this.t.value.length;i++){
 							this.t.removeAt(0);
 							i=0;
