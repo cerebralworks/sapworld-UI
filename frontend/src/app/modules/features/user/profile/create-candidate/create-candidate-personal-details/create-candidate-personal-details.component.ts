@@ -76,6 +76,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	savedUserDetails: any;
 	othercountryValue: any;
 	randomNum: number;
+	choosedCountry : any[] = [];
 	workAuthDetails : any;
 	filterVisatype : any[] = [];
 	@ViewChild('visaType') visaType: ElementRef<HTMLInputElement>;
@@ -110,11 +111,18 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	) { }
 	
 	getvisa(e){
-		this.filterVisatype = this.workAuthDetails.filter(a=>{
-			if(a.visa.includes(e.toLowerCase()) && e!=''){
+		var authCountry =this.childForm.value.personalDetails.authorized_country.map(a=>{return parseInt(a)});
+		var authCountrySelect = this.childForm.value.personalDetails.authorized_country_select.map(a=>{return parseInt(a)});
+		var totalArr = [...authCountry,...authCountrySelect];
+		var filterVT = this.workAuthDetails.filter(a=>{
+			if(totalArr.includes(a.country) && e!=''){
 				return a;
 			}
 		})
+		var fltr = filterVT.map(a=>{return a.visa});
+		this.filterVisatype = [...new Set(fltr)];
+		
+		console.log(this.filterVisatype)
 	}
 	
 	selSug(e){
@@ -1125,6 +1133,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		}
 	  }
 	  console.log(value);
+	  //this.choosedCountry.push(value)
+	  //console.log(this.choosedCountry)
 	}
   
 	/**
