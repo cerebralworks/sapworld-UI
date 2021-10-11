@@ -242,8 +242,8 @@
 							(matChipInputTokenEnd)="add($event)">
 					</mat-chip-list>
 					<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selSug($event.option.value)">
-						<mat-option *ngFor="let items of filterVisatype " [value]="items.visa" >
-							{{items.visa}}
+						<mat-option *ngFor="let items of filterVisatype " [value]="items" >
+							{{items}}
 						</mat-option>
 					</mat-autocomplete>
 				</mat-form-field>
