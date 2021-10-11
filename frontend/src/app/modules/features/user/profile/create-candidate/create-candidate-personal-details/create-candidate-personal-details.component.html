@@ -106,7 +106,7 @@
 			<div class=" form-group">
 				<label>{{"userProfile.nationality" | translate }} </label> 
 				<select appMarkAsterisk formControlName="nationality" class="form-control" (change)="onChangeCountry($event.target.value)">
-					<option value="-1">Please Select {{"userProfile.nationality" | translate }}</option>
+					<option  disabled >Please Select {{"userProfile.nationality" | translate }}</option>
 					<option *ngFor="let name of nationality" value={{name.id}}>{{name.nicename}}</option>
 				  </select>		
 			  <app-control-messages [control]="f['nationality']"></app-control-messages>							  

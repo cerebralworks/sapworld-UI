@@ -114,6 +114,7 @@ export class PostJobLayoutComponent implements OnInit {
 		if (this.slidingCounter != this.slindingList.length - 1) {
 			this.slidingCounter++;
 		}
+		window.scrollTo(0, 0)
 	}
 	
 	/**
@@ -124,6 +125,7 @@ export class PostJobLayoutComponent implements OnInit {
 		if (this.slidingCounter > 0) {
 			this.slidingCounter--;
 		}
+		window.scrollTo(0, 0)
 	}
 	
 	/**

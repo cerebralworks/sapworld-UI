@@ -409,7 +409,20 @@
 						   </span>
 					  </li>
 				  </ul>
-				</div><!-- 
+				</div><div class="  info-box" *ngIf="postedJobsDetails.match_select?.need_reference=='0' && ( postedJobsDetails?.need_reference == true || postedJobsDetails?.need_reference == 'true' ) ">
+				<ul class="list-group">
+                    <li class="list-group-item">
+                        <span *ngIf="matchedElement && checkMatchReference(postedJobsDetails,matchingUsers?.profile)">
+                          <i class="fa fa-check text-green "></i>
+                          {{"shared.yes" | translate}}
+                        </span>
+                        <span *ngIf="missingElement &&  checkMissingReference(postedJobsDetails,matchingUsers?.profile)">
+                        <i class="fa fa-times text-danger "></i>
+                        {{"shared.yes" | translate}}
+                        </span>
+                    </li>
+                </ul>
+			</div><!-- 
 				<div *ngIf="postedJobsDetails?.match_select?.remote=='0'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">
@@ -896,6 +909,20 @@
 					  </li>
 				  </ul>
 				</div>
+				<div class="  info-box" *ngIf="postedJobsDetails.match_select?.need_reference=='1' && ( postedJobsDetails?.need_reference == true || postedJobsDetails?.need_reference == 'true' ) ">
+				<ul class="list-group">
+                    <li class="list-group-item">
+                        <span *ngIf="matchedElement && checkMatchReference(postedJobsDetails,matchingUsers?.profile)">
+                          <i class="fa fa-check text-green "></i>
+                          {{"shared.yes" | translate}}
+                        </span>
+                        <span *ngIf="missingElement &&  checkMissingReference(postedJobsDetails,matchingUsers?.profile)">
+                        <i class="fa fa-times text-danger "></i>
+                        {{"shared.yes" | translate}}
+                        </span>
+                    </li>
+                </ul>
+			</div>
 				<!-- <div *ngIf="postedJobsDetails?.match_select?.remote=='1'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">
@@ -1382,6 +1409,20 @@
 					  </li>
 				  </ul>
 				</div>
+				<div class="  info-box" *ngIf="postedJobsDetails.match_select?.need_reference=='2' && ( postedJobsDetails?.need_reference == true || postedJobsDetails?.need_reference == 'true' ) ">
+				<ul class="list-group">
+                    <li class="list-group-item">
+                        <span *ngIf="matchedElement && checkMatchReference(postedJobsDetails,matchingUsers?.profile)">
+                          <i class="fa fa-check text-green "></i>
+                          {{"shared.yes" | translate}}
+                        </span>
+                        <span *ngIf="missingElement &&  checkMissingReference(postedJobsDetails,matchingUsers?.profile)">
+                        <i class="fa fa-times text-danger "></i>
+                        {{"shared.yes" | translate}}
+                        </span>
+                    </li>
+                </ul>
+			</div>
 				<!-- <div *ngIf="postedJobsDetails?.match_select?.remote=='2'">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">
@@ -1869,6 +1910,21 @@
 					  </li>
 				  </ul>
 				</div>
+				
+			<div class="  info-box" *ngIf="postedJobsDetails.match_select?.need_reference=='' && ( postedJobsDetails?.need_reference == true || postedJobsDetails?.need_reference == 'true' ) ">
+				<ul class="list-group">
+                    <li class="list-group-item">
+                        <span *ngIf="matchedElement && checkMatchReference(postedJobsDetails,matchingUsers?.profile)">
+                          <i class="fa fa-check text-green "></i>
+                          {{"shared.yes" | translate}}
+                        </span>
+                        <span *ngIf="missingElement &&  checkMissingReference(postedJobsDetails,matchingUsers?.profile)">
+                        <i class="fa fa-times text-danger "></i>
+                        {{"shared.yes" | translate}}
+                        </span>
+                    </li>
+                </ul>
+			</div>
 				<!-- <div *ngIf="postedJobsDetails?.match_select?.remote==''">
 					<ul class="list-group">			
 						<li class="list-group-item text-capitalize">

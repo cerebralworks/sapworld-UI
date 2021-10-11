@@ -252,7 +252,7 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	**/
 	
 	onDuplicateOthers = () => {
-		var value = this.childForm.value.otherPref.others_data;
+		var value = this.childForm.value.otherPref.others_data.trim();
 		
 		if(value !=null && value !=undefined && value !=''){
 			var len =this.others.value.length+1;

@@ -72,6 +72,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	public socialMediaLinks: any[] = [];
 	public nationality: any[] = [];
 	public othercountry: any[] = [];
+	public othercountrys: any[] = [];
 	public languageSource: any[] = [];
 	savedUserDetails: any;
 	othercountryValue: any;
@@ -312,7 +313,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			  if(this.childForm.value.personalDetails.authorized_country_select){
 				var selected_authorized_country_select = this.childForm.value.personalDetails.authorized_country_select;
 				for(let i=0;i<selected_authorized_country_select.length;i++){
-					var id=selected_authorized_country_select[i];
+					var id:any=selected_authorized_country_select[i];
 					this.savedUserDetails.authorized_country.push(id);
 				}
 			  }
@@ -456,7 +457,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 					document.getElementById(id)['className'] ='btn btn-fltr btn-fltr-active';
 				}
 			}
-			var value = this.savedUserDetails.authorized_country;
+			var value = this.savedUserDetails.authorized_country.map(function(a,b){ return parseInt(a) });
+			value = value.filter(function(item, pos) { return value.indexOf(item) == pos;})
 			var temp = value.filter(function(a,b){
 				return a =="226" ||a =="254" || a =="225" || a =="13" || a =="153" || a =="192" || a =="38" 
 			});
@@ -553,7 +555,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 					document.getElementById(id)['className'] ='btn btn-fltr btn-fltr-active';
 				}
 			}
-			var value = this.savedUserDetails.authorized_country;
+			var value = this.savedUserDetails.authorized_country.map(function(a,b){ return parseInt(a) });
+			value = value.filter(function(item, pos) { return value.indexOf(item) == pos;})
 			var temp = value.filter(function(a,b){
 				return a =="226" ||a =="254" || a =="225" || a =="13" || a =="153" || a =="192" || a =="38" 
 			});
@@ -1102,10 +1105,19 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	countryClick(value,clr){
 	  var temp = clr.target.className.split(' ');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
-		 
-		this.childForm.value.personalDetails.authorized_country_select.pop(clr.target.id);
+		  var removeEle = clr.target.id;
+		var tempVal = this.childForm.value.personalDetails.authorized_country_select.filter(function(a,b){ return a != removeEle });;
+		var tempSelVal = this.childForm.value.personalDetails.authorized_country.filter(function(a,b){ return a != removeEle });;
+		this.childForm.patchValue({ 
+				personalDetails: { 
+					authorized_country_select: tempVal ,
+					authorized_country: tempSelVal 
+				} 
+			})
+			clr.target.className = clr.target.className.replace('btn-fltr-active','');
+		/* this.childForm.value.personalDetails.authorized_country_select.pop(clr.target.id);
 		this.childForm.value.personalDetails.authorized_country.pop(clr.target.id);
-		  clr.target.className = clr.target.className.replace('btn-fltr-active','');
+		   */
 	  }else{
 		  clr.target.className = clr.target.className+' btn-fltr-active';
 

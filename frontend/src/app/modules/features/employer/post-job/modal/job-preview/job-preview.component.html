@@ -937,6 +937,44 @@
 					</li>
 				</ul>
 			</div>
+		</div>				
+		<div class="row info-box" *ngIf="postJobForm?.value?.requirement?.need_reference && ( postJobForm?.value?.requirement?.need_reference ==true || postJobForm?.value?.requirement?.need_reference =='true' )">
+			<div class="col-lg-3 col-md-3 caption">
+				<ul class="list-group">
+					<li class="list-group-item text-capitalize m-0">{{"userProfile.needReferences" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 col-md-5 info">
+				<ul class="list-group">
+					<li class="list-group-item">{{"shared.yes" | translate }}</li>
+				</ul>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<ul class="list-group">
+					<li class="list-group-item border-0 p-0 m-0 ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" (click)="handleChange($event)"    value="0"  id="customRadio210A" name="need_reference" formControlName="need_reference"  class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio210A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio" (click)="handleChange($event)"    value="1"  id="customRadio210B" name="need_reference" formControlName="need_reference"  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio210B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio" (click)="handleChange($event)"    value="2"  id="customRadio210C" name="need_reference" formControlName="need_reference"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio210C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
 		</div>		
 		<div class="row info-box">
 			<div class="col-lg-3 col-md-3 caption">
@@ -1028,7 +1066,7 @@
 		</div>	
 		<div class="row mt-2">
 		<div class="col-md-12 mb-2">
-			<h6>{{"jobs.perksBenfits" | translate}}</h6>
+			<h6 class="font-weight-bold mb-2" >{{"jobs.perksBenfits" | translate}}</h6>
 			<div class="d-flex" >
 				<div class="mr-5">
 					<p class="font-weight-bold mb-2">{{"jobs.healthWellness" | translate}}</p>

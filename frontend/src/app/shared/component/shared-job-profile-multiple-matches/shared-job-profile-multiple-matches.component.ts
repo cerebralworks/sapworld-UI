@@ -115,6 +115,10 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 					this.jobInfo.match_select['domain']="false";
 					  
 				  } 
+				  if(this.jobInfo.need_reference ==false || !this.jobInfo.need_reference || this.jobInfo.need_reference =='false'){
+					this.jobInfo.match_select['need_reference']="false";
+					  
+				  } 
 				  if(this.jobInfo.extra_criteria && this.jobInfo.extra_criteria.length){
 						for(let j=0;j<this.jobInfo.extra_criteria.length;j++){
 							var value= this.jobInfo.extra_criteria[j]['title']
@@ -565,4 +569,21 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 	  }
     
   }
+  
+  
+	checkMatchReference(jobInfo,userInfo){
+		var tempCheck = userInfo.reference.filter(function(a,b){ return a.email && a.name && a.company_name });
+		if(tempCheck['length'] !=0){
+			return true;
+		}
+		return false;
+	}
+	checkMissingReference(jobInfo,userInfo){
+		var tempCheck = userInfo.reference.filter(function(a,b){ return a.email && a.name && a.company_name });
+		if(tempCheck['length'] !=0){
+			return false;
+		}
+		return true;
+	}
+	
 }

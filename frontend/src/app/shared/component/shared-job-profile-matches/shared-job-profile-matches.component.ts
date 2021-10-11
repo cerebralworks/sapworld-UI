@@ -193,6 +193,10 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 				}
 				
 			  }
+			  if(this.jobInfo.need_reference ==false || !this.jobInfo.need_reference || this.jobInfo.need_reference =='false'){
+					this.jobInfo.match_select['need_reference']="false";
+					  
+				  } 
 			  if(this.jobInfo.health_wellness && this.jobInfo.paid_off && this.jobInfo.office_perks){
 			  if(this.jobInfo.health_wellness['life'] == true || this.jobInfo.health_wellness['health']  == true 
 			  || this.jobInfo.health_wellness['vision'] == true || this.jobInfo.health_wellness['dental'] == true
@@ -248,6 +252,10 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 				  } 
 				  if(this.jobInfo['domain'] ==null || this.jobInfo['domain'] ==undefined || this.jobInfo['domain']['length'] ==0){
 					this.jobInfo.match_select['domain']="false";
+					  
+				  } 
+				  if(this.jobInfo.need_reference ==false || !this.jobInfo.need_reference || this.jobInfo.need_reference =='false'){
+					this.jobInfo.match_select['need_reference']="false";
 					  
 				  } 
 				  this.jobInfo.match_select['facing_role']="false";
@@ -726,7 +734,20 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 		return '--';
 	}
 	
-	
+	checkMatchReference(jobInfo,userInfo){
+		var tempCheck = userInfo.reference.filter(function(a,b){ return a.email && a.name && a.company_name });
+		if(tempCheck['length'] !=0){
+			return true;
+		}
+		return false;
+	}
+	checkMissingReference(jobInfo,userInfo){
+		var tempCheck = userInfo.reference.filter(function(a,b){ return a.email && a.name && a.company_name });
+		if(tempCheck['length'] !=0){
+			return false;
+		}
+		return true;
+	}
 	checkValuesField(id,dataValue){
 		if(!this.jobInfo['job_application']){
 			if(dataValue=='no'){

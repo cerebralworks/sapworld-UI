@@ -399,6 +399,7 @@ export class JobPreviewComponent implements OnInit {
 		  end_to_end_implementation: new FormControl(''),
 		  education: new FormControl(''),
 		  travel_opportunity: new FormControl(''),
+		  need_reference: new FormControl(''),
 		  //remote: new FormControl(''),
 		 // willing_to_relocate: new FormControl(''),
 		  language: new FormControl(''),

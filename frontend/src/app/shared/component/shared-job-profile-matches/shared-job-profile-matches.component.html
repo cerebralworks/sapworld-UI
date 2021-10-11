@@ -356,6 +356,20 @@
                       </li>
                       <!-- <li class="list-group-item"><span class="matchTxt"><i class="fas fa-check text-green "></i> Yes </span></li> -->
                     </ul>
+			</div>
+			<div class="  info-box" *ngIf="jobInfo.match_select?.need_reference=='0' && ( jobInfo?.need_reference == true || jobInfo?.need_reference == 'true' ) ">
+				<ul class="list-group">
+                    <li class="list-group-item">
+                        <span *ngIf="matchedElement && checkMatchReference(jobInfo,userInfo)">
+                          <i class="fa fa-check text-green "></i>
+                          {{"shared.yes" | translate}}
+                        </span>
+                        <span *ngIf="missingElement &&  checkMissingReference(jobInfo,userInfo)">
+                        <i class="fa fa-times text-danger "></i>
+                        {{"shared.yes" | translate}}
+                        </span>
+                    </li>
+                </ul>
 			</div><!-- 
 			<div class=" info-box" *ngIf="jobInfo.match_select?.remote=='0'">
 				<ul class="list-group">                      
@@ -764,6 +778,20 @@
                       </li>
                       <!-- <li class="list-group-item"><span class="matchTxt"><i class="fas fa-check text-green "></i> Yes </span></li> -->
                     </ul>
+			</div>
+			<div class="  info-box" *ngIf="jobInfo.match_select?.need_reference=='1' && ( jobInfo?.need_reference == true || jobInfo?.need_reference == 'true' ) ">
+				<ul class="list-group">
+                    <li class="list-group-item">
+                        <span *ngIf="matchedElement && checkMatchReference(jobInfo,userInfo)">
+                          <i class="fa fa-check text-green "></i>
+                          {{"shared.yes" | translate}}
+                        </span>
+                        <span *ngIf="missingElement &&  checkMissingReference(jobInfo,userInfo)">
+                        <i class="fa fa-times text-danger "></i>
+                        {{"shared.yes" | translate}}
+                        </span>
+                    </li>
+                </ul>
 			</div><!-- 
 			<div class=" info-box" *ngIf="jobInfo.match_select?.remote=='1'">
 				<ul class="list-group">                      
@@ -1174,7 +1202,24 @@
                       </li>
                       <!-- <li class="list-group-item"><span class="matchTxt"><i class="fas fa-check text-green "></i> Yes </span></li> -->
                     </ul>
-			</div><!-- 
+			</div>
+			<div class="  info-box" *ngIf="jobInfo.match_select?.need_reference=='2' && ( jobInfo?.need_reference == true || jobInfo?.need_reference == 'true' ) ">
+				<ul class="list-group">
+                    <li class="list-group-item">
+                        <span *ngIf="matchedElement && checkMatchReference(jobInfo,userInfo)">
+                          <i class="fa fa-check text-green "></i>
+                          {{"shared.yes" | translate}}
+                        </span>
+                        <span *ngIf="missingElement &&  checkMissingReference(jobInfo,userInfo)">
+                        <i class="fa fa-times text-danger "></i>
+                        {{"shared.yes" | translate}}
+                        </span>
+                    </li>
+                </ul>
+			</div>
+			
+			
+			<!-- 
 			<div class=" info-box" *ngIf="jobInfo.match_select?.remote=='2'">
 				<ul class="list-group">                      
                       <li class="list-group-item">
@@ -1584,7 +1629,23 @@
                       </li>
                       <!-- <li class="list-group-item"><span class="matchTxt"><i class="fas fa-check text-green "></i> Yes </span></li> -->
                     </ul>
-			</div><!-- 
+			</div>
+			<div class="  info-box" *ngIf="jobInfo.match_select?.need_reference=='' && ( jobInfo?.need_reference == true || jobInfo?.need_reference == 'true' ) ">
+				<ul class="list-group">
+                    <li class="list-group-item">
+                        <span *ngIf="matchedElement && checkMatchReference(jobInfo,userInfo)">
+                          <i class="fa fa-check text-green "></i>
+                          {{"shared.yes" | translate}}
+                        </span>
+                        <span *ngIf="missingElement &&  checkMissingReference(jobInfo,userInfo)">
+                        <i class="fa fa-times text-danger "></i>
+                        {{"shared.yes" | translate}}
+                        </span>
+                    </li>
+                </ul>
+			</div>
+			
+			<!-- 
 			<div class=" info-box" *ngIf="jobInfo.match_select?.remote==''">
 				<ul class="list-group">                      
                       <li class="list-group-item">

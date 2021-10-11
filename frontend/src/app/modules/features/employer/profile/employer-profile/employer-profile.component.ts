@@ -53,7 +53,7 @@ export class EmployerProfileComponent implements OnInit {
 		this.randomNum = Math.random();
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
-				if (!this.utilsHelperService.isEmptyObj(details) ) {
+				if (!this.utilsHelperService.isEmptyObj(details) && this.validateSubscribe ==0 ) {
 					this.employerDetails = details;
 					this.privacyProtection = details.privacy_protection;
 					if(this.privacyProtection==null || this.privacyProtection ==undefined){
