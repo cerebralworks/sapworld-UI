@@ -15,6 +15,7 @@
 	  "year":"Jahre",
 	  "yearAbove":"Jahre und älter",
 	  "fresher":"Erstsemester",
+	  "negotiable":"Verhandelbar",
 	  
 	  "ok":"Okay",
 	  "jobDesc":"Rollen und Verantwortlichkeiten",
@@ -50,7 +51,7 @@
 	  "salary":"Gehalt",
 	  "sapSkills":"SAP-Kenntnisse",
 	  "applied":"Angewandt",
-	  "description":"Beschreibung",
+	  "description":"Verantwortung",
 	  "apply":"Anwenden",
 	  "missing":"Fehlen",
 	  "moreSkills":"Mehr Fähigkeiten",

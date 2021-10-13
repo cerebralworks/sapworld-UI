@@ -255,7 +255,8 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 		var value = this.childForm.value.otherPref.others_data.trim();
 		
 		if(value !=null && value !=undefined && value !=''){
-			var len =this.others.value.length+1;
+			var len =this.others.value[this.others.value.length-1]['id'];
+			len = parseInt(len)+1;
 			this.others.push(this.formBuilder.group({
 				id: [len, Validators.required],
 				title: [value, Validators.required],

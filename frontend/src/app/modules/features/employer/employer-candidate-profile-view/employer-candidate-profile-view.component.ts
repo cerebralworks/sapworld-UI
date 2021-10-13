@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
@@ -22,6 +22,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	**	Variable declaration
 	**/
 	
+	public screenWidth: any;
 	public page: number = 1;
 	public limit: number = 10;
 	length = 0;
@@ -97,6 +98,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;	
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
 				if(details && details.id){
@@ -269,5 +271,10 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		
 		this.postedJobsMatchDetailsArray = this.postedJobsMatchDetails.slice((this.page - 1) * this.limit, this.page * this.limit);
 	}
+	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
   
 }

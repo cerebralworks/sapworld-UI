@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -25,6 +25,7 @@ export class EmployerDashboardComponent implements OnInit {
 	public queryParams: any = {};
 	public employeeData:any = {};
 	public getDataCount:boolean =false;
+	public screenWidth: any;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -66,7 +67,8 @@ export class EmployerDashboardComponent implements OnInit {
 	**	TO checking switching tabs
 	**/
 	
-	ngOnInit(): void {		
+	ngOnInit(): void {	
+	  this.screenWidth = window.innerWidth;	
 		const activeTab = this.route.snapshot.queryParamMap.get('activeTab');
 		if(activeTab) {
 			switch (activeTab) {
@@ -245,5 +247,10 @@ export class EmployerDashboardComponent implements OnInit {
 			}
 		)
 	}
+	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
 	
 }

@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild,ViewChildren,QueryList  } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild,ViewChildren,QueryList,HostListener  } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {PageEvent} from '@angular/material/paginator';
@@ -66,6 +66,7 @@ export class EmployeeChartComponent implements OnInit {
 		public hiredTotal:any[]=[];
 		public totalHired :any =0;
 		public showHired :boolean = false;
+	public screenWidth: any;
 		
 		
 		public doughnutChartType: ChartType = 'doughnut'; 
@@ -164,7 +165,7 @@ export class EmployeeChartComponent implements OnInit {
 		public isActive:boolean = true;
 		public isClosed:boolean = false;
 		public isDeleted:boolean = false;
-		public isPaused:boolean = true;
+		public isPaused:boolean = false;
 		
 		public startDate:any;
 		public endDate:any;
@@ -204,6 +205,7 @@ export class EmployeeChartComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;
       this.employerService.profile().subscribe(
         details => {
           if(details) {
@@ -740,4 +742,10 @@ export class EmployeeChartComponent implements OnInit {
 			}
 		},600);
 	}
+	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
+  
 }

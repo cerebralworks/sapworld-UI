@@ -1,5 +1,5 @@
 <section class="sub-header d-none">
-	<div class="container">
+	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'"  >
 		<div class="row">
 			<div class="col-lg-5">
 				<ol class="breadcrumb">
@@ -31,7 +31,7 @@
 
 <!-- Nav Tab Section -->
 <section class="nav-tab">
-	<div class="container">
+	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'"  >
 		<div class="row">
 			<div class="col-lg-12">
 				<ul class="nav">
@@ -79,22 +79,22 @@
 <!-- //Nav Tab Section -->
 
 
-  <app-posted-job *ngIf="currentTabInfo.tabNumber == 1">
+  <app-posted-job *ngIf="currentTabInfo.tabNumber == 1" [screenWidth]="screenWidth" >
   </app-posted-job>
 
-  <app-employer-candidate-matches *ngIf="currentTabInfo.tabNumber == 2" (onEvent)="refreshCountDetails($event)">
+  <app-employer-candidate-matches *ngIf="currentTabInfo.tabNumber == 2"  [screenWidth]="screenWidth" (onEvent)="refreshCountDetails($event)">
   </app-employer-candidate-matches>
 
-  <app-employer-applied-candidate *ngIf="currentTabInfo.tabNumber == 3" (onEvent)="refreshCountDetails($event)" >
+  <app-employer-applied-candidate *ngIf="currentTabInfo.tabNumber == 3"  [screenWidth]="screenWidth" (onEvent)="refreshCountDetails($event)" >
   </app-employer-applied-candidate>
 
-  <app-employer-shortlisted-candidate *ngIf="currentTabInfo.tabNumber == 4">
+  <app-employer-shortlisted-candidate *ngIf="currentTabInfo.tabNumber == 4"  [screenWidth]="screenWidth" >
   </app-employer-shortlisted-candidate>
 
-  <app-saved-profile  *ngIf="currentTabInfo.tabNumber == 5">
+  <app-saved-profile  *ngIf="currentTabInfo.tabNumber == 5"  [screenWidth]="screenWidth" >
   </app-saved-profile>
   
-  <app-employee-chart *ngIf="currentTabInfo.tabNumber == 6">
+  <app-employee-chart *ngIf="currentTabInfo.tabNumber == 6"  [screenWidth]="screenWidth">
   </app-employee-chart>
 
   <app-employer-subscription

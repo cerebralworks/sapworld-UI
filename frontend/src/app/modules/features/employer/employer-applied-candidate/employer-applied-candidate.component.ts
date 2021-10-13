@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component,EventEmitter,Output, OnInit } from '@angular/core';
+import { Component,EventEmitter,Output,Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
@@ -17,7 +17,7 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 	/**
 	**	Variable Declaration
 	**/
-	
+	@Input()screenWidth:any;
 	@Output() onEvent = new EventEmitter<boolean>();
 	public appliedJobs: any[] = [];
 	public appliedJobMeta: any;

@@ -18,6 +18,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	**	Variable declaration
 	**/
 	
+	@Input()screenWidth:any;
 	public shortListedJobs: any[] = [];
 	public shortListedMeta: any;
 	public page: number = 1;

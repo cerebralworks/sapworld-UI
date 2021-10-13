@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
 	public isShowUserData: boolean = true;
 	public userInfo: any;
 	public userPhotoInfo: any;
+	public screenWidth: any;
 
 	constructor(
 		private userSharedService: UserSharedService,
@@ -31,6 +32,7 @@ export class UserProfileComponent implements OnInit {
 	**/	
 	  
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;	
 		this.userSharedService.getUserProfileDetails().subscribe(
 			response => {
 				this.userInfo = response;
@@ -61,5 +63,12 @@ export class UserProfileComponent implements OnInit {
 	convertToImage(imageString: string): string {
 		return this.utilsHelperService.convertToImageUrl(imageString);
 	}
+	
+	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
+  
 
 }

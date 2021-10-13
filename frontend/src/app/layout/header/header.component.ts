@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit,HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { AccountLogin } from '@data/schema/account';
@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
   public currentCompanyDetails: any = {};
   public currentUserDetails: any = {};
   public randomNum: number;
+	public screenWidth: any;
 
   constructor(
     public router: Router,
@@ -45,6 +46,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;
 	  this._notificationService.requestPermission();
     this.randomNum = Math.random();
     this.translateService.addLangs(this.appGlobals.availableLanguages);
@@ -145,4 +147,8 @@ export class HeaderComponent implements OnInit {
     );
   }
 
+  @HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
 }

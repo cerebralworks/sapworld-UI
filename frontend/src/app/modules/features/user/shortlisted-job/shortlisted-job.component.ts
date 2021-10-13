@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import {PageEvent} from '@angular/material/paginator';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
@@ -15,6 +15,7 @@ export class ShortlistedJobComponent implements OnInit {
 	**	Variable declaration 
 	**/
 	
+	@Input()screenWidth:any;
 	public isOpenedResumeSelectModal: boolean = false;
 	public userAccept: boolean = false;
 	public shortlistJobs: any[] = [];

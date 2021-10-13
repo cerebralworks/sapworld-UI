@@ -57,6 +57,7 @@ export class PostJobLayoutComponent implements OnInit {
 	public postJobForm: FormGroup;
 	public isLoading: boolean;
 	public getDataCount: boolean = false;
+	public isEdit: boolean = false;
 	public formError: any;
 	public postedJobsDetails: JobPosting;
 	public jobId: string;
@@ -326,7 +327,9 @@ export class PostJobLayoutComponent implements OnInit {
 	
 	private buildForm(): void {
 		this.postJobForm = this.formBuilder.group({
+			
 		});
+		
 	}
 	
 	/**
@@ -405,6 +408,11 @@ export class PostJobLayoutComponent implements OnInit {
 				value: [null]
 			})]),
 			temp_extra_criteria: new FormArray([]),
+		}));
+		
+		this.postJobForm.addControl('screeningProcess', new FormGroup({
+			screening_process: new FormArray([]),
+			temp_screening_process: new FormControl(null),
 		}));
         if(response && response.details) {
           this.postedJobsDetails = response.details;
@@ -540,12 +548,41 @@ export class PostJobLayoutComponent implements OnInit {
 				this.postedJobsDetails.domain[i]=parseInt(this.postedJobsDetails.domain[i]);
 			}
 		}
+		
+		if (this.postedJobsDetails.screening_process != null) {
+			for(let i=0;i<=this.postJobForm.controls.screeningProcess['controls']['screening_process'].value.length;i++){
+				this.postJobForm.controls.screeningProcess['controls']['screening_process'].removeAt(0);
+				i=0;
+			}
+			if(this.postedJobsDetails.screening_process.length==0){
+				this.postJobForm.controls.screeningProcess['controls']['screening_process'].push(this.formBuilder.group({
+					title: [null]
+				}));
+			}else{
+			this.postedJobsDetails.screening_process.map((value, index) => {
+				this.postJobForm.controls.screeningProcess['controls']['screening_process'].push(this.formBuilder.group({
+					title: [null]
+				}));
+			});
+			}
+			
+			this.postJobForm.patchValue({
+				screeningProcess : {
+					...this.postedJobsDetails
+				}
+			});
+				
+		}
+				
 		  this.postJobForm.patchValue({
 				requirement : {
 					...this.postedJobsDetails
 				}
 			});
         }
+		 setTimeout(()=>{
+			  this.isEdit = true;
+		  },1000);
       }, error => {
       }
     )

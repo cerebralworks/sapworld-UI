@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener  } from '@angular/core';
 
 @Component({
   selector: 'app-employer-login',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employer-login.component.css']
 })
 export class EmployerLoginComponent implements OnInit {
-
+public screenWidth: any;
   constructor() { }
 
   ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;
   }
-
+@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }  
 }

@@ -102,6 +102,7 @@ export class JobInformationComponent implements OnInit {
 			title: new FormControl('', Validators.required),
 			employer_role_type: new FormControl(''),
 			entry: new FormControl(false),
+			negotiable: new FormControl(false),
 			type: new FormControl('', Validators.required),
 			contract_duration: new FormControl(''),
 			description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(2000)])),

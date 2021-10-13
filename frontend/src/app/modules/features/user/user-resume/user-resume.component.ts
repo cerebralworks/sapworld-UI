@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit,Input, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
@@ -17,6 +17,7 @@ export class UserResumeComponent implements OnInit {
 	**	Variable declaration
 	**/
 	
+	@Input()screenWidth:any;
 	public userSelectedResume: File;
 	public userSelectedCover: File;
 	public userProfileInfo: any;

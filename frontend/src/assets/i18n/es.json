@@ -16,6 +16,7 @@
 	  "year":"Años",
 	  "yearAbove":"Años y más",
 	  "fresher":"Freshers",
+	  "negotiable":"Negociable",
 	  
 	  
     "ok": "De acuerdo",
@@ -52,7 +53,7 @@
   "salary": "Pagar",
   "sapSkills": "Habilidades de SAP",
   "applied": "Aplicado",
-  "description": "Descripción",
+  "description": "Responsabilidad",
   "apply": "Aplicar",
   "missing": "Desaparecido",
   "moreSkills": "Más habilidades",

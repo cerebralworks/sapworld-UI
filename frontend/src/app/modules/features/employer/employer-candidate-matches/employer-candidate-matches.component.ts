@@ -1,6 +1,6 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Location } from '@angular/common';
-import { Component, OnDestroy,EventEmitter,Output, OnInit } from '@angular/core';
+import { Component, OnDestroy,EventEmitter,Output, OnInit,Input } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { AccountService } from '@data/service/account.service';
@@ -24,6 +24,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   **	Variable Declaration
   **/
   
+	@Input()screenWidth:any;
   @Output() onEvent = new EventEmitter<boolean>();
   
   public isOpenedResumeModal: boolean;

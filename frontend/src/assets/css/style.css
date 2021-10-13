@@ -2415,14 +2415,29 @@ a:hover {
 }
 .missTxt, .moreTxt {display:none;}
 .handsExp:hover{
-    overflow-x: scroll!important;
+    /* overflow-x: scroll!important; */
 }
 .handsExp {
     display: -ms-flexbox!important;
     display: flex!important;
     width: 95%;
+	white-space: pre-wrap !important;
+	
 }
-
+.handsExp span{
+	width: 423px;
+}
+.handsExp-multi span {
+    min-width: 250px !important;
+    max-width: 283px !important;
+    display: block;
+}
+.handsExp-color{
+	color:#ffff !important;
+	width: 95%;
+	max-width: 425px !important;
+	white-space: pre-wrap !important;
+}
 .holds-the-iframe {
   background: url(../images/loading.gif)no-repeat center top;
 }
@@ -2484,7 +2499,7 @@ a:hover {
     min-height: 40px;
 }
 .handsExp:hover {
-    overflow-x: scroll!important;
+     overflow-x: scroll!important; 
 }
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
     top: 14px !important;

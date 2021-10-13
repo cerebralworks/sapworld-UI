@@ -618,8 +618,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	**/
 	
 	onDuplicateOthers = () => {
-		var value = this.childForm.value.requirement.skills_Data;
-		var skills_Datas = this.childForm.value.requirement.skills_Datas;
+		var value = this.childForm.value.requirement.skills_Data.trim();
+		var skills_Datas = this.childForm.value.requirement.skills_Datas.trim();
 		if(!skills_Datas || skills_Datas==undefined){
 
 		}

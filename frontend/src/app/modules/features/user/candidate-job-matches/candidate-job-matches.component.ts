@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener  } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -20,6 +20,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	**	Variable Declaration
 	**/
 	
+	public screenWidth: any;
 	public isOpenedJDModal: boolean = false;
 	public userInfo: CandidateProfile;
 	public jobId: string;
@@ -59,6 +60,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	
 	ngOnInit(): void {
 		
+	  this.screenWidth = window.innerWidth;	
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
@@ -659,5 +661,11 @@ export class CandidateJobMatchesComponent implements OnInit {
 			return "No"
 		}
 	}
+	
+	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
 	
 }

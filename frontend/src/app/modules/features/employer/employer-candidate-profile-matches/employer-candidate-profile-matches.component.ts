@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, TemplateRef, ViewChild,HostListener } from '@angular/core';
 
 import { Location } from '@angular/common';
 import { ActivatedRoute,Router } from '@angular/router';
@@ -25,6 +25,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	**	Variable declaration
 	**/
 	
+	public screenWidth: any;
 	public isOpenedJDModal: boolean = false;
 	public isOpenedResumeModal: boolean = false;
 	public isOpenedOtherPostModal: boolean = false;
@@ -116,6 +117,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	**/
 	
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;	
 		if (this.jobId && this.userId) {
 			this.onGetPostedJob();
 		}
@@ -681,4 +683,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		}
 	}
 	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
 }
