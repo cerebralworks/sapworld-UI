@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild,Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
@@ -17,7 +17,7 @@ export class PostedJobComponent implements OnInit {
 	/**
 	**	Variable declaration
 	**/
-	
+	@Input()screenWidth:any;
 	public isLoading: boolean;
 	public postedJobs: any[] = [];
 	public postedJobsMatches: any[] = [];

@@ -26,7 +26,12 @@ export class CurrencyFormatterDirective implements OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.setValue(this.formatPrice(this.ngControl.value))
+	  if(this.ngControl.value ==="NaN" || !this.ngControl.value || this.ngControl.value == undefined){
+		  this.setValue(this.formatPrice(null))
+	  }else{
+		  this.setValue(this.formatPrice(this.ngControl.value))
+	  }
+    
     this.ngControl
       .control
       .valueChanges

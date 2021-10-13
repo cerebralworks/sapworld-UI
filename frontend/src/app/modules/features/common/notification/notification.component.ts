@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { LoggedIn } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
@@ -18,6 +18,7 @@ import {
 })
 export class NotificationComponent implements OnInit {
 
+	public screenWidth: any;
 	public loggedInResponse: LoggedIn;
 	public notificationDetails:any =[];
 	public notificationDetailsMeta:any ={};
@@ -42,6 +43,7 @@ export class NotificationComponent implements OnInit {
 	**	To intialize the component 
 	**/
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;	
 		this.checkUserLoggedIn();
 		this.dataService.getNotificationDataSource().subscribe(
 		  response => {
@@ -114,4 +116,9 @@ export class NotificationComponent implements OnInit {
 		this.page = event.pageIndex;
 		this.getNotificationDetails();
 	}
+	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
 }

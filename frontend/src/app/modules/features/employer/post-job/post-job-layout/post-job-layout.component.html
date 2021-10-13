@@ -53,6 +53,7 @@
           <app-post-job-footer
           (postJob)="postJob()"
           [postJobForm]="postJobForm"
+          [isEdit]="isEdit"
           [currentTabInfo]="currentTabInfo"
           (onTabChangeEvent)="onFooterTabChange($event)"
           (onEnableJobPreviewModal)="onToggleJobPreviewModal($event)">

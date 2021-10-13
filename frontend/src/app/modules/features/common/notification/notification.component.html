@@ -1,6 +1,6 @@
 <!-- Sub Header Section -->
 <section class="sub-header">
-	<div class="container">
+	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" >
 		<div class="row">
 			<div class="col-lg-5">
 				<ol class="breadcrumb">
@@ -15,7 +15,7 @@
 </section>
 <!-- //Sub Header Section -->
 <section class="my-5">
-	<div class="container">
+	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'"  >
 		<div class="row">
 			<div class="col-lg-7 title">
 				<h2>Notifications</h2>

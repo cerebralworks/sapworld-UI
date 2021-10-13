@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit,SimpleChanges } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit,SimpleChanges,HostListener } from '@angular/core';
 import { CandidateProfile, tabInfo, tabProgressor } from '@data/schema/create-candidate';
 import { trigger, transition, query, style, animate, group } from '@angular/animations';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -65,6 +65,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	public filesToUploadData: any;
 	public userPhotoInfo: any;
 	public userDetails: any;
+	public screenWidth: any;
 	public userInfo: any;
 	public requestParams: any;
 	public tabInfos: tabInfo[];
@@ -88,6 +89,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	
 	validateInfo = 0;
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;	
 		 console.log({'Enter the oninit':'CreateCandidateLayoutComponent'})
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
@@ -356,6 +358,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		//'programming_skills': [Validators.required],
 		//'other_skills': [Validators.required],
 		//'job_role': [Validators.required],
+		'job_type': [Validators.required],
 		'willing_to_relocate': [Validators.required],
 		'travel': [Validators.required],
 		'availability': [Validators.required],
@@ -608,6 +611,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
       }, error => {
       }
     )
+  }
+  
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
   }
 
 }

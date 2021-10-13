@@ -1,5 +1,5 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
-import { Component,EventEmitter,Output, OnInit } from '@angular/core';
+import { Component,EventEmitter,Output, OnInit,Input } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -19,6 +19,7 @@ export class MatchingJobComponent implements OnInit {
 	**	Variable Declaration
 	**/
 	
+	@Input()screenWidth:any;
 	public isOpenedResumeSelectModal: boolean = false;
 	@Output() onEvent = new EventEmitter<boolean>();
 	public countrySelect: boolean = false;

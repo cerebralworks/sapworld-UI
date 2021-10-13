@@ -15,7 +15,7 @@
 </section> -->
 
 <section class="section login-section">
-  <div class="container">
+  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'">
     <div class="row">
       <div class="col-lg-8 col-md-12">
         <div class="login-content">	
@@ -31,7 +31,7 @@
 </section>
 <!-- Video Info Section -->
 <section class="video-info vi2">
-  <div class="container">
+  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'">
     <div class="row">
       <div class="col-lg-5">
         <div class="section-title text-left mb-4 pr-5">

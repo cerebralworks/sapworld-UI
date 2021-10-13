@@ -18,7 +18,7 @@
 
 <!-- Nav Tab Section -->
 <section class="nav-tab" *ngIf="dashboardView">
-  <div class="container">
+  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" >
     <div class="row">
       <div class="col-lg-12">
         <ul class="nav">
@@ -74,25 +74,25 @@
 </section>
 <!-- //Nav Tab Section -->
 
-<app-user-profile *ngIf="currentTabInfo.tabNumber == 1 && dashboardView">
+<app-user-profile *ngIf="currentTabInfo.tabNumber == 1 && dashboardView" [screenWidth]="screenWidth">
 </app-user-profile>
 
-<app-matching-job *ngIf="currentTabInfo.tabNumber == 2 && dashboardView" (onEvent)="refreshCountDetails($event)" >
+<app-matching-job [screenWidth]="screenWidth" *ngIf="currentTabInfo.tabNumber == 2 && dashboardView" (onEvent)="refreshCountDetails($event)" >
 </app-matching-job>
 
 <!-- <app-visa-sponsored *  ngIf="currentTabInfo.tabNumber == 3">
 </app-visa-sponso red> -->
 
-<app-applied-job *ngIf="currentTabInfo.tabNumber == 4 && dashboardView">
+<app-applied-job *ngIf="currentTabInfo.tabNumber == 4 && dashboardView" [screenWidth]="screenWidth">
 </app-applied-job>
 
-  <app-shortlisted-job *ngIf="currentTabInfo.tabNumber == 5">
+  <app-shortlisted-job *ngIf="currentTabInfo.tabNumber == 5" [screenWidth]="screenWidth">
   </app-shortlisted-job>
   
-  <app-user-chart *ngIf="currentTabInfo.tabNumber == 7">
+  <app-user-chart *ngIf="currentTabInfo.tabNumber == 7" [screenWidth]="screenWidth">
   </app-user-chart>
 
-<app-user-resume *ngIf="currentTabInfo.tabNumber == 6 && dashboardView">
+<app-user-resume *ngIf="currentTabInfo.tabNumber == 6 && dashboardView" [screenWidth]="screenWidth">
 </app-user-resume>
 
 <ng-template *ngIf="toggleResumeModal" #deleteModal let-modal let-d="dismiss">

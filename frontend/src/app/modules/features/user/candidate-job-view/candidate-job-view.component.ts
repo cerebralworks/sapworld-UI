@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
@@ -27,6 +27,7 @@ export class CandidateJobViewComponent implements OnInit {
 	public userAccept: boolean = false;
 	public isOpenedResumeSelectModal: boolean = false;
 	public isgetValue: boolean = false;
+	public screenWidth: any;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -79,6 +80,7 @@ export class CandidateJobViewComponent implements OnInit {
 	**/
 		
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;	
 		
 	}
 
@@ -172,4 +174,8 @@ export class CandidateJobViewComponent implements OnInit {
 		}
 	}
 	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
 }

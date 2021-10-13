@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
@@ -20,6 +20,7 @@ export class SavedProfileComponent implements OnInit {
 	**	Variable declaration 
 	**/
 	
+	@Input()screenWidth:any;
 	public isOpenedResumeModal: boolean = false;
 	public isOpenedAddNotesModal: boolean = false;
 	public isOpenedNotesViewModal: boolean = false;

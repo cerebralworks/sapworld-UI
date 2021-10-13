@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild, Input } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {PageEvent} from '@angular/material/paginator';
@@ -15,6 +15,7 @@ export class AppliedJobComponent implements OnInit {
 	**	Variable Declaration
 	**/
 	
+	@Input()screenWidth:any;
 	public appliedJobs: any[] = [];
 	public appliedJobMeta: any;
 	public page: number = 1;

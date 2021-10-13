@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild,HostListener } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -36,6 +36,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	public queryParams: any = {};
 	public userInfo:any;
 	public nationality:any[]=[];
+	public screenWidth: any;
 	
 	constructor(
 		private route: ActivatedRoute,
@@ -54,6 +55,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	**/
 	
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;	
 		this.dataService.getCountryDataSource().subscribe(
 			response => {
 				if (response && Array.isArray(response) && response.length) {
@@ -337,5 +339,11 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		this.toggleresumeSelectModal = true;
 		this.mbRef.close()
 	}
+	
+	
+	@HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
 
 }

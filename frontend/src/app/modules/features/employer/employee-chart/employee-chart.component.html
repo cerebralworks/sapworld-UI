@@ -1,12 +1,12 @@
 <!-- //Nav Tab Section -->
 <section class="my-4">
-	<div class="container">
+	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" >
 		<div class="row ">
 			<div class="col-lg-7 col-md-7 matches-8 my-5">
-				<button (click)="getDataStatus('active')" [ngClass]="isActive ? 'active' : ''" type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 mr-1">Active <i class="fas fa-times small ml-1" ></i></button>
-				<button (click)="getDataStatus('paused')" [ngClass]="isPaused ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-info rounded-pill px-3 mr-1 ">Paused <i class="fas fa-times small ml-1"></i></button>
+				<button  [ngClass]="isActive ? 'active' : ''" type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 mr-1">Active <i class="fas fa-times small ml-1" ></i></button>
+<!-- 				<button (click)="getDataStatus('paused')" [ngClass]="isPaused ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-info rounded-pill px-3 mr-1 ">Paused <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('closed')" [ngClass]="isClosed ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-warning rounded-pill px-3 mr-1">Closed <i class="fas fa-times small ml-1"></i></button>
-				<button (click)="getDataStatus('deleted')" [ngClass]="isDeleted ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 mr-1">Deleted <i class="fas fa-times small ml-1"></i></button>
+				<button (click)="getDataStatus('deleted')" [ngClass]="isDeleted ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 mr-1">Deleted <i class="fas fa-times small ml-1"></i></button> -->
 			</div>
 			<div class="col-lg-5 col-md-5 matches-8 clearfix my-5">
 				<div id="multiDate" class="float-right">

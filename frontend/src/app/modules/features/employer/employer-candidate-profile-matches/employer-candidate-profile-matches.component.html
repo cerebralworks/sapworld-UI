@@ -1,5 +1,5 @@
 <section class="sub-header">
-	<div class="container  container-big">
+	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container container-big'"   >
 		<div class="row">
 			<div class="col-lg-5 d-flex align-items-center">
 				<!-- <button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
@@ -18,7 +18,7 @@
 
 <!-- //Sub Header Section -->
 <section class="my-5">
-	<div class="container container-big">
+	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container container-big'"   >
 		<div class="row">
 			<div  class="top-pad top-pads" [ngClass]="(isMultipleMatches === true)?'col-lg-4 col-md-4 matches-8':'col-lg-6 col-md-6 matches-8'">
 				<div class="row">

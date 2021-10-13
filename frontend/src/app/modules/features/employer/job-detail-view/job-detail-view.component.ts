@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { LoggedIn } from '@data/schema/account';
 import { GetResponse } from '@data/schema/response';
@@ -23,6 +23,7 @@ export class JobDetailViewComponent implements OnInit {
 	**	Variable declaration
 	**/	
 	
+	public screenWidth: any;
 	public isOpenedJDModal: boolean = false;
 	public postedJobsDetails: any = {};
 	public skills: GetResponse;
@@ -60,6 +61,7 @@ export class JobDetailViewComponent implements OnInit {
 	**/
 	 
 	ngOnInit(): void {
+	  this.screenWidth = window.innerWidth;	
 		this.onGetSkills();
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
@@ -332,5 +334,10 @@ export class JobDetailViewComponent implements OnInit {
 		this.SharedAPIService.onGetSkill(requestParams);
 		 
 	  }
+	  
+	  @HostListener('window:resize', ['$event'])  
+  onResize(event) {  
+    this.screenWidth = window.innerWidth;  
+  }
 
 }
