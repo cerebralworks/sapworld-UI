@@ -1,4 +1,4 @@
-<div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;">
+<div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 1;">
 	<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/matchs-icon.png" width="16px"> {{"shared.matches" | translate }} </button>
 	<button (click)="onShowMissing($event)" id="missBtnVal" [ngClass]="missingElement ? 'btn-fltr-active' : ''"   class="missBtn  btn-sm btn btn-fltr btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> {{"shared.missing" | translate }} </button>
 	<button (click)="onShowMore($event)" id="moreBtnVal" [ngClass]="moreElement ? 'btn-fltr-active' : ''"   class="moreBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/info-icon.png"  width="16px"> {{"shared.moreSkills" | translate }}</button>

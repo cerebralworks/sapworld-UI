@@ -41,6 +41,7 @@ export interface JobPosting {
   visa_sponsorship: boolean;
   entry: boolean;
   willing_to_relocate: boolean;
+  negotiable: boolean;
   need_reference: any;
   company: any;
   is_job_applied: any;

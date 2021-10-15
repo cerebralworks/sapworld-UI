@@ -150,7 +150,7 @@ export class UserService extends CacheService {
    * To get the jobposting scoring
    */
   getUserScoring = (params?) => {
-    return this.apiService.get('/api/jobpostings/user-scoring', params).pipe(
+    return this.apiService.post('/api/jobpostings/user-scoring', params).pipe(
       map(data => {
         return data;
       })
