@@ -279,8 +279,8 @@ module.exports = (app, env, rp) => {
 	**	To get the user-scoring details
 	**/
 	
-	app.get("/api/jobpostings/user-scoring", (req, res) => {
-		let requestBody = { ...req.query };   
+	app.post("/api/jobpostings/user-scoring", (req, res) => {
+		let requestBody = { ...req.body };   
 		requestCustom.get(`${serverRoutes.userScoring}`, req, res, requestBody);
 	});
 	

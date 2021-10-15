@@ -328,8 +328,8 @@ module.exports = (app, env, rp) => {
 	**	To get job-scoring details
 	**/
 	
-	app.get("/api/jobpostings/job-scoring", (req, res) => {
-		let requestBody = { ...req.query };   
+	app.post("/api/jobpostings/job-scoring", (req, res) => {
+		let requestBody = { ...req.body };   
 		requestCustom.get(`${serverRoutes.userJobScoring}`, req, res, requestBody);
 	});
 	
