@@ -57,6 +57,8 @@ import { ChartsModule } from 'ng2-charts';
       exclude: [
         environment.serverUrl + "/api/isLoggedIn",
         environment.serverUrl + "/api/notification/count",
+        environment.serverUrl + "/api/jobpostings/job-scoring",
+        environment.serverUrl + "/api/jobpostings/user-scoring",
         environment.clientUrl + "/assets/i18n/en.json",
       ],
     })

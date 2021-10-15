@@ -217,7 +217,7 @@ export class EmployerService extends CacheService {
    * To get the job scoring details
    */
   getJobScoring = (params?) => {
-    return this.apiService.get('/api/jobpostings/job-scoring', params).pipe(
+    return this.apiService.post('/api/jobpostings/job-scoring', params).pipe(
       map(data => {
         return data;
       })

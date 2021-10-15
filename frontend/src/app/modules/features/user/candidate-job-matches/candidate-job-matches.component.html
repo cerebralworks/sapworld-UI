@@ -76,11 +76,12 @@
 													
 													<div class="media mt-2" >
 														<div class="media-body">
-															<h6 *ngIf="matchingJob?.jobs?.salary_type == 0" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / hr'}}</h6>
-															<h6 *ngIf="matchingJob?.jobs?.salary_type == 1" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / Annual '}}</h6>
-															<h6 *ngIf="matchingJob?.jobs?.salary_type == 2" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / month'}}</h6>
-															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 11rem;" *ngIf="matchingJob?.jobs?.negotiable ==true"> {{"shared.negotiable" | translate}}</a>
-															<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.remote)}} </h6>
+															<h6 *ngIf="matchingJob?.jobs?.salary_type == 0" [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / hr'}}</h6>
+															<h6 *ngIf="matchingJob?.jobs?.salary_type == 1" [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / Annual '}}</h6>
+															<h6 *ngIf="matchingJob?.jobs?.salary_type == 2" [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / month'}}</h6>
+															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 8rem;" *ngIf="matchingJob?.jobs?.negotiable ==true && !isMultipleMatches"> {{"shared.negotiable" | translate}}</a>
+															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 4.7rem;left: 0rem;" *ngIf="isMultipleMatches "> {{"shared.negotiable" | translate}}</a>
+															<h6 class="text-capitalize job-cardh6"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  >{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.remote)}} </h6>
 															<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.willing_to_relocate)}} </h6> -->
 														</div>
 													</div>
@@ -138,11 +139,12 @@
 													<i class="fas fa-file-alt"></i>  {{"shared.description" | translate}}</a>
 													<div class="media mt-2" >
 														<div class="media-body">
-															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 0" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / hr'}}</h6>
-															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 1" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / Annual '}}</h6>
-															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 2" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / month'}}</h6>
-															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 11rem;" *ngIf="matchingJobNew?.jobs?.negotiable ==true"> {{"shared.negotiable" | translate}}</a>
-															<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.remote)}} </h6>
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 0"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / hr'}}</h6>
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 1"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / Annual '}}</h6>
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 2"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / month'}}</h6>
+															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 8rem;" *ngIf="matchingJobNew?.jobs?.negotiable ==true && !isMultipleMatches"> {{"shared.negotiable" | translate}}</a>
+															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 4.7rem;left: 0rem;" *ngIf="matchingJobNew?.jobs?.negotiable ==true && isMultipleMatches"> {{"shared.negotiable" | translate}}</a>
+															<h6 class="text-capitalize job-cardh6"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  >{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.remote)}} </h6>
 															<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.willing_to_relocate)}} </h6> -->
 														</div>
 													</div>

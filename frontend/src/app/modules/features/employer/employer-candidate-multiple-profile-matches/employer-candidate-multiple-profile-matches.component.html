@@ -60,7 +60,7 @@
 														{{matchingJob?.jobs?.company_name }}
 													</h6>
 												</div>
-												<div class="col-lg-4"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
+												<div class="col-lg-4"  style="padding: 1px;"[ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
 													<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJob?.jobs?.description)">	
 													<i class="fas fa-file-alt"></i> {{"shared.description" | translate}}</a>
 													
@@ -112,7 +112,7 @@
 														{{matchingJobNew?.jobs?.company_name }}
 													</h6>
 												</div>
-												<div class="col-lg-4"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
+												<div class="col-lg-4"  style="padding: 1px;" [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
 													<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJobNew?.jobs?.description)">	
 													<i class="fas fa-file-alt"></i> {{"shared.description" | translate}}</a>
 													

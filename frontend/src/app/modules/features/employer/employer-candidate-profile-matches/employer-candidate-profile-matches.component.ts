@@ -232,6 +232,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		requestParams.additional_fields = 'job_application';
 		const sb = this.employerService.getJobScoring(requestParams).subscribe(
 			response => {
+				
+				this.postedJobsMatchDetailsUsers =[];
+				this.toggleMatchModal = false;
+				this.matchingUsers = { ...this.matchingUsers, profile: {} };
 				if (response) {
 					if(response.job.skills){
 						response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
@@ -266,6 +270,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 					}
 				}
 			}, error => {
+				
+				this.postedJobsMatchDetailsUsers =[];
+				this.toggleMatchModal = false;
+				this.matchingUsers = { ...this.matchingUsers, profile: {} };
 			}
 		)
 		this.subscriptions.push(sb);
@@ -313,6 +321,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		requestParams.additional_fields = 'job_application';
 		const sb = this.employerService.getJobScoring(requestParams).subscribe(
 		response => {
+			this.postedJobsMatchDetailsUsers =[];
+			this.toggleMatchModal = false;
+			this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
 			if (response) {
 				if(response.job.skills){
 					response.job.skills = this.utilsHelperService.differenceByPropValArray(response.job.skills, response.job.hands_on_experience, 'skill_id')
@@ -331,6 +342,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 				}
 			}
 		}, error => {
+			this.postedJobsMatchDetailsUsers =[];
+			this.toggleMatchModal = false;
+			this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
 		})
 		this.subscriptions.push(sb);
 	}
@@ -368,10 +382,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		if (type == 'next') {
 			if (count > this.page) {
 				if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-					this.postedJobsMatchDetailsUsers =[];
+					/* this.postedJobsMatchDetailsUsers =[];
 					this.toggleMatchModal = false;
 					this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
-					this.matchingUsers = { ...this.matchingUsers, profile: {} };
+					this.matchingUsers = { ...this.matchingUsers, profile: {} }; */
 					this.page++;
 					this.onGetJobScoringById(true);
 					if (count > this.page) {
@@ -384,10 +398,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 			}
 		} else if (type == 'prev' && this.page > 2) {
 			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-				this.postedJobsMatchDetailsUsers =[];
+				/* this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
 				this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
-				this.matchingUsers = { ...this.matchingUsers, profile: {} };
+				this.matchingUsers = { ...this.matchingUsers, profile: {} }; */
 				this.page--;
 				!this.isEven(this.page) && this.page--;
 				this.onGetJobScoringByIdNew();
@@ -410,18 +424,18 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		if (type == 'next') {
 			if (count > this.page) {
 				if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-					this.postedJobsMatchDetailsUsers =[];
+					/* this.postedJobsMatchDetailsUsers =[];
 					this.toggleMatchModal = false;
-					this.matchingUsers = { ...this.matchingUsers, profile: {} };
+					this.matchingUsers = { ...this.matchingUsers, profile: {} }; */
 					this.page++;
 					this.onGetJobScoringById(true);
 				}
 			}
 		} else if (type == 'prev' && this.page > 1) {
 			if (this.matchingUsersMeta.count > 1 ) {
-				this.postedJobsMatchDetailsUsers =[];
+				/* this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
-				this.matchingUsers = { ...this.matchingUsers, profile: {} };
+				this.matchingUsers = { ...this.matchingUsers, profile: {} }; */
 				this.page--;
 				this.onGetJobScoringById(true);
 			}
