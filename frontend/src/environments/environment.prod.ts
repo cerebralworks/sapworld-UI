@@ -5,8 +5,8 @@ console.log(baseUrl);
 
 export const environment = {
   production: true,
-  serverUrl: 'http://65.0.146.153:5000',
-  adminUrl: 'http://65.0.146.153/admin',
+  serverUrl: 'http://52.204.92.226:5000',
+  adminUrl: 'http://184.72.227.41',
   envName: 'PROD',
   API_URL: 'assets/api',
   clientUrl: `${baseUrl}`
