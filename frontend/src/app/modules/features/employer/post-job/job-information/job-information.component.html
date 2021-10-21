@@ -180,21 +180,21 @@
 		<div class="col-md-3" formGroupName="health_wellness">
 			<h6>{{"jobs.healthWellness" | translate}}</h6>
 			<div class="custom-control custom-checkbox mb-2">
+				<input type="checkbox" class="custom-control-input"  formControlName="life" id="lifeInsurance">
+				<label class="custom-control-label" for="lifeInsurance">{{"jobs.lifeInsurance" | translate}}</label>
+			</div>
+			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="dental"  id="dentalInsurance">
 				<label class="custom-control-label" for="dentalInsurance">{{"jobs.dentalInsurance" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
-				 <input type="checkbox" class="custom-control-input" formControlName="vision"  id="visionInsurance">
-				 <label class="custom-control-label" for="visionInsurance">{{"jobs.visionInsurance" | translate}}</label>
+				<input type="checkbox" class="custom-control-input" formControlName="disability"  id="disabilityInsurance">
+				<label class="custom-control-label" for="disabilityInsurance">{{"jobs.disabilityInsurance" | translate}}</label>
 			</div>
-			<div class="custom-control custom-checkbox mb-2">
+			<!-- <div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="health"  id="healthInsurance">
 				<label class="custom-control-label" for="healthInsurance">{{"jobs.healthInsurance" | translate}}</label>
-			</div>
-			<div class="custom-control custom-checkbox mb-2">
-				<input type="checkbox" class="custom-control-input"  formControlName="life" id="lifeInsurance">
-				<label class="custom-control-label" for="lifeInsurance">{{"jobs.lifeInsurance" | translate}}</label>
-			</div>
+			</div> -->
 		</div>
 		<div class="col-md-3"  formGroupName="paid_off">
 			<h6>{{"jobs.paidTimeOff" | translate}}</h6>
@@ -203,8 +203,12 @@
 				<label class="custom-control-label" for="vacationPolicy">{{"jobs.vacationPolicy" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
-				<input type="checkbox" class="custom-control-input" formControlName="paid_holidays"  id="paidHolidays">
-				<label class="custom-control-label" for="paidHolidays">{{"jobs.paidHolidays" | translate}}</label>
+				<input type="checkbox" class="custom-control-input"  formControlName="paid_sick_leaves" id="paidSickLeaves">
+				<label class="custom-control-label" for="paidSickLeaves">{{"jobs.paidSickLeaves" | translate}}</label>
+			</div>
+			<div class="custom-control custom-checkbox mb-2">
+				<input type="checkbox" class="custom-control-input" formControlName="paid_parental_leave"  id="paidParentalLeave">
+				<label class="custom-control-label" for="paidParentalLeave">{{"jobs.paidParentalLeave" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="maternity"  id="maternity">
@@ -214,16 +218,20 @@
 		<div class="col-md-3" formGroupName="financial_benefits">
 			<h6>{{"jobs.financialBenefits" | translate}}</h6>
 			<div class="custom-control custom-checkbox mb-2">
+				<input type="checkbox" class="custom-control-input" formControlName="tuition_reimbursement"  id="tuitionReimbursement">
+				<label class="custom-control-label" for="tuitionReimbursement">{{"jobs.tuitionReimbursement" | translate}}</label>
+			</div>
+			<div class="custom-control custom-checkbox mb-2">
+				<input type="checkbox" class="custom-control-input" formControlName="corporate_plan"  id="corporatePlan">
+				<label class="custom-control-label" for="corporatePlan">{{"jobs.corporatePlan" | translate}}</label>
+			</div>
+			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="retirement_plan"  id="retirementPlan">
 				<label class="custom-control-label" for="retirementPlan">{{"jobs.retirementPlan" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 				<input type="checkbox" class="custom-control-input" formControlName="performance_bonus"  id="performanceBonus">
 				<label class="custom-control-label" for="performanceBonus">{{"jobs.performanceBonus" | translate}}</label>
-			</div>
-			<div class="custom-control custom-checkbox mb-2">
-				<input type="checkbox" class="custom-control-input" formControlName="tuition_reimbursement"  id="tuitionReimbursement">
-				<label class="custom-control-label" for="tuitionReimbursement">{{"jobs.tuitionReimbursement" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 			  <input type="checkbox" class="custom-control-input" formControlName="purchase_plan"  id="purchasePlan">
@@ -233,24 +241,20 @@
 		<div class="col-md-3" formGroupName="office_perks">
 			<h6>{{"jobs.officePerks" | translate}}</h6>
 			<div class="custom-control custom-checkbox mb-2">
-				<input type="checkbox" class="custom-control-input" formControlName="free_food"  id="freeFood">
-				<label class="custom-control-label" for="freeFood">{{"jobs.freeFood" | translate}}</label>
-			</div>
-			<div class="custom-control custom-checkbox mb-2">
-			  <input type="checkbox" class="custom-control-input"  formControlName="home_policy" id="homePolicy">
-			  <label class="custom-control-label" for="homePolicy">{{"jobs.homePolicy" | translate}}</label>
-			</div>
-			<div class="custom-control custom-checkbox mb-2">
-			  <input type="checkbox" class="custom-control-input" formControlName="pet_friendly"  id="petFriendly">
-			  <label class="custom-control-label" for="petFriendly">{{"jobs.petFriendly" | translate}}</label>
+				<input type="checkbox" class="custom-control-input" formControlName="telecommuting"  id="teleCommuting">
+				<label class="custom-control-label" for="teleCommuting">{{"jobs.teleCommuting" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
 			  <input type="checkbox" class="custom-control-input" formControlName="social_outings"  id="socialOutings">
 			  <label class="custom-control-label" for="socialOutings">{{"jobs.socialOutings" | translate}}</label>
 			</div>
 			<div class="custom-control custom-checkbox mb-2">
-			  <input type="checkbox" class="custom-control-input"  formControlName="office_space" id="officeSpace">
-			  <label class="custom-control-label" for="officeSpace">{{"jobs.officeSpace" | translate}}</label>
+				<input type="checkbox" class="custom-control-input" formControlName="free_food"  id="freeFood">
+				<label class="custom-control-label" for="freeFood">{{"jobs.freeFood" | translate}}</label>
+			</div>
+			<div class="custom-control custom-checkbox mb-2">
+			  <input type="checkbox" class="custom-control-input"  formControlName="wellness_program" id="wellnessProgram">
+			  <label class="custom-control-label" for="wellnessProgram">{{"jobs.wellnessProgram" | translate}}</label>
 			</div>
 		</div>
 	</div>

@@ -321,7 +321,16 @@
   "homePolicy": "Richtlinie \"Von zu Hause aus arbeiten\"",
   "petFriendly": "Haustierfreundlich",
   "socialOutings": "Soziale Betriebs-Outings",
-  "officeSpace": "Einzigartige Büroflächen"
+  "officeSpace": "Einzigartige Büroflächen",
+  
+  
+  "disabilityInsurance": "Invalidenversicherung",
+	  "corporatePlan": "Firmenrabatte",
+	  "vacationPolicy": "Bezahlter Urlaub",
+	  "paidParentalLeave": "Bezahlter Elternurlaub",
+	  "teleCommuting": "Telearbeit",
+	  "wellnessProgram": "Wellnessprogramm",
+	  "paidSickLeaves": "Bezahlter Krankenstand"
 
   },
   "common": {
