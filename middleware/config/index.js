@@ -6,6 +6,7 @@ const convict = require("convict");
 **/
 
 if(process.env.NODE_ENV=='production'){
+	console.log(process.env.NODE_ENV);
 	const config = convict({
 		NODE_ENV: {
 			format: ["production", "development", "test", "local", "staging"],
@@ -49,7 +50,6 @@ if(process.env.NODE_ENV=='production'){
 	});
 	
 	config.validate({ allowed: "strict" });
-	console.log(config);
 
 	module.exports = config.getProperties();
 	
