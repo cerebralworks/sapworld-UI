@@ -298,19 +298,26 @@
 	  "healthInsurance": "Health Insurance",
 	  "lifeInsurance": "Life Insurance",
 	  "paidTimeOff": "Paid Time Off",
-	  "vacationPolicy": "PTO / Vacation Policy",
 	  "paidHolidays": "Paid Holidays",
-	  "maternity": "Maternity / Paternity Leave",
+	  "maternity": "Maternity Leave",
 	  "financialBenefits": "Financial Benefits",
 	  "retirementPlan": "Retirement Plan",
 	  "performanceBonus": "Performance Bonus",
 	  "tuitionReimbursement": "Tuition Reimbursement",
-	  "purchasePlan": "Employee Stock Purchase Plan",
+	  "purchasePlan": "Stock option",
 	  "freeFood": "Free Food",
 	  "homePolicy": "Work From Home Policy",
 	  "petFriendly": "Pet-Friendly",
-	  "socialOutings": "Company Social Outings",
-	  "officeSpace": "Unique Office Space"
+	  "socialOutings": "Office outing",
+	  "officeSpace": "Unique Office Space",
+	  
+	  "disabilityInsurance": "Disability Insurance",
+	  "corporatePlan": "Corporate Discounts",
+	  "vacationPolicy": "Paid Vacation",
+	  "paidParentalLeave": "Paid Parental leaves",
+	  "teleCommuting": "Telecommuting",
+	  "wellnessProgram": "Wellness program",
+	  "paidSickLeaves": "Paid Sick Leaves"
   },
   "common": {
     "message": "Message"

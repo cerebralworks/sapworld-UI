@@ -31,7 +31,7 @@
 			<button (click)="onPrevious()" type="button" class="btn btn-secondary btn-block  btnPrev">{{"shared.previous" | translate}}</button>
 		</div>
 	</div>
-	<div class="col-lg-2 col-md-6" *ngIf="isEdit">
+	<div class="col-lg-2 col-md-6" *ngIf="isEdit || currentTabInfo.tabNumber == 4">
 		<div class="form-group">
 			<button [disabled]="!postJobForm.value.screeningProcess.screening_process.length >= 1  || postJobForm.controls.requirement.value.sap_experience > postJobForm.controls.requirement.value.experience || (( postJobForm.controls.requirement.value.sap_experience==0 || postJobForm.controls.requirement.value.experience==0) &&  postJobForm.controls.jobInfo.value.entry ==false ) " (click)="onToggleJobPreviewModal(true)" type="button" class="btn btn-theme-green  btn-block  btnSubmit">{{"shared.submit" | translate}}</button>
 		</div>

@@ -1070,31 +1070,32 @@
 			<div class="d-flex" >
 				<div class="mr-5">
 					<p class="font-weight-bold mb-2">{{"jobs.healthWellness" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.dental == true" >{{"jobs.dentalInsurance" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.vision == true" >{{"jobs.visionInsurance" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.health == true" >{{"jobs.healthInsurance" | translate}}</p>
 					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.life == true" >{{"jobs.lifeInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.dental == true" >{{"jobs.dentalInsurance" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.health_wellness.disability == true" >{{"jobs.disabilityInsurance" | translate}}</p>
 				</div>
 				<div class="mr-5">
 					<p class="font-weight-bold mb-2">{{"jobs.paidTimeOff" | translate}}</p>
 					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.vacation_policy == true" >{{"jobs.vacationPolicy" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.paid_holidays == true" >{{"jobs.paidHolidays" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.paid_sick_leaves == true" >{{"jobs.paidSickLeaves" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.paid_parental_leave == true" >{{"jobs.paidParentalLeave" | translate}}</p>
 					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.paid_off.maternity == true" >{{"jobs.maternity" | translate}}</p>
+					
 				</div>
 				<div class="mr-5">
 					<p class="font-weight-bold mb-2">{{"jobs.financialBenefits" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.tuition_reimbursement == true" >{{"jobs.tuitionReimbursement" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.corporate_plan == true" >{{"jobs.corporatePlan" | translate}}</p>
 					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.retirement_plan == true" >{{"jobs.retirementPlan" | translate}}</p>
 					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.performance_bonus == true" >{{"jobs.performanceBonus" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.tuition_reimbursement == true" >{{"jobs.tuitionReimbursement" | translate}}</p>
 					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.financial_benefits.purchase_plan == true" >{{"jobs.purchasePlan" | translate}}</p>
 				</div>
 				<div class="mr-5">
 					<p class="font-weight-bold mb-2">Office Perks</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.free_food == true" >{{"jobs.freeFood" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.home_policy == true" >{{"jobs.homePolicy" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.pet_friendly == true" >{{"jobs.petFriendly" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.telecommuting == true" >{{"jobs.teleCommuting" | translate}}</p>
 					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.social_outings == true" >{{"jobs.socialOutings" | translate}}</p>
-					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.office_space == true" >{{"jobs.officeSpace" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.free_food == true" >{{"jobs.freeFood" | translate}}</p>
+					<p class=" mb-1" *ngIf="postJobForm?.value?.jobInfo?.office_perks.wellness_program == true" >{{"jobs.wellnessProgram" | translate}}</p>
 				</div>
 			</div>
 		</div>

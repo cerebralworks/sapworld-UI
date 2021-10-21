@@ -185,7 +185,7 @@ export class EmployeeChartComponent implements OnInit {
 		this.daterangepickerOptions.settings = {
             locale: { format: 'MMMM D, YYYY' },
             alwaysShowCalendars: false,
-			startDate: moment().subtract(6, 'days'),
+			startDate: moment().subtract(29, 'days'),
 			endDate:  moment(),
             maxDate: moment(),
 			ranges: {

@@ -120,25 +120,28 @@ export class JobInformationComponent implements OnInit {
 			willing_to_relocate: new FormControl(null),
 			health_wellness: new FormGroup({
 			  dental: new FormControl(false),
-			  vision: new FormControl(false),
-			  health: new FormControl(false),
+			  //vision: new FormControl(false),
+			 // health: new FormControl(false),
+			  disability: new FormControl(false),
 			  life: new FormControl(false)
 			}),
 			paid_off: new FormGroup({
 			  vacation_policy: new FormControl(false),
-			  paid_holidays: new FormControl(false),
+			  paid_sick_leaves: new FormControl(false),
+			  paid_parental_leave: new FormControl(false),
 			  maternity: new FormControl(false)
 			}),
 			financial_benefits: new FormGroup({
+			  tuition_reimbursement: new FormControl(false),
+			  corporate_plan: new FormControl(false),
 			  retirement_plan: new FormControl(false),
 			  performance_bonus: new FormControl(false),
-			  tuition_reimbursement: new FormControl(false),
 			  purchase_plan: new FormControl(false)
 			}),
 			office_perks: new FormGroup({
+			  telecommuting: new FormControl(false),
 			  free_food: new FormControl(false),
-			  home_policy: new FormControl(false),
-			  pet_friendly: new FormControl(false),
+			  wellness_program: new FormControl(false),
 			  social_outings: new FormControl(false),
 			  office_space: new FormControl(false)
 			}),
