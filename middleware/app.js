@@ -43,7 +43,6 @@ if (
 } else {
   // http implementation
   server = http.createServer(app);
-  console.log("Redis server: ", server);
 }
 
 // Adding Helmet to enhance your API's security
