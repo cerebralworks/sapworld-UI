@@ -320,7 +320,8 @@
 	  "paidSickLeaves": "Paid Sick Leaves"
   },
   "common": {
-    "message": "Message"
+    "message": "Message",
+    "addResume": "Add Resume"
   },
   "home": {
     "title": "Hire experts or be hired for any job, any time",
