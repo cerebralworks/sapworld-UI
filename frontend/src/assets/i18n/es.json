@@ -310,7 +310,16 @@
   "homePolicy": "Política de trabajo desde casa",
   "petFriendly": "Admite mascotas",
   "socialOutings": "Salidas sociales de la empresa",
-  "officeSpace": "Espacio de oficina único"
+  "officeSpace": "Espacio de oficina único",
+  
+  "disabilityInsurance": "Los seguros de invalidez",
+	  "corporatePlan": "Descuentos corporativos",
+	  "vacationPolicy": "Vacaciones pagas",
+	  "paidParentalLeave": "Permisos parentales pagados",
+	  "teleCommuting": "Teletrabajo",
+	  "wellnessProgram": "Programa de bienestar",
+	  "paidSickLeaves": "Licencias por enfermedad pagadas"
+	  
   },
   "common": {
    
