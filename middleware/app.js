@@ -43,6 +43,7 @@ if (
 } else {
   // http implementation
   server = http.createServer(app);
+  console.log("Redis server: ", server);
 }
 
 // Adding Helmet to enhance your API's security
@@ -66,7 +67,7 @@ app.use(
 );
 
 redisClient.on("error", err => {
-   console.log("Redis error: ", err);
+  // console.log("Redis error: ", err);
 });
 
 // Adding session to store values. We are using redis session. We need to check redis active on our system.
@@ -99,7 +100,7 @@ app.use(function(req, res, next) {
 var isProduction = NODE_ENV === "production";
 
 // Enable error handler for only development server.
-if (isProduction) {
+if (!isProduction) {
   app.use(errorHandler());
 }
 
