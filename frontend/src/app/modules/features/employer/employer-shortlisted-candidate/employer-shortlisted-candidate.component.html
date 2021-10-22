@@ -106,7 +106,7 @@
 		</div>
 		<div class="modal-body job-card" style="box-shadow: none;">
 			<div class="media">
-				<img class="mr-3" [src]="messagePopupValue?.user?.photo ? (messagePopupValue?.meta?.photo?.path+'/'+ messagePopupValue?.meta?.photo?.folder+'/'+messagePopupValue?.meta?.photo?.sizes?.medium+'/'+messagePopupValue?.user?.photo) : 'assets/images/user-img-icon.jpg'">
+				<img class="mr-3" [src]="messagePopupValue?.user?.photo ? (shortListedMeta?.photo?.path+'/'+ shortListedMeta?.photo?.folder+'/'+shortListedMeta?.photo?.sizes?.medium+'/'+messagePopupValue?.user?.photo) : 'assets/images/user-img-icon.jpg'">
 				<div class="media-body">
 					<h6 class="text-green">{{(messagePopupValue?.user?.first_name ? messagePopupValue?.user?.first_name : '') + ' '
 						+ (messagePopupValue?.user?.last_name ? messagePopupValue?.user?.last_name : '')}}</h6>
