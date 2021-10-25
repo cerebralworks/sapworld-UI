@@ -170,6 +170,8 @@
   "photo": "Profilbild",
   "phone": "Telefonnummer",
   "email": "E-Mail-ID",
+	  "employees":"Mitarbeiter",
+	  "openJobs":"Offene Stellen",
   "current_employer": "Aktueller Arbeitgeber",
   "reference": "Referenz",
   "available_for_opportunity": "Offen für Chancen"
@@ -334,7 +336,16 @@
 
   },
   "common": {
-  "message": "Nachricht"
+  "message": "Nachricht",
+    "notifications": "Benachrichtigungen",
+    "notificationsFrom": "Benachrichtigung von",
+    "date": "Datum",
+    "contactDetails": "Kontaktdetails",
+    "userName": "Nutzername",
+    "currentPassword": "Aktuelles Passwort",
+    "newPassword": "Neues Kennwort",
+    "confirmPassword": "Kennwort bestätigen",
+    "addResume": "Lebenslauf hinzufügen"
 },
   "home":{
   "title": "Stellen Sie Experten ein oder werden Sie für jeden Job und zu jeder Zeit eingestellt",
