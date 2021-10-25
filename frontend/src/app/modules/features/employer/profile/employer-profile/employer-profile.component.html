@@ -188,7 +188,7 @@
         <div class="sidebar-widget text-left  bg-white">
 		<div class="row mb-4" *ngFor="let item of profileSettings; let i=index">
       <div class="col-lg-6 col-md-6 matches-6">
-        <p >{{ item?.field == 'opportunity' ? 'Open to Opportunity' : item?.label}}</p>
+        <p >{{ item?.label | translate }}</p>
       </div>
       <div class="col-lg-6 col-md-6 clearfix">
         <div class="showhideswitch float-right">

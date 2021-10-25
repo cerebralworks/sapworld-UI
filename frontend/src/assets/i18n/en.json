@@ -165,6 +165,8 @@
 	  "photo":"Profile Image",
 	  "phone":"Phone Numer",
 	  "email":"Email ID",
+	  "employees":"Employees",
+	  "openJobs":"Open Jobs",
 	  "current_employer":"Current Employer",
 	  "reference":"Reference",
 	  "available_for_opportunity":"Open to Opportunity"	  
@@ -321,6 +323,15 @@
   },
   "common": {
     "message": "Message",
+    "notifications": "Notifications",
+    "notificationsFrom": "Notification From",
+    "date": "Date",
+    "contactDetails": "Contact Details",
+    "date": "Date",
+    "userName": "User Name",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
     "addResume": "Add Resume"
   },
   "home": {

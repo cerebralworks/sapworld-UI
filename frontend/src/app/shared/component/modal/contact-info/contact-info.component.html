@@ -1,13 +1,13 @@
 <ng-template #contactInfoModal let-modal>
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Contact Details</h5>
+    <h5 class="modal-title" id="exampleModalLabel">{{"common.contactDetails" |translate}}</h5>
     <button type="button" (click)="onClickCloseBtn(false)" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <div class="mt-3">
-      <div class="contactIcon"><i class="fas fa-phone-alt"></i> Phone </div>
+      <div class="contactIcon"><i class="fas fa-phone-alt"></i> {{"profileSettings.phone" |translate}} </div>
       <h5  *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
         {{userInfo?.phone | phone}}
       </h5>
@@ -26,7 +26,7 @@
 
     </div>
     <div class="mt-4">
-      <div class="contactIcon"><i class="fas fa-envelope"></i> Email </div>
+      <div class="contactIcon"><i class="fas fa-envelope"></i> {{"profileSettings.email" |translate}} </div>
       <h5>
         <a *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" href="mailto:{{userInfo?.email}}">{{userInfo?.email}}</a>
 
@@ -45,6 +45,6 @@
   </div>
   <div class="modal-footer">
     <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm"
-      data-dismiss="modal">Close</button>
+      data-dismiss="modal">{{"shared.close" |translate}}</button>
   </div>
 </ng-template>
