@@ -382,10 +382,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		if (type == 'next') {
 			if (count > this.page) {
 				if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-					/* this.postedJobsMatchDetailsUsers =[];
+					 this.postedJobsMatchDetailsUsers =[];
 					this.toggleMatchModal = false;
 					this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
-					this.matchingUsers = { ...this.matchingUsers, profile: {} }; */
+					this.matchingUsers = { ...this.matchingUsers, profile: {} }; 
 					this.page++;
 					this.onGetJobScoringById(true);
 					if (count > this.page) {
@@ -398,10 +398,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 			}
 		} else if (type == 'prev' && this.page > 2) {
 			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-				/* this.postedJobsMatchDetailsUsers =[];
+				this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
 				this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
-				this.matchingUsers = { ...this.matchingUsers, profile: {} }; */
+				this.matchingUsers = { ...this.matchingUsers, profile: {} }; 
 				this.page--;
 				!this.isEven(this.page) && this.page--;
 				this.onGetJobScoringByIdNew();
