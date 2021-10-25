@@ -2417,6 +2417,10 @@ a:hover {
 .handsExp:hover{
     /* overflow-x: scroll!important; */
 }
+.info .list-group-item:hover {
+	overflow-x: auto !important; 
+	text-overflow: clip !important;
+}
 .handsExp {
     display: -ms-flexbox!important;
     display: flex!important;
