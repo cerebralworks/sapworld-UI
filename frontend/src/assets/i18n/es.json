@@ -163,6 +163,8 @@
   "photo": "Imagen de perfil",
   "phone": "Número de teléfono",
   "email": "ID de correo electrónico",
+	  "employees":"Empleados",
+	  "openJobs":"Trabajos abiertos",
   "current_employer": "Empleador actual",
   "reference": "Referencia",
   "available_for_opportunity": "Abierto a oportunidades"
@@ -323,7 +325,16 @@
   },
   "common": {
    
-  "message": "Mensaje"
+  "message": "Mensaje",
+    "notifications": "Notificaciones",
+    "notificationsFrom": "Notificación de",
+    "date": "Fecha",
+    "contactDetails": "Detalles de contacto",
+    "userName": "Nombre de usuario",
+    "currentPassword": "Contraseña actual",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "confirmar Contraseña",
+    "addResume": "Agregar currículum"
 
   },
   "home": {

@@ -33,6 +33,8 @@
 }
 .handsExps:hover{
 		overflow-x:auto !important;
+		min-width:auto !important;
+		
 	}
 	.pj-title h6{	
 	border:none !important;

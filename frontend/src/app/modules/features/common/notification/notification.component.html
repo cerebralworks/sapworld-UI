@@ -5,7 +5,7 @@
 			<div class="col-lg-5">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="#" onclick="window.history.go(-1); return false;"><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
-					<li class="breadcrumb-item active" aria-current="page">Notifications</li>
+					<li class="breadcrumb-item active" aria-current="page">{{ "common.notifications" | translate}}</li>
 				</ol>
 			</div>
 			<div class="col-lg-7 clearfix">
@@ -18,7 +18,7 @@
 	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'"  >
 		<div class="row">
 			<div class="col-lg-7 title">
-				<h2>Notifications</h2>
+				<h2>{{ "common.notifications" | translate}}</h2>
 			</div>
 		</div>
 		<div class="row">
@@ -27,9 +27,9 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">Notification From</th>
-								<th scope="col">Date</th>
-								<th scope="col">Message</th>
+								<th scope="col">{{ "common.notificationsFrom" | translate}}</th>
+								<th scope="col">{{ "common.date" | translate}}</th>
+								<th scope="col">{{ "common.message" | translate}}</th>
 								<!-- <th scope="col" class="text-center">Reply </th>
 								<th scope="col" class="text-center">Action</th> -->
 							</tr>

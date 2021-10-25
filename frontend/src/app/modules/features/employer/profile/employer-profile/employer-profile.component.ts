@@ -45,10 +45,10 @@ export class EmployerProfileComponent implements OnInit {
 	
 	ngOnInit(): void {
 		this.profileSettings = [
-		  {field: 'phone', label: 'Phone Numer'},
-		  {field: 'email', label: 'Email ID'},
-		  {field: 'open_jobs', label: 'Open Jobs'},
-		  {field: 'emplyees', label: 'Employees'}
+		  {field: 'phone', label: 'profileSettings.phone'},
+		  {field: 'email', label: 'profileSettings.email'},
+		  {field: 'open_jobs', label: 'profileSettings.openJobs'},
+		  {field: 'emplyees', label: 'profileSettings.employees'}
 		];
 		this.randomNum = Math.random();
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
