@@ -122,6 +122,17 @@ export class AccountService extends CacheService {
       })
     );
   };
+  
+  /**
+   * To Signup the user after send invite link
+   */
+  userSignupInviteUrl = (userInfo,path) => {
+    return this.apiService.create(path, userInfo).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
    
    /**
    * To request to reset the user password

@@ -1,8 +1,9 @@
-import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild, Input } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef,ElementRef, ViewChild, Input } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {PageEvent} from '@angular/material/paginator';
 import { EmployerService } from '@data/service/employer.service';
+export {}; declare global { interface Window { Calendly: any; } } 
 
 @Component({
   selector: 'app-applied-job',
@@ -18,6 +19,7 @@ export class AppliedJobComponent implements OnInit {
 	@Input()screenWidth:any;
 	public appliedJobs: any[] = [];
 	public appliedJobMeta: any;
+	public itemsIDVAL: any;
 	public page: number = 1;
 	public limit: number = 10;
 	length = 0;
@@ -27,6 +29,9 @@ export class AppliedJobComponent implements OnInit {
 	public toggleMatchesModal: boolean = false;
 	@ViewChild('matchesModal', { static: false }) matchesModal: TemplateRef<any>;
 	public mbRefs: NgbModalRef;
+	public openBookingSite: boolean = false;
+	@ViewChild('bookingModel', { static: false }) bookingModel: TemplateRef<any>;
+	public bookingModelRef: NgbModalRef;
 	public statusvalue: any[] = [
 		{id:1,text:'APPLICATION UNDER REVIEW'},
 		{id:2,text:'Hired'},
@@ -37,6 +42,7 @@ export class AppliedJobComponent implements OnInit {
 		{id:98,text:'Not a Fit'},
 		{id:99,text:'Closed'}
 	];
+	@ViewChild('container') container: ElementRef;
 	/**	
 	**	To implement the package section constructor
 	**/
@@ -223,5 +229,39 @@ export class AppliedJobComponent implements OnInit {
 		}
 		return '--';
 	}
+	
+	
+	openPopupViewInvite(item){
+		this.itemsIDVAL = item;
+		this.openBookingSite = true;
+		setTimeout(() => {
+			this.bookingModelRef = this.modelService.open(this.bookingModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		});
+		setTimeout(() => {
+			window.Calendly.initInlineWidget({
+				url: document.getElementsByClassName('checkVal')[0]['id'],
+				parentElement: document.querySelector('.calendly-inline-widget'),
+			});
+			setTimeout(() => {				
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},1000);
+		},10);
+	}
+	
+	closeInvite(){
+		
+		this.bookingModelRef.close();
+		this.openBookingSite = false;
+		
+	}
+	
 
 }

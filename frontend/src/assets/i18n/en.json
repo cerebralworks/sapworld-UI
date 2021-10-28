@@ -332,6 +332,10 @@
     "currentPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
+	"screeningProcess":"Screening Process Title",
+	"inviteURL":"Invite URL (optional)",
+	"inviteLink":"Invite Link",
+	"AddInviteLink":"Add Invite Link",
     "addResume": "Add Resume"
   },
   "home": {
