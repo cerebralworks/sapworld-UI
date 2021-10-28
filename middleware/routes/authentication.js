@@ -22,6 +22,8 @@ module.exports = (app, env, rp) => {
 		responseData.role = req.session.role
 			? req.session.role
 			: [];
+		responseData.CALENDLY_TOKEN = env.CALENDLY_TOKEN;
+		responseData.ORGANIZATION_ID = env.ORGANIZATION_ID;
 		responseData.accessToken = req.session.user && req.session.user.access_token;
 		res.json(responseData);
 	});
