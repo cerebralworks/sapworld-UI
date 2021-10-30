@@ -21,11 +21,26 @@ export class AccountService extends CacheService {
   > = new BehaviorSubject<AccountLogin>(this.hasCurrentUser());
 
   isLoginSubject = new BehaviorSubject<boolean>(this.hasIsLoggedIn());
+  private loginCredientials: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private apiService: ApiService) {
     super();
   }
+	
+  /**
+   * To Save the user profile details
+   */
+  saveLoginCredientials(details) {
+    this.loginCredientials.next(details);
+  }
 
+   /**
+   * To Get the user profile details
+   */
+  getLoginCredientials() {
+    return this.loginCredientials.asObservable();
+  }
+  
   /**
    * It's return current user value as string
    */
@@ -83,6 +98,7 @@ export class AccountService extends CacheService {
     return this.apiService.post('/api/isLoggedIn').pipe(
       map(data => {
         this.setAuth(data);
+        this.saveLoginCredientials(data);
         return data;
       })
     );

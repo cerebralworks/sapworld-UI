@@ -57,6 +57,14 @@ loadGameData() {
       body, ({ headers })
     ).pipe(catchError(this.formatErrors));
   }
+  createWebhooks(path: Object = {}, body: Object = {}, headers: HttpHeaders = new HttpHeaders()): Observable<any> {
+    headers = headers.set('authorization', `Bearer ${path['CALENDLY_TOKEN']}`);
+
+	return this.http.post(
+      `${env.webhookUrl}`,
+      body, ({ headers })
+    ).pipe(catchError(this.formatErrors));
+  }
 
   delete(path): Observable<any> {
     return this.http.delete(

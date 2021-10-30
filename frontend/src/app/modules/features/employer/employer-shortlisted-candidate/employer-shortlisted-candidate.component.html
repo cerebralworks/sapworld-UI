@@ -109,7 +109,10 @@
 			</form>
 		</div>
 		<div class="modal-footer">			
-			<button [disabled]="inviteUrlLink ==null || inviteUrlLink.trim() =='' " (click)="closeSave()" type="button" class="btn btn-theme-blue">
+			<button *ngIf="inviteUrlLink.trim() !='' && inviteUrlLink !=null" [disabled]="inviteUrlLink.trim().split('/')[2] !=  'calendly.com' " (click)="closeSave()" type="button" class="btn btn-theme-blue">
+				{{"shared.update" | translate }}
+			</button>		
+			<button *ngIf="inviteUrlLink.trim() =='' || inviteUrlLink ==null" (click)="closeSave()" type="button" class="btn btn-theme-blue">
 				{{"shared.update" | translate }}
 			</button>
 		</div>

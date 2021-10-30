@@ -247,17 +247,34 @@ export class AppliedJobComponent implements OnInit {
 			window.Calendly.initInlineWidget({
 				url: document.getElementsByClassName('checkVal')[0]['id'],
 				parentElement: document.querySelector('.calendly-inline-widget'),
+				prefill: {
+					name: document.getElementById("name")['value'],
+					email: document.getElementById("email")['value'],
+					customAnswers: {
+						a1:document.getElementById("appid")['value'],
+					}
+				} 
 			});
-			setTimeout(() => {				
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}else{
+					var splitCheck = checkURL[0].split('/')['2']
+					if(splitCheck != 'calendly.com'){
+						document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+					}
+				}
 				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
 				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
 
-			},1000);
+			},500);
 		},10);
 	}
 	
 	closeInvite(){
-		
+		this.onGetAppliedJobs();
 		this.bookingModelRef.close();
 		this.openBookingSite = false;
 		

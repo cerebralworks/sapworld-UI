@@ -398,6 +398,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.user = item.user.id;
 			requestParams.short_listed = true ;
 			requestParams.view = false ;
+			requestParams.invite_status = true ;
 			requestParams.status = values ;
 			requestParams.invite_url = this.inviteUrlLink ;
 			item.application_status = item.application_status.map((val) => {
@@ -460,22 +461,26 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		if(values == 5 || values == 6 || values == 2 || values == 4  ){
 			this.onChangeStatus(item, values);
 		}else{
-			if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
-				
-				this.inviteUrlLink = '';
-				this.inviteUrlLink = this.employeeValue['profile']['invite_url'];
-				this.tempValue = values
-				this.tempItem = item ;
-				
-				this.isOpenInviteUrl = true;
-				setTimeout(() => {
-					this.inviteRef = this.modalService.open(this.InviteModel, {
-					  windowClass: 'modal-holder',
-					  centered: true,
-					  backdrop: 'static',
-					  keyboard: false
-					});
-				}, 10);
+			if(this.employeeValue['privacy_protection'] ['invite_url'] == true ){
+				if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
+					
+					this.inviteUrlLink = '';
+					this.inviteUrlLink = this.employeeValue['profile']['invite_url'];
+					this.tempValue = values
+					this.tempItem = item ;
+					
+					this.isOpenInviteUrl = true;
+					setTimeout(() => {
+						this.inviteRef = this.modalService.open(this.InviteModel, {
+						  windowClass: 'modal-holder',
+						  centered: true,
+						  backdrop: 'static',
+						  keyboard: false
+						});
+					}, 10);
+				}
+			}else{
+				this.onChangeStatus(item, values);
 			}
 		}
 	}
@@ -493,5 +498,6 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.onChangeStatus(this.tempItem,this.tempValue);
 		this.closePopup();
 	}
+	
 	
 }
