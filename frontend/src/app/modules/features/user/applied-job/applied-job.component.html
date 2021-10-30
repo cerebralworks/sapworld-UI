@@ -99,6 +99,7 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
+																	<p  class="linksValue" (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
 																</div>
 															</li>
 															<li class="pending" *ngIf="items?.id != '98' && items?.id != '4' && items?.id != '2' && items?.id != 1&& items?.id != '1' && items?.id != '5' && items?.id != '6'" >
@@ -111,6 +112,7 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
+																	<p  class="linksValue"  (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
 																</div>
 															</li>
 															<li class=" success" *ngIf="items?.id == '2' " >
@@ -123,6 +125,7 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
+																	<p class="linksValue"   (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
 																</div>
 															</li>
 															<li class="rejected" *ngIf="items?.id == '98' ||items?.id == '5' || items?.id == '6'|| items?.id == '4' " >
@@ -135,6 +138,7 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
+																	<p class="linksValue"  (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
 																</div>
 															</li>
 														</ng-container>
@@ -184,6 +188,26 @@
 			<div class="modal-footer">
 				<div class=" mx-auto">
 					<button type="button" class="btn btn-theme-blue" style="margin-right:10px;" (click)="closeMatches()"  data-dismiss="modal">{{"shared.ok" | translate}}</button>
+				</div>
+			</div>
+		</div>	
+	</ng-template>
+	<ng-template *ngIf="openBookingSite" #bookingModel let-modal let-d="dismiss">
+		<div class="modal-content">
+			<div class="modal-body text-center checkVal" [id]="itemsIDVAL.invite_url">
+			<input style="display:none;" id="name" [value]="itemsIDVAL.user.first_name" />
+				<input style="display:none;" id="email" [value]="itemsIDVAL.user.email" />
+				<input style="display:none;" id="appid" [value]="itemsIDVAL.id" />
+				<!-- Calendly inline widget begin -->
+				
+ <div #container class="calendly-inline-widget" style="min-width:320px;height:580px;" data-auto-load="false">
+ <div class="calendly-spinner"><div class="calendly-bounce1"></div><div class="calendly-bounce2"></div><div class="calendly-bounce3"></div></div>
+ </div><!-- Calendly inline widget end -->
+			</div>
+			
+			<div class="modal-footer">
+				<div class=" mx-auto">
+					<button type="button" class="btn btn-theme-blue" style="margin-right:10px;" (click)="closeInvite()"  data-dismiss="modal">{{"shared.ok" | translate}}</button>
 				</div>
 			</div>
 		</div>	

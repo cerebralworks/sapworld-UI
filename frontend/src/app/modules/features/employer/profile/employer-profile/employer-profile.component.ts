@@ -48,7 +48,8 @@ export class EmployerProfileComponent implements OnInit {
 		  {field: 'phone', label: 'profileSettings.phone'},
 		  {field: 'email', label: 'profileSettings.email'},
 		  {field: 'open_jobs', label: 'profileSettings.openJobs'},
-		  {field: 'emplyees', label: 'profileSettings.employees'}
+		  {field: 'emplyees', label: 'profileSettings.employees'},
+		  {field: 'invite_url', label: 'common.inviteLink'}
 		];
 		this.randomNum = Math.random();
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
@@ -61,7 +62,8 @@ export class EmployerProfileComponent implements OnInit {
 						  'phone':false,
 						  'email':false,
 						  'open_jobs':false,
-						  'emplyees':false
+						  'emplyees':false,
+						  'invite_url':false
 						}
 					}
 					this.onGetPostedJob(this.employerDetails.id);

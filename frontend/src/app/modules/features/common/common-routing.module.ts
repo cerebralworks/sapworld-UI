@@ -41,6 +41,11 @@ const routes: Routes = [
       import('@modules/features/common/verify-account/verify-account.module').then(m => m.VerifyAccountModule)
   },
   {
+    path: 'not-found',
+    loadChildren: () =>
+      import('@modules/features/common/not-found/not-found.module').then(m => m.NotFoundModule)
+  },
+  {
     path: 'reset-password',
     loadChildren: () =>
       import('@modules/features/common/reset-password/reset-password.module').then(m => m.ResetPasswordModule)

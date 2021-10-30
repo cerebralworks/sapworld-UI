@@ -57,7 +57,7 @@
 				  <h6 class="text-success" *ngIf="item?.status == 2">Hired </h6>
 				  <h6 class="text-danger" *ngIf="item?.status == 4"> Rejected</h6>
 				  <h6 class="text-danger" *ngIf="item?.job_posting?.status == 0 && item?.status !=6 && item?.status !=2 && item?.status !=4  " > Closed JOB </h6>
-					<select *ngIf="item?.job_posting?.status != 0 && item?.status !=6 && item?.status !=2 && item?.status !=4  " class="form-control form-control-td"  (change)="onChangeStatus(item, $event?.target?.value)">
+					<select *ngIf="item?.job_posting?.status != 0 && item?.status !=6 && item?.status !=2 && item?.status !=4  " class="form-control form-control-td"  (change)="popupOpen(item, $event?.target?.value)">
 					  <option [value]="1" [selected]="item?.status == 1" *ngIf="item?.status <= 1 ">Choose</option>
 					  <option [value]="3" [selected]="item?.status == 3"  *ngIf="item?.status <= 3 " >Interview scheduled</option>
 					  <ng-container *ngIf="item?.job_posting?.screening_process?.length;">
@@ -96,6 +96,28 @@
     </div>
   </div>
 </section>
+
+<ng-template *ngIf="isOpenInviteUrl" #InviteModel let-modal>
+	<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabels">{{"common.inviteLink" | translate}}</h5>
+		</div>
+		<div class="modal-body"  >
+			<form class="mt-3">
+				<div class="form-group">
+					<input type="text" class="form-control " name="inviteUrlLink" id ="inviteUrlLink" [(ngModel)]="inviteUrlLink">
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">			
+			<button *ngIf="inviteUrlLink.trim() !='' && inviteUrlLink !=null" [disabled]="inviteUrlLink.trim().split('/')[2] !=  'calendly.com' " (click)="closeSave()" type="button" class="btn btn-theme-blue">
+				{{"shared.update" | translate }}
+			</button>		
+			<button *ngIf="inviteUrlLink.trim() =='' || inviteUrlLink ==null" (click)="closeSave()" type="button" class="btn btn-theme-blue">
+				{{"shared.update" | translate }}
+			</button>
+		</div>
+</ng-template>
+ 
 <ng-template *ngIf="isCheckModel" #checkModal let-modal>
 	<div class="modal-content">
 		<div class="modal-header">

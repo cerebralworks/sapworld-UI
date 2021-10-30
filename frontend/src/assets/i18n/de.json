@@ -345,6 +345,10 @@
     "currentPassword": "Aktuelles Passwort",
     "newPassword": "Neues Kennwort",
     "confirmPassword": "Kennwort bestätigen",
+	"screeningProcess":"Titel des Screening-Prozesses",
+	"inviteURL":"Einladungs-URL (optional)",
+	"inviteLink":"Einladungslink",
+	"AddInviteLink":"Einladungslink hinzufügen",
     "addResume": "Lebenslauf hinzufügen"
 },
   "home":{

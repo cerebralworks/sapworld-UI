@@ -286,6 +286,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			city: ['', Validators.required],
 			firstName: [''],
 			lastName: [''],
+			invite_url: [''],
 			state: ['', Validators.required],
 			address: [''],
 			country: ['', Validators.required],

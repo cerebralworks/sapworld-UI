@@ -398,7 +398,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 			}
 		} else if (type == 'prev' && this.page > 2) {
 			if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
-				this.postedJobsMatchDetailsUsers =[];
+				 this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
 				this.matchingUsersNew = { ...this.matchingUsersNew, profile: {} };
 				this.matchingUsers = { ...this.matchingUsers, profile: {} }; 

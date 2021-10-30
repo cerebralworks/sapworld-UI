@@ -30,7 +30,10 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public queryParams: any;
 	public postedJobMeta: any;
 	public employeeValue: any;
+	public tempItem: any;
+	public tempValue: any;
 	public selectedStatusMessage: any;
+	public inviteUrlLink: any ='';
 	public messagePopupValueStatus: any='';
 	public selectedStatusValue: any;
 	public messagePopupValue: any;
@@ -53,6 +56,9 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
 	public showCount: boolean = false;
 	public showJob: boolean = false;
+	public isOpenInviteUrl: boolean = false;
+	public inviteRef: NgbModalRef;
+	@ViewChild("InviteModel", { static: false }) InviteModel: TemplateRef<any>;
 
 	constructor(
 		private employerService: EmployerService,
@@ -296,6 +302,15 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.short_listed = true ;
 			requestParams.view = false ;
 			requestParams.status =  this.messagePopupValue.status ;
+			this.messagePopupValue.application_statu = this.messagePopupValue.application_statu.map((val) => {
+			  return { 
+				id: val.id,
+				status: val.status,
+				date: val.date,
+				comments: val.comments,
+				invite_url: val.invite_url
+			  }
+			});
 			requestParams.application_status =  this.messagePopupValue.application_status ;
 			var datas ='';
 			var values = parseInt(this.selectedStatusValue);
@@ -383,18 +398,29 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.user = item.user.id;
 			requestParams.short_listed = true ;
 			requestParams.view = false ;
+			requestParams.invite_status = true ;
 			requestParams.status = values ;
+			requestParams.invite_url = this.inviteUrlLink ;
+			item.application_status = item.application_status.map((val) => {
+			  return { 
+				id: val.id,
+				status: val.status,
+				date: val.date,
+				comments: val.comments,
+				invite_url: ''
+			  }
+			});
 			requestParams.application_status = item.application_status ;
 			if(values>=7){
 				var idValue = values-7;
 				if(item['job_posting']['screening_process'][idValue]){
-					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'date': new Date(),'comments':' ' };
+					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'date': new Date(),'comments':' ','invite_url':this.inviteUrlLink };
 					requestParams.application_status.push(datas);
 				}
 			}else{
 				var value = this.statusvalue.filter(function(a,b){ return a.id == values});
 				if(value.length !=0){
-					var datas = {'id':values,'status':value[0]['text'], 'date': new Date(),'comments':' ' };
+					var datas = {'id':values,'status':value[0]['text'], 'date': new Date(),'comments':' ','invite_url':this.inviteUrlLink };
 					requestParams.application_status.push(datas);
 				}
 			}
@@ -429,5 +455,49 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.page = this.page + 1;
 		this.onGetShortListedJobs();
 	}
+	
+	
+	popupOpen = (item, values) => {
+		if(values == 5 || values == 6 || values == 2 || values == 4  ){
+			this.onChangeStatus(item, values);
+		}else{
+			if(this.employeeValue['privacy_protection'] ['invite_url'] == true ){
+				if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
+					
+					this.inviteUrlLink = '';
+					this.inviteUrlLink = this.employeeValue['profile']['invite_url'];
+					this.tempValue = values
+					this.tempItem = item ;
+					
+					this.isOpenInviteUrl = true;
+					setTimeout(() => {
+						this.inviteRef = this.modalService.open(this.InviteModel, {
+						  windowClass: 'modal-holder',
+						  centered: true,
+						  backdrop: 'static',
+						  keyboard: false
+						});
+					}, 10);
+				}
+			}else{
+				this.onChangeStatus(item, values);
+			}
+		}
+	}
+	closePopup(){
+		
+		this.inviteRef.close();
+		this.isOpenInviteUrl = false;
+		/* var tempRes = this.shortListedJobs;		
+		this.shortListedJobs = [];
+		this.shortListedJobs = tempRes; */
+		
+	}
+	
+	closeSave(){
+		this.onChangeStatus(this.tempItem,this.tempValue);
+		this.closePopup();
+	}
+	
 	
 }

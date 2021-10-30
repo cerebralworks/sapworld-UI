@@ -104,3 +104,11 @@ ul.statusHistory .content p{
     color: white;
     font-size: 7px;
 }
+.linksValue{
+	    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+.legacy-branding .badge {
+	display:none !important;
+}
