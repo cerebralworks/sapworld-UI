@@ -55,11 +55,19 @@ app.use(cookieParser("sapWorldRedisSession"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var whitelist = ['http://184.72.227.41', 'http://52.204.92.226'];
 // Enabling CORS for all requests
 app.use(
   require("cors")({
     origin: function(origin, callback) {
-      callback(null, origin);
+     // callback(null, origin);
+	 
+	 if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+	}
+	
     },
     credentials: true,
   })
