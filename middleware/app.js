@@ -69,7 +69,6 @@ app.use(
 	}
 	
     },
-    credentials: true,
   })
 );
 
