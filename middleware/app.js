@@ -57,8 +57,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var whitelist = ['http://184.72.227.41', 'http://52.204.92.226'];
 // Enabling CORS for all requests
-app.use(
-  require("cors")({
+app.use(cors());
+/*   require("cors")({
     origin: function(origin, callback) {
      // callback(null, origin);
 	 
@@ -71,7 +71,7 @@ app.use(
     },
     credentials: true,
   })
-);
+); */
 
 redisClient.on("error", err => {
   // console.log("Redis error: ", err);
