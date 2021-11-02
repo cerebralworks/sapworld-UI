@@ -58,7 +58,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Enabling CORS for all requests
 app.use(
   require("cors")({
-    origin: '*',
+    origin: function(origin, callback) {
+      callback(null, origin);
+    },
     credentials: true,
   })
 );
