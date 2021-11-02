@@ -63,7 +63,7 @@ app.use(
      // callback(null, origin);
 	 
 	 if (whitelist.indexOf(origin) !== -1) {
-      callback(null, origin)
+      callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
     }
