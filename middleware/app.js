@@ -107,9 +107,9 @@ app.use(function(req, res, next) {
 var isProduction = NODE_ENV === "production";
 
 // Enable error handler for only development server.
-if (!isProduction) {
+//if (!isProduction) {
   app.use(errorHandler());
-}
+//}
 
 app.use((req, res, next) => {
   if (req.session && req.session.isLoggedIn) {
