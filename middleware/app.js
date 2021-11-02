@@ -60,13 +60,13 @@ var whitelist = ['http://184.72.227.41', 'http://52.204.92.226'];
 app.use(
   require("cors")({
     origin: function(origin, callback) {
-     // callback(null, origin);
-	 console.log(whitelist.indexOf(origin));
-	 if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+	 
+	 /* if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
-    }
+    } */
 	
     },
     credentials: true,
