@@ -56,6 +56,7 @@ module.exports = (app, env, rp) => {
 			req.session.expires_in = current_time + responseBody.expires_in * 1000;
 			req.session.role = parsedBody.types;
 			req.session.save();
+			console.log(req.session);
 			responseBody = {};
 			if(responseBodys.verified !=null && responseBodys.verified !=undefined){
 				responseBody.verified = responseBodys.verified
