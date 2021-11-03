@@ -65,7 +65,10 @@ module.exports = (app, env, rp) => {
 			  ? req.session.isLoggedIn
 			  : false;
 			responseBody.role = parsedBody.types;
-			responseBody.user = parsedBody;
+			responseBody.accessToken = parsedBody.access_token;
+			responseBody.isLoggedIn = true;
+			responseBody.success = true;
+			responseBody.role = parsedBody.types;
 			responseBody.message = "Login Successfull";
 			res.status(200).json(responseBody);
 		})
