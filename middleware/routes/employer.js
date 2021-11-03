@@ -18,6 +18,7 @@ module.exports = (app, env, rp) => {
 	**/
 	
 	app.get("/api/admins/profile", (req, res) => {
+		console.log(req);
 		let requestBody = { ...req.query };    
 		requestCustom.get(`${serverRoutes.adminProfile}`, req, res, requestBody);
 	});
