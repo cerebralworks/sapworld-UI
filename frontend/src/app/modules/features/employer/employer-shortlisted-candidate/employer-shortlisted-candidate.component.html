@@ -26,7 +26,8 @@
               <th scope="col">{{"tabs.jobDetails" | translate}}</th>
               <th scope="col">{{"shared.status" | translate}}</th>
               <th scope="col">{{"tabs.message" | translate}}</th>
-             <!--  <th scope="col" class="text-center">{{"dashboard.action" | translate}}</th> -->
+              <th scope="col" class="text-center">{{"common.inviteLink" | translate}}</th>
+              <th scope="col" class="text-center">{{"common.history" | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -73,8 +74,12 @@
 					  
 					</select>
 					</td>
-				  <td class="text-center text-blue"><a (click)="openMessagePopup(item)"><i class="fas fa-file-alt"></i></a></td> 
-				  <!-- <td class="text-center"><a  class="text-danger"><i class="fas fa-trash-alt"></i></a></td>  -->
+				  <td class="text-center text-blue"><a class="poin" (click)="openMessagePopup(item)"><i class="fas fa-file-alt"></i></a></td> 
+				  <td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 " (click)="openMessagePopupInviteLink(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>
+				  <td class="text-center" *ngIf="(validateStatus(item) == true  )&& this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 "><a  class="text-danger poin"><i class="fas fa-envelope"></i></a></td>
+				  <td class="text-center" *ngIf="(validateStatus(item) == false && item?.invite_status == true )&& this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 "><a   (click)="openReschedulePopup(item,item?.status)" class="text-warning poin"><i class="fas fa-envelope"></i></a></td>
+				  <td class="text-center" *ngIf="this.employeeValue['privacy_protection'] ['invite_url'] != true || item?.status ==5 ||item?.status ==6 || item?.status ==2 || item?.status ==4 "><a  class="text-danger poin-no"><i class="fas fa-comment-slash"></i></a></td>
+				  <td class="text-center" ><a  (click)="openHistoryPopup(item)" class="text-danger poin"><i class="fas fa-history"></i></a></td>
                 </tr>
               </ng-container>
               <ng-template #elseTemplate>
@@ -102,19 +107,161 @@
 			<h5 class="modal-title" id="exampleModalLabels">{{"common.inviteLink" | translate}}</h5>
 		</div>
 		<div class="modal-body"  >
-			<form class="mt-3">
-				<div class="form-group">
+			<!-- <div class="form-group" *ngIf="showInput ==true">
+				<input type="text" class="form-control " name="inviteUrlLink" id ="inviteUrlLink" [(ngModel)]="inviteUrlLink">
+			</div> -->
+			<mat-radio-group *ngIf="showInput !=true"
+			  aria-labelledby="example-radio-group-label"
+			  class="example-radio-group"
+			  (change)="checkChange($event)">
+			  <mat-radio-button style="display:contents" class="example-radio-button" *ngFor="let item of employeeValue?.profile?.invite_urls;let i=index;" value="{{item?.url}}_{{i}}">
+				<h6 style="margin-bottom: 0.5px !important;">{{item.title}}</h6> {{item.url}}
+			  </mat-radio-button>
+			</mat-radio-group>
+				
+			<div class="mt-3">
+				<h6 class="text-green poin" (click)="enableInput()"> Send custom invite link</h6>
+				
+				<div class="form-group" *ngIf="showInput ==true">
 					<input type="text" class="form-control " name="inviteUrlLink" id ="inviteUrlLink" [(ngModel)]="inviteUrlLink">
 				</div>
-			</form>
+			
+			</div>
+		
 		</div>
 		<div class="modal-footer">			
-			<button *ngIf="inviteUrlLink.trim() !='' && inviteUrlLink !=null" [disabled]="inviteUrlLink.trim().split('/')[2] !=  'calendly.com' " (click)="closeSave()" type="button" class="btn btn-theme-blue">
+			<button  (click)="closePopup()" type="button" class="btn btn-secondary" >
+				{{"shared.close" | translate }}
+			</button>	<button [disabled]="inviteUrlLink.trim() =='' || inviteUrlLink ==null || inviteUrlLink.trim().split('/')[2] !=  'calendly.com' " (click)="closeSave()" type="button" class="btn btn-theme-blue">
 				{{"shared.update" | translate }}
-			</button>		
-			<button *ngIf="inviteUrlLink.trim() =='' || inviteUrlLink ==null" (click)="closeSave()" type="button" class="btn btn-theme-blue">
-				{{"shared.update" | translate }}
+			</button>	
+		</div>
+</ng-template>
+
+<ng-template *ngIf="isResendURL" #ResendURLModel let-modal>
+	<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabels">{{"shared.resend" | translate }} {{"common.inviteLink" | translate}}</h5>
+		</div>
+		<div class="modal-body"  >
+			<div class="mt-3">				
+				<div class="form-group" >
+					<input type="text" class="form-control " readonly name="inviteUrlLink" id ="inviteUrlLink" [(ngModel)]="inviteUrlLink">
+				</div>			
+			</div>
+		
+		</div>
+		<div class="modal-footer">			
+			<button  (click)="closePopupResend()" type="button" class="btn btn-secondary" >
+				{{"shared.close" | translate }}
+			</button>	<button [disabled]="inviteUrlLink.trim() =='' || inviteUrlLink ==null || inviteUrlLink.trim().split('/')[2] !=  'calendly.com' " (click)="closeSaveResend()" type="button" class="btn btn-theme-blue">
+				{{"shared.resend" | translate }}
+			</button>	
+		</div>
+</ng-template>
+
+<ng-template *ngIf="isOpenHistory" #HistoryModel let-modal>
+	<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabels">{{"common.history" | translate}}</h5>
+			<button type="button" class="close" (click)="closePopupHistory()">
+				<span aria-hidden="true">×</span>
 			</button>
+		</div>
+		<div class="modal-body"  >
+			
+			<div  >
+				<div class="row">
+				<div class="col-md-1"> </div>
+					<div class="col-md-9 ">
+						<ul class="statusHistory">
+							<ng-container *ngFor="let items of itemsData?.application_status;let i=index;">
+								<li class="blue" *ngIf="items?.id == 1 ">
+									<div class="date">
+										<h5 class="">{{itemsData?.created_at | date: 'longDate' }}</h5>
+									</div>
+									<div class="icon">
+										<i class="fas fa-file-alt"></i>
+									</div>
+									<div class="content">
+										<h4>Applied JOB</h4>
+									</div>
+								</li>
+								<li class="success" *ngIf="items?.id == 1 ">
+									<div class="date">
+										<h5 class="">{{items?.date | date: 'longDate' }}</h5>
+									</div>
+									<div class="icon">
+										<i class="fas fa-user-clock"></i>
+									</div>
+									<div class="content">
+										<h4>{{items?.status}}</h4>
+										<p>{{items?.comments}}</p>
+									</div>
+								</li>
+								<li class="pending" *ngIf="items?.id != '98' && items?.id != '4' && items?.id != '2' && items?.id != 1&& items?.id != '1' && items?.id != '5' && items?.id != '6'" >
+									<div class="date">
+										<h5 class="">{{items?.date | date: 'longDate' }}</h5>
+									</div>
+									<div class="icon">
+										<i class="fas fa-user-check"></i>
+									</div>
+									<div class="content">
+										<h4>{{items?.status}}</h4>
+										<p>{{items?.comments}}</p>
+										<br>
+										<h6 style="font-size: 11px;margin-bottom:5px;" *ngIf="items?.rescheduled || items?.invited || items?.created || items?.canceled">History</h6>
+										<p *ngIf="items?.invited">You have been send the invite link on <span class="blu" >{{items?.invited | date: 'longDate' }} </span> at <span class="blu" >{{items?.invited | date: 'shortTime' }} </span> </p>
+										<p *ngIf="items?.created">Accepted the invite link on <span class="gre" >{{items?.created | date: 'longDate' }} </span> at <span class="gre" >{{items?.created | date: 'shortTime' }} </span> </p>
+										<p *ngIf="items?.canceled">Canceled the invite link on  <span class="re" >{{items?.canceled | date: 'longDate' }} </span> at <span class="re" >{{items?.canceled | date: 'shortTime' }} </span></p>
+										<p *ngIf="items?.rescheduled">Rescheduled the invite link on <span class="yel" >{{items?.rescheduled | date: 'longDate' }} </span> at <span class="yel" >{{items?.rescheduled | date: 'shortTime' }} </span></p>
+									</div>
+								</li>
+								<li class=" success" *ngIf="items?.id == '2' " >
+									<div class="date">
+										<h5 class="">{{items?.date | date: 'longDate' }}</h5>
+									</div>
+									<div class="icon">
+										<i class="fas fa-user-check"></i>
+									</div>
+									<div class="content">
+										<h4>{{items?.status}}</h4>
+										<p>{{items?.comments}}</p>
+										
+									</div>
+								</li>
+								<li class="rejected" *ngIf="items?.id == '98' ||items?.id == '5' || items?.id == '6'|| items?.id == '4' " >
+									<div class="date">
+										<h5 class="">{{items?.date | date: 'longDate' }}</h5>
+									</div>
+									<div class="icon">
+										<i class="fas fa-user-times"></i>
+									</div>
+									<div class="content">
+										<h4>{{items?.status}}</h4>
+										<p>{{items?.comments}}</p>
+										
+									</div>
+								</li>
+							</ng-container>
+							<li class="rejected" *ngIf="itemsData?.job_posting?.status == 0 || itemsData?.job_posting?.status == 3" >
+								<div class="date">
+									<h5 class="">{{items?.job_posting?.updated_at | date: 'longDate' }}</h5>
+								</div>
+								<div class="icon">
+									<i class="fas fa-user-times"></i>
+								</div>
+								<div class="content">
+									<h4>JOB CLOSED</h4>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">			
+			<button  (click)="closePopupHistory()" type="button" class="btn btn-secondary" >
+				{{"shared.close" | translate }}
+				</button>
 		</div>
 </ng-template>
  

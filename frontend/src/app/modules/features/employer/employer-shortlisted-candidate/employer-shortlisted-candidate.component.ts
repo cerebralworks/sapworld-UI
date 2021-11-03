@@ -21,6 +21,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	@Input()screenWidth:any;
 	public shortListedJobs: any[] = [];
 	public shortListedMeta: any;
+	public itemsData: any;
 	public page: number = 1;
 	public limit: number = 10;
 	length = 0;
@@ -51,14 +52,22 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public isCheckModel: boolean = false;
 	public isErrorShown: boolean = false;
 	public isErrorShownValue: boolean = false;
+	public statusVal: boolean = false;
 	public showJobs: boolean = false;
 	public checkModalRef: NgbModalRef;
 	@ViewChild("checkModal", { static: false }) checkModal: TemplateRef<any>;
 	public showCount: boolean = false;
 	public showJob: boolean = false;
+	public showInput: boolean = false;
 	public isOpenInviteUrl: boolean = false;
 	public inviteRef: NgbModalRef;
 	@ViewChild("InviteModel", { static: false }) InviteModel: TemplateRef<any>;
+	public isOpenHistory: boolean = false;
+	public historyRef: NgbModalRef;
+	@ViewChild("HistoryModel", { static: false }) HistoryModel: TemplateRef<any>;
+	public isResendURL: boolean = false;
+	public ResendRef: NgbModalRef;
+	@ViewChild("ResendURLModel", { static: false }) ResendURLModel: TemplateRef<any>;
 
 	constructor(
 		private employerService: EmployerService,
@@ -302,12 +311,16 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.short_listed = true ;
 			requestParams.view = false ;
 			requestParams.status =  this.messagePopupValue.status ;
-			this.messagePopupValue.application_statu = this.messagePopupValue.application_statu.map((val) => {
+			this.messagePopupValue.application_status = this.messagePopupValue.application_status.map((val) => {
 			  return { 
 				id: val.id,
 				status: val.status,
 				date: val.date,
 				comments: val.comments,
+				invited: val.invited,
+				canceled: val.canceled,
+				rescheduled: val.rescheduled,
+				created: val.created,
 				invite_url: val.invite_url
 			  }
 			});
@@ -398,15 +411,19 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.user = item.user.id;
 			requestParams.short_listed = true ;
 			requestParams.view = false ;
-			requestParams.invite_status = true ;
+			requestParams.invite_status = false ;
 			requestParams.status = values ;
-			requestParams.invite_url = this.inviteUrlLink ;
+			requestParams.invite_url = '' ;
 			item.application_status = item.application_status.map((val) => {
 			  return { 
 				id: val.id,
 				status: val.status,
 				date: val.date,
 				comments: val.comments,
+				invited: val.invited,
+				canceled: val.canceled,
+				rescheduled: val.rescheduled,
+				created: val.created,
 				invite_url: ''
 			  }
 			});
@@ -414,13 +431,13 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			if(values>=7){
 				var idValue = values-7;
 				if(item['job_posting']['screening_process'][idValue]){
-					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'date': new Date(),'comments':' ','invite_url':this.inviteUrlLink };
+					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'date': new Date(),'comments':' ','invite_url':'' };
 					requestParams.application_status.push(datas);
 				}
 			}else{
 				var value = this.statusvalue.filter(function(a,b){ return a.id == values});
 				if(value.length !=0){
-					var datas = {'id':values,'status':value[0]['text'], 'date': new Date(),'comments':' ','invite_url':this.inviteUrlLink };
+					var datas = {'id':values,'status':value[0]['text'], 'date': new Date(),'comments':' ','invite_url':'' };
 					requestParams.application_status.push(datas);
 				}
 			}
@@ -433,6 +450,49 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			)
 		}else {
 			//this.toastrService.error('Something went wrong, please try again', 'Failed')
+		}
+	}
+	
+	/**
+	**	TO Change the shortlisted user details
+	**/
+	 
+	onChangeInvite = (item, values) => {
+		if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
+			let requestParams: any = {};
+			requestParams.job_posting = this.selectedJob.id;
+			requestParams.user = item.user.id;
+			requestParams.short_listed = true ;
+			requestParams.view = false ;
+			requestParams.invite_status = true ;
+			requestParams.invite_send = true ;
+			requestParams.status = values ;
+			requestParams.invite_url = this.inviteUrlLink ;
+			item.application_status = item.application_status.map((val) => {
+			  return { 
+				id: val.id,
+				status: val.status,
+				date: val.date,
+				comments: val.comments,
+				invited: val.invited,
+				canceled: val.canceled,
+				rescheduled: val.rescheduled,
+				created: val.created,
+				invite_url: ''
+			  }
+			});
+			requestParams.application_status = item.application_status ;
+			requestParams.application_status[requestParams.application_status.length-1]['invite_url'] =  this.inviteUrlLink ;
+			requestParams.application_status[requestParams.application_status.length-1]['invited'] =  new Date() ;
+			
+			this.employerService.shortListUser(requestParams).subscribe(
+				response => {
+					this.onGetShortListedJobs();
+				}, error => {
+					this.onGetShortListedJobs();
+				}
+			)
+		}else {
 		}
 	}
 
@@ -456,16 +516,17 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.onGetShortListedJobs();
 	}
 	
-	
-	popupOpen = (item, values) => {
+	openMessagePopupInviteLink(item,values){
+		this.statusVal = true;
+		this.showInput = false;
 		if(values == 5 || values == 6 || values == 2 || values == 4  ){
-			this.onChangeStatus(item, values);
+			this.onChangeInvite(item, values);
 		}else{
 			if(this.employeeValue['privacy_protection'] ['invite_url'] == true ){
 				if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
 					
 					this.inviteUrlLink = '';
-					this.inviteUrlLink = this.employeeValue['profile']['invite_url'];
+					//this.inviteUrlLink = this.employeeValue['profile']['invite_url'];
 					this.tempValue = values
 					this.tempItem = item ;
 					
@@ -480,14 +541,23 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 					}, 10);
 				}
 			}else{
-				this.onChangeStatus(item, values);
+				this.onChangeInvite(item, values);
 			}
 		}
+	}
+	popupOpen = (item, values) => {
+		this.statusVal = false;
+		this.inviteUrlLink = '';
+		this.onChangeStatus(item, values);
+		
+		
 	}
 	closePopup(){
 		
 		this.inviteRef.close();
+		this.onGetShortListedJobs();
 		this.isOpenInviteUrl = false;
+		this.inviteUrlLink = '';
 		/* var tempRes = this.shortListedJobs;		
 		this.shortListedJobs = [];
 		this.shortListedJobs = tempRes; */
@@ -495,9 +565,83 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	}
 	
 	closeSave(){
-		this.onChangeStatus(this.tempItem,this.tempValue);
+		this.onChangeInvite(this.tempItem,this.tempValue);
 		this.closePopup();
 	}
 	
+	enableInput(){
+		this.inviteUrlLink = '';
+		this.showInput = true;
+	}
 	
+	checkChange(event){
+		this.showInput = false;
+		if(event && event.value){
+			event.value.split('_')[0];
+			this.inviteUrlLink = event.value.split('_')[0];
+		}
+
+	}
+	
+	validateStatus(data){
+		if(data['application_status'] && data['application_status']['length'] && data['application_status']['length'] !=0 ){
+			var lastID = data['application_status']['length']-1;
+			if(data['application_status'][lastID] && data['application_status'][lastID]['created']){
+				return true;
+			}
+		}
+		return false;
+	}
+	closePopupHistory(){
+		
+		this.historyRef.close();
+		this.isOpenHistory=false;
+	}
+	
+	openHistoryPopup(item){
+		this.isOpenHistory = true;
+		this.itemsData = item;
+		setTimeout(() => {
+			this.historyRef = this.modalService.open(this.HistoryModel, {
+			  windowClass: 'modal-holder',
+			  centered: true,
+			  backdrop: 'static',
+			  size: 'xl',
+			  keyboard: false
+			});
+		}, 10);
+	}
+	closePopupResend(){
+		
+		this.ResendRef.close();
+		this.isResendURL=false;
+	}
+	closeSaveResend(){
+		this.onChangeInvite(this.tempItem,this.tempValue);
+		this.closePopupResend();
+	}
+	
+	openReschedulePopup(item,values){
+		this.tempValue = values
+		this.tempItem = item ;
+		
+		if(values == 5 || values == 6 || values == 2 || values == 4  ){
+			
+		}else{
+			if(this.employeeValue['privacy_protection'] ['invite_url'] == true ){
+				if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
+					this.isResendURL = true;
+					this.inviteUrlLink = item['invite_url'];
+					setTimeout(() => {
+						this.ResendRef = this.modalService.open(this.ResendURLModel, {
+						  windowClass: 'modal-holder',
+						  centered: true,
+						  backdrop: 'static',
+						  keyboard: false
+						});
+					}, 10);
+				}
+			}
+		}
+	}
 }
