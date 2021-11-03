@@ -56,7 +56,6 @@ module.exports = (app, env, rp) => {
 			req.session.expires_in = current_time + responseBody.expires_in * 1000;
 			req.session.role = parsedBody.types;
 			req.session.save();
-			console.log(req.session);
 			responseBody = {};
 			if(responseBodys.verified !=null && responseBodys.verified !=undefined){
 				responseBody.verified = responseBodys.verified
@@ -64,10 +63,6 @@ module.exports = (app, env, rp) => {
 			responseBody.isLoggedIn = req.session.isLoggedIn
 			  ? req.session.isLoggedIn
 			  : false;
-			responseBody.role = parsedBody.types;
-			responseBody.accessToken = parsedBody.access_token;
-			responseBody.isLoggedIn = true;
-			responseBody.success = true;
 			responseBody.role = parsedBody.types;
 			responseBody.message = "Login Successfull";
 			res.status(200).json(responseBody);
