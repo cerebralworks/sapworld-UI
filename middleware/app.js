@@ -84,7 +84,12 @@ app.use(
     name: "sapWorldRedis",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
+    cookie: { 
+		httpOnly: false,
+        maxAge: null,
+        // allow the cookie to be sent via HTTP ("true" means "HTTPS only)
+        secure: false, 
+        sameSite: 'none' }, // Note that the cookie-parser module is no longer needed
     store: new redisStore({
       host: "localhost",
       port: 6379,
