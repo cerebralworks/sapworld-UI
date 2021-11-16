@@ -6,6 +6,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { Subscription } from 'rxjs';
+import { LoggedIn } from '@data/schema/account';
 
 @Component({
   selector: 'app-register-form',
@@ -23,6 +24,8 @@ export class RegisterFormComponent implements OnInit {
   public mbRef: NgbModalRef;
   public registerModalSub: Subscription;
   public registerForm: FormGroup;
+  public loggedUserInfo: LoggedIn;
+  public loggedUserInfoStatus: boolean=true;
 
   @ViewChild("registerModal", { static: false }) registerModal: TemplateRef<any>;
   isLoading: boolean;
@@ -39,6 +42,15 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+	this.accountService
+      .isCurrentUser()
+      .subscribe(response => {
+		  if(this.loggedUserInfoStatus == true ){
+			  this.loggedUserInfo = response;
+			  this.loggedUserInfoStatus = false;
+		  }
+        
+      });
   }
 
   /**
@@ -100,7 +112,8 @@ export class RegisterFormComponent implements OnInit {
     this.accountService.userSignup(this.onGenerateRes()).subscribe(
       response => {
         this.isLoading = false;
-        this.onClickCloseBtn(false)
+        this.onClickCloseBtn(false);
+		
       }, error => {
         if(error && error.error && error.error.errors)
         this.formError = error.error.errors;
@@ -116,7 +129,13 @@ export class RegisterFormComponent implements OnInit {
     this.accountService.employerSignup(this.onGenerateRes()).subscribe(
       response => {
         this.isLoading = false;
-        this.onClickCloseBtn(false)
+		this.onClickCloseBtn(false)
+			/* var emailData = { 'email' : this.registerForm.value.email ? this.registerForm.value.email.toLowerCase() : '' } ;
+			this.accountService.userSignupInviteUrl(emailData,this.loggedUserInfo).subscribe(
+				response => {
+					
+				}
+			) */
       }, error => {
         if(error && error.error && error.error.errors)
         this.formError = error.error.errors;
