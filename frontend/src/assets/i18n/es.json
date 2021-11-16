@@ -334,6 +334,10 @@
     "currentPassword": "Contraseña actual",
     "newPassword": "Nueva contraseña",
     "confirmPassword": "confirmar Contraseña",
+	"screeningProcess":"Título del proceso de selección",
+	"inviteURL":"URL de invitación (opcional)",
+	"inviteLink":"Enlace de invitación",
+	"AddInviteLink":"Agregar enlace de invitación",
     "addResume": "Agregar currículum"
 
   },

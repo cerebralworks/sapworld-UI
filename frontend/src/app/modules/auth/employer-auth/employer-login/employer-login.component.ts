@@ -1,4 +1,5 @@
 import { Component, OnInit,HostListener  } from '@angular/core';
+export {}; declare global { interface Window { Parallax: any; } } 
 
 @Component({
   selector: 'app-employer-login',
@@ -11,7 +12,17 @@ public screenWidth: any;
 
   ngOnInit(): void {
 	  this.screenWidth = window.innerWidth;
+	  setTimeout(() => {
+		  var scene = document.getElementById('scene');
+			new window.Parallax(scene)
+	  });
   }
+  /* ngAfterViewInit(): void {
+	  setTimeout(() => {
+		  var scene = document.getElementById('scene');
+			new window.Parallax(scene)
+	  });
+  } */
 @HostListener('window:resize', ['$event'])  
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
