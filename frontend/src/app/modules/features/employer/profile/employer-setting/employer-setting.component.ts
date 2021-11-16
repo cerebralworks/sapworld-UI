@@ -1,5 +1,5 @@
 import { Component, DoCheck, ElementRef,TemplateRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
@@ -105,18 +105,6 @@ export class EmployerSettingComponent implements OnInit {
 			
 			  this.employerSharedService.saveEmployerCompanyDetails(response.details);
 			this.companyProfileInfo = { ...response.details };
-			if(this.companyProfileInfo.invite_urls && this.companyProfileInfo.invite_urls.length && this.companyProfileInfo.invite_urls.length !=0 ){
-				for(let i=0;i<=this.t.length;i++){
-						this.t.removeAt(0);
-						i=0;
-					}
-					this.companyProfileInfo.invite_urls.map((value, index) => {
-						this.t.push(this.formBuilder.group({
-							title: [null, Validators.required],
-							url: [null, Validators.required]
-						}));
-					});
-			}
 				if(this.companyProfileInfo.social_media_link){
 					this.companyProfileInfo.social_media_link = this.companyProfileInfo.social_media_link.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
 				}
@@ -172,10 +160,6 @@ export class EmployerSettingComponent implements OnInit {
 			firstName: [''],
 			lastName: [''],
 			invite_url: [''],
-			invite_urls:new FormArray([this.formBuilder.group({
-				title: [null, Validators.required],
-				url: [null, Validators.required]
-			})]),
 			state: ['', Validators.required],
 			address: [''],
 			country: ['', Validators.required],
@@ -207,39 +191,6 @@ export class EmployerSettingComponent implements OnInit {
 	}
 	
 	
-	get t() {
-		return this.f.invite_urls as FormArray;
-	}
-	
-	
-
-	/**
-	**	create a new INVITE_URL
-	**/
-	
-	onDuplicate = (index) => {
-		if(this.t.value[index]['title']== null ||this.t.value[index]['title'].trim() == ''||this.t.value[index]['url']== null ||this.t.value[index]['url'].trim() == ''||this.t.value[index]['url'].trim().split('/')[2] !=  'calendly.com'  ){
-		  
-	  }else{
-		this.t.push(this.formBuilder.group({
-			title: [null, Validators.required],
-			url: [null, Validators.required]
-		}));
-	  }
-	}
-	
-	/**
-	**	Remove the INVITE_URL
-	**/
-	
-	onRemove = (index) => {
-		if(index == 0 &&this.t.value.length==1) {
-			this.t.reset();
-		}else {
-			this.t.removeAt(index);
-		}
-	}
-	
 
 	/**
 	**	To Save the Company Info
@@ -248,43 +199,35 @@ export class EmployerSettingComponent implements OnInit {
 	onSaveComapnyInfo = () => {
 		
 		if (this.createCompanyForm.valid) {
-			this.updateCompany();
+			let requestParams: any = { ...this.createCompanyForm.value };
+			requestParams.email_id = this.employerDetails.email;
+			if (this.createCompanyForm.value && this.createCompanyForm.value.contact && !Array.isArray(this.createCompanyForm.value.contact)) {
+				if(this.createCompanyForm.value.contact){
+					requestParams.contact = [this.createCompanyForm.value.contact];
+				}
+			} else {
+				if(this.createCompanyForm.value.contact){
+					requestParams.contact = [this.createCompanyForm.value.contact];
+				}
+			}
+
+			if(requestParams && requestParams.website) {
+				const re = /http/gi;
+				if (requestParams.website.search(re) === -1 ) {
+					requestParams.website = `http://${requestParams.website}`
+				}
+			}
+			requestParams.invite_status = true;
+			this.employerService.updateCompanyProfile(requestParams).subscribe(
+				response => {
+					this.onGetProfileInfo();
+				}, error => {
+					this.toastrService.error('Something went wrong', 'Failed')
+				}
+			)
 			
 		}
 	}
-	
-	/**
-	**	Update Company Values
-	**/
-	updateCompany(){
-		let requestParams: any = { ...this.createCompanyForm.value };
-		requestParams.email_id = this.employerDetails.email;
-		if (this.createCompanyForm.value && this.createCompanyForm.value.contact && !Array.isArray(this.createCompanyForm.value.contact)) {
-			if(this.createCompanyForm.value.contact){
-				requestParams.contact = [this.createCompanyForm.value.contact];
-			}
-		} else {
-			if(this.createCompanyForm.value.contact){
-				requestParams.contact = [this.createCompanyForm.value.contact];
-			}
-		}
-
-		if(requestParams && requestParams.website) {
-			const re = /http/gi;
-			if (requestParams.website.search(re) === -1 ) {
-				requestParams.website = `http://${requestParams.website}`
-			}
-		}
-		requestParams.invite_status = true;
-		this.employerService.updateCompanyProfile(requestParams).subscribe(
-			response => {
-				this.onGetProfileInfo();
-			}, error => {
-				this.toastrService.error('Something went wrong', 'Failed')
-			}
-		)
-	}
-	
 
 	/**
 	**	To Open the status view in the popup
@@ -300,7 +243,7 @@ export class EmployerSettingComponent implements OnInit {
 	}
 	
 	closePopup(){
-		this.updateCompany();
+		this.onSaveComapnyInfo();
 		this.mbRef.close();
 	}
 	navigateProfile(){

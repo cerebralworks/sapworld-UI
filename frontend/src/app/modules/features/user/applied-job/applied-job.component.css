@@ -112,17 +112,3 @@ ul.statusHistory .content p{
 .legacy-branding .badge {
 	display:none !important;
 }
-.yel{
-	color: #ffb100;
-    font-weight: bold;
-}.blu{
-	color: blue;
-    font-weight: bold;
-}
-.gre{
-	color: #11b771;
-    font-weight: bold;
-}.re{
-	color: #ff0000;
-    font-weight: bold;
-}
