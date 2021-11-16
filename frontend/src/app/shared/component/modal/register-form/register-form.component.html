@@ -7,7 +7,7 @@
       <span aria-hidden="true">×</span>
     </button>  </div>
   <div class="modal-body">
-  <p>{{sharedService.getCurrentRoleFromUrl()?.roleId == 1 ? 'You have made the right decision. You are just a step away from hiring the best potential talent. Fill in and move forward' : 'Not to worry. Just fill in your email address. We shall send you a link to reset your password'}}</p>
+  <p>{{sharedService.getCurrentRoleFromUrl()?.roleId == 1 ? 'You have made the right decision. You are just a step away from hiring the best potential talent. Fill in and move forward' : 'You are one step away from a potential opportunity that’s waiting for you. Fill in the required information and get started!'}}</p>
     <form method="post" [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="form-group">
         <label>{{"shared.firstName" | translate }}</label>
