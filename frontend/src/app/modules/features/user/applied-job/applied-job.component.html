@@ -113,6 +113,13 @@
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
 																	<p  class="linksValue"  (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
+																	<p  *ngIf="items?.id == item?.status && items?.invite_url && item?.canceled !=true && item?.invite_status != true" > <span class="linksValue cancel" (click)="openPopupViewCancel(item);"  [href]="item?.cancel_url" *ngIf="item?.cancel_url !=null ||item?.cancel_url !='' "> Cancel the {{items?.status}} </span>  -   <span  class="linksValue reschedule"  (click)="openPopupViewReschedule(item);" [href]="item?.reschedule_url"   *ngIf="item?.reschedule_url !=null ||item?.reschedule_url !='' " > Reschedule the  {{items?.status}}</span>  </p>
+																	<br>
+																	<h6 style="font-size: 11px;margin-bottom:5px;" *ngIf="items?.invited || items?.created || items?.canceled">History</h6>
+																	<p *ngIf="items?.invited">You have recieved invite link on <span class="blu" >{{items?.invited | date: 'longDate' }} </span> at <span class="blu" >{{items?.invited | date: 'shortTime' }} </span> </p>
+																	<p *ngIf="items?.created">Accepted the invite link on <span class="gre" >{{items?.created | date: 'longDate' }} </span> at <span class="gre" >{{items?.created | date: 'shortTime' }} </span> </p>
+																	<p *ngIf="items?.canceled">Canceled the invite link on  <span class="re" >{{items?.canceled | date: 'longDate' }} </span> at <span class="re" >{{items?.canceled | date: 'shortTime' }} </span></p>
+																	<p *ngIf="items?.rescheduled">Rescheduled the invite link on <span class="yel" >{{items?.rescheduled | date: 'longDate' }} </span> at <span class="yel" >{{items?.rescheduled | date: 'shortTime' }} </span></p>
 																</div>
 															</li>
 															<li class=" success" *ngIf="items?.id == '2' " >
@@ -194,7 +201,8 @@
 	</ng-template>
 	<ng-template *ngIf="openBookingSite" #bookingModel let-modal let-d="dismiss">
 		<div class="modal-content">
-			<div class="modal-body text-center checkVal" [id]="itemsIDVAL.invite_url">
+			<div class="modal-body text-center checkVal" [id]="itemsIDVAL.invite_url"  *ngIf="openNotBook != true ">
+			
 			<input style="display:none;" id="name" [value]="itemsIDVAL.user.first_name" />
 				<input style="display:none;" id="email" [value]="itemsIDVAL.user.email" />
 				<input style="display:none;" id="appid" [value]="itemsIDVAL.id" />
@@ -203,6 +211,10 @@
  <div #container class="calendly-inline-widget" style="min-width:320px;height:580px;" data-auto-load="false">
  <div class="calendly-spinner"><div class="calendly-bounce1"></div><div class="calendly-bounce2"></div><div class="calendly-bounce3"></div></div>
  </div><!-- Calendly inline widget end -->
+			</div>
+			<div class="modal-body text-center " *ngIf="openNotBook == true">
+			<iframe width="100%" height="100%"  style="min-width:320px;height:580px;" [src]="url"></iframe>
+
 			</div>
 			
 			<div class="modal-footer">

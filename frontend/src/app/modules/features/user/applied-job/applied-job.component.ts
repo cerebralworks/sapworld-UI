@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {PageEvent} from '@angular/material/paginator';
 import { EmployerService } from '@data/service/employer.service';
 export {}; declare global { interface Window { Calendly: any; } } 
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-applied-job',
@@ -30,6 +31,8 @@ export class AppliedJobComponent implements OnInit {
 	@ViewChild('matchesModal', { static: false }) matchesModal: TemplateRef<any>;
 	public mbRefs: NgbModalRef;
 	public openBookingSite: boolean = false;
+	public openNotBook: boolean = false;
+	public url: any = '';
 	@ViewChild('bookingModel', { static: false }) bookingModel: TemplateRef<any>;
 	public bookingModelRef: NgbModalRef;
 	public statusvalue: any[] = [
@@ -50,6 +53,7 @@ export class AppliedJobComponent implements OnInit {
 	constructor(
 		private userService: UserService,
 		private modelService: NgbModal,
+		private sanitizer: DomSanitizer,
 		private employerService : EmployerService
 	) { }
 
@@ -234,6 +238,7 @@ export class AppliedJobComponent implements OnInit {
 	openPopupViewInvite(item){
 		this.itemsIDVAL = item;
 		this.openBookingSite = true;
+		this.openNotBook = false;
 		setTimeout(() => {
 			this.bookingModelRef = this.modelService.open(this.bookingModel, {
 				windowClass: 'modal-holder',
@@ -273,10 +278,47 @@ export class AppliedJobComponent implements OnInit {
 		},10);
 	}
 	
+	
+	openPopupViewReschedule(item){
+		this.itemsIDVAL = item;
+		this.openBookingSite = true;
+		this.openNotBook = true;
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.itemsIDVAL['reschedule_url']);
+		setTimeout(() => {
+			this.bookingModelRef = this.modelService.open(this.bookingModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		});
+		
+	}
+	
+	
+	openPopupViewCancel(item){
+		this.itemsIDVAL = item;
+		this.openBookingSite = true;
+		this.openNotBook = true;
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.itemsIDVAL['cancel_url']);
+		setTimeout(() => {
+			this.bookingModelRef = this.modelService.open(this.bookingModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		});
+		
+	}
+	
 	closeInvite(){
 		this.onGetAppliedJobs();
 		this.bookingModelRef.close();
 		this.openBookingSite = false;
+		this.openNotBook = false;
 		
 	}
 	
