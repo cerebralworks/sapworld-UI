@@ -134,6 +134,7 @@
 	  "statusMessage":"Status Message",
 	  "sendMessage":"Send Message",
       "postYourJob": "Post your Job",
+	  "postYourJobs":"Post Jobs",
       "durationPlaceholder": "Ex: 6 months",
       "duration": "Duration",
       "months": "in months",
