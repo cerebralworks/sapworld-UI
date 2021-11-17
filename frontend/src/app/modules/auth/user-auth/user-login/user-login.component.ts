@@ -1,4 +1,5 @@
 import { Component, OnInit,HostListener } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-login',
@@ -8,7 +9,7 @@ import { Component, OnInit,HostListener } from '@angular/core';
 export class UserLoginComponent implements OnInit {
 
 public screenWidth: any;
-  constructor() { }
+  constructor(public translate: TranslateService) { }
 
   ngOnInit(): void {
 	  this.screenWidth = window.innerWidth;

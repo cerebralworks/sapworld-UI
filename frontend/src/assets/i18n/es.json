@@ -364,5 +364,67 @@
   "enterYoutubeUrl": "Introduce la url de youtube",
   "enterBlogUrl": "Introduzca la url del blog",
   "enterPortfolioUrl": "Introduzca la URL de la cartera"
-}
+},
+  "employer":{
+	  "heading1":"¿Su proceso de selección de candidatos está tardando demasiado?",
+	  "heading1Content":"Ahorre tiempo en la selección de CV y ​​entrevistas de precalificación. Compare perfiles, encuentre el conjunto de habilidades que faltan, coincida con la relevancia. Te servimos lo que necesitas en bandeja.",
+	  "viewMore":"View More",
+	  "heading2":"Elabore su requisito. Consigue coincidencias perfectas.",
+	  "heading2Content":"SAP World ofrece una forma de ahorrar tiempo por completo en la selección de la candidatura requerida. Publique sus requisitos sin esfuerzo, encuentre candidatos que coincidan exactamente, tome decisiones de selección basadas en datos y compare perfiles de candidatos de SAP aplicados para elegir el más adecuado. ",
+	  "getStarted":"Empezar",
+	  "heading3":"La contratación de SAP es fácil. Obtenga la candidatura perfecta ",
+	  "heading3Content":"Una plataforma perfectamente diseñada para SAP Recruiters. Obtenga coincidencias instantáneas para sus habilidades imprescindibles y buenas. Tome decisiones precisas comparando perfiles de patrones similares. ",
+	  "heading4":"Detectar y elegir el perfil adecuado sin problemas",
+	  "heading4Content":"Mire y compare cada detalle del requisito y el conjunto de habilidades que busca en un talento potencial. Vea el conjunto de habilidades que coinciden perfectamente, las habilidades faltantes y los conjuntos de habilidades bueno tener ",
+	  "register":"Ha tomado la decisión correcta. Estás a un paso de contratar al mejor talento potencial. Completa y sigue adelante ",
+	  "recruiterRegister":"Registro de reclutadores "
+  },
+  "user":{
+	  "heading1": "Planifique su carrera en SAP en el lugar correcto",
+  "heading1Subject": "¡Donde el talento potencial obtiene grandes oportunidades!",
+  "heading1Content": "¿Está interesado en avanzar en su carrera en SAP y tiene curiosidad por saber qué trabajos adecuados existen para usted? SAP World puede ayudarlo con las oportunidades profesionales adecuadas con oportunidades laborales exclusivas basadas en criterios de búsqueda. No es solo uno de los otros portales de empleo que tratan de encontrar oportunidades para usted que pueden ser adecuadas o no. ¿Saber como? Vea el video.",
+  "viewMore": "Ver más",
+  "heading": "SAP World Jobseeker",
+  "heading2": "Encuentre el trabajo adecuado. Ahora mismo",
+  "heading2Content": "Realice una búsqueda personalizada elegida exclusivamente para su candidatura. Obtenga el requisito de trabajo perfecto que coincida con sus habilidades y solicítelo. Un portal de trabajo exclusivo para perfiles de SAP que le ayuda a conseguir el trabajo adecuado según su conjunto de habilidades prácticas. ",
+  "getStarted": "Comenzar",
+  "heading3": "Actualización de perfil exclusivo",
+   "heading3Content": "Un perfil Completamente completado le brinda un mayor porcentaje de oportunidades potenciales. Mantenga actualizada la información de su perfil para asegurarse de que los reclutadores se acerquen a usted en busca de excelentes oportunidades de adaptación. ",
+  "heading4": "Verifique sus recomendaciones personalizadas",
+  "heading4Content": "Recomendaciones de trabajo basadas en el puntaje de coincidencia entre el contenido de su currículum y nuestra base de datos de trabajos. Se le dan las coincidencias exactas y más cercanas para comparar y elegir. Los trabajos se recomiendan según la descripción del trabajo en tiempo real. ",
+  "register": "Estás a un paso de una oportunidad potencial que te está esperando. ¡Complete la información requerida y comience! ",
+  "jobseekerRegister": "Registro de demandantes de empleo"
+  },
+  "fotgotPassword":{
+	    "title": "¿Olvidó la contraseña?",
+  "content1": "No se preocupe. Simplemente ingrese su dirección de correo electrónico. Le enviaremos un enlace para restablecer su contraseña",
+  "message": "Genial. Le enviamos un correo electrónico con un enlace para restablecer la contraseña de su cuenta. Revisa tu correo."
+  },
+  "homePage":{
+	  "title": "Empleador",
+  "content1": "Una plataforma de búsqueda de talentos de SAP sin complicaciones. Tome sus decisiones de contratación de manera más rápida y sencilla",
+  "getStarted": "Comenzar",
+  "talent": "Talento",
+  "content2": "Haga que su carrera se mueva con confianza. Un portal de empleo creado con el asesoramiento de expertos en dominios de SAP",
+  "clientsHeading": "Nuestros clientes felices",
+  "content3": "Hemos acercado a los candidatos a ellos. Desde empresas emergentes hasta pymes y grandes corporaciones, nos aseguramos de analizar y seleccionar al candidato adecuado que estaban esperando]",
+	    "content4": "Su experto en búsqueda de empleo de SAP",
+  "content5": "Encuentre trabajos, cree un perfil fácil de buscar y enriquezca sus aplicaciones. ¡Así es como podemos ayudarlo a conseguir el trabajo de sus sueños!",
+  "content6": "Coincidencias",
+  "content7": "Se le ve según los conjuntos de habilidades imprescindibles y buenos para tener]",
+	   "content8": "Compare perfiles",
+  "content9": "Compare las oportunidades y elija lo que se adapte a su candidatura.",
+  "content19": "Panel de control fácil de usar",
+  "content10": "Conozca las oportunidades coincidentes, la disponibilidad, elija lo que más le convenga",
+  "content11": "Acceso completo",
+  "content12": "Administre su perfil con lo que desea mostrar en línea y todo eso.",
+  "content13": "Ponte en contacto con nosotros",
+  "content14": "¿Buscas algo más? Hablemos. Nos encantaría saber de ti. Escríbanos y nuestro ejecutivo se mantendrá en contacto.",
+  "content15": "CONTACTO"
+  },
+  "postJob":{
+	   "title": "¡Ayúdenos a brindarle un mejor servicio!",
+    "content": "Un perfil a medio completar es una oportunidad perdida. Por favor, asegúrese de completar sus datos por completo",
+    "contentSubject": "para que se ajuste a los criterios de búsqueda que su empleador potencial está buscando!"
+  }
 }
