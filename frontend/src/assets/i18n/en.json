@@ -365,5 +365,68 @@
     "enterYoutubeUrl": "Enter youtube url",
     "enterBlogUrl": "Enter blog url",
     "enterPortfolioUrl": "Enter portfolio url"
+  },
+  "employer":{
+	  "heading1":"Is your candidate selection process taking too long?",
+	  "heading1Content":"Save time in screening CVs and pre-qualifying interviews. Compare profiles, find missing skillset, match on relevancy. We serve you what is needed as a platter.",
+	  "viewMore":"View More",
+	  "heading2":"Craft your Requirement. Get perfect Matches.",
+	  "heading2Content":"SAP World offers a way to completely save time in screening the required candidature. Post your Requirements effortlessly, find exact matching candidates, make data-driven screening decisions and compare profiles of applied SAP candidates for picking the right fit. ",
+	  "getStarted":"Get Started",
+	  "heading3":"SAP Recruiting is easy. Get the Perfect Match Candidature ",
+	  "heading3Content":"A platform perfectly crafted for SAP Recruiters. Get instant matches to your must-have and good-to-have skillset. Make accurate decisions by comparing similar pattern profiles. ",
+	  "heading4":"Screening and choosing the Right Profile without any hassles",
+	  "heading4Content":"Look and compare every detail of the requirement and skill set you are looking for in a potential talent. View perfectly matching skillset, missing skills as well as “good to have'' skill sets ",
+	  "register":"You have made the right decision. You are just a step away from hiring the best potential talent. Fill in and move forward ",
+	  "recruiterRegister":"Recruiter Registration "
+  },
+  "user":{
+	  "heading1":"Plan your SAP career in the right place",
+	  "heading1Subject":"Where Potential Talent Gets Great Opportunities!",
+	  "heading1Content":"Are you interested in furthering your career in SAP, and curious as to what suitable jobs are out there for you? SAP World can help you with the right career opportunities with exclusive search criteria-based job opportunities. It is not just one among the other job portals trying to find opportunities for you that may or may not be a right fit. Know how? Watch the video.",
+	  "viewMore":"View More",
+	  "heading":"SAP World Jobseeker",
+	  "heading2":"Find the Right Job. Right Now",
+	  "heading2Content":"Make a personalized search exclusively picked for your candidature. Get perfect Job Requirement that matches your skillset and apply for them. An exclusive Job Portal for SAP profiles that helps you get you the right job based on your hands-on skill set. ",
+	  "getStarted":"Get Started",
+	  "heading3":"Exclusive Profile Update ",
+	  "heading3Content":"A Fully Completed profile gives you a higher percentage of potential opportunities. Keep your profile information up to date to ensure the recruiters knock up to you for great fit opportunities. ",
+	  "heading4":"Check your personalized recommendations",
+	  "heading4Content":"Job recommendations based on match score between your resume content and our job database. You are given the exact and nearest matches to compare and choose from. Jobs are recommended based on real-time job Description. ",
+	  "register":"You are one step away from a potential opportunity that’s waiting for you. Fill in the required information and get started! ",
+	  "jobseekerRegister":"Jobseeker Registration "
+  },
+  "fotgotPassword":{
+	  "title":"Forgot Password?",
+	  "content1":"Not to worry. Just fill in your email address. We shall send you a link to reset your password",
+	  "message":"Great. We shot you an email with a link for resetting your account password. Check your inbox."
+  },
+  "homePage":{
+	  "title":"Employer",
+	  "content1":"An hassle-free SAP talent finding platform. Make your hiring decisions faster and easier",
+	  "getStarted":"Get Started",
+	  "talent":"Talent",
+	  "content2":" Make your career move with confidence. A Job Portal built on advice of SAP domain experts",
+	  "clientsHeading":"Our Happy Clients",
+	  "content2":" Make your career move with confidence. A Job Portal built on advice of SAP domain experts",
+	  "content3":" We have brought candidates closer to them. From start-ups to SMEs and large corporations, we ensure we scrutinize and shortlist the right candidate they were longing for.",
+	  "content4":"Your SAP Job Search Expert",
+	  "content5":"Find jobs, create a search -friendly profile and enrich your applications. Here is how we can help you with getting your dream job!",
+	  "content6":"Matches",
+	  "content7":" You are viewed based on must-have and good to have skillsets.",
+	  "content8":" Compare profiles",
+	  "content9":" Compare the opportunities and pick what suits your candidature.",
+	  "content19":" User-friendly Dashboard",
+	  "content10":"  Know matching opportunities, availability, pick what suits you the best.",
+	  "content11":" Complete Access",
+	  "content12":"  Manage your profile with what you want to show online and whatnot.",
+	  "content13":"Get in touch with us",
+	  "content14":"Looking for something more? Let’s talk. We’d love to hear from you. Write to us and our executive shall stay in touch.",
+	  "content15":"CONTACT"
+  },
+  "postJob":{
+	  "title":"Help us serve you better!",
+	  "content":"A half-completed profile is a missed opportunity. Please ensure you fill out your details completely",
+	  "contentSubject":"to fit in the search criteria your potential employer is looking for!"
   }
 }

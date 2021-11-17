@@ -2421,7 +2421,7 @@ a:hover {
     display: -ms-flexbox!important;
     display: flex!important;
     width: 95%;
-	/*white-space: pre-wrap !important;*/
+	/* white-space: pre-wrap !important; */
 	
 }
 .handsExp span{
@@ -2500,6 +2500,10 @@ a:hover {
 }
 .handsExp:hover {
      overflow-x: scroll!important; 
+}
+.info .list-group-item:hover {
+	overflow-x: auto !important; 
+	text-overflow: clip !important;
 }
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
     top: 14px !important;

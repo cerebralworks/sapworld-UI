@@ -374,5 +374,67 @@
   "enterYoutubeUrl": "Youtube-URL eingeben",
   "enterBlogUrl": "Blog-URL eingeben",
   "enterPortfolioUrl": "Portfolio-URL eingeben"
-}
+},
+"employer": {
+    "heading1": "Dauert Ihr Bewerberauswahlprozess zu lange?",
+    "heading1Content": "Sparen Sie Zeit bei der Überprüfung von Lebensläufen und vorqualifizierenden Vorstellungsgesprächen. Vergleichen Sie Profile, finden Sie fehlende Skillsets, stimmen Sie nach Relevanz ab. Wir servieren Ihnen, was Sie brauchen, als Platte.",
+    "viewMore": "Mehr anzeigen",
+    "heading2": "Erstellen Sie Ihre Anforderung. Erhalten Sie perfekte Übereinstimmungen.",
+    "heading2Content": "SAP World bietet eine Möglichkeit, beim Screening der erforderlichen Kandidatur vollständig Zeit zu sparen. Veröffentlichen Sie mühelos Ihre Anforderungen, finden Sie genau passende Kandidaten, treffen Sie datengesteuerte Auswahlentscheidungen und vergleichen Sie Profile von eingesetzten SAP-Kandidaten, um die richtige Wahl zu treffen. ",
+    "getStarted": "Erste Schritte",
+    "heading3": "SAP Recruiting ist einfach. Holen Sie sich die perfekte Match-Kandidatur ",
+    "heading3Content": "Eine Plattform, die perfekt für SAP-Recruiter entwickelt wurde. Erhalten Sie sofortige Übereinstimmungen mit Ihren Must-Have- und Good-to-Have-Fähigkeiten. Treffen Sie genaue Entscheidungen, indem Sie ähnliche Musterprofile vergleichen. ",
+    "heading4": "Überprüfen und wählen Sie das richtige Profil ohne Probleme",
+    "heading4Content": "Sehen und vergleichen Sie jedes Detail der Anforderungen und Fähigkeiten, die Sie bei einem potenziellen Talent suchen. Sehen Sie sich perfekt passende Skillsets, fehlende Skills sowie „good to have“-Skillssets an ",
+    "register": "Sparen Sie Zeit bei der Überprüfung von Lebensläufen und vorqualifizierenden Vorstellungsgesprächen. Vergleichen Sie Profile, finden Sie fehlende Skillsets, stimmen Sie nach Relevanz ab. Wir servieren Ihnen, was Sie brauchen, als Platte.0",
+    "recruiterRegister": "Sparen Sie Zeit bei der Überprüfung von Lebensläufen und vorqualifizierenden Vorstellungsgesprächen. Vergleichen Sie Profile, finden Sie fehlende Skillsets, stimmen Sie nach Relevanz ab. Wir servieren Ihnen, was Sie brauchen, als Platte.1"
+  },
+   "user": {
+    "heading1": "Planen Sie Ihre SAP-Karriere am richtigen Ort",
+    "heading1Subject": "Wo potenzielle Talente große Chancen haben!",
+    "heading1Content": "Sie interessieren sich für Ihre Karriere bei SAP und sind neugierig, welche Jobs es für Sie gibt? SAP World hilft Ihnen mit exklusiven, suchkriterienbasierten Stellenangeboten bei den richtigen Karrieremöglichkeiten. Es ist nicht nur eines unter anderen Jobportalen, die versuchen, für Sie passende oder nicht passende Stellen zu finden. Fachwissen? Sehen Sie sich das Video an.",
+    "viewMore": "Mehr anzeigen",
+    "heading": "SAP World Jobseeker",
+    "heading2": "Finde den richtigen Job. Jetzt sofort",
+    "heading2Content": "Machen Sie eine personalisierte Suche, die exklusiv für Ihre Kandidatur ausgewählt wurde. Holen Sie sich die perfekte Stellenanforderung, die Ihren Fähigkeiten entspricht, und bewerben Sie sich. Ein exklusives Jobportal für SAP-Profile, das Ihnen hilft, den richtigen Job basierend auf Ihren praktischen Fähigkeiten zu finden. ",
+    "getStarted": "Erste Schritte",
+    "heading3": "Exklusive Profilaktualisierung",
+    "heading3Content": "Ein vollständig ausgefülltes Profil bietet Ihnen einen höheren Prozentsatz potenzieller Möglichkeiten. Halten Sie Ihre Profilinformationen auf dem neuesten Stand, um sicherzustellen, dass die Personalvermittler auf Sie aufmerksam werden, um großartige Möglichkeiten für die Anpassung zu finden. ",
+    "heading4": "Wo potenzielle Talente große Chancen haben!0",
+    "heading4Content": "Wo potenzielle Talente große Chancen haben!1",
+    "register": "Wo potenzielle Talente große Chancen haben!2",
+    "jobseekerRegister": "Wo potenzielle Talente große Chancen haben!3"
+  },
+   "fotgotPassword": {
+    "title": "Passwort vergessen?",
+    "content1": "Keine Sorge. Geben Sie einfach Ihre E-Mail-Adresse ein. Wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+    "message": "Großartig. Wir haben Ihnen eine E-Mail mit einem Link zum Zurücksetzen Ihres Kontopassworts gesendet. Überprüfen Sie Ihren Posteingang."
+  },
+  "homePage": {
+   "title": "Arbeitgeber",
+    "content1": "Eine problemlose SAP-Plattform zur Talentsuche. Treffen Sie Ihre Einstellungsentscheidungen schneller und einfacher",
+    "getStarted": "Erste Schritte",
+    "talent": "Talente",
+    "content2": " Machen Sie Ihre Karriere mit Zuversicht. Ein Jobportal, das auf der Beratung von SAP-Domain-Experten aufgebaut ist",
+    "clientsHeading": "Unsere glücklichen Kunden",
+    "content3": " Wir haben Kandidaten näher gebracht. Vom Start-up über den Mittelstand bis zum Großkonzern stellen wir sicher, dass wir den richtigen Kandidaten genau prüfen und in die engere Wahl ziehen.",
+    "content4": "Ihr SAP-Jobsuche-Experte",
+    "content5": "Jobs finden, ein suchfreundliches Profil erstellen und Ihre Bewerbungen bereichern. So können wir Ihnen helfen, Ihren Traumjob zu finden!",
+    "content6": "Matches",
+    "content7": " Sie werden auf der Grundlage von Must-Have- und Good-to-Have-Fähigkeiten angezeigt.",
+    "content8": " Profile vergleichen",
+    "content9": " Vergleichen Sie die Möglichkeiten und wählen Sie aus, was zu Ihrer Kandidatur passt.",
+    "content19": " Benutzerfreundliches Dashboard",
+    "content10": " Kennen Sie passende Gelegenheiten, Verfügbarkeit, wählen Sie was passt am besten zu Ihnen.",
+    "content11": " Vollständiger Zugriff",
+    "content12": " Verwalten Sie Ihr Profil mit dem, was Sie online zeigen möchten und so weiter.",
+    "content13": "Kontaktieren Sie uns",
+    "content14": "Suchen Sie nach mehr? Lass uns reden. Wir würden uns freuen, von Ihnen zu hören. Schreiben Sie uns und unsere Führungskraft bleibt in Kontakt.",
+    "content15": " Sie werden auf der Grundlage von Must-Have- und Good-to-Have-Fähigkeiten angezeigt.0"
+  },
+  "postJob": {
+     "title": "Helfen Sie uns, Ihnen besser zu dienen!",
+    "content": "Ein halb ausgefülltes Profil ist eine verpasste Gelegenheit. Bitte stellen Sie sicher, dass Sie Ihre Daten vollständig ausfüllen",
+    "contentSubject": "um die Suchkriterien zu erfüllen, die Ihr potenzieller Arbeitgeber sucht!"
+  }
 }

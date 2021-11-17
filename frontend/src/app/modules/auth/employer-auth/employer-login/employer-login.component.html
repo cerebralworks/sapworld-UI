@@ -4,12 +4,26 @@
     <div class="row">
       <div class="col-xl-8 col-lg-8 col-md-12 d-none d-lg-block d-xl-block pt-4 pr-5">
         <div style="position:absolute; right:5px;"><img src="assets/images/sapw-newbanner-global-img.png" class="img-fluid" ></div>
-        <ul id="scene" >
+        <ul id="scene" *ngIf="translatePage == 'en'" >
           <li class="layer" style="width:110%;"  data-depth="0.3"><img src="assets/images/sapw-newbanner-content-img1.png" class="img-fluid"></li>
           <li class="layer" style="width:110%;"  data-depth="0.4"><img src="assets/images/sapw-newbanner-content-img2.png" class="img-fluid"></li>
           <li class="layer" style="width:110%;"  data-depth="0.5"><img src="assets/images/sapw-newbanner-content-img3.png" class="img-fluid"></li>
           <li class="layer" style="width:110%;"  data-depth="0.4"><img src="assets/images/sapw-newbanner-content-img4.png" class="img-fluid"></li>
           <li class="layer" style="width:110%;"  data-depth="0.3"><img src="assets/images/sapw-newbanner-content-img5.png" class="img-fluid"></li>
+        </ul>
+        <ul id="scene" *ngIf="translatePage == 'es'" >
+          <li class="layer" style="width:110%;"  data-depth="0.3"><img src="assets/images/sapw-newbanner-content-img1-es.png" class="img-fluid"></li>
+          <li class="layer" style="width:110%;"  data-depth="0.4"><img src="assets/images/sapw-newbanner-content-img2-es.png" class="img-fluid"></li>
+          <li class="layer" style="width:110%;"  data-depth="0.5"><img src="assets/images/sapw-newbanner-content-img3-es.png" class="img-fluid"></li>
+          <li class="layer" style="width:110%;"  data-depth="0.4"><img src="assets/images/sapw-newbanner-content-img4-es.png" class="img-fluid"></li>
+          <li class="layer" style="width:110%;"  data-depth="0.3"><img src="assets/images/sapw-newbanner-content-img5-es.png" class="img-fluid"></li>
+        </ul>
+        <ul id="scene" *ngIf="translatePage == 'de'" >
+          <li class="layer" style="width:110%;"  data-depth="0.3"><img src="assets/images/sapw-newbanner-content-img1-de.png" class="img-fluid"></li>
+          <li class="layer" style="width:110%;"  data-depth="0.4"><img src="assets/images/sapw-newbanner-content-img2-de.png" class="img-fluid"></li>
+          <li class="layer" style="width:110%;"  data-depth="0.5"><img src="assets/images/sapw-newbanner-content-img3-de.png" class="img-fluid"></li>
+          <li class="layer" style="width:110%;"  data-depth="0.4"><img src="assets/images/sapw-newbanner-content-img4-de.png" class="img-fluid"></li>
+          <li class="layer" style="width:110%;"  data-depth="0.3"><img src="assets/images/sapw-newbanner-content-img5-de.png" class="img-fluid"></li>
         </ul>
       </div>
       <div class="col-lg-4 col-md-12">
@@ -26,10 +40,11 @@
       <div class="col-lg-5">
         <div class="section-title text-left mb-4 pr-5">
           <!-- <h6 class="text-white">SAP World Employer</h6> -->
-          <h3 class="text-white">Is your candidate selection process taking too long?</h3>
-          <h5 class="text-white">Save time in screening CVs and pre-qualifying interviews. Compare profiles, find missing skillset, match on relevancy. We serve you what is needed as a platter.
+          <h3 class="text-white"> {{"employer.heading1" | translate }} 
+		  </h3>
+          <h5 class="text-white">{{"employer.heading1Content" | translate }} 
           </h5>
-          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" style="margin-top:10px;"  role="button">View More
+          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" style="margin-top:10px;"  role="button">{{"employer.viewMore" | translate }} 
           <i class="fas fa-angle-double-right ml-3 align-middle animate__animated animate__heartBeat animate__infinite animate__slow	2s"></i>
           </a>
         </div>
@@ -58,11 +73,11 @@
       <div class="col-lg-6">
         <div class="content-left">
           <!-- <h6>SAP World Employer</h6> -->
-          <h3>Craft your Requirement. Get perfect Matches.</h3>
-          <h5>SAP World offers a way to completely save time in screening the required candidature. Post your Requirements effortlessly, find exact matching candidates, make data-driven screening decisions and compare profiles of applied SAP candidates for picking the right fit. 
+          <h3> {{"employer.heading2" | translate }} </h3>
+          <h5>{{"employer.heading2Content" | translate }} 
           </h5>
 
-          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">Get Started
+          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">{{"employer.getStarted" | translate }} 
           <i class="fas fa-angle-double-right ml-3 align-middle animate__animated animate__heartBeat animate__infinite animate__slow	2s"></i>
           </a>
         </div>
@@ -72,11 +87,11 @@
       <div class="col-lg-6  ml-auto">
         <div class="content-right">
          <!--  <h6>SAP World Employer</h6> -->
-          <h3>SAP Recruiting is easy. Get the Perfect Match Candidature </h3>
-          <h5>A platform perfectly crafted for SAP Recruiters. Get instant matches to your must-have and good-to-have skillset. Make accurate decisions by comparing similar pattern profiles. 
+          <h3>{{"employer.heading3" | translate }} </h3>
+          <h5>{{"employer.heading3Content" | translate }} 
           </h5>
 
-          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">Get Started
+          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">{{"employer.getStarted" | translate }} 
           <i class="fas fa-angle-double-right ml-3 align-middle animate__animated animate__heartBeat animate__infinite animate__slow	2s"></i>
           </a>
         </div>
@@ -96,11 +111,11 @@
       <div class="col-lg-6">
         <div class="content-left">
           <!-- <h6>SAP World Employer</h6> -->
-          <h3>Screening and choosing the Right Profile without any hassles</h3>
-          <h5>Look and compare every detail of the requirement and skill set you are looking for in a potential talent. View perfectly matching skillset, missing skills as well as “good to have'' skill sets
+          <h3>{{"employer.heading4" | translate }} </h3>
+          <h5>{{"employer.heading4Content" | translate }} 
           </h5>
 
-          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">Get Started
+          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">{{"employer.getStarted" | translate }} 
           <i class="fas fa-angle-double-right ml-3 align-middle animate__animated animate__heartBeat animate__infinite animate__slow	2s"></i>
           </a>
         </div>
