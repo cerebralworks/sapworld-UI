@@ -19,9 +19,15 @@
     <div class="row">
       <div class="col-lg-8 col-md-12">
         <div class="login-content">	
-        <img *ngIf="this.translate.currentLang == 'en'"[src]="'assets/images/login-banner-bg.png'" class="img-fluid"/>
+		<div class="login_text">
+		<h1>{{"user.title" | translate }}</h1>
+		<h3>{{"user.title1" | translate }}</h3>
+		<h3>{{"user.title2" | translate }}</h3>
+		</div>
+        <img [src]="'assets/images/login-banner-bg-empty.png'" class="img-fluid"/>
+        <!-- <img *ngIf="this.translate.currentLang == 'en'"[src]="'assets/images/login-banner-bg.png'" class="img-fluid"/>
         <img *ngIf="this.translate.currentLang == 'es'"[src]="'assets/images/login-banner-bg-es.png'" class="img-fluid"/>
-        <img *ngIf="this.translate.currentLang == 'de'"[src]="'assets/images/login-banner-bg-de.png'" class="img-fluid"/>
+        <img *ngIf="this.translate.currentLang == 'de'"[src]="'assets/images/login-banner-bg-de.png'" class="img-fluid"/> -->
         </div>
       </div>
       <div class="col-lg-4 col-md-12 ">
