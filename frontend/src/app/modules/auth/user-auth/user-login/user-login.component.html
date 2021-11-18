@@ -19,7 +19,15 @@
     <div class="row">
       <div class="col-lg-8 col-md-12">
         <div class="login-content">	
-        <img [src]="'assets/images/login-banner-bg.png'" class="img-fluid"/>
+		<div class="login_text">
+		<h1>{{"user.title" | translate }}</h1>
+		<h3>{{"user.title1" | translate }}</h3>
+		<h3>{{"user.title2" | translate }}</h3>
+		</div>
+        <img [src]="'assets/images/login-banner-bg-empty.png'" class="img-fluid"/>
+        <!-- <img *ngIf="this.translate.currentLang == 'en'"[src]="'assets/images/login-banner-bg.png'" class="img-fluid"/>
+        <img *ngIf="this.translate.currentLang == 'es'"[src]="'assets/images/login-banner-bg-es.png'" class="img-fluid"/>
+        <img *ngIf="this.translate.currentLang == 'de'"[src]="'assets/images/login-banner-bg-de.png'" class="img-fluid"/> -->
         </div>
       </div>
       <div class="col-lg-4 col-md-12 ">
@@ -35,11 +43,11 @@
     <div class="row">
       <div class="col-lg-5">
         <div class="section-title text-left mb-4 pr-5">
-          <h6 class="text-white">Plan your SAP career in the right place</h6>
-          <h3 class="text-white">Where Potential Talent Gets Great Opportunities!</h3>
-          <h5 class="text-white">Are you interested in furthering your career in SAP, and curious as to what suitable jobs are out there for you? SAP World can help you with the right career opportunities with exclusive search criteria-based job opportunities. It is not just one among the other job portals trying to find opportunities for you that may or may not be a right fit. Know how? Watch the video
+          <h6 class="text-white"> {{"user.heading1" | translate }} </h6>
+          <h3 class="text-white"> {{"user.heading1Subject" | translate }}</h3>
+          <h5 class="text-white">{{"user.heading1Content" | translate }}
           </h5><br/>
-          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">View More
+          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">{{"user.viewMore" | translate }}
           <i class="fas fa-angle-double-right ml-3 align-middle animate__animated animate__heartBeat animate__infinite animate__slow	2s"></i>
           </a>
         </div>
@@ -65,12 +73,12 @@
       </div>
       <div class="col-lg-6">
         <div class="content-left">
-          <h6>SAP World Jobseeker</h6>
-          <h3>Find the Right Job. Right Now </h3>
-          <h5>Make a personalized search exclusively picked for your candidature. Get perfect Job Requirement that matches your skillset and apply for them. An exclusive Job Portal for SAP profiles that helps you get you the right job based on your hands-on skill set
+          <h6> {{"user.heading" | translate }}</h6>
+          <h3>{{"user.heading2" | translate }} </h3>
+          <h5>{{"user.heading2Content" | translate }}
           </h5>
 
-          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">Get Started
+          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">{{"user.getStarted" | translate }}
           <i class="fas fa-angle-double-right ml-3 align-middle animate__animated animate__heartBeat animate__infinite animate__slow	2s"></i>
           </a>
         </div>
@@ -79,12 +87,12 @@
     <div class="row mt-5">
       <div class="col-lg-6  ml-auto">
         <div class="content-right">
-          <h6>SAP World Jobseeker</h6>
-          <h3>Exclusive Profile Update</h3>
-          <h5>A Fully Completed profile gives you a higher percentage of potential opportunities. Keep your profile information up to date to ensure the recruiters knock up to you for great fit opportunities
+          <h6>{{"user.heading" | translate }}</h6>
+          <h3>{{"user.heading3" | translate }} </h3>
+          <h5>{{"user.heading3Content" | translate }} 
           </h5>
 
-          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">Get Started
+          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">{{"user.getStarted" | translate }}
           <i class="fas fa-angle-double-right ml-3 align-middle animate__animated animate__heartBeat animate__infinite animate__slow	2s"></i>
           </a>
         </div>
@@ -103,12 +111,12 @@
       </div>
       <div class="col-lg-6">
         <div class="content-left">
-          <h6>SAP World Jobseeker</h6>
-          <h3>Check your personalized recommendations </h3>
-          <h5>Job recommendations based on match score between your resume content and our job database. You are given the exact and nearest matches to compare and choose from. Jobs are recommended based on real-time job Description
+          <h6>{{"user.heading" | translate }}</h6>
+          <h3> {{"user.heading4" | translate }}</h3>
+          <h5> {{"user.heading4Content" | translate }}
           </h5>
 
-          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">Get Started
+          <a class="btn btn-lg btn-theme-blue rounded-pill px-4" href="#" role="button">{{"user.getStarted" | translate }}
           <i class="fas fa-angle-double-right ml-3 align-middle animate__animated animate__heartBeat animate__infinite animate__slow	2s"></i>
           </a>
         </div>

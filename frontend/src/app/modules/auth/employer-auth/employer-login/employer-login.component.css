@@ -1,0 +1,101 @@
+.job-title{
+	position: absolute;
+    top: 2.8rem;
+    left: 6.5rem;
+    font-weight: bolder;
+	font-size: 14px;
+}.job-title-content{
+	position: absolute;
+    top: 4rem;
+    left: 6.5rem;
+	font-size: 9px;
+    font-weight: 700;
+}.job-title-content1{
+	position: absolute;
+    top: 4.8rem;
+    left: 6.5rem;
+	font-size: 9px;
+    font-weight: 700;
+}
+
+.job-title2{
+	position: absolute;
+    top: 16.3rem;
+    left: 35.9rem;
+    font-weight: bolder;
+	font-size: 14px;
+}.job-title2-content{
+	position: absolute;
+    top: 17.5rem;
+    left: 35.9rem;
+	font-size: 9px;
+    font-weight: 700;
+}.job-title2-content1{
+	position: absolute;
+    top: 18.3rem;
+    left: 35.9rem;
+	font-size: 9px;
+    font-weight: 700;
+}
+
+.job-title3{
+	position: absolute;
+    top: 1.5rem;
+    left: 35rem;
+    font-weight: bolder;
+	font-size: 14px;
+}.job-title3-content{
+	position: absolute;
+    top: 2.7rem;
+    left: 35rem;
+	font-size: 9px;
+    font-weight: 700;
+}.job-title3-content1{
+	position: absolute;
+    top: 3.5rem;
+    left: 35rem;
+	font-size: 9px;
+    font-weight: 700;
+}
+
+.job-title4{
+	position: absolute;
+    top: 12.8rem;
+    left: 5rem;
+    font-weight: bolder;
+	font-size: 14px;
+}.job-title4-content{
+	position: absolute;
+    top: 14rem;
+    left: 5rem;
+	font-size: 9px;
+    font-weight: 700;
+}.job-title4-content1{
+	position: absolute;
+    top: 14.8rem;
+    left: 5rem;
+	font-size: 9px;
+    font-weight: 700;
+}
+
+
+
+.job-title5{
+	position: absolute;
+    top: 19.7rem;
+    left: 9.5rem;
+    font-weight: bolder;
+	font-size: 14px;
+}.job-title5-content{
+	position: absolute;
+    top: 20.9rem;
+    left: 9.5rem;
+	font-size: 9px;
+    font-weight: 700;
+}.job-title5-content1{
+	position: absolute;
+    top: 21.8rem;
+    left: 9.5rem;
+	font-size: 9px;
+    font-weight: 700;
+}

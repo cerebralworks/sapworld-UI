@@ -8,6 +8,7 @@ export {}; declare global { interface Window { Parallax: any; } }
 })
 export class EmployerLoginComponent implements OnInit {
 public screenWidth: any;
+public translatePage='en';
   constructor() { }
 
   ngOnInit(): void {
@@ -16,6 +17,7 @@ public screenWidth: any;
 		  var scene = document.getElementById('scene');
 			new window.Parallax(scene)
 	  });
+	  
   }
   /* ngAfterViewInit(): void {
 	  setTimeout(() => {
