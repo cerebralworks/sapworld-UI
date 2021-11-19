@@ -79,6 +79,7 @@ const routes = {
 	applicationsGET : 'jobpostings/applications/view',
 	notification : 'notification/count',
 	notificationDetails : 'notification/details',
+	contactCreate : 'contact/create',
 	
 }
 
