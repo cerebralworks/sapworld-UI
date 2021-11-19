@@ -9,6 +9,7 @@ import { CoverModalComponent } from './component/modal/cover-modal/cover-modal.c
 import { JobDescriptionComponent } from './component/modal/job-description/job-description.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SendMailJobPreviewComponent } from './component/modal/send-mail-job-preview/send-mail-job-preview.component';
+import { ContactFormComponent } from './component/contact-form/contact-form.component';
 import { ForgotPasswordComponent } from './component/modal/forgot-password/forgot-password.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContactInfoComponent } from './component/modal/contact-info/contact-info.component';
@@ -84,7 +85,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SharedUserProfileJobMultipleMatchesComponent,
     JobPreviewModalComponent,
     PhonePipe,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+	ContactFormComponent
   ],
   imports: [
     NgbModule,
@@ -153,7 +155,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     JobPreviewModalComponent,
     PhonePipe,
     CarouselModule,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+	ContactFormComponent
   ],
   providers: [ApiService,PushNotificationsService]
 })
