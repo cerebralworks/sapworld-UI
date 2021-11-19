@@ -444,5 +444,23 @@
 		"title":"Help us serve you better!",
 		"content":"A half-completed profile is a missed opportunity. Please ensure you fill out your details completely",
 		"contentSubject":"to fit in the search criteria your potential employer is looking for!"
+	},
+	"contactform" :{
+		"location" : "Location",
+		"phone" : "Phone",
+		"email" : "Email",
+		"address" : "Chennai, Tamilnadu,",
+		"country" : "INDIA",
+		"name" : "Your Name",
+		"email1" : "Your Email",
+		"subject" : "Phone",
+		"message" : "Your Message",
+		"send" : "Send Message",
+		"alert1" : "Name is Required",
+		"alert2" : "Email is Required",
+		"alert3" : "Subject is Required",
+		"alert4" : "Message is Required",
+		"valid" : "Enter the valid email",
+		"exist" : "Email already exist"
 	}
 }

@@ -18,6 +18,14 @@ export class EmployerService extends CacheService {
     super();
   }
   
+  createcontact = (data) => {
+    return this.apiService.post('/api/contact/create',data).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  
   /**
    * To update the employer profile details
    */

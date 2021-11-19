@@ -8,6 +8,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
 import { CacheService } from '@shared/service/cache.service';
+import { SharedModule } from '@shared/shared.module';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';

@@ -435,5 +435,23 @@
 	    "title": "Ayúdenos a brindarle un mejor servicio!",
         "content": "Un perfil a medio completar es una oportunidad perdida. Por favor, asegúrese de completar sus datos por completo",
         "contentSubject": "para que se ajuste a los criterios de búsqueda que su empleador potencial está buscando!"
-	}
+	},
+	"contactform" :{
+   "location": "Ubicación",
+  "phone": "Teléfono",
+  "email": "Correo electrónico",
+  "address": "Chennai, Tamilnadu,",
+  "country": "INDIA",
+  "name": "Su nombre",
+  "email1": "Su correo electrónico",
+  "subject": "Teléfono",
+  "message": "Su mensaje",
+  "send": "Enviar mensaje",
+  "alert1": "Nombre obligatorio",
+  "alert2": "El correo electrónico es obligatorio",
+  "alert3": "El asunto es obligatorio",
+  "alert4": "El mensaje es obligatorio",
+  "valid": "Ingrese el correo electrónico válido",
+  "exist": "El correo electrónico ya existe"
+}
 }
