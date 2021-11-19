@@ -4,6 +4,15 @@ module.exports = (app, env, rp) => {
 	const IncomingForm = require("formidable").IncomingForm;
 	const fs = require("fs");
   
+  /**
+	* Contact form  Posting
+	*/
+	
+	app.post("/api/contact/create", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.custompost(`${serverRoutes.contactCreate}`, req, res, requestBody);
+	});
+	
 	/**
 	* Admin Dashboard details GET
 	*/
