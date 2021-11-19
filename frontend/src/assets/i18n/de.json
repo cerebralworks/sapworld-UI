@@ -438,5 +438,23 @@
 		"title": "Helfen Sie uns, Ihnen besser zu dienen!",
 		"content": "Ein halb ausgefülltes Profil ist eine verpasste Gelegenheit. Bitte stellen Sie sicher, dass Sie Ihre Daten vollständig ausfüllen",
 		"contentSubject": "um die Suchkriterien zu erfüllen, die Ihr potenzieller Arbeitgeber sucht!"
+	},
+	"contactform" :{
+		"location": "Ort",
+		"phone": "Telefon",
+		"email": "E-Mail",
+		"address": "Chennai, Tamilnadu,",
+		"country": "INDIEN",
+		"name": "Ihr Name",
+		"email1": "Ihre E-Mail",
+		"subject": "Telefon",
+		"message": "Ihre Nachricht",
+		"send": "Nachricht senden",
+		"alert1": "Name ist erforderlich",
+		"alert2": "E-Mail ist erforderlich",
+		"alert3": "Betreff ist erforderlich",
+		"alert4": "Nachricht ist erforderlich",
+		"valid": "Geben Sie die gültige E-Mail-Adresse ein",
+		"exist": "E-Mail existiert bereits"
 	}
 }

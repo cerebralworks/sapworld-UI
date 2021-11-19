@@ -50,6 +50,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ContactFormComponent } from './component/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppPasswordDirective,
     OnlyNumber,
     SharedUserProfileComponent,
+    ContactFormComponent,
     SharedUserProfileMatchesComponent,
     SharedJobProfileComponent,
     SharedJobProfileMatchesComponent,
@@ -106,6 +108,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CarouselModule
   ],
   exports: [
+    ContactFormComponent,
     LoginFormComponent,
     RegisterFormComponent,
     ResumeModalComponent,
