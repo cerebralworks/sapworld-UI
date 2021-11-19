@@ -80,6 +80,7 @@ const routes = {
 	notification : 'notification/count',
 	notificationDetails : 'notification/details',
 	
+	contactCreate : 'contact/create',
 }
 
 module.exports = routes;
