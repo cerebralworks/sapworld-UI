@@ -46,7 +46,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('@modules/features/user/candidate-job-view/candidate-job-view.module').then(m => m.CandidateJobViewModule)
   },
-
+  {
+    path: 'calendar',
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.User] },
+    loadChildren: () =>
+      import('@modules/features/user/calendar/calendar.module').then(m => m.CalendarModule)
+  },
 ];
 
 @NgModule({

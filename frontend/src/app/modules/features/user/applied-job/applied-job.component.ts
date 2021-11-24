@@ -292,6 +292,21 @@ export class AppliedJobComponent implements OnInit {
 				backdrop: 'static',
 				keyboard: false
 			});
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}else{
+					var splitCheck = checkURL[0].split('/')['2']
+					if(splitCheck != 'calendly.com'){
+						document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+					}
+				}
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},500);
 		});
 		
 	}
@@ -310,6 +325,50 @@ export class AppliedJobComponent implements OnInit {
 				backdrop: 'static',
 				keyboard: false
 			});
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}else{
+					var splitCheck = checkURL[0].split('/')['2']
+					if(splitCheck != 'calendly.com'){
+						document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+					}
+				}
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},500);
+		});
+		
+	}
+	
+	
+	openPopupViewInviteNew(item,eventData){
+		this.itemsIDVAL = item;
+		this.openBookingSite = true;
+		this.openNotBook = true;
+		var tempUrl =document.getElementsByClassName('linksValue')[0]["href"];
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(tempUrl);
+		setTimeout(() => {
+			this.bookingModelRef = this.modelService.open(this.bookingModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},500);
 		});
 		
 	}

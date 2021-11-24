@@ -36,6 +36,7 @@
 		"addResumeTitle":" Resume Tilte",
 		"matches":"Matches",
 		"sendMail":"Send Mail",
+		"send":"Send",
 		"chooseJobs":"Choose Jobs",
 		"profileSetting":"Profile Settings",
 		"show":"Show",
@@ -320,6 +321,7 @@
 		"paidSickLeaves": "Paid Sick Leaves"
 	},
 	"common": {
+		"refresh": "Refresh",
 		"message": "Message",
 		"notifications": "Notifications",
 		"notificationsFrom": "Notification From",
@@ -334,8 +336,15 @@
 		"screeningProcess":"Screening Process Title",
 		"inviteURL":"Invite URL (optional)",
 		"inviteLink":"Invite Link",
-		"inviteSettings":"Calender Settings",
+		"inviteSettings":"Calendar Settings",
+		"calender":"Calendar",
+		"calenders":"Calendars",
+		"calenderTitle":"Calendar Title",
+		"calenderURL":"Calendar URL",
+		"addCalender":"Add Calendars to view scheduling",
+		"addCalenders":"Add Calendars",
 		"inviteSettingsTitle":"Click here to add the calendly",
+		"inviteSettingsAddCustom":"Click here to add the Scheduler Link",
 		"AddInviteLink":"Add Invite Link",
 		"addResume": "Add Resume"
 	},
@@ -393,6 +402,9 @@
 		"recruiterRegister":"Recruiter Registration "
 	},
 	"user":{
+		"calendar" : "Calendar",
+		"calendlySetting" : "Calendar Setting",
+		"schedule" : "Schedule List",
 		"title":"Looking for a job in SAP?",
 		"title1":"Millions of vacancies and there ",
 		"title2":"is something special waiting for you!",
@@ -453,7 +465,7 @@
 		"country" : "INDIA",
 		"name" : "Your Name",
 		"email1" : "Your Email",
-		"subject" : "Phone",
+		"subject" : "Subject",
 		"message" : "Your Message",
 		"send" : "Send Message",
 		"alert1" : "Name is Required",

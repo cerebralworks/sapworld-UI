@@ -19,7 +19,6 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { environment } from '@env';
 import { ChartsModule } from 'ng2-charts';
 
-
 @NgModule({
   declarations: [
     AppComponent

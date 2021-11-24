@@ -329,7 +329,14 @@
 	    "screeningProcess":"Título del proceso de selección",
 	    "inviteURL":"URL de invitación (opcional)",
 	    "inviteLink":"Enlace de invitación",
+		"calender":"Calendario",
+		"calenders":"Calendarios",
+		"calenderTitle":"Título del calendario",
+		"calenderURL":"URL del calendario",
+		"addCalender":"Agregar calendarios para ver la programación",
+		"addCalenders":"Agregar calendarios",
 	    "AddInviteLink":"Agregar enlace de invitación",
+	    "inviteSettingsAddCustom":"Haga clic aquí para agregar el enlace del programador",
         "addResume": "Agregar currículum"
 	},
 	"home": {
@@ -386,6 +393,9 @@
 	    "recruiterRegister":"Registro de reclutadores "
 	},
 	"user":{
+		"calendar" :"Calendario",
+		"calendlySetting" :"Configuración de calendario",
+		"schedule": "Lista de horarios",
 	    "title": "Buscas trabajo en SAP?",
         "title1": "Millones de puestos vacantes y hay",
         "title2": "hay algo especial esperándote!",
@@ -437,21 +447,21 @@
         "contentSubject": "para que se ajuste a los criterios de búsqueda que su empleador potencial está buscando!"
 	},
 	"contactform" :{
-   "location": "Ubicación",
-  "phone": "Teléfono",
-  "email": "Correo electrónico",
-  "address": "Chennai, Tamilnadu,",
-  "country": "INDIA",
-  "name": "Su nombre",
-  "email1": "Su correo electrónico",
-  "subject": "Teléfono",
-  "message": "Su mensaje",
-  "send": "Enviar mensaje",
-  "alert1": "Nombre obligatorio",
-  "alert2": "El correo electrónico es obligatorio",
-  "alert3": "El asunto es obligatorio",
-  "alert4": "El mensaje es obligatorio",
-  "valid": "Ingrese el correo electrónico válido",
-  "exist": "El correo electrónico ya existe"
-}
+		"location": "Ubicación",
+		"phone": "Teléfono",
+		"email": "Correo electrónico",
+		"address": "Chennai, Tamilnadu,",
+		"country": "INDIA",
+		"name": "Su nombre",
+		"email1": "Su correo electrónico",
+		"subject": "El asunto",
+		"message": "Su mensaje",
+		"send": "Enviar mensaje",
+		"alert1": "Nombre obligatorio",
+		"alert2": "El correo electrónico es obligatorio",
+		"alert3": "El asunto es obligatorio",
+		"alert4": "El mensaje es obligatorio",
+		"valid": "Ingrese el correo electrónico válido",
+		"exist": "El correo electrónico ya existe"
+	}
 }

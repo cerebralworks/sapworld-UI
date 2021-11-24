@@ -36,6 +36,7 @@
 		"addResumeTitle":" Titel des Lebenslaufs",
 		"matches":"Streichhölzer",
 		"sendMail":"Mail senden",
+		"send": "senden",
 		"chooseJobs":"Wählen Sie Jobs",
 		"profileSetting":"Profileinstellungen",
 		"show":"Zeigen",
@@ -332,7 +333,14 @@
 		"screeningProcess":"Titel des Screening-Prozesses",
 		"inviteURL":"Einladungs-URL (optional)",
 		"inviteLink":"Einladungslink",
+		"calender":"Kalender",
+		"calenders":"Kalenders",
+		"calenderTitle":"Kalender Titel",
+		"calenderURL":"Kalender URL",
+		"addCalender":"Kalender hinzufügen, um die Planung anzuzeigen",
+		"addCalenders":"Kalender hinzufügen",
 		"AddInviteLink":"Einladungslink hinzufügen",
+		"inviteSettingsAddCustom":"Klicken Sie hier, um den Scheduler-Link hinzuzufügen",
 		"addResume": "Lebenslauf hinzufügen"
 	},
 	"home":{
@@ -389,6 +397,9 @@
 		"recruiterRegister": "Sparen Sie Zeit bei der Überprüfung von Lebensläufen und vorqualifizierenden Vorstellungsgesprächen. Vergleichen Sie Profile, finden Sie fehlende Skillsets, stimmen Sie nach Relevanz ab. Wir servieren Ihnen, was Sie brauchen, als Platte.1"
 	},
 	"user": {
+		"calendar" :"Kalender",
+		"calendlySetting" : "Kalendereinstellung",
+		"schedule" : "Zeitplanliste",
 		"title": "Auf der Suche nach einem Job bei SAP?",
 		"title1": "Millionen Stellenangebote und da",
 		"title2": "wartet etwas Besonderes auf dich!",
@@ -440,21 +451,21 @@
 		"contentSubject": "um die Suchkriterien zu erfüllen, die Ihr potenzieller Arbeitgeber sucht!"
 	},
 	"contactform" :{
-  "location": "Ort",
-  "phone": "Telefon",
-  "email": "E-Mail",
-  "address": "Chennai, Tamilnadu,",
-  "country": "INDIEN",
-  "name": "Ihr Name",
-  "email1": "Ihre E-Mail",
-  "subject": "Telefon",
-  "message": "Ihre Nachricht",
-  "send": "Nachricht senden",
-  "alert1": "Name ist erforderlich",
-  "alert2": "E-Mail ist erforderlich",
-  "alert3": "Betreff ist erforderlich",
-  "alert4": "Nachricht ist erforderlich",
-  "valid": "Geben Sie die gültige E-Mail-Adresse ein",
-  "exist": "E-Mail existiert bereits"
+		"location": "Ort",
+		"phone": "Telefon",
+		"email": "E-Mail",
+		"address": "Chennai, Tamilnadu,",
+		"country": "INDIEN",
+		"name": "Ihr Name",
+		"email1": "Ihre E-Mail",
+		"subject": "Betreff",
+		"message": "Ihre Nachricht",
+		"send": "Nachricht senden",
+		"alert1": "Name ist erforderlich",
+		"alert2": "E-Mail ist erforderlich",
+		"alert3": "Betreff ist erforderlich",
+		"alert4": "Nachricht ist erforderlich",
+		"valid": "Geben Sie die gültige E-Mail-Adresse ein",
+		"exist": "E-Mail existiert bereits"
 	}
 }

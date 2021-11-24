@@ -18,6 +18,11 @@ export class EmployerService extends CacheService {
     super();
   }
   
+  
+   /**
+   * To create a new contact form details
+   */
+   
   createcontact = (data) => {
     return this.apiService.post('/api/contact/create',data).pipe(
       map(data => {

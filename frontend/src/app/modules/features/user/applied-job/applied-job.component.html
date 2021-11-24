@@ -99,7 +99,8 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
-																	<p  class="linksValue" (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
+																	<p  class="linksValue" (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true  && items?.invite_url.includes('calendly') == true" [href]="items?.invite_url">Schedule the timing</p>
+																	<p  class="linksValue" (click)="openPopupViewInviteNew(item,event);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true  && items?.invite_url.includes('calendly') == false" [href]="items?.invite_url">Schedule the timing</p>
 																</div>
 															</li>
 															<li class="pending" *ngIf="items?.id != '98' && items?.id != '4' && items?.id != '2' && items?.id != 1&& items?.id != '1' && items?.id != '5' && items?.id != '6'" >
@@ -112,7 +113,8 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
-																	<p  class="linksValue"  (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
+																	<p  class="linksValue"  (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true  && items?.invite_url.includes('calendly') == true" [href]="items?.invite_url">Schedule the timing</p>
+																	<p  class="linksValue"  (click)="openPopupViewInviteNew(item,event);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true  && items?.invite_url.includes('calendly') == false" [href]="items?.invite_url">Schedule the timing</p>
 																	<p  *ngIf="items?.id == item?.status && items?.invite_url && item?.canceled !=true && item?.invite_status != true" > <span class="linksValue cancel" (click)="openPopupViewCancel(item);"  [href]="item?.cancel_url" *ngIf="item?.cancel_url !=null ||item?.cancel_url !='' "> Cancel the {{items?.status}} </span>  -   <span  class="linksValue reschedule"  (click)="openPopupViewReschedule(item);" [href]="item?.reschedule_url"   *ngIf="item?.reschedule_url !=null ||item?.reschedule_url !='' " > Reschedule the  {{items?.status}}</span>  </p>
 																	<br>
 																	<h6 style="font-size: 11px;margin-bottom:5px;" *ngIf="items?.invited || items?.created || items?.canceled">History</h6>
@@ -132,7 +134,8 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
-																	<p class="linksValue"   (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
+																	<p class="linksValue"   (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true  && items?.invite_url.includes('calendly') == true" [href]="items?.invite_url">Schedule the timing</p>
+																	<p class="linksValue"   (click)="openPopupViewInviteNew(item,event);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true  && items?.invite_url.includes('calendly') == false" [href]="items?.invite_url">Schedule the timing</p>
 																</div>
 															</li>
 															<li class="rejected" *ngIf="items?.id == '98' ||items?.id == '5' || items?.id == '6'|| items?.id == '4' " >
@@ -145,7 +148,8 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p>{{items?.comments}}</p>
-																	<p class="linksValue"  (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true " [href]="items?.invite_url">Schedule the timing</p>
+																	<p class="linksValue"  (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true && items?.invite_url.includes('calendly') == true" [href]="items?.invite_url">Schedule the timing</p>
+																	<p class="linksValue"  (click)="openPopupViewInviteNew(item,event);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true && items?.invite_url.includes('calendly') == false" [href]="items?.invite_url">Schedule the timing</p>
 																</div>
 															</li>
 														</ng-container>
@@ -213,7 +217,7 @@
  </div><!-- Calendly inline widget end -->
 			</div>
 			<div class="modal-body text-center " *ngIf="openNotBook == true">
-			<iframe width="100%" height="100%"  style="min-width:320px;height:580px;" [src]="url"></iframe>
+			<iframe width="100%" height="100%" frameBorder="0" style="min-width:320px;height:580px;border:0;" [src]="url"></iframe>
 
 			</div>
 			

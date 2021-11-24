@@ -75,10 +75,10 @@
 					</select>
 					</td>
 				  <td class="text-center text-blue"><a class="poin" (click)="openMessagePopup(item)"><i class="fas fa-file-alt"></i></a></td> 
-				  <td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 " (click)="openMessagePopupInviteLink(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>
-				  <td class="text-center" *ngIf="(validateStatus(item) == true  )&& this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 "><a  class="text-danger poin"><i class="fas fa-envelope"></i></a></td>
-				  <td class="text-center" *ngIf="(validateStatus(item) == false && item?.invite_status == true )&& this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 "><a   (click)="openReschedulePopup(item,item?.status)" class="text-warning poin"><i class="fas fa-envelope"></i></a></td>
-				  <td class="text-center" *ngIf="this.employeeValue['privacy_protection'] ['invite_url'] != true || item?.status ==5 ||item?.status ==6 || item?.status ==2 || item?.status ==4 "><a  class="text-danger poin-no"><i class="fas fa-comment-slash"></i></a></td>
+				  <td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 && item?.status !=1 " (click)="openMessagePopupInviteLink(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>
+				  <td class="text-center" *ngIf="(validateStatus(item) == true  )&& this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=5 &&item?.status !=1 && item?.status !=2 && item?.status !=4 "><a  class="text-danger poin"><i class="fas fa-envelope"></i></a></td>
+				  <td class="text-center" *ngIf="(validateStatus(item) == false && item?.invite_status == true )&& this.employeeValue['privacy_protection'] ['invite_url'] == true && item?.status !=6 && item?.status !=1 &&item?.status !=5 && item?.status !=2 && item?.status !=4 "><a   (click)="openReschedulePopup(item,item?.status)" class="text-warning poin"><i class="fas fa-envelope"></i></a></td>
+				  <td class="text-center" *ngIf="this.employeeValue['privacy_protection'] ['invite_url'] != true || item?.status ==5 ||item?.status ==6 || item?.status ==2 || item?.status ==4|| item?.status ==1 "><a  class="text-danger poin-no"><i class="fas fa-comment-slash"></i></a></td>
 				  <td class="text-center" ><a  (click)="openHistoryPopup(item)" class="text-danger poin"><i class="fas fa-history"></i></a></td>
                 </tr>
               </ng-container>
@@ -132,8 +132,9 @@
 		<div class="modal-footer">			
 			<button  (click)="closePopup()" type="button" class="btn btn-secondary" >
 				{{"shared.close" | translate }}
-			</button>	<button [disabled]="inviteUrlLink.trim() =='' || inviteUrlLink ==null || inviteUrlLink.trim().split('/')[2] !=  'calendly.com' " (click)="closeSave()" type="button" class="btn btn-theme-blue">
-				{{"shared.update" | translate }}
+			</button>	
+			<button [disabled]="inviteUrlLink.trim() =='' || inviteUrlLink ==null "  (click)="closeSave()"  type="button" class="btn btn-theme-blue">
+				{{"shared.send" | translate }}
 			</button>	
 		</div>
 </ng-template>

@@ -15,6 +15,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { tabInfo } from '@data/schema/create-candidate';
 import { AccountService } from '@data/service/account.service';
 import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-employer-setting',
@@ -40,10 +41,19 @@ export class EmployerSettingComponent implements OnInit {
 	PhoneNumberFormat = PhoneNumberFormat;
 	public invalidMobile: boolean = false;
 	public inviteStatus: boolean = false;
+	public inviteStatusView: boolean = false;
+	public isShowForm: boolean = false;
+	public isShowCalenderForm: boolean = false;
+	public isShowIframe: boolean = false;
+	public isFormDataShow: boolean = false;
 	public randomNum: number;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
 	@ViewChild("openSuccessPopup", { static: false }) openSuccessModal: TemplateRef<any>;
 	public mbRef: NgbModalRef;
+	@ViewChild("openCalender", { static: false }) calenderModel: TemplateRef<any>;
+	public mbRefs: NgbModalRef;
+	public url: any = '';
+	public urls: any = '';
  
 	constructor(
 		private formBuilder: FormBuilder,
@@ -56,6 +66,7 @@ export class EmployerSettingComponent implements OnInit {
 		private employerService: EmployerService,
 		private userService: UserService,
 		private accountService: AccountService,
+		private sanitizer: DomSanitizer,
 		private router: Router
 	) { }
 
@@ -105,13 +116,41 @@ export class EmployerSettingComponent implements OnInit {
 			
 			  this.employerSharedService.saveEmployerCompanyDetails(response.details);
 			this.companyProfileInfo = { ...response.details };
+			if(this.companyProfileInfo.invite_status == true){
+				this.inviteStatusView =true;
+				this.isShowForm =true;
+			}
+			if(this.companyProfileInfo.calender_status == true){
+				this.isShowCalenderForm =true;
+				this.isShowIframe =false;
+				this.isFormDataShow =false;
+			}else{
+				this.isShowCalenderForm =false;
+				this.isShowIframe =false;
+				this.isFormDataShow =false;
+			}
 			if(this.companyProfileInfo.invite_urls && this.companyProfileInfo.invite_urls.length && this.companyProfileInfo.invite_urls.length !=0 ){
 				for(let i=0;i<=this.t.length;i++){
 						this.t.removeAt(0);
 						i=0;
+						this.isShowCalenderForm =false;
+						this.isShowIframe =false;
+						this.isFormDataShow =true;
 					}
 					this.companyProfileInfo.invite_urls.map((value, index) => {
 						this.t.push(this.formBuilder.group({
+							title: [null, Validators.required],
+							url: [null, Validators.required]
+						}));
+					});
+			}
+			if(this.companyProfileInfo.calender_urls && this.companyProfileInfo.calender_urls.length && this.companyProfileInfo.calender_urls.length !=0 ){
+				for(let i=0;i<=this.c.length;i++){
+						this.c.removeAt(0);
+						i=0;
+					}
+					this.companyProfileInfo.calender_urls.map((value, index) => {
+						this.c.push(this.formBuilder.group({
 							title: [null, Validators.required],
 							url: [null, Validators.required]
 						}));
@@ -171,8 +210,13 @@ export class EmployerSettingComponent implements OnInit {
 			city: ['', Validators.required],
 			firstName: [''],
 			lastName: [''],
-			invite_url: [''],
+			invite_url: [''],			
+			calender_status: new FormControl(true),
 			invite_urls:new FormArray([this.formBuilder.group({
+				title: [null, Validators.required],
+				url: [null, Validators.required]
+			})]),
+			calender_urls:new FormArray([this.formBuilder.group({
 				title: [null, Validators.required],
 				url: [null, Validators.required]
 			})]),
@@ -211,8 +255,10 @@ export class EmployerSettingComponent implements OnInit {
 		return this.f.invite_urls as FormArray;
 	}
 	
+	get c() {
+		return this.f.calender_urls as FormArray;
+	}
 	
-
 	/**
 	**	create a new INVITE_URL
 	**/
@@ -235,8 +281,42 @@ export class EmployerSettingComponent implements OnInit {
 	onRemove = (index) => {
 		if(index == 0 &&this.t.value.length==1) {
 			this.t.reset();
+			this.inviteStatusView = false;
+			this.isShowForm = false;
+			this.updateCompany(false);
 		}else {
 			this.t.removeAt(index);
+		}
+	}
+	
+	
+	/**
+	**	create a new CALENDER_URL
+	**/
+	
+	onDuplicateCalender = (index) => {
+		if(this.c.value[index]['title']== null ||this.c.value[index]['title'].trim() == ''||this.c.value[index]['url']== null ||this.c.value[index]['url'].trim() == '' ){
+		  
+	  }else{
+		this.c.push(this.formBuilder.group({
+			title: [null, Validators.required],
+			url: [null, Validators.required]
+		}));
+	  }
+	}
+	
+	/**
+	**	Remove the CALENDER_URL
+	**/
+	
+	onRemoveCalender = (index) => {
+		if(index == 0 &&this.c.value.length==1) {
+			this.c.reset();
+			this.isShowCalenderForm = false;
+			this.isShowIframe = false;
+			this.updateCompany(false);
+		}else {
+			this.c.removeAt(index);
 		}
 	}
 	
@@ -248,7 +328,7 @@ export class EmployerSettingComponent implements OnInit {
 	onSaveComapnyInfo = () => {
 		
 		if (this.createCompanyForm.valid) {
-			this.updateCompany();
+			this.updateCompany(true);
 			
 		}
 	}
@@ -256,7 +336,7 @@ export class EmployerSettingComponent implements OnInit {
 	/**
 	**	Update Company Values
 	**/
-	updateCompany(){
+	updateCompany(datas){
 		let requestParams: any = { ...this.createCompanyForm.value };
 		requestParams.email_id = this.employerDetails.email;
 		if (this.createCompanyForm.value && this.createCompanyForm.value.contact && !Array.isArray(this.createCompanyForm.value.contact)) {
@@ -276,9 +356,21 @@ export class EmployerSettingComponent implements OnInit {
 			}
 		}
 		requestParams.invite_status = true;
+		if(this.c && this.c.length && this.c.length !=0){
+			requestParams.invite_status = true;
+		}else{
+			requestParams.calender_status = false;
+		}
 		this.employerService.updateCompanyProfile(requestParams).subscribe(
 			response => {
-				this.onGetProfileInfo();
+				if(datas == true){
+					this.onGetProfileInfo();
+				}else if(datas == 'calender'){
+					this.isShowCalenderForm = false;
+					this.isFormDataShow = true;
+					this.isShowIframe = false;
+				}
+				
 			}, error => {
 				this.toastrService.error('Something went wrong', 'Failed')
 			}
@@ -300,7 +392,7 @@ export class EmployerSettingComponent implements OnInit {
 	}
 	
 	closePopup(){
-		this.updateCompany();
+		this.updateCompany(true);
 		this.mbRef.close();
 	}
 	navigateProfile(){
@@ -322,4 +414,71 @@ export class EmployerSettingComponent implements OnInit {
 			}
 		)
 	}
+	
+	enableInviteLink(){
+		this.inviteStatusView = true;
+		this.isShowForm =true;
+	}
+	enableaddCalender(){
+		this.isShowCalenderForm = true;
+		this.isFormDataShow = false;
+		this.isShowIframe = false;
+	}
+	cancelCalender(){
+		this.isShowCalenderForm = false;
+		this.isFormDataShow = true;
+		this.isShowIframe = false;
+	}
+	
+	onSaveComapnyInfoCalender(){
+		if (this.createCompanyForm.valid) {
+			this.updateCompany('calender');
+		}
+	}
+	
+	
+	refresh(){
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.urls);
+		setTimeout(() => {		
+			var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+			var windowURL= window.location.origin+'/';
+			var checkURLs =checkURL[0].split('null');
+			if(checkURL[0]==windowURL || checkURLs[0]==windowURL ){
+				document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+			}
+			var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+			document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+		},500);
+	}
+	
+	openCalenderView(item){
+		var tempUrl =item.url;
+		this.urls =item.url;
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(tempUrl);
+		setTimeout(() => {
+			this.mbRefs = this.modalService.open(this.calenderModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},500);
+		});
+		
+	}
+	
+	closeCalender(){
+		this.mbRefs.close();
+	}
+	
 }
