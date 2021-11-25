@@ -6,6 +6,7 @@ import { ValidationService } from '@shared/service/validation.service';
 import { AppComponent } from 'src/app/app.component';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { environment as env } from '@env';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-form',
@@ -19,6 +20,7 @@ export class LoginFormComponent implements OnInit {
   **/
   public isOpenedRegisterForm: boolean = false;
   public isOpenedForgotPassForm: boolean = false;
+  public showError: boolean = false;
   public error: string;
   public isLoading: boolean;
   public loginForm: FormGroup;
@@ -29,6 +31,7 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
+    public toastr: ToastrService,
     private route: ActivatedRoute,
     private accountService: AccountService,
 	private SharedAPIService: SharedApiService,
@@ -51,7 +54,9 @@ export class LoginFormComponent implements OnInit {
   ** 	If exists navigate based on the role
   **/
   login() {
+	  
     this.isLoading = true;
+    this.showError = false;
 
     let userCredentials = this.loginForm.value;
 
@@ -92,7 +97,9 @@ export class LoginFormComponent implements OnInit {
 			}
             
         }, error => {
+			this.toastr.error('Invalid username or password combination.');
           this.isLoading = false;
+          this.showError = true;
         }
       )
     }
