@@ -531,6 +531,18 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 					this.tempItem = item ;
 					
 					this.isOpenInviteUrl = true;
+					if(this.employeeValue['profile']['invite_urls'] &&
+					this.employeeValue['profile']['invite_urls']['length']&&
+					this.employeeValue['profile']['invite_urls']['length']!=0&&
+					this.employeeValue['profile']['invite_urls'][0]['title']!=null&&
+					this.employeeValue['profile']['invite_urls'][0]['url']!=null){
+						this.inviteUrlLink = '';
+						this.showInput = false;
+					}else{
+						this.inviteUrlLink = '';
+						this.showInput = true;
+					}
+					
 					setTimeout(() => {
 						this.inviteRef = this.modalService.open(this.InviteModel, {
 						  windowClass: 'modal-holder',

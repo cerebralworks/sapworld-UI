@@ -8,11 +8,15 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { FormBuilder, FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
+import { DayService, WeekService, WorkWeekService,PrintService, MonthService, AgendaService, MonthAgendaService,CurrentAction,EventSettingsModel,ResourcesModel,CellClickEventArgs,EJ2Instance,View} from '@syncfusion/ej2-angular-schedule';
+import { extend, Internationalization } from '@syncfusion/ej2-base';
 
+import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs } from "@syncfusion/ej2-angular-schedule";
 @Component({
   selector: 'app-calendar',
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService,PrintService],
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
 })
 
 export class CalendarComponent implements OnInit {
@@ -20,11 +24,16 @@ export class CalendarComponent implements OnInit {
 	/**
 	**	Variable Declaration
 	**/
+	public appliedJobs: any[] = [];
+	public appliedJobMeta: any;
+	public currentView: View = 'Month';
+    public intl: Internationalization = new Internationalization();
 	public createUserForm: FormGroup;
 	public currentProfileInfo: any;
 	public currentuser : any;
 	public loggedUserInfo : any;
 	public sendmail : boolean = false;
+	public isReadOnly: number = 3;
 	public isShowCalenderForm: boolean = false;
 	public isShowIframe: boolean = false;
 	public isFormDataShow: boolean = false;
@@ -34,6 +43,9 @@ export class CalendarComponent implements OnInit {
 	public mbRefs: NgbModalRef;
 	public url: any = '';
 	public urls: any = '';
+	@ViewChild("scheduleObj", { static: false })
+	public scheduleObj: ScheduleComponent;
+	public eventSettings: EventSettingsModel; 
 	
 	constructor(
 		
@@ -54,6 +66,7 @@ export class CalendarComponent implements OnInit {
 	**/
 	ngOnInit(): void {
 		this.buildForm();
+		this.onGetAppliedJobs();
 		this.userService.profile().subscribe(
 			response => {
 				this.currentProfileInfo = response.details;
@@ -90,28 +103,96 @@ export class CalendarComponent implements OnInit {
 		
 	}
 	
+	
+	/**
+	**	To get the Applied Jobs Details API Calls
+	**/
+
+	onGetAppliedJobs = () => {
+      let requestParams: any = {};
+      requestParams.page = 1;
+      requestParams.limit = 100000000;
+      requestParams.expand = "job_posting,user,employer";
+	  requestParams.sort = "updated_at.desc";
+      this.userService.applicationsListForUser(requestParams).subscribe(
+        response => {
+			this.appliedJobs=[];
+          if(response && response.items && response.items.length > 0) {
+            this.appliedJobs = [...this.appliedJobs, ...response.items];
+          }
+          this.appliedJobMeta = { ...response.meta }
+		  this.insertCalendarDetails();
+        }, error => {
+        }
+      )
+	}
+	
+	insertCalendarDetails(){
+		if(this.appliedJobs && this.appliedJobs['length'] && this.appliedJobs['length']!=0){
+			var tempArray=[];
+			for(let i=0;i<=this.appliedJobs.length-1;i++){
+				var ArrayValue = this.appliedJobs[i];
+				var ArrayValueEvents = this.appliedJobs[i]['events'];
+				if(ArrayValue && ArrayValueEvents && ArrayValueEvents['length'] &&ArrayValueEvents['length']!=0){
+					
+					for(let j=0;j<=ArrayValueEvents['length']-1;j++){
+						var CategoryColor = "#a52a2a";
+						var ArrayResource = ArrayValueEvents[j];
+						if(typeof ArrayResource['data'] === 'string'){
+							ArrayResource['data']=JSON.parse(ArrayResource['data']);
+						}
+						if(ArrayResource['data'] &&ArrayResource['data']['resource'] && ArrayResource['status']){
+							
+							var dataValue = ArrayResource['data']['resource'] ;
+							
+							if(dataValue['end_time'] && dataValue['start_time']){
+								var tempStatus= ArrayValue['application_status'].filter(function(a,b){ return parseInt(a.id) == parseInt(ArrayResource['status']) })[0];
+								var tempDescription= '<h6> <strong>Title : </strong>'+dataValue['name']+'</h6> </br>';
+								if(ArrayValue['status'] === ArrayResource['status']  && !ArrayResource['rescheduled'] && !ArrayResource['canceled'] && ArrayValueEvents['length']-1 == j ){
+									tempDescription += '<h6> <strong>Reschedule Metting : </strong><a href="'+ArrayValue['reschedule_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
+									tempDescription += '<h6> <strong>Cancel Metting : </strong><a href="'+ArrayValue['cancel_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
+									CategoryColor = "#008000";
+								}
+								if(ArrayResource['canceled']){
+									CategoryColor = "#ff0000";
+									var newCancel= new Date(ArrayResource['canceled']);
+									tempDescription += '<h6> <strong>Cancelled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br>';
+								}
+								if(ArrayResource['rescheduled']){
+									CategoryColor = "#ffa500";
+									var newCancel= new Date(ArrayResource['rescheduled']);
+									tempDescription += '<h6> <strong>Rescheduled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br>';
+								
+								}
+								tempDescription += '<h6> <strong>Description : </strong> Answers phones and emails, schedules and confirms appointments, and inputs customer data into company systems. Organizes workflow and appointment by reading and routing correspondence, collecting customer information, and managing assignments.</h6> </br>';
+								var tempInsertData = {
+									'Id':j,
+									'Subject':tempStatus['status'],
+									'StartTime':dataValue['start_time'],
+									'EndTime':dataValue['end_time'],
+									'CategoryColor':CategoryColor,
+									'Description':tempDescription
+								}
+								tempArray.push(tempInsertData);
+							}
+							
+						}
+					}
+				}
+			}
+			
+			  this.eventSettings = { dataSource:tempArray};
+			
+		}
+	}
+	openPopup(){
+		console.log('test');
+	}
 	/**
 	**	To assign the tab change functionality
 	**/
 	onTabChange(data){
 		this.currentTabInfo=data;
-		
-	}
-	
-	/**
-	**	To send the invite link to user profile.
-	**/	
-	
-	sendlink(){
-		
-		var data = { 'email' : this.currentuser.email } ;
-		this.sendmail=true;
-		this.invitelink=false;
-		this.accountService.userSignupInviteUrl(data,this.loggedUserInfo).subscribe(data => {
-		    
-		},error=>{
-			
-		})
 		
 	}
 	
@@ -294,5 +375,23 @@ export class CalendarComponent implements OnInit {
 				}
 			)
 		}			
+	}
+	
+	public onEventRendered(args: EventRenderedArgs): void {
+		const categoryColor: string = args.data.CategoryColor as string;
+		if (!args.element || !categoryColor) {
+		  return;
+		}
+		
+		  args.element['firstChild']['style']['borderLeftColor'] = categoryColor;
+		  if(args.element.className.includes('e-agenda-item')){
+			  
+		  }else{
+			args.element.style.backgroundColor = categoryColor;
+		  }
+	}
+	
+	public onPrintClick(): void {
+		this.scheduleObj.print();
 	}
 }

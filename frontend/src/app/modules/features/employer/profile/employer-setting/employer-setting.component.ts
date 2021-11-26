@@ -358,7 +358,11 @@ export class EmployerSettingComponent implements OnInit {
 		requestParams.invite_status = true;
 		if(this.c && this.c.length && this.c.length !=0){
 			requestParams.invite_status = true;
+			if(this.c['value'][0]['title']==null || this.c['value'][0]['url']==null){
+				requestParams.calender_status = false;	
+			}
 		}else{
+			
 			requestParams.calender_status = false;
 		}
 		this.employerService.updateCompanyProfile(requestParams).subscribe(

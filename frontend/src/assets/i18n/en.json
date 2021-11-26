@@ -322,6 +322,7 @@
 	},
 	"common": {
 		"refresh": "Refresh",
+		"print": "Print",
 		"message": "Message",
 		"notifications": "Notifications",
 		"notificationsFrom": "Notification From",
@@ -339,12 +340,13 @@
 		"inviteSettings":"Calendar Settings",
 		"calender":"Calendar",
 		"calenders":"Calendars",
+		"calenderCustom":"Custom Calendars",
 		"calenderTitle":"Calendar Title",
 		"calenderURL":"Calendar URL",
 		"addCalender":"Add Calendars to view scheduling",
 		"addCalenders":"Add Calendars",
 		"inviteSettingsTitle":"Click here to add the calendly",
-		"inviteSettingsAddCustom":"Click here to add the Scheduler Link",
+		"inviteSettingsAddCustom":"Click here to add the Other Link",
 		"AddInviteLink":"Add Invite Link",
 		"addResume": "Add Resume"
 	},
