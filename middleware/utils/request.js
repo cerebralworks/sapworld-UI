@@ -116,6 +116,8 @@ const requests = {
 			res.status(500).json(responseBody)
 		  })
 	},
+	
+	
 	/**
 	**	To pass the post request with the params
 	**	and return the success or failed response
