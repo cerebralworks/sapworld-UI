@@ -444,7 +444,7 @@
   "country": "INDIA",
   "name": "Su nombre",
   "email1": "Su correo electrónico",
-  "subject": "Teléfono",
+  "subject": "El asunto",
   "message": "Su mensaje",
   "send": "Enviar mensaje",
   "alert1": "Nombre obligatorio",

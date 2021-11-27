@@ -447,7 +447,7 @@
   "country": "INDIEN",
   "name": "Ihr Name",
   "email1": "Ihre E-Mail",
-  "subject": "Telefon",
+  "subject": "Betreff",
   "message": "Ihre Nachricht",
   "send": "Nachricht senden",
   "alert1": "Name ist erforderlich",

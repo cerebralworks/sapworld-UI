@@ -259,10 +259,10 @@ export class EmployerSettingComponent implements OnInit {
 	sendInviteLink(){
 		
 		var emailData = { 'email' : this.employerDetails.email ? this.employerDetails.email.toLowerCase() : '' } ;
-		this.accountService.userSignupInviteUrl(emailData,this.loggedUserInfo).subscribe(
+		/*this.accountService.userSignupInviteUrl(emailData,this.loggedUserInfo).subscribe(
 			response => {
 				this.onOpenStatusModal();
 			}
-		)
+		)*/
 	}
 }

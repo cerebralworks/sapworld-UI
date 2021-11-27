@@ -453,7 +453,7 @@
 		"country" : "INDIA",
 		"name" : "Your Name",
 		"email1" : "Your Email",
-		"subject" : "Phone",
+		"subject" : "Subject",
 		"message" : "Your Message",
 		"send" : "Send Message",
 		"alert1" : "Name is Required",
