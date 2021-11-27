@@ -154,11 +154,13 @@ export class CalendarComponent implements OnInit {
 									CategoryColor = "#008000";
 								}
 								if(ArrayResource['canceled']){
+									tempArray.splice(-1);
 									CategoryColor = "#ff0000";
 									var newCancel= new Date(ArrayResource['canceled']);
 									tempDescription += '<h6> <strong>Cancelled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br>';
 								}
 								if(ArrayResource['rescheduled']){
+									tempArray.splice(-1);
 									CategoryColor = "#ffa500";
 									var newCancel= new Date(ArrayResource['rescheduled']);
 									tempDescription += '<h6> <strong>Rescheduled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br>';
