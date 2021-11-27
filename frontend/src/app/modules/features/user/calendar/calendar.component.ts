@@ -166,6 +166,18 @@ export class CalendarComponent implements OnInit {
 									tempDescription += '<h6> <strong>Rescheduled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br>';
 								
 								}
+								if(j !=0 && ArrayValueEvents[j-1]){
+									var tempCheck =ArrayValueEvents[j-1]['data'];
+									if(typeof ArrayValueEvents[j-1]['data']  === 'string' ){
+										tempCheck =JSON.parse(ArrayValueEvents[j-1]['data']); 
+									}
+									if(tempCheck['resource']['rescheduled']){
+										CategoryColor = "#ffa500";
+										var newCancel= new Date(ArrayResource['rescheduled']);
+										tempDescription += '<h6> <strong>Rescheduled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br>';
+								
+									}
+								}
 								tempDescription += '<h6> <strong>Description : </strong> Answers phones and emails, schedules and confirms appointments, and inputs customer data into company systems. Organizes workflow and appointment by reading and routing correspondence, collecting customer information, and managing assignments.</h6> </br>';
 								var tempInsertData = {
 									'Id':j,
@@ -176,6 +188,9 @@ export class CalendarComponent implements OnInit {
 									'Description':tempDescription
 								}
 								tempArray.push(tempInsertData);
+								if(ArrayResource['rescheduled']){
+									tempArray.splice(-1);
+								}
 							}
 							
 						}
