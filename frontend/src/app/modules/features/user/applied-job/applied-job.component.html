@@ -120,8 +120,8 @@
 																	<h6 style="font-size: 11px;margin-bottom:5px;" *ngIf="items?.invited || items?.created || items?.canceled">History</h6>
 																	<p *ngIf="items?.invited">You have received invite link on <span class="blu" >{{items?.invited | date: 'longDate' }} </span> at <span class="blu" >{{items?.invited | date: 'shortTime' }} </span> </p>
 																	<p *ngIf="items?.created">Accepted the invite link on <span class="gre" >{{items?.created | date: 'longDate' }} </span> at <span class="gre" >{{items?.created | date: 'shortTime' }} </span> </p>
-																	<p *ngIf="items?.canceled">Canceled the invite link on  <span class="re" >{{items?.canceled | date: 'longDate' }} </span> at <span class="re" >{{items?.canceled | date: 'shortTime' }} </span></p>
 																	<p *ngIf="items?.rescheduled">Rescheduled the invite link on <span class="yel" >{{items?.rescheduled | date: 'longDate' }} </span> at <span class="yel" >{{items?.rescheduled | date: 'shortTime' }} </span></p>
+																	<p *ngIf="items?.canceled">Canceled the invite link on  <span class="re" >{{items?.canceled | date: 'longDate' }} </span> at <span class="re" >{{items?.canceled | date: 'shortTime' }} </span></p>
 																</div>
 															</li>
 															<li class=" success" *ngIf="items?.id == '2' " >
