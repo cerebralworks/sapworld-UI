@@ -244,7 +244,7 @@ export class AppliedJobComponent implements OnInit {
 				windowClass: 'modal-holder',
 				size: 'xl',
 				centered: true,
-				backdrop: 'static',
+				//backdrop: 'static',
 				keyboard: false
 			});
 		});
@@ -258,7 +258,8 @@ export class AppliedJobComponent implements OnInit {
 					customAnswers: {
 						a1:document.getElementById("appid")['value'],
 					}
-				} 
+				} ,
+				branding: false 
 			});
 			setTimeout(() => {		
 				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
@@ -289,7 +290,7 @@ export class AppliedJobComponent implements OnInit {
 				windowClass: 'modal-holder',
 				size: 'xl',
 				centered: true,
-				backdrop: 'static',
+				//backdrop: 'static',
 				keyboard: false
 			});
 			setTimeout(() => {		
@@ -322,7 +323,7 @@ export class AppliedJobComponent implements OnInit {
 				windowClass: 'modal-holder',
 				size: 'xl',
 				centered: true,
-				backdrop: 'static',
+				//backdrop: 'static',
 				keyboard: false
 			});
 			setTimeout(() => {		
@@ -356,7 +357,7 @@ export class AppliedJobComponent implements OnInit {
 				windowClass: 'modal-holder',
 				size: 'xl',
 				centered: true,
-				backdrop: 'static',
+				//backdrop: 'static',
 				keyboard: false
 			});
 			setTimeout(() => {		

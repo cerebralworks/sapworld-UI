@@ -1,4 +1,7 @@
-
+::ng-deep input[name="question_0"] {display:none !important;}
+::ng-deep .modal-dialog {
+	margin-top:1px !important;
+}
 ul.statusHistory {
     list-style-type: none;
     position: relative;

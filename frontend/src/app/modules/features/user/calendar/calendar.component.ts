@@ -136,7 +136,10 @@ export class CalendarComponent implements OnInit {
 				if(ArrayValue && ArrayValueEvents && ArrayValueEvents['length'] &&ArrayValueEvents['length']!=0){
 					
 					for(let j=0;j<=ArrayValueEvents['length']-1;j++){
-						var CategoryColor = "#1b8c19";
+						var CategoryColor = "#008000";
+						var input1Date =  new Date();
+						var input2Date =  new Date();
+
 						var ArrayResource = ArrayValueEvents[j];
 						if(typeof ArrayResource['data'] === 'string'){
 							ArrayResource['data']=JSON.parse(ArrayResource['data']);
@@ -151,13 +154,16 @@ export class CalendarComponent implements OnInit {
 								if(ArrayValue['status'] === ArrayResource['status']  && !ArrayResource['rescheduled'] && !ArrayResource['canceled'] && ArrayValueEvents['length']-1 == j ){
 									tempDescription += '<h6> <strong>Reschedule Metting : </strong><a href="'+ArrayValue['reschedule_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
 									tempDescription += '<h6> <strong>Cancel Metting : </strong><a href="'+ArrayValue['cancel_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
-									CategoryColor = "#0244a8";
+									CategoryColor = "#008000";
 								}
-								
+								input2Date =  new Date(dataValue['end_time']);
+								if (input1Date.getTime() < input2Date.getTime()){
+									CategoryColor = "blue";
+								}
 								if(ArrayResource['canceled']){
-								if(ArrayResource['canceledreason']){
-								var cancelreason = ArrayResource['canceledreason']['reason'];
-								}
+									if(ArrayResource['canceledreason']){
+										var cancelreason = ArrayResource['canceledreason']['reason'];
+									}
 									tempArray.splice(-1);
 									CategoryColor = "#ff0000";
 									var newCancel= new Date(ArrayResource['canceled']);
@@ -166,9 +172,9 @@ export class CalendarComponent implements OnInit {
 								if(ArrayResource['rescheduled_canceled']){
 								   var reasons = ArrayResource['reason']['reason'];
 								}
-								if(ArrayResource['rescheduled']){						   
+								if(ArrayResource['rescheduled']){
 									tempArray.splice(-1);
-									CategoryColor = "#edd311";
+									CategoryColor = "#ffa500";
 									var newCancel= new Date(ArrayResource['rescheduled']);
 									tempDescription += '<h6> <strong>Rescheduled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br><h6> <strong>Reason For Reschedule : </strong></br>'+reasons+'</h6>';
 								
