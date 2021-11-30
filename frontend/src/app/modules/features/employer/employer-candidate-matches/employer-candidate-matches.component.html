@@ -174,7 +174,7 @@
                           <span>{{(item?.first_name ? item?.first_name : '') + ' ' + (item?.last_name ? item?.last_name : '')}}</span>
                           <small *ngIf="item?.job_role"> - {{item?.job_role}}</small>
                           <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application) && item?.job_application?.status != 2 " class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;">{{ item?.job_application?.status == 7 ? 'Pending' : 'Applied'}}</span>
-                          <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application) && item?.job_application?.status == 2 " class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;"> {{"shared.hied" | translate}}  </span>
+                          <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application) && item?.job_application?.status == 2 " class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;"> {{"shared.hired" | translate}} </span>
                         </h5>
                         <!-- <h6> -->
 
