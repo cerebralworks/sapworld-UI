@@ -103,7 +103,8 @@
 									</div>
 									<div class="col-lg-12 info" style="text-align:end;">
 										<button type="button" *ngIf="!matchingJob?.jobs.is_job_applied"  [ngClass]="{'applied-btn-green': (matchingJob?.jobs.is_job_applied ), 'btn-outline-green': !matchingJob?.jobs.is_job_applied}" [disabled]="matchingJob?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJob?.jobs)" class="btn btn-outline-green ml-auto" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.apply" | translate}}</button>
-										<button type="button" *ngIf="matchingJob?.jobs.is_job_applied" [disabled]="matchingJob?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJob?.jobs)" class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.applied" | translate}} </button>
+										<button type="button" *ngIf="matchingJob?.jobs.is_job_applied && matchingJob?.jobs?.job_application?.status != 2 " [disabled]="matchingJob?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJob?.jobs)" class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.applied" | translate}} </button>
+										<button type="button" *ngIf="matchingJob?.jobs?.job_application?.status == 2 " [disabled]="matchingJob?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJob?.jobs)" class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.hired" | translate}} </button>
 									</div>
 								</div>
 							</div>
