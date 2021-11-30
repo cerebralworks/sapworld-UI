@@ -34,7 +34,8 @@
 										</div>
 										<div class="float-right" *ngIf="item?.status == 1 || item?.is_job_applied ">
 											<button [ngClass]="{'applied-btn-green': (item?.is_job_applied ), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied " type="button" class="btn btn-sm" (click)="onToggleResumeSelectModals(true, item)"> <i class="fas fa-check"></i>
-												<a *ngIf="item?.is_job_applied" style="color: #fff;">{{"shared.applied" | translate}} </a>
+												<a *ngIf="item?.job_application?.status == 2" style="color: #fff;">{{"shared.hired" | translate}} </a>
+												<a *ngIf="item?.is_job_applied && item?.job_application?.status != 2" style="color: #fff;">{{"shared.applied" | translate}} </a>
 												<a *ngIf="!item?.is_job_applied" >{{"shared.applyNow" | translate}} </a>
 											</button>
 										</div>
