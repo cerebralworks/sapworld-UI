@@ -48,5 +48,6 @@ export interface JobPosting {
   end_to_end_implementation: number;
   contract_duration: number;
   latlng_text: any;
+  job_applied: any;
   travel_opportunity: number;
 }
