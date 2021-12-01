@@ -362,7 +362,6 @@ export class EmployerSettingComponent implements OnInit {
 				requestParams.calender_status = false;	
 			}
 		}else{
-			
 			requestParams.calender_status = false;
 		}
 		this.employerService.updateCompanyProfile(requestParams).subscribe(
@@ -429,9 +428,13 @@ export class EmployerSettingComponent implements OnInit {
 		this.isShowIframe = false;
 	}
 	cancelCalender(){
-		this.isShowCalenderForm = false;
-		this.isFormDataShow = true;
-		this.isShowIframe = false;
+		if(this.c.value[0]['title']== null ||this.c.value[0]['title'].trim() == ''||this.c.value[0]['url']== null ||this.c.value[0]['url'].trim() == '' ){
+			
+		}else{
+			this.isShowCalenderForm = false;
+			this.isFormDataShow = true;
+			this.isShowIframe = false;
+		}
 	}
 	
 	onSaveComapnyInfoCalender(){
