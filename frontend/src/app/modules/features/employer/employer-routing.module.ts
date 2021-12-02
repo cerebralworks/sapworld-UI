@@ -66,6 +66,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('@modules/features/employer/profile/employer-setting/employer-setting.module').then(m => m.EmployerSettingModule)
   },
+  {
+    path: 'calendar',
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.Employer] },
+    loadChildren: () =>
+      import('@modules/features/employer/profile/calendar/calendar.module').then(m => m.CalendarModule)
+  },
 ];
 
 @NgModule({

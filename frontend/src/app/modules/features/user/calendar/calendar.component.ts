@@ -150,16 +150,34 @@ export class CalendarComponent implements OnInit {
 							
 							if(dataValue['end_time'] && dataValue['start_time']){
 								var tempStatus= ArrayValue['application_status'].filter(function(a,b){ return parseInt(a.id) == parseInt(ArrayResource['status']) })[0];
-								var tempDescription= '<h6> <strong>Title : </strong>'+dataValue['name']+'</h6> </br>';
-								if(ArrayValue['status'] === ArrayResource['status']  && !ArrayResource['rescheduled'] && !ArrayResource['canceled'] && ArrayValueEvents['length']-1 == j ){
-									tempDescription += '<h6> <strong>Reschedule Metting : </strong><a href="'+ArrayValue['reschedule_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
-									tempDescription += '<h6> <strong>Cancel Metting : </strong><a href="'+ArrayValue['cancel_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
-									CategoryColor = "#008000";
-								}
+								var titleUpper =ArrayValue['job_posting']['title'].toUpperCase();
+								var statusUpper = tempStatus['status'].toUpperCase();
+								var tempDescription= '<h6> <strong>Title : </strong>You have scheduled for the screening process of <a style="color:blue;font-weight: bolder;">'+statusUpper+'</a> in <a style="color:blue;font-weight: bolder;">'+titleUpper +'</a> job</h6> </br>';
+								
 								input2Date =  new Date(dataValue['end_time']);
 								if (input1Date.getTime() < input2Date.getTime()){
 									CategoryColor = "blue";
+									
+									if(ArrayResource['created'] || ArrayResource['rescheduled']){
+										if(dataValue['location'] && dataValue['location']['join_url']){
+											tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="'+dataValue['location']['join_url']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+										}
+										if(dataValue['location'] && dataValue['location']['type'] =='outbound_call'){
+											tempDescription += '<h6> <strong>Telephone Round  </strong> <a  style="color:blue;" > '+dataValue['location']['location']+' </a></h6> </br>';
+										}
+										if(dataValue['location'] && dataValue['location']['type'] =='custom'){
+											tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="'+dataValue['location']['location']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+										}
+									}
+									
 								}
+								
+								if(ArrayValue['status'] === ArrayResource['status']  && !ArrayResource['rescheduled'] && !ArrayResource['canceled'] && ArrayValueEvents['length']-1 == j ){
+									tempDescription += '<h6> <strong>Reschedule Meeting : </strong><a href="'+ArrayValue['reschedule_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
+									tempDescription += '<h6> <strong>Cancel Meeting : </strong><a href="'+ArrayValue['cancel_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
+									//CategoryColor = "#008000";
+								}
+								
 								if(ArrayResource['canceled']){
 									if(ArrayResource['canceledreason']){
 										var cancelreason = ArrayResource['canceledreason']['reason'];
@@ -167,24 +185,26 @@ export class CalendarComponent implements OnInit {
 									tempArray.splice(-1);
 									CategoryColor = "#ff0000";
 									var newCancel= new Date(ArrayResource['canceled']);
-									tempDescription += '<h6> <strong>Cancelled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6></br><h6> <strong>Reason For Cancelled : </strong></br>'+cancelreason+'</h6>';
+									tempDescription += '<h6> <strong>Cancelled Meeting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6></br><h6> <strong>Reason For Cancelled : </strong></br>'+cancelreason+'</h6>';
 								}
 								if(ArrayResource['rescheduled_canceled']){
 								   var reasons = ArrayResource['reason']['reason'];
 								}
 								if(ArrayResource['rescheduled']){
 									tempArray.splice(-1);
-									CategoryColor = "#ffa500";
+									if (input1Date.getTime() < input2Date.getTime()){
+										CategoryColor = "#ffa500";
+									}
+									
 									var newCancel= new Date(ArrayResource['rescheduled']);
-									tempDescription += '<h6> <strong>Rescheduled Metting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br><h6> <strong>Reason For Reschedule : </strong></br>'+reasons+'</h6>';
+									tempDescription += '<h6> <strong>Rescheduled Meeting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br><h6> <strong>Reason For Reschedule : </strong></br>'+reasons+'</h6>';
 								
 								}
-								if(ArrayResource['created']){
-								tempDescription += '<h6> <strong>Description : </strong> Answers phones and emails, schedules and confirms appointments, and inputs customer data into company systems. Organizes workflow and appointment by reading and routing correspondence, collecting customer information, and managing assignments.</h6> </br>';
-								}
+								var tempTitle= ArrayValue['job_posting']['title']+' - '+tempStatus['status'];
+								tempTitle=tempTitle.toUpperCase();
 								var tempInsertData = {
 									'Id':j,
-									'Subject':tempStatus['status'],
+									'Subject':tempTitle,
 									'StartTime':dataValue['start_time'],
 									'EndTime':dataValue['end_time'],
 									'CategoryColor':CategoryColor,
