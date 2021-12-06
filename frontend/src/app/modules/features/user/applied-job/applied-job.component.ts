@@ -250,14 +250,11 @@ export class AppliedJobComponent implements OnInit {
 		});
 		setTimeout(() => {
 			window.Calendly.initInlineWidget({
-				url: document.getElementsByClassName('checkVal')[0]['id'],
+				url: document.getElementsByClassName('checkVal')[0]['id']+"?utm_source="+this.itemsIDVAL.id,
 				parentElement: document.querySelector('.calendly-inline-widget'),
 				prefill: {
 					name: document.getElementById("name")['value'],
-					email: document.getElementById("email")['value'],
-					customAnswers: {
-						a1:document.getElementById("appid")['value'],
-					}
+					email: document.getElementById("email")['value']
 				} ,
 				branding: false 
 			});
