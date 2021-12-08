@@ -36,6 +36,10 @@
               [ngClass]="{'active': currentTabInfo.tabNumber == 3}"
               class="nav-link"  href="javascript:;"> My Links</a>
           </li>
+		  <li class="nav-item" role="presentation">
+            <a (click)="onTabChange({tabName: 'Notification Setting', tabNumber: 4})"
+              [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link"  href="javascript:;"> Notification Setting</a>
+          </li>
         </ul>
 
         <div class="tab-content pt-3" id="pills-tabContent">
@@ -45,7 +49,7 @@
           <app-user-account-setting *ngIf="currentTabInfo.tabNumber == 2"></app-user-account-setting>
 
           <app-user-links *ngIf="currentTabInfo.tabNumber == 3"></app-user-links>
-
+          <app-notification-setting *ngIf="currentTabInfo.tabNumber == 4"></app-notification-setting>
         </div>
       </div>
     </div>

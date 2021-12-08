@@ -239,6 +239,7 @@ export class AppliedJobComponent implements OnInit {
 		this.itemsIDVAL = item;
 		this.openBookingSite = true;
 		this.openNotBook = false;
+		console.log(this.itemsIDVAL)
 		setTimeout(() => {
 			this.bookingModelRef = this.modelService.open(this.bookingModel, {
 				windowClass: 'modal-holder',
@@ -255,6 +256,7 @@ export class AppliedJobComponent implements OnInit {
 				prefill: {
 					name: document.getElementById("name")['value'],
 					email: document.getElementById("email")['value']
+					
 				} ,
 				branding: false 
 			});

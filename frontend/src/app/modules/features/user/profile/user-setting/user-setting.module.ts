@@ -6,6 +6,7 @@ import { SettingLayoutComponent } from './setting-layout/setting-layout.componen
 import { UserAccountSettingComponent } from './account-setting/user-account-setting.component';
 import { UserSharedModuleModule } from '../../user-shared-module/user-shared-module.module';
 import { UserLinksComponent } from './user-links/user-links.component';
+import { NotificationSettingComponent } from './notification-setting/notification-setting.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
   declarations: [
     SettingLayoutComponent,
     UserAccountSettingComponent,
-    UserLinksComponent
+    UserLinksComponent,
+    NotificationSettingComponent
   ],
   imports: [
     CommonModule,

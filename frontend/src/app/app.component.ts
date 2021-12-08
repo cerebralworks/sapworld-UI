@@ -11,10 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { DataService } from '@shared/service/data.service';
-
-import {
-    PushNotificationsService
-} from '@shared/service/notification.service';
+import { PushNotificationsService } from '@shared/service/notification.service';
 
 import * as moment from 'moment';
 
@@ -49,11 +46,10 @@ export class AppComponent {
     private route?: ActivatedRoute,
     private ngxService?: NgxUiLoaderService, 
 	private _notificationService?: PushNotificationsService
-  ) {
+  ) { this._notificationService.requestPermission();
   }
 
   ngOnInit(): void {
-
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
 
@@ -128,6 +124,7 @@ export class AppComponent {
 			params.view = 'user';
 			this.employerService.onGetNotification(params).subscribe(
 			  response => {
+			   console.log(response)
 				if(response && response['data']) {
 					if(window.location.href.includes('notification') && this.check ==false){
 						this.totalValue =0;
@@ -138,6 +135,7 @@ export class AppComponent {
 					}
 					let data: Array < any >= response['data'];
 					data = data.map(elm => ({ title: elm.title, alertContent: elm.message}));
+					
 					var val:any = document.getElementById('notifi_count');
 					this.totalValue =  response['count'];
 					if(this.totalValue !=0){
@@ -145,6 +143,9 @@ export class AppComponent {
 						document.getElementById('notifi_count')['style']['display']='block';
 						document.getElementById('notifi_color')['style']['display']='block';
 						document.getElementById('notifi_count')['innerHTML']=this.totalValue;
+						if((this.userProfileInfo['details']['privacy_protection']['employer_mail_send']===true && data[0]['title'] === "Job Invitation") || (this.userProfileInfo['details']['privacy_protection']['new_match']===true && data[0]['title'] === "New Job Matches")){
+						this._notificationService.generateNotification(data);
+						}
 					}else{
 						document.getElementById('notifi_count')['style']['display']='none';
 						document.getElementById('notifi_color')['style']['display']='none';
@@ -183,6 +184,9 @@ export class AppComponent {
 						document.getElementById('notifi_count')['style']['display']='block';
 						document.getElementById('notifi_color')['style']['display']='block';
 						document.getElementById('notifi_count')['innerHTML']=this.totalValue;
+						if((this.employerProfileInfo['details']['privacy_protection']['new_match']===true && data[0]['title'] === "New User Matches") || (this.employerProfileInfo['details']['privacy_protection']['new_candidate_applied']===true && data[0]['title'] === "New Application Request")){
+						this._notificationService.generateNotification(data);
+						}
 					}else{
 						document.getElementById('notifi_count')['style']['display']='none';
 						document.getElementById('notifi_color')['style']['display']='none';
@@ -227,6 +231,7 @@ getCommonData(){
     this.userService.profile().subscribe(
       response => {
         this.userProfileInfo = response;
+		//console.log(this.userProfileInfo['details']['privacy_protection'])
         if(this.userProfileInfo && this.userProfileInfo.details) {
           this.userProfileInfo.details = {...this.userProfileInfo.details, meta: this.userProfileInfo.meta};
           this.userSharedService.saveUserProfileDetails(this.userProfileInfo.details);

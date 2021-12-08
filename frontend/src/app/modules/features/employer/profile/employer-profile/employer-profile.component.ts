@@ -26,7 +26,7 @@ export class EmployerProfileComponent implements OnInit {
 	public validateSubscribe: number = 0;
 	public randomNum: number;
 	public privacyProtection: any;
-
+	
 	constructor(
 		private employerService: EmployerService,
 		private toastrService: ToastrService,
@@ -55,7 +55,7 @@ export class EmployerProfileComponent implements OnInit {
 			details => {
 				if (!this.utilsHelperService.isEmptyObj(details) && this.validateSubscribe ==0 ) {
 					this.employerDetails = details;
-					this.privacyProtection = details.privacy_protection;
+					this.privacyProtection = details.privacy_protection;					
 					if(this.privacyProtection==null || this.privacyProtection ==undefined){
 						this.privacyProtection={
 						  'phone':false,
@@ -130,6 +130,7 @@ export class EmployerProfileComponent implements OnInit {
     onSetSettings = (item: any, eventValue: boolean) => {
 		this.privacyProtection[item.field] = eventValue;
 		this.setPrivacy(this.privacyProtection);
+		
 	}
 	
 	/**
@@ -150,6 +151,7 @@ export class EmployerProfileComponent implements OnInit {
 				}
 			)
 		}
+		
 	}
 	
 	
