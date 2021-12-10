@@ -144,7 +144,8 @@
 		"months": "in Monaten",
 		"contractDuration": "Vertragslaufzeit",
 		"enterNumberOfPositions": "Geben Sie die Anzahl der Positionen ein",
-		"validStatus": "Bitte wählen Sie den gültigen Status"
+		"validStatus": "Bitte wählen Sie den gültigen Status",
+		"notificationSetting" : "Benachrichtigungseinstellung"
 	},
 	"auth":{
 		"findRightPlace":"Finden Sie Ihren richtigen Ort",
@@ -467,5 +468,18 @@
 		"alert4": "Nachricht ist erforderlich",
 		"valid": "Geben Sie die gültige E-Mail-Adresse ein",
 		"exist": "E-Mail existiert bereits"
+	},
+	"notificationSettingsUser":{
+		"notification1" : "Neue Job-Matches",
+		"notification2" : "Arbeitgeber E-Mail senden",
+		"notification3" : "Profile Shortlisted",
+		"notification4" : "Profil in der engeren Auswahl",
+		"notification5" : "Vorstellungsgespräch geplant"
+	},
+	"notificationSettingsEmployer" :{
+		"notification1" : "Neue Benutzerübereinstimmungen",
+		"notification2" : "Neuer Kandidat beworben",
+		"notification3" : "Passender Kandidat hat geantwortet"
+		
 	}
 }

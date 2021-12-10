@@ -9,11 +9,17 @@ import { EmployerService } from '@data/service/employer.service';
   styleUrls: ['./employer-setting.component.css']
 })
 export class EmployerSettingComponent implements OnInit {
+	
+	/**
+	**	Variable declaration
+	**/
+	
 	public tab1 : boolean = true;
 	public tab2 : boolean = false;
 	public notificationSettings :any[] = [];
 	public employerDetails: any;
 	public privacyProtection: any;
+	
 	constructor(	
 		private router: Router,
 		private employerSharedService :EmployerSharedService,
@@ -32,41 +38,56 @@ export class EmployerSettingComponent implements OnInit {
 		];
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
-					this.employerDetails = details;
-					this.privacyProtection = details.privacy_protection;					
-					if(this.privacyProtection==null || this.privacyProtection ==undefined){
-						this.privacyProtection={
-						  'new_match':false,
-						  'new_candidate_applied':false,
-						  'matching_canditate_respond':false
-						  
-						}
+				this.employerDetails = details;
+				this.privacyProtection = details.privacy_protection;					
+				if(this.privacyProtection==null || this.privacyProtection ==undefined){
+					this.privacyProtection={
+						'new_match':false,
+						'new_candidate_applied':false,
+						'matching_canditate_respond':false
+					  
 					}
+				}
 			}
 		)
 		
 
 	}
+
+	/**
+	**	Change the tab locations
+	**/
 	
 	OnNotification(){
-	this.tab1= false;
-	this.tab2= true;
+		this.tab1= false;
+		this.tab2= true;
 	}
+
+	/**
+	**	Change the tab locations
+	**/
+	
 	OnAccount(){
-	this.tab1= true;
-	this.tab2= false;
+		this.tab1= true;
+		this.tab2= false;
 	}
-	 onSetSettings = (item: any, eventValue: boolean) => {
+
+	/**
+	**	Change the tab locations
+	**/
+	
+	onSetSettings = (item: any, eventValue: boolean) => {
 		this.privacyProtection[item.field] = eventValue;
 		this.setPrivacy(this.privacyProtection);
-		
 	}
+	
 	setPrivacy(privacyProtection) {
 		
-			let requestParams = {...this.employerDetails};
-			requestParams.privacy_protection = privacyProtection;
-			this.employerService.update(requestParams).subscribe(
-				response => {		
-				})
+		let requestParams = {...this.employerDetails};
+		requestParams.privacy_protection = privacyProtection;
+		this.employerService.update(requestParams).subscribe(
+		response => {		
+		
+		})
 	}
 }

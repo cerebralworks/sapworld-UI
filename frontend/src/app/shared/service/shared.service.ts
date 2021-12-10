@@ -229,7 +229,12 @@ onFindSkillsFromID = (arrayValues: Array<any>, returnVal: string = 'string') => 
 	address.stateShort = this.findTypeShortName(addr, "locality" );
 	  
   }
+  address.countryShort = this.findTypeShortName(addr, "country");
   
+  if(address.countryShort ==null){
+	address.countryShort = this.findTypeShortName(addr, "country" );
+	  
+  }
   address.zipcode = this.findTypeLongName(addr, "postal_code");
   address.country = this.findTypeLongName(addr, "country");
 	if(address.city==address.country){

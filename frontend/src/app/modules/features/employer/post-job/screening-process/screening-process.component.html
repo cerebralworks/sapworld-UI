@@ -7,6 +7,28 @@
 			</h6>
 		</div>
 	</div>
+	<div class="col-lg-12" *ngIf="(!screeningProcess || screeningProcess.length==0) && t.controls.length == 0 ">
+		<div class="row mt-3 mb-3">
+			<div class="col-lg-3 col-md-5 matches-8 sidebar-widgets" >
+				<div class="text-left">
+					<div class=" form-group">
+						<div class="custom-control custom-checkbox mb-2">
+							<input type="checkbox" (click)="handleChange($event,'default')" class="custom-control-input" id="default" name="screeningProcess">
+							<label class="custom-control-label font-weight-bold text-dark" for="default">Screening-1 </label>
+						</div>
+					</div>
+					<div class="row mt-3 mb-3" *ngFor="let items of defaultScreening;let i=index">
+						<div class="col-lg-2 col-md-1 matches-10 text-left">
+							<h6 class="font-weight-bold">{{i+1}}.</h6> 
+						</div>	
+						<div class="col-lg-10 col-md-10 matches-80 text-left">
+							<h6>{{items.title}}</h6>
+						</div>	
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
 	<div class="col-lg-12" *ngIf="screeningProcess && screeningProcess.length && t.controls.length == 0 ">
 		<div class="row mt-3 mb-3">
 			<div class="col-lg-3 col-md-5 matches-8 sidebar-widgets" *ngFor="let items of screeningProcess;let i=index">
@@ -29,6 +51,7 @@
 			</div>
 		</div>
 	</div>
+	
 		<div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
 			<ng-container [formGroup]="ticket">
 				<div class="col-lg-4 col-md-6">

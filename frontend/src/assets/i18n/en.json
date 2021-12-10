@@ -145,7 +145,11 @@
 		"sapModule":"SAP Module",
 		"knowledgeOnSAP":"Knowledge on other SAP Skills",
 		"couldNotFind":"Could not find your SAP skills",
-		"addNewSkills":"Please Add New SAP Skill"
+		"addNewSkills":"Please Add New SAP Skill",
+		"notificationSetting" : "Notification Setting",
+		"jobLocation" : "Job Location",
+		"workTiming" : "Work Timing",
+		"timing" : "Timing"
 	},
 	"auth":{
 		"findRightPlace":"Find Your Right Place",
@@ -476,5 +480,18 @@
 		"alert4" : "Message is Required",
 		"valid" : "Enter the valid email",
 		"exist" : "Email already exist"
+	},
+	"notificationSettingsUser":{
+		"notification1" : "New Job Matches",
+		"notification2" : "Employer Send Mail",
+		"notification3" : "Profile Shortlisted",
+		"notification4" : "Profile Rejected",
+		"notification5" : "Interview Scheduled"
+	},
+	"notificationSettingsEmployer" :{
+		"notification1" : "New User Matches",
+		"notification2" : "New Candidate Applied",
+		"notification3" : "Matching Candidate Responded"
+		
 	}
 }

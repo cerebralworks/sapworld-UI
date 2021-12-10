@@ -140,7 +140,8 @@
 	    "sapModule":"Módulo SAP",
 	    "knowledgeOnSAP":"Conocimiento sobre otras habilidades de SAP",
 	    "couldNotFind":"No pude encontrar sus habilidades de SAP",
-	    "addNewSkills":"Agregue una nueva habilidad de SAP"
+	    "addNewSkills":"Agregue una nueva habilidad de SAP",
+		"notificationSetting" :"Notificación de configuración"
 	},
 	"auth":{
 	    "findRightPlace":"Encuentra tu lugar correcto",
@@ -463,5 +464,18 @@
 		"alert4": "El mensaje es obligatorio",
 		"valid": "Ingrese el correo electrónico válido",
 		"exist": "El correo electrónico ya existe"
+	},
+	"notificationSettingsUser":{
+		"notification1" : "Nuevas coincidencias de trabajo",
+		"notification2" : "Correo de envío del empleador",
+		"notification3" : "Perfil preseleccionado",
+		"notification4" : "Perfil rechazado",
+		"notification5" : "Entrevista programada"
+	},
+	"notificationSettingsEmployer" :{
+		"notification1" : "Coincidencias de nuevos usuarios",
+		"notification2" : "Nueva candidata aplicada",
+		"notification3" : "Candidata a juego respondida"
 	}
+	
 }
