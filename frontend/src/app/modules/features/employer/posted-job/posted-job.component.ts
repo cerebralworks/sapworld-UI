@@ -149,6 +149,7 @@ export class PostedJobComponent implements OnInit {
 	onChangeStatus = () => {
 		let requestParams: any = {};
 		requestParams.id = this.currentValueOfJob.id;
+		requestParams.location_id = this.currentValueOfJob['job_location']['id'];
 		requestParams.status = parseInt(this.currentValueOfStatus);
 		requestParams.status_glossary = this.statusGlossary;
 		this.employerService.changeJobStatus(requestParams).subscribe(
@@ -381,9 +382,9 @@ export class PostedJobComponent implements OnInit {
 	**	To check the matches details count with the id
 	**/
 	 	 
-	CheckMatchesCount(id){
-		if(id !=undefined && id!=null && id !=''){
-			var tempData= this.postedJobsMatches.filter(function(a,b){ return a.id == id });
+	CheckMatchesCount(id,location_id){
+		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !='' ){
+			var tempData= this.postedJobsMatches.filter(function(a,b){ return a.id == id && a['location_id'] === location_id });
 			if(tempData.length==1){
 				return tempData[0]['count'];
 			}
@@ -395,9 +396,9 @@ export class PostedJobComponent implements OnInit {
 	**	To check the Applied details count with the id
 	**/
 	
-	CheckAppliedCount(id){
-		if(id !=undefined && id!=null && id !=''){
-			var tempData= this.postedJobsApplied.filter(function(a,b){ return a.id == id });
+	CheckAppliedCount(id,location_id){
+		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !='' ){
+			var tempData= this.postedJobsApplied.filter(function(a,b){ return a.id == id && a['location_id'] === location_id });
 			if(tempData.length==1){
 				return tempData[0]['count'];
 			}
@@ -409,9 +410,9 @@ export class PostedJobComponent implements OnInit {
 	**	To check the shortlisted details count with the id
 	**/
 	
-	CheckShortlistedCount(id){
-		if(id !=undefined && id!=null && id !=''){
-			var tempData= this.postedJobsShortlist.filter(function(a,b){ return a.id == id });
+	CheckShortlistedCount(id,location_id){
+		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !='' ){
+			var tempData= this.postedJobsShortlist.filter(function(a,b){ return a.id == id && a['location_id'] === location_id });
 			if(tempData.length==1){
 				return tempData[0]['count'];
 			}

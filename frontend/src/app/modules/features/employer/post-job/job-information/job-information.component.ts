@@ -106,13 +106,39 @@ export class JobInformationComponent implements OnInit {
 		setTimeout( async () => {
 			if(this.childForm && this.getPostedJobsDetails) {
 				if (this.childForm.value.jobInfo.job_locations) {
-					var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateShort!=''});
+					var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
 					if(tempData.length !=0){
 						//this.address = this.t.value;
 						tempData = tempData.map(function(a,b){ 
 						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
-						return a.city+'-'+a.stateShort });
+						return a.city+'-'+a.stateshort });
 						this.address=tempData;
+					}else if(tempData.length ==0){ 
+						if(this.getPostedJobsDetails.job_locations.length !=0){
+							if(this.t && this.t.length ){
+								for(let i=0;i<=this.t.value.length;i++){
+									this.t.removeAt(0);
+									i=0;
+								}
+							}
+							var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
+							if(tempData.length ==0){
+								this.getPostedJobsDetails.job_locations.map((value, index) => {
+									this.t.push(this.formBuilder.group({
+										city: ['', Validators.required],
+										state: ['', Validators.required],
+										stateshort: ['', Validators.required],
+										countryshort: ['', Validators.required],
+										zipcode: [''],
+										country: ['', Validators.required]
+									}));
+								});
+								var tempDatas = this.getPostedJobsDetails.job_locations.map(function(a,b){ 
+								a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+								return a.city+'-'+a.stateshort });
+								this.address=tempDatas;
+							}
+						}
 					}
 					
 				}
@@ -153,7 +179,32 @@ export class JobInformationComponent implements OnInit {
 						})
 					}
 				} */
-			}else{
+			}else if(this.childForm) {
+				if (this.childForm.value.jobInfo.job_locations) {
+					var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
+					if(tempData.length !=0){
+						//this.address = this.t.value;
+						tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+						return a.city+'-'+a.stateshort });
+						this.address=tempData;
+					}
+					
+				}
+				if (this.childForm.value.jobInfo.min) {
+					this.childForm.patchValue({
+					jobInfo : {
+						min:this.childForm.value.jobInfo.min
+					}
+					});
+				}
+				if (this.childForm.value.jobInfo.max) {
+					this.childForm.patchValue({
+					jobInfo : {
+						max:this.childForm.value.jobInfo.max
+					}
+					});
+				}
 				
 			}
 		});
@@ -191,8 +242,8 @@ export class JobInformationComponent implements OnInit {
 			job_locations : new FormArray([this.formBuilder.group({
 				city: ['', Validators.required],
 				state: ['', Validators.required],
-				stateShort: ['', Validators.required],
-				countryShort: ['', Validators.required],
+				stateshort: ['', Validators.required],
+				countryshort: ['', Validators.required],
 				zipcode: [''],
 				country: ['', Validators.required]
 			})]),
@@ -319,8 +370,8 @@ export class JobInformationComponent implements OnInit {
       this.t.push(this.formBuilder.group({
         city: ['', Validators.required],
         state: ['', Validators.required],
-        stateShort: ['', Validators.required],
-        countryShort: ['', Validators.required],
+        stateshort: ['', Validators.required],
+        countryshort: ['', Validators.required],
         zipcode: [''],
         country: ['', Validators.required]
       }));
@@ -338,8 +389,8 @@ export class JobInformationComponent implements OnInit {
 		  this.t.push(this.formBuilder.group({
 			city: ['', Validators.required],
 			state: ['', Validators.required],
-			stateShort: ['', Validators.required],
-			countryShort: ['', Validators.required],
+			stateshort: ['', Validators.required],
+			countryshort: ['', Validators.required],
 			zipcode: [''],
 			country: ['', Validators.required]
 		  }));
@@ -352,7 +403,7 @@ export class JobInformationComponent implements OnInit {
 			}
 		  tempData = tempData.map(function(a,b){ 
 		a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
-		return a.city+'-'+a.stateShort });
+		return a.city+'-'+a.stateshort });
 		this.address=tempData;
 		}
 	}
@@ -366,14 +417,14 @@ export class JobInformationComponent implements OnInit {
 		if(event.geometry){
 			var tempData =[];
 			if(this.t.value){
-				 tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateShort!=''});
+				 tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
 			}
 			
 			var datas:any = {
 			city: address.city ? address.city : event.formatted_address,
 			state: address.state,
-			stateShort: address.stateShort,
-			countryShort: address.countryShort,
+			stateshort: address.stateShort,
+			countryshort: address.countryShort,
 			zipcode: address.zipcode,
 			country: address.country
 			};
@@ -389,7 +440,7 @@ export class JobInformationComponent implements OnInit {
 					this.t.patchValue(tempData);
 					tempData = tempData.map(function(a,b){ 
 						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
-					return a.city+'-'+a.stateShort });
+					return a.city+'-'+a.stateshort });
 					this.address=tempData;
 				}
 			}

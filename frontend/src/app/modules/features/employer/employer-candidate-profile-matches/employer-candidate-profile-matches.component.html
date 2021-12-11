@@ -31,11 +31,23 @@
 									</a>
 									<h6 class="text-capitalize mt-2">{{postedJobsDetails?.company?.company}}</h6>
 									<h6 class="mb-0 text-capitalize job-txt">
-										{{postedJobsDetails?.city ? postedJobsDetails?.city+', '  : ''}}
-										{{postedJobsDetails?.state ? postedJobsDetails?.state+', '  : ''}}
+										{{postedJobsDetails?.job_location?.city ? postedJobsDetails?.job_location?.city+', '  : ''}}
+										{{postedJobsDetails?.job_location?.state ? postedJobsDetails?.job_location?.state+', '  : ''}}
 										<span class="text-uppercase">
-										  {{postedJobsDetails?.country ? postedJobsDetails?.country : ''}}
+										  {{postedJobsDetails?.job_location?.country ? postedJobsDetails?.job_location?.country : ''}}
 										</span>
+									</h6>
+									<h6 class="font-weight-bold mb-2" >{{"shared.timing" | translate}} : 
+										<ng-container *ngIf="postedJobsDetails?.min ">
+											{{postedJobsDetails?.min | time}}
+										</ng-container>
+										<ng-container *ngIf="postedJobsDetails?.min && postedJobsDetails?.max  ">
+											-
+										</ng-container>
+										
+										<ng-container *ngIf="postedJobsDetails?.max ">
+											{{postedJobsDetails?.max | time}}
+										</ng-container>
 									</h6>
 								</div>
 								<div class="pc-btn">

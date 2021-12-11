@@ -49,14 +49,31 @@
                   <div class="media-body">
                     <h6>{{postedJobsDetails?.company?.company ? postedJobsDetails?.company?.company : ''}}</h6>
                     <h6 class="text-capitalize">
-                      {{postedJobsDetails?.city ? postedJobsDetails?.city + ', ' : ''}}
-                      {{postedJobsDetails?.state ? postedJobsDetails?.state + ', ' : ''}}
+						<ng-container *ngFor="let items of postedJobsDetails?.job_locations;let i=index;">
+                      <!-- {{items?.city ? items?.city + ', ' : ''}} -->
+                      {{items?.city ? items?.city + '' : ''}}
                       <!-- {{postedJobsDetails?.zipcode ? postedJobsDetails?.zipcode + ', ' : ''}} -->
                       <span class="text-uppercase">
-                        {{postedJobsDetails?.country ? postedJobsDetails?.country : ''}}
+                        {{items?.countryshort ? items?.countryshort : ''}}
                         </span>
-
+						<span *ngIf="i != postedJobsDetails?.job_locations?.length-1">
+                        ,
+                        </span>
+						
+						</ng-container>
                     </h6>
+					<h6 class="font-weight-bold mb-2" >{{"shared.timing" | translate}} : 
+						<ng-container *ngIf="postedJobsDetails?.min ">
+							{{postedJobsDetails?.min | time}}
+						</ng-container>
+						<ng-container *ngIf="postedJobsDetails?.min && postedJobsDetails?.max  ">
+							-
+						</ng-container>
+						
+						<ng-container *ngIf="postedJobsDetails?.max ">
+							{{postedJobsDetails?.max | time}}
+						</ng-container>
+					</h6>
                   </div>
                 </div>
 				<div class="col-lg-5 col-md-5 col-sm-5" >

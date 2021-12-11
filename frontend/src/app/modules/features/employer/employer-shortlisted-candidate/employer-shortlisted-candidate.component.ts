@@ -172,12 +172,12 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	**	TO get the count details
 	**/
 	 
-	checkDataCount(id){
-		if(id !=undefined && id!=null && id !=''){
-			var tempData= this.TotalCount.filter(function(a,b){ return a.id == id });
-			if(tempData.length==1){
-				return tempData[0]['count'];
-			}
+	checkDataCount(id,location_id){
+		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !=''){
+			var tempData= this.TotalCount.filter(function(a,b){ return a.id == id && a.location_id == location_id });
+				if(tempData.length==1){
+					return tempData[0]['count'];
+				}
 		}
 		return 0;
 	}

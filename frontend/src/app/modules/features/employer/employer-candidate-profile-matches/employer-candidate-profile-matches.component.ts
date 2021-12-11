@@ -36,6 +36,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public postedJobsDetails: any;
 	public page: number = 1;
 	public userId: string;
+	public location_id: string;
 	public matchingUsers: any = {};
 	public cusLoadsh: any = lodash;
 	public isOpenedSendMailModal: boolean;
@@ -87,18 +88,25 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 				if(urlQueryParams && urlQueryParams.userId) {
 					sessionStorage.setItem('userId',urlQueryParams.userId);
 				}
+				if(urlQueryParams && urlQueryParams.location_id) {
+					sessionStorage.setItem('location_id',urlQueryParams.location_id);
+				}
 			}
 		});
 		var jobIds:any=0;
 		var userIds:any=0;
+		var location_ids:any=0;
 		if(sessionStorage.getItem('jobId')){
 			jobIds = parseInt(sessionStorage.getItem('jobId'));
 		}if(sessionStorage.getItem('userId')){
 			userIds = parseInt(sessionStorage.getItem('userId'));
+		}if(sessionStorage.getItem('location_id')){
+			location_ids = parseInt(sessionStorage.getItem('location_id'));
 		}	 
 		this.jobId = jobIds;
 		this.userId = userIds;
-		this.router.navigate([], {queryParams: {userId: null,jobId:null}, queryParamsHandling: 'merge'});
+		this.location_id = location_ids;
+		this.router.navigate([], {queryParams: {location_id: null,userId: null,jobId:null}, queryParamsHandling: 'merge'});
 	}
 
 	/**
@@ -118,7 +126,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	ngOnInit(): void {
 	  this.screenWidth = window.innerWidth;	
-		if (this.jobId && this.userId) {
+		if (this.jobId && this.userId&& this.location_id) {
 			this.onGetPostedJob();
 		}
 		this.dataService.getCountryDataSource().subscribe(
@@ -163,6 +171,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		let requestParams: any = {};
 		requestParams.expand = 'company';
 		requestParams.id = this.jobId;
+		requestParams.location_id = this.location_id;
 		const sb = this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {
 				if (response && response.details) {
@@ -229,6 +238,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 			requestParams.page = this.page;			
 		}
 		requestParams.id = this.jobId;
+		requestParams.location_id = this.location_id;
 		requestParams.additional_fields = 'job_application';
 		const sb = this.employerService.getJobScoring(requestParams).subscribe(
 			response => {
@@ -286,6 +296,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		let requestParams: any = {};
 		requestParams.page = this.page;			
 		requestParams.id = this.jobId;
+		requestParams.location_id = this.location_id;
 		requestParams.additional_fields = 'job_application';
 		const sb = this.employerService.getJobScoring(requestParams).subscribe(
 			response => {
@@ -317,6 +328,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	onGetJobScoringByIdNew = () => {
 		let requestParams: any = {};
 		requestParams.id = this.jobId;
+		requestParams.location_id = this.location_id;
 		requestParams.page = this.page;
 		requestParams.additional_fields = 'job_application';
 		const sb = this.employerService.getJobScoring(requestParams).subscribe(

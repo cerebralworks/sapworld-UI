@@ -4,9 +4,9 @@
       <div class="col-lg-12">
         <div class="matching-post">
               <ng-container *ngFor="let item of postedJobs; let i = index" >
-          <div  *ngIf="checkDataCount(item?.id) != 0 && checkDataCount(item?.id) != '0'"  class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
+          <div  *ngIf="checkDataCount(item?.id,item?.job_location?.id) != 0 && checkDataCount(item?.id,item?.job_location?.id) != '0'"  class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
             <input  (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}" [checked]="(selectedJob?.id == item?.id)">
-            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} ({{ checkDataCount(item?.id)}})</label>
+            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} ({{ checkDataCount(item?.id,item?.job_location?.id)}})</label>
           </div>
 			</ng-container>
         </div>
@@ -169,8 +169,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-lg-7 col-md-5">
-                      <a href="javascript:;" [routerLink]="['/employer/job-candidate-matches/details/view']" [queryParams]="{jobId: selectedJob?.id, userId: item?.id}">
-                        <h5 class="text-capitalize">
+                      <a href="javascript:;" [routerLink]="['/employer/job-candidate-matches/details/view']" [queryParams]="{jobId: selectedJob?.id, userId: item?.id, location_id: selectedJob?.job_location?.id}">
+                        <h5 class="text-capitalize"> 
                           <span>{{(item?.first_name ? item?.first_name : '') + ' ' + (item?.last_name ? item?.last_name : '')}}</span>
                           <small *ngIf="item?.job_role"> - {{item?.job_role}}</small>
                           <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application) && item?.job_application?.status != 2 " class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;">{{ item?.job_application?.status == 7 ? 'Pending' : 'Applied'}}</span>
