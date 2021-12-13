@@ -5,7 +5,7 @@
         <div class="matching-post">
               <ng-container *ngFor="let item of postedJobs; let i = index" >
           <div  *ngIf="checkDataCount(item?.id,item?.job_location?.id) != 0 && checkDataCount(item?.id,item?.job_location?.id) != '0'"  class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input  (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}" [checked]="(selectedJob?.id == item?.id)">
+            <input  (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}_{{selectedJob?.job_location?.id}}" [checked]="(selectedJob?.job_location?.id == item?.job_location?.id)">
             <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} ({{ checkDataCount(item?.id,item?.job_location?.id)}})</label>
           </div>
 			</ng-container>

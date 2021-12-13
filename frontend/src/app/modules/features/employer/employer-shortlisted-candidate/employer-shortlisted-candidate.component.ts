@@ -84,6 +84,10 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				let urlQueryParams = {...params};
 				if(urlQueryParams && urlQueryParams.id) {
 					this.selectedJob = {id: urlQueryParams.id};
+					if(urlQueryParams && urlQueryParams.location_id) {
+						sessionStorage.setItem('location_id',urlQueryParams.location_id);
+						this.selectedJob = {id: urlQueryParams.id,job_location:{id: urlQueryParams.location_id}};
+					}
 				}
 				this.queryParams = {...this.queryParams, ...urlQueryParams };
 			}

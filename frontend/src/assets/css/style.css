@@ -39,6 +39,9 @@ body {
 .m-b-1{
 	 margin-bottom: 1rem !important;
 }
+.input-group>.custom-file .custom-file-input:focus~.custom-file-label, .input-group>.custom-select:focus, .input-group>.form-control:focus {
+    z-index: 0 !important;
+}
 h1,h2,h3,h4,h5,h6 {
   color: #000000;
 }

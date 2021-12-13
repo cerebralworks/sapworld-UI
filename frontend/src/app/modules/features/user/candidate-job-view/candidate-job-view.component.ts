@@ -20,6 +20,7 @@ export class CandidateJobViewComponent implements OnInit {
 	
 	public postedJobsDetails: JobPosting;
 	public jobId: string;
+	public locationId: string;
 	public currentJobDetails: any;
 	public userInfo: any;
 	public isOpenedJDModal: boolean;
@@ -56,6 +57,7 @@ export class CandidateJobViewComponent implements OnInit {
 				let urlQueryParams = {...params};
 				if(urlQueryParams && urlQueryParams.id) {
 					sessionStorage.setItem('view-job-id',urlQueryParams.id);
+					sessionStorage.setItem('view-job-location-id',urlQueryParams.location_id);
 					if(urlQueryParams.path){
 						sessionStorage.setItem('view-job-path',urlQueryParams.path);
 						this.router.navigate([], {queryParams: {path: null}, queryParamsHandling: 'merge'});
@@ -66,13 +68,18 @@ export class CandidateJobViewComponent implements OnInit {
 				}
 			}
 		});
-		this.router.navigate([], {queryParams: {id: null,path: null}, queryParamsHandling: 'merge'});
+		this.router.navigate([], {queryParams: {id: null,location_id: null,path: null}, queryParamsHandling: 'merge'});
 		var jobIds:any = 0;
 		if(sessionStorage.getItem('view-job-id')){
 			jobIds = parseInt(sessionStorage.getItem('view-job-id'));
 		}
+		var locationIds:any = 0;
+		if(sessionStorage.getItem('view-job-location-id')){
+			locationIds = parseInt(sessionStorage.getItem('view-job-location-id'));
+		}
 		//this.jobId = this.route.snapshot.paramMap.get('id');
 		this.jobId = jobIds;
+		this.locationId = locationIds;
 	}
 
 	/**	
@@ -93,6 +100,7 @@ export class CandidateJobViewComponent implements OnInit {
 		requestParams.expand = 'company';
 		requestParams.is_users_view = 'true';
 		requestParams.id = this.jobId;
+		requestParams.location_id = this.locationId;
 		requestParams.is_job_applied = true;
 		requestParams.user_id = this.userInfo.id;
 		this.employerService.getPostedJobDetails(requestParams).subscribe(
@@ -120,12 +128,12 @@ export class CandidateJobViewComponent implements OnInit {
 			sessionStorage.clear();
 			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
 		}else{
-			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
+			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId,location_id: this.locationId}});
 		}
 	}
 	
 	navigateMatches(){
-		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
+		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId,location_id: this.locationId}});
 	}
 	
 	/**	

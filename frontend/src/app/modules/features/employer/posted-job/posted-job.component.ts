@@ -382,9 +382,9 @@ export class PostedJobComponent implements OnInit {
 	**	To check the matches details count with the id
 	**/
 	 	 
-	CheckMatchesCount(id,location_id){
-		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !='' ){
-			var tempData= this.postedJobsMatches.filter(function(a,b){ return a.id == id && a['location_id'] === location_id });
+	CheckMatchesCount(id){
+		if(id !=undefined && id!=null && id !='' ){
+			var tempData= this.postedJobsMatches.filter(function(a,b){ return a.id == id  });
 			if(tempData.length==1){
 				return tempData[0]['count'];
 			}
@@ -396,9 +396,9 @@ export class PostedJobComponent implements OnInit {
 	**	To check the Applied details count with the id
 	**/
 	
-	CheckAppliedCount(id,location_id){
-		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !='' ){
-			var tempData= this.postedJobsApplied.filter(function(a,b){ return a.id == id && a['location_id'] === location_id });
+	CheckAppliedCount(id){
+		if(id !=undefined && id!=null && id !='' ){
+			var tempData= this.postedJobsApplied.filter(function(a,b){ return a.id == id });
 			if(tempData.length==1){
 				return tempData[0]['count'];
 			}
@@ -410,9 +410,9 @@ export class PostedJobComponent implements OnInit {
 	**	To check the shortlisted details count with the id
 	**/
 	
-	CheckShortlistedCount(id,location_id){
-		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !='' ){
-			var tempData= this.postedJobsShortlist.filter(function(a,b){ return a.id == id && a['location_id'] === location_id });
+	CheckShortlistedCount(id){
+		if(id !=undefined && id!=null && id !='' ){
+			var tempData= this.postedJobsShortlist.filter(function(a,b){ return a.id == id  });
 			if(tempData.length==1){
 				return tempData[0]['count'];
 			}

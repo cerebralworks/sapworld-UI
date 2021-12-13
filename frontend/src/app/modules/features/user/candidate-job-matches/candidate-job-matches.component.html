@@ -52,11 +52,11 @@
 										<div class="card profile-card">
 											<div class="d-flex">
 												<div class="col-lg-8 col-md-12 job-cards">
-													<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id }"  class="text-capitalize" href="javascript:;">
+													<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id ,location_id: matchingJob?.jobs?.job_location?.id }"  class="text-capitalize" href="javascript:;">
 														<h5>{{matchingJob?.jobs?.title}} <small></small></h5>
 													</a>
 													<h6 class="mb-0 text-capitalize">
-														{{matchingJob?.jobs?.city +', ' +matchingJob?.jobs?.state+', ' +matchingJob?.jobs?.country}}
+														{{matchingJob?.jobs?.job_location?.city +', ' +matchingJob?.jobs?.job_location?.state+', ' +matchingJob?.jobs?.job_location?.country}}
 														
 													</h6>
 													<h6 class="mt-1 text-capitalize">
@@ -115,11 +115,11 @@
 										<div class="card profile-card">
 											<div class="d-flex">
 												<div class="col-lg-8  job-cards">
-													<a  [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id: matchingJobNew?.jobs?.id }" class="text-capitalize" href="javascript:;">
+													<a  [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id: matchingJobNew?.jobs?.id ,location_id: matchingJobNew?.jobs?.job_location?.id }" class="text-capitalize" href="javascript:;">
 														<h5>{{matchingJobNew?.jobs?.title}} <small></small></h5>
 													</a>
 													<h6 class="mb-0 text-capitalize">
-														{{matchingJobNew?.jobs?.city +', ' +matchingJobNew?.jobs?.state+', ' +matchingJobNew?.jobs?.country}}
+														{{matchingJobNew?.jobs?.job_location?.city +', ' +matchingJobNew?.jobs?.job_location?.state+', ' +matchingJobNew?.jobs?.job_location?.country}}
 														<!-- {{matchingJobNew?.jobs?.city ? matchingJobNew?.jobs?.city : ''}}
 														{{matchingJobNew?.jobs?.state ? ', ' + matchingJobNew?.jobs?.state : ''}}
 														<span class="text-uppercase">

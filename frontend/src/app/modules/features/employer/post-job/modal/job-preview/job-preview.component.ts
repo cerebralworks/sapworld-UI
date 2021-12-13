@@ -41,6 +41,7 @@ export class JobPreviewComponent implements OnInit {
 		{ text: 'Doctorate' }
 	];
 	@Input() toggleJobPreviewModal: boolean;
+	@Input() isCopy: boolean = false;
 	@Output() onEvent = new EventEmitter<boolean>();
 	@Input() postJobForm: FormGroup;
 	@Output() postJob: EventEmitter<any> = new EventEmitter();

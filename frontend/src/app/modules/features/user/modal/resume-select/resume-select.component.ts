@@ -80,7 +80,7 @@ export class ResumeSelectComponent implements OnInit {
 				var tempNationality = parseInt(this.userInfo['nationality']);
 				var tempFilterdata = this.nationality.filter(function(a,b){ return a.id == tempNationality });
 				if(tempFilterdata.length==1){
-					if(tempFilterdata[0]['nicename'].toLocaleLowerCase() == this.currentJobDetails['country'].toLocaleLowerCase()){
+					if(tempFilterdata[0]['nicename'].toLocaleLowerCase() == this.currentJobDetails['job_location']['country'].toLocaleLowerCase()){
 						 this.isShowValidShow = true
 					}else if(this.userInfo['visa_type'] !=null && this.userInfo['visa_type']['length']&& this.userInfo['visa_type']['length']!=0){
 							this.isShowValidShow = true;
@@ -160,6 +160,7 @@ export class ResumeSelectComponent implements OnInit {
 		if (this.resumeSelected && this.resumeSelected.file) {
 			let requestParams: any = {};
 			requestParams.job_posting = this.currentJobDetails.id;
+			requestParams.location_id = this.currentJobDetails['job_location']['id'];
 			requestParams.user_resume = this.resumeSelected.file;
 			requestParams.others = this.others.value;
 			
