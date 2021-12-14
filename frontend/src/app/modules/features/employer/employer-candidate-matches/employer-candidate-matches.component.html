@@ -123,12 +123,12 @@
 		</div>
 		<div class="col-lg-3">
 			<div class="custom-control custom-radio border-bottom pb-1">
-				<label >{{"shared.country" | translate }}  </label>
+				<label >{{"shared.location" | translate }}  </label>
 			</div>
 			<div class="py-2" *ngIf="selectedJob?.job_locations">
 				<ng-container *ngFor="let items of selectedJob?.job_locations">
 					<button type="button" (click)="filterCountry($event);"  class="btn btn-fltr btn-fltr-active" id="countrys_{{items?.id}}">
-					{{items?.city}} - {{items?.countryshort}}</button>
+					{{items?.city}} - {{items?.state}}</button>
 				</ng-container>
 			</div>
 		</div>
