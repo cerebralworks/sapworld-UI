@@ -125,8 +125,10 @@
 			<div class="custom-control custom-radio border-bottom pb-1">
 				<label >{{"shared.country" | translate }}  </label>
 			</div>
-			<div class="py-2">
-				<ng-container>
+			<div class="py-2" *ngIf="selectedJob?.job_locations">
+				<ng-container *ngFor="let items of selectedJob?.job_locations">
+					<button type="button" (click)="filterCountry($event);"  class="btn btn-fltr btn-fltr-active" id="countrys_{{items?.id}}">
+					{{items?.city}} - {{items?.countryshort}}</button>
 				</ng-container>
 			</div>
 		</div>

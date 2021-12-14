@@ -40,6 +40,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public postedJobCountry: any = [];
   public Country: any = [];
   public userList: any[] = [];
+  public countryFilterList: any[] = [];
   public userMeta: any;
   public userInfo: any;
   public currentUserInfo: CandidateProfile;
@@ -876,7 +877,29 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		}	
 		this.onGetCandidateList(this.selectedJob.id);
 	}
-  
+	
+	filterCountry(clr){
+		var temp = clr.target.className.split(' ');
+		if(temp[temp.length-1]=='btn-fltr-active'){
+			clr.target.className = clr.target.className.replace('btn-fltr-active','');
+			var dataCheck = clr.target.id.split('_')[1];
+			this.countryFilterList.push(dataCheck);
+			
+		}else{
+			clr.target.className = 'btn btn-fltr btn-fltr-active';
+			var dataCheck = clr.target.id.split('_')[1];
+			dataCheck = this.countryFilterList.filter(function(a,b){ return a != dataCheck });
+			this.countryFilterList = dataCheck;
+			
+		}	
+		if(this.countryFilterList.length==0){
+			this.queryParams.location_filter = null;
+		}else{
+			this.queryParams.location_filter = this.countryFilterList.join(',');
+		}
+		this.onGetCandidateList(this.selectedJob.id);
+		
+	}
 	/**
 	**	To Reset all the filter data's
 	**/
@@ -910,6 +933,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			delete this.queryParams.language;			
 		}if(this.queryParams.education){
 			delete this.queryParams.education;			
+		}if(this.queryParams.location_id){
+			delete this.queryParams.location_id;			
 		}
 		if(document.getElementById('domain')){
 			document.getElementById('domain').className = "btn btn-fltr " ; 
