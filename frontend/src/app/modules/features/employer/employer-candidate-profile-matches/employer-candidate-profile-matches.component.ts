@@ -126,7 +126,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	ngOnInit(): void {
 	  this.screenWidth = window.innerWidth;	
-		if (this.jobId && this.userId&& this.location_id) {
+		if (this.jobId && this.userId) {
 			this.onGetPostedJob();
 		}
 		this.dataService.getCountryDataSource().subscribe(
@@ -171,7 +171,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		let requestParams: any = {};
 		requestParams.expand = 'company';
 		requestParams.id = this.jobId;
-		requestParams.location_id = this.location_id;
+		//requestParams.location_id = this.location_id;
 		const sb = this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {
 				if (response && response.details) {

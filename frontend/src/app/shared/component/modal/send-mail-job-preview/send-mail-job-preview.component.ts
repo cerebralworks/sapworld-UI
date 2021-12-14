@@ -91,7 +91,7 @@ export class SendMailJobPreviewComponent implements OnInit {
       let requestParams: any = {};
       requestParams.job_posting = this.jobInfo.id;
       requestParams.user = this.userInfo.id;
-	  requestParams.location_id = this.jobInfo['job_location']['id'];
+	  requestParams.location_id = this.userInfo['job_location']['id'];
       requestParams.status = 7;
       requestParams.short_listed = true;
 		this.onClickCloseBtn(false);
@@ -115,7 +115,7 @@ export class SendMailJobPreviewComponent implements OnInit {
     if((this.jobInfo && this.jobInfo.id) && (this.userInfo && this.userInfo.email)) {
       let requestParams: any = {};
       requestParams.job_id = this.jobInfo.id;
-      requestParams.location_id = this.jobInfo['job_location']['id'];
+      requestParams.location_id = this.userInfo['job_location']['id'];
       requestParams.email_id = this.userInfo.email;
       requestParams.account = this.userInfo['account'];
       requestParams.id = this.userInfo.id;

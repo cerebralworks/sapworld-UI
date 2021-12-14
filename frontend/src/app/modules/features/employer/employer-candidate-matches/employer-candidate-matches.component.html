@@ -4,9 +4,9 @@
       <div class="col-lg-12">
         <div class="matching-post">
               <ng-container *ngFor="let item of postedJobs; let i = index" >
-          <div  *ngIf="checkDataCount(item?.id,item?.job_location?.id) != 0 && checkDataCount(item?.id,item?.job_location?.id) != '0'"  class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
-            <input  (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}_{{selectedJob?.job_location?.id}}" [checked]="(selectedJob?.job_location?.id == item?.job_location?.id)">
-            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} ({{ checkDataCount(item?.id,item?.job_location?.id)}})</label>
+          <div  *ngIf="checkDataCount(item?.id) != 0 && checkDataCount(item?.id) != '0'"  class="custom-control custom-radio mb-2" data-toggle="collapse" href="#collapseFollowup" role="button" aria-expanded="false" aria-controls="collapseFollowup">
+            <input  (change)="onSetJob(item)" class="custom-control-input  mb-0" type="radio" id="Check_{{i}}" name="example1_{{selectedJob?.id}}_{{item?.id}}" [checked]="(selectedJob?.id == item?.id)">
+            <label class="text-capitalize custom-control-label mb-0" for="Check_{{i}}">{{item?.title}} ({{ checkDataCount(item?.id)}})</label>
           </div>
 			</ng-container>
         </div>
@@ -22,7 +22,7 @@
 		</div>
 	</div>
 	<div class="row collapse" id="collapseRDN" style="background: rgb(250, 250, 250); padding-top: 10px; margin: 5px 0px 15px; border-radius: 7px;">
-		<div class="col-lg-4">
+		<div class="col-lg-3">
 			<div class="custom-control custom-radio border-bottom pb-1">
 				<!-- <input (change)="handleChange($event)" type="radio" id="customRadioZ1" name="customRadioZ01" class="custom-control-input"> -->
 				<label > {{"jobs.required" | translate }} </label>
@@ -55,7 +55,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-4">	
+		<div class="col-lg-3">	
 			<div class="custom-control custom-radio border-bottom pb-1">
 				<!-- <input (change)="handleChange($event)"  type="radio" id="customRadioZ2" name="customRadioZ01" class="custom-control-input"> -->
 				<label >{{"jobs.desired" | translate }} </label>
@@ -88,7 +88,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-4">
+		<div class="col-lg-3">
 			<div class="custom-control custom-radio border-bottom pb-1">
 				<!-- <input (change)="handleChange($event)"  type="radio" id="customRadioZ3" name="customRadioZ01" class="custom-control-input"> -->
 				<label >{{"jobs.niceToHave" | translate }}  </label>
@@ -121,6 +121,15 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-lg-3">
+			<div class="custom-control custom-radio border-bottom pb-1">
+				<label >{{"shared.country" | translate }}  </label>
+			</div>
+			<div class="py-2">
+				<ng-container>
+				</ng-container>
+			</div>
+		</div>
 	</div>
     <div class="row">
       <div class="col-lg-8 col-md-8 matches-8">
@@ -131,37 +140,6 @@
               </div>
             </div>
           </div> 
-        <!-- <div class="row">
-          <div class="col-lg-5">
-            <form class="form-inline">
-              <div class="form-group mr-2">
-              <label>{{"dashboard.sortBy" | translate}} : </label>
-              </div>
-              <div class="form-group">
-              <select class="form-control form-control-sm">
-                <option>Latest</option>
-                <option>Top Matches</option>
-              </select>
-              </div>
-            </form>
-          </div>
-          <div class="col-lg-5">
-            <form class="form-inline">
-              <div class="form-group mr-2">
-              <label>{{"dashboard.filter" | translate}} : </label>
-              </div>
-              <div class="form-group">
-              <select class="form-control form-control-sm">
-                <option hidden>{{"common.select" | translate}}</option>
-                <option value="avail">Availability</option>
-                <option value="reloc">Relocation</option>
-                <option value="trav">Travel</option>
-                <option value="job">Job Type</option>
-              </select>
-              </div>
-            </form>
-          </div>
-        </div> -->
         <ng-container *ngIf="userList?.length; else elseTemplate">
           <div class="row mt-4 mb-4" *ngFor="let item of userList; let i=index">
             <div class="col-lg-12">

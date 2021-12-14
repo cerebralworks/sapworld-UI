@@ -11,6 +11,9 @@ import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 
 import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
+import { Options} from "ngx-google-places-autocomplete/objects/options/options";
+import { GooglePlaceDirective } from "ngx-google-places-autocomplete";
+import { ComponentRestrictions } from "ngx-google-places-autocomplete/objects/options/componentRestrictions";
 import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
 import {MatChipInputEvent} from '@angular/material/chips';
 
@@ -26,6 +29,7 @@ export class JobInformationComponent implements OnInit {
 	/**
 	**	Variable Declaration
 	**/
+	@ViewChild('places') places: GooglePlaceDirective;
 	visible = true;
 	selectable = true;
 	removable = true;
@@ -39,7 +43,7 @@ export class JobInformationComponent implements OnInit {
 		this.getPostedJobsDetails = inFo;
 	}
 	options  = {
-		componentRestrictions: { country:[] }
+		//componentRestrictions: { country:'' }
 	};
 	public availabilityArray: { id: number; text: string; }[];
 	public childForm;
@@ -120,6 +124,13 @@ export class JobInformationComponent implements OnInit {
 									this.t.removeAt(0);
 									i=0;
 								}
+							}
+							if(this.getPostedJobsDetails.job_locations[0]['countryshort']){
+								var tempCountry = {
+									country: this.getPostedJobsDetails.job_locations[0]['countryshort']
+								};
+								this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+								this.places['autocomplete']['componentRestrictions'] = tempCountry;
 							}
 							var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
 							if(tempData.length ==0){
@@ -395,6 +406,11 @@ export class JobInformationComponent implements OnInit {
 			country: ['', Validators.required]
 		  }));
 		  this.address=[];
+		  var tempCountry = {
+			country: []
+		};
+		this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+		this.places['autocomplete']['componentRestrictions'] = tempCountry;
 		} else {
 		  this.t.removeAt(index);
 		  var tempData =[];
@@ -442,6 +458,12 @@ export class JobInformationComponent implements OnInit {
 						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
 					return a.city+'-'+a.stateshort });
 					this.address=tempData;
+					var tempCountry = {
+						country: datas.countryshort
+					};
+					this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+					this.places['autocomplete']['componentRestrictions'] = tempCountry;
+
 				}
 			}
 		}

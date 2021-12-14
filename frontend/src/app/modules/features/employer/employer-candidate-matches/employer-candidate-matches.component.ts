@@ -250,18 +250,18 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		this.clearFilters();
 		this.selectedJob = item;
 		sessionStorage.setItem('match-job-id',this.selectedJob.id);
-		sessionStorage.setItem('location_id',this.selectedJob['job_location']['id']);
+		//sessionStorage.setItem('location_id',this.selectedJob['job_location']['id']);
 		if(this.selectedJob && this.selectedJob.id) {
 			this.userList = [];
 			// const removeEmpty = this.utilsHelperService.clean(this.queryParams);
 			// let url = this.router.createUrlTree(['/employer/dashboard'], {queryParams: {...removeEmpty, id: this.selectedJob.id}, relativeTo: this.route}).toString();
 			//this.location.go(url);
 			const navigationExtras: NavigationExtras = {
-				queryParams: {activeTab:'matches', 'id': this.selectedJob.id, 'location_id': this.selectedJob['job_location']['id']}
+				queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
 			};	
 			//this.onGetCandidateList(this.selectedJob.id);
 			//this.router.navigate([], navigationExtras);
-			this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+			this.onGetCandidateList(this.selectedJob.id);
 		}
 	}
 	
@@ -339,7 +339,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 							if(filterJob && !this.utilsHelperService.isEmptyObj(filterJob)) {
 								this.selectedJob = filterJob;
 							}
-							this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+							this.onGetCandidateList(this.selectedJob.id);
 						}else {
 							if(!sessionStorage.getItem('match-job-id')){
 								this.selectedJob = this.postedJobs[0];
@@ -352,7 +352,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 									this.selectedJob = this.postedJobs[0];
 								}
 							}
-							this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);              
+							this.onGetCandidateList(this.selectedJob.id);              
 						}
 					}
 				}
@@ -382,7 +382,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 						var tempLen =response['count'].length-1;
 						this.selectedJob.id = response['count'][tempLen]['id'];
 						this.selectedJob['job_location']['id'] = response['count'][tempLen]['location_id'];
-						this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+						this.onGetCandidateList(this.selectedJob.id);
 					}
 					
 					this.TotalCount =response['count'];
@@ -401,9 +401,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	**	To Check the count
 	**/
 	
-	checkDataCount(id,location_id){
-		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !=''){
-			var tempData= this.TotalCount.filter(function(a,b){ return a.id == id && a.location_id == location_id });
+	checkDataCount(id){
+		if(id !=undefined && id!=null && id !='' ){
+			var tempData= this.TotalCount.filter(function(a,b){ return a.id == id });
 				if(tempData.length==1){
 					return tempData[0]['count'];
 				}
@@ -415,7 +415,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	**	To get Candidate lists
 	**/
 	
-	onGetCandidateList(jobId,location_id) {
+	onGetCandidateList(jobId) {
 		let requestParams: any = {...this.queryParams};
 		requestParams.page = this.page;
 		requestParams.limit = this.limit;
@@ -427,7 +427,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		// if(!this.route.snapshot.queryParamMap.get('skill_tags')) {
 		  requestParams.skill_tags_filter_type = 1;
 		  requestParams.job_posting = jobId;
-		  requestParams.location_id = location_id;
+		  //requestParams.location_id = location_id;
 		// }else {
 		//   requestParams.skill_tags_filter_type = 0;
 		// }
@@ -519,7 +519,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	onLoadMoreJob = () => {
 		this.page = this.page + 1;
 		if(this.selectedJob &&this.selectedJob.id) {
-			this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+			this.onGetCandidateList(this.selectedJob.id);
 		}
 	}
 
@@ -650,7 +650,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		const navigationExtras: NavigationExtras = {
 			queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
 		};
-		this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+		this.onGetCandidateList(this.selectedJob.id);
 		this.router.navigate([], navigationExtras);
 		// this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
 	}
@@ -727,7 +727,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			this.isOpenedSendMailModal = status;
 				if(this.selectedJob &&this.selectedJob.id && status ==false) {
 				setTimeout(() => {
-					this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+					this.onGetCandidateList(this.selectedJob.id);
 				},5000);
 			}
 		}		
@@ -874,7 +874,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				this.filter_location = true;	
 			}		  
 		}	
-		this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+		this.onGetCandidateList(this.selectedJob.id);
 	}
   
 	/**
@@ -985,7 +985,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		this.limit = event.pageSize;
 		this.page = event.pageIndex+1;
 		if(this.selectedJob &&this.selectedJob.id) {
-		  this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+		  this.onGetCandidateList(this.selectedJob.id);
 		}
 	}
 	
@@ -1009,7 +1009,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				
 					this.Country = this.Country.filter(function(a,b){ return a != value});
 			}
-			this.onGetCandidateList(this.selectedJob.id,this.selectedJob['job_location']['id']);
+			this.onGetCandidateList(this.selectedJob.id);
 			
 		}
 	}

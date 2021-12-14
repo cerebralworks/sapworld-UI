@@ -102,6 +102,7 @@
 						(onAddressChange)="handleAddressChange($event)"
 						[options]='options' id="preferredLocation"
 						ngx-google-places-autocomplete
+						 #places="ngx-places" 
 							autocomplete="disabled" 
 							[matChipInputFor]="chipList"
 							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
