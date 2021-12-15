@@ -136,7 +136,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	TO Get the posted job details 
 	**/
-	 
+	
 	onGetPostedJob(companyId) {
 		let requestParams: any = {};
 		requestParams.page = 1;
@@ -175,10 +175,10 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	TO get the count details
 	**/
-	 
-	checkDataCount(id,location_id){
-		if(id !=undefined && id!=null && id !='' && location_id !=undefined && location_id!=null && location_id !=''){
-			var tempData= this.TotalCount.filter(function(a,b){ return a.id == id && a.location_id == location_id });
+	
+	checkDataCount(id){
+		if(id !=undefined && id!=null && id !='' ){
+			var tempData= this.TotalCount.filter(function(a,b){ return a.id == id });
 				if(tempData.length==1){
 					return tempData[0]['count'];
 				}
@@ -189,7 +189,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	TO get the posted job details for shortlisted user Count
 	**/
-	 
+	
 	onGetPostedJobCount(companyId) {
 		let requestParams: any = {};
 		requestParams.page = 1;
@@ -227,7 +227,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	TO get the shortlisted user details
 	**/
-	 
+	
 	onGetShortListedJobs = () => {
 		
 		let requestParams: any = {};
@@ -255,12 +255,13 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	To open the message popoup
 	**/
-	 openMessagePopup(item){
-		 this.isCheckModel = true;
-		 this.messagePopupValueStatus = '';
-		 if (this.isCheckModel) {
-			 this.messagePopupValue = item;
-			 if(item.status>=7){
+
+	openMessagePopup(item){
+		this.isCheckModel = true;
+		this.messagePopupValueStatus = '';
+		if (this.isCheckModel) {
+			this.messagePopupValue = item;
+			if(item.status>=7){
 				var idValue = item.status-7;
 				if(item['job_posting']['screening_process'][idValue]){
 					this.selectedStatusValue =item.status;
@@ -276,18 +277,17 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 					this.messagePopupValueStatus = value[0]['text'];
 				}
 			}
-		setTimeout(() => {
-        this.checkModalRef = this.modalService.open(this.checkModal, {
-          windowClass: 'modal-holder',
-          centered: true,
-          backdrop: 'static',
-          keyboard: false
-        });
-      }, 300);
+			setTimeout(() => {
+				this.checkModalRef = this.modalService.open(this.checkModal, {
+				  windowClass: 'modal-holder',
+				  centered: true,
+				  backdrop: 'static',
+				  keyboard: false
+				});
+			}, 300);
 		}
-	 }
-	 
-	 
+	}
+	
 	/**
 	**	To cancel the check buton event
 	**/
@@ -304,6 +304,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	To send a message for the shortlisted candidate
 	**/
+	
 	sendMessage(){
 		this.isErrorShown= false;
 		this.isErrorShownValue= false;
@@ -365,9 +366,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			}
 			
 		}
-
 	}
-	
 	
 	/**
 	**	TO Change the shortlisted user details
@@ -402,12 +401,12 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				this.isErrorShownValue = true;
 			}
 		}
-	 }
+	}
 	
 	/**
 	**	TO Change the shortlisted user details
 	**/
-	 
+	
 	onChangeStatus = (item, values) => {
 		if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
 			let requestParams: any = {};
@@ -460,7 +459,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	TO Change the shortlisted user details
 	**/
-	 
+	
 	onChangeInvite = (item, values) => {
 		if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
 			let requestParams: any = {};
@@ -503,7 +502,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	To handle the pagination event
 	**/
-	 
+
 	handlePageEvent(event: PageEvent) {
 		//this.length = event.length;
 		this.limit = event.pageSize;
@@ -514,11 +513,15 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	/**
 	**	To load more details 
 	**/
-	 
+	
 	onLoadMoreJob = () => {
 		this.page = this.page + 1;
 		this.onGetShortListedJobs();
 	}
+	
+	/**
+	**	To open the invite link popup 
+	**/
 	
 	openMessagePopupInviteLink(item,values){
 		this.statusVal = true;
@@ -561,13 +564,23 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			}
 		}
 	}
+	
+	
+	/**
+	**	To open the popup 
+	**/
+	
 	popupOpen = (item, values) => {
 		this.statusVal = false;
 		this.inviteUrlLink = '';
 		this.onChangeStatus(item, values);
 		
-		
 	}
+	
+	/**
+	**	To close the invite link popup 
+	**/
+	
 	closePopup(){
 		
 		this.inviteRef.close();
@@ -580,15 +593,28 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		
 	}
 	
+	/**
+	**	To save and close popup
+	**/
+	
 	closeSave(){
 		this.onChangeInvite(this.tempItem,this.tempValue);
 		this.closePopup();
 	}
 	
+	
+	/**
+	**	To enable the input view
+	**/
+	
 	enableInput(){
 		this.inviteUrlLink = '';
 		this.showInput = true;
 	}
+	
+	/**
+	**	To check the invite link
+	**/
 	
 	checkChange(event){
 		this.showInput = false;
@@ -596,8 +622,12 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			event.value.split('_')[0];
 			this.inviteUrlLink = event.value.split('_')[0];
 		}
-
 	}
+	
+	
+	/**
+	**	To validate the status
+	**/
 	
 	validateStatus(data){
 		if(data['application_status'] && data['application_status']['length'] && data['application_status']['length'] !=0 ){
@@ -608,11 +638,20 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		}
 		return false;
 	}
+	
+	/**
+	**	To close the popup history
+	**/
+	
 	closePopupHistory(){
 		
 		this.historyRef.close();
 		this.isOpenHistory=false;
 	}
+	
+	/**
+	**	To open the application history 
+	**/
 	
 	openHistoryPopup(item){
 		this.isOpenHistory = true;
@@ -627,15 +666,29 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			});
 		}, 10);
 	}
+	
+	/**
+	**	To close the popup resend 
+	**/
+	
 	closePopupResend(){
 		
 		this.ResendRef.close();
 		this.isResendURL=false;
 	}
+	
+	/**
+	**	To save and close popup
+	**/
+	
 	closeSaveResend(){
 		this.onChangeInvite(this.tempItem,this.tempValue);
 		this.closePopupResend();
 	}
+	
+	/**
+	**	To open the reschedule popup 
+	**/
 	
 	openReschedulePopup(item,values){
 		this.tempValue = values
@@ -660,4 +713,24 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			}
 		}
 	}
+	
+	/**
+	**	To return the details of job location
+	**/
+	
+	checkCity(itemValue,val){
+		
+		if(itemValue && itemValue.job_location && itemValue.job_posting &&  itemValue.job_posting.job_locations){
+			if(itemValue.job_posting.job_locations.length !=0){
+				var filterItem = itemValue.job_posting.job_locations.filter(function(a,b){ return a.id == itemValue.job_location});
+				if(filterItem.length !=0){
+					return filterItem[0][val]
+				}
+			}
+		}
+		
+		var temp ='';
+		return temp;
+	}
+	
 }

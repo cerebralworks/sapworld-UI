@@ -880,14 +880,17 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	
 	filterCountry(clr){
 		var temp = clr.target.className.split(' ');
-		if(temp[temp.length-1]=='btn-fltr-active'){
-			clr.target.className = clr.target.className.replace('btn-fltr-active','');
-			var dataCheck = clr.target.id.split('_')[1];
-			this.countryFilterList.push(dataCheck);
-			
+		if(temp[temp.length-1]=='btn-fltr-active' || temp[temp.length-2]=='btn-fltr-active'){
+			if(this.countryFilterList.length+1 == this.selectedJob?.job_locations?.length){
+				
+			}else{
+				clr.target.className = clr.target.className.replace('btn-fltr-active','');
+				var dataCheck = clr.target.id.split('_')[1].toString();
+				this.countryFilterList.push(dataCheck);
+			}
 		}else{
 			clr.target.className = 'btn btn-fltr btn-fltr-active';
-			var dataCheck = clr.target.id.split('_')[1];
+			var dataCheck = clr.target.id.split('_')[1].toString();
 			dataCheck = this.countryFilterList.filter(function(a,b){ return a != dataCheck });
 			this.countryFilterList = dataCheck;
 			
@@ -895,7 +898,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		if(this.countryFilterList.length==0){
 			this.queryParams.location_filter = null;
 		}else{
-			this.queryParams.location_filter = this.countryFilterList.join(',');
+			this.queryParams.location_filter = this.countryFilterList;
 		}
 		this.onGetCandidateList(this.selectedJob.id);
 		

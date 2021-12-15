@@ -151,7 +151,7 @@ export class AppComponent {
 						document.getElementById('notifi_color')['style']['display']='none';
 					}
 				}
-				this.getNotification();
+				//this.getNotification();
 			  }, error => {
 				  //this.router.navigate(['/auth/user/login']);
 			  }
@@ -192,7 +192,7 @@ export class AppComponent {
 						document.getElementById('notifi_color')['style']['display']='none';
 					}
 				}
-				this.getNotificationEmployee();
+				//this.getNotificationEmployee();
 			  }, error => {
 				  //this.router.navigate(['/auth/employer/login']);
 				  

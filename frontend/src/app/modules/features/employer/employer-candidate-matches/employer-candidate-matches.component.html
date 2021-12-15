@@ -127,7 +127,7 @@
 			</div>
 			<div class="py-2" *ngIf="selectedJob?.job_locations">
 				<ng-container *ngFor="let items of selectedJob?.job_locations">
-					<button type="button" (click)="filterCountry($event);"  class="btn btn-fltr btn-fltr-active" id="countrys_{{items?.id}}">
+					<button style="text-transform: capitalize;" type="button" (click)="filterCountry($event);"  class="btn btn-fltr btn-fltr-active" id="countrys_{{items?.city}}">
 					{{items?.city}} - {{items?.state}}</button>
 				</ng-container>
 			</div>
