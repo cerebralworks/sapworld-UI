@@ -57,6 +57,7 @@ export class PostJobLayoutComponent implements OnInit {
 	public postJobForm: FormGroup;
 	public isLoading: boolean;
 	public getDataCount: boolean = false;
+	public showData: boolean = false;
 	public isEdit: boolean = false;
 	public isCopy: boolean = false;
 	public formError: any;
@@ -111,7 +112,16 @@ export class PostJobLayoutComponent implements OnInit {
 				}
 			}
 		)
+		this.showData = false;
 		
+	}
+	
+	ngAfterViewInit(): void {
+		setTimeout( async () => {
+		if(!this.isEdit){
+			this.showData = true;
+		}
+		},100);
 	}
 	
 	/**

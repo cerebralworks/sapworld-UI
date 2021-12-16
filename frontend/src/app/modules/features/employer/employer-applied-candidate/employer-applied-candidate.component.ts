@@ -285,6 +285,9 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 		this.onGetAppliedJobs();
 	}
 	
+	/**
+	**	To filter the Location
+	**/
 	
 	checkCity(itemValue,val){
 		

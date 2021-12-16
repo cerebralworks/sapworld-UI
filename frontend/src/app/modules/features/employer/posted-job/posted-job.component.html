@@ -39,6 +39,7 @@
                   {{item?.company?.company ? item?.company?.company : '-'}}
                 </td> -->
                 <td class="text-capitalize">
+					<ng-container *ngIf="item?.job_locations">
                   {{item?.job_locations[0].city ? item?.job_locations[0].city + ', ' : ''}}
                   {{item?.job_locations[0].state ? item?.job_locations[0].state + ', ' : ''}}
                   <span class="text-uppercase">
@@ -47,6 +48,7 @@
 				  <span class="text-uppercase" style="color:blue;cursor:pointer;" *ngIf="item?.job_locations?.length-1 !=0">
                     +{{item?.job_locations?.length-1}}
                   </span>
+				  </ng-container>
                 </td>
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y" : 'UTC') : '-'}}</td>
                 <td class="text-center">

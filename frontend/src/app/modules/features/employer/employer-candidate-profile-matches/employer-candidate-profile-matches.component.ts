@@ -312,10 +312,11 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		this.subscriptions.push(sb);
 	}
 	
-	  /**
-	  **	To get coverletter popup status
-	  **/
-	  onToggleCoverForm = (status, selectedCoverUrl?) => {
+	/**
+	**	To get coverletter popup status
+	**/
+	
+	onToggleCoverForm = (status, selectedCoverUrl?) => {
 		if (selectedCoverUrl) {
 		  this.selectedCoverUrl = selectedCoverUrl;
 		}

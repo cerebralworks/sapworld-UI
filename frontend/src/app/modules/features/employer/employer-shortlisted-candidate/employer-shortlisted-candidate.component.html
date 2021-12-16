@@ -44,16 +44,10 @@
                   </td>
                   <td>{{item?.user?.phone ? (item?.user?.phone | phone) : '--'}}</td>
                   <td>{{item?.user?.email ? item?.user?.email : '--'}}</td>
-                  <!-- <td class="text-capitalize">
-                    {{item?.user?.city ? item?.user?.city + ', ' : ''}}
-                    {{item?.user?.state ? item?.user?.state + ', ' : ''}}
-                    <span class="text-uppercase">
-                      {{item?.user?.country ? item?.user?.country : ''}}
-                      </span>
-                  </td> -->
+                  
 				  <td class="text-capitalize">
-				  {{selectedJob.title}}<br>
-				  <span style="font-size: 11px;color: blue;"> ( {{checkCity(item,'city')}} - {{checkCity(item,'state')}} )</span>
+				  {{selectedJob.title}}
+				  <!-- <span style="font-size: 11px;color: blue;"> ( {{checkCity(item,'city')}} - {{checkCity(item,'state')}} )</span> -->
 				  </td>
 				  <td class="text-center">
 				  <h6 class="text-warning" *ngIf="item?.status == 6"> Not Available</h6>
@@ -109,9 +103,7 @@
 			<!-- <h5 class="modal-title" id="exampleModalLabels">{{"common.inviteLink" | translate}}</h5> -->
 		</div>
 		<div class="modal-body"  >
-			<!-- <div class="form-group" *ngIf="showInput ==true">
-				<input type="text" class="form-control " name="inviteUrlLink" id ="inviteUrlLink" [(ngModel)]="inviteUrlLink">
-			</div> -->
+			
 			<mat-radio-group *ngIf="showInput !=true"
 			  aria-labelledby="example-radio-group-label"
 			  class="example-radio-group"

@@ -46,6 +46,7 @@ export class AppliedJobComponent implements OnInit {
 		{id:99,text:'Closed'}
 	];
 	@ViewChild('container') container: ElementRef;
+	
 	/**	
 	**	To implement the package section constructor
 	**/

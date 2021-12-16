@@ -331,9 +331,13 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		}
 	}
 	
+	/**
+	**	Resize the window change the layout
+	**/
 	
 	@HostListener('window:resize', ['$event'])  
-  onResize(event) {  
-    this.screenWidth = window.innerWidth;  
-  }
-}
+	onResize(event) {  
+		this.screenWidth = window.innerWidth;  
+	}
+	
+}	

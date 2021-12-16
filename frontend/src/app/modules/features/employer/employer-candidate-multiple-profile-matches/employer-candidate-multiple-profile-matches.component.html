@@ -150,28 +150,6 @@
 										</div>
 										
 									</div>
-									<!-- <div class="col-lg-12">
-										<div class="card profile-card">
-											<div class="d-flex">
-												<div class="pc-info">
-													<a class="text-capitalize" href="javascript:;">
-														<h5>{{matchingJobNew?.jobs?.title}} <small></small></h5>
-													</a>
-													<h6 class="mb-0 text-capitalize">
-														{{matchingJobNew?.jobs?.city ? matchingJobNew?.jobs?.city+', '  : ''}}
-														{{matchingJobNew?.jobs?.state ?  matchingJobNew?.jobs?.state+', '  : ''}}
-														<span class="text-uppercase">
-														  {{matchingJobNew?.jobs?.country ? matchingJobNew?.jobs?.country : ''}}
-														</span>
-													</h6>
-												</div>
-												<div class="pc-btn">
-													<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJobNew?.jobs?.description)">	
-													<i class="fas fa-file-alt"></i> Description</a>
-												</div>
-											</div>
-										</div>
-									</div> -->
 									<!--Body Sec-->
 									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-3' : 'mt-4'">
 										<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJobNew?.jobs.score >= 5, 'score-txt-orange': (matchingJobNew?.jobs.score < 5 && matchingJobNew?.jobs.score > 0), 'score-txt-red': (matchingJobNew?.jobs.score == 0)}">
