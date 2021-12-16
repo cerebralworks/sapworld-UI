@@ -46,11 +46,18 @@
 												{{item?.company?.company}}
 											</h6>
 											<h6 class="text-capitalize">
-												{{item?.job_location?.city ? item?.job_location?.city + ', ' : ''}}
+												<ng-container *ngFor="let items of item?.job_locations" >
+													{{items?.city ? items?.city+', '  : ''}}
+													{{items?.state ? items?.state+', '  : ''}}
+													<span class="text-uppercase">
+													  {{items?.country ? items?.country : ''}}
+													</span><br>
+												</ng-container>
+												<!-- {{item?.job_location?.city ? item?.job_location?.city + ', ' : ''}}
 												{{item?.job_location?.state ? item?.job_location?.state + ', ' : ''}}
 												<span >
 													{{item?.job_location?.country ? item?.job_location?.country : ''}}
-												</span>
+												</span> -->
 											</h6>
 											<h6>
 												<span *ngIf="item?.experience ==0 || !item?.experience ">Entry level</span>

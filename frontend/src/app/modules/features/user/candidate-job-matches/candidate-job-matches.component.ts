@@ -195,6 +195,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 				if(response.jobs){
 					if(parseInt(this.jobId) == response.jobs.id ){
 						if (response && !isCount) {
+							this.matchingJob = { ...this.matchingJob, jobs: {} };
 							this.matchingJob = { ...response }
 							if(this.matchingJob['jobs']['match_select'] && this.matchingJobNew){
 								if(!this.utilsHelperService.isEmptyObj(this.matchingJobNew['jobs'])){
@@ -209,6 +210,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 				}
 			}else{
 				if (response && !isCount) {
+					this.matchingJob = { ...this.matchingJob, jobs: {} };
 					this.matchingJob = { ...response }
 					if(this.matchingJob['jobs']['match_select'] && this.matchingJobNew){
 						if(!this.utilsHelperService.isEmptyObj(this.matchingJobNew['jobs'])){
@@ -421,14 +423,14 @@ export class CandidateJobMatchesComponent implements OnInit {
 		if (type == 'next') {
 			if (count > this.page) {
 				if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
-					this.matchingJob = { ...this.matchingJob, jobs: {} };
+					/* this.matchingJob = { ...this.matchingJob, jobs: {} }; */
 					this.page++;
 					this.onGetUserScoringById(true);
 				}
 			}
 		} else if (type == 'prev' && this.page > 1) {
 			if (this.matchingJobMeta.count > 1 ) {
-				this.matchingJob = { ...this.matchingJob, jobs: {} };
+				/* this.matchingJob = { ...this.matchingJob, jobs: {} }; */
 				this.page--;				
 				this.onGetUserScoringById(true);
 			}

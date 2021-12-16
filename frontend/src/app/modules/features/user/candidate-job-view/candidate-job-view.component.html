@@ -46,15 +46,23 @@
 									<div class="media col-lg-6">
 										<div class="media-body">
 											<h6>{{postedJobsDetails?.company?.company ? postedJobsDetails?.company?.company : ''}}</h6>
-											<h6 class="text-capitalize">
+											<!-- <h6 class="text-capitalize">
 												{{postedJobsDetails?.job_location?.city ? postedJobsDetails?.job_location?.city + ', ' : ''}}
 												{{postedJobsDetails?.job_location?.state ? postedJobsDetails?.job_location?.state + ', ' : ''}}
-												<!-- {{postedJobsDetails?.zipcode ? postedJobsDetails?.zipcode + ', ' : ''}} -->
 												<span class="text-uppercase">
 													{{postedJobsDetails?.job_location?.country ? postedJobsDetails?.job_location?.country : ''}}
 												</span>
+											</h6> -->
+											<h6 class="mb-0 text-capitalize">
+												<ng-container *ngFor="let item of postedJobsDetails?.job_locations" >
+												{{item?.city ? item?.city+', '  : ''}}
+												{{item?.state ? item?.state+', '  : ''}}
+												<span class="text-uppercase">
+												  {{item?.country ? item?.country : ''}}
+												</span><br>
+												</ng-container>
 											</h6>
-											<h6 class="font-weight-bold mb-2" >{{"shared.timing" | translate}} : 
+											<h6 class="font-weight-bold mb-2" *ngIf="postedJobsDetails?.min && postedJobsDetails?.max  " >{{"shared.timing" | translate}} : 
 												<ng-container *ngIf="postedJobsDetails?.min ">
 													{{postedJobsDetails?.min | time}}
 												</ng-container>

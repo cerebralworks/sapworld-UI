@@ -19,7 +19,7 @@
 							<ng-container *ngFor="let item of appliedJobs; let j = index">
 								<tr >
 									<td>
-										<a   *ngIf="item?.job_posting?.status != 3 " [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'applied',location_id:item?.job_location?.id }"  class="text-capitalize" href="javacript:;">
+										<a   *ngIf="item?.job_posting?.status != 3 " [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'applied' }"  class="text-capitalize" href="javacript:;">
 											{{item?.job_posting?.title}}
 										</a>
 										<a (click)="openPopupView()" *ngIf="item?.job_posting?.status ==3 " class="text-capitalize" href="javacript:;">
@@ -29,12 +29,22 @@
 									<td>
 										{{item?.employer?.company ? item?.employer?.company : '--'}}
 									</td>
-									<td class="text-capitalize">
-										{{item?.job_location?.city ? item?.job_location?.city + ', ' : ''}}
-										{{item?.job_location?.state ? item?.job_location?.state + ', ' : ''}}
+									<td class="text-capitalize" container="body" placement="top" ngbTooltip="TH3 tooltip" >
+										<!-- {{item?.job_posting?.city ? item?.job_posting?.city + ', ' : ''}}
+										{{item?.job_posting?.state ? item?.job_posting?.state + ', ' : ''}}
 										<span class="text-uppercase">
-											{{item?.job_location?.country ? item?.job_location?.country : ''}}
-										</span>
+											{{item?.job_posting?.country ? item?.job_posting?.country : ''}}
+										</span> -->
+										<ng-container>
+											{{item?.job_posting?.job_locations[0].city ? item?.job_posting?.job_locations[0].city + ', ' : ''}}
+										  {{item?.job_posting?.job_locations[0].state ? item?.job_posting?.job_locations[0].state + ', ' : ''}}
+										  <span class="text-uppercase">
+											{{item?.job_posting?.job_locations[0].country ? item?.job_posting?.job_locations[0].country : ''}}
+										  </span>
+										   <span class="text-uppercase" style="color:blue;cursor:pointer;" *ngIf="item?.job_posting?.job_locations?.length-1 !=0" >
+											+{{item?.job_posting?.job_locations?.length-1}}
+										  </span>
+										</ng-container>
 									</td>
 									<td>
 										{{item?.created_at ? (item?.created_at | date: "MMM dd, y") : '-'}}
