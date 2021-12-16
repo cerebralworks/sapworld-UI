@@ -64,6 +64,9 @@ export class UserProfileComponent implements OnInit {
 		return this.utilsHelperService.convertToImageUrl(imageString);
 	}
 	
+	/**
+	**	To resize the screenWidth
+	**/	
 	
 	@HostListener('window:resize', ['$event'])  
   onResize(event) {  

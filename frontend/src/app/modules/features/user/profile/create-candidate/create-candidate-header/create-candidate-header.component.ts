@@ -81,7 +81,9 @@ export class CreateCandidateHeaderComponent implements OnInit {
 		  form.get(key).updateValueAndValidity();
 		}
 	}
-
+	/**
+	**	To assign fields the validation 
+	**/
   validationType = {
    // 'experience': [Validators.required],
     //'sap_experience': [Validators.required],

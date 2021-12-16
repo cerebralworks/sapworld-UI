@@ -46,7 +46,6 @@ export class AppliedJobComponent implements OnInit {
 		{id:99,text:'Closed'}
 	];
 	@ViewChild('container') container: ElementRef;
-	
 	/**	
 	**	To implement the package section constructor
 	**/
@@ -235,6 +234,9 @@ export class AppliedJobComponent implements OnInit {
 		return '--';
 	}
 	
+	/**
+	**	To display the event scheduling popup
+	**/
 	
 	openPopupViewInvite(item){
 		this.itemsIDVAL = item;
@@ -279,6 +281,9 @@ export class AppliedJobComponent implements OnInit {
 		},10);
 	}
 	
+	/**
+	**	To display the event rescheduling popup
+	**/
 	
 	openPopupViewReschedule(item){
 		this.itemsIDVAL = item;
@@ -312,6 +317,9 @@ export class AppliedJobComponent implements OnInit {
 		
 	}
 	
+	/**
+	**	To display the event canceling popup
+	**/
 	
 	openPopupViewCancel(item){
 		this.itemsIDVAL = item;
@@ -346,6 +354,10 @@ export class AppliedJobComponent implements OnInit {
 	}
 	
 	
+	/**
+	**	To display the event scheduling popup
+	**/
+	
 	openPopupViewInviteNew(item,eventData){
 		this.itemsIDVAL = item;
 		this.openBookingSite = true;
@@ -373,6 +385,10 @@ export class AppliedJobComponent implements OnInit {
 		});
 		
 	}
+	
+	/**
+	**	To close the event scheduling popup
+	**/
 	
 	closeInvite(){
 		this.onGetAppliedJobs();

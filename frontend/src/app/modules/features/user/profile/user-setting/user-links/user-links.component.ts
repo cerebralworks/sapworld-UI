@@ -132,7 +132,10 @@ export class UserLinksComponent implements OnInit {
 		}
 		return ''
 	}
-
+	
+	/**
+	**	To post the links
+	**/
   onSetLinks = (fieldName, status) => {
     if (this.socialMediaLinks.length == 0) {
       this.socialMediaLinks.push(
@@ -163,7 +166,10 @@ export class UserLinksComponent implements OnInit {
     this.setLinks();
 
   }
-
+	/**
+	**	To set the links
+	**/
+	
   setLinks() {
     if(this.currentProfileInfo && !this.utilsHelperService.isEmptyObj(this.currentProfileInfo)) {
 

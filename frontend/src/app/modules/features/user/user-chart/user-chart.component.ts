@@ -540,6 +540,9 @@ export class UserChartComponent implements OnInit {
 		},600);
 	}
 	
+	/**
+	**	To check the total count of the chart applied
+	**/ 
 	
 	checkTotalChartApplied(event){
 		//CheckMatchesTotal
@@ -565,6 +568,10 @@ export class UserChartComponent implements OnInit {
 			}
 		},600);
 	}
+	
+	/**
+	**	To check the total count of the chart availability
+	**/
 	
 	checkTotalChartAvailability(event){
 		//CheckMatchesTotal
@@ -596,6 +603,9 @@ export class UserChartComponent implements OnInit {
 		},600);
 	}
 	
+	/**
+	**	To check the total count of the chart job type
+	**/
 	
 	checkTotalChartType(event){
 		//CheckMatchesTotal
@@ -630,6 +640,9 @@ export class UserChartComponent implements OnInit {
 		},600);
 	}
 	
+	/**
+	**	To check the total count of the chart visatype
+	**/
 	
 	checkTotalChartVisa(event){
 		//CheckMatchesTotal
@@ -667,6 +680,9 @@ export class UserChartComponent implements OnInit {
 		},600);
 	}
 	
+	/**
+	**	To perform event while clicking graph
+	**/
 	
 	  graphClickEvent(){
 		setTimeout(()=>{

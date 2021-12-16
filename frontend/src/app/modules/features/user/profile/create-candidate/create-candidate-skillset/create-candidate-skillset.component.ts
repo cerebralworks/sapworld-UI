@@ -547,11 +547,15 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 
 		}
 	}
-
+	/**
+	**	To get skills form controls
+	**/
 	get f() {
 		return this.childForm.controls.skillSet.controls;
 	}
-
+	/**
+	**	To get hands on experience form controls
+	**/
 	get t() {
 		return this.f.hands_on_experience as FormArray;
 	}

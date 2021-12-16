@@ -13,7 +13,10 @@ export class VisaSponsoredComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+    /**
+	**	To select the resume
+	**/
+	
   onToggleResumeSelectModal = (status) => {
     this.isOpenedResumeSelectModal = status;
   }
