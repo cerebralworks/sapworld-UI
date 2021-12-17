@@ -1,0 +1,21 @@
+:host /deep/ .mat-form-field .mat-form-field-flex{
+	border: 2px solid #ccd1d6;
+	border-bottom: 3px solid #ccd1d6;
+   border-radius: 10px;
+    min-height: 50px;
+    margin-top: 9px;
+}
+:host /deep/ .mat-form-field-appearance-legacy .mat-form-field-underline {
+	background-color:#fff;
+}
+:host /deep/ .mat-form-field-appearance-legacy .mat-form-field-ripple {
+	background-color:#fff;
+}
+:host /deep/ .mat-standard-chip.mat-chip-with-trailing-icon {
+    margin-right: 2px;
+    color: #333;
+    background: #dee6ec;
+    margin-left: 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}

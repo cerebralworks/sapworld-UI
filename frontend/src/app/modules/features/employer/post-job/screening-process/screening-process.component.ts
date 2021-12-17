@@ -44,6 +44,12 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 	public isLoading: boolean;
 	public jobId: string;
 	public languageSource: any=[];
+	public defaultScreening: any=[
+		{title: 'Face to Face'},
+		{title: 'Technical Discussion'},
+		{title: 'Programming Demonstrate'},
+		{title: 'HR Discussion'},
+		{title: 'Final Panel'}];
 	@ViewChild(NgSelectComponent)
     ngSelect: NgSelectComponent;
     @ViewChild('myselect') myselect;
@@ -171,7 +177,7 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 	**/
 	
 	handleChange(event,index){
-		if(index !=null && index !=undefined ){
+		if(index !=null && index !=undefined &&index !='default'){
 			if(this.screeningProcess[index]){
 				var checkData = this.screeningProcess[index];
 				if(checkData && checkData.length){
@@ -182,6 +188,13 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 						}));
 					}
 				}
+			}
+		}else if(index =='default'){
+			for(let i=0;i<this.defaultScreening.length;i++){
+				var value=this.defaultScreening[i]['title'];
+				this.t.push(this.formBuilder.group({
+					title: [value]
+				}));
 			}
 		}
 	}

@@ -12,6 +12,7 @@ export class PostJobFooterComponent implements OnInit {
 
 	@Input() currentTabInfo: tabInfo;
 	@Input() isEdit : any;
+	@Input() isCopy : any;
 	@Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
 	@Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
 	@Output() postJob: EventEmitter<any> = new EventEmitter();

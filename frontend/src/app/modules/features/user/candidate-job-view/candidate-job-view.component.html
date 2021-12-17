@@ -35,7 +35,8 @@
 									<div class="col-lg-6 col-md-6 matches-8 " >
 										<a class="btn btn-sm" *ngIf="postedJobsDetails['status'] == 3"  style="margin-right: 4px;    color: #fff;border-color: #b30606;background: #b71111;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.closed" | translate}}</a>
 										<a class="btn btn-outline-green btn-sm" *ngIf="postedJobsDetails?.is_job_applied == 0" (click)="onToggleResumeSelectModal(true, postedJobsDetails) && postedJobsDetails['status'] == 1" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.apply" | translate}}</a>
-										<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.is_job_applied != 0" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.applied" | translate}}</a>
+										<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.is_job_applied != 0 && postedJobsDetails?.job_applied?.status != 2" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.applied" | translate}}</a>
+										<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.job_applied?.status == 2" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.hired" | translate}}</a>
 										<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;" style="margin-right: 4px;"><i class="fas fa-file-alt"></i> {{"shared.description" | translate}}</a>
 										<a class="btn btn-outline-blue btn-sm"  *ngIf="isShowApply && postedJobsDetails['status'] == 1"  (click)="navigateMatches()" href="javascript:;"><i class="fas fa-file-alt"></i> {{"shared.showMatches" | translate}}</a>
 										
@@ -45,13 +46,33 @@
 									<div class="media col-lg-6">
 										<div class="media-body">
 											<h6>{{postedJobsDetails?.company?.company ? postedJobsDetails?.company?.company : ''}}</h6>
-											<h6 class="text-capitalize">
-												{{postedJobsDetails?.city ? postedJobsDetails?.city + ', ' : ''}}
-												{{postedJobsDetails?.state ? postedJobsDetails?.state + ', ' : ''}}
-												<!-- {{postedJobsDetails?.zipcode ? postedJobsDetails?.zipcode + ', ' : ''}} -->
+											<!-- <h6 class="text-capitalize">
+												{{postedJobsDetails?.job_location?.city ? postedJobsDetails?.job_location?.city + ', ' : ''}}
+												{{postedJobsDetails?.job_location?.state ? postedJobsDetails?.job_location?.state + ', ' : ''}}
 												<span class="text-uppercase">
-													{{postedJobsDetails?.country ? postedJobsDetails?.country : ''}}
+													{{postedJobsDetails?.job_location?.country ? postedJobsDetails?.job_location?.country : ''}}
 												</span>
+											</h6> -->
+											<h6 class="mb-0 text-capitalize">
+												<ng-container *ngFor="let item of postedJobsDetails?.job_locations" >
+												{{item?.city ? item?.city+', '  : ''}}
+												{{item?.state ? item?.state+', '  : ''}}
+												<span class="text-uppercase">
+												  {{item?.country ? item?.country : ''}}
+												</span><br>
+												</ng-container>
+											</h6>
+											<h6 class="font-weight-bold mb-2" *ngIf="postedJobsDetails?.min && postedJobsDetails?.max  " >{{"shared.timing" | translate}} : 
+												<ng-container *ngIf="postedJobsDetails?.min ">
+													{{postedJobsDetails?.min | time}}
+												</ng-container>
+												<ng-container *ngIf="postedJobsDetails?.min && postedJobsDetails?.max  ">
+													-
+												</ng-container>
+												
+												<ng-container *ngIf="postedJobsDetails?.max ">
+													{{postedJobsDetails?.max | time}}
+												</ng-container>
 											</h6>
 										</div>
 									</div>

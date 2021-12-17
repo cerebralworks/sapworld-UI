@@ -6,6 +6,8 @@ console.log(baseUrl);
 
 export const environment = {
   production: true,
+  calenderUrl: 'https://api.calendly.com/organizations/',
+  webhookUrl: 'https://api.calendly.com/webhook_subscriptions',
   serverUrl: `${baseUrl}:5002`,
   adminUrl: `${baseAdminUrl}`,
   envName: 'PROD',

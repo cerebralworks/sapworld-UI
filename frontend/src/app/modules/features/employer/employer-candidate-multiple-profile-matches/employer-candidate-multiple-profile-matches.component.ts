@@ -152,11 +152,21 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 								idVal = parseInt(temp[0]);
 								temp = response['count'].filter(function(a,b){ return a.id == idVal});
 								if(temp.length!=0){
-									if(this.TotalMatchJobs.length!=0){
+									/* if(this.TotalMatchJobs.length!=0){
 										temp[0]['match_select']=this.TotalMatchJobs[0]['match_select'];
 									}
-									temp[0]['score']=temp[0]['score'].toFixed(1);
-									this.TotalMatchJobs.push(temp[0])
+									temp[0]['score']=temp[0]['score'].toFixed(1); */
+									for(let j=0;j<temp.length;j++){
+										if(typeof temp[j]['score'] != 'string'){
+
+											if(this.TotalMatchJobs.length!=0){
+												temp[j]['match_select']=this.TotalMatchJobs[0]['match_select'];
+											}
+											temp[j]['score']=temp[j]['score'].toFixed(1);
+											this.TotalMatchJobs.push(temp[j]);
+											
+										}
+									}
 								}
 							}
 							
@@ -321,9 +331,13 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		}
 	}
 	
+	/**
+	**	Resize the window change the layout
+	**/
 	
 	@HostListener('window:resize', ['$event'])  
-  onResize(event) {  
-    this.screenWidth = window.innerWidth;  
-  }
-}
+	onResize(event) {  
+		this.screenWidth = window.innerWidth;  
+	}
+	
+}	

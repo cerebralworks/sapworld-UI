@@ -9,6 +9,8 @@ export interface AccountLogin {
 export interface LoggedIn {
   success: boolean;
   userId: string;
+  CALENDLY_TOKEN: string;
+  ORGANIZATION_ID: string;
   isLoggedIn: boolean;
   role: Array<any>
 }

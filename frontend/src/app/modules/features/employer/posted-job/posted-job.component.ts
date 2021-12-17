@@ -149,6 +149,7 @@ export class PostedJobComponent implements OnInit {
 	onChangeStatus = () => {
 		let requestParams: any = {};
 		requestParams.id = this.currentValueOfJob.id;
+		requestParams.location_id = this.currentValueOfJob['job_location']['id'];
 		requestParams.status = parseInt(this.currentValueOfStatus);
 		requestParams.status_glossary = this.statusGlossary;
 		this.employerService.changeJobStatus(requestParams).subscribe(
@@ -382,8 +383,8 @@ export class PostedJobComponent implements OnInit {
 	**/
 	 	 
 	CheckMatchesCount(id){
-		if(id !=undefined && id!=null && id !=''){
-			var tempData= this.postedJobsMatches.filter(function(a,b){ return a.id == id });
+		if(id !=undefined && id!=null && id !='' ){
+			var tempData= this.postedJobsMatches.filter(function(a,b){ return a.id == id  });
 			if(tempData.length==1){
 				return tempData[0]['count'];
 			}
@@ -396,7 +397,7 @@ export class PostedJobComponent implements OnInit {
 	**/
 	
 	CheckAppliedCount(id){
-		if(id !=undefined && id!=null && id !=''){
+		if(id !=undefined && id!=null && id !='' ){
 			var tempData= this.postedJobsApplied.filter(function(a,b){ return a.id == id });
 			if(tempData.length==1){
 				return tempData[0]['count'];
@@ -410,8 +411,8 @@ export class PostedJobComponent implements OnInit {
 	**/
 	
 	CheckShortlistedCount(id){
-		if(id !=undefined && id!=null && id !=''){
-			var tempData= this.postedJobsShortlist.filter(function(a,b){ return a.id == id });
+		if(id !=undefined && id!=null && id !='' ){
+			var tempData= this.postedJobsShortlist.filter(function(a,b){ return a.id == id  });
 			if(tempData.length==1){
 				return tempData[0]['count'];
 			}

@@ -1,4 +1,7 @@
-
+::ng-deep input[name="question_0"] {display:none !important;}
+::ng-deep .modal-dialog {
+	margin-top:1px !important;
+}
 ul.statusHistory {
     list-style-type: none;
     position: relative;
@@ -103,4 +106,26 @@ ul.statusHistory .content p{
     background: red;
     color: white;
     font-size: 7px;
+}
+.linksValue{
+	    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+.legacy-branding .badge {
+	display:none !important;
+}
+.yel{
+	color: #ffb100;
+    font-weight: bold;
+}.blu{
+	color: blue;
+    font-weight: bold;
+}
+.gre{
+	color: #11b771;
+    font-weight: bold;
+}.re{
+	color: #ff0000;
+    font-weight: bold;
 }

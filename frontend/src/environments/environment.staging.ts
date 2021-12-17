@@ -5,6 +5,7 @@ console.log(baseUrl);
 
 export const environment = {
   production: true,
+  calenderUrl: 'https://api.calendly.com/organizations/',
   serverUrl: 'http://65.0.146.153:5001',
   envName: 'PROD',
   API_URL: 'assets/api',

@@ -36,6 +36,7 @@
 		"addResumeTitle":" Titel des Lebenslaufs",
 		"matches":"Streichhölzer",
 		"sendMail":"Mail senden",
+		"send": "senden",
 		"chooseJobs":"Wählen Sie Jobs",
 		"profileSetting":"Profileinstellungen",
 		"show":"Zeigen",
@@ -143,7 +144,8 @@
 		"months": "in Monaten",
 		"contractDuration": "Vertragslaufzeit",
 		"enterNumberOfPositions": "Geben Sie die Anzahl der Positionen ein",
-		"validStatus": "Bitte wählen Sie den gültigen Status"
+		"validStatus": "Bitte wählen Sie den gültigen Status",
+		"notificationSetting" : "Benachrichtigungseinstellung"
 	},
 	"auth":{
 		"findRightPlace":"Finden Sie Ihren richtigen Ort",
@@ -332,7 +334,14 @@
 		"screeningProcess":"Titel des Screening-Prozesses",
 		"inviteURL":"Einladungs-URL (optional)",
 		"inviteLink":"Einladungslink",
+		"calender":"Kalender",
+		"calenders":"Kalenders",
+		"calenderTitle":"Kalender Titel",
+		"calenderURL":"Kalender URL",
+		"addCalender":"Kalender hinzufügen, um die Planung anzuzeigen",
+		"addCalenders":"Kalender hinzufügen",
 		"AddInviteLink":"Einladungslink hinzufügen",
+		"inviteSettingsAddCustom":"Klicken Sie hier, um den Scheduler-Link hinzuzufügen",
 		"addResume": "Lebenslauf hinzufügen"
 	},
 	"home":{
@@ -389,6 +398,9 @@
 		"recruiterRegister": "Sparen Sie Zeit bei der Überprüfung von Lebensläufen und vorqualifizierenden Vorstellungsgesprächen. Vergleichen Sie Profile, finden Sie fehlende Skillsets, stimmen Sie nach Relevanz ab. Wir servieren Ihnen, was Sie brauchen, als Platte.1"
 	},
 	"user": {
+		"calendar" :"Kalender",
+		"calendlySetting" : "Kalendereinstellung",
+		"schedule" : "Zeitplanliste",
 		"title": "Auf der Suche nach einem Job bei SAP?",
 		"title1": "Millionen Stellenangebote und da",
 		"title2": "wartet etwas Besonderes auf dich!",
@@ -456,5 +468,18 @@
 		"alert4": "Nachricht ist erforderlich",
 		"valid": "Geben Sie die gültige E-Mail-Adresse ein",
 		"exist": "E-Mail existiert bereits"
+	},
+	"notificationSettingsUser":{
+		"notification1" : "Neue Job-Matches",
+		"notification2" : "Arbeitgeber E-Mail senden",
+		"notification3" : "Profile Shortlisted",
+		"notification4" : "Profil in der engeren Auswahl",
+		"notification5" : "Vorstellungsgespräch geplant"
+	},
+	"notificationSettingsEmployer" :{
+		"notification1" : "Neue Benutzerübereinstimmungen",
+		"notification2" : "Neuer Kandidat beworben",
+		"notification3" : "Passender Kandidat hat geantwortet"
+		
 	}
 }

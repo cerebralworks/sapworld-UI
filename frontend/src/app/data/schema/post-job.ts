@@ -35,6 +35,8 @@ export interface JobPosting {
   programming_skills: Array<string>;
   optinal_skills: Array<string>;
   certification: Array<string>;
+  job_locations: Array<any>;
+  job_location: any;
   screening_process: Array<string>;
   others: Array<string>;
   work_authorization: number;
@@ -48,5 +50,8 @@ export interface JobPosting {
   end_to_end_implementation: number;
   contract_duration: number;
   latlng_text: any;
+  job_applied: any;
+  min: any;
+  max: any;
   travel_opportunity: number;
 }

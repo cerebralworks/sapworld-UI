@@ -42,14 +42,9 @@
                 </td>
                 <td>{{item?.user?.phone ? (item?.user?.phone | phone) : '--'}}</td>
                 <td>{{item?.user?.email ? item?.user?.email : '--'}}</td>
-                <!-- <td class="text-capitalize">
-                  {{item?.user?.city ? item?.user?.city + ', ' : ''}}
-                  {{item?.user?.state ? item?.user?.state + ', ' : ''}}
-                  <span class="text-uppercase">
-                    {{item?.user?.country ? item?.user?.country : ''}}
-                  </span>
-                </td> -->
-                <td class="text-capitalize"> {{item?.job_posting?.title ? item?.job_posting?.title : '--'}}</td>
+                <td class="text-capitalize"> {{item?.job_posting?.title ? item?.job_posting?.title : '--'}}
+				<!-- <span  style="font-size: 11px;color: blue;" >{{checkCity(item,'city')}} - {{checkCity(item,'state')}}</span> -->
+				</td>
                 <td class="text-center text-capitalize" *ngIf="item.short_listed !=false">
                   <h6 class="text-danger" *ngIf="item?.job_posting?.status == 0 " > Closed JOB </h6>
 					
@@ -60,16 +55,6 @@
                   </select>
                   </td>
 				  <td class="text-danger" *ngIf="item.short_listed == false">Not a Fit</td>
-                <!-- <td class="text-capitalize">
-                 <button type="button" class="btn btn-sm btn-primary" (click)="onShortListUser(item)">
-                   {{item?.short_listed ? 'Remove' : 'Add'}}
-                  </button>
-                </td> -->
-                <!-- <td class="text-capitalize">
-                  <button  [routerLink]="['/employer/job-candidate-matches', item?.job_posting?.id, item?.user?.id]" type="button" class="btn btn-sm btn-secondary">
-                    View Score
-                  </button>
-                </td> -->
               </tr>
             </ng-container>
             <ng-template #elseTemplate>

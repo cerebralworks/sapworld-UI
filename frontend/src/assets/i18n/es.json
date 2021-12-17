@@ -140,7 +140,8 @@
 	    "sapModule":"Módulo SAP",
 	    "knowledgeOnSAP":"Conocimiento sobre otras habilidades de SAP",
 	    "couldNotFind":"No pude encontrar sus habilidades de SAP",
-	    "addNewSkills":"Agregue una nueva habilidad de SAP"
+	    "addNewSkills":"Agregue una nueva habilidad de SAP",
+		"notificationSetting" :"Notificación de configuración"
 	},
 	"auth":{
 	    "findRightPlace":"Encuentra tu lugar correcto",
@@ -329,7 +330,14 @@
 	    "screeningProcess":"Título del proceso de selección",
 	    "inviteURL":"URL de invitación (opcional)",
 	    "inviteLink":"Enlace de invitación",
+		"calender":"Calendario",
+		"calenders":"Calendarios",
+		"calenderTitle":"Título del calendario",
+		"calenderURL":"URL del calendario",
+		"addCalender":"Agregar calendarios para ver la programación",
+		"addCalenders":"Agregar calendarios",
 	    "AddInviteLink":"Agregar enlace de invitación",
+	    "inviteSettingsAddCustom":"Haga clic aquí para agregar el enlace del programador",
         "addResume": "Agregar currículum"
 	},
 	"home": {
@@ -386,6 +394,9 @@
 	    "recruiterRegister":"Registro de reclutadores "
 	},
 	"user":{
+		"calendar" :"Calendario",
+		"calendlySetting" :"Configuración de calendario",
+		"schedule": "Lista de horarios",
 	    "title": "Buscas trabajo en SAP?",
         "title1": "Millones de puestos vacantes y hay",
         "title2": "hay algo especial esperándote!",
@@ -453,5 +464,18 @@
 		"alert4": "El mensaje es obligatorio",
 		"valid": "Ingrese el correo electrónico válido",
 		"exist": "El correo electrónico ya existe"
+	},
+	"notificationSettingsUser":{
+		"notification1" : "Nuevas coincidencias de trabajo",
+		"notification2" : "Correo de envío del empleador",
+		"notification3" : "Perfil preseleccionado",
+		"notification4" : "Perfil rechazado",
+		"notification5" : "Entrevista programada"
+	},
+	"notificationSettingsEmployer" :{
+		"notification1" : "Coincidencias de nuevos usuarios",
+		"notification2" : "Nueva candidata aplicada",
+		"notification3" : "Candidata a juego respondida"
 	}
+	
 }

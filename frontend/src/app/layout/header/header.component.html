@@ -109,7 +109,13 @@
       <div class="collapse navbar-collapse" style="display:contents;"  id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto nav-profiles">
 		<li *ngIf="!router.url.includes('/agency')" class="nav-item  my-1 d-flex" style="margin-right:10px;">
-            <a (click)="navigateNotification()"
+            <a [routerLink]="['/employer/calendar']"
+            class="py-1 px-2 d-flex align-items-center justify-content-center"
+            style="font-size: 22px;position: relative;cursor:pointer;"
+              >
+              <i class="fas fa-calendar-alt" style="font-size: 26px;"></i>
+            </a>
+			<a (click)="navigateNotification()"
             class="py-1 px-2 d-flex align-items-center justify-content-center"
             style="font-size: 22px;position: relative;cursor:pointer;"
               >
@@ -136,6 +142,7 @@
             <li class="submenu"> <a [routerLink]="['/employer/dashboard']" class="dropdown-item" href="javascript:;">{{"header.dashboard" | translate}}</a></li>
             <li class="submenu"> <a [routerLink]="['/employer/profile']" class="dropdown-item" href="javascript:;">{{"header.profile" | translate}}</a></li>
             <li class="submenu"> <a [routerLink]="['/notification']" class="dropdown-item" href="javascript:;">{{"header.notification" | translate}}</a></li>
+            <li class="submenu"> <a [routerLink]="['/employer/calendar']" class="dropdown-item" href="javascript:;">{{"common.calender" | translate}}</a></li>
             <li class="submenu"> <a [routerLink]="['/employer/setting']" class="dropdown-item" href="javascript:;">{{"header.settings" | translate}}</a></li>
             <li class="submenu"> <a (click)="logout()" class="dropdown-item" href="javascript:;">{{"header.logout" | translate}}</a></li>
           </ul>
@@ -183,7 +190,13 @@
       <div class="collapse navbar-collapse" style="display:contents;" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto nav-profile">
           <li *ngIf="!router.url.includes('/agency')" class="nav-item  my-1 d-flex" style="margin-right:10px;">
-            <a (click)="navigateNotification()"
+            <a [routerLink]="['/user/calendar']" href="javascript:;"
+            class="py-1 px-2 d-flex align-items-center justify-content-center"
+            style="font-size: 22px;position: relative;cursor:pointer;"
+              >
+			  <i class="fas fa-calendar-alt" style="font-size: 26px;"></i>
+            </a>
+			<a (click)="navigateNotification()"
             class="py-1 px-2 d-flex align-items-center justify-content-center"
             style="font-size: 22px;position: relative;cursor:pointer;"
               >
@@ -191,6 +204,7 @@
 			  <span class="bell-span" id="notifi_color" style="display:none;"></span>
 			  <span class="bell-spans" id="notifi_count" style="display:none;">0</span>
             </a>
+			
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -207,6 +221,7 @@
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/dashboard']" href="javascript:;">{{"header.dashboard" | translate}}</a></li>
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/create-candidate']" href="javascript:;">{{"header.profile" | translate}}</a></li>
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/notification']" href="javascript:;">{{"header.notification" | translate}}</a></li>
+              <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/calendar']" href="javascript:;">{{"common.calender" | translate}}</a></li>
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/profile-setting']" href="javascript:;">{{"header.settings" | translate}}</a></li>
               <li class="submenu"> <a class="dropdown-item" (click)="logout()" href="javascript:;">{{"header.logout" | translate}}</a></li>
             </ul>

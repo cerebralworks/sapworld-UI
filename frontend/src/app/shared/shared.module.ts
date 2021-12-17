@@ -46,6 +46,7 @@ import { SharedJobProfileMultipleMatchesComponent } from './component/shared-job
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { JobPreviewModalComponent } from '@modules/features/employer/modal/job-preview/job-preview.component';
 import { PhonePipe } from './pipes/phone.pipe';
+import { TimePipe } from './pipes/time.pipe';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
@@ -60,6 +61,7 @@ import { ContactFormComponent } from './component/contact-form/contact-form.comp
     CoverSelectComponent,
     ResumeSelectComponent,
     CoverModalComponent,
+    ContactFormComponent,
     JobDescriptionComponent,
     SendMailJobPreviewComponent,
     ForgotPasswordComponent,
@@ -77,7 +79,6 @@ import { ContactFormComponent } from './component/contact-form/contact-form.comp
     AppPasswordDirective,
     OnlyNumber,
     SharedUserProfileComponent,
-    ContactFormComponent,
     SharedUserProfileMatchesComponent,
     SharedJobProfileComponent,
     SharedJobProfileMatchesComponent,
@@ -86,6 +87,7 @@ import { ContactFormComponent } from './component/contact-form/contact-form.comp
     SharedUserProfileJobMultipleMatchesComponent,
     JobPreviewModalComponent,
     PhonePipe,
+    TimePipe,
     ChangePasswordComponent
   ],
   imports: [
@@ -108,8 +110,8 @@ import { ContactFormComponent } from './component/contact-form/contact-form.comp
     CarouselModule
   ],
   exports: [
-    ContactFormComponent,
     LoginFormComponent,
+    ContactFormComponent,
     RegisterFormComponent,
     ResumeModalComponent,
     CoverSelectComponent,
@@ -155,6 +157,7 @@ import { ContactFormComponent } from './component/contact-form/contact-form.comp
     NgxDocViewerModule,
     JobPreviewModalComponent,
     PhonePipe,
+    TimePipe,
     CarouselModule,
     ChangePasswordComponent
   ],

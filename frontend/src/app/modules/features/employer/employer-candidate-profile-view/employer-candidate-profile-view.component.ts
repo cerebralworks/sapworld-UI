@@ -37,6 +37,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	public jobId: string;
 	public employeeID: any;
 	public applicationID: any;
+	public location_id: any;
 	public pathUser: any;
 	public postedJobsDetails: JobPosting;
 	public postedJobsMatchDetails:any[] =[];
@@ -65,6 +66,9 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 				if(urlQueryParams && urlQueryParams.id) {
 					sessionStorage.setItem('userId',urlQueryParams.id);
 				}
+				if(urlQueryParams && urlQueryParams.location_id) {
+					sessionStorage.setItem('location_id',urlQueryParams.location_id);
+				}
 				if(urlQueryParams && urlQueryParams.employee) {
 					sessionStorage.setItem('employeeID',urlQueryParams.employee);
 				}
@@ -79,6 +83,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		});	 
 		var jobIds:any=0;
 		var userIds:any=0;
+		var location_ids:any=0;
 		if(sessionStorage.getItem('jobId')){
 			jobIds = parseInt(sessionStorage.getItem('jobId'));
 		}if(sessionStorage.getItem('userId')){
@@ -87,10 +92,14 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 			this.employeeID = parseInt(sessionStorage.getItem('employeeID'));
 		}if(sessionStorage.getItem('applicationID')){
 			this.applicationID = parseInt(sessionStorage.getItem('applicationID'));
+		}if(sessionStorage.getItem('location_id')){
+			this.location_id = parseInt(sessionStorage.getItem('location_id'));
+			location_ids = parseInt(sessionStorage.getItem('location_id'));
 		}
 		this.jobId = jobIds;
+		this.location_id = location_ids;
 		this.userID = userIds;
-		this.router.navigate([], {queryParams: {id: null,applicationId: null,jobId:null,path:null,employee:null}, queryParamsHandling: 'merge'});
+		this.router.navigate([], {queryParams: {location_id: null,id: null,applicationId: null,jobId:null,path:null,employee:null}, queryParamsHandling: 'merge'});
 	}
 	
 	/**
@@ -170,6 +179,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		let requestParams: any = {};
 		requestParams.expand = 'company,score';
 		requestParams.id = this.jobId;
+		requestParams.location_id = this.location_id;
 		requestParams.user_id = this.userID;
 		this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {

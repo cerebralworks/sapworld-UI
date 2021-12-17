@@ -41,6 +41,7 @@ export class JobPreviewComponent implements OnInit {
 		{ text: 'Doctorate' }
 	];
 	@Input() toggleJobPreviewModal: boolean;
+	@Input() isCopy: boolean = false;
 	@Output() onEvent = new EventEmitter<boolean>();
 	@Input() postJobForm: FormGroup;
 	@Output() postJob: EventEmitter<any> = new EventEmitter();
@@ -1133,6 +1134,16 @@ export class JobPreviewComponent implements OnInit {
 			//this.skillItems = this.skillItems.filter(function(a,b){ return a.id != skillId });
 		}
 	}
-  
+	
+	/*
+	**	Check the if the object have true value
+	**/
+	
+	allTrue(obj){
+		for(var o in obj)
+          if(obj[o]) return true;
+        
+      return false;
+    }
   
 }

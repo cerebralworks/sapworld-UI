@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   public currentUserDetails: any = {};
   public randomNum: number;
 	public screenWidth: any;
-
+	
   constructor(
     public router: Router,
     public translateService: TranslateService,

@@ -13,9 +13,9 @@
   <!-- //Sub Header Section -->
 <section class="my-3" style="min-height: 970px;">
   <div class="container">
-  <h5 style="font-weight:bold"> {{"postJob.title" | translate }} </h5><br />
-<h6>{{"postJob.content" | translate }}  <br /> {{"postJob.contentSubject" | translate }}  </h6><br />
-    <div class="row">
+  <h5 style="font-weight:bold;display:none;" id="titleContent" > {{"postJob.title" | translate }} </h5><br />
+<h6 style="display:none;"  id="titleView" >{{"postJob.content" | translate }}  <br /> {{"postJob.contentSubject" | translate }}  </h6><br />
+  <div class="row">
       <div class="col-lg-12 tabs-animated" id="myTab">
         <form method="post" #postJobNgForm="ngForm" [formGroup]="postJobForm">
           <app-post-job-header
@@ -27,6 +27,7 @@
 
             <app-job-information
             [postedJobsDetails]="postedJobsDetails"
+			[isCopy]="isCopy"
             *ngIf="currentTabInfo.tabNumber == 1"
             [currentTabInfo]="currentTabInfo">
             </app-job-information>
@@ -56,6 +57,7 @@
           (postJob)="postJob()"
           [postJobForm]="postJobForm"
           [isEdit]="isEdit"
+          [isCopy]="isCopy"
           [currentTabInfo]="currentTabInfo"
           (onTabChangeEvent)="onFooterTabChange($event)"
           (onEnableJobPreviewModal)="onToggleJobPreviewModal($event)">
@@ -65,6 +67,7 @@
           <app-job-preview
           [postedJobsDetails]="postedJobsDetails"
           (postJob)="postJob()"
+		  [isCopy]="isCopy"
           [postJobForm]="postJobForm"
           *ngIf="isOpenedJobPreviewModal"
           [toggleJobPreviewModal]="isOpenedJobPreviewModal"

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PostJobLayoutComponent } from './post-job-layout/post-job-layout.component';
@@ -39,6 +39,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   exports: [RouterModule]
 })
 export class PostJobModule { }

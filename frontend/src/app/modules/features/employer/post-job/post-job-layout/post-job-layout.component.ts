@@ -57,7 +57,9 @@ export class PostJobLayoutComponent implements OnInit {
 	public postJobForm: FormGroup;
 	public isLoading: boolean;
 	public getDataCount: boolean = false;
+	public showData: boolean = false;
 	public isEdit: boolean = false;
+	public isCopy: boolean = false;
 	public formError: any;
 	public postedJobsDetails: JobPosting;
 	public jobId: string;
@@ -92,6 +94,19 @@ export class PostJobLayoutComponent implements OnInit {
 		this.jobId = this.route.snapshot.queryParamMap.get('id');
 		if(this.jobId) {
 		  this.onGetPostedJob(this.jobId);
+			document.getElementById('titleView').style.display='none';
+			document.getElementById('titleContent').style.display='none';
+		}else{
+			document.getElementById('titleView').style.display='block';
+			document.getElementById('titleContent').style.display='block';
+		}
+		var tempStatus = this.route.snapshot.queryParamMap.get('status');
+		if(tempStatus == 'copy') {
+		  this.isCopy = true;
+		  document.getElementById('titleView').style.display='block';
+		  document.getElementById('titleContent').style.display='block';
+		}else{
+			this.isCopy = false;
 		}
 	
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
@@ -106,6 +121,7 @@ export class PostJobLayoutComponent implements OnInit {
 		)
 		
 	}
+	
 	
 	/**
 	**	To slider changes for the tabInfo
@@ -225,7 +241,7 @@ export class PostJobLayoutComponent implements OnInit {
 		}
 	   delete jobInfo.temp_extra_criteria;
 		if (this.postJobForm.valid) {
-			if(this.jobId) {
+			if(this.jobId && this.isCopy == false) {
 				this.onJobUpdate(jobInfo);
 			}else {
 				this.onJobPost(jobInfo);
@@ -415,6 +431,41 @@ export class PostJobLayoutComponent implements OnInit {
 			temp_screening_process: new FormControl(null),
 		}));
         if(response && response.details) {
+			if(this.isCopy){
+				response.details['min']='';
+				response.details['max']='';
+				response.details['salary_type']='';
+				response.details['salary']='';
+				response.details['salary_currency']='USD';
+				response.details['job_locations']=[];	
+				response.details['health_wellness']={
+					'dental':false,
+					'disability':false,
+					'life':false
+				};		
+				response.details['paid_off']={
+					'vacation_policy':false,
+					'paid_sick_leaves':false,
+					'paid_parental_leave':false,
+					'maternity':false
+				};		
+				response.details['financial_benefits']={
+					'tuition_reimbursement':false,
+					'corporate_plan':false,
+					'retirement_plan':false,
+					'performance_bonus':false,
+					'purchase_plan':false
+				};			
+				response.details['office_perks']={
+					'telecommuting':false,
+					'free_food':false,
+					'wellness_program':false,
+					'social_outings':false,
+					'office_space':false
+				};	
+				
+				
+			}
           this.postedJobsDetails = response.details;
           this.postJobForm.patchValue({
             ...this.postedJobsDetails

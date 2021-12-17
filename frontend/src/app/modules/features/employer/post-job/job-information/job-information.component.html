@@ -87,6 +87,48 @@
 		</div>
 	</div>
 	<div class="row mt-2">
+		<div class="col-lg-8 col-md-12">
+			<div class=" form-group">
+				<label >{{"shared.jobLocation" | translate }}</label>
+				<mat-form-field class="example-chip-list" style="width: 100%;" >
+					
+					<mat-chip-list #chipList aria-label="address">
+						<mat-chip *ngFor="let addresss of address;let i=index;" [selectable]="selectable"
+							[removable]="removable" (removed)="onRemove(i)">
+							{{addresss}}
+							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder="" #chipsInput
+						(onAddressChange)="handleAddressChange($event)"
+						[options]='options' id="preferredLocation"
+						ngx-google-places-autocomplete
+						 #places="ngx-places" 
+							autocomplete="disabled" 
+							[matChipInputFor]="chipList"
+							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+							[matChipInputAddOnBlur]="addOnBlur"
+							(matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+				</mat-form-field>
+			</div>	
+		</div>	
+		<div class="col-lg-4 col-md-6 matches-8">
+			<div class=" form-group">
+				<label>{{"shared.workTiming" | translate}}</label>
+				<div class="row mt-2">
+					<div class="col-lg-6 col-md-6 ">
+						<input type="time"  formControlName="min" (change)="getValue($event,'min')" [max]="childForm['value']['jobInfo']['min']" class="form-control " >
+						<small class="text-danger" *ngIf="minError" > The start time must be lesser than the end time </small>
+					</div>
+					<div class="col-lg-6 col-md-6 ">
+						<input type="time"  formControlName="max" (change)="getValue($event,'max')" [min]="childForm['value']['jobInfo']['max']" class="form-control " >
+						<small class="text-danger" *ngIf="maxError" > The end time must be greater than the start time </small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="row mt-2">
 		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
 				<label>{{"shared.city" | translate}}</label>
@@ -119,7 +161,7 @@
 			</div>
 			<app-control-messages [control]="f['country']"></app-control-messages>
 		</div>
-	</div>
+	</div> -->
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">

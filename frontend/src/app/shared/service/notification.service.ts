@@ -94,3 +94,4 @@ export interface PushNotification {
     lang ? : string;
     vibrate ? : number[];
 }
+

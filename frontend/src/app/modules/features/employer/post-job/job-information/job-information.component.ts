@@ -1,5 +1,8 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input,ViewChild, OnInit,ElementRef, SimpleChanges } from '@angular/core';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { ControlContainer, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import {  FormArray, FormBuilder } from '@angular/forms';
+
 import { textEditorConfig } from '@config/rich-editor';
 import { tabInfo } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
@@ -8,8 +11,13 @@ import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 
 import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
+import { Options} from "ngx-google-places-autocomplete/objects/options/options";
+import { GooglePlaceDirective } from "ngx-google-places-autocomplete";
+import { ComponentRestrictions } from "ngx-google-places-autocomplete/objects/options/componentRestrictions";
 import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
+import {MatChipInputEvent} from '@angular/material/chips';
 
+declare let google: any;
 @Component({
   selector: 'app-job-information',
   templateUrl: './job-information.component.html',
@@ -21,22 +29,36 @@ export class JobInformationComponent implements OnInit {
 	/**
 	**	Variable Declaration
 	**/
-	
+	@ViewChild('places') places: GooglePlaceDirective;
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = true;
+	readonly separatorKeysCodes = [ENTER, COMMA] as const;
+	@ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
+	address = [ ];
 	@Input() currentTabInfo: tabInfo;
 	@Input('postedJobsDetails')
 	set postedJobsDetails(inFo: JobPosting) {
 		this.getPostedJobsDetails = inFo;
 	}
-
+	options  = {
+		//componentRestrictions: { country:'' }
+	};
 	public availabilityArray: { id: number; text: string; }[];
 	public childForm;
 	public getPostedJobsDetails: JobPosting;
 	public currentCurrencyFormat: string = "en-US";
 	public isContractDuration: boolean = false;
+	public minError: boolean = false;
+	public maxError: boolean = false;
+	public min: any;
+	public max: any;
 	public editorConfig: AngularEditorConfig = textEditorConfig;
 
 	constructor(
 		private parentF: FormGroupDirective,
+		private formBuilder: FormBuilder,
 		public sharedService: SharedService
 	) { }
 
@@ -58,36 +80,145 @@ export class JobInformationComponent implements OnInit {
 	}
 
 	/**
+	**	To get chip add event
+	**/
+	
+	add(event: MatChipInputEvent): void {
+		// Clear the input value
+		event.chipInput!.clear();
+	}
+	
+	/**
+	**	To remove the address
+	**/
+	
+	remove(data): void {
+		
+		const index = this.address.indexOf(data);
+
+		if (index >= 0) {
+			this.address.splice(index, 1);
+		}
+	}
+	
+	/**
 	**	Assign the values for the jobInformation
 	** 	
 	**/
 	
 	ngOnChanges(changes: SimpleChanges): void {
-   
-		if(this.childForm && this.getPostedJobsDetails) {
-			
-			this.childForm.patchValue({
-				jobInfo : {
-					...this.getPostedJobsDetails,
-					salary: this.getPostedJobsDetails.salary.toString(),
-					salary_currency: this.getPostedJobsDetails.salary_currency.toLocaleUpperCase()
-				}
-			});
-			let latlngText: string = this.getPostedJobsDetails.latlng_text;
-			if (latlngText) {
-				const splitedString: any[] = latlngText.split(',');
-				if (splitedString && splitedString.length) {
-					this.childForm.patchValue({
-						jobInfo: {
-							latlng: {
-								lat: splitedString[0],
-								lng: splitedString[1]
+		setTimeout( async () => {
+			if(this.childForm && this.getPostedJobsDetails) {
+				if (this.childForm.value.jobInfo.job_locations) {
+					var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
+					if(tempData.length !=0){
+						//this.address = this.t.value;
+						tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+						return a.city+'-'+a.stateshort });
+						this.address=tempData;
+					}else if(tempData.length ==0){ 
+						if(this.getPostedJobsDetails.job_locations.length !=0){
+							if(this.t && this.t.length ){
+								for(let i=0;i<=this.t.value.length;i++){
+									this.t.removeAt(0);
+									i=0;
+								}
+							}
+							if(this.getPostedJobsDetails.job_locations[0]['countryshort']){
+								var tempCountry = {
+									country: this.getPostedJobsDetails.job_locations[0]['countryshort']
+								};
+								this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+								this.places['autocomplete']['componentRestrictions'] = tempCountry;
+							}
+							var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
+							if(tempData.length ==0){
+								this.getPostedJobsDetails.job_locations.map((value, index) => {
+									this.t.push(this.formBuilder.group({
+										city: ['', Validators.required],
+										state: ['', Validators.required],
+										stateshort: ['', Validators.required],
+										countryshort: ['', Validators.required],
+										zipcode: [''],
+										country: ['', Validators.required]
+									}));
+								});
+								var tempDatas = this.getPostedJobsDetails.job_locations.map(function(a,b){ 
+								a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+								return a.city+'-'+a.stateshort });
+								this.address=tempDatas;
 							}
 						}
-					})
+					}
+					
 				}
+				if (this.childForm.value.jobInfo.min) {
+					this.getPostedJobsDetails.min = this.childForm.value.jobInfo.min;
+					this.childForm.patchValue({
+					jobInfo : {
+						min:this.childForm.value.jobInfo.min
+					}
+					});
+				}
+				if (this.childForm.value.jobInfo.max) {
+					this.getPostedJobsDetails.max = this.childForm.value.jobInfo.max;
+					this.childForm.patchValue({
+					jobInfo : {
+						max:this.childForm.value.jobInfo.max
+					}
+					});
+				}
+				this.childForm.patchValue({
+					jobInfo : {
+						...this.getPostedJobsDetails,
+						salary: this.getPostedJobsDetails.salary.toString(),
+						salary_currency: this.getPostedJobsDetails.salary_currency.toLocaleUpperCase()
+					}
+				});
+				/* let latlngText: string = this.getPostedJobsDetails.latlng_text;
+				if (latlngText) {
+					const splitedString: any[] = latlngText.split(',');
+					if (splitedString && splitedString.length) {
+						this.childForm.patchValue({
+							jobInfo: {
+								latlng: {
+									lat: splitedString[0],
+									lng: splitedString[1]
+								}
+							}
+						})
+					}
+				} */
+			}else if(this.childForm) {
+				if (this.childForm.value.jobInfo.job_locations) {
+					var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
+					if(tempData.length !=0){
+						//this.address = this.t.value;
+						tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+						return a.city+'-'+a.stateshort });
+						this.address=tempData;
+					}
+					
+				}
+				if (this.childForm.value.jobInfo.min) {
+					this.childForm.patchValue({
+					jobInfo : {
+						min:this.childForm.value.jobInfo.min
+					}
+					});
+				}
+				if (this.childForm.value.jobInfo.max) {
+					this.childForm.patchValue({
+					jobInfo : {
+						max:this.childForm.value.jobInfo.max
+					}
+					});
+				}
+				
 			}
-		}
+		});
 	}
 
 	/**
@@ -105,18 +236,28 @@ export class JobInformationComponent implements OnInit {
 			negotiable: new FormControl(false),
 			type: new FormControl('', Validators.required),
 			contract_duration: new FormControl(''),
+			min: new FormControl(null),
+			max: new FormControl(null),
 			description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(2000)])),
 			salary_type: new FormControl('', Validators.required),
 			salary_currency: new FormControl('USD', Validators.required),
 			salary: new FormControl(null, Validators.required),
-			city: new FormControl('', Validators.required),
+			/* city: new FormControl('', Validators.required),
 			state: new FormControl('', Validators.required),
 			latlng: new FormControl({}, Validators.required),
 			country: new FormControl('', Validators.required),
-			zipcode: new FormControl(null, Validators.required),
+			zipcode: new FormControl(null, Validators.required), */
 			availability: new FormControl(null, Validators.required),
 			remote: new FormControl(null, Validators.required),
 			//willing_to_relocate: new FormControl(null, Validators.required),
+			job_locations : new FormArray([this.formBuilder.group({
+				city: ['', Validators.required],
+				state: ['', Validators.required],
+				stateshort: ['', Validators.required],
+				countryshort: ['', Validators.required],
+				zipcode: [''],
+				country: ['', Validators.required]
+			})]),
 			willing_to_relocate: new FormControl(null),
 			health_wellness: new FormGroup({
 			  dental: new FormControl(false),
@@ -205,21 +346,126 @@ export class JobInformationComponent implements OnInit {
 	**  assign lat&lng
 	**/
 	
+	getValue(event,data){
+		this.minError = false;
+		this.maxError = false;
+		var maxCheck = this.childForm.value.jobInfo.max;
+		var minCheck = this.childForm.value.jobInfo.min;
+
+		if(minCheck && maxCheck){
+			maxCheck= maxCheck.split(':');
+			minCheck= minCheck.split(':');
+			var maxCheck_1=parseInt(maxCheck[0]);
+			var maxCheck_2=parseInt(maxCheck[1]);
+			var minCheck_1= parseInt(minCheck[0]);
+			var minCheck_2= parseInt(minCheck[1]);
+			if(minCheck_1>maxCheck_1){
+				this.minError = true;
+			}else if(minCheck_2>maxCheck_2){
+				this.maxError = true;
+			}
+			
+		}
+		
+	}
+	
+		
+	get t() {
+		return this.f.job_locations as FormArray;
+	}
+  
+	/**
+	**	To add the preferred_location
+	**/
+	onDuplicate = () => {
+      this.t.push(this.formBuilder.group({
+        city: ['', Validators.required],
+        state: ['', Validators.required],
+        stateshort: ['', Validators.required],
+        countryshort: ['', Validators.required],
+        zipcode: [''],
+        country: ['', Validators.required]
+      }));
+	}
+	
+	/**
+	**	To remove the preferred_location
+	**/
+	
+	onRemove = (index) => {
+		let removedValue = this.t.value[index];
+	 
+		if (index == 0 && this.t.length == 1) {
+		  this.t.removeAt(0);
+		  this.t.push(this.formBuilder.group({
+			city: ['', Validators.required],
+			state: ['', Validators.required],
+			stateshort: ['', Validators.required],
+			countryshort: ['', Validators.required],
+			zipcode: [''],
+			country: ['', Validators.required]
+		  }));
+		  this.address=[];
+		  var tempCountry = {
+			country: []
+		};
+		this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+		this.places['autocomplete']['componentRestrictions'] = tempCountry;
+		} else {
+		  this.t.removeAt(index);
+		  var tempData =[];
+			if(this.t.value){
+				 tempData = this.t.value.filter(function(a,b){ return a.city!=''||a.country!=''});
+			}
+		  tempData = tempData.map(function(a,b){ 
+		a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+		return a.city+'-'+a.stateshort });
+		this.address=tempData;
+		}
+	}
+	
+	/**
+	**	handle the address change
+	**/
+	
 	handleAddressChange = (event) => {
 		const address = this.sharedService.fromGooglePlace(event);
 		if(event.geometry){
-			this.childForm.patchValue({
-				jobInfo: {
-					city: address.city ? address.city : event.formatted_address,
-					state: address.state,
-					country: address.country,
-					latlng: {
-					  "lat": event.geometry.location.lat(),
-					  "lng": event.geometry.location.lng()
+			var tempData =[];
+			if(this.t.value){
+				 tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
+			}
+			
+			var datas:any = {
+			city: address.city ? address.city : event.formatted_address,
+			state: address.state,
+			stateshort: address.stateShort,
+			countryshort: address.countryShort,
+			zipcode: address.zipcode,
+			country: address.country
+			};
+			this.chipsInput.nativeElement.value='';
+			if(address['city'] !=null &&address['state'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
+				address['city'] !=undefined &&address['state'] !=undefined &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){ 
+				if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
+					
+					if(tempData.length !=0){
+						this.onDuplicate();
 					}
+					tempData.push(datas);
+					this.t.patchValue(tempData);
+					tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+					return a.city+'-'+a.stateshort });
+					this.address=tempData;
+					var tempCountry = {
+						country: datas.countryshort
+					};
+					this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+					this.places['autocomplete']['componentRestrictions'] = tempCountry;
+
 				}
-			});
+			}
 		}
 	};
-
 }

@@ -31,11 +31,25 @@
 									</a>
 									<h6 class="text-capitalize mt-2">{{postedJobsDetails?.company?.company}}</h6>
 									<h6 class="mb-0 text-capitalize job-txt">
-										{{postedJobsDetails?.city ? postedJobsDetails?.city+', '  : ''}}
-										{{postedJobsDetails?.state ? postedJobsDetails?.state+', '  : ''}}
+										<ng-container *ngFor="let item of postedJobsDetails?.job_locations" >
+										{{item?.city ? item?.city+', '  : ''}}
+										{{item?.state ? item?.state+', '  : ''}}
 										<span class="text-uppercase">
-										  {{postedJobsDetails?.country ? postedJobsDetails?.country : ''}}
-										</span>
+										  {{item?.country ? item?.country : ''}}
+										</span><br>
+										</ng-container>
+									</h6>
+									<h6 class="font-weight-bold mb-2"*ngIf="postedJobsDetails?.min && postedJobsDetails?.max">{{"shared.timing" | translate}} : 
+										<ng-container *ngIf="postedJobsDetails?.min ">
+											{{postedJobsDetails?.min | time}}
+										</ng-container>
+										<ng-container *ngIf="postedJobsDetails?.min && postedJobsDetails?.max  ">
+											-
+										</ng-container>
+										
+										<ng-container *ngIf="postedJobsDetails?.max ">
+											{{postedJobsDetails?.max | time}}
+										</ng-container>
 									</h6>
 								</div>
 								<div class="pc-btn">
@@ -81,7 +95,7 @@
 												<div class="card-body">
 													<div class="row">
 														<div class="col-lg-8 col-md-8">
-															<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
+															<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsers?.profile?.job_location?.id,id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
 																	<h5 class="text-capitalize">
 																		<span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
 																		  + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
@@ -172,7 +186,7 @@
 														  [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
 													</div>
 													<div class="pc-info">
-														<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
+														<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsers?.profile?.job_location?.id,id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
 															<h5 class="text-capitalize">
 																<span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
 																  + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
@@ -201,15 +215,7 @@
 																	<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
 																</a>
 															</ng-container>
-															<!-- <a [class.disabled]="OpenMatchPopups(matchingUsers)"  
-															  [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsers?.profile?.id,employeeId: postedJobsDetails?.company.id }" href="javascript:;"
-															class="mr-3" >
-																<small><i class="fab fa-buffer"></i>  {{"shared.viewOtherMatches" | translate}}  </small>
-															</a> -->
-															<!-- 
-															<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsers?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
-																<small><i class="fab fa-buffer"></i> View Other Matches</small>
-															</a> -->
+															
 														</form>
 													</div>
 												</div>
@@ -243,7 +249,7 @@
 														  [src]="matchingUsersNew?.profile?.photo ? (matchingUsersNew?.meta?.photo?.path+'/'+ matchingUsersNew?.meta?.photo?.folder+'/'+matchingUsersNew?.meta?.photo?.sizes?.medium+'/'+matchingUsersNew?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
 													</div>
 													<div class="pc-info">
-														<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: matchingUsersNew?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
+														<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsersNew?.profile?.job_location?.id,id: matchingUsersNew?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
 															<h5 class="text-capitalize">
 																<span>{{(matchingUsersNew?.profile?.first_name ? matchingUsersNew?.profile?.first_name : '') + ' '
 																  + (matchingUsersNew?.profile?.last_name ? matchingUsersNew?.profile?.last_name : '')}}</span>

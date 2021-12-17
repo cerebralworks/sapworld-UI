@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { UserSharedService } from '@data/service/user-shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-content',
@@ -15,6 +16,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   constructor(
     private employerSharedService: EmployerSharedService,
     private userSharedService: UserSharedService,
+    public router: Router,
     private accountService: AccountService
     ) { }
   /**

@@ -1,8 +1,10 @@
-import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild, Input } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef,ElementRef, ViewChild, Input } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {PageEvent} from '@angular/material/paginator';
 import { EmployerService } from '@data/service/employer.service';
+export {}; declare global { interface Window { Calendly: any; } } 
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-applied-job',
@@ -18,6 +20,7 @@ export class AppliedJobComponent implements OnInit {
 	@Input()screenWidth:any;
 	public appliedJobs: any[] = [];
 	public appliedJobMeta: any;
+	public itemsIDVAL: any;
 	public page: number = 1;
 	public limit: number = 10;
 	length = 0;
@@ -27,6 +30,11 @@ export class AppliedJobComponent implements OnInit {
 	public toggleMatchesModal: boolean = false;
 	@ViewChild('matchesModal', { static: false }) matchesModal: TemplateRef<any>;
 	public mbRefs: NgbModalRef;
+	public openBookingSite: boolean = false;
+	public openNotBook: boolean = false;
+	public url: any = '';
+	@ViewChild('bookingModel', { static: false }) bookingModel: TemplateRef<any>;
+	public bookingModelRef: NgbModalRef;
 	public statusvalue: any[] = [
 		{id:1,text:'APPLICATION UNDER REVIEW'},
 		{id:2,text:'Hired'},
@@ -37,6 +45,8 @@ export class AppliedJobComponent implements OnInit {
 		{id:98,text:'Not a Fit'},
 		{id:99,text:'Closed'}
 	];
+	@ViewChild('container') container: ElementRef;
+	
 	/**	
 	**	To implement the package section constructor
 	**/
@@ -44,6 +54,7 @@ export class AppliedJobComponent implements OnInit {
 	constructor(
 		private userService: UserService,
 		private modelService: NgbModal,
+		private sanitizer: DomSanitizer,
 		private employerService : EmployerService
 	) { }
 
@@ -223,5 +234,153 @@ export class AppliedJobComponent implements OnInit {
 		}
 		return '--';
 	}
+	
+	
+	openPopupViewInvite(item){
+		this.itemsIDVAL = item;
+		this.openBookingSite = true;
+		this.openNotBook = false;
+		console.log(this.itemsIDVAL)
+		setTimeout(() => {
+			this.bookingModelRef = this.modelService.open(this.bookingModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				//backdrop: 'static',
+				keyboard: false
+			});
+		});
+		setTimeout(() => {
+			window.Calendly.initInlineWidget({
+				url: document.getElementsByClassName('checkVal')[0]['id']+"?utm_source="+this.itemsIDVAL.id,
+				parentElement: document.querySelector('.calendly-inline-widget'),
+				prefill: {
+					name: document.getElementById("name")['value'],
+					email: document.getElementById("email")['value']
+					
+				} ,
+				branding: false 
+			});
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}else{
+					var splitCheck = checkURL[0].split('/')['2']
+					if(splitCheck != 'calendly.com'){
+						document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+					}
+				}
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},500);
+		},10);
+	}
+	
+	
+	openPopupViewReschedule(item){
+		this.itemsIDVAL = item;
+		this.openBookingSite = true;
+		this.openNotBook = true;
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.itemsIDVAL['reschedule_url']);
+		setTimeout(() => {
+			this.bookingModelRef = this.modelService.open(this.bookingModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				//backdrop: 'static',
+				keyboard: false
+			});
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}else{
+					var splitCheck = checkURL[0].split('/')['2']
+					if(splitCheck != 'calendly.com'){
+						document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+					}
+				}
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},500);
+		});
+		
+	}
+	
+	
+	openPopupViewCancel(item){
+		this.itemsIDVAL = item;
+		this.openBookingSite = true;
+		this.openNotBook = true;
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.itemsIDVAL['cancel_url']);
+		setTimeout(() => {
+			this.bookingModelRef = this.modelService.open(this.bookingModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				//backdrop: 'static',
+				keyboard: false
+			});
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}else{
+					var splitCheck = checkURL[0].split('/')['2']
+					if(splitCheck != 'calendly.com'){
+						document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+					}
+				}
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},500);
+		});
+		
+	}
+	
+	
+	openPopupViewInviteNew(item,eventData){
+		this.itemsIDVAL = item;
+		this.openBookingSite = true;
+		this.openNotBook = true;
+		var tempUrl =document.getElementsByClassName('linksValue')[0]["href"];
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(tempUrl);
+		setTimeout(() => {
+			this.bookingModelRef = this.modelService.open(this.bookingModel, {
+				windowClass: 'modal-holder',
+				size: 'xl',
+				centered: true,
+				//backdrop: 'static',
+				keyboard: false
+			});
+			setTimeout(() => {		
+				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
+				var windowURL= window.location.origin+'/';
+				if(checkURL[0]==windowURL){
+					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
+				}
+				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
+				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
+
+			},500);
+		});
+		
+	}
+	
+	closeInvite(){
+		this.onGetAppliedJobs();
+		this.bookingModelRef.close();
+		this.openBookingSite = false;
+		this.openNotBook = false;
+		
+	}
+	
 
 }

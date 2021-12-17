@@ -423,14 +423,14 @@ export class CandidateJobMatchesComponent implements OnInit {
 		if (type == 'next') {
 			if (count > this.page) {
 				if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
-					//this.matchingJob = { ...this.matchingJob, jobs: {} };
+					/* this.matchingJob = { ...this.matchingJob, jobs: {} }; */
 					this.page++;
 					this.onGetUserScoringById(true);
 				}
 			}
 		} else if (type == 'prev' && this.page > 1) {
 			if (this.matchingJobMeta.count > 1 ) {
-				//this.matchingJob = { ...this.matchingJob, jobs: {} };
+				/* this.matchingJob = { ...this.matchingJob, jobs: {} }; */
 				this.page--;				
 				this.onGetUserScoringById(true);
 			}

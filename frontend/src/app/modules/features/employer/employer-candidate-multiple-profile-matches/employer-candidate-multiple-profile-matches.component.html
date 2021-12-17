@@ -52,10 +52,19 @@
 													<a   class="text-capitalize" href="javascript:;">
 														<h5>{{matchingJob?.jobs?.title}} <small></small></h5>
 													</a>
-													<h6 class="mb-0 text-capitalize">
-														{{matchingJob?.jobs?.city +', ' +matchingJob?.jobs?.state+', ' +matchingJob?.jobs?.country}}
+													
+														<h6 class="mb-0 text-capitalize country-details">
+															<ng-container *ngFor="let item of matchingJob?.jobs?.job_locations" >
+															{{item?.city ? item?.city+', '  : ''}}
+															{{item?.state ? item?.state+', '  : ''}}
+															<span class="text-uppercase" *ngIf="!isMultipleMatches">
+															  {{item?.country ? item?.country : ''}}
+															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
+															  {{item?.countryshort ? item?.countryshort : ''}}
+															</span><br>
+															</ng-container>
+														</h6>
 														
-													</h6>
 													<h6 class="mt-1 text-capitalize">
 														{{matchingJob?.jobs?.company_name }}
 													</h6>
@@ -104,10 +113,21 @@
 													<a   class="text-capitalize" href="javascript:;">
 														<h5>{{matchingJobNew?.jobs?.title}} <small></small></h5>
 													</a>
-													<h6 class="mb-0 text-capitalize">
+													<!-- <h6 class="mb-0 text-capitalize">
 														{{matchingJobNew?.jobs?.city +', ' +matchingJobNew?.jobs?.state+', ' +matchingJobNew?.jobs?.country}}
 														
-													</h6>
+													</h6> -->
+													<h6 class="mb-0 text-capitalize country-details">
+															<ng-container *ngFor="let item of matchingJobNew?.jobs?.job_locations" >
+															{{item?.city ? item?.city+', '  : ''}}
+															{{item?.state ? item?.state+', '  : ''}}
+															<span class="text-uppercase" *ngIf="!isMultipleMatches">
+															  {{item?.country ? item?.country : ''}}
+															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
+															  {{item?.countryshort ? item?.countryshort : ''}}
+															</span><br>
+															</ng-container>
+														</h6>
 													<h6 class="mt-1 text-capitalize">
 														{{matchingJobNew?.jobs?.company_name }}
 													</h6>
@@ -130,28 +150,6 @@
 										</div>
 										
 									</div>
-									<!-- <div class="col-lg-12">
-										<div class="card profile-card">
-											<div class="d-flex">
-												<div class="pc-info">
-													<a class="text-capitalize" href="javascript:;">
-														<h5>{{matchingJobNew?.jobs?.title}} <small></small></h5>
-													</a>
-													<h6 class="mb-0 text-capitalize">
-														{{matchingJobNew?.jobs?.city ? matchingJobNew?.jobs?.city+', '  : ''}}
-														{{matchingJobNew?.jobs?.state ?  matchingJobNew?.jobs?.state+', '  : ''}}
-														<span class="text-uppercase">
-														  {{matchingJobNew?.jobs?.country ? matchingJobNew?.jobs?.country : ''}}
-														</span>
-													</h6>
-												</div>
-												<div class="pc-btn">
-													<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJobNew?.jobs?.description)">	
-													<i class="fas fa-file-alt"></i> Description</a>
-												</div>
-											</div>
-										</div>
-									</div> -->
 									<!--Body Sec-->
 									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-3' : 'mt-4'">
 										<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJobNew?.jobs.score >= 5, 'score-txt-orange': (matchingJobNew?.jobs.score < 5 && matchingJobNew?.jobs.score > 0), 'score-txt-red': (matchingJobNew?.jobs.score == 0)}">

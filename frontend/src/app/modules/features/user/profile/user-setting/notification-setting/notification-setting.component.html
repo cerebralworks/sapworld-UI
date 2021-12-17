@@ -1,0 +1,20 @@
+<div class="row mb-5" *ngFor="let item of notificationSettings; let i=index">
+    <div class="col-lg-4 col-md-6">
+		<h5 *ngIf="item?.field == 'new_match'">{{"notificationSettingsUser.notification1" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'employer_mail_send'">{{"notificationSettingsUser.notification2" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'profile_shortlisted'">{{"notificationSettingsUser.notification3" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'profile_rejected'">{{"notificationSettingsUser.notification4" | translate }}</h5>
+        <h5 *ngIf="item?.field == 'interview_scheduled'">{{"notificationSettingsUser.notification5" | translate }}</h5>
+        
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="showhideswitch">
+        <input [checked]="(currentProfileInfo?.privacy_protection && currentProfileInfo?.privacy_protection[item?.field] == true)"
+        (click)="onNotificationSettings(item, $event?.target?.checked)" type="checkbox" name="showhideswitch" class="showhideswitch-checkbox" id="myshowhideswitch_{{i}}">
+        <label class="showhideswitch-label" for="myshowhideswitch_{{i}}">
+          <span class="showhideswitch-inner"></span>
+          <span class="showhideswitch-switch"></span>
+        </label>
+      </div>
+    </div>
+  </div>

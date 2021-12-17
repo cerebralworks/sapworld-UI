@@ -187,11 +187,11 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 	**/	
 	  
 	checkDataCount(id){
-		if(id !=undefined && id!=null && id !=''){
+		if(id !=undefined && id!=null && id !='' ){
 			var tempData= this.TotalCount.filter(function(a,b){ return a.id == id });
-			if(tempData.length==1){
-				return tempData[0]['count'];
-			}
+				if(tempData.length==1){
+					return tempData[0]['count'];
+				}
 		}
 		return 0;
 	}
@@ -284,5 +284,24 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 		this.page = event.pageIndex+1;
 		this.onGetAppliedJobs();
 	}
-
+	
+	/**
+	**	To filter the Location
+	**/
+	
+	checkCity(itemValue,val){
+		
+		if(itemValue && itemValue.job_location && itemValue.job_posting &&  itemValue.job_posting.job_locations){
+			if(itemValue.job_posting.job_locations.length !=0){
+				var filterItem = itemValue.job_posting.job_locations.filter(function(a,b){ return a.id == itemValue.job_location});
+				if(filterItem.length !=0){
+					return filterItem[0][val]
+				}
+			}
+		}
+		
+		var temp ='';
+		return temp;
+	}
+	
 }

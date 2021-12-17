@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { EmployerSharedService } from '@data/service/employer-shared.service';
+import { EmployerService } from '@data/service/employer.service';
 
 @Component({
   selector: 'app-employer-setting',
@@ -6,10 +9,85 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employer-setting.component.css']
 })
 export class EmployerSettingComponent implements OnInit {
+	
+	/**
+	**	Variable declaration
+	**/
+	
+	public tab1 : boolean = true;
+	public tab2 : boolean = false;
+	public notificationSettings :any[] = [];
+	public employerDetails: any;
+	public privacyProtection: any;
+	
+	constructor(	
+		private router: Router,
+		private employerSharedService :EmployerSharedService,
+		private  employerService : EmployerService
+	) { }
 
-  constructor() { }
+	/**
+	**	Initially the Component loads
+	**/
+	
+	ngOnInit(): void {
+		this.notificationSettings = [
+		  {field: 'new_match', label: 'New User Matches'},
+		  {field: 'new_candidate_applied', label: 'New Candidate Applied'},
+		  {field: 'matching_canditate_respond', label: 'Matching Candidate Responded'}  	 
+		];
+		this.employerSharedService.getEmployerProfileDetails().subscribe(
+			details => {
+				this.employerDetails = details;
+				this.privacyProtection = details.privacy_protection;					
+				if(this.privacyProtection==null || this.privacyProtection ==undefined){
+					this.privacyProtection={
+						'new_match':false,
+						'new_candidate_applied':false,
+						'matching_canditate_respond':false
+					  
+					}
+				}
+			}
+		)
+		
 
-  ngOnInit(): void {
-  }
+	}
 
+	/**
+	**	Change the tab locations
+	**/
+	
+	OnNotification(){
+		this.tab1= false;
+		this.tab2= true;
+	}
+
+	/**
+	**	Change the tab locations
+	**/
+	
+	OnAccount(){
+		this.tab1= true;
+		this.tab2= false;
+	}
+
+	/**
+	**	Change the tab locations
+	**/
+	
+	onSetSettings = (item: any, eventValue: boolean) => {
+		this.privacyProtection[item.field] = eventValue;
+		this.setPrivacy(this.privacyProtection);
+	}
+	
+	setPrivacy(privacyProtection) {
+		
+		let requestParams = {...this.employerDetails};
+		requestParams.privacy_protection = privacyProtection;
+		this.employerService.update(requestParams).subscribe(
+		response => {		
+		
+		})
+	}
 }
