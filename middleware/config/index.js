@@ -47,6 +47,16 @@ if(process.env.NODE_ENV=='production'){
 			sensitive: true,
 			env: "PRODUCTION_CLIENT_SECRET"
 		},
+		CALENDLY_TOKEN: {
+			doc: "Secret used for calendly authentication tokens",
+			default: "",
+			env: "PRODUCTION_CALENDLY_TOKEN"
+		},
+		ORGANIZATION_ID: {
+			doc: "Secret used for calendly authentication id",
+			default: "",
+			env: "PRODUCTION_ORGANIZATION_ID"
+		},
 	});
 	
 	config.validate({ allowed: "strict" });
@@ -90,10 +100,18 @@ if(process.env.NODE_ENV=='production'){
 		},
 		CLIENT_SECRET: {
 			doc: "Secret used for session cookies and CSRF tokens",
-			format: "*",
 			default: "",
-			sensitive: true,
 			env: "STAGE_CLIENT_SECRET"
+		},
+		CALENDLY_TOKEN: {
+			doc: "Secret used for calendly authentication tokens",
+			default: "",
+			env: "STAGE_CALENDLY_TOKEN"
+		},
+		ORGANIZATION_ID: {
+			doc: "Secret used for calendly authentication id",
+			default: "",
+			env: "STAGE_ORGANIZATION_ID"
 		},
 	});
 	
@@ -142,6 +160,16 @@ if(process.env.NODE_ENV=='production'){
 			default: "",
 			sensitive: true,
 			env: "CLIENT_SECRET"
+		},
+		CALENDLY_TOKEN: {
+			doc: "Secret used for calendly authentication tokens",
+			default: "",
+			env: "CALENDLY_TOKEN"
+		},
+		ORGANIZATION_ID: {
+			doc: "Secret used for calendly authentication id",
+			default: "",
+			env: "ORGANIZATION_ID"
 		},
 	});
 	config.validate({ allowed: "strict" });
