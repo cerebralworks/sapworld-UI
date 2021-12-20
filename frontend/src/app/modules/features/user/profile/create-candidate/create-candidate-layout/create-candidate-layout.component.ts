@@ -383,15 +383,11 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		}
 		window.scrollTo(0, 0)
 	}
-	/**
-	**	To change tabs in header
-	**/
+
 	onHeaderTabChange = (currentTabInfo: tabInfo) => {
 		this.currentTabInfo = { ...currentTabInfo};
 	}
-	/**
-	**	To change tabs in footer
-	**/
+	
 	onFooterTabChange = (currentTabInfo: tabInfo) => {
 		if(currentTabInfo.tabNumber > this.currentTabInfo.tabNumber) {
 			this.onNext()
@@ -478,9 +474,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
 		return result;
 	}
-	/**
-	**	To update user profile picture
-	**/
+
 	onUserPhotoUpdate = (candidateInfo) => {
 		const formData = new FormData();
 		var rString = this.randomString(40, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
@@ -618,9 +612,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
       }
     )
   }
-  /**
-	**	To resize the screenWidth
-	**/
+  
 	@HostListener('window:resize', ['$event'])  
   onResize(event) {  
     this.screenWidth = window.innerWidth;  

@@ -42,6 +42,13 @@ export class CreateCandidateHeaderComponent implements OnInit {
 		this.userSharedService.getUserProfileDetails().subscribe(
 		  response => {
 			this.userInfo = response;
+			if(this.userInfo.profile_completed){
+				document.getElementById('titleView').style.display='block';
+				document.getElementById('titleContent').style.display='block';
+			}else{
+				document.getElementById('titleView').style.display='block';
+				document.getElementById('titleContent').style.display='block';
+			}
 		  }
 		)
 	}
@@ -81,9 +88,7 @@ export class CreateCandidateHeaderComponent implements OnInit {
 		  form.get(key).updateValueAndValidity();
 		}
 	}
-	/**
-	**	To assign fields the validation 
-	**/
+
   validationType = {
    // 'experience': [Validators.required],
     //'sap_experience': [Validators.required],

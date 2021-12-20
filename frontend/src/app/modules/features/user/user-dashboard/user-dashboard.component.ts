@@ -340,9 +340,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		this.mbRef.close()
 	}
 	
-	/**
-	**	To resize the screenWidth
-	**/	 
+	
 	@HostListener('window:resize', ['$event'])  
   onResize(event) {  
     this.screenWidth = window.innerWidth;  

@@ -212,11 +212,7 @@ export class ResumeSelectComponent implements OnInit {
 		this.buildData();
 		
 	}
-    
-	/**
-	**	To get others form data
-	**/ 
-	
+
 	get others() {
 		return this.ft.others as FormArray; 
 	}

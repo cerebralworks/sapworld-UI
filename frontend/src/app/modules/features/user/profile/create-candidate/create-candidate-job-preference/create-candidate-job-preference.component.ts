@@ -524,10 +524,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		 this.requestParams = {'Exist the createForm':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
 				this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
-	
-	/**
-	**	To get child form controls
-	**/
+
 	get f() {
 		return this.childForm.controls.jobPref.controls;
 	}
@@ -651,9 +648,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					} 
 				})
 	}
-	/**
-	**	To get prefered location form controls
-	**/
+	
 	get t() {
 		return this.f.preferred_locations as FormArray;
 	}

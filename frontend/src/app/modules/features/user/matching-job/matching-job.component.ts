@@ -508,9 +508,7 @@ export class MatchingJobComponent implements OnInit {
 		this.onEvent.emit(true);
 		this.onGetPostedJob('');
 	}
-	/**	
-	**	To	load more jobs
-	**/
+
 	onLoadMoreJob = () => {
 		this.page = this.page + 1;
 		this.onGetPostedJob('');

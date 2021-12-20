@@ -334,6 +334,32 @@ export class CalendarComponent implements OnInit {
 	}
 	
 	/**
+	**	To Save the Company Info
+	**/
+	
+	onSaveComapnyInfoInvite = () => {
+		
+		if (this.createCompanyForm.valid) {
+			this.updateCompany(true);
+		}else if(this.createCompanyForm.controls.invite_urls.valid){
+			this.updateCompany(true);
+		}
+	}
+	
+	/**
+	**	To Save the Company Info
+	**/
+	
+	onSaveComapnyInfoCalendar = () => {
+		
+		if (this.createCompanyForm.valid) {
+			this.updateCompany(true);
+		}else if(this.createCompanyForm.controls.calender_urls.valid){
+			this.updateCompany(true);
+		}
+	}
+	
+	/**
 	**	Update Company Values
 	**/
 	updateCompany(datas){
@@ -505,6 +531,23 @@ export class CalendarComponent implements OnInit {
 			this.isShowForm = false;
 			this.inviteStatusView = false;
 		}
+	}
+	
+	checkStatus(){
+		if(this.createCompanyForm.valid){
+			return true
+		}else if(this.createCompanyForm.controls.invite_urls.valid){
+			return true
+		}
+		return false;
+	}
+	checkStatusCalendar(){
+		if(this.createCompanyForm.valid){
+			return true
+		}else if(this.createCompanyForm.controls.calender_urls.valid){
+			return true
+		}
+		return false;
 	}
 	
 }

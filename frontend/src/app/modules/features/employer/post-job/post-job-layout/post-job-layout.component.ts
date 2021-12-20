@@ -112,17 +112,9 @@ export class PostJobLayoutComponent implements OnInit {
 				}
 			}
 		)
-		this.showData = false;
 		
 	}
 	
-	ngAfterViewInit(): void {
-		setTimeout( async () => {
-		if(!this.isEdit){
-			this.showData = true;
-		}
-		},100);
-	}
 	
 	/**
 	**	To slider changes for the tabInfo

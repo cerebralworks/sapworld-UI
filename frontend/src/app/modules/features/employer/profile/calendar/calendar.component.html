@@ -37,7 +37,7 @@
 	
 	<div *ngIf="currentTabInfo.tabNumber == 2  ">
 		<div *ngIf="(companyProfileInfo.invite_status == true || inviteStatusView == true ) && isShowForm ==true">
-		  <form method="post" #companyNgForm="ngForm" [formGroup]="createCompanyForm" (ngSubmit)="onSaveComapnyInfo()">
+		  <form method="post" #companyNgForm="ngForm" [formGroup]="createCompanyForm" (ngSubmit)="onSaveComapnyInfoInvite()">
 			<div class="container">
 				<div class="row mt-2">
 					<div class="col-lg-12 col-md-6">
@@ -72,7 +72,7 @@
 				</div>
 				<div class="col-lg-4 col-md-6">
 				  <div class="form-group">
-					<button [disabled]="(!createCompanyForm.valid && !invalidMobile ) " type="submit" class="btn btn-theme-blue btn-block btn-lg">{{"shared.submit" | translate }}</button>
+					<button [disabled]="(!checkStatus() && !invalidMobile ) " type="submit" class="btn btn-theme-blue btn-block btn-lg">{{"shared.submit" | translate }}</button>
 				  </div>
 				</div>
 			  </div>
@@ -105,7 +105,7 @@
 	</div>
 	<div *ngIf="currentTabInfo.tabNumber == 3  ">
 		<div *ngIf="isShowCalenderForm == true && isFormDataShow == false">
-		  <form method="post" #companyNgForm="ngForm" [formGroup]="createCompanyForm" (ngSubmit)="onSaveComapnyInfoCalender()">
+		  <form method="post" #companyNgForm="ngForm" [formGroup]="createCompanyForm" (ngSubmit)="onSaveComapnyInfoCalendar()">
 			<div class="container">
 				<div class="row mt-2">
 					<div class="col-lg-12 col-md-6">
@@ -140,7 +140,7 @@
 				</div>
 				<div class="col-lg-4 col-md-6">
 				  <div class="form-group">
-					<button [disabled]="(!createCompanyForm.valid && !invalidMobile ) " type="submit" class="btn btn-theme-blue btn-block btn-lg">{{"shared.submit" | translate }}</button>
+					<button [disabled]="(!checkStatusCalendar() && !invalidMobile ) " type="submit" class="btn btn-theme-blue btn-block btn-lg">{{"shared.submit" | translate }}</button>
 				  </div>
 				</div>
 			  </div>

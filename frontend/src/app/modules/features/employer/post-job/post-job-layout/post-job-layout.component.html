@@ -13,9 +13,7 @@
   <!-- //Sub Header Section -->
 <section class="my-3" style="min-height: 970px;">
   <div class="container">
-  <h5 style="font-weight:bold" *ngIf="!isEdit"> {{"postJob.title" | translate }} </h5><br />
-<h6 *ngIf="!isEdit">{{"postJob.content" | translate }}  <br /> {{"postJob.contentSubject" | translate }}  </h6><br />
-    <div class="row">
+   <div class="row">
       <div class="col-lg-12 tabs-animated" id="myTab">
         <form method="post" #postJobNgForm="ngForm" [formGroup]="postJobForm">
           <app-post-job-header

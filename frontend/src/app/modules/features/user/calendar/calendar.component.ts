@@ -127,11 +127,6 @@ export class CalendarComponent implements OnInit {
       )
 	}
 	
-	
-	/**
-	**	To insert calendar details
-	**/
-	
 	insertCalendarDetails(){
 		if(this.appliedJobs && this.appliedJobs['length'] && this.appliedJobs['length']!=0){
 			var tempArray=[];
@@ -285,10 +280,6 @@ export class CalendarComponent implements OnInit {
 		} */
 	}
 	
-	/**
-	**	To refresh the calender
-	**/
-	
 	refresh(){
 		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.urls);
 		setTimeout(() => {		
@@ -333,10 +324,6 @@ export class CalendarComponent implements OnInit {
 		
 	}
 	
-	/**
-	**	To close the calender
-	**/
-	
 	closeCalender(){
 		this.mbRefs.close();
 	}
@@ -364,18 +351,9 @@ export class CalendarComponent implements OnInit {
 		return this.createUserForm.controls;
 	}
 	
-	/**
-	**	To Get the calendar Form
-	**/
-	
 	get c() {
 		return this.f.calender_urls as FormArray;
 	}
-	
-	
-	/**
-	**	To save user data
-	**/
 	
 	onSaveUser(data){
 		if(this.createUserForm.valid){

@@ -100,7 +100,7 @@ export class CandidateJobViewComponent implements OnInit {
 		requestParams.expand = 'company';
 		requestParams.is_users_view = 'true';
 		requestParams.id = this.jobId;
-		requestParams.location_id = this.locationId;
+		//requestParams.location_id = this.locationId;
 		requestParams.is_job_applied = true;
 		requestParams.user_id = this.userInfo.id;
 		this.employerService.getPostedJobDetails(requestParams).subscribe(

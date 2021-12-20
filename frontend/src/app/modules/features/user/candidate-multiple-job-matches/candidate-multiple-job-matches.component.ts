@@ -13,10 +13,7 @@ export class CandidateMultipleJobMatchesComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
-   /**	
-	**	To	show the job description
-	**/
+
   onToggleJDModal = (status) => {
     this.isOpenedJDModal = status;
   }

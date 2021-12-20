@@ -15,11 +15,6 @@ public currentProfileInfo: any;
 			private userSharedService: UserSharedService
   ) {}
 
-
-	/**
-	**	To initialize the page loads
-	**/
-	
   ngOnInit(): void {
   this.notificationSettings = [
 		  {field: 'new_match', label: 'New Job Matches'},
@@ -45,12 +40,6 @@ public currentProfileInfo: any;
 				})
 
   }
-  
-  
-	/**
-	**	To notificationSettings button controls
-	**/ 
-	
  onNotificationSettings = (item: any, eventValue: boolean) => {
 		this.privacyProtection[item.field] = eventValue;
 		this.setPrivacy(this.privacyProtection);

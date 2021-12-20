@@ -17,11 +17,7 @@ export class SettingLayoutComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
-	
-	/**
-	**	To change the tab
-	**/	
-	  
+
 	onTabChange = (tabInfo: tabInfo) => {
 		this.currentTabInfo = tabInfo;
 	}
