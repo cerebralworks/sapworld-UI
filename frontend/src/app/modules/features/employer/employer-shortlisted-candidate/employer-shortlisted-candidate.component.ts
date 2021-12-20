@@ -714,23 +714,5 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		}
 	}
 	
-	/**
-	**	To return the details of job location
-	**/
-	
-	checkCity(itemValue,val){
 		
-		if(itemValue && itemValue.job_location && itemValue.job_posting &&  itemValue.job_posting.job_locations){
-			if(itemValue.job_posting.job_locations.length !=0){
-				var filterItem = itemValue.job_posting.job_locations.filter(function(a,b){ return a.id == itemValue.job_location});
-				if(filterItem.length !=0){
-					return filterItem[0][val]
-				}
-			}
-		}
-		
-		var temp ='';
-		return temp;
-	}
-	
 }
