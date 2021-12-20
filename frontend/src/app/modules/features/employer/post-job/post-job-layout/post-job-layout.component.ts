@@ -94,17 +94,10 @@ export class PostJobLayoutComponent implements OnInit {
 		this.jobId = this.route.snapshot.queryParamMap.get('id');
 		if(this.jobId) {
 		  this.onGetPostedJob(this.jobId);
-			document.getElementById('titleView').style.display='none';
-			document.getElementById('titleContent').style.display='none';
-		}else{
-			document.getElementById('titleView').style.display='block';
-			document.getElementById('titleContent').style.display='block';
 		}
 		var tempStatus = this.route.snapshot.queryParamMap.get('status');
 		if(tempStatus == 'copy') {
 		  this.isCopy = true;
-		  document.getElementById('titleView').style.display='block';
-		  document.getElementById('titleContent').style.display='block';
 		}else{
 			this.isCopy = false;
 		}
