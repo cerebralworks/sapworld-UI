@@ -465,13 +465,14 @@ export class CalendarComponent implements OnInit {
 		this.isShowIframe = false;
 	}
 	cancelCalender(){
-		if(this.c.value[0]['title']== null ||this.c.value[0]['title'].trim() == ''||this.c.value[0]['url']== null ||this.c.value[0]['url'].trim() == '' ){
+		//if(this.c.value[0]['title']== null ||this.c.value[0]['title'].trim() == ''||this.c.value[0]['url']== null ||this.c.value[0]['url'].trim() == '' ){
 			
-		}else{
+		//}else{
+			
 			this.isShowCalenderForm = false;
-			this.isFormDataShow = true;
+			this.isFormDataShow = false;
 			this.isShowIframe = false;
-		}
+		//}
 	}
 	
 	onSaveComapnyInfoCalender(){
@@ -527,10 +528,10 @@ export class CalendarComponent implements OnInit {
 	}
 	
 	cancelSettings(){
-		if(this.companyProfileInfo.invite_status !=true ){
+		//if(this.companyProfileInfo.invite_status !=true ){
 			this.isShowForm = false;
 			this.inviteStatusView = false;
-		}
+		//}
 	}
 	
 	checkStatus(){
