@@ -149,7 +149,7 @@ export class PostedJobComponent implements OnInit {
 	onChangeStatus = () => {
 		let requestParams: any = {};
 		requestParams.id = this.currentValueOfJob.id;
-		requestParams.location_id = this.currentValueOfJob['job_location']['id'];
+		requestParams.location_id = this.currentValueOfJob['job_locations'][0]['id'];
 		requestParams.status = parseInt(this.currentValueOfStatus);
 		requestParams.status_glossary = this.statusGlossary;
 		this.employerService.changeJobStatus(requestParams).subscribe(
