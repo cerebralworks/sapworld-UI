@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { DashboardsModule } from '@partials/content/dashboards/dashboards.module';
 import { DashboardComponent } from './dashboard.component';
 import { DataTablesModule } from "angular-datatables"; 
 
@@ -16,7 +15,6 @@ import { DataTablesModule } from "angular-datatables";
         component: DashboardComponent,
       },
     ]),
-    DashboardsModule,
   ],
 })
 export class DashboardModule {}

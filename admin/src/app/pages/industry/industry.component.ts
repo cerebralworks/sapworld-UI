@@ -28,6 +28,8 @@ export class IndustryComponent implements OnInit {
 	column : string = 'id'
 	limit : number = 10;
 	show : boolean = false;
+	show1 : boolean = false;
+	show2 : boolean=false;
 	empty : boolean = false;
 	valDel : any ="";
 	valUpd : any ="";
@@ -199,8 +201,24 @@ export class IndustryComponent implements OnInit {
 	update(id : any,datas : any){
 		this.es.updateIndustry(id,datas).subscribe(data=>{
 			this.storage=data;
+			this.show2=true;
+			setTimeout(() => {
+				this.show2=false;
+				this.ref.detectChanges();
+			}, 2000);
 			this.ref.detectChanges();
 			this.rerender();
+		},error=>{
+			var err1 = error['error'].meesage;
+			if(err1==="already exist"){
+				this.show1=true;
+				setTimeout(() => {
+					this.show1=false;
+					this.ref.detectChanges();
+				}, 2000);
+			}
+			this.ref.detectChanges()
+				
 		})
 	}
 	
@@ -223,23 +241,23 @@ export class IndustryComponent implements OnInit {
 			this.es.postIndustries(this.addindustry.value).subscribe(data=>{
 				this.storage=data;
 				this.show = true;
+				this.addindustry.reset();
 				this.ref.detectChanges();
 				this.rerender();
 			}, error=>{
-				this.err = error['error']['errors'][0].field;
-				if(this.err==="name"){
+				//console.log(error)
+				this.err = error['error'].meesage;
+				if(this.err==="already exist"){
 				  this.dup = true;
 				  this.submitted=false;
 				  this.ref.detectChanges();
-				  setTimeout(() => {
+				setTimeout(() => {
 					this.dup=false;
-					this.ref.detectChanges()
-				  },2000);
-				} 
-			  })
-			
-			this.addindustry.reset()
-			this.submitted= false
+					this.ref.detectChanges();
+				}, 2000);
+				}				
+			  })		
+			this.submitted= false;
 			setTimeout(() => {
 				this.show = false
 				this.ref.detectChanges();

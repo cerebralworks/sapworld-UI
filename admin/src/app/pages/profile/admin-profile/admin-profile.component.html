@@ -23,22 +23,24 @@
 								{{companyProfileInfo?.website}}
 							</h6>
 							<h4 *ngIf="companyProfileInfo?.social_media_link?.length">
-								<a class="mr-1" *ngFor="let item of companyProfileInfo?.social_media_link" href="{{item.url}}" target="_blank">
-									<ng-container [ngSwitch]="item?.media">
-										<ng-container *ngSwitchCase="'youtube'">
-										  <i class="fab fa-youtube-square"></i>
+								<ng-container *ngFor="let item of companyProfileInfo?.social_media_link">
+									<a class="mr-1"  *ngIf="item.visibility == true" [attr.href]="'//' + item.url" target="_blank" >
+										<ng-container [ngSwitch]="item?.media">
+											<ng-container *ngSwitchCase="'youtube'">
+											  <i class="fab fa-youtube-square"></i>
+											</ng-container>
+											<ng-container *ngSwitchCase="'portfolio'">
+											  <i class="fas fa-laptop-code"></i>
+											</ng-container>
+											<ng-container *ngSwitchCase="'blog'">
+											  <i class="fas fa-blog"></i>
+											</ng-container>
+											<ng-container *ngSwitchDefault>
+											  <i class="fab fa-{{item.media}}"></i>
+											</ng-container>
 										</ng-container>
-										<ng-container *ngSwitchCase="'portfolio'">
-										  <i class="fas fa-laptop-code"></i>
-										</ng-container>
-										<ng-container *ngSwitchCase="'blog'">
-										  <i class="fas fa-blog"></i>
-										</ng-container>
-										<ng-container *ngSwitchDefault>
-										  <i class="fab fa-{{item.media}}"></i>
-										</ng-container>
-									</ng-container>
-								</a>
+									</a>
+								</ng-container>
 							</h4>
 						</div>
 					</div>

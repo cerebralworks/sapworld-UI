@@ -4,11 +4,6 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 export const textEditorConfig: AngularEditorConfig = {
   editable: true,
   spellcheck: true,
-  // height: 'auto',
-  // minHeight: '200px',
-  // maxHeight: 'auto',
-  // width: 'auto',
-  // minWidth: '0',
   translate: 'yes',
   enableToolbar: true,
   showToolbar: true,
@@ -34,12 +29,8 @@ export const textEditorConfig: AngularEditorConfig = {
       tag: 'h1',
     },
   ],
- // uploadUrl: 'v1/image',
   uploadWithCredentials: false,
   sanitize: true,
   toolbarPosition: 'top',
-  toolbarHiddenButtons: [/* [
-  'insertImage'
-  ] */
-  ]
+  toolbarHiddenButtons: [  ]
 };

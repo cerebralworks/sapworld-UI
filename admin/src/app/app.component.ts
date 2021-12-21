@@ -16,7 +16,7 @@ import { locale as frLang } from './modules/i18n/vocabs/fr';
 import { Router, NavigationEnd, NavigationError, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SplashScreenService } from '@partials/layout/splash-screen/splash-screen.service';
-import { TableExtendedService } from '@shared/services/table.extended.service';
+//import { TableExtendedService } from '@shared/services/table.extended.service';
 import { AccountService } from '@data/service/account.service';
 import { LoggedIn } from '@data/schema/account';
 // import { TableExtendedService } from './shared';
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private translationService: TranslationService,
     private splashScreenService: SplashScreenService,
     private router: Router,
-    private tableService: TableExtendedService,
+   // private tableService: TableExtendedService,
     private ngxService: NgxUiLoaderService,
     private accountService: AccountService
   ) {
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
        }
 	   
         // clear filtration paginations and others
-        this.tableService.setDefaults();
+       // this.tableService.setDefaults();
         // hide splash screen
         this.splashScreenService.hide();
 

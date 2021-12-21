@@ -23,6 +23,8 @@ export class TechnicalSkillsComponent implements OnInit {
   submitted : boolean = false;
   empty : boolean = false;
   show : boolean = false;
+  show1 : boolean = false;
+  show2 : boolean=false;
   dup : boolean = false;
   storage : any ="";
   requestParams : any ={};
@@ -199,8 +201,23 @@ get f(){
  update(id : any,datas : any){
   this.es.updateTechskill(id,datas).subscribe(data=>{
     this.storage=data;
+    this.show2=true;
+			setTimeout(() => {
+				this.show2=false;
+				this.ref.detectChanges();
+			}, 2000);
     this.ref.detectChanges();
     this.rerender();
+  },error=>{
+    var err1 = error['error'].meesage;
+			if(err1==="already exist"){
+				this.show1=true;
+				setTimeout(() => {
+					this.show1=false;
+					this.ref.detectChanges();
+				}, 2000);
+			}
+			this.ref.detectChanges()
   })
 }
 /**
@@ -226,22 +243,21 @@ var val = this.addTech.value.name;
         this.storage = data;
         this.show = true;
         this.submitted = false;
+        this.addTech.reset();
         this.ref.detectChanges();
         this.rerender()
       }, error=>{
-        this.err = error["error"]["details"].rule;
-        if(this.err==="unique"){
-          this.dup = true;
-          this.submitted=false;
-          this.ref.detectChanges();
-          setTimeout(() => {
-            this.dup=false;
-            this.ref.detectChanges()
-          },2000);
-        }  
+        this.err = error['error'].meesage;
+				if(this.err==="already exist"){
+				  this.dup = true;
+				  this.submitted=false;
+				  this.ref.detectChanges();
+				setTimeout(() => {
+					this.dup=false;
+					this.ref.detectChanges();
+				}, 2000);
+				}
       })
-      
-      this.addTech.reset()
       setTimeout(() => {
         this.show = false;
         this.ref.detectChanges()

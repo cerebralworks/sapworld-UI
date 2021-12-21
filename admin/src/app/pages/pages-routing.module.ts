@@ -47,40 +47,6 @@ const routes: Routes = [
         path: 'profile-edit',
         loadChildren: () =>
           import('./profile/create-admin-profile/create-admin-profile.module').then((m) => m.CreateAdminProfileModule),
-      },{
-        path: 'employer',
-        loadChildren: () =>
-          import('../modules/employer/employer.module').then(
-            (m) => m.EmployerModule
-          ),
-      },
-      {
-        path: 'user',
-        loadChildren: () =>
-          import('../modules/job-seeker/job-seeker.module').then(
-            (m) => m.JobSeekerModule
-          ),
-      },
-      {
-        path: 'common',
-        loadChildren: () =>
-          import('../modules/common/common.module').then(
-            (m) => m.CommonSharedModule
-          ),
-      },
-      {
-        path: 'user-profile',
-        loadChildren: () =>
-          import('../modules/user-profile/user-profile.module').then(
-            (m) => m.UserProfileModule
-          ),
-      },
-      {
-        path: 'ngbootstrap',
-        loadChildren: () =>
-          import('../modules/ngbootstrap/ngbootstrap.module').then(
-            (m) => m.NgbootstrapModule
-          ),
       },
       {
         path: '',

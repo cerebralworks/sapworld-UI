@@ -20,8 +20,7 @@ class DataTablesResponse {
 export class DashboardComponent implements OnInit,OnDestroy  {
 	
 	@ViewChild(DataTableDirective, {static: false})
-	dtElement:  DataTableDirective;
-	
+	dtElement:  DataTableDirective;	
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject<any>();
 	dtTriggerActive: Subject<any> = new Subject<any>();
@@ -71,8 +70,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 
 	ngOnInit(): void {
 		
-		this.onGetEmployerDashBoardCount();
-		
+		this.onGetEmployerDashBoardCount();		
 		this.paramsEmployee['limit'] = this.limit;
 		this.paramsEmployee['page'] = 0;
 		this.paramsEmployee['column'] ='created_at';
@@ -82,7 +80,10 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		this.onGetEmployerData();
 		
 	}
-  
+	
+	/**
+	**	To get the employer dashboard count details
+	**/
   
 	onGetEmployerDashBoardCount( ) {
     
@@ -140,8 +141,11 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		)
 	}
 	
-	onGetEmployerData( ) {
-		
+	/**
+	**	To get the employer data
+	**/
+	
+	onGetEmployerData( ) {		
 		
 		this.dtOptions ={};
 		if($.fn.dataTable.isDataTable("#DataTable")){
@@ -321,70 +325,49 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			};
 		}
 	}
-		
-		//$("#DataTable").dataTable().fnDestroy();
-		/* this.employerService.getEmployersDetails(this.paramsEmployee).subscribe(
-			response => {
-				if(response){
-					this.totalEmployers =response['data'];
-					this.total= response['Count'][0]['count'];
-				}
-				this.ref.detectChanges();
-				this.dtTrigger.closed=false;
-				this.dtTrigger.thrownError=false;
-				this.dtTrigger.isStopped=false;
-				if(this.dtTrigger.observers ==null){
-					this.dtTrigger.observers=[];
-				}
-				this.dtTrigger.next();     
-				 
-        
-			}, error => {
-				
-				this.ref.detectChanges();
-			}
-		) */
-	//}
 	
+	/**
+	**	To render the table data
+	**/
 	
     rerender(): void {
 		if(this.dtElement){
 			this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-				// Destroy the table first
-				//dtInstance.draw();
-				//dtInstance.destroy();
-				// Call the dtTrigger to rerender again
-				//this.dtTrigger.next();
-				//dtInstance.draw();
 				dtInstance.ajax.reload();
-				//this.onGetEmployerData();
 			});
 		}
     }   
-		ngOnDestroy(): void {
-			// Do not forget to unsubscribe the event
+	
+	/**
+	**	To destroy the table
+	**/
+	
+	ngOnDestroy(): void {
+		
+		// Do not forget to unsubscribe the event
 		this.dtTrigger.unsubscribe();
-	  }
-	  
-	  clickTotal(){
-			
-			this.dtTrigger.closed=false;
-			this.dtTrigger.thrownError=false;
-			this.dtTrigger.isStopped=false;
-			this.dtTrigger.observers=[];
-			this.dtTrigger.next();
-		  if(this.ShowEmployeeTotal ==true){
-
-			  this.ShowEmployeeTotal = false;
-		  }else{
-			  
-			  this.ShowEmployeeTotal = true;
-  
-		  this.ShowEmployeeActive = false;
-		  this.ShowEmployeeInActive = false;
-		  this.ShowJobTotal = false;
-		  this.ShowJobAcive = false;
-		  this.ShowJobInActive = false;
+	
+	}
+	
+	/**
+	**	To get the click event for total
+	**/
+		
+	clickTotal(){
+		this.dtTrigger.closed=false;
+		this.dtTrigger.thrownError=false;
+		this.dtTrigger.isStopped=false;
+		this.dtTrigger.observers=[];
+		this.dtTrigger.next();
+		if(this.ShowEmployeeTotal ==true){
+			this.ShowEmployeeTotal = false;
+		}else{
+			this.ShowEmployeeTotal = true;
+			this.ShowEmployeeActive = false;
+			this.ShowEmployeeInActive = false;
+			this.ShowJobTotal = false;
+			this.ShowJobAcive = false;
+			this.ShowJobInActive = false;
 			this.paramsEmployee['limit'] = this.limit;
 			this.paramsEmployee['page'] = 0;
 			this.paramsEmployee['column'] ='created_at';
@@ -392,145 +375,164 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['view'] ='all';
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
-		 }
+		}
 		this.ref.detectChanges();
-		
-	  }
-	  clickActive(){
-			this.dtTrigger.closed=false;
-			this.dtTrigger.thrownError=false;
-			this.dtTrigger.isStopped=false;
-			this.dtTrigger.observers=[];
-			this.dtTrigger.next();
-		  if(this.ShowEmployeeActive ==true){
-			  this.ShowEmployeeActive = false;
-		  }else{
-			  this.ShowEmployeeActive = true;
-		  
-		  this.ShowEmployeeInActive = false;
-	      this.ShowEmployeeTotal = false;
-		  this.ShowJobTotal = false;
-		  this.ShowJobAcive = false;
-		  this.ShowJobInActive = false;
-		  
-		  this.paramsEmployee['limit'] = this.limit;
-		this.paramsEmployee['page'] = 0;
-		this.paramsEmployee['column'] ='created_at';
-		this.paramsEmployee['sort'] ='DESC';
-		this.paramsEmployee['view'] ='employer-inactive';
-		this.paramsEmployee['day'] =1;
-		this.handlePageEvent('today');
-		 }
-		 this.ref.detectChanges();
-	  }
-	  clickInActive(){
-		  this.dtTrigger.closed=false;
-			this.dtTrigger.thrownError=false;
-			this.dtTrigger.isStopped=false;
-			this.dtTrigger.observers=[];
-				this.dtTrigger.next();
-		  if(this.ShowEmployeeInActive ==true){
-			  this.ShowEmployeeInActive = false;
-		  }else{
-			  this.ShowEmployeeInActive = true;
-		  
-		  this.ShowEmployeeActive = false;
-		  this.ShowEmployeeTotal = false;
-		  this.ShowJobTotal = false;
-		  this.ShowJobAcive = false;
-		  this.ShowJobInActive = false;
-		  this.paramsEmployee['limit'] = this.limit;
+	}
+	
+	/**
+	**	To get the click event for active
+	**/
+	
+	clickActive(){
+		this.dtTrigger.closed=false;
+		this.dtTrigger.thrownError=false;
+		this.dtTrigger.isStopped=false;
+		this.dtTrigger.observers=[];
+		this.dtTrigger.next();
+		if(this.ShowEmployeeActive ==true){
+			this.ShowEmployeeActive = false;
+		}else{
+			this.ShowEmployeeActive = true;
+			this.ShowEmployeeInActive = false;
+			this.ShowEmployeeTotal = false;
+			this.ShowJobTotal = false;
+			this.ShowJobAcive = false;
+			this.ShowJobInActive = false;
+			this.paramsEmployee['limit'] = this.limit;
+			this.paramsEmployee['page'] = 0;
+			this.paramsEmployee['column'] ='created_at';
+			this.paramsEmployee['sort'] ='DESC';
+			this.paramsEmployee['view'] ='employer-inactive';
+			this.paramsEmployee['day'] =1;
+			this.handlePageEvent('today');
+		}
+		this.ref.detectChanges();
+	}
+	
+	/**
+	**	To get the click event for inactive
+	**/
+
+	clickInActive(){
+		this.dtTrigger.closed=false;
+		this.dtTrigger.thrownError=false;
+		this.dtTrigger.isStopped=false;
+		this.dtTrigger.observers=[];
+		this.dtTrigger.next();
+		if(this.ShowEmployeeInActive ==true){
+			this.ShowEmployeeInActive = false;
+		}else{
+			this.ShowEmployeeInActive = true;
+			this.ShowEmployeeActive = false;
+			this.ShowEmployeeTotal = false;
+			this.ShowJobTotal = false;
+			this.ShowJobAcive = false;
+			this.ShowJobInActive = false;
+			this.paramsEmployee['limit'] = this.limit;
 			this.paramsEmployee['page'] = 0;
 			this.paramsEmployee['column'] ='created_at';
 			this.paramsEmployee['sort'] ='DESC';
 			this.paramsEmployee['view'] ='employer-active';
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
-			 }
-			 this.ref.detectChanges();
-	  }
-	  clickTotalJobseeker(){
-		  this.dtTrigger.closed=false;
-			this.dtTrigger.thrownError=false;
-			this.dtTrigger.isStopped=false;
-			this.dtTrigger.observers=[];
-			this.dtTrigger.next();
-		  if(this.ShowJobTotal ==true){
-			  this.ShowJobTotal = false;
-		  }else{
-			  this.ShowJobTotal = true;
-		  
-		  this.ShowEmployeeActive = false;
-		  this.ShowEmployeeTotal = false;
-		  this.ShowEmployeeInActive = false;
-		  this.ShowJobAcive = false;
-		  this.ShowJobInActive = false;
-		  this.paramsEmployee['limit'] = this.limit;
+		}
+		this.ref.detectChanges();
+	}
+	
+	/**
+	**	To get the click event for inactive
+	**/
+
+	clickTotalJobseeker(){
+		this.dtTrigger.closed=false;
+		this.dtTrigger.thrownError=false;
+		this.dtTrigger.isStopped=false;
+		this.dtTrigger.observers=[];
+		this.dtTrigger.next();
+		if(this.ShowJobTotal ==true){
+			this.ShowJobTotal = false;
+		}else{
+			this.ShowJobTotal = true;
+			this.ShowEmployeeActive = false;
+			this.ShowEmployeeTotal = false;
+			this.ShowEmployeeInActive = false;
+			this.ShowJobAcive = false;
+			this.ShowJobInActive = false;
+			this.paramsEmployee['limit'] = this.limit;
 			this.paramsEmployee['page'] = 0;
 			this.paramsEmployee['column'] ='created_at';
 			this.paramsEmployee['sort'] ='DESC';
 			this.paramsEmployee['view'] ='user';
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
-	   }
-	   this.ref.detectChanges();
-	  }
-	  clickAvailableJobseeker(){
-		  this.dtTrigger.closed=false;
-			this.dtTrigger.thrownError=false;
-			this.dtTrigger.isStopped=false;
-			this.dtTrigger.observers=[];
-				this.dtTrigger.next();
-		  if(this.ShowJobAcive ==true){
-			  this.ShowJobAcive = false;
-		  }else{
-			  this.ShowJobAcive = true;
-		  
-		  this.ShowEmployeeActive = false;
-		  this.ShowEmployeeTotal = false;
-		  this.ShowEmployeeInActive = false;
-		  this.ShowJobTotal = false;
-		  this.ShowJobInActive = false;
-		  this.paramsEmployee['limit'] = this.limit;
+		}
+		this.ref.detectChanges();
+	}
+	
+	/**
+	**	To get the click event for available
+	**/
+
+	clickAvailableJobseeker(){
+		this.dtTrigger.closed=false;
+		this.dtTrigger.thrownError=false;
+		this.dtTrigger.isStopped=false;
+		this.dtTrigger.observers=[];
+		this.dtTrigger.next();
+		if(this.ShowJobAcive ==true){
+			this.ShowJobAcive = false;
+		}else{
+			this.ShowJobAcive = true;
+			this.ShowEmployeeActive = false;
+			this.ShowEmployeeTotal = false;
+			this.ShowEmployeeInActive = false;
+			this.ShowJobTotal = false;
+			this.ShowJobInActive = false;
+			this.paramsEmployee['limit'] = this.limit;
 			this.paramsEmployee['page'] = 0;
 			this.paramsEmployee['column'] ='created_at';
 			this.paramsEmployee['sort'] ='DESC';
 			this.paramsEmployee['view'] ='user-available';
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
-	   }
-	   this.ref.detectChanges();
-	  }
-	  clickNotAvailableJobseeker(){
-		  this.dtTrigger.closed=false;
-			this.dtTrigger.thrownError=false;
-			this.dtTrigger.isStopped=false;
-			this.dtTrigger.observers=[];
-				this.dtTrigger.next();
-		  if(this.ShowJobInActive ==true){
-			  this.ShowJobInActive = false;
-		  }else{
-			  this.ShowJobInActive = true;
-		 
-		  this.ShowEmployeeActive = false;
-		  this.ShowEmployeeTotal = false;
-		  this.ShowEmployeeInActive = false;
-		  this.ShowJobTotal = false;
-		  this.ShowJobAcive = false;
-		  this.paramsEmployee['limit'] = this.limit;
+		}
+		this.ref.detectChanges();
+	}
+	
+	/**
+	**	To get the click event for notavailable
+	**/
+
+	clickNotAvailableJobseeker(){
+		this.dtTrigger.closed=false;
+		this.dtTrigger.thrownError=false;
+		this.dtTrigger.isStopped=false;
+		this.dtTrigger.observers=[];
+		this.dtTrigger.next();
+		if(this.ShowJobInActive ==true){
+			this.ShowJobInActive = false;
+		}else{
+			this.ShowJobInActive = true;
+			this.ShowEmployeeActive = false;
+			this.ShowEmployeeTotal = false;
+			this.ShowEmployeeInActive = false;
+			this.ShowJobTotal = false;
+			this.ShowJobAcive = false;
+			this.paramsEmployee['limit'] = this.limit;
 			this.paramsEmployee['page'] = 0;
 			this.paramsEmployee['column'] ='created_at';
 			this.paramsEmployee['sort'] ='DESC';
 			this.paramsEmployee['view'] ='user-notavailable';
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
-	   }
-	   this.ref.detectChanges();
-	  }
+		}
+		this.ref.detectChanges();
+	}
+	
 	/**
 	**	To triggers when the pagination 
 	**/
-	 	 
+
 	handlePageEvent(data) {
 		
 		if(data=='today'){
@@ -608,6 +610,11 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		this.ref.detectChanges();
 	}
 	
+	
+	/**
+	**	To get the change date click event
+	**/
+
 	ChangeDate(data){
 		if(data=='today'){
 			this.today=true;

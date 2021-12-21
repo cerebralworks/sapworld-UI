@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { LayoutService } from '../../../../core';
 import KTLayoutFooter from '../../../../../assets/js/layout/base/footer';
 
 @Component({
@@ -11,15 +10,13 @@ export class FooterComponent implements OnInit, AfterViewInit {
   footerContainerCSSClasses: string;
   currentYear: string;
 
-  constructor(private layout: LayoutService) {
+  constructor() {
     const currentDate = new Date();
     this.currentYear = currentDate.getFullYear().toString();
   }
 
   ngOnInit(): void {
-    this.footerContainerCSSClasses = this.layout.getStringCSSClasses(
-      'footer_container'
-    );
+    
   }
 
   ngAfterViewInit() {

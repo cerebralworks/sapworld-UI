@@ -15,7 +15,6 @@ import {
   NavigationEnd,
   NavigationCancel,
 } from '@angular/router';
-import { LayoutService } from '../../../../core';
 import KTLayoutHeader from '../../../../../assets/js/layout/base/header';
 import KTLayoutHeaderMenu from '../../../../../assets/js/layout/base/header-menu';
 import { KTUtil } from '../../../../../assets/js/components/util';
@@ -54,7 +53,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private accountService: AccountService,
 		private employerService: EmployerService,
-		private ref: ChangeDetectorRef,private layout: LayoutService,
+		private ref: ChangeDetectorRef,
 		private employerSharedService: EmployerSharedService, private authService: AuthService, private router: Router) {
     this.loader$ = this.loaderSubject;
 	this.onGetProfileInfo();
@@ -97,20 +96,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.ref.detectChanges();
 		}
 	)
-    this.headerContainerCSSClasses = this.layout.getStringCSSClasses(
-      'header_container'
-    );
-    this.headerMenuSelfDisplay = this.layout.getProp(
-      'header.menu.self.display'
-    );
-    this.headerMenuSelfStatic = this.layout.getProp('header.menu.self.static');
-    this.asideSelfDisplay = this.layout.getProp('aside.self.display');
-    this.headerSelfTheme = this.layout.getProp('header.self.theme') || '';
-    this.headerLogo = this.getLogoURL();
-    this.headerMenuCSSClasses = this.layout.getStringCSSClasses('header_menu');
-    this.headerMenuHTMLAttributes = this.layout.getHTMLAttributes(
-      'header_menu'
-    );
+    
   }
 
   private getLogoURL(): string {

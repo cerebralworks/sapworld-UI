@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { LayoutService } from '../../../../core';
 
 @Component({
   selector: 'app-header-mobile',
@@ -12,20 +11,10 @@ export class HeaderMobileComponent implements OnInit, AfterViewInit {
   headerMenuSelfDisplay = true;
   headerMobileClasses = '';
   headerMobileAttributes = {};
-  constructor(private layout: LayoutService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    // build view by layout config settings
-    this.headerMobileClasses = this.layout.getStringCSSClasses('header_mobile');
-    this.headerMobileAttributes = this.layout.getHTMLAttributes(
-      'header_mobile'
-    );
-
-    this.headerLogo = this.getLogoUrl();
-    this.asideSelfDisplay = this.layout.getProp('aside.self.display');
-    this.headerMenuSelfDisplay = this.layout.getProp(
-      'header.menu.self.display'
-    );
+    
   }
 
   ngAfterViewInit() {
@@ -34,18 +23,6 @@ export class HeaderMobileComponent implements OnInit, AfterViewInit {
   }
 
   private getLogoUrl() {
-    const headerSelfTheme = this.layout.getProp('header.self.theme') || '';
-    const brandSelfTheme = this.layout.getProp('brand.self.theme') || '';
-    let result = 'logo-light.png';
-    if (!this.asideSelfDisplay) {
-      if (headerSelfTheme === 'light') {
-        result = 'logo-dark.png';
-      }
-    } else {
-      if (brandSelfTheme === 'light') {
-        result = 'logo-dark.png';
-      }
-    }
-    return `./assets/media/logos/${result}`;
+    
   }
 }

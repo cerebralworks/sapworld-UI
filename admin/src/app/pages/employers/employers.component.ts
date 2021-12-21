@@ -80,7 +80,7 @@ export class EmployersComponent implements OnInit,OnDestroy {
 			   'targets': 0,
 			   'className': 'text-Capitalize',
 			   'render': function (data, type, full, meta){
-				   return '<a class="text-primary" href="'+`${env.subPath}`+'/#/employer/view/'+full.id+'" >'+full.first_name+' '+ full.last_name +'</a>'
+				   return '<a class="text-primary" href="'+`${env.subPath}`+'/#/employers/view/'+full.id+'" >'+full.first_name+' '+ full.last_name +'</a>'
 				}
 			},{
 			   'targets': 2,

@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 // import { SplashScreenModule } from './_metronic/partials/layout/splash-screen/splash-screen.module';
 // #fake-start#
-import { FakeAPIService } from './_fake/fake-api.service';
+//import { FakeAPIService } from './_fake/fake-api.service';
 import { SplashScreenModule } from '@partials/layout/splash-screen/splash-screen.module';
 import { AccountService } from '@data/service/account.service';
 import { SharedModule } from '@shared/shared.module';
@@ -44,14 +44,7 @@ function appInitializer(authService: AuthService) {
     HighlightModule,
     DataTablesModule,
     ClipboardModule,
-    // #fake-start#
-    environment.isMockEnabled
-      ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
-        passThruUnknownUrl: true,
-        dataEncapsulation: false,
-      })
-      : [],
-    // #fake-end#
+   
     AppRoutingModule,
     NgxUiLoaderModule, // import NgxUiLoaderModule
     InlineSVGModule.forRoot(),

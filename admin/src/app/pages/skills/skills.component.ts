@@ -24,6 +24,8 @@ export class SkillsComponent implements OnInit {
 	storage : any = "";
 	limit : number = 10;
 	show : boolean = false;
+	show1 : boolean = false;
+	show2 : boolean = false;
 	pages : number = 1;
 	sorting : string = 'ASC'
 	column : string = 'id'
@@ -192,7 +194,7 @@ export class SkillsComponent implements OnInit {
 					this.update(this.arrval,datas)
 					if(this.valUpd){
 						this.valUpd='';
-						this.rerender();
+		
 					}
 				}
 			}
@@ -232,13 +234,25 @@ export class SkillsComponent implements OnInit {
 			//this.storage=data;
 			this.tempText='';
 			this.tempVal ='';
+			this.show2=true;
+			setTimeout(() => {
+				this.show2=false;
+				this.ref.detectChanges();
+			}, 2000);
 			this.rerender();
 			this.ref.detectChanges()
 		},error=>{
 			//this.storage=data;
+			var err1 = error['error'].meesage
 			this.tempText='';
 			this.tempVal ='';
-			this.rerender();
+			if(err1==="already exist"){
+				this.show1=true;
+				setTimeout(() => {
+					this.show1=false;
+					this.ref.detectChanges();
+				}, 2000);
+			}
 			this.ref.detectChanges()
 		})
 	}
@@ -263,7 +277,8 @@ export class SkillsComponent implements OnInit {
 		this.es.createSkills(this.addskills.value).subscribe(data=>{
 			this.storage = data;
 			this.show=true;
-			this.submitted= false
+			this.submitted= false;
+			this.addskills.reset()
 			this.rerender();
 			this.ref.detectChanges();
 		},error=>{
@@ -281,8 +296,6 @@ export class SkillsComponent implements OnInit {
          }			
 		})
 		//this.show = true
-		this.addskills.reset()
-		
 		setTimeout(() => {
 			this.show = false
 			this.ref.detectChanges();

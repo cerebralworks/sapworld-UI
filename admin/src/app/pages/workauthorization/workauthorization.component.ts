@@ -24,6 +24,8 @@ country : any[] =[];
 addWA : FormGroup;
 submitted : boolean = false;
 show : boolean=false;
+show1 : boolean=false;
+show2 : boolean=false;
 empty : boolean=false;
 storage : any ="";
 requestParams : any ={};
@@ -238,8 +240,23 @@ remove(id : any){
 update(id : any,datas : any){
   this.es.updateWrkauth(id,datas).subscribe(data=>{
     this.storage=data;
+    this.show2=true;
+			setTimeout(() => {
+				this.show2=false;
+				this.ref.detectChanges();
+			}, 2000);
     this.ref.detectChanges();
     this.rerender();
+  },error=>{
+    var err1 = error['error'].meesage;
+			if(err1==="already exist"){
+				this.show1=true;
+				setTimeout(() => {
+					this.show1=false;
+					this.ref.detectChanges();
+				}, 2000);
+			}
+			this.ref.detectChanges()
   })
 }
 /**
@@ -294,6 +311,7 @@ this.es.postWorkauth(arraryval).subscribe(data=>{
   this.storage = data;
   this.show = true;
   this.submitted=false;
+  this.addWA.reset();
   this.ref.detectChanges();
   this.rerender()
 },error=>{
@@ -311,7 +329,6 @@ this.es.postWorkauth(arraryval).subscribe(data=>{
          }
 })
 this.submitted=false;
-this.addWA.reset()
 setTimeout(() => {
   this.show = false;
   this.ref.detectChanges()

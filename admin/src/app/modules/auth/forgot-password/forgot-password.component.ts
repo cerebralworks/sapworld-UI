@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../_services/auth.service';
+import { AccountService } from '@data/service/account.service';
 import { first } from 'rxjs/operators';
 
 enum ErrorStates {
@@ -20,11 +21,14 @@ export class ForgotPasswordComponent implements OnInit {
   errorState: ErrorStates = ErrorStates.NotSubmitted;
   errorStates = ErrorStates;
   isLoading$: Observable<boolean>;
+  showError:boolean = false;
+  showSuccess:boolean = false;
 
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
   constructor(
     private fb: FormBuilder,
+    private accountService: AccountService,
     private authService: AuthService
   ) {
     this.isLoading$ = this.authService.isLoading$;
@@ -42,7 +46,7 @@ export class ForgotPasswordComponent implements OnInit {
   initForm() {
     this.forgotPasswordForm = this.fb.group({
       email: [
-        'admin@demo.com',
+        '',
         Validators.compose([
           Validators.required,
           Validators.email,
@@ -50,10 +54,11 @@ export class ForgotPasswordComponent implements OnInit {
           Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
         ]),
       ],
+      type: [2]
     });
   }
 
-  submit() {
+ /*  submit() {
     this.errorState = ErrorStates.NotSubmitted;
     const forgotPasswordSubscr = this.authService
       .forgotPassword(this.f.email.value)
@@ -62,5 +67,29 @@ export class ForgotPasswordComponent implements OnInit {
         this.errorState = result ? ErrorStates.NoError : ErrorStates.HasError;
       });
     this.unsubscribe.push(forgotPasswordSubscr);
+  }
+   */
+  
+  /**
+  **	To send the e-mail for reset passowrd
+  **/
+  submit = () => {
+	this.showError = false;
+	this.showSuccess = false;
+    let requestParams: any = { ...this.forgotPasswordForm.value };
+
+    if (this.forgotPasswordForm.valid) {
+      this.accountService.getResetLink(requestParams).subscribe(
+        response => {
+			this.showError = false;
+			this.showSuccess = true;
+          
+        }, error => {
+          	this.showError = true;
+			this.showSuccess = false;
+
+        }
+      )
+    }
   }
 }

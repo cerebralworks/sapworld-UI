@@ -14,11 +14,11 @@ import { AsideComponent } from './_layout/components/aside/aside.component';
 import { FooterComponent } from './_layout/components/footer/footer.component';
 import { HeaderComponent } from './_layout/components/header/header.component';
 import { HeaderMenuComponent } from './_layout/components/header/header-menu/header-menu.component';
-import { TopbarComponent } from './_layout/components/topbar/topbar.component';
+//import { TopbarComponent } from './_layout/components/topbar/topbar.component';
 import { LanguageSelectorComponent } from './_layout/components/topbar/language-selector/language-selector.component';
 import { CoreModule } from '../core';
-import { SubheaderModule } from '@partials/layout/subheader/subheader.module';
-import { ExtrasModule } from '@partials/layout/extras/extras.module';
+//import { SubheaderModule } from '@partials/layout/subheader/subheader.module';
+//import { ExtrasModule } from '@partials/layout/extras/extras.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { ExtrasModule } from '@partials/layout/extras/extras.module';
     FooterComponent,
     HeaderComponent,
     HeaderMenuComponent,
-    TopbarComponent,
+    //TopbarComponent,
     LanguageSelectorComponent,
   ],
   imports: [
@@ -37,11 +37,11 @@ import { ExtrasModule } from '@partials/layout/extras/extras.module';
     PagesRoutingModule,
     TranslationModule,
     InlineSVGModule,
-    ExtrasModule,
+    //ExtrasModule,
     NgbDropdownModule,
     NgbProgressbarModule,
-    CoreModule,
-    SubheaderModule,
+    CoreModule
+   // SubheaderModule,
   ],
 })
 export class LayoutModule { }

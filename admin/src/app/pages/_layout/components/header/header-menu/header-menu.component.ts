@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { LayoutService } from '../../../../../core';
 
 function getCurrentURL(location) {
   return location.split(/[?#]/)[0];
@@ -17,16 +16,12 @@ export class HeaderMenuComponent implements OnInit {
   location: Location;
   headerMenuDesktopToggle: string;
 
-  constructor(private layout: LayoutService, private loc: Location) {
+  constructor( private loc: Location) {
     this.location = this.loc;
   }
 
   ngOnInit(): void {
-    this.ulCSSClasses = this.layout.getStringCSSClasses('header_menu_nav');
-    this.rootArrowEnabled = this.layout.getProp('header.menu.self.rootArrow');
-    this.headerMenuDesktopToggle = this.layout.getProp(
-      'header.menu.desktop.toggle'
-    );
+    
   }
 
   getMenuItemActive(url) {
