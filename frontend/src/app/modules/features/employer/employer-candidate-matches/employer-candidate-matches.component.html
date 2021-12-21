@@ -236,7 +236,7 @@
       <div class="col-lg-4 col-md-4 matches-4">
         <div class="title">
           <h2> {{"shared.filter" | translate }}
-            <button *ngIf="customObject?.keys(utilsHelperService.clean(tempQueryParams))?.length > 2" (click)="onClearFilter()" class="btn btn-sm btn-theme-blue ml-2 float-right" type="button">
+            <button *ngIf="customObject?.keys(utilsHelperService.clean(tempQueryParams))?.length >= 2" (click)="onClearFilter()" class="btn btn-sm btn-theme-blue ml-2 float-right" type="button">
               <i class="fa fa-times" aria-hidden="true" style="margin-right: 3px;" ></i> {{"shared.clear" | translate }}
             </button>
           </h2>
