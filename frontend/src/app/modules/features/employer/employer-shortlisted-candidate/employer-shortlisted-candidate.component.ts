@@ -529,7 +529,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		if(values == 5 || values == 6 || values == 2 || values == 4  ){
 			this.onChangeInvite(item, values);
 		}else{
-			if(this.employeeValue['privacy_protection'] ['invite_url'] == true ){
+			//if(this.employeeValue['privacy_protection'] ['invite_url'] == true ){
 				if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
 					
 					this.inviteUrlLink = '';
@@ -559,9 +559,9 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 						});
 					}, 10);
 				}
-			}else{
-				this.onChangeInvite(item, values);
-			}
+			//}else{
+				//this.onChangeInvite(item, values);
+			//}
 		}
 	}
 	
