@@ -697,7 +697,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		if(values == 5 || values == 6 || values == 2 || values == 4  ){
 			
 		}else{
-			if(this.employeeValue['privacy_protection'] ['invite_url'] == true ){
+			if(item['invite_url']){
 				if((this.selectedJob && this.selectedJob.id) && (item.user && item.user.id)) {
 					this.isResendURL = true;
 					this.inviteUrlLink = item['invite_url'];
@@ -710,6 +710,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 						});
 					}, 10);
 				}
+			}else{
+				this.openMessagePopupInviteLink(item,values);
 			}
 		}
 	}
