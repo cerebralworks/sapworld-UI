@@ -16,9 +16,14 @@ import { tabInfo } from '@data/schema/create-candidate';
 import { AccountService } from '@data/service/account.service';
 import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { DomSanitizer} from '@angular/platform-browser';
+import { DayService, WeekService, WorkWeekService,PrintService, MonthService, AgendaService, MonthAgendaService,CurrentAction,EventSettingsModel,ResourcesModel,CellClickEventArgs,EJ2Instance,View} from '@syncfusion/ej2-angular-schedule';
+import { extend, Internationalization } from '@syncfusion/ej2-base';
+
+import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs } from "@syncfusion/ej2-angular-schedule";
 
 @Component({
   selector: 'app-calendar',
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService,PrintService],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
@@ -29,7 +34,8 @@ export class CalendarComponent implements OnInit {
 	/**	
 	**	Variable Declaration
 	**/
-	
+	public currentView: View = 'Agenda';
+	public appliedJobs: any[] = [];	
 	public createCompanyForm: FormGroup;
 	public currentTabInfo: tabInfo = {tabNumber: 2, tabName: 'inviteLink'};
 	public employerDetails: any;
@@ -54,6 +60,9 @@ export class CalendarComponent implements OnInit {
 	public mbRefs: NgbModalRef;
 	public url: any = '';
 	public urls: any = '';
+	@ViewChild("scheduleObj", { static: false })
+	public scheduleObj: ScheduleComponent;
+	public eventSettings: EventSettingsModel; 
  
 	constructor(
 		private formBuilder: FormBuilder,
@@ -75,7 +84,7 @@ export class CalendarComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-		
+		this.onGetShortListedJobs();
 		this.randomNum = Math.random();
 		this.buildForm();
 		this.accountService
@@ -551,4 +560,147 @@ export class CalendarComponent implements OnInit {
 		return false;
 	}
 	
+	public onEventRendered(args: EventRenderedArgs): void {
+		const categoryColor: string = args.data.CategoryColor as string;
+		if (!args.element || !categoryColor) {
+		  return;
+		}
+		
+		  args.element['firstChild']['style']['borderLeftColor'] = categoryColor;
+		  if(args.element.className.includes('e-agenda-item')){
+			  
+		  }else{
+			args.element.style.backgroundColor = categoryColor;
+		  }
+	}
+	
+	public onPrintClick(): void {
+		this.scheduleObj.print();
+	}
+	
+	/**
+	**	TO get the shortlisted user details
+	**/
+	
+	onGetShortListedJobs = () => {
+		
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 10000000000000;
+		requestParams.expand = "job_posting,user,employer";
+		requestParams.sort = "updated_at.desc";
+		//requestParams.job_posting = this.selectedJob.id;
+		requestParams.short_listed = 1;
+		this.employerService.applicationsList(requestParams).subscribe(
+			response => {
+				this.appliedJobs=[];
+			  if(response && response.items && response.items.length > 0) {
+				this.appliedJobs = [...this.appliedJobs, ...response.items];
+			  }
+			  //this.appliedJobMeta = { ...response.meta }
+			  this.insertCalendarDetails();
+			}, error => {
+			}
+		)
+	}
+	
+	insertCalendarDetails(){
+		if(this.appliedJobs && this.appliedJobs['length'] && this.appliedJobs['length']!=0){
+			var tempArray=[];
+			for(let i=0;i<=this.appliedJobs.length-1;i++){
+				var ArrayValue = this.appliedJobs[i];
+				var ArrayValueEvents = this.appliedJobs[i]['events'];
+				if(ArrayValue && ArrayValueEvents && ArrayValueEvents['length'] &&ArrayValueEvents['length']!=0){
+					
+					for(let j=0;j<=ArrayValueEvents['length']-1;j++){
+						var CategoryColor = "#008000";
+						var input1Date =  new Date();
+						var input2Date =  new Date();
+
+						var ArrayResource = ArrayValueEvents[j];
+						if(typeof ArrayResource['data'] === 'string'){
+							ArrayResource['data']=JSON.parse(ArrayResource['data']);
+						}
+						if(ArrayResource['data'] &&ArrayResource['data']['resource'] && ArrayResource['status']){
+							
+							var dataValue = ArrayResource['data']['resource'] ;
+							var names =  ArrayValue['user']['first_name']+' '+ ArrayValue['user']['last_name'];
+							if(dataValue['end_time'] && dataValue['start_time']){
+								var tempStatus= ArrayValue['application_status'].filter(function(a,b){ return parseInt(a.id) == parseInt(ArrayResource['status']) })[0];
+								var titleUpper =ArrayValue['job_posting']['title'].toUpperCase();
+								var statusUpper = tempStatus['status'].toUpperCase();
+								var tempDescription= '<h6 style="font-size: 15px;" > <strong>Title : </strong>'+names+' scheduled for the <a style="color:blue;">'+statusUpper+'</a> in <a style="color:blue;">'+titleUpper +'</a> job</h6> </br>';
+								
+								input2Date =  new Date(dataValue['end_time']);
+								if (input1Date.getTime() < input2Date.getTime()){
+									CategoryColor = "blue";
+									
+									if(ArrayResource['created'] || ArrayResource['rescheduled']){
+										if(dataValue['location'] && dataValue['location']['join_url']  && dataValue['location']['join_url'] !='null'  && dataValue['location']['join_url'] !=null){
+											tempDescription += '<h6 style="font-size: 15px;" > <strong>Meeting Link : </strong> <a href="'+dataValue['location']['join_url']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+										}
+										if(dataValue['location'] && dataValue['location']['type'] =='outbound_call'  && dataValue['location']['type'] !='null'  && dataValue['location']['type'] !=null){
+											tempDescription += '<h6 style="font-size: 15px;" > <strong>Telephone Round  </strong> <a  style="color:blue;" > '+dataValue['location']['location']+' </a></h6> </br>';
+										}
+										if(dataValue['location'] && dataValue['location']['type'] =='custom'  && dataValue['location']['join_url'] !='null'  && dataValue['location']['join_url'] !=null){
+											tempDescription += '<h6 style="font-size: 15px;" > <strong>Meeting Link : </strong> <a href="'+dataValue['location']['location']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+										}
+									}
+									
+								}
+								
+								if(ArrayValue['status'] === ArrayResource['status']  && !ArrayResource['rescheduled'] && !ArrayResource['canceled'] && ArrayValueEvents['length']-1 == j ){
+									//tempDescription += '<h6> <strong>Reschedule Meeting : </strong><a href="'+ArrayValue['reschedule_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
+									//tempDescription += '<h6> <strong>Cancel Meeting : </strong><a href="'+ArrayValue['cancel_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
+									//CategoryColor = "#008000";
+								}
+								
+								if(ArrayResource['canceled']){
+									if(ArrayResource['canceledreason']){
+										var cancelreason = ArrayResource['canceledreason']['reason'];
+									}
+									tempArray.splice(-1);
+									CategoryColor = "#ff0000";
+									var newCancel= new Date(ArrayResource['canceled']);
+									tempDescription += '<h6 style="font-size: 15px;" > <strong>Cancelled Meeting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6></br><h6> <strong>Reason For Cancelled : </strong></br>'+cancelreason+'</h6>';
+								}
+								if(ArrayResource['rescheduled_canceled']){
+								   var reasons = ArrayResource['reason']['reason'];
+								}
+								if(ArrayResource['rescheduled']){
+									tempArray.splice(-1);
+									if (input1Date.getTime() < input2Date.getTime()){
+										CategoryColor = "#ffa500";
+									}
+									
+									var newCancel= new Date(ArrayResource['rescheduled']);
+									tempDescription += '<h6 style="font-size: 15px;" > <strong>Rescheduled Meeting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br><h6 style="font-size: 15px;" > <strong>Reason For Reschedule : </strong></br>'+reasons+'</h6>';
+								
+								}
+								
+								var tempTitle= names+' - '+tempStatus['status'];
+								tempTitle=tempTitle.toUpperCase();
+								var tempInsertData = {
+									'Id':j,
+									'Subject':tempTitle,
+									'StartTime':dataValue['start_time'],
+									'EndTime':dataValue['end_time'],
+									'CategoryColor':CategoryColor,
+									'Description':tempDescription
+								}
+								tempArray.push(tempInsertData);
+								if(ArrayResource['rescheduled_canceled']){
+									tempArray.splice(-1);
+								}
+							}
+							
+						}
+					}
+				}
+			}
+			
+			  this.eventSettings = { dataSource:tempArray};
+			
+		}
+	}
 }
