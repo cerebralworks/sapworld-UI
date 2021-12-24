@@ -16,7 +16,7 @@ import { tabInfo } from '@data/schema/create-candidate';
 import { AccountService } from '@data/service/account.service';
 import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { DomSanitizer} from '@angular/platform-browser';
-import { DayService, WeekService, WorkWeekService,PrintService, MonthService, AgendaService, MonthAgendaService,CurrentAction,EventSettingsModel,ResourcesModel,CellClickEventArgs,EJ2Instance,View} from '@syncfusion/ej2-angular-schedule';
+import { DayService, WeekService, WorkWeekService,PrintService, MonthService,PopupOpenEventArgs, AgendaService, MonthAgendaService,CurrentAction,EventSettingsModel,ResourcesModel,CellClickEventArgs,EJ2Instance,View} from '@syncfusion/ej2-angular-schedule';
 import { extend, Internationalization } from '@syncfusion/ej2-base';
 
 import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs } from "@syncfusion/ej2-angular-schedule";
@@ -473,75 +473,6 @@ export class CalendarComponent implements OnInit {
 		this.isFormDataShow = false;
 		this.isShowIframe = false;
 	}
-	cancelCalender(){
-		//if(this.c.value[0]['title']== null ||this.c.value[0]['title'].trim() == ''||this.c.value[0]['url']== null ||this.c.value[0]['url'].trim() == '' ){
-			
-		//}else{
-			
-			this.isShowCalenderForm = false;
-			this.isFormDataShow = false;
-			this.isShowIframe = false;
-		//}
-	}
-	
-	onSaveComapnyInfoCalender(){
-		if (this.createCompanyForm.valid) {
-			this.updateCompany('calender');
-		}
-	}
-	
-	
-	refresh(){
-		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.urls);
-		setTimeout(() => {		
-			var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
-			var windowURL= window.location.origin+'/';
-			var checkURLs =checkURL[0].split('null');
-			if(checkURL[0]==windowURL || checkURLs[0]==windowURL ){
-				document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
-			}
-			var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
-			document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
-		},500);
-	}
-	
-	openCalenderView(item){
-		var tempUrl =item.url;
-		this.urls =item.url;
-		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(tempUrl);
-		setTimeout(() => {
-			this.mbRefs = this.modalService.open(this.calenderModel, {
-				windowClass: 'modal-holder',
-				size: 'xl',
-				centered: true,
-				backdrop: 'static',
-				keyboard: false
-			});
-			setTimeout(() => {		
-				var checkURL =document.getElementsByTagName('iframe')[0].src.split('?');
-				var windowURL= window.location.origin+'/';
-				var checkURLs =checkURL[0].split('null');
-				if(checkURL[0]==windowURL || checkURLs[0]==windowURL ){
-					document.getElementsByTagName('iframe')[0].src = windowURL+'#/not-found';
-				}
-				var styles =`<style>.legacy-branding .badge{display:none;height:0px;}.app-error {margin-top:0px !important;}</style>`;
-				document.body.getElementsByClassName('legacy-branding')[0]['style']['display']='none';
-
-			},500);
-		});
-		
-	}
-	
-	closeCalender(){
-		this.mbRefs.close();
-	}
-	
-	cancelSettings(){
-		//if(this.companyProfileInfo.invite_status !=true ){
-			this.isShowForm = false;
-			this.inviteStatusView = false;
-		//}
-	}
 	
 	checkStatus(){
 		if(this.createCompanyForm.valid){
@@ -551,6 +482,7 @@ export class CalendarComponent implements OnInit {
 		}
 		return false;
 	}
+	
 	checkStatusCalendar(){
 		if(this.createCompanyForm.valid){
 			return true
@@ -633,7 +565,7 @@ export class CalendarComponent implements OnInit {
 								
 								input2Date =  new Date(dataValue['end_time']);
 								if (input1Date.getTime() < input2Date.getTime()){
-									CategoryColor = "blue";
+									CategoryColor = "#0000ff";
 									
 									if(ArrayResource['created'] || ArrayResource['rescheduled']){
 										if(dataValue['location'] && dataValue['location']['join_url']  && dataValue['location']['join_url'] !='null'  && dataValue['location']['join_url'] !=null){
@@ -678,7 +610,7 @@ export class CalendarComponent implements OnInit {
 								
 								}
 								
-								var tempTitle= names+' - '+tempStatus['status'];
+								var tempTitle= titleUpper +' - '+tempStatus['status'] +' ('+names+')';
 								tempTitle=tempTitle.toUpperCase();
 								var tempInsertData = {
 									'Id':j,
@@ -686,6 +618,9 @@ export class CalendarComponent implements OnInit {
 									'StartTime':dataValue['start_time'],
 									'EndTime':dataValue['end_time'],
 									'CategoryColor':CategoryColor,
+									'index':j,
+									'application_id':ArrayValue['id'],
+									'status_id':ArrayResource['status'],
 									'Description':tempDescription
 								}
 								tempArray.push(tempInsertData);
@@ -698,9 +633,160 @@ export class CalendarComponent implements OnInit {
 					}
 				}
 			}
+			this.eventSettings ={};
+			this.eventSettings = { 
+			  dataSource:tempArray,
+			   fields: {
+					id: 'Id',
+					subject: { name: 'Subject', validation: { required: true } },
+					location: { name: 'Location', validation: { required: true } },
+					description: {
+						name: 'Description', validation: {
+							required: true, minLength: [5, 'Need atleast 5 letters to be entered']
+						}
+					},
+					startTime: { name: 'StartTime', validation: { required: true } },
+					endTime: { name: 'EndTime', validation: { required: true } }
+				}
+			};
 			
-			  this.eventSettings = { dataSource:tempArray};
+		}
+	}
+	
+	onPopupOpen(args: PopupOpenEventArgs): void {
+		
+		if (args.type === 'Editor') {
+			let formElement: HTMLElement = <HTMLElement>args.element.querySelector('.e-all-day-time-zone-row');
+            formElement.style.display='none';
+			let formElement1: HTMLElement = <HTMLElement>args.element.querySelector('.e-recurrenceeditor');
+            formElement1.style.display='none';
+			let formElement2: HTMLElement = <HTMLElement>args.element.querySelector('.e-description-row');
+            formElement2.style.display='none';
+			let formElement3: HTMLElement = <HTMLElement>args.element.querySelector('.e-event-save');
+            formElement3['innerText']='SEND ';
+			let formElement8: HTMLElement = <HTMLElement>args.element.querySelector('.e-event-delete');
+            formElement8.style.display='none';
+			let formElement7: HTMLElement = <HTMLElement>args.element.querySelector('.e-title-text');
+            formElement7['innerText']='MEETING LINK';
 			
+			let formElement4: HTMLElement = <HTMLElement>args.element.querySelector('.e-title-location-row');
+            formElement4.style.display='block';
+            formElement4.querySelector('.e-subject-container')['style']['width']='100%';
+            formElement4.querySelector('.e-subject-container').querySelector('.e-field')['readOnly']=true;
+            formElement4.querySelector('.e-location-container')['style']['width']='100%';
+            formElement4.querySelector('.e-location-container')['style']['padding']='0px';
+            formElement4.querySelector('.e-location-container').querySelector('.e-float-text')['innerText']='Enter the meeting link';
+			
+			let formElement9: HTMLElement = <HTMLElement>args.element.querySelector('.e-start-container').querySelector('.e-date-icon');
+            formElement9.style.display='none';
+			let formElement10: HTMLElement = <HTMLElement>args.element.querySelector('.e-start-container').querySelector('.e-time-icon');
+            formElement10.style.display='none';
+			let formElement11: HTMLElement = <HTMLElement>args.element.querySelector('.e-end-container').querySelector('.e-date-icon');
+            formElement11.style.display='none';
+			let formElement12: HTMLElement = <HTMLElement>args.element.querySelector('.e-end-container').querySelector('.e-time-icon');
+            formElement12.style.display='none';
+			let formElement13: HTMLElement = <HTMLElement>args.element.querySelector('.e-start-container').querySelector('.e-start');
+            formElement13['readOnly']=true;
+			let formElement14: HTMLElement = <HTMLElement>args.element.querySelector('.e-end-container').querySelector('.e-end');
+            formElement14['readOnly']=true;
+			formElement4.querySelector('.e-location-container')['style']['display']='block';	
+			let formElement15: HTMLElement = <HTMLElement>args.element.querySelector('.e-start-container').querySelector('.e-clear-icon');
+            formElement15.style.display='none';
+			let formElement16: HTMLElement = <HTMLElement>args.element.querySelector('.e-end-container').querySelector('.e-clear-icon');
+            formElement16.style.display='none';
+			if(args.data){
+				var valDataCheck =args.data;
+				var date1 =valDataCheck['StartTime'].getTime();
+				var date2 = new Date().getTime();
+				if(valDataCheck['application_id'] && valDataCheck['status_id']  && date1 > date2){
+					var itemGet = this.appliedJobs.filter(function(a,b){ return a.id === valDataCheck['application_id']});
+					if(itemGet.length !=0){
+						itemGet = itemGet[0];
+						var tempinVal = itemGet['events'][valDataCheck.index]['data']['resource']['location'];
+						if(tempinVal['location']){
+							formElement4.querySelector('.e-location-container').querySelector('.e-location')['value']=tempinVal;							
+						}
+						if(tempinVal['view']){
+							formElement3['innerText']= 'UPDATE';
+						}
+						
+					}
+				}else{
+					formElement4.querySelector('.e-location-container')['style']['display']='none';		
+					formElement3.style['display']="none";
+					formElement7['innerText']='EVENT DETAILS';
+				}
+			}
+            
+        }
+		if(args.type === 'QuickInfo'){
+			var date1 =args.data.StartTime.getTime();
+			var date2 = new Date().getTime();
+			if(date1 > date2){
+				let formElement: HTMLElement = <HTMLElement>args.element.querySelector('.e-popup-footer');
+				formElement.style.display='block';
+				formElement.querySelector('.e-event-edit')['innerText']='SEND MEETING Link';
+				formElement.querySelector('.e-event-delete')['style']['display']='none';
+			}
+			let formElementHeader: HTMLElement = <HTMLElement>args.element.querySelector('.e-popup-header');
+			formElementHeader.style.backgroundColor = args.data.CategoryColor;
+		}
+		
+	}
+	
+	public onSaveClick(args: any): void {
+		if(args.changedRecords && args.changedRecords.length && args.changedRecords.length !=0){
+			var valDataCheck =args.changedRecords[0];
+			var date1 =valDataCheck['StartTime'].getTime();
+			var date2 = new Date().getTime();
+			if(valDataCheck['application_id'] && valDataCheck['status_id'] && valDataCheck['Location'] && date1 > date2){
+				var itemGet = this.appliedJobs.filter(function(a,b){ return a.id === valDataCheck['application_id']});
+				if(itemGet.length !=0){
+					itemGet = itemGet[0];
+					itemGet['events'][valDataCheck.index]['data']['resource']['location']['location'] = valDataCheck['Location'];
+					itemGet['events'][valDataCheck.index]['data']['resource']['location']['view'] = true;
+					itemGet['views'] = true;
+					this.onSaveInviteLink(itemGet, true);
+				}else{
+					this.onSaveInviteLink('', false);
+				}
+			}else{
+				this.onSaveInviteLink('', false);
+			}			
+		}else{
+			this.onSaveInviteLink('', false);
+		}
+		
+	}
+	
+	
+	/**
+	**	To save the meeting link
+	**/
+	
+	onSaveInviteLink = (item, values) => {
+		if((item && item.id)) {
+			let requestParams: any = {};
+			requestParams.job_posting = item.job_posting.id;
+			requestParams.user =item.user.id;
+			requestParams.short_listed = item.short_listed ;
+			requestParams.views = true ;
+			requestParams.invite_status = item.invite_status ;
+			requestParams.invite_send = item.invite_send ;
+			requestParams.status = item.status ;
+			requestParams.events = item.events ;
+			requestParams.invite_url = item.invite_url ;
+			requestParams.application_status = item.application_status ;
+			requestParams.meeting = 'meeting' ;
+			this.employerService.shortListUser(requestParams).subscribe(
+				response => {
+					this.onGetShortListedJobs();
+				}, error => {
+					this.onGetShortListedJobs();
+				}
+			)
+		}else {
+			this.onGetShortListedJobs();
 		}
 	}
 }

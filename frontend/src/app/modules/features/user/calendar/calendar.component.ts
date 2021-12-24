@@ -159,13 +159,13 @@ export class CalendarComponent implements OnInit {
 									CategoryColor = "blue";
 									
 									if(ArrayResource['created'] || ArrayResource['rescheduled']){
-										if(dataValue['location'] && dataValue['location']['join_url']){
+										if(dataValue['location'] && dataValue['location']['join_url']&& dataValue['location']['view']){
 											tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="'+dataValue['location']['join_url']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 										}
-										if(dataValue['location'] && dataValue['location']['type'] =='outbound_call'){
+										if(dataValue['location'] && dataValue['location']['type'] =='outbound_call'&& dataValue['location']['view']){
 											tempDescription += '<h6> <strong>Telephone Round  </strong> <a  style="color:blue;" > '+dataValue['location']['location']+' </a></h6> </br>';
 										}
-										if(dataValue['location'] && dataValue['location']['type'] =='custom'){
+										if(dataValue['location'] && dataValue['location']['type'] =='custom'&& dataValue['location']['view']){
 											tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="'+dataValue['location']['location']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 										}
 									}

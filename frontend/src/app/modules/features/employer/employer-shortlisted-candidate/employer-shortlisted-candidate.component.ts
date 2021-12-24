@@ -314,14 +314,18 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.job_posting = this.selectedJob.id;
 			requestParams.user = this.messagePopupValue.user.id;
 			requestParams.short_listed = true ;
-			requestParams.view = false ;
+			requestParams.views = false ;
 			requestParams.status =  this.messagePopupValue.status ;
 			this.messagePopupValue.application_status = this.messagePopupValue.application_status.map((val) => {
+				if(!val.views){
+					val.views = false;
+				}
 			  return { 
 				id: val.id,
 				status: val.status,
 				date: val.date,
 				comments: val.comments,
+				views: val.views,
 				invited: val.invited,
 				canceled: val.canceled,
 				rescheduled: val.rescheduled,
@@ -413,16 +417,20 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.job_posting = this.selectedJob.id;
 			requestParams.user = item.user.id;
 			requestParams.short_listed = true ;
-			requestParams.view = false ;
+			requestParams.views = false ;
 			requestParams.invite_status = false ;
 			requestParams.status = values ;
 			requestParams.invite_url = '' ;
 			item.application_status = item.application_status.map((val) => {
+				if(!val.views){
+					val.views = false;
+				}
 			  return { 
 				id: val.id,
 				status: val.status,
 				date: val.date,
 				comments: val.comments,
+				views: val.views,
 				invited: val.invited,
 				canceled: val.canceled,
 				rescheduled: val.rescheduled,
@@ -434,13 +442,13 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			if(values>=7){
 				var idValue = values-7;
 				if(item['job_posting']['screening_process'][idValue]){
-					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'date': new Date(),'comments':' ','invite_url':'' };
+					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'views': false,'date': new Date(),'comments':' ','invite_url':'' };
 					requestParams.application_status.push(datas);
 				}
 			}else{
 				var value = this.statusvalue.filter(function(a,b){ return a.id == values});
 				if(value.length !=0){
-					var datas = {'id':values,'status':value[0]['text'], 'date': new Date(),'comments':' ','invite_url':'' };
+					var datas = {'id':values,'status':value[0]['text'], 'date': new Date(),'comments':' ','invite_url':'','views':false };
 					requestParams.application_status.push(datas);
 				}
 			}
@@ -466,16 +474,20 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.job_posting = this.selectedJob.id;
 			requestParams.user = item.user.id;
 			requestParams.short_listed = true ;
-			requestParams.view = false ;
+			requestParams.views = false ;
 			requestParams.invite_status = true ;
 			requestParams.invite_send = true ;
 			requestParams.status = values ;
 			requestParams.invite_url = this.inviteUrlLink ;
 			item.application_status = item.application_status.map((val) => {
+				if(!val.views){
+					val.views = false;
+				}
 			  return { 
 				id: val.id,
 				status: val.status,
 				date: val.date,
+				views: val.views,
 				comments: val.comments,
 				invited: val.invited,
 				canceled: val.canceled,
@@ -487,6 +499,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			requestParams.application_status = item.application_status ;
 			requestParams.application_status[requestParams.application_status.length-1]['invite_url'] =  this.inviteUrlLink ;
 			requestParams.application_status[requestParams.application_status.length-1]['invited'] =  new Date() ;
+			requestParams.application_status[requestParams.application_status.length-1]['views'] =  false ;
 			
 			this.employerService.shortListUser(requestParams).subscribe(
 				response => {
