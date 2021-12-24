@@ -38,6 +38,7 @@ export class LoginFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+	
     this.buildForm();
     //this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
    // this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
@@ -54,7 +55,6 @@ export class LoginFormComponent implements OnInit {
   ** 	If exists navigate based on the role
   **/
   login() {
-	  
     this.isLoading = true;
     this.showError = false;
 
@@ -75,6 +75,11 @@ export class LoginFormComponent implements OnInit {
 						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
 						  this.router.navigate(['/user/candidate-job-view/details'], {queryParams: {'show': 'appply','id': id_val }});
 					  }
+					  this.route.queryParams.subscribe(params=>{
+						if(params){
+						  this.router.navigate([this.returnUserUrl]);
+						}
+						})
 				  }else{
 					this.router.navigate([this.returnUserUrl]);
 				  }
