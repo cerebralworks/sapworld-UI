@@ -5,6 +5,7 @@ import {PageEvent} from '@angular/material/paginator';
 import { EmployerService } from '@data/service/employer.service';
 export {}; declare global { interface Window { Calendly: any; } } 
 import { DomSanitizer} from '@angular/platform-browser';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-applied-job',
@@ -46,7 +47,7 @@ export class AppliedJobComponent implements OnInit {
 		{id:99,text:'Closed'}
 	];
 	@ViewChild('container') container: ElementRef;
-	
+	public appId : number;
 	/**	
 	**	To implement the package section constructor
 	**/
@@ -55,7 +56,8 @@ export class AppliedJobComponent implements OnInit {
 		private userService: UserService,
 		private modelService: NgbModal,
 		private sanitizer: DomSanitizer,
-		private employerService : EmployerService
+		private employerService : EmployerService,
+		private routes : ActivatedRoute
 	) { }
 
 	/**
@@ -63,6 +65,10 @@ export class AppliedJobComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
+		this.routes.queryParams.subscribe(params=>{
+		this.appId = params['appid'];
+		console.log(this.appId)
+		})
 		this.onGetAppliedJobs();
 	}
 
