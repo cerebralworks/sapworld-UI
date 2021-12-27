@@ -48,23 +48,24 @@
 				<div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
 					<ng-container [formGroup]="ticket">
 						<div class="col-lg-4 col-md-4">
-							<input formControlName="title"  class="form-control mt-4" type="text" placeholder="Enter the invite title">
+							<input formControlName="title" readonly class="form-control mt-4" type="text" placeholder="Enter the invite title">
 							<app-control-messages [control]="ticket['controls']['title']"></app-control-messages>
 						</div><div class="col-lg-5 col-md-4">
-							<input formControlName="url" class="form-control mt-4" type="text" placeholder="Enter the invite link">
+							<input formControlName="url" readonly class="form-control mt-4" type="text" placeholder="Enter the invite link">
 							<app-control-messages [control]="ticket['controls']['url']"></app-control-messages>
 						</div>
 						<div class="col-lg-2 col-md-4" style="top: 25px;">
-							<button type="button" class="btn btn-outline-danger"
+							
+							<!-- <button type="button" class="btn btn-outline-danger"
 								style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
-							<button *ngIf="last" (click)="onDuplicate(i)" type="button" class="btn btn-outline-green ml-2"
-								style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
+							 <button *ngIf="last" (click)="onDuplicate(i)" type="button" class="btn btn-outline-green ml-2"
+								style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button> -->
 						</div>
 					</ng-container>
 				</div>
 			  </div>
 			  
-			  <div class="row mt-5">
+			  <!-- <div class="row mt-5">
 				<div class="col-lg-4 col-md-6">
 				  <div class="form-group">
 					<button type="button" (click)="cancelSettings()"  class="btn btn-secondary btn-block btn-lg">{{"shared.cancel" | translate }}</button>
@@ -75,7 +76,7 @@
 					<button [disabled]="(!checkStatus() && !invalidMobile ) " type="submit" class="btn btn-theme-blue btn-block btn-lg">{{"shared.submit" | translate }}</button>
 				  </div>
 				</div>
-			  </div>
+			  </div> -->
 		  </form>
 		</div>
 		<div *ngIf="(companyProfileInfo.invite_status != true  || inviteStatusView ==false) && isShowForm ==false">

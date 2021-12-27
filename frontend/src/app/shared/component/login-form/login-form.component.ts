@@ -7,6 +7,7 @@ import { AppComponent } from 'src/app/app.component';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { environment as env } from '@env';
 import { ToastrService } from 'ngx-toastr';
+import { DataService } from '@shared/service/data.service';
 
 @Component({
   selector: 'app-login-form',
@@ -26,6 +27,7 @@ export class LoginFormComponent implements OnInit {
   public loginForm: FormGroup;
   public returnEmployerUrl: any;
   public returnUserUrl: any;
+	public loggedUserInfo: any;
 
 
   constructor(
@@ -33,17 +35,23 @@ export class LoginFormComponent implements OnInit {
     public router: Router,
     public toastr: ToastrService,
     private route: ActivatedRoute,
+	private dataService: DataService,
     private accountService: AccountService,
 	private SharedAPIService: SharedApiService,
   ) { }
 
   ngOnInit(): void {
-	
     this.buildForm();
     //this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
    // this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
     this.returnEmployerUrl =  '/employer/dashboard';
     this.returnUserUrl =  '/user/dashboard';
+	this.accountService
+      .getLoginCredientials()
+      .subscribe(response => {
+		this.loggedUserInfo = response;
+        
+      });
   }
 
   get f() {
@@ -55,6 +63,7 @@ export class LoginFormComponent implements OnInit {
   ** 	If exists navigate based on the role
   **/
   login() {
+	  
     this.isLoading = true;
     this.showError = false;
 
@@ -74,12 +83,9 @@ export class LoginFormComponent implements OnInit {
 						  this.returnUserUrl = this.route.snapshot.queryParams['redirect'];
 						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
 						  this.router.navigate(['/user/candidate-job-view/details'], {queryParams: {'show': 'appply','id': id_val }});
+					  }else{
+						this.router.navigate(['/user/dashboard']);
 					  }
-					  this.route.queryParams.subscribe(params=>{
-						if(params){
-						  this.router.navigate([this.returnUserUrl]);
-						}
-						})
 				  }else{
 					this.router.navigate([this.returnUserUrl]);
 				  }
@@ -109,6 +115,22 @@ export class LoginFormComponent implements OnInit {
       )
     }
   }
+  
+  
+	getUserDetailsData(){
+		
+		var emailData = { 'email' : this.loginForm.value.username ? this.loginForm.value.username.toLowerCase() : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		this.accountService.userCalendlyDetailsGet(emailData,this.loggedUserInfo).subscribe(
+			response => {
+				if(response && response.collection && response.collection.length ){
+					var responseCollection =response.collection[0];
+					this.dataService.setCalendlyDataSource(responseCollection);
+				}
+			}, error => {
+				console.log(error);
+			}
+		)
+	}
 
   /**
   **	To build the login form

@@ -42,7 +42,9 @@ export class CalendarComponent implements OnInit {
 	TooltipLabel = TooltipLabel;
 	public companyProfileInfo: any;
 	public loggedUserInfo: any;
+	public calendlyInfo: any;
 	public socialMediaLinks: any[] = [];
+	public tempCalendlyEvents: any[] = [];
 	CountryISO = CountryISO;
 	PhoneNumberFormat = PhoneNumberFormat;
 	public invalidMobile: boolean = false;
@@ -110,7 +112,14 @@ export class CalendarComponent implements OnInit {
 			}
 		)
 		this.onGetProfileInfo();
-
+		this.dataService.getCalendlyDataSource()
+		.subscribe(response => {
+			if(response && response.user ){
+				this.calendlyInfo = response;
+				this.getEventDetails();
+			}
+			
+		});
 	}
 	
 	/**
@@ -199,6 +208,8 @@ export class CalendarComponent implements OnInit {
 						}
 					}
 				}
+				
+				this.getUserDetailsData();
 			}, error => {
 				this.companyProfileInfo = {};
 				this.employerSharedService.clearEmployerCompanyDetails();
@@ -410,9 +421,14 @@ export class CalendarComponent implements OnInit {
 			requestParams.invite_urls = null;
 			//requestParams.calender_status = false;
 		}
+		if(datas=='save'){
+			requestParams.calender_status = true;	
+			requestParams.invite_urls = this.tempCalendlyEvents;
+			requestParams.page = 'save';
+		}
 		this.employerService.updateCompanyProfile(requestParams).subscribe(
 			response => {
-				if(datas == true){
+				if(datas == true || datas =='save'){
 					this.onGetProfileInfo();
 				}else if(datas == 'calender'){
 					this.isShowCalenderForm = false;
@@ -789,4 +805,41 @@ export class CalendarComponent implements OnInit {
 			this.onGetShortListedJobs();
 		}
 	}
+	
+	
+	getUserDetailsData(){
+		
+		var emailData = { 'email' : this.employerDetails.email ? this.employerDetails.email.toLowerCase() : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		this.accountService.userCalendlyDetailsGet(emailData,this.loggedUserInfo).subscribe(
+			response => {
+				if(response && response.collection && response.collection.length ){
+					var responseCollection =response.collection[0];
+					this.dataService.setCalendlyDataSource(responseCollection);
+				}
+			}, error => {
+				console.log(error);
+			}
+		)
+	}
+	
+	getEventDetails(){
+		
+		var emailData = { 'user' : this.calendlyInfo['user']['uri'] ? this.calendlyInfo['user']['uri'] : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		this.accountService.userCalendlyDetailsEventGet(emailData,this.loggedUserInfo).subscribe(
+			response => {
+				console.log(response);
+				if(response && response.collection && response.collection.length){
+					this.tempCalendlyEvents=response.collection.map(function(a,b){ return {'title': a.name,'url':a.scheduling_url}});
+					if(this.companyProfileInfo.invite_urls.length != this.tempCalendlyEvents.length){
+						this.updateCompany('save');
+					}
+				}
+			}, error => {
+				console.log(error);
+			}
+		)
+	}
+	
+	
+	
 }

@@ -13,6 +13,8 @@ export const environment = {
   production: false,
   calenderUrl: 'https://api.calendly.com/organizations/',
   webhookUrl: 'https://api.calendly.com/webhook_subscriptions',
+  membershipUrl: 'https://api.calendly.com/organization_memberships',
+  eventUrl: 'https://api.calendly.com/event_types',
   serverUrl: `${baseUrl}:5000`,
   adminUrl: `${baseUrl}:4201`,
   envName: 'DEV',
