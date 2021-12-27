@@ -149,6 +149,28 @@ export class AccountService extends CacheService {
       })
     );
   };
+  
+  /**
+   * To get Calendly User Details
+   */
+  userCalendlyDetailsGet = (userInfo,path) => {
+    return this.apiService.getCalendlyUserDetails(path, userInfo).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  
+  /**
+   * To get Calendly User Details
+   */
+  userCalendlyDetailsEventGet = (userInfo,path) => {
+    return this.apiService.getEventsUser(path, userInfo).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
    
    /**
    * To request to reset the user password

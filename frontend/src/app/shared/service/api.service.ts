@@ -65,6 +65,23 @@ loadGameData() {
       body, ({ headers })
     ).pipe(catchError(this.formatErrors));
   }
+  
+  getCalendlyUserDetails(path: Object = {},  params: HttpParams = new HttpParams() , headers: HttpHeaders = new HttpHeaders()): Observable<any> {
+    headers = headers.set('authorization', `Bearer ${path['CALENDLY_TOKEN']}`);
+
+	return this.http.get(
+      `${env.membershipUrl}`,
+       { headers: headers, params: params }
+    ).pipe(catchError(this.formatErrors));
+  }
+  getEventsUser(path: Object = {},  params: HttpParams = new HttpParams() , headers: HttpHeaders = new HttpHeaders()): Observable<any> {
+    headers = headers.set('authorization', `Bearer ${path['CALENDLY_TOKEN']}`);
+
+	return this.http.get(
+      `${env.eventUrl}`,
+       { headers: headers, params: params }
+    ).pipe(catchError(this.formatErrors));
+  }
 
   delete(path): Observable<any> {
     return this.http.delete(

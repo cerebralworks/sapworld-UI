@@ -52,7 +52,7 @@
 										</a>
 									</td>
 									<td *ngIf="item?.short_listed == true && item?.status != 3 &&item?.status != 2 && item?.status != 4 && item?.status != 5 && item?.status != 6 &&  item?.job_posting?.status != 0 && item?.job_posting?.status != 3">
-										<a class="text-warning text-capitalize" data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
+										<a class="text-warning text-capitalize" data-toggle="collapse"  [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
 											{{itemReturn(item?.status,item?.application_status)}}
 											<i class="fas fa-caret-down"></i>
 											<span class="badges" *ngIf="item?.view == false " [id]="j">1</span>
@@ -89,7 +89,7 @@
 								<!--Message Collapse -->
 								<tr *ngIf="item?.application_status">
 									 <td colspan="12" class="p-0" style="white-space: normal;" *ngIf="item?.application_status?.length">
-										<div class="collapse p-3" [id]="getIdVals(item)">
+										<div [ngClass]="(appId == item?.id)?'p-3 collapse show' : 'collapse p-3'" [id]="getIdVals(item)">
 											<div class="row">
 												<div class="col-md-9 p-0">
 													<ul class="statusHistory">
