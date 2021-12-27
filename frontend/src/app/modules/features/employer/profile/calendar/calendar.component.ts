@@ -510,10 +510,21 @@ export class CalendarComponent implements OnInit {
 	
 	public onEventRendered(args: EventRenderedArgs): void {
 		const categoryColor: string = args.data.CategoryColor as string;
+		var valDataCheck =args.data;
+		var date1 =valDataCheck['StartTime'].getTime();
+		var date2 = new Date().getTime();
 		if (!args.element || !categoryColor) {
 		  return;
 		}
-		
+		let btn: HTMLElement = document.createElement('button');
+			if(date1 > date2){
+			btn.innerHTML  = "Send meeting link";
+			}
+		   btn.classList.add("e-btn", "e-lib","e-agen", "e-flat", "e-primary");
+		   let formElement111 = args.element.querySelector('.e-appointment');
+		   if(date1 > date2){
+				formElement111.append(btn);
+		   }
 		  args.element['firstChild']['style']['borderLeftColor'] = categoryColor;
 		  if(args.element.className.includes('e-agenda-item')){
 			  
@@ -720,9 +731,9 @@ export class CalendarComponent implements OnInit {
 						itemGet = itemGet[0];
 						var tempinVal = itemGet['events'][valDataCheck.index]['data']['resource']['location'];
 						if(tempinVal['location']){
-							formElement4.querySelector('.e-location-container').querySelector('.e-location')['value']=tempinVal;							
+							formElement4.querySelector('.e-location-container').querySelector('.e-location')['value']=tempinVal['location'];							
 						}
-						if(tempinVal['view']){
+						if(tempinVal['view'] || tempinVal['location'] ){
 							formElement3['innerText']= 'UPDATE';
 						}
 						
@@ -830,7 +841,9 @@ export class CalendarComponent implements OnInit {
 				console.log(response);
 				if(response && response.collection && response.collection.length){
 					this.tempCalendlyEvents=response.collection.map(function(a,b){ return {'title': a.name,'url':a.scheduling_url}});
-					if(this.companyProfileInfo.invite_urls.length != this.tempCalendlyEvents.length){
+					if(!this.companyProfileInfo.invite_urls){
+						this.updateCompany('save');
+					}else if(this.companyProfileInfo.invite_urls.length != this.tempCalendlyEvents.length){
 						this.updateCompany('save');
 					}
 				}
