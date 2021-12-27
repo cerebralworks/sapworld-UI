@@ -456,19 +456,37 @@ export class CalendarComponent implements OnInit {
 		});
 	}
 	
+	/**
+	** To close the popup view detection
+	**/
+	
 	closePopup(){
 		this.updateCompany(true);
 		this.mbRef.close();
 	}
+	
+	/**
+	** To navigate the profile view
+	**/
+	
 	navigateProfile(){
 		
 		this.closePopup();
 		this.router.navigate(['/employer/profile']);
 	}
+	
+	/**
+	** To detect the tab change event
+	**/
+	
 	onTabChange(data){
 		
 		this.currentTabInfo=data;
 	}
+	
+	/**
+	** To send the invite link
+	**/
 	
 	sendInviteLink(){
 		
@@ -480,15 +498,28 @@ export class CalendarComponent implements OnInit {
 		)
 	}
 	
+	/**
+	** To enable the invite link
+	**/
+	
 	enableInviteLink(){
 		this.inviteStatusView = true;
 		this.isShowForm =true;
 	}
+	
+	/**
+	** To enable the calendar view
+	**/
+	
 	enableaddCalender(){
 		this.isShowCalenderForm = true;
 		this.isFormDataShow = false;
 		this.isShowIframe = false;
 	}
+	
+	/**
+	** To check the status
+	**/
 	
 	checkStatus(){
 		if(this.createCompanyForm.valid){
@@ -499,6 +530,10 @@ export class CalendarComponent implements OnInit {
 		return false;
 	}
 	
+	/**
+	** To check the status of the calendar
+	**/
+	
 	checkStatusCalendar(){
 		if(this.createCompanyForm.valid){
 			return true
@@ -507,6 +542,10 @@ export class CalendarComponent implements OnInit {
 		}
 		return false;
 	}
+	
+	/**
+	** To get the rendered event
+	**/
 	
 	public onEventRendered(args: EventRenderedArgs): void {
 		const categoryColor: string = args.data.CategoryColor as string;
@@ -522,8 +561,10 @@ export class CalendarComponent implements OnInit {
 			}
 		   btn.classList.add("e-btn", "e-lib","e-agen", "e-flat", "e-primary");
 		   let formElement111 = args.element.querySelector('.e-appointment');
-		   if(date1 > date2){
-				formElement111.append(btn);
+		   if(formElement111){
+				if(date1 > date2){
+					formElement111.append(btn);
+				}
 		   }
 		  args.element['firstChild']['style']['borderLeftColor'] = categoryColor;
 		  if(args.element.className.includes('e-agenda-item')){
@@ -532,6 +573,10 @@ export class CalendarComponent implements OnInit {
 			args.element.style.backgroundColor = categoryColor;
 		  }
 	}
+	
+	/**
+	** To print the scheduled events
+	**/
 	
 	public onPrintClick(): void {
 		this.scheduleObj.print();
@@ -562,6 +607,10 @@ export class CalendarComponent implements OnInit {
 			}
 		)
 	}
+	
+	/**
+	** To checking save 
+	**/
 	
 	insertCalendarDetails(){
 		if(this.appliedJobs && this.appliedJobs['length'] && this.appliedJobs['length']!=0){
@@ -636,23 +685,24 @@ export class CalendarComponent implements OnInit {
 									tempDescription += '<h6 style="font-size: 15px;" > <strong>Rescheduled Meeting at : </strong> </br><a style="color:blue;" >'+newCancel.toDateString()+' '+newCancel.toLocaleTimeString()+' </a></h6> </br><h6 style="font-size: 15px;" > <strong>Reason For Reschedule : </strong></br>'+reasons+'</h6>';
 								
 								}
-								
-								var tempTitle= titleUpper +' - '+tempStatus['status'] +' ('+names+')';
-								tempTitle=tempTitle.toUpperCase();
-								var tempInsertData = {
-									'Id':j,
-									'Subject':tempTitle,
-									'StartTime':dataValue['start_time'],
-									'EndTime':dataValue['end_time'],
-									'CategoryColor':CategoryColor,
-									'index':j,
-									'application_id':ArrayValue['id'],
-									'status_id':ArrayResource['status'],
-									'Description':tempDescription
-								}
-								tempArray.push(tempInsertData);
-								if(ArrayResource['rescheduled_canceled']){
-									tempArray.splice(-1);
+								if (input1Date.getTime() < input2Date.getTime()){
+									var tempTitle= titleUpper +' - '+tempStatus['status'] +' ('+names+')';
+									tempTitle=tempTitle.toUpperCase();
+									var tempInsertData = {
+										'Id':j,
+										'Subject':tempTitle,
+										'StartTime':dataValue['start_time'],
+										'EndTime':dataValue['end_time'],
+										'CategoryColor':CategoryColor,
+										'index':j,
+										'application_id':ArrayValue['id'],
+										'status_id':ArrayResource['status'],
+										'Description':tempDescription
+									}
+									tempArray.push(tempInsertData);
+									if(ArrayResource['rescheduled_canceled']){
+										tempArray.splice(-1);
+									}
 								}
 							}
 							
@@ -679,6 +729,11 @@ export class CalendarComponent implements OnInit {
 			
 		}
 	}
+	
+	/**
+	** To open the popup view content changes and the  design pattern view change
+	** Editor popup and the QuickInfo popup
+	**/
 	
 	onPopupOpen(args: PopupOpenEventArgs): void {
 		
@@ -761,6 +816,10 @@ export class CalendarComponent implements OnInit {
 		
 	}
 	
+	/**
+	** To checking save 
+	**/
+	
 	public onSaveClick(args: any): void {
 		if(args.changedRecords && args.changedRecords.length && args.changedRecords.length !=0){
 			var valDataCheck =args.changedRecords[0];
@@ -817,6 +876,10 @@ export class CalendarComponent implements OnInit {
 		}
 	}
 	
+	/**
+	** To get the user details for the calendly
+	**
+	**/
 	
 	getUserDetailsData(){
 		
@@ -832,6 +895,11 @@ export class CalendarComponent implements OnInit {
 			}
 		)
 	}
+	
+	/**
+	** To get the event list details 
+	**
+	**/
 	
 	getEventDetails(){
 		
