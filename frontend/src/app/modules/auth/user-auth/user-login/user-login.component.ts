@@ -1,7 +1,4 @@
 import { Component, OnInit,HostListener } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoggedIn } from '@data/schema/account';
-import { AccountService } from '@data/service/account.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -11,23 +8,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class UserLoginComponent implements OnInit {
 
-public screenWidth: any;public loggedUserInfo: LoggedIn;
-  constructor(
-    private router: Router,
-    private accountService: AccountService,
-	public translate: TranslateService) { }
+public screenWidth: any;
+  constructor(public translate: TranslateService) { }
 
   ngOnInit(): void {
-	  this.accountService
-	  .isCurrentUser()
-	  .subscribe(response => {
-		this.loggedUserInfo = response;
-		if(response.role.includes(1)){
-			this.router.navigate(['/employer/dashboard']);
-		}else if(response.role.includes(0)){
-			this.router.navigate(['/user/dashboard']);
-		}
-	  });
 	  this.screenWidth = window.innerWidth;
   }
 @HostListener('window:resize', ['$event'])  
