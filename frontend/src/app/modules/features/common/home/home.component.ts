@@ -97,11 +97,7 @@ console.log(event);
 		  .isCurrentUser()
 		  .subscribe(response => {
 			this.loggedUserInfo = response;
-			if(response.role.includes(1)){
-				this.router.navigate(['/employer/dashboard']);
-			}else if(response.role.includes(0)){
-				this.router.navigate(['/user/dashboard']);
-			}
+			
 		  });
 	}
 	
