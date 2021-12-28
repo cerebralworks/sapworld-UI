@@ -58,17 +58,7 @@ export class HeaderComponent implements OnInit {
       .isCurrentUser()
       .subscribe(response => {
         this.loggedUserInfo = response;
-		if(this.loggedUserInfo.role.length==1){
-			if(window.location.hash === '#/home' || window.location.hash === '#/auth/user/login' ||  window.location.hash === '#/auth/employer/login' ){
-				if(response.role.includes(1)){
-					this.router.navigate(['/employer/dashboard']);
-				}else if(response.role.includes(0)){
-					this.router.navigate(['/user/dashboard']);
-					
-				}
-			}
-			
-		}
+		
       });
       this.employerSharedService.getEmployerProfileDetails().subscribe(
         details => {
