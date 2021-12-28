@@ -58,7 +58,6 @@ export class HeaderComponent implements OnInit {
       .isCurrentUser()
       .subscribe(response => {
         this.loggedUserInfo = response;
-		
       });
       this.employerSharedService.getEmployerProfileDetails().subscribe(
         details => {

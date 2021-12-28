@@ -1,8 +1,8 @@
 import { Component, OnInit,HostListener } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { LoggedIn } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-login',
@@ -11,11 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class UserLoginComponent implements OnInit {
 
-public screenWidth: any;public loggedUserInfo: LoggedIn;
-  constructor(
-    private router: Router,
-    private accountService: AccountService,
-	public translate: TranslateService) { }
+public screenWidth: any;
+  constructor(public translate: TranslateService, private router: Router,private accountService: AccountService) { }
 
   ngOnInit(): void {
 	  this.accountService
