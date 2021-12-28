@@ -771,7 +771,21 @@ export class CalendarComponent implements OnInit {
             formElement13['readOnly']=true;
 			let formElement14: HTMLElement = <HTMLElement>args.element.querySelector('.e-end-container').querySelector('.e-end');
             formElement14['readOnly']=true;
-			formElement4.querySelector('.e-location-container')['style']['display']='block';	
+			formElement4.querySelector('.e-location-container')['style']['display']='block';
+			formElement4.querySelector('.e-location-container').querySelector('.e-location').remove();
+			let textarea = document.createElement("textarea");
+			
+			textarea = formElement4.querySelector('.e-location-container').querySelector('.e-float-input').appendChild(textarea);
+			textarea.classList.add("e-location", "e-field","e-error");
+			textarea.setAttribute("name","Location");
+			textarea.setAttribute("id","Location");
+			textarea.setAttribute("title","Location");
+			textarea.setAttribute("aria-labelledby","label_Location");
+			textarea.setAttribute("aria-invalid","false");
+			textarea.setAttribute("aria-describedby","Location-info");
+			textarea.setAttribute("aria-required","true");
+			textarea.setAttribute("rows","3");
+			textarea['style']['margin-top']="2rem";
 			let formElement15: HTMLElement = <HTMLElement>args.element.querySelector('.e-start-container').querySelector('.e-clear-icon');
             formElement15.style.display='none';
 			let formElement16: HTMLElement = <HTMLElement>args.element.querySelector('.e-end-container').querySelector('.e-clear-icon');
