@@ -12,6 +12,7 @@ import { AccountService } from '@data/service/account.service';
 export class UserLoginComponent implements OnInit {
 
 public screenWidth: any;
+  public loggedUserInfo: LoggedIn;
   constructor(public translate: TranslateService, private router: Router,private accountService: AccountService) { }
 
   ngOnInit(): void {
