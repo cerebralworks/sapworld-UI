@@ -65,7 +65,7 @@ export class CalendarComponent implements OnInit {
 	@ViewChild("scheduleObj", { static: false })
 	public scheduleObj: ScheduleComponent;
 	public eventSettings: EventSettingsModel; 
- 
+	public meeting_link :any;
 	constructor(
 		private formBuilder: FormBuilder,
 		private sharedService: SharedService,
@@ -844,6 +844,7 @@ export class CalendarComponent implements OnInit {
 				if(itemGet.length !=0){
 					itemGet = itemGet[0];
 					itemGet['events'][valDataCheck.index]['data']['resource']['location']['location'] = valDataCheck['Location'];
+					this.meeting_link = valDataCheck['Location'];
 					itemGet['events'][valDataCheck.index]['data']['resource']['location']['view'] = true;
 					itemGet['views'] = true;
 					this.onSaveInviteLink(itemGet, true);
@@ -878,6 +879,7 @@ export class CalendarComponent implements OnInit {
 			requestParams.invite_url = item.invite_url ;
 			requestParams.application_status = item.application_status ;
 			requestParams.meeting = 'meeting' ;
+			requestParams.meeting_link = this.meeting_link;
 			this.employerService.shortListUser(requestParams).subscribe(
 				response => {
 					this.onGetShortListedJobs();
