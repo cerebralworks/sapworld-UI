@@ -359,11 +359,11 @@ export class JobInformationComponent implements OnInit {
 			var maxCheck_2=parseInt(maxCheck[1]);
 			var minCheck_1= parseInt(minCheck[0]);
 			var minCheck_2= parseInt(minCheck[1]);
-			if(minCheck_1>maxCheck_1){
+			/* if(minCheck_1>maxCheck_1){
 				this.minError = true;
 			}else if(minCheck_2>maxCheck_2){
 				this.maxError = true;
-			}
+			} */
 			
 		}
 		

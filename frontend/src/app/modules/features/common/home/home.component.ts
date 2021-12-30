@@ -97,7 +97,6 @@ console.log(event);
 		  .isCurrentUser()
 		  .subscribe(response => {
 			this.loggedUserInfo = response;
-			
 		  });
 	}
 	
