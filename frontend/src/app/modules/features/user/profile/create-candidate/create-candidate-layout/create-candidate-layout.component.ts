@@ -490,6 +490,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	**	To update the user details
 	**/
 	onUserUpdate = (candidateInfo: CandidateProfile) => {
+	var temp:any[] =candidateInfo.skills;
+	    candidateInfo['skills'] = temp.filter(function(a,b){ a !='' });
 		this.userService.update(candidateInfo).subscribe(
 		response => {
 			
