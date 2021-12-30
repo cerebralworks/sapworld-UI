@@ -366,6 +366,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 						response['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
 					}
 				}
+				this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
 				this.matchingJobNew = { ...response };       
 			}
 		}, error => {
@@ -382,7 +383,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		if (type == 'next') {
 			if (count > this.page) {
 				if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
-					this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
+					//this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
 					this.matchingJob = { ...this.matchingJob, jobs: {} };
 					this.page++;
 					this.onGetUserScoringById(true);
@@ -396,8 +397,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 			}
 		} else if (type == 'prev' && this.page > 2) {
 			if (this.matchingJobMeta.count > 1 ) {
-				this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
-				this.matchingJob = { ...this.matchingJob, jobs: {} };
+				//this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
+				//this.matchingJob = { ...this.matchingJob, jobs: {} };
 				this.page--;
 				!this.isEven(this.page) && this.page--;
 				this.onGetUserScoringByIdNew();
