@@ -1,4 +1,13 @@
-<div *ngIf="showData">
+<div *ngIf="showData && this.router.url =='/'">
+  <app-header *ngIf="!router?.url?.includes('/not-found') "></app-header>
+
+  <div class="">
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-footer *ngIf="!router?.url?.includes('/not-found') "></app-footer>
+</div>
+<div *ngIf="this.router.url !='/'">
   <app-header *ngIf="!router?.url?.includes('/not-found') "></app-header>
 
   <div class="">
