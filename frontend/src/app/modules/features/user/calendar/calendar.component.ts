@@ -163,7 +163,7 @@ export class CalendarComponent implements OnInit {
 											if(dataValue['location']['location'].includes('www')){
 												tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="'+dataValue['location']['join_url']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}else{
-												tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="www.'+dataValue['location']['join_url']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+												tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="https://www.'+dataValue['location']['join_url']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}
 										}
 										if(dataValue['location'] && dataValue['location']['type'] =='outbound_call'&& dataValue['location']['view']){
@@ -173,7 +173,7 @@ export class CalendarComponent implements OnInit {
 											if(dataValue['location']['location'].includes('www')){
 												tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="'+dataValue['location']['location']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}else{
-												tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="www.'+dataValue['location']['location']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+												tempDescription += '<h6> <strong>Meeting Link : </strong> <a href="https://www.'+dataValue['location']['location']+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}
 										}
 									}
