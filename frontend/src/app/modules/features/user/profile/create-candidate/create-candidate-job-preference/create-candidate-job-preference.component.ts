@@ -426,7 +426,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					}
 					var tempData =[];
 				if(this.t.value){
-						 tempData = this.childForm.controls.jobPref.value.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
+						 tempData = this.savedUserDetails.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
 						 tempData = tempData.map(function(a,b){ 
 				a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
 				return a.city+'-'+a.stateShort });
