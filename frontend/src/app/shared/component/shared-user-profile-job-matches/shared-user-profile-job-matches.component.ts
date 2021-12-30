@@ -33,6 +33,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 	public desired: boolean = true;
 	public optional: boolean = true;
 	public nice: boolean = true;
+	public checkWrkAuth : boolean;
 		public roleItems = [
 		{  id:1, text: 'Technical' },
 		{  id:2, text: 'Functional' },
@@ -41,6 +42,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 	constructor(private dataService: DataService,public sharedService: SharedService,public utilsHelperService: UtilsHelperService ) { }
 
 	ngOnInit(): void {
+	
 		this.dataService.getCountryDataSource().subscribe(
 		response => {
         if (response && Array.isArray(response) && response.length) {
@@ -65,6 +67,14 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
     setTimeout( async () => {
 		var arr = [];
 		if(this.postedJobsDetails){
+		this.postedJobsDetails.job_locations.filter((a)=>{
+		if(a.city === this.userInfo['city'] && a.country === this.userInfo['country']){
+		  this.checkWrkAuth = false;
+		}else{
+		  this.checkWrkAuth = true;
+		  }
+		})
+		console.log(this.checkWrkAuth)
 			  if(this.postedJobsDetails.match_select){
 				  this.postedJobsDetails.match_select.remote="false";
 				  this.postedJobsDetails.match_select.willing_to_relocate="false";
