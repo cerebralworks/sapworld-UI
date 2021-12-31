@@ -68,7 +68,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		var arr = [];
 		if(this.postedJobsDetails){
 		this.postedJobsDetails.job_locations.filter((a)=>{
-		if(a.city === this.userInfo['city'] && a.country === this.userInfo['country']){
+		if(a.country === this.userInfo['country']){
 		  this.checkWrkAuth = false;
 		}else{
 		  this.checkWrkAuth = true;
