@@ -38,6 +38,7 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 	public isOtherNice: boolean = false;
 	public isOtherDesired: boolean = false;
 	public IsShown: boolean = false;
+	public checkWrkAuth : boolean ;
 	public educationItems = [
 		{  id:0, text: 'high school' },
 		{  id:1, text: 'diploma' },
@@ -220,6 +221,14 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 	this.cdRef.detectChanges();
 		var arr = [];
 		if(this.jobInfo){
+		       this.jobInfo.job_locations.filter((a)=>{
+		if(a.country === this.userInfo['country']){
+		  this.checkWrkAuth = false;
+		}else{
+		  this.checkWrkAuth = true;
+		  }
+		})
+		console.log(this.checkWrkAuth)
 			  if(this.jobInfo.match_select){
 				  this.jobInfo.match_select['remote']="false";
 				  this.jobInfo.match_select['willing_to_relocate']="false";

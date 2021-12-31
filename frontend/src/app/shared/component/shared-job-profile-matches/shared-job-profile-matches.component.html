@@ -225,7 +225,7 @@
 					</li>
                  </ul>
 			</div>
-			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='0'">
+			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='0' && checkWrkAuth===true">
 				 <ul class="list-group">
 					<li class="list-group-item">
 						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
@@ -648,7 +648,7 @@
 					</li>
                  </ul>
 			</div>
-			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='1'">
+			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='1' && checkWrkAuth===true">
 				 <ul class="list-group">
 					<li class="list-group-item">
 						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
@@ -1073,7 +1073,7 @@
 					</li>
                  </ul>
 			</div>
-			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='2'">
+			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='2' && checkWrkAuth===true">
 				 <ul class="list-group">
 					<li class="list-group-item">
 						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
@@ -1501,7 +1501,7 @@
 					</li>
                  </ul>
 			</div>
-			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization==''">
+			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='' && checkWrkAuth===true">
 				 <ul class="list-group">
 					<li class="list-group-item">
 						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
