@@ -2925,7 +2925,7 @@ ul.timeline > li span:hover {
 }
 .primaryData{
 	color:blue;    
-	text-decoration: underline;
+	/*text-decoration: underline;*/
     cursor: pointer;
 }
 
