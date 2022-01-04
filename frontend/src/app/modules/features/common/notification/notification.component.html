@@ -27,7 +27,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">{{ "common.notificationsFrom" | translate}}</th>
+								<!-- <th scope="col">{{ "common.notificationsFrom" | translate}}</th> -->
 								<th scope="col">{{ "common.date" | translate}}</th>
 								<th scope="col">{{ "common.message" | translate}}</th>
 								<!-- <th scope="col" class="text-center">Reply </th>
@@ -36,14 +36,16 @@
 						</thead>
 						<tbody>
 							<tr *ngFor="let items of notificationDetails">
-								<td class="text-capitalize primary" style="color: #385edf;">
+								<!--<td class="text-capitalize primary" style="color: #385edf;">
 									{{items?.name ? items?.name : '--'}}
-								</td>
+								</td>-->
 								<td>
 									{{items?.created_at ? (items?.created_at | date: "MMM dd, y") : '-'}}
 								</td>
 								<td>
-									{{items?.message ? items?.message : '--'}}
+									<a *ngIf="items?.uname" class="primaryData" [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: items?.user_id}" routerLinkActive="router-link-active"  >{{items?.uname ? items?.uname : ''}}</a>{{items?.message ? items?.message : '--'}}
+									<a *ngIf="items?.path1" class="primaryData" [routerLink]="['/user/candidate-job-view/details']" [queryParams]="{id: items?.job_id}" routerLinkActive="router-link-active"  >{{items?.path1}}</a>
+									{{items?.message1 ? items?.message1 : ''}}
 									<a *ngIf="items?.path" class="primaryData" [routerLink]="['/employer/job-detail-view', 'details']" [queryParams]="{id: items?.job_id}" routerLinkActive="router-link-active"  >{{items?.path}}</a>
 									<a >{{items?.country}}</a>
 								</td>

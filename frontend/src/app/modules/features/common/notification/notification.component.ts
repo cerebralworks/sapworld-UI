@@ -90,11 +90,17 @@ export class NotificationComponent implements OnInit {
 		  response => {
 			if(response && response['details']) {
 				response['details'].forEach(item => {
-					if(item.title=='New Application Request'){
+					if(item.title=='New Application Request' || item.title=='New User Matches'){
 						var temp = item.message.split('/');
-						item['message'] = temp[0];
-						item['path'] = temp[1];
-						item['country'] = temp[2];
+						item['uname'] = temp[0];
+						 item['message'] = temp[1];
+						item['path'] = temp[2];
+						item['country'] = temp[3];
+					}
+					if(item.title=='Application Under Review'|| item.title=='New Job Matches'){
+						var temp = item.message.split('/');
+						 item['message'] = temp[0];
+						item['path1'] = temp[1];
 					}
 				});
 			  this.notificationDetails = response['details'];
