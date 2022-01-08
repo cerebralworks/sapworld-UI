@@ -97,7 +97,7 @@ export class NotificationComponent implements OnInit {
 						item['path'] = temp[2];
 						item['country'] = temp[3];
 					} 
-					if(item.title=='Application Under Review'|| item.title=='New Job Matches' || item.title=='Application Shortlisted'){
+					if(item.title=='Application Under Review'|| item.title=='New Job Matches' || item.title=='Application Shortlisted' || item.title=='Event scheduled'){
 						var temp = item.message.split('/');
 						 item['message'] = temp[0];
 						item['path1'] = temp[1];
