@@ -96,11 +96,17 @@ export class NotificationComponent implements OnInit {
 						 item['message'] = temp[1];
 						item['path'] = temp[2];
 						item['country'] = temp[3];
-					}
-					if(item.title=='Application Under Review'|| item.title=='New Job Matches'){
+					} 
+					if(item.title=='Application Under Review'|| item.title=='New Job Matches' || item.title=='Application Shortlisted'){
 						var temp = item.message.split('/');
 						 item['message'] = temp[0];
 						item['path1'] = temp[1];
+					}
+					if(item.title=='Job Invitation' || item.title=='New Meeting Link' || item.title=='New Invite Link' || item.title=='New schedule status'){
+						var temp = item.message.split('/');
+						 item['message'] = temp[0];
+						item['path1'] = temp[1];
+						item['message1'] = temp[2];
 					}
 				});
 			  this.notificationDetails = response['details'];
