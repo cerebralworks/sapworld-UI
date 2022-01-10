@@ -11,6 +11,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { filter, pairwise } from 'rxjs/operators';
 import {PageEvent} from '@angular/material/paginator';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-job-detail-view',
@@ -41,7 +42,7 @@ export class JobDetailViewComponent implements OnInit {
 	pageSizeOptions = [10, 25,50,100];
 	CommonColor = ["blue","orange","purple","red","yallow","dblue","green"];
 	public validateSubscribe: number = 0;
-
+	public loading : boolean;
 	constructor(
 		public employerService: EmployerService,
 		private route: ActivatedRoute,
@@ -51,7 +52,8 @@ export class JobDetailViewComponent implements OnInit {
 		private location: Location,
 		public utilsHelperService: UtilsHelperService,
 		private employerSharedService: EmployerSharedService,
-		private router: Router
+		private router: Router,
+		private PlatformLocation :PlatformLocation
 	) {
 	}
 
@@ -67,6 +69,9 @@ export class JobDetailViewComponent implements OnInit {
 			return false;
 		};	
 		this.route.queryParams.subscribe(params => {
+		    this.PlatformLocation.onPopState(() => {
+				this.onRedirectBack();
+			});
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
 				if(urlQueryParams && urlQueryParams.id) {
@@ -109,6 +114,7 @@ export class JobDetailViewComponent implements OnInit {
 	 
 	onRedirectBack = () => {
 		if(this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
+		    sessionStorage.clear();
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'postedJobs'}})
 		}else {
 			this.location.back();
@@ -127,6 +133,7 @@ export class JobDetailViewComponent implements OnInit {
 			response => {
 				if(response && response.details) {
 					this.postedJobsDetails = response.details;
+					this.loading = true;
 				}
 			}, error => {
 			}
@@ -151,7 +158,7 @@ export class JobDetailViewComponent implements OnInit {
 				  this.postedJobs = [...this.postedJobs, ...response.items];
 				}
 				this.postedJobMeta = { ...response.meta };
-				this.length = this.postedJobMeta.total;
+				this.length = this.postedJobMeta.total-1;
 			}, error => {
 			}
 		)
@@ -299,7 +306,7 @@ export class JobDetailViewComponent implements OnInit {
 	**/ 
 	
 	handlePageEvent(event: PageEvent) {
-		//this.length = event.length;
+		//this.length = event.length-1;
 		this.limit = event.pageSize;
 		this.page = event.pageIndex+1;
 		this.onGetPostedJob(this.companyIdValue);

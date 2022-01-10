@@ -55,7 +55,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	private checkArray: any[] = [];
 	private userDetails: any = {};
 	public selectedCoverUrl: any;
-
+	public loading : boolean;
 	@ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
 	public mbRef: NgbModalRef;
 	public languageSource=[];
@@ -258,7 +258,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 					if(response.profile){
 						if(parseInt(this.userId) == response.profile.id ){
 							if (response && !isCount  ) {
-								this.matchingUsers = { ...response }
+								this.matchingUsers = { ...response };
+								this.loading = true;
 							}
 							if (isCount) {
 								this.matchingUsersMeta = { ...response.meta }
@@ -267,7 +268,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 					}
 				}else{
 					if (response && !isCount  ) {
-						this.matchingUsers = { ...response }
+						this.matchingUsers = { ...response };
+						this.loading = true;
 					}
 					if (isCount) {
 						this.matchingUsersMeta = { ...response.meta }

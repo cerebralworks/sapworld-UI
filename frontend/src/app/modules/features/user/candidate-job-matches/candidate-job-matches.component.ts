@@ -39,7 +39,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	public matchingJobNew: any;
 	private subscriptions: Subscription[] = [];
 	matchingJobMeta: any;
-
+	public loading : boolean;
 	/**
 	**	To implements the import Packages in constructor
 	**/
@@ -196,7 +196,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 					if(parseInt(this.jobId) == response.jobs.id ){
 						if (response && !isCount) {
 							this.matchingJob = { ...this.matchingJob, jobs: {} };
-							this.matchingJob = { ...response }
+							this.matchingJob = { ...response };
+							this.loading=true;
 							if(this.matchingJob['jobs']['match_select'] && this.matchingJobNew){
 								if(!this.utilsHelperService.isEmptyObj(this.matchingJobNew['jobs'])){
 									this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
@@ -212,6 +213,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 				if (response && !isCount) {
 					this.matchingJob = { ...this.matchingJob, jobs: {} };
 					this.matchingJob = { ...response }
+					this.loading=true;
 					if(this.matchingJob['jobs']['match_select'] && this.matchingJobNew){
 						if(!this.utilsHelperService.isEmptyObj(this.matchingJobNew['jobs'])){
 							this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
@@ -366,6 +368,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 						response['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
 					}
 				}
+				this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
 				this.matchingJobNew = { ...response };       
 			}
 		}, error => {
@@ -382,7 +385,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		if (type == 'next') {
 			if (count > this.page) {
 				if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
-					this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
+					//this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
 					this.matchingJob = { ...this.matchingJob, jobs: {} };
 					this.page++;
 					this.onGetUserScoringById(true);
@@ -396,8 +399,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 			}
 		} else if (type == 'prev' && this.page > 2) {
 			if (this.matchingJobMeta.count > 1 ) {
-				this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
-				this.matchingJob = { ...this.matchingJob, jobs: {} };
+				//this.matchingJobNew = { ...this.matchingJobNew, jobs: {} };
+				//this.matchingJob = { ...this.matchingJob, jobs: {} };
 				this.page--;
 				!this.isEven(this.page) && this.page--;
 				this.onGetUserScoringByIdNew();

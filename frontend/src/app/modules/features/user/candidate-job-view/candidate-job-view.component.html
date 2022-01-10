@@ -24,7 +24,7 @@
 	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" >
 		<div class="row">
 			<div class="col-lg-8 col-md-8 matches-8">
-				<div class="row">
+				<div class="row" *ngIf="loading=== true">
 					<div class="col-lg-12">
 						<div class="card job-card">
 							<div class="card-body">

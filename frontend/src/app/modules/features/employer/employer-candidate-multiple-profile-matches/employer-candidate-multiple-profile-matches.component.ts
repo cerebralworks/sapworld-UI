@@ -50,7 +50,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	currentUserInfo: any;
 	employeePath: any;
 	TotalMatchJobs: any[]=[];
-
+    loading : boolean;
 	constructor(
 		private route: ActivatedRoute,
 		private userSharedService: UserSharedService,
@@ -197,12 +197,14 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		  if(this.TotalMatchJobs.length==1){
 			   this.isMultipleMatches = false;
 			  this.matchingJob.jobs = this.TotalMatchJobs[0];
+			  this.loading = true;
 		  }else if(1<this.TotalMatchJobs.length){
 			  this.isMultipleMatches = true;
 			  this.pageCount = 2;
 			  this.page = 2;
 			  this.matchingJob.jobs = this.TotalMatchJobs[0];
 			  this.matchingJobNew.jobs = this.TotalMatchJobs[1];
+			  this.loading = true;
 		  }
 	}
 	

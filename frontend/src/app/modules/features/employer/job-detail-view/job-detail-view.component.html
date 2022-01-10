@@ -18,8 +18,8 @@
 </section>
   <!-- //Sub Header Section -->
 <section class="my-5">
-  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" >
-    <div class="row">
+  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'">
+    <div class="row" *ngIf="loading===true">
       <div class="col-lg-8 col-md-8 matches-8">
         
         <div class="row">
@@ -56,7 +56,7 @@
 						
 						</ng-container>
                     </h6>
-					<h6 class="font-weight-bold mb-2" >{{"shared.timing" | translate}} : 
+					<h6 class="font-weight-bold mb-2" *ngIf="postedJobsDetails?.min !== null && postedJobsDetails?.max !== null">{{"shared.timing" | translate}} : 
 						<ng-container *ngIf="postedJobsDetails?.min ">
 							{{postedJobsDetails?.min | time}}
 						</ng-container>
