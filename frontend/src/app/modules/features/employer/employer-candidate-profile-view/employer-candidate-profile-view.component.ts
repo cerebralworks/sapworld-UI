@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { DataService } from '@shared/service/data.service';
 import {PageEvent} from '@angular/material/paginator';
-import { PlatformLocation } from '@angular/common'
+
 @Component({
   selector: 'app-employer-candidate-profile-view',
   templateUrl: './employer-candidate-profile-view.component.html',
@@ -54,16 +54,14 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		private employerService: EmployerService,
 		private employerSharedService: EmployerSharedService,
-		private router: Router,
-		private PlatformLocation :PlatformLocation
+		private router: Router
+		
 	) {
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
 				this.prev = urlQueryParams.notification;
-				 PlatformLocation.onPopState(() => {
-				 this.onRedirectBack();
-				});
+				
 				if(urlQueryParams && urlQueryParams.jobId) {
 					sessionStorage.setItem('jobId',urlQueryParams.jobId);
 				}
@@ -300,5 +298,8 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
   }
-  
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+	this.onRedirectBack();
+  }
 }
