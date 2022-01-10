@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { DataService } from '@shared/service/data.service';
 import {PageEvent} from '@angular/material/paginator';
-
+import { PlatformLocation } from '@angular/common'
 @Component({
   selector: 'app-employer-candidate-profile-view',
   templateUrl: './employer-candidate-profile-view.component.html',
@@ -44,7 +44,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	public postedJobsMatchDetailsArray:any[] =[];
 	public nationality: any[] = [];
 	public applicationDetails: any = {};
-
+    prev : any;
 	constructor(
 		private userService: UserService,
 		private route: ActivatedRoute,
@@ -54,12 +54,16 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		private employerService: EmployerService,
 		private employerSharedService: EmployerSharedService,
-		private router: Router
+		private router: Router,
+		private PlatformLocation :PlatformLocation
 	) {
-		
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
+				this.prev = urlQueryParams.notification;
+				 PlatformLocation.onPopState(() => {
+				 this.onRedirectBack();
+				});
 				if(urlQueryParams && urlQueryParams.jobId) {
 					sessionStorage.setItem('jobId',urlQueryParams.jobId);
 				}
@@ -107,6 +111,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
+	
 	  this.screenWidth = window.innerWidth;	
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
@@ -145,14 +150,23 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	onRedirectBack = () => {
 		//this.location.back();
 		if(sessionStorage.getItem('view-user-path')=='applicants'){
+		     sessionStorage.clear();
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'applicants',reset: 'true'}});
 		}else if(sessionStorage.getItem('view-user-path')=='savedprofile'){
+		    sessionStorage.clear();
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'savedProfile',reset: 'true'}});
 		}else if(sessionStorage.getItem('view-user-path')=='shortlisted'){
+		    sessionStorage.clear();
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'shortlisted',reset: 'true'}});
-		}else{
+		}else if(this.prev === 'true'){
+		    sessionStorage.clear();
+			this.router.navigate(['/notification']);
+		}
+		else{
+		    sessionStorage.clear();
 			this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
 		}
+
 	}
 	
 	/**

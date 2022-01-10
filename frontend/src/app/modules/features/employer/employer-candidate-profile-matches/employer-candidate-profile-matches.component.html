@@ -19,7 +19,7 @@
 <!-- //Sub Header Section -->
 <section class="my-5">
 	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container container-big'"   >
-		<div class="row">
+		<div class="row" *ngIf="loading === true">
 			<div  class="top-pad top-pads" [ngClass]="(isMultipleMatches === true)?'col-lg-4 col-md-4 matches-8':'col-lg-6 col-md-6 matches-8'">
 				<div class="row">
 					<div class="col-lg-12">

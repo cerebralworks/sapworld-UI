@@ -39,7 +39,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	public matchingJobNew: any;
 	private subscriptions: Subscription[] = [];
 	matchingJobMeta: any;
-
+	public loading : boolean;
 	/**
 	**	To implements the import Packages in constructor
 	**/
@@ -196,7 +196,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 					if(parseInt(this.jobId) == response.jobs.id ){
 						if (response && !isCount) {
 							this.matchingJob = { ...this.matchingJob, jobs: {} };
-							this.matchingJob = { ...response }
+							this.matchingJob = { ...response };
+							this.loading=true;
 							if(this.matchingJob['jobs']['match_select'] && this.matchingJobNew){
 								if(!this.utilsHelperService.isEmptyObj(this.matchingJobNew['jobs'])){
 									this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];
@@ -212,6 +213,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 				if (response && !isCount) {
 					this.matchingJob = { ...this.matchingJob, jobs: {} };
 					this.matchingJob = { ...response }
+					this.loading=true;
 					if(this.matchingJob['jobs']['match_select'] && this.matchingJobNew){
 						if(!this.utilsHelperService.isEmptyObj(this.matchingJobNew['jobs'])){
 							this.matchingJobNew['jobs']['match_select'] = this.matchingJob['jobs']['match_select'];

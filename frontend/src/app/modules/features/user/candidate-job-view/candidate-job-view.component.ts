@@ -6,7 +6,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Location } from '@angular/common';
 import { UserSharedService } from '@data/service/user-shared.service';
-
+import { PlatformLocation } from '@angular/common'
 @Component({
   selector: 'app-candidate-job-view',
   templateUrl: './candidate-job-view.component.html',
@@ -29,7 +29,7 @@ export class CandidateJobViewComponent implements OnInit {
 	public isOpenedResumeSelectModal: boolean = false;
 	public isgetValue: boolean = false;
 	public screenWidth: any;
-
+    public loading : boolean;
 	constructor(
 		private route: ActivatedRoute,
 		private userSharedService: UserSharedService,
@@ -37,7 +37,8 @@ export class CandidateJobViewComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		private location: Location,
 		public sharedService: SharedService,
-		private router: Router
+		private router: Router,
+		private PlatformLocation :PlatformLocation
 	) {
 	  
 		/**	
@@ -52,6 +53,9 @@ export class CandidateJobViewComponent implements OnInit {
 				}
 			}
 		)
+		PlatformLocation.onPopState(() => {
+		   this.onRedirectBack();
+		});
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
@@ -107,6 +111,7 @@ export class CandidateJobViewComponent implements OnInit {
 			response => {
 				if(response && response.details) {
 					this.postedJobsDetails = response.details;
+					this.loading = true;
 				}
 			}, error => {
 			
@@ -128,6 +133,7 @@ export class CandidateJobViewComponent implements OnInit {
 			sessionStorage.clear();
 			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
 		}else{
+		    sessionStorage.clear();
 			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId,location_id: this.locationId}});
 		}
 	}
