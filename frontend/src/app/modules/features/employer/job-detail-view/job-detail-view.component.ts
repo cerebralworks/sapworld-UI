@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { Location} from '@angular/common';
 import { Component, OnInit,HostListener } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { LoggedIn } from '@data/schema/account';
@@ -11,7 +11,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { filter, pairwise } from 'rxjs/operators';
 import {PageEvent} from '@angular/material/paginator';
 import { SharedApiService } from '@shared/service/shared-api.service';
-import { PlatformLocation } from '@angular/common';
+
 
 @Component({
   selector: 'app-job-detail-view',
@@ -52,9 +52,9 @@ export class JobDetailViewComponent implements OnInit {
 		private location: Location,
 		public utilsHelperService: UtilsHelperService,
 		private employerSharedService: EmployerSharedService,
-		private router: Router,
-		private PlatformLocation :PlatformLocation
+		private router: Router
 	) {
+	
 	}
 
 	/**
@@ -67,11 +67,9 @@ export class JobDetailViewComponent implements OnInit {
 		this.onGetSkills();
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
-		};	
+		};
 		this.route.queryParams.subscribe(params => {
-		    this.PlatformLocation.onPopState(() => {
-				this.onRedirectBack();
-			});
+		    
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
 				if(urlQueryParams && urlQueryParams.id) {
@@ -106,6 +104,7 @@ export class JobDetailViewComponent implements OnInit {
 			this.loggedUserInfo = response;
 		});
 	}
+	
 
 	/**
 	**	To back button triggers
@@ -342,9 +341,13 @@ export class JobDetailViewComponent implements OnInit {
 		 
 	  }
 	  
-	  @HostListener('window:resize', ['$event'])  
+	  @HostListener('window:resize', ['$event'])
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
   }
-
-}
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+	 sessionStorage.clear();
+	this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'postedJobs'}})
+  }
+  }

@@ -61,9 +61,9 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
 				this.prev = urlQueryParams.notification;
-				 PlatformLocation.onPopState(() => {
-				 this.onRedirectBack();
-				});
+				// PlatformLocation.onPopState(() => {
+				 //this.onRedirectBack();
+				//});
 				if(urlQueryParams && urlQueryParams.jobId) {
 					sessionStorage.setItem('jobId',urlQueryParams.jobId);
 				}
@@ -300,5 +300,8 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
   }
-  
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+	this.onRedirectBack();
+  }
 }

@@ -6,7 +6,6 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Location } from '@angular/common';
 import { UserSharedService } from '@data/service/user-shared.service';
-import { PlatformLocation } from '@angular/common'
 @Component({
   selector: 'app-candidate-job-view',
   templateUrl: './candidate-job-view.component.html',
@@ -37,8 +36,7 @@ export class CandidateJobViewComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		private location: Location,
 		public sharedService: SharedService,
-		private router: Router,
-		private PlatformLocation :PlatformLocation
+		private router: Router
 	) {
 	  
 		/**	
@@ -53,9 +51,6 @@ export class CandidateJobViewComponent implements OnInit {
 				}
 			}
 		)
-		PlatformLocation.onPopState(() => {
-		   this.onRedirectBack();
-		});
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
@@ -134,12 +129,12 @@ export class CandidateJobViewComponent implements OnInit {
 			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
 		}else{
 		    sessionStorage.clear();
-			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId,location_id: this.locationId}});
+			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
 		}
 	}
 	
 	navigateMatches(){
-		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId,location_id: this.locationId}});
+		this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
 	}
 	
 	/**	
@@ -191,5 +186,9 @@ export class CandidateJobViewComponent implements OnInit {
 	@HostListener('window:resize', ['$event'])  
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
+  }
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+	this.onRedirectBack();
   }
 }
