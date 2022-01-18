@@ -458,6 +458,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	
 	onRedirectBack = () => {
 		//this.location.back();
+		sessionStorage.clear();
 		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'matches'}})
 	}
 
@@ -672,5 +673,8 @@ export class CandidateJobMatchesComponent implements OnInit {
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
   }
-	
+    @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+	this.onRedirectBack();
+  }
 }
