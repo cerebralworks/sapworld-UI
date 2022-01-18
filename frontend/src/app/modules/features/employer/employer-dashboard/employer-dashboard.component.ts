@@ -103,7 +103,7 @@ export class EmployerDashboardComponent implements OnInit {
 	onTabChange = (tabInfo: tabInfo) => {
 		this.currentTabInfo = tabInfo;		
 		const navigationExtras: NavigationExtras = {
-			queryParams: {...this.queryParams, activeTab: tabInfo.tabName,reset:true}
+			queryParams: {...this.queryParams, activeTab: tabInfo.tabName}
 		};
 		this.router.navigate([], navigationExtras);
 	}

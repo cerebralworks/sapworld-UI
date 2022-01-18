@@ -474,6 +474,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onRedirectBack = () => {
 		// this.location.back();
+		sessionStorage.clear();
 		this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches',reset: 'true', id: this.jobId} });
 	}
 	
@@ -715,5 +716,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	@HostListener('window:resize', ['$event'])  
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
+  }
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+	this.onRedirectBack();
   }
 }
