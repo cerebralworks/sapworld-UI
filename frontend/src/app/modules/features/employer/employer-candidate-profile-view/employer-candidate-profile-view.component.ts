@@ -1,5 +1,5 @@
 import { Component, OnInit,HostListener } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute,Router ,NavigationStart} from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { DataService } from '@shared/service/data.service';
 import {PageEvent} from '@angular/material/paginator';
-
+import { PlatformLocation } from '@angular/common'
 @Component({
   selector: 'app-employer-candidate-profile-view',
   templateUrl: './employer-candidate-profile-view.component.html',
@@ -54,14 +54,16 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		private employerService: EmployerService,
 		private employerSharedService: EmployerSharedService,
-		private router: Router
-		
+		private router: Router,
+		private PlatformLocation :PlatformLocation
 	) {
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
 				this.prev = urlQueryParams.notification;
-				
+				// PlatformLocation.onPopState(() => {
+				 //this.onRedirectBack();
+				//});
 				if(urlQueryParams && urlQueryParams.jobId) {
 					sessionStorage.setItem('jobId',urlQueryParams.jobId);
 				}
@@ -148,20 +150,15 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	onRedirectBack = () => {
 		//this.location.back();
 		if(sessionStorage.getItem('view-user-path')=='applicants'){
-		     sessionStorage.clear();
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'applicants',reset: 'true'}});
 		}else if(sessionStorage.getItem('view-user-path')=='savedprofile'){
-		    sessionStorage.clear();
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'savedProfile',reset: 'true'}});
 		}else if(sessionStorage.getItem('view-user-path')=='shortlisted'){
-		    sessionStorage.clear();
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'shortlisted',reset: 'true'}});
 		}else if(this.prev === 'true'){
-		    sessionStorage.clear();
 			this.router.navigate(['/notification']);
 		}
 		else{
-		    sessionStorage.clear();
 			this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
 		}
 
@@ -300,6 +297,10 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
   }
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
-	this.onRedirectBack();
+	this.router.events.subscribe((event: NavigationStart) => {
+     if (event.navigationTrigger === 'popstate') {
+	   this.onRedirectBack();
+     }
+   });
   }
 }
