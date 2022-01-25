@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit,HostListener  } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute,Router,NavigationStart } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
@@ -458,7 +458,6 @@ export class CandidateJobMatchesComponent implements OnInit {
 	
 	onRedirectBack = () => {
 		//this.location.back();
-		sessionStorage.clear();
 		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'matches'}})
 	}
 
@@ -675,6 +674,10 @@ export class CandidateJobMatchesComponent implements OnInit {
   }
     @HostListener('window:popstate', ['$event'])
   onPopState(event) {
-	this.onRedirectBack();
+	this.router.events.subscribe((event: NavigationStart) => {
+     if (event.navigationTrigger === 'popstate') {
+	   this.onRedirectBack();
+     }
+   });
   }
 }

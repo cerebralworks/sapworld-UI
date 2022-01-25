@@ -1,6 +1,6 @@
 import { Location} from '@angular/common';
 import { Component, OnInit,HostListener } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized ,NavigationStart} from '@angular/router';
 import { LoggedIn } from '@data/schema/account';
 import { GetResponse } from '@data/schema/response';
 import { AccountService } from '@data/service/account.service';
@@ -347,7 +347,11 @@ export class JobDetailViewComponent implements OnInit {
   }
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
-	 sessionStorage.clear();
-	this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'postedJobs'}})
+	this.router.events.subscribe((event: NavigationStart) => {
+     if (event.navigationTrigger === 'popstate') {
+	   this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'postedJobs'}});
+     }
+   });
   }
+
   }

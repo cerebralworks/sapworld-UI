@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnDestroy, OnInit, TemplateRef, ViewChild,HostListener } from '@angular/core';
 
 import { Location } from '@angular/common';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute,Router ,NavigationStart} from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedService } from '@shared/service/shared.service';
@@ -474,7 +474,6 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onRedirectBack = () => {
 		// this.location.back();
-		sessionStorage.clear();
 		this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches',reset: 'true', id: this.jobId} });
 	}
 	
@@ -717,8 +716,12 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
   }
-  @HostListener('window:popstate', ['$event'])
+@HostListener('window:popstate', ['$event'])
   onPopState(event) {
-	this.onRedirectBack();
+	this.router.events.subscribe((event: NavigationStart) => {
+     if (event.navigationTrigger === 'popstate') {
+	   this.onRedirectBack();
+     }
+   });
   }
 }

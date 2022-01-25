@@ -1,5 +1,5 @@
 import { Component, OnInit,HostListener } from '@angular/core';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute,Router ,NavigationStart} from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
@@ -122,13 +122,10 @@ export class CandidateJobViewComponent implements OnInit {
 		
 		// this.location.back();
 		if(sessionStorage.getItem('view-job-path')=='applied'){
-			sessionStorage.clear();
 			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'applied'}});
 		}else if(sessionStorage.getItem('view-job-path')=='shortlisted'){
-			sessionStorage.clear();
 			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
 		}else{
-		    sessionStorage.clear();
 			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
 		}
 	}
@@ -189,6 +186,10 @@ export class CandidateJobViewComponent implements OnInit {
   }
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
-	this.onRedirectBack();
+	this.router.events.subscribe((event: NavigationStart) => {
+     if (event.navigationTrigger === 'popstate') {
+	   this.onRedirectBack();
+     }
+   });
   }
 }
