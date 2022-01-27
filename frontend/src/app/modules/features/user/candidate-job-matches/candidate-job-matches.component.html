@@ -198,7 +198,7 @@
 				</a> -->
 				<div style="top:-35px;position: absolute;left: 10px;" >					
 						<span class="font-weight-bold" style="line-height: 28px;">  {{"shared.youHave" | translate}} {{matchingJobMeta?.count}} {{"shared.matches" | translate}}
-						<button type="button" *ngIf="!isMultipleMatches" (click)="!isMultipleMatches && onViewOtherMatches()" class="btn d-none-content btn-outline-blue btn-sm ml-2 " style=" z-index:99;width: 70px;">{{"shared.viewAll" | translate}}</button>
+						<button type="button" *ngIf="!isMultipleMatches && matchingJobMeta?.count !== '1'" (click)="!isMultipleMatches && onViewOtherMatches()" class="btn d-none-content btn-outline-blue btn-sm ml-2 " style=" z-index:99;width: 70px;">{{"shared.viewAll" | translate}}</button>
 						 </span>	
 				</div>
 				<div class="matchCount" style="top:-45px;">{{page}}/{{matchingJobMeta?.count}}</div>
