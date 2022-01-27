@@ -1,11 +1,11 @@
 import { Component, OnInit,HostListener } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router ,NavigationStart} from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
-
+import { LocationStrategy } from '@angular/common';
 @Component({
   selector: 'app-employer-dashboard',
   templateUrl: './employer-dashboard.component.html',
@@ -26,16 +26,16 @@ export class EmployerDashboardComponent implements OnInit {
 	public employeeData:any = {};
 	public getDataCount:boolean =false;
 	public screenWidth: any;
-
+    public checkDB : boolean = false;
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
 		private sharedApiService: SharedApiService,
 		private employerSharedService: EmployerSharedService,
 		private employerService: EmployerService,
-		private utilsHelperService: UtilsHelperService
+		private utilsHelperService: UtilsHelperService,
+		private LocationStrategy : LocationStrategy
 	){
-	  
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
 				if(details) {
@@ -50,12 +50,15 @@ export class EmployerDashboardComponent implements OnInit {
 				}
 			}
 		)
-		
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
 
 		this.route.queryParams.subscribe(params => {
+		   if(Object.keys(params).length === 0){
+		     this.checkDB = true;
+			 sessionStorage.clear();
+		   }
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				this.queryParams = {...params}
 			}
@@ -101,11 +104,11 @@ export class EmployerDashboardComponent implements OnInit {
 	**/
 	
 	onTabChange = (tabInfo: tabInfo) => {
-		this.currentTabInfo = tabInfo;		
+		this.currentTabInfo = tabInfo;
 		const navigationExtras: NavigationExtras = {
 			queryParams: {...this.queryParams, activeTab: tabInfo.tabName}
 		};
-		this.router.navigate([], navigationExtras);
+        this.router.navigate([], navigationExtras);
 	}
 
 	/**
@@ -252,5 +255,10 @@ export class EmployerDashboardComponent implements OnInit {
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
   }
-	
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+   if(this.checkDB === true){
+	 window.history.forward();
+	 }
+  }
 }

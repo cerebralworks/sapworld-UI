@@ -37,7 +37,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	public userInfo:any;
 	public nationality:any[]=[];
 	public screenWidth: any;
-	
+	public checkDB : boolean = false;
 	constructor(
 		private route: ActivatedRoute,
 		private userSharedService: UserSharedService,
@@ -88,6 +88,10 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 			return false;
 		};
 		this.route.queryParams.subscribe(params => {
+		    if(Object.keys(params).length === 0){
+		     this.checkDB = true;
+			 sessionStorage.clear();
+		   }
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				this.queryParams = {...params}
 			}
@@ -345,5 +349,10 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
   onResize(event) {  
     this.screenWidth = window.innerWidth;  
   }
-
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+   if(this.checkDB === true){
+	 window.history.forward();
+	 }
+  }
 }

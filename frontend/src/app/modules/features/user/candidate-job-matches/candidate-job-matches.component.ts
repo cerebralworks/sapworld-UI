@@ -59,7 +59,6 @@ export class CandidateJobMatchesComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-		
 	  this.screenWidth = window.innerWidth;	
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
