@@ -45,6 +45,7 @@ export class EmployerDashboardComponent implements OnInit {
 						this.onGetAppliedJobCount(details.id);
 						this.onGetShortListJobCount(details.id);  
 						this.onGetSavedProfile();
+						this.onGetJobCount(details.id);
 						this.getDataCount =true;
 					}
 				}
@@ -218,6 +219,7 @@ export class EmployerDashboardComponent implements OnInit {
 				this.onGetAppliedJobCount(this.employeeData.id);
 				this.onGetShortListJobCount(this.employeeData.id);
 				this.onGetSavedProfile();
+				this.onGetJobCount(this.employeeData.id);
 			}
 		}
 	}
@@ -247,6 +249,36 @@ export class EmployerDashboardComponent implements OnInit {
 					}
 				}
 			}, error => {
+			}
+		)
+	}
+	
+	
+	/**
+	**	TO Get the postedJobs count
+	**/
+	 
+	onGetJobCount(companyId){
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 100000;
+		requestParams.view = 'postedJobs';
+		requestParams.expand = 'company';
+		requestParams.company = companyId;
+		requestParams.sort = 'created_at.desc';
+		this.employerService.getPostedJob(requestParams).subscribe(
+			response => {
+				if(response['meta']['total']){
+					var TotalValue = response['meta']['total'];
+					if(document.getElementById('PostedJobs')){
+						document.getElementById('PostedJobs').innerHTML="("+TotalValue+")";
+					}				
+				}else{
+					if(document.getElementById('PostedJobs')){
+						document.getElementById('PostedJobs').innerHTML="(0)";
+					}
+				}
+			},error => {
 			}
 		)
 	}
