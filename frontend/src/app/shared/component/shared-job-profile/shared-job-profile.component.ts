@@ -33,6 +33,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 	public optional: boolean = false;
 	public nice: boolean = false;
 	public IsShown: boolean = false;
+	public hideknm : boolean = true;
   constructor(private dataService: DataService,
     public sharedService: SharedService,
     private sharedApiService: SharedApiService,
@@ -50,6 +51,13 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
         }
       }
     );
+	
+	 this.jobInfo.hands_on_experience.filter(a=>{
+	      this.jobInfo.skills.map(b=>{
+		  if(b == a.skill_id){this.hideknm = false;}
+		  else{this.hideknm = true;}
+		  })  
+	  })
 	  this.dataService.getLanguageDataSource().subscribe(
       response => {
         if (response && Array.isArray(response) && response.length) {
