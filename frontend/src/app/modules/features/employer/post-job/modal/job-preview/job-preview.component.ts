@@ -187,6 +187,7 @@ export class JobPreviewComponent implements OnInit {
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
 		}else{
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].setValue('0');
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['work_authorization'].updateValueAndValidity();
 		}
 		if(!this.postJobForm?.value?.jobInfo?.employer_role_type || this.postJobForm?.value?.jobInfo?.employer_role_type==''){

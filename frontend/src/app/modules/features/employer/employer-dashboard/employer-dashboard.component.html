@@ -44,7 +44,9 @@
 					 </li>
 					<li class="nav-item">
 						<a (click)="onTabChange({tabName: 'postedJobs', tabNumber: 1})"
-							[ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">{{"nav.postedJobs" | translate}}</a>
+							[ngClass]="{'active': currentTabInfo.tabNumber == 1}" class="nav-link" href="javascript:;">{{"nav.postedJobs" | translate}}
+							<small id="PostedJobs">(0)</small>
+							</a>
 					 </li>
 					 <li class="nav-item">
 						<a (click)="onTabChange({tabName: 'matches', tabNumber: 2})"
