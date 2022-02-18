@@ -81,7 +81,8 @@
 <!-- //Nav Tab Section -->
 
 
-  <app-posted-job *ngIf="currentTabInfo.tabNumber == 1" [screenWidth]="screenWidth" >
+  <app-posted-job *ngIf="currentTabInfo.tabNumber == 1" [screenWidth]="screenWidth" 
+  (onEvent)="refreshCountDetails($event)">
   </app-posted-job>
 
   <app-employer-candidate-matches *ngIf="currentTabInfo.tabNumber == 2"  [screenWidth]="screenWidth" (onEvent)="refreshCountDetails($event)">
