@@ -71,6 +71,7 @@ export class PostedJobComponent implements OnInit {
 							this.onGetPostedJobCount(this.currentEmployerDetails.id);
 							this.onGetAppliedJobCount(this.currentEmployerDetails.id);
 							this.onGetShortListJobCount(this.currentEmployerDetails.id);
+							this.onGetJobCount(this.currentEmployerDetails.id);
 							this.getDataCount = true;
 						}
 						this.onGetPostedJob(this.currentEmployerDetails.id);
@@ -159,6 +160,7 @@ export class PostedJobComponent implements OnInit {
 				this.onGetPostedJobCount(this.currentEmployerDetails.id);
 				this.onGetAppliedJobCount(this.currentEmployerDetails.id);
 				this.onGetShortListJobCount(this.currentEmployerDetails.id);
+				this.onGetJobCount(this.currentEmployerDetails.id);
 				this.getDataCount = true;
 			}, error => {
 			}
@@ -240,6 +242,7 @@ export class PostedJobComponent implements OnInit {
 				this.onGetPostedJobCount(this.currentEmployerDetails.id);
 				this.onGetAppliedJobCount(this.currentEmployerDetails.id);
 				this.onGetShortListJobCount(this.currentEmployerDetails.id);
+				this.onGetJobCount(this.currentEmployerDetails.id);
 				this.isLoading = false;
 			}, error => {
 				this.onDeleteJobConfirmed(false);
@@ -341,6 +344,37 @@ export class PostedJobComponent implements OnInit {
 		)
 	}
   	
+	
+		/**
+	**	TO Get the postedJobs count
+	**/
+	 
+	onGetJobCount(companyId){
+		let requestParams: any = {};
+		requestParams.page = 1;
+		requestParams.limit = 100000;
+		requestParams.view = 'postedJobs';
+		requestParams.expand = 'company';
+		requestParams.company = companyId;
+		requestParams.sort = 'created_at.desc';
+		this.employerService.getPostedJob(requestParams).subscribe(
+			response => {
+				if(response['meta']['total']){
+					var TotalValue = response['meta']['total'];
+					if(document.getElementById('PostedJobs')){
+						document.getElementById('PostedJobs').innerHTML="("+TotalValue+")";
+					}				
+				}else{
+					if(document.getElementById('PostedJobs')){
+						document.getElementById('PostedJobs').innerHTML="(0)";
+					}
+				}
+			},error => {
+			}
+		)
+	}
+	
+	
 	/**
 	**	To assign the delete popup Text
 	**/
