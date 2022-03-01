@@ -16,7 +16,6 @@
 *.sublime-workspace
 
 # dependencies
-/frontend/node_modules
 /middleware/node_modules
 /admin/node_modules
 
