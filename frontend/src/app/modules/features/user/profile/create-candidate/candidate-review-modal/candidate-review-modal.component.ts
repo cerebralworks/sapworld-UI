@@ -11,7 +11,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import {MatChipInputEvent} from '@angular/material/chips';
-import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
 @Component({
@@ -57,7 +57,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	address = [ ];
 	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
-	TooltipLabel = TooltipLabel;
+	//TooltipLabel = TooltipLabel;
 	CountryISO = CountryISO;
 	PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
@@ -352,7 +352,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	**/
 	
 	onRedirectDashboard(status) {
-		this.createCandidate.next();
+		this.createCandidate.next(status);
 	}
 
 	/**

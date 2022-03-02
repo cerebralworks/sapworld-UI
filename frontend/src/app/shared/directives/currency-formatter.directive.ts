@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 export class CurrencyFormatterDirective implements OnDestroy {
 
   private formatter: Intl.NumberFormat;
-  private destroy$ = new Subject();
+  private destroy$ = new Subject<void>();
   private countryTemp: any;
 
   @Input('country')

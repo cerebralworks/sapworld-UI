@@ -55,8 +55,7 @@
           [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
           [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
-          [selectedCountryISO]="CountryISO.UnitedStates" [tooltipField]="TooltipLabel.Name"
-          [phoneValidation]="true" [separateDialCode]="separateDialCode"
+          [selectedCountryISO]="CountryISO.UnitedStates" [phoneValidation]="true" [separateDialCode]="separateDialCode"
           [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone">
         </ngx-intl-tel-input>
           <!-- <input ng2TelInput [ng2TelInputOptions]="{initialCountry: childForm?.value?.personalDetails?.country}" (countryChange)="onCountryChange($event)"  appMarkAsterisk numbersOnly formControlName="phone" type="text" class="form-control" placeholder="9876543210"> -->
