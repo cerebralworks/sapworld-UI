@@ -155,17 +155,19 @@ padding:5px;
 	    background: linear-gradient(to left, rgba(43, 8, 8, 0), #0098f9) !important;
 }
 
-:host /deep/ .e-day-wrapper .e-subject{
+.e-day-wrapper .e-subject{
 	margin-top : -3px;
 }
-:host /deep/ .e-day-wrapper .e-appointment{
+.e-day-wrapper .e-appointment{
 	width:100% !important;
 }
-:host /deep/ .e-month-view .e-appointment{
+.e-month-view .e-appointment{
 	width:157px !important;
-}:host /deep/ .e-schedule .e-agenda-view .e-appointment{
+}
+.e-schedule .e-agenda-view .e-appointment{
 	    height: 3rem;
-}:host /deep/ .e-agen{
+}
+.e-agen{
 	position: relative;
     top: -2rem;
     left: 69%;

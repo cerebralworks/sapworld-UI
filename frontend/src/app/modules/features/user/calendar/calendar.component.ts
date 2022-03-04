@@ -1,4 +1,4 @@
-import { Component, OnInit,TemplateRef,ViewChild } from '@angular/core';
+import { Component, OnInit,TemplateRef,ViewChild , ViewEncapsulation} from '@angular/core';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { AccountService } from '@data/service/account.service';
@@ -17,6 +17,7 @@ import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs 
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService,PrintService],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class CalendarComponent implements OnInit {

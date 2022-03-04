@@ -144,13 +144,12 @@
 	 background: -webkit-gradient(linear, left top, left bottom, from(rgba(43, 8, 8, 0)), to(#0098f9)) !important;
 	    background: linear-gradient(to left, rgba(43, 8, 8, 0), #0098f9) !important;
 }
-
-:host /deep/ .e-day-wrapper .e-subject{
+.e-day-wrapper .e-subject{
 	margin-top : -3px;
 }
-:host /deep/ .e-day-wrapper .e-appointment{
+.e-day-wrapper .e-appointment{
 	width:100% !important;
 }
-:host /deep/ .e-month-view .e-appointment{
+.e-month-view .e-appointment{
 	width:157px !important;
 }

@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef,TemplateRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef,TemplateRef, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
@@ -25,7 +25,8 @@ import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs 
   selector: 'app-calendar',
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService,PrintService],
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CalendarComponent implements OnInit {
 	
