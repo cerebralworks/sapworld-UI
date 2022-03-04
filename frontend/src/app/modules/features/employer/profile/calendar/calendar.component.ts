@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef,TemplateRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef,TemplateRef, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
@@ -14,7 +14,7 @@ import { callbackify } from 'util';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { tabInfo } from '@data/schema/create-candidate';
 import { AccountService } from '@data/service/account.service';
-import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { DomSanitizer} from '@angular/platform-browser';
 import { DayService, WeekService, WorkWeekService,PrintService, MonthService,PopupOpenEventArgs, AgendaService, MonthAgendaService,CurrentAction,EventSettingsModel,ResourcesModel,CellClickEventArgs,EJ2Instance,View} from '@syncfusion/ej2-angular-schedule';
 import { extend, Internationalization } from '@syncfusion/ej2-base';
@@ -25,7 +25,8 @@ import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs 
   selector: 'app-calendar',
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService,PrintService],
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CalendarComponent implements OnInit {
 	
@@ -39,7 +40,7 @@ export class CalendarComponent implements OnInit {
 	public createCompanyForm: FormGroup;
 	public currentTabInfo: tabInfo = {tabNumber: 2, tabName: 'inviteLink'};
 	public employerDetails: any;
-	TooltipLabel = TooltipLabel;
+	//TooltipLabel = TooltipLabel;
 	public companyProfileInfo: any;
 	public loggedUserInfo: any;
 	public calendlyInfo: any;

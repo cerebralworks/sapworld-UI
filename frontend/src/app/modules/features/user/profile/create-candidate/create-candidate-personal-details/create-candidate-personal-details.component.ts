@@ -14,7 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperComponent, ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { UserService } from '@data/service/user.service';
-import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import { HttpClient } from '@angular/common/http';
@@ -92,7 +92,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	croppedFile: any;
 	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
-	TooltipLabel = TooltipLabel;
+	//TooltipLabel = TooltipLabel;
 	CountryISO = CountryISO;
 	PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];

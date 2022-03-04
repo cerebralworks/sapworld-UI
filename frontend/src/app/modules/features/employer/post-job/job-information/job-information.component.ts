@@ -1,4 +1,4 @@
-import { Component, Input,ViewChild, OnInit,ElementRef, SimpleChanges } from '@angular/core';
+import { Component, Input,ViewChild, OnInit,ElementRef, SimpleChanges ,ViewEncapsulation} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { ControlContainer, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import {  FormArray, FormBuilder } from '@angular/forms';
@@ -22,6 +22,7 @@ declare let google: any;
   selector: 'app-job-information',
   templateUrl: './job-information.component.html',
   styleUrls: ['./job-information.component.css'],
+  encapsulation: ViewEncapsulation.None,
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }]
 })
 export class JobInformationComponent implements OnInit {

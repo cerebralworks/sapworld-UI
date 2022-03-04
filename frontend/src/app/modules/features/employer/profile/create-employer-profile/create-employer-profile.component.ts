@@ -15,7 +15,7 @@ import { ValidationService } from '@shared/service/validation.service';
 import { base64ToFile, ImageCroppedEvent } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
 import { callbackify } from 'util';
-import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-create-employer-profile',
@@ -70,7 +70,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	public invalidMobile: boolean = false;
 	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
-	TooltipLabel = TooltipLabel;
+	//TooltipLabel = TooltipLabel;
 	CountryISO = CountryISO;
 	PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
