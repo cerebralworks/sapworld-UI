@@ -25,7 +25,7 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 function appInitializer(authService: AuthService) {
   return () => {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       authService.getUserByToken().subscribe().add(resolve);
     });
   };
