@@ -336,7 +336,7 @@ export class JobPreviewComponent implements OnInit {
 	**/
 	
 	onRedirectDashboard(status) {
-		this.postJob.next();
+		this.postJob.next(status);
 	}
 
 	/**
