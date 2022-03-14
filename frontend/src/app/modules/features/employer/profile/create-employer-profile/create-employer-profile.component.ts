@@ -292,7 +292,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			country: ['', Validators.required],
 			zipcode: [null, Validators.compose([Validators.minLength(4)])],
 			description: ['', Validators.compose([Validators.required, Validators.maxLength(2500), Validators.minLength(100)])],
-			website: ['', Validators.compose([Validators.required, ValidationService.urlValidator])],
+			website: ['', Validators.compose([ValidationService.urlValidator])],
 			contact: [''],
 			latlng: [null],
 			social_media_link: [null],

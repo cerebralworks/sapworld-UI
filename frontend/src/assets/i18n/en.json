@@ -405,7 +405,7 @@
 		"heading4":"Screening and choosing the Right Profile without any hassles",
 		"heading4Content":"Look and compare every detail of the requirement and skill set you are looking for in a potential talent. View perfectly matching skillset, missing skills as well as “good to have'' skill sets ",
 		"register":"You have made the right decision. You are just a step away from hiring the best potential talent. Fill in and move forward ",
-		"recruiterRegister":"Recruiter Registration "
+		"recruiterRegister":"Employer Registration "
 	},
 	"user":{
 		"calendar" : "Calendar",
@@ -432,7 +432,7 @@
 	},
 	"fotgotPassword":{
 		"title":"Forgot Password?",
-		"content1":"Not to worry. Just fill in your email address. We shall send you a link to reset your password",
+		"content1":"Please enter your email address, We will send the reset link ",
 		"message":"Great. We shot you an email with a link for resetting your account password. Check your inbox."
 	},
 	"homePage":{
