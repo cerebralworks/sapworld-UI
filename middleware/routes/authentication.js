@@ -93,7 +93,7 @@ module.exports = (app, env, rp) => {
 		.then(function (parsedBody) {
 			let responseData = { ...parsedBody }
 			responseData.success = true;
-			responseData.message = "Emplyer signup successfully. We shot you an email with a link for verify your account password. Check your inbox."
+			responseData.message = "Great, Please check your registered email to confirm."
 			res.status(200).json(responseData);
 		})
 		.catch(function (err) {
