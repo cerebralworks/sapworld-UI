@@ -395,7 +395,7 @@
 		"heading4": "Überprüfen und wählen Sie das richtige Profil ohne Probleme",
 		"heading4Content": "Sehen und vergleichen Sie jedes Detail der Anforderungen und Fähigkeiten, die Sie bei einem potenziellen Talent suchen. Sehen Sie sich perfekt passende Skillsets, fehlende Skills sowie „good to have“-Skillssets an ",
 		"register": "Sparen Sie Zeit bei der Überprüfung von Lebensläufen und vorqualifizierenden Vorstellungsgesprächen. Vergleichen Sie Profile, finden Sie fehlende Skillsets, stimmen Sie nach Relevanz ab. Wir servieren Ihnen, was Sie brauchen, als Platte.0",
-		"recruiterRegister": "Sparen Sie Zeit bei der Überprüfung von Lebensläufen und vorqualifizierenden Vorstellungsgesprächen. Vergleichen Sie Profile, finden Sie fehlende Skillsets, stimmen Sie nach Relevanz ab. Wir servieren Ihnen, was Sie brauchen, als Platte.1"
+		"recruiterRegister": "Arbeitgeberregistrierung"
 	},
 	"user": {
 		"calendar" :"Kalender",
@@ -421,7 +421,7 @@
 	},
 	"fotgotPassword": {
 		"title": "Passwort vergessen?",
-		"content1": "Keine Sorge. Geben Sie einfach Ihre E-Mail-Adresse ein. Wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+		"content1": "Bitte geben Sie Ihre E-Mail-Adresse ein. Wir senden Ihnen den Link zum Zurücksetzen zu",
 		"message": "Großartig. Wir haben Ihnen eine E-Mail mit einem Link zum Zurücksetzen Ihres Kontopassworts gesendet. Überprüfen Sie Ihren Posteingang."
 	},
 	"homePage": {

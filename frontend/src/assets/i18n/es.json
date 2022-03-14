@@ -391,7 +391,7 @@
 	    "heading4":"Detectar y elegir el perfil adecuado sin problemas",
 	    "heading4Content":"Mire y compare cada detalle del requisito y el conjunto de habilidades que busca en un talento potencial. Vea el conjunto de habilidades que coinciden perfectamente, las habilidades faltantes y los conjuntos de habilidades bueno tener ",
 	    "register":"Ha tomado la decisión correcta. Estás a un paso de contratar al mejor talento potencial. Completa y sigue adelante ",
-	    "recruiterRegister":"Registro de reclutadores "
+	    "recruiterRegister":"Registro de empleador"
 	},
 	"user":{
 		"calendar" :"Calendario",
@@ -417,7 +417,7 @@
 	},
 	"fotgotPassword":{
 	    "title": "Olvidó la contraseña?",
-        "content1": "No se preocupe. Simplemente ingrese su dirección de correo electrónico. Le enviaremos un enlace para restablecer su contraseña",
+        "content1": "Ingrese su dirección de correo electrónico, le enviaremos el enlace de reinicio",
         "message": "Genial. Le enviamos un correo electrónico con un enlace para restablecer la contraseña de su cuenta. Revisa tu correo."
 	},
 	"homePage":{
