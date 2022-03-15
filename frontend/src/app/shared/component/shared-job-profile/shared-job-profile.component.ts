@@ -51,13 +51,6 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
         }
       }
     );
-	
-	 this.jobInfo.hands_on_experience.filter(a=>{
-	      this.jobInfo.skills.map(b=>{
-		  if(b == a.skill_id){this.hideknm = false;}
-		  else{this.hideknm = true;}
-		  })  
-	  })
 	  this.dataService.getLanguageDataSource().subscribe(
       response => {
         if (response && Array.isArray(response) && response.length) {
@@ -180,6 +173,13 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
   ngOnChanges(changes): void {
     setTimeout( async () => {
 		var arr = [];
+		this.jobInfo.hands_on_experience.filter(a=>{
+	      this.jobInfo.skills.map(b=>{
+		  if(b == a.skill_id){this.hideknm = false;}
+		  else{this.hideknm = true;}
+		  })  
+	  })
+	  console.log(this.hideknm)
 		if(this.jobInfo){
 			  if(this.jobInfo.match_select){
 				   this.jobInfo.match_select['remote']="false";
