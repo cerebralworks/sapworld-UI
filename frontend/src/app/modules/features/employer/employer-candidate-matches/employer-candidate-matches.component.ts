@@ -729,7 +729,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				if(this.selectedJob &&this.selectedJob.id && status ==false) {
 				setTimeout(() => {
 					this.onGetCandidateList(this.selectedJob.id);
-				},5000);
+				},1000);
 			}
 		}		
 		
