@@ -49,6 +49,7 @@ module.exports = (app, env, rp) => {
 		};
 		rp(options)
 		.then(function(parsedBody) {
+			if(requestBody.roles == parsedBody.types[0]){
 			let responseBody = { ...parsedBody };
 			let responseBodys = { ...parsedBody };
 			req.session.isLoggedIn = true;
@@ -68,6 +69,9 @@ module.exports = (app, env, rp) => {
 			responseBody.role = parsedBody.types;
 			responseBody.message = "Login Successfull";
 			res.status(200).json(responseBody);
+			}else{
+			res.status(500).json({message:"Invalid login"});
+			}
 		})
 		.catch(function(err) {
 			res.status(500).json(err);

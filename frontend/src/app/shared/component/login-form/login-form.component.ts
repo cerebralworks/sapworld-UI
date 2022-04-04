@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { AccountService } from '@data/service/account.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { AppComponent } from 'src/app/app.component';
@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
   public returnEmployerUrl: any;
   public returnUserUrl: any;
 	public loggedUserInfo: any;
-
+	public checkrole :any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +38,7 @@ export class LoginFormComponent implements OnInit {
 	private dataService: DataService,
     private accountService: AccountService,
 	private SharedAPIService: SharedApiService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -50,8 +50,8 @@ export class LoginFormComponent implements OnInit {
       .getLoginCredientials()
       .subscribe(response => {
 		this.loggedUserInfo = response;
-        
       });
+	 this.checkrole = this.router.url == '/auth/user/login'? 0 : 1;
   }
 
   get f() {
@@ -68,12 +68,12 @@ export class LoginFormComponent implements OnInit {
     this.showError = false;
 
     let userCredentials = this.loginForm.value;
-
     if (this.loginForm.valid) {
+	  userCredentials.roles = this.checkrole;
       userCredentials.username = userCredentials.username.toLowerCase();
       this.accountService.login(userCredentials).subscribe(
         response => {
-			sessionStorage.clear();
+		sessionStorage.clear();
           this.isLoading = false;
           if (response.isLoggedIn && response.role.includes(0)) {
 			  if(response['verified']==true){
@@ -103,10 +103,9 @@ export class LoginFormComponent implements OnInit {
 				  this.router.navigate(['/employer/create-profile']);
 			  }
             
-          }else if (response.isLoggedIn && response.role.includes(2)) {
+          }/*else if (response.isLoggedIn && response.role.includes(2)) {
 				  window.location.href=`${env.adminUrl}`;
-			}
-            
+			}*/
         }, error => {
 			this.toastr.error('Invalid username or password combination.');
           this.isLoading = false;
