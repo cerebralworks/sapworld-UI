@@ -358,16 +358,16 @@ export class EmployeeChartComponent implements OnInit {
 							response.data[i]['title'] = response.data[i]['title']+' ';						
 						}
 					}
-					response.data[i]['title'] = response.data[i]['title'].substring(0,25);
+					response.data[i]['title'] = response.data[i]['title'].substring(0,5);
 				}
 				this.matchesTotal = response.data;
-				var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
+				var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)+' - '+a.countryshort  });
 				var filterValue = response.data.map(function(a,b){ return a.count });
 				this.doughnutChartLabelsMatches = filterData;
 				this.doughnutChartDataMatches = [filterValue];
 				this.showMatches = true;
 				this.totalMatches = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
-				console.log(filterData);
+				//console.log(filterData);
 			}else{
 				this.showMatches = false;
 			}
@@ -606,14 +606,19 @@ export class EmployeeChartComponent implements OnInit {
 			var CheckVal = this.chart['_results'][temp];	
 			var Check = CheckVal.chart['legend']['legendItems'].filter(function(a,b){ return a.hidden==true});
 			Check = Check.map(function(a,b){ return a.text.toLowerCase() });
+			
 			if(Check.length !=0){
 				Check = CheckVal.chart['legend']['legendItems'].filter(function(a,b){ return a.hidden==false});
 				Check = Check.map(function(a,b){ return a.text.toLowerCase() });
+				
 				Check = this.matchesTotal.filter((f) => {
+				  
 				  return Check.some((el) => {
-					return f.title.toLowerCase() === el.toLowerCase()
+				      var a= f.title.substring(0,5)+' - '+f.countryshort;
+					return a.toLowerCase() === el.toLowerCase()
 				  });
 				});
+				console.log(Check);
 				if(Check.length !=0){
 					this.totalMatches = Check.map(function(a,b){ return a.count }).reduce((a, b) => parseInt(a) + parseInt(b) );
 				}else{
