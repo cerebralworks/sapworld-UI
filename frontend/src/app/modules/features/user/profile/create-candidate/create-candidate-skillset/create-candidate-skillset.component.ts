@@ -539,7 +539,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 				exp_type: ['years']
 			  })]),
 			  skills: new FormControl(null),
-			  programming_skills: new FormControl(null),
+			  programming_skills: new FormControl([]),
 			  other_skills: new FormControl(null),
 			  certification: new FormControl(null),
 			  bio: new FormControl('Lorem Ipsum')

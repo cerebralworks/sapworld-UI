@@ -365,7 +365,8 @@
 		"JobsByCountry": "Jobs by country",
 		"employer": "Employer",
 		"jobseeker": "Jobseeker",
-		"staffingAgency": "Staffing Agency"
+		"staffingAgency": "Staffing Agency",
+		"backToJobs" : "Back To Jobs"
 	},
 	"postJob":{
 		"postYourJob":"Post Jobs"
