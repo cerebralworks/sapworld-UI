@@ -355,7 +355,8 @@
 		"JobsByCountry": "Jobs nach Ländern",
 		"employer": "Arbeitgeber",
 		"jobseeker": "Arbeitssuchender",
-		"staffingAgency": "Personalagentur"
+		"staffingAgency": "Personalagentur",
+		"backToJobs" : "Zurück zu Jobs"
 	},
 	"postJob":{
 		"postYourJob": "Stellenangebote veröffentlichen"

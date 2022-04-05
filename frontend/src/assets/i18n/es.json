@@ -351,7 +351,8 @@
         "JobsByCountry": "Empleos por país",
         "employer": "Empleador",
         "jobseeker": "Solicitante de empleo",
-        "staffingAgency": "Agencia de dotación de personal"
+        "staffingAgency": "Agencia de dotación de personal",
+		"backToJobs" : "Volver a Trabajos"
 	},
 	"postJob": {
         "postYourJob": "Publicar trabajos"

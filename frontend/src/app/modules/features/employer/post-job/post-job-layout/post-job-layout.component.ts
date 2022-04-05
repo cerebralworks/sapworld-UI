@@ -67,7 +67,7 @@ export class PostJobLayoutComponent implements OnInit {
 	public screeningProcess : any=[];
 	public others : any=[];
 	public skils : any=[];
-
+	public showBack:boolean = false;
 	constructor(
 		private formBuilder: FormBuilder,
 		private employerService: EmployerService,
@@ -84,6 +84,11 @@ export class PostJobLayoutComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
+		this.route.queryParams.subscribe(params => {
+        if(params.id){
+		  this.showBack= true;
+		 }
+        });
 		this.onGetCountry('');
 		this.onGetLanguage('');
 		this.onGetProgram('');

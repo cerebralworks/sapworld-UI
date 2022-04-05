@@ -128,9 +128,9 @@
 
         <div class="col-lg-8 col-md-12  form-group">
           <label>{{"shared.aboutUs" | translate}}</label>
-          <angular-editor appMarkAsterisk formControlName="description" [config]="editorConfig"
+          <angular-editor formControlName="description" [config]="editorConfig"
             [placeholder]="'shared.aboutUs' | translate"></angular-editor>
-            <app-control-messages [control]="f['description']"></app-control-messages>
+            <!-- <app-control-messages [control]="f['description']"></app-control-messages> -->
         </div>
 
       </div>

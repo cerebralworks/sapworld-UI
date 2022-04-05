@@ -1,5 +1,5 @@
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
-import { Component, DoCheck, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild ,ViewEncapsulation} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { textEditorConfig } from '@config/richProfile-editor';
@@ -21,6 +21,7 @@ import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-
   selector: 'app-create-employer-profile',
   templateUrl: './create-employer-profile.component.html',
   styleUrls: ['./create-employer-profile.component.css'],
+  encapsulation:ViewEncapsulation.None,
   animations: [
     trigger('slideInOut', [
       state('in', style({ height: '*', opacity: 0 })),
@@ -291,7 +292,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			address: [''],
 			country: ['', Validators.required],
 			zipcode: [null, Validators.compose([Validators.minLength(4)])],
-			description: ['', Validators.compose([Validators.required, Validators.maxLength(2500), Validators.minLength(100)])],
+			description: ['', Validators.compose([Validators.maxLength(2500), Validators.minLength(100)])],
 			website: ['', Validators.compose([ValidationService.urlValidator])],
 			contact: [''],
 			latlng: [null],
