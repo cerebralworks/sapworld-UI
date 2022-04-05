@@ -121,7 +121,8 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
 				</div>					
@@ -489,7 +490,8 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
 				</div>					
@@ -848,7 +850,8 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
 				</div>					
@@ -1205,7 +1208,8 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
 				</div>					
