@@ -526,7 +526,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			  })]),
 			  skills: new FormControl(null),
 			  programming_skills: new FormControl(null, Validators.required),
-			  other_skills: new FormControl(null, Validators.required),
+			  other_skills: new FormControl(null),
 			  certification: new FormControl(null),
 			  bio: new FormControl('Lorem Ipsum')
 			}));
