@@ -277,7 +277,10 @@
 		"travelRequired": "Reise erforderlich",
 		"niceToHave": "Schön zu haben",
 		"startTime": "Startzeit",
-		"yearOfCompletionGraduation": "Jahr des Abschlusses"
+		"yearOfCompletionGraduation": "Jahr des Abschlusses",
+		"native": "Einheimisch",
+		"intermediate": "Dazwischenliegend",
+		"fluent": "Fließend"
 	}, 
 	"matches":{
 		"shorttotalYearsOfExperience": "Gesamtjahre exp.",

@@ -342,9 +342,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
           this.savedUserDetails.language_known.map((value, index) => {
             this.t.push(this.formBuilder.group({
 				language: [null, Validators.required],
-					read: [false],
-					write: [false],
-					speak: [false]
+					native: [false],
+					intermediate: [false],
+					fluent: [false]
 			}));
             this.onChangeLanguageValue(value.language, index);
           });
@@ -762,9 +762,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  work_authorization: new FormControl(null),
 		  language_known: new FormArray([this.formBuilder.group({
 			language: [null, Validators.required],
-			read: new FormControl(false),
-			write: new FormControl(false),
-			speak: new FormControl(false)
+			native: new FormControl(false),
+			intermediate: new FormControl(false),
+			fluent: new FormControl(false)
 		  })]),
 		  reference: new FormArray([this.formBuilder.group({
 			name: new FormControl(null),
@@ -958,21 +958,21 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		if(value && index > -1) {
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].setValidators([Validators.required])
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].updateValueAndValidity();
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['read'].setValidators([Validators.required])
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['read'].updateValueAndValidity();
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['write'].setValidators([Validators.required])
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['write'].updateValueAndValidity();
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].setValidators([Validators.required])
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].setValidators([Validators.required])
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].updateValueAndValidity();
 		}else {
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].setValidators(null)
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['language'].updateValueAndValidity();
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['read'].setValidators(false)
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['read'].updateValueAndValidity();
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['write'].setValidators(false)
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['write'].updateValueAndValidity();
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].setValidators(false)
-		  this.childForm.get('personalDetails.language_known').controls[index].controls['speak'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].setValidators(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].setValidators(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].setValidators(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].updateValueAndValidity();
 		}
 	}
 	
@@ -1047,9 +1047,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	  }else{
 		 this.t.push(this.formBuilder.group({
 			language: [null, Validators.required],
-				read: [false],
-				write: [false],
-				speak: [false]
+				native: [false],
+				intermediate: [false],
+				fluent: [false]
 		}));
 	  }
 	}
@@ -1161,5 +1161,32 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		 return true;
 	  }
        
+	}
+	
+	
+	/** To selct the language option**/
+	
+	
+	selectOption(val,index){
+	if(val ==='fluent'){
+	      this.childForm.get('personalDetails.language_known').controls[index].controls['native'].setValue(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].setValue(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].updateValueAndValidity();
+	}
+	else if(val ==='native'){
+	      this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].setValue(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].setValue(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].updateValueAndValidity();
+	}
+	else if(val ==='intermediate'){
+	      this.childForm.get('personalDetails.language_known').controls[index].controls['native'].setValue(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].updateValueAndValidity();
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].setValue(false)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].updateValueAndValidity();
+	}
+	
+	
 	}
 }
