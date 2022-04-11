@@ -1,9 +1,9 @@
 <div class="row mt-5 ">
 	<div class="col-lg-2 col-md-6" *ngIf="currentTabInfo.tabNumber == 1 ">
 		<div class="form-group ">
-			<button [disabled]="!postJobForm.controls.jobInfo.valid" (click)="onNext()" type="button" class="btn btn-theme-blue btn-block  btnNext">
-			{{isEdit&&!isCopy ? ("shared.updateNext" | translate) : ("shared.next" | translate) }}
-			</button>
+			<button [disabled]="!postJobForm.controls.jobInfo.valid || (postJobForm.controls.jobInfo.value.remote == true && postJobForm.controls.jobInfo.value.remote_option == null)" (click)="onNext()" type="button" class="btn btn-theme-blue btn-block  btnNext">
+				{{isEdit&&!isCopy ? ("shared.updateNext" | translate) : ("shared.next" | translate) }}
+				</button>
 			
 		</div>
 	</div>

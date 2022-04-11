@@ -320,7 +320,8 @@
 		"paidParentalLeave": "Bezahlter Elternurlaub",
 		"teleCommuting": "Telearbeit",
 		"wellnessProgram": "Wellnessprogramm",
-		"paidSickLeaves": "Bezahlter Krankenstand"
+		"paidSickLeaves": "Bezahlter Krankenstand",
+		"remoteOption" :"Wählen Sie die Remote-Option"
 	},
 	"common": {
 		"message": "Nachricht",

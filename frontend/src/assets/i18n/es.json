@@ -316,7 +316,8 @@
 	    "paidParentalLeave": "Permisos parentales pagados",
 	    "teleCommuting": "Teletrabajo",
 	    "wellnessProgram": "Programa de bienestar",
-	    "paidSickLeaves": "Licencias por enfermedad pagadas"
+	    "paidSickLeaves": "Licencias por enfermedad pagadas",
+            "remoteOption" :"Seleccione la opción remota"
 	},
 	"common": {
         "message": "Mensaje",

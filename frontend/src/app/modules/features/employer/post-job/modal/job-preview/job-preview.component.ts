@@ -515,7 +515,18 @@ export class JobPreviewComponent implements OnInit {
 			return "No"
 		}
 	}
-
+    
+	/**
+	**	To get the Remote option value
+	**/
+	
+	onGetRemoteOption = (value)=>{
+	     if (value == 0) {
+			return "Domestic";
+		} else if(value == 1){
+			return "Worldwide"
+		}
+	}
 	/**
 	**	To split with the new line
 	**/

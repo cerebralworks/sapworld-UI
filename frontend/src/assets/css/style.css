@@ -3695,3 +3695,89 @@ ul.timeline > li span:hover {
 .navbar-nav {
     flex-direction: row !important;
 }
+
+.icon-card{
+	color: #1d8af5;
+	background: #eafaff;
+	font-size: 20px;
+	line-height: 0;
+	width: 50px;
+	height: 50px;
+	flex-shrink: 0;
+	flex-grow: 0;
+	border-radius: 25%!important;
+}
+.green{
+	color: #11b771;
+    background: #e9fff6;
+}
+.yallow{
+	color: #ffa600;
+    background: #fff3dc;
+}
+.orange{
+	color: #ff5532;
+    background: #ffe9e4;
+}
+.purple{
+	color: #9c62e8;
+    background: #f7f2ff;
+}
+.aqua{
+	color: #35afb7;
+    background: #e3fdff;
+}
+.pink{
+	color: #fb5bb5;
+    background: #fff2f9;
+}
+.lgren{
+	color: #a1b640;
+    background: #f9ffdf;
+}
+.cardBox {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px #e4e4e4;
+    margin-bottom: 45px;
+}
+.info-card h6 {
+    font-size: 20px;
+    color: #444;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+.chartTitle {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 2px solid #e8ecf0;
+    background: #f8f9fa;
+    padding: 5px 15px;
+    border-radius: 8px;
+}
+
+.btn-fltr {
+    color: #212529;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 2px 2px 2px 1px #dfdfdf;
+    margin-right: 10px;
+    margin-bottom: 14px;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+.btn-fltr:hover {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    box-shadow: 3px 3px 3px 2px #4caf5057;
+    color: #ffffff;
+}
+.btn-fltr-active {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    box-shadow: 3px 3px 3px 2px #4caf5057;
+    color: #ffffff;
+}

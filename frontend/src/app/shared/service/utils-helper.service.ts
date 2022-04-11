@@ -60,6 +60,15 @@ export class UtilsHelperService {
       return "No"
     }
   }
+  
+  onGetRemoteOption = (value)=>{
+	     if (value == 0) {
+			return "Domestic";
+		} else if(value == 1){
+			return "Worldwide"
+		}
+	}
+	
 	capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }

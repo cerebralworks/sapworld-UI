@@ -31,6 +31,7 @@
 						</div>
 						<div class="col-lg-6 col-md-6" style="text-align: right;">
 							<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}} </h6>
+							<h6 class="text-capitalize job-cardh6">{{onGetRemoteOption(postJobForm?.value?.jobInfo?.remote_option)}} </h6>
 							<ng-container *ngIf="postJobForm?.value?.jobInfo?.min && postJobForm?.value?.jobInfo?.max">
 							<h6 class="text-capitalize job-cardh6 "*ngIf="postJobForm?.value?.jobInfo?.salary_type ==6">{{"shared.workTiming" | translate}} :  {{onGetYesOrNoValue(postJobForm?.value?.jobInfo?.remote)}} </h6>
 							</ng-container>
