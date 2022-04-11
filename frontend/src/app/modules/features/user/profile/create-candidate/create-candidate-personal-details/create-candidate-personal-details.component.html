@@ -282,22 +282,20 @@
 			   </ngx-select>
 			  <app-control-messages [control]="ticket['controls']['language']"></app-control-messages>
 		</div>
-		<div class="col-lg-3 col-md-4 matches-33 top-3-remove mt-3">
-			<div class="custom-control custom-checkbox mr-sm-2 custom-control-inline">
-				<input type="checkbox" style="z-index: 999999;" formControlName="read" class="custom-control-input" id="read" name="read">
-				<label class="custom-control-label" for="Read">{{"shared.read" | translate }}</label>
+		<div class="col-lg-5 col-md-4 matches-33 top-3-remove mt-3">
+			<div class="custom-control custom-radio mr-sm-2 custom-control-inline">
+				<input type="checkbox" style="z-index: 999999;"  formControlName="native" class="custom-control-input" id="native"  name="native" (click)="selectOption('native',i)">
+				<label class="custom-control-label" for="native">{{"userProfile.native" | translate }}</label>
 			</div>
-			<div class="custom-control custom-checkbox mr-sm-2 custom-control-inline">
-				<input type="checkbox" style="z-index: 999999;" formControlName="write" class="custom-control-input" id="write" name="write">
-				<label class="custom-control-label" for="Write">{{"shared.write" | translate }}</label>
+			<div class="custom-control custom-radio mr-sm-2 custom-control-inline">
+				<input type="checkbox" style="z-index: 999999;"   formControlName="intermediate" class="custom-control-input" id="intermediate" name="intermediate" (click)="selectOption('intermediate',i)">
+				<label class="custom-control-label" for="intermediate">{{"userProfile.intermediate" | translate }}</label>
 			 </div>
-			<div class="custom-control custom-checkbox mr-sm-2 custom-control-inline">
-				<input type="checkbox" style="z-index: 999999;"  formControlName="speak"  class="custom-control-input" id="speak" name="speak">
-				<label class="custom-control-label" for="Speak">{{"shared.speak" | translate }}</label>
+			<div class="custom-control custom-radio mr-sm-2 custom-control-inline">
+				<input type="checkbox" style="z-index: 999999;"   formControlName="fluent"  class="custom-control-input" id="fluent" name="fluent" (click)="selectOption('fluent',i)">
+				<label class="custom-control-label" for="fluent">{{"userProfile.fluent" | translate }}</label>
 			</div>
-		</div>		
-
-        
+		</div>
         <div class="col-lg-2 col-md-3 matches-33">
           <button type="button" class="btn btn-outline-danger btn-lan" 
             style="line-height: 1.75; padding: .5rem 1.0rem;" (click)="onRemove(i)"><i class="fas fa-times"></i></button>
