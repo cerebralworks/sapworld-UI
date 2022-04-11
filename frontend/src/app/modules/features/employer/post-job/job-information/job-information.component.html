@@ -178,16 +178,27 @@
 				<label>{{"userProfile.remote" | translate}} </label>
 				<div appMarkAsterisk class="mt-2">
 					<div class="custom-control custom-radio custom-control-inline">
-						<input [value]="true" id="remote_PJ_Y" formControlName="remote" type="radio" class="custom-control-input">
+						<input [value]="true" (click)="changeRemote('yes')" id="remote_PJ_Y" formControlName="remote" type="radio" class="custom-control-input">
 						<label class="custom-control-label" for="remote_PJ_Y">{{"shared.yes" | translate}}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline">
-						<input [value]="false" id="remote_PJ_N" formControlName="remote" type="radio" class="custom-control-input">
+						<input [value]="false" (click)="changeRemote('no')" id="remote_PJ_N" formControlName="remote" type="radio" class="custom-control-input">
 						<label class="custom-control-label" for="remote_PJ_N">{{"shared.no" | translate}}</label>
 					</div>
 				</div>
 			</div>
 			<app-control-messages [control]="f['remote']"></app-control-messages>
+		</div>
+		<div class="col-lg-4 col-md-6" *ngIf="showRemoteOption">
+		<div class=" form-group">
+				<label>{{"jobs.remoteOption" | translate}}
+				</label>
+				<div appMarkAsterisk class="pt-2">
+					<button type="button" (click)="remoteOptions('0',$event)" id="domestic" class="btn btn-fltr" formControlName="remote_option">Domestic</button>
+					<button type="button" (click)="remoteOptions('1',$event)" id="worldwide" class="btn btn-fltr" formControlName="remote_option">worldwide</button>
+				</div>
+				<app-control-messages [control]="f['remote_option']"></app-control-messages>
+			</div>
 		</div>
 		<!-- <div class="col-lg-4 col-md-6">
 			<div class=" form-group">

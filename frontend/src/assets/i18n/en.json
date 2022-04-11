@@ -323,7 +323,8 @@
 		"paidParentalLeave": "Paid Parental leaves",
 		"teleCommuting": "Telecommuting",
 		"wellnessProgram": "Wellness program",
-		"paidSickLeaves": "Paid Sick Leaves"
+		"paidSickLeaves": "Paid Sick Leaves",
+		"remoteOption" :"Select remote option"
 	},
 	"common": {
 		"refresh": "Refresh",

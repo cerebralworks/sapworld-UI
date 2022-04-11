@@ -91,6 +91,7 @@
 															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 8rem;" *ngIf="matchingJob?.jobs?.negotiable ==true && !isMultipleMatches"> {{"shared.negotiable" | translate}}</a>
 															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 4.7rem;left: 0rem;" *ngIf="isMultipleMatches "> {{"shared.negotiable" | translate}}</a>
 															<h6 class="text-capitalize job-cardh6"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  >{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.remote)}} </h6>
+															<h6 class="text-capitalize job-cardh6"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  > {{utilsHelperService.onGetRemoteOption(matchingJob?.jobs?.remote_option)}} </h6>
 															<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.willing_to_relocate)}} </h6> -->
 														</div>
 													</div>
@@ -164,6 +165,7 @@
 															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 8rem;" *ngIf="matchingJobNew?.jobs?.negotiable ==true && !isMultipleMatches"> {{"shared.negotiable" | translate}}</a>
 															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 4.7rem;left: 0rem;" *ngIf="matchingJobNew?.jobs?.negotiable ==true && isMultipleMatches"> {{"shared.negotiable" | translate}}</a>
 															<h6 class="text-capitalize job-cardh6"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  >{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.remote)}} </h6>
+															<h6 class="text-capitalize job-cardh6"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  >{{utilsHelperService.onGetRemoteOption(matchingJob?.jobs?.remote_option)}}</h6>
 															<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.willing_to_relocate)}} </h6> -->
 														</div>
 													</div>

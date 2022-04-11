@@ -1,13 +1,13 @@
-<!-- //Nav Tab Section -->
+<!-- //Nav Tab Section 
 <section class="my-4">
 	<div [ngClass]="(screenWidth >= 1500)?'container':'container'" >
 		<div class="row ">
 			<div class="col-lg-7 col-md-7 matches-8 my-5">
-				<button  [ngClass]="isActive ? 'active' : ''" type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 mr-1">Active <i class="fas fa-times small ml-1" ></i></button>
+				<button  [ngClass]="isActive ? 'active' : ''" type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 mr-1">Active <i class="fas fa-times small ml-1" ></i></button> -->
 <!-- 				<button (click)="getDataStatus('paused')" [ngClass]="isPaused ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-info rounded-pill px-3 mr-1 ">Paused <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('closed')" [ngClass]="isClosed ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-warning rounded-pill px-3 mr-1">Closed <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('deleted')" [ngClass]="isDeleted ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 mr-1">Deleted <i class="fas fa-times small ml-1"></i></button> -->
-			</div>
+	<!--		</div>
 			<div class="col-lg-5 col-md-5 matches-8 clearfix my-5">
 				<div id="multiDate" class="float-right">
 					<i class="fas fa-calendar-alt"></i>&nbsp;
@@ -123,7 +123,7 @@
 						(chartClick)="chartClickEventMatches($event)"
 						>
 					  </canvas>
-					<div class="noselect chart-center-label">{{totalMatches}}</div>
+					<div class="noselect chart-center-label" >{{totalMatches}}</div>
 				</div>
 				<div class="col-lg-6 col-md-9 col-sm-9 matches-8" *ngIf="matchesTotal.length>=8 && matchesTotal.length<=21">					
 					<div class="noselect chartTitle mb-4">
@@ -211,3 +211,189 @@
 		</div>
 	</div>
 </section>
+-->
+
+ <!-- //Nav Tab Section -->
+	
+	<section class="bg-light py-5">
+		<div class="container">
+			<div class="cardBox">
+				<div class="row">
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-5">
+							<div class="icon-card d-flex align-items-center justify-content-center">
+							  <i class="bi bi-briefcase"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalPostedJobs}}</h6>
+								<span>Posted Jobs</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-5">
+							<div class="icon-card yallow d-flex align-items-center justify-content-center">
+							  <i class="bi bi-people"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalApplicants}}</h6>
+								<span>Applicants</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-5">
+							<div class="icon-card green d-flex align-items-center justify-content-center">
+							  <i class="bi bi-person-check"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalShortlisted}}</h6>
+								<span>Shortlisted</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-5">
+							<div class="icon-card orange d-flex align-items-center justify-content-center">
+							  <i class="bi bi-chat-right-text"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>0</h6>
+								<span>Interviewed</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-lg-0 pb-md-5">
+							<div class="icon-card aqua d-flex align-items-center justify-content-center">
+							  <i class="bi bi-file-earmark-medical"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalHired}}</h6>
+								<span>Offered</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-lg-0 pb-md-5">
+							<div class="icon-card purple d-flex align-items-center justify-content-center">
+							  <i class="bi bi-file-earmark-check"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>0</h6>
+								<span>Accepted</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-lg-0 pb-md-5">
+							<div class="icon-card pink d-flex align-items-center justify-content-center">
+							  <i class="bi bi-file-earmark-x"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalRejected}}</h6>
+								<span>Denied</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-lg-0 pb-md-5">
+							<div class="icon-card lgren d-flex align-items-center justify-content-center">
+							  <i class="bi bi-file-earmark-minus"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalAwaiting}}</h6>
+								<span>Awaiting</span>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<!--//-->
+			
+			<div class="cardBox">
+				<div class="row mb-5">
+					<div class="col-lg-12">					
+						<div class="chartTitle mb-4 d-flex justify-content-between">
+							<div>Applications</div>
+							<div class="mt-1">
+								<select class="form-control form-control-td" (change)="selectJob($event.target.value)">
+								  <option selected="" disabled>Select</option>
+								  <option [value]="i | json" *ngFor="let i of chartDetails">{{i.title}}</option>
+								</select>
+							</div>
+						</div>
+						<!-- <canvas id="jobsChart5" height="80"></canvas>		 -->
+						<canvas baseChart width="1177" height="313"
+							[datasets]="lineChartData"
+							[labels]="lineChartLabels"
+							[options]="lineChartOptions"
+							[colors]="lineChartColors"
+							[legend]="lineChartLegend"
+							[chartType]="lineChartType"
+							[plugins]="lineChartPlugins">
+						</canvas>
+						
+					</div>
+				</div>			
+			</div>			
+			<!--//-->
+			
+			<div class="cardBox">
+				<div class="row">
+					<div class="col-lg-12">					
+						<div class="chartTitle mb-4">
+							Job Status
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="table-responsive tableBox">
+							<table class="table">
+							  <thead>
+								<tr>
+								  <th scope="col">Job Title</th>
+								  <th scope="col" class="text-center">Applicants</th>
+								  <th scope="col" class="text-center">Shortlisted</th>
+								  <th scope="col" class="text-center">Interviewed</th>
+								  <th scope="col" class="text-center">Offered</th>
+								  <th scope="col" class="text-center">Accepted</th>
+								  <th scope="col" class="text-center">Denied</th>
+								  <th scope="col" class="text-center">Awaiting</th>
+								</tr>
+							  </thead>
+							  <tbody *ngFor="let item of jobStatus">
+								<tr>
+								  <td><a class="text-capitalize" href="javascript:;" [routerLink]="['/employer/job-detail-view', 'details']" [queryParams]="{id: item?.id}" routerLinkActive="router-link-active" >{{item.title}} </a></td>
+								  <td class="text-center">
+									<a  [routerLink]="['/employer/dashboard']"
+									  [queryParams]="{activeTab: 'applicants', id: item?.id }" *ngIf="item.applicant !=0 " > {{item.applicant}}</a>
+									  <a  *ngIf="item.applicant ==0 " style="cursor: no-drop;" > {{item.applicant}}</a>
+								  </td>
+								  <td class="text-center"><a *ngIf="item.shortlist !=0 " [routerLink]="['/employer/dashboard']"
+								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.shortlist}}</a>
+								  <a  *ngIf="item.shortlist ==0 "  style="cursor: no-drop;" > {{item.shortlist}}</a>
+								  </td>
+								  <td class="text-center"><a style="cursor: no-drop;">0</a></td>
+								  <td class="text-center"><a *ngIf="item.hired !=0 " [routerLink]="['/employer/dashboard']"
+								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.hired}}</a>
+								  <a  *ngIf="item.hired ==0 "  style="cursor: no-drop;" > {{item.hired}}</a>
+								  </td>	
+								  <td class="text-center"><a style="cursor: no-drop;">0</a></td>
+								  <td class="text-center"><a *ngIf="item.rejected !=0 " [routerLink]="['/employer/dashboard']"
+								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.rejected}}</a>
+								  <a  *ngIf="item.rejected ==0 "  style="cursor: no-drop;" > {{item.rejected}}</a>
+								  </td>
+								  <td class="text-center"><a *ngIf="item.holdon !=0 " [routerLink]="['/employer/dashboard']"
+								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.holdon}}</a>
+								  <a  *ngIf="item.holdon ==0 "  style="cursor: no-drop;" > {{item.holdon}}</a>
+								  </td>
+								</tr>
+								
+							  </tbody>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>	
+		</div>
+	</section>

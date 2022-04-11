@@ -70,6 +70,7 @@
 											<h6 *ngIf="postedJobsDetails?.salary_type == 1" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual '}}</h6>
 											<h6 *ngIf="postedJobsDetails?.salary_type == 2" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / month'}}</h6>
 											<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.remote)}} </h6>
+											<h6 class="text-capitalize job-cardh6" >{{utilsHelperService.onGetRemoteOption(postedJobsDetails?.remote_option)}}</h6>
 											<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}} </h6> -->
 										</div>
 									</div>

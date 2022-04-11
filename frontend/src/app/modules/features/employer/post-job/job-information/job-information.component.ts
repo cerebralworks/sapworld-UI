@@ -53,6 +53,7 @@ export class JobInformationComponent implements OnInit {
 	public isContractDuration: boolean = false;
 	public minError: boolean = false;
 	public maxError: boolean = false;
+	public showRemoteOption: boolean = false;
 	public min: any;
 	public max: any;
 	public editorConfig: AngularEditorConfig = textEditorConfig;
@@ -70,7 +71,6 @@ export class JobInformationComponent implements OnInit {
 	
 	ngOnInit(): void {
 		this.createForm();
-
 		this.availabilityArray = [
 			{ id: 0, text: 'Immediate' },
 			{ id: 15, text: '15 Days' },
@@ -110,6 +110,20 @@ export class JobInformationComponent implements OnInit {
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
 			if(this.childForm && this.getPostedJobsDetails) {
+			
+			   if(this.getPostedJobsDetails.remote ==true){
+			      this.showRemoteOption = true;
+				  setTimeout(()=>{
+				  if(this.getPostedJobsDetails['remote_option'] ==0){
+				    document.getElementById("domestic").classList.add("btn-fltr-active");
+				  }else if(this.getPostedJobsDetails['remote_option'] ==1){
+				    document.getElementById("worldwide").classList.add("btn-fltr-active");
+				  }
+				  });
+			   }else{
+			      this.showRemoteOption = false;
+			   }
+			 console.log(this.childForm.value);
 				if (this.childForm.value.jobInfo.job_locations) {
 					var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
 					if(tempData.length !=0){
@@ -176,7 +190,13 @@ export class JobInformationComponent implements OnInit {
 						salary: this.getPostedJobsDetails.salary.toString(),
 						salary_currency: this.getPostedJobsDetails.salary_currency.toLocaleUpperCase()
 					}
-				});
+				});   
+				   this.childForm.patchValue({
+					jobInfo : {
+						remote_option:this.getPostedJobsDetails['remote_option']
+					}
+					});
+				
 				/* let latlngText: string = this.getPostedJobsDetails.latlng_text;
 				if (latlngText) {
 					const splitedString: any[] = latlngText.split(',');
@@ -218,6 +238,18 @@ export class JobInformationComponent implements OnInit {
 					});
 				}
 				
+				if(this.childForm.value.jobInfo.remote ==true){
+			      this.showRemoteOption = true;
+				  setTimeout(()=>{
+				  if(this.childForm.value.jobInfo.remote_option ==0 || this.childForm.value.jobInfo.remote_option =='0'){
+				    document.getElementById("domestic").classList.add("btn-fltr-active");
+				  }else if(this.childForm.value.jobInfo.remote_option ==1 || this.childForm.value.jobInfo.remote_option =='1'){
+				    document.getElementById("worldwide").classList.add("btn-fltr-active");
+				  }
+				  });
+			   }else{
+			      this.showRemoteOption = false;
+			   }
 			}
 		});
 	}
@@ -287,6 +319,7 @@ export class JobInformationComponent implements OnInit {
 			  social_outings: new FormControl(false),
 			  office_space: new FormControl(false)
 			}),
+			remote_option : new FormControl(null),
 		}));
 	}
 
@@ -360,11 +393,11 @@ export class JobInformationComponent implements OnInit {
 			var maxCheck_2=parseInt(maxCheck[1]);
 			var minCheck_1= parseInt(minCheck[0]);
 			var minCheck_2= parseInt(minCheck[1]);
-			/* if(minCheck_1>maxCheck_1){
+			if(minCheck_1>maxCheck_1){
 				this.minError = true;
 			}else if(minCheck_2>maxCheck_2){
 				this.maxError = true;
-			} */
+			}
 			
 		}
 		
@@ -469,4 +502,42 @@ export class JobInformationComponent implements OnInit {
 			}
 		}
 	};
+	
+	changeRemote(e){
+	   if(e == 'yes'){
+	    this.showRemoteOption = true;
+	   }else{
+		   this.showRemoteOption = false;
+		   this.childForm.patchValue({
+			  jobInfo: {
+				remote_option: null
+			  }
+			});
+		 }
+	
+	}
+	
+	remoteOptions(value,e){
+	 console.log(value)
+	 var temp = e.target.className.split(' ');
+	 var tempID = e.target.id;
+
+	     if(tempID=='domestic'){
+	     e.target.className = e.target.className+' btn-fltr-active';
+		 document.getElementById("worldwide").classList.remove("btn-fltr-active");
+	     this.childForm.patchValue({
+		  jobInfo: {
+			remote_option: value
+		  }
+		});
+		}else{
+		 e.target.className = e.target.className+' btn-fltr-active';
+		 document.getElementById("domestic").classList.remove("btn-fltr-active");
+	     this.childForm.patchValue({
+		  jobInfo: {
+			remote_option: value
+		  }
+		});
+		}
+	}
 }

@@ -5,12 +5,15 @@ import {PageEvent} from '@angular/material/paginator';
 import { EmployerService } from '@data/service/employer.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { UserSharedService } from '@data/service/user-shared.service';
-import { ChartOptions,ChartType,BorderWidth,ChartTooltipItem,ChartData, ChartDataSets } from 'chart.js';
-import { MultiDataSet, Label,Color ,BaseChartDirective } from 'ng2-charts';
+//import { ChartOptions,ChartType,BorderWidth,ChartTooltipItem,ChartData, ChartDataSets } from 'chart.js';
+//import { MultiDataSet, Label,Color ,BaseChartDirective } from 'ng2-charts';
 
-import { DaterangepickerComponent,DaterangepickerConfig   } from 'ng2-daterangepicker';
+//import { DaterangepickerComponent,DaterangepickerConfig   } from 'ng2-daterangepicker';
 
 import * as moment from 'moment';
+
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 @Component({
   selector: 'app-employee-chart',
   templateUrl: './employee-chart.component.html',
@@ -24,55 +27,96 @@ export class EmployeeChartComponent implements OnInit {
 	
 		public currentUserDetails:any ;
 		public currentEmployerDetails:any ;
-		@ViewChild(DaterangepickerComponent)
-		private picker: DaterangepickerComponent;
+		//@ViewChild(DaterangepickerComponent)
+		//private picker: DaterangepickerComponent;
 		
 		// Doughnut
-		@ViewChildren(BaseChartDirective) chart: QueryList<BaseChartDirective>;
+		//@ViewChildren(BaseChartDirective) chart: QueryList<BaseChartDirective>;
 		
 		//Location Variables
-		public doughnutChartLabels: Label[] = [];
-		public doughnutChartData: MultiDataSet = [];		
-		public countryTotal:any[]=[];
+        //public doughnutChartLabels: Label[] = [];
+		//public doughnutChartData: MultiDataSet = [];		
+		//public countryTotal:any[]=[];
 		public totalCountry :any =0;
-		public showCountry :boolean = false;
+		//public showCountry :boolean = false;
 		//Job Variable
-		public doughnutChartLabelsJobs: Label[] = [];
-		public doughnutChartDataJobs: MultiDataSet = [];		
+		//public doughnutChartLabelsJobs: Label[] = [];
+		//public doughnutChartDataJobs: MultiDataSet = [];		
 		public jobsTotal:any[]=[];
 		public totalPostedJobs :any =0;
-		public showPostedJob :boolean = false;
+		//public showPostedJob :boolean = false;
 		//Matches Variable
-		public doughnutChartLabelsMatches: Label[] = [];
-		public doughnutChartDataMatches: MultiDataSet = [];		
-		public matchesTotal:any[]=[];
+		//public doughnutChartLabelsMatches: Label[] = [];
+		//public doughnutChartDataMatches: MultiDataSet = [];		
+		//public matchesTotal:any[]=[];
 		public totalMatches :any =0;
-		public showMatches :boolean = false;
+		//public showMatches :boolean = false;
 		//Applicants Variable
-		public doughnutChartLabelsApplicants: Label[] = [];
-		public doughnutChartDataApplicants: MultiDataSet = [];		
-		public applicantsTotal:any[]=[];
+		//public doughnutChartLabelsApplicants: Label[] = [];
+		//public doughnutChartDataApplicants: MultiDataSet = [];		
+		//public applicantsTotal:any[]=[];
 		public totalApplicants :any =0;
-		public showApplicants :boolean = false;
+		//public showApplicants :boolean = false;
 		//Shortlisted Variable
-		public doughnutChartLabelsShortlisted: Label[] = [];
-		public doughnutChartDataShortlisted: MultiDataSet = [];		
-		public shortlistedTotal:any[]=[];
+		//public doughnutChartLabelsShortlisted: Label[] = [];
+		//public doughnutChartDataShortlisted: MultiDataSet = [];		
+		//public shortlistedTotal:any[]=[];
 		public totalShortlisted :any =0;
-		public showShortlisted :boolean = false;
+		//public showShortlisted :boolean = false;
 		//Hired Variable
-		public doughnutChartLabelsHired: Label[] = [];
-		public doughnutChartDataHired: ChartDataSets[] = [];		
-		public hiredTotal:any[]=[];
+		//public doughnutChartLabelsHired: Label[] = [];
+		//public doughnutChartDataHired: ChartDataSets[] = [];		
+		//public hiredTotal:any[]=[];
 		public totalHired :any =0;
-		public showHired :boolean = false;
-	public screenWidth: any;
+		//public showHired :boolean = false;
+	    public screenWidth: any;
+		public totalRejected :any = 0;
+		public totalAwaiting :any = 0;
+		public jobStatus:any;
+		public chartDetails :any;
+		public borders:any[]= [
+				"#7cd7ff",
+				"#f68383",
+				"#6bc182",
+				"#ffc455",
+				"#a37bda",
+				"#936ec5",
+				"#5259ad",
+				"#7ae013",
+				"#e56996",
+				"#e7b512",
+				"#6b6b6b",
+				"#5259ad",
+				"#7ae013",
+				"#e56996",
+				"#e7b512",
+				"#6b6b6b",
+				"#5259ad",
+				"#7ae013",
+				"#e56996",
+				"#e7b512",
+				"#6b6b6b",
+				"#5259ad",
+				"#7ae013",
+				"#e56996",
+				"#e7b512",
+				"#6b6b6b",
+				"#5259ad",
+				"#7ae013",
+				"#e56996",
+				"#e7b512",
+				"#6b6b6b",
+				"#5259ad",
+				"#7ae013",
+				"#e56996",
+				"#e7b512",
+				"#6b6b6b"
+			]
+		//public filterChart :any[]=[];
+		//public doughnutChartType: ChartType = 'doughnut'; 
+		//public doughnutBorderWidth: BorderWidth = 0; 
 		
-		
-		public doughnutChartType: ChartType = 'doughnut'; 
-		public doughnutBorderWidth: BorderWidth = 0; 
-		
-		public doughnutChartColors: Color[] = [{
+		/*public doughnutChartColors: Color[] = [{
 			backgroundColor: [
 				"#7cd7ff",
 				"#f68383",
@@ -129,10 +173,10 @@ export class EmployeeChartComponent implements OnInit {
 						legendItem.hidden = true;
 					}
 				}  */
-			}
-		};
+			//}
+		//};
 
-		public doughnutOptions: ChartOptions ={
+		/*public doughnutOptions: ChartOptions ={
 			cutoutPercentage: 66,
 			responsive: true,
 			legend: {
@@ -168,7 +212,39 @@ export class EmployeeChartComponent implements OnInit {
 		public isPaused:boolean = false;
 		
 		public startDate:any;
-		public endDate:any;
+		public endDate:any;*/
+		public lineChartData: ChartDataSets[] = [{
+		     label: '' 
+		}];
+       public lineChartLabels: Label[] = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+	   public lineChartOptions: ChartOptions ={
+			responsive: true,
+			scales: {
+				yAxes: [{
+					ticks: {
+						precision: 0
+					}
+				}]
+            },
+			legend: {
+           labels: {
+               filter: function(legendItem, chartData) {
+                if (legendItem.text === '') {
+                  return false;
+                }
+                  return true;
+               }
+               }
+            }
+			
+		};
+	   public lineChartColors: Color[] = [{
+		  borderColor: '#007bff',
+		  backgroundColor: 'transparent',
+		},];
+	   public lineChartLegend = true;
+	   public lineChartType = 'line';
+	   public lineChartPlugins = [];
 		
 	/**	
 	**	To implement the package section constructor
@@ -179,10 +255,10 @@ export class EmployeeChartComponent implements OnInit {
 		private modelService: NgbModal,
 		private employerService : EmployerService,
 		private employerSharedService: EmployerSharedService,
-		private daterangepickerOptions: DaterangepickerConfig,
+		//private daterangepickerOptions: DaterangepickerConfig,
 		private userSharedService: UserSharedService
 	) { 
-		this.daterangepickerOptions.settings = {
+		/*this.daterangepickerOptions.settings = {
             locale: { format: 'MMMM D, YYYY' },
             alwaysShowCalendars: false,
 			startDate: moment().subtract(29, 'days'),
@@ -196,7 +272,7 @@ export class EmployeeChartComponent implements OnInit {
 			   'This Month': [moment().startOf('month'), moment().endOf('month')],
 			   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 			}
-        };
+        };*/
 		
 	}
 
@@ -210,9 +286,12 @@ export class EmployeeChartComponent implements OnInit {
         details => {
           if(details) {
             this.currentEmployerDetails = details['details'];
-			if(this.showData ==false && this.currentEmployerDetails.email ){
-				this.getDataStatus('');
-				this.showData = true;
+			if(this.currentEmployerDetails.email ){
+				//this.getDataStatus('');
+				this.onGetJobsDetails();
+				this.onGetHiredTrendDetails();
+				this.onGetChartDetails();
+				//this.showData = true;
 			}
           }
         }
@@ -221,7 +300,7 @@ export class EmployeeChartComponent implements OnInit {
 	}
 	
 	
-	public selectedDate(event) {
+	/*public selectedDate(event) {
        // this.picker.datePicker.setStartDate('2017-03-27');
        // this.picker.datePicker.setEndDate('2017-04-08');
     }
@@ -230,12 +309,12 @@ export class EmployeeChartComponent implements OnInit {
        // this.picker.datePicker.setEndDate('2017-04-08');
     }
 	public calendarApplied(event) {
-      this.getDataStatus('');
+      //this.getDataStatus('');
     }
-	
+	*/
 	/**
 	**	To get the status of the view
-	**/
+	**
 	public getDataStatus(data){
 		if(data=='active'){
 			if(this.isActive==true){
@@ -285,13 +364,13 @@ export class EmployeeChartComponent implements OnInit {
 		this.onGetJobsMatchesDetails();
 		this.onGetHiredTrendDetails();
 		
-	}
+	}*/
 	
 	/**
 	**	To get the Location Jobs Details API Calls
 	**/
 
-	onGetCountryDetails = () => {
+	/*onGetCountryDetails = () => {
 	  this.showCountry = false;
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
@@ -313,9 +392,7 @@ export class EmployeeChartComponent implements OnInit {
 						}
 					}
 				}
-				/* for(let i=0;i<69;i++){					
-					response.data.push(response.data[0])
-				}  */
+				
 				this.countryTotal = response.data;
 				var filterData = response.data.map(function(a,b){ return a.city.charAt(0).toUpperCase() + a.city.substr(1) });
 				var filterValue = response.data.map(function(a,b){ return a.count });
@@ -332,13 +409,13 @@ export class EmployeeChartComponent implements OnInit {
         }
       )
 	}
-
+    */
 
 	/**
 	**	To get the Matches Jobs Details API Calls
 	**/
 
-	onGetJobsMatchesDetails = () => {
+	/*onGetJobsMatchesDetails = () => {
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'matches';
@@ -376,26 +453,27 @@ export class EmployeeChartComponent implements OnInit {
         }
       )
 	}
-
+*/
 	/**
 	**	To get the Hired Jobs Details API Calls
 	**/
 
 	onGetHiredTrendDetails = () => {
-		this.showHired = false;
+		//this.showHired = false;
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'hiringtrend';
-      requestParams.isActive = this.isActive;
+      /*requestParams.isActive = this.isActive;
       requestParams.isClosed =  this.isClosed;
       requestParams.isDeleted =  this.isDeleted;
       requestParams.isPaused =  this.isPaused;
       requestParams.startDate =  this.startDate;
-      requestParams.endDate =  this.endDate;
+      requestParams.endDate =  this.endDate;*/
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
-				for(let i=0;i<response.data.length;i++){
+			//console.log(response.data);
+				/*for(let i=0;i<response.data.length;i++){
 					var temp = response.data[i]['title'].length;
 					if(temp<=25){
 						for(let j=temp;j<16;j++){
@@ -403,14 +481,22 @@ export class EmployeeChartComponent implements OnInit {
 						}
 					}
 					response.data[i]['title'] = response.data[i]['title'];
-				}
+				}*/
 				
-				this.hiredTotal = response.data;
-				var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
+				//this.hiredTotal = response.data;
+				//var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
+				this.jobStatus = response.data;
 				var filterApplicant = response.data.map(function(a,b){ return a.applicant });
+				this.totalApplicants= filterApplicant.reduce((a, b) => parseInt(a) + parseInt(b) );
 				var filterHired = response.data.map(function(a,b){ return a.hired });
+				this.totalHired= filterHired.reduce((a, b) => parseInt(a) + parseInt(b) );
 				var filterShortlist = response.data.map(function(a,b){ return a.shortlist });
-				this.doughnutChartLabelsHired = filterData;
+				this.totalShortlisted= filterShortlist.reduce((a, b) => parseInt(a) + parseInt(b) );
+				var filterRejected = response.data.map(function(a,b){ return a.rejected });
+				this.totalRejected= filterRejected.reduce((a, b) => parseInt(a) + parseInt(b) );
+				var filterAwaiting = response.data.map(function(a,b){ return a.rejected });
+				this.totalAwaiting= filterAwaiting.reduce((a, b) => parseInt(a) + parseInt(b) );
+				/*this.doughnutChartLabelsHired = filterData;
 				if(this.hiredTotal['length']<6){
 					this.doughnutChartDataHired = [{
 						label: "Applicants",	
@@ -477,16 +563,49 @@ export class EmployeeChartComponent implements OnInit {
 				}
 				this.showHired = true;
 				this.totalHired = 0 ;
-				console.log(filterData);
+				//console.log(filterData);*/
 			}else{
-				this.showHired = false;
+				//this.showHired = false;
 			}
 			
         }, error => {
         }
       )
 	}
-
+	
+	/**
+	**	To get the chart Details API Calls
+	**/
+	
+	onGetChartDetails = () => {
+      let requestParams: any = {};
+      requestParams.id = this.currentEmployerDetails['id'];
+      requestParams.view = 'chartDetails';
+     
+      this.employerService.getEmployeeDashboard(requestParams).subscribe(
+        response => {
+			if(response.count !=0 && response.count>=1){
+			  //console.log(response.data);
+			  this.chartDetails = response.data;
+			  this.chartDetails.map((a,i)=>{
+				    var patchchart ={
+					  data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec],
+					  label:a.title,
+					  borderColor: this.borders[i],
+		              backgroundColor: 'transparent',
+					};
+					this.lineChartData.push(patchchart);  
+			  })
+			}else{
+				
+			}
+			
+        }, error => {
+        }
+      )
+	}
+	
+	
 	/**
 	**	To get the Jobs Details API Calls
 	**/
@@ -495,17 +614,17 @@ export class EmployeeChartComponent implements OnInit {
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'type';
-      requestParams.isActive = this.isActive;
+     /* requestParams.isActive = this.isActive;
       requestParams.isClosed =  this.isClosed;
       requestParams.isDeleted =  this.isDeleted;
       requestParams.isPaused =  this.isPaused;
       requestParams.startDate =  this.startDate;
-      requestParams.endDate =  this.endDate;
+      requestParams.endDate =  this.endDate;*/
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
 				this.jobsTotal = response.data;
-				for(let i=0;i<this.jobsTotal.length;i++){
+				/*for(let i=0;i<this.jobsTotal.length;i++){
 					var a= this.jobsTotal[i]
 					if(a.type =='1000'){
 						this.jobsTotal[i].type = 'Full Time';
@@ -519,15 +638,15 @@ export class EmployeeChartComponent implements OnInit {
 						this.jobsTotal[i].type = 'Internship'
 					}
 				}
-				var filterData = this.jobsTotal.map(function(a,b){ return a.type });
+				var filterData = this.jobsTotal.map(function(a,b){ return a.type });*/
 				var filterValue = response.data.map(function(a,b){ return a.count });
-				this.doughnutChartLabelsJobs = filterData;
-				this.doughnutChartDataJobs = [filterValue];
-				this.showPostedJob = true;
+				//this.doughnutChartLabelsJobs = filterData;
+				//this.doughnutChartDataJobs = [filterValue];
+				//this.showPostedJob = true;
 				this.totalPostedJobs = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
-				console.log(filterData);
+				
 			}else{
-				this.showPostedJob = false;
+				//this.showPostedJob = false;
 			}
 			
         }, error => {
@@ -536,9 +655,23 @@ export class EmployeeChartComponent implements OnInit {
 	}
 	
 	/**
+	**	To change the application chart view
+	**/
+	
+	selectJob(e){
+	    var a = JSON.parse(e); 
+		var patchchart ={
+			data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec], 
+			label: a.title
+			};
+		this.lineChartData= [patchchart];
+	}
+	
+	
+	/**
 	**	To check the click view of the chart 
 	**/
-	chartClickEvent(event){
+	/*chartClickEvent(event){
 			
 			//CheckMatchesTotal
 		setTimeout(()=>{
@@ -561,12 +694,12 @@ export class EmployeeChartComponent implements OnInit {
 				this.totalCountry = this.countryTotal.map(function(a,b){ return a.count }).reduce((a, b) => parseInt(a) + parseInt(b) );
 			}
 		},600);
-	}
+	}*/
 	
 	/**
 	**	To check the click event in the postedjob details
 	**/
-	chartClickEventPostedJob(event){
+	/*chartClickEventPostedJob(event){
 			//CheckMatchesTotal
 		setTimeout(()=>{
 			var temp = 1;		
@@ -590,12 +723,12 @@ export class EmployeeChartComponent implements OnInit {
 				this.totalPostedJobs = this.jobsTotal.map(function(a,b){ return a.count }).reduce((a, b) => parseInt(a) + parseInt(b) );
 			}
 		},600);
-	}
+	}*/
 	
 	/**
 	**	To check the click event in the matches 
 	**/
-	chartClickEventMatches(event){
+	/*chartClickEventMatches(event){
 			
 			//CheckMatchesTotal
 		setTimeout(()=>{
@@ -629,13 +762,13 @@ export class EmployeeChartComponent implements OnInit {
 			}
 		},600);
 		
-	}
+	}*/
 	
 	/**
 	**	To check the click event in the application
 	**/
 	
-	chartClickEventApplicants(event){
+	/*chartClickEventApplicants(event){
 			//CheckMatchesTotal
 		setTimeout(()=>{
 			var temp = 1;	
@@ -666,11 +799,11 @@ export class EmployeeChartComponent implements OnInit {
 			}
 		},600);
 	}
-	
+	*/
 	/**
 	**	To check the click event in the shortlisted details 
 	**/
-	chartClickEventShortlisted(event){
+	/*chartClickEventShortlisted(event){
 			//CheckMatchesTotal
 		setTimeout(()=>{
 			var temp = 1;	
@@ -704,13 +837,13 @@ export class EmployeeChartComponent implements OnInit {
 			}
 		},600);
 		
-	}
+	}*/
 	
 	/**
 	**	To check the click event in the hired details
 	**/
 	
-	chartClickEventHired(event){
+	/*chartClickEventHired(event){
 			//CheckMatchesTotal
 		setTimeout(()=>{
 			var temp = 1;	
@@ -746,11 +879,11 @@ export class EmployeeChartComponent implements OnInit {
 				this.totalHired = this.hiredTotal.map(function(a,b){ return a.count }).reduce((a, b) => parseInt(a) + parseInt(b) );
 			}
 		},600);
-	}
+	}*/
 	
 	@HostListener('window:resize', ['$event'])  
-  onResize(event) {  
-    this.screenWidth = window.innerWidth;  
-  }
+	  onResize(event) {  
+		this.screenWidth = window.innerWidth;  
+	  }
   
 }

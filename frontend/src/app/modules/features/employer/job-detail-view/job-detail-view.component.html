@@ -88,6 +88,7 @@
 								<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 11rem;" *ngIf="postedJobsDetails?.negotiable ==true">{{"shared.negotiable" | translate}}</a>
 							</ng-container>
 							<h6 class="text-capitalize job-cardh6" >{{"userProfile.remote" | translate }} : {{utilsHelperService.onGetYesOrNoValue(postedJobsDetails?.remote)}}</h6>
+							<h6 class="text-capitalize job-cardh6" >{{utilsHelperService.onGetRemoteOption(postedJobsDetails?.remote_option)}}</h6>
 							<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate }} : {{utilsHelperService.onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}}</h6> -->
 						</div>
 					</div>
