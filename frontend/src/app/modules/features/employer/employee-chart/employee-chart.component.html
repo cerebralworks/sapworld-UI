@@ -226,7 +226,7 @@
 							</div>
 							<div class="info-card pl-3">
 								<h6>{{totalPostedJobs}}</h6>
-								<span>Posted Jobs</span>
+								<span>{{"nav.postedJobs" | translate}}</span>
 							</div>
 						</div>	
 					</div>
@@ -237,7 +237,7 @@
 							</div>
 							<div class="info-card pl-3">
 								<h6>{{totalApplicants}}</h6>
-								<span>Applicants</span>
+								<span>{{"nav.applicants" | translate}}</span>
 							</div>
 						</div>	
 					</div>
@@ -248,7 +248,7 @@
 							</div>
 							<div class="info-card pl-3">
 								<h6>{{totalShortlisted}}</h6>
-								<span>Shortlisted</span>
+								<span>{{"nav.shortlisted" | translate}}</span>
 							</div>
 						</div>	
 					</div>
@@ -259,7 +259,7 @@
 							</div>
 							<div class="info-card pl-3">
 								<h6>0</h6>
-								<span>Interviewed</span>
+								<span>{{"chart.interviewed" | translate}}</span>
 							</div>
 						</div>	
 					</div>
@@ -270,7 +270,7 @@
 							</div>
 							<div class="info-card pl-3">
 								<h6>{{totalHired}}</h6>
-								<span>Offered</span>
+								<span>{{"chart.offered" | translate}}</span>
 							</div>
 						</div>	
 					</div>
@@ -281,7 +281,7 @@
 							</div>
 							<div class="info-card pl-3">
 								<h6>0</h6>
-								<span>Accepted</span>
+								<span>{{"chart.accepted" | translate}}</span>
 							</div>
 						</div>	
 					</div>
@@ -292,7 +292,7 @@
 							</div>
 							<div class="info-card pl-3">
 								<h6>{{totalRejected}}</h6>
-								<span>Denied</span>
+								<span>{{"chart.denied" | translate}}</span>
 							</div>
 						</div>	
 					</div>
@@ -303,7 +303,7 @@
 							</div>
 							<div class="info-card pl-3">
 								<h6>{{totalAwaiting}}</h6>
-								<span>Awaiting</span>
+								<span>{{"chart.awaiting" | translate}}</span>
 							</div>
 						</div>	
 					</div>
@@ -315,7 +315,7 @@
 				<div class="row mb-5">
 					<div class="col-lg-12">					
 						<div class="chartTitle mb-4 d-flex justify-content-between">
-							<div>Applications</div>
+							<div>{{"nav.applications" | translate}}</div>
 							<div class="mt-1">
 								<select class="form-control form-control-td" (change)="selectJob($event.target.value)">
 								  <option selected="" value="0">All</option>
@@ -343,7 +343,7 @@
 				<div class="row">
 					<div class="col-lg-12">					
 						<div class="chartTitle mb-4">
-							Job Status
+							{{"chart.jobStatus" | translate}}
 						</div>
 					</div>
 					<div class="col-lg-12">
@@ -351,14 +351,14 @@
 							<table class="table">
 							  <thead>
 								<tr>
-								  <th scope="col">Job Title</th>
-								  <th scope="col" class="text-center">Applicants</th>
-								  <th scope="col" class="text-center">Shortlisted</th>
-								  <th scope="col" class="text-center">Interviewed</th>
-								  <th scope="col" class="text-center">Offered</th>
-								  <th scope="col" class="text-center">Accepted</th>
-								  <th scope="col" class="text-center">Denied</th>
-								  <th scope="col" class="text-center">Awaiting</th>
+								  <th scope="col">{{"nav.applicants" | translate}}</th>
+								  <th scope="col" class="text-center">{{"nav.applicants" | translate}}</th>
+								  <th scope="col" class="text-center">{{"nav.shortlisted" | translate}}</th>
+								  <th scope="col" class="text-center">{{"chart.interviewed" | translate}}</th>
+								  <th scope="col" class="text-center">{{"chart.offered" | translate}}</th>
+								  <th scope="col" class="text-center">{{"chart.accepted" | translate}}</th>
+								  <th scope="col" class="text-center">{{"chart.denied" | translate}}</th>
+								  <th scope="col" class="text-center">{{"chart.awaiting" | translate}}</th>
 								</tr>
 							  </thead>
 							  <tbody *ngFor="let item of jobStatus">

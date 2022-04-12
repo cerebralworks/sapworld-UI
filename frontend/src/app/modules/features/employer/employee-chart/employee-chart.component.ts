@@ -499,7 +499,7 @@ export class EmployeeChartComponent implements OnInit {
 				this.totalShortlisted= filterShortlist.reduce((a, b) => parseInt(a) + parseInt(b) );
 				var filterRejected = response.data.map(function(a,b){ return a.rejected });
 				this.totalRejected= filterRejected.reduce((a, b) => parseInt(a) + parseInt(b) );
-				var filterAwaiting = response.data.map(function(a,b){ return a.rejected });
+				var filterAwaiting = response.data.map(function(a,b){ return a.holdon });
 				this.totalAwaiting= filterAwaiting.reduce((a, b) => parseInt(a) + parseInt(b) );
 				/*this.doughnutChartLabelsHired = filterData;
 				if(this.hiredTotal['length']<6){

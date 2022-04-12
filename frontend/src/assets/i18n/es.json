@@ -193,6 +193,14 @@
         "employees": "Empleados",
         "myAttachments": "Mis archivos adjuntos"
 	},
+	"chart":{
+	  "interviewed": "Entrevistado",
+	  "offered": "Ofrecido",
+	  "accepted": "Aceptado",
+	  "denied": "Denegado",
+	  "awaiting": "Esperando",
+	  "jobStatus": "Estado del trabajo"
+	},
 	"tabs": {
         "matches": "Partidos",
         "jobsApplied": "Trabajos Aplicados",

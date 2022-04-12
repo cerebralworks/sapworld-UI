@@ -197,6 +197,14 @@
 		"employees": "Mitarbeiter",
 		"myAttachments": "Meine Anhänge"
 	},
+	"chart":{
+	  "interviewed": "Bewerbungsgespräch",
+	  "offered": "Angeboten",
+	  "accepted": "Angenommen",
+	  "denied": "Abgelehnt",
+	  "awaiting": "Wartend",
+	  "jobStatus": "Auftragsstatus"
+	},
 	"tabs":{
 		"matches": "Streichhölzer",
 		"jobsApplied": "Stellen beworben",

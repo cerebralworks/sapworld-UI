@@ -201,6 +201,14 @@
 		"employees":"Employees",
 		"myAttachments":"My Attachments"
 	},
+	"chart":{
+		"interviewed":"Interviewed",
+		"offered":"Offered",
+		"accepted":"Accepted",
+		"denied":"Denied",
+		"awaiting":"Awaiting",
+		"jobStatus":"Job Status"
+	},
 	"tabs":{
 		"matches": "Matches",
 		"jobsApplied": "Jobs Applied",
