@@ -74,6 +74,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	public othercountry: any[] = [];
 	public othercountrys: any[] = [];
 	public languageSource: any[] = [];
+	public checkboxerror:boolean=false;
 	savedUserDetails: any;
 	othercountryValue: any;
 	randomNum: number;
@@ -762,9 +763,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  work_authorization: new FormControl(null),
 		  language_known: new FormArray([this.formBuilder.group({
 			language: [null, Validators.required],
-			native: new FormControl(false),
-			intermediate: new FormControl(false),
-			fluent: new FormControl(false)
+			native: new FormControl(null, Validators.required),
+			intermediate: new FormControl(null, Validators.required),
+			fluent: new FormControl(null, Validators.required)
 		  })]),
 		  reference: new FormArray([this.formBuilder.group({
 			name: new FormControl(null),
@@ -1041,15 +1042,15 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**/
 	
 	onDuplicate = (index) => {
-   
-	 if(this.t.value[index]['language']=="" || this.t.value[index]['language']== null ){
-		  
+	 if((this.t.value[index]['language']=="" || this.t.value[index]['language']== null ) || ((this.t.value[index]['native']==false || this.t.value[index]['native']==null) && (this.t.value[index]['intermediate']==false || this.t.value[index]['intermediate']==null) && (this.t.value[index]['fluent']==false || this.t.value[index]['fluent']==null))){
+		this.checkboxerror=true;
 	  }else{
+	       this.checkboxerror=true;
 		 this.t.push(this.formBuilder.group({
 			language: [null, Validators.required],
-				native: [false],
-				intermediate: [false],
-				fluent: [false]
+				native: [null, Validators.required],
+				intermediate: [null, Validators.required],
+				fluent: [null, Validators.required]
 		}));
 	  }
 	}
@@ -1062,6 +1063,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		if (index == 0  && this.t.value.length==1) {
 		  this.t.reset();
 		} else {
+			this.checkboxerror=false;
 		  this.t.removeAt(index);
 		}
 	}
@@ -1076,7 +1078,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	
 	onDuplicateR = (index) => {
 	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
-		  
+		 
 	  }else{
 		this.r.push(this.formBuilder.group({
 			name: new FormControl(null),
@@ -1168,19 +1170,26 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	
 	
 	selectOption(val,index){
+		this.checkboxerror=false;
 	if(val ==='fluent'){
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].setValue(true)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].updateValueAndValidity();
 	      this.childForm.get('personalDetails.language_known').controls[index].controls['native'].setValue(false)
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].updateValueAndValidity();
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].setValue(false)
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].updateValueAndValidity();
 	}
 	else if(val ==='native'){
+	       this.childForm.get('personalDetails.language_known').controls[index].controls['native'].setValue(true)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].updateValueAndValidity();
 	      this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].setValue(false)
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].updateValueAndValidity();
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].setValue(false)
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].updateValueAndValidity();
 	}
 	else if(val ==='intermediate'){
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].setValue(true)
+		  this.childForm.get('personalDetails.language_known').controls[index].controls['intermediate'].updateValueAndValidity();
 	      this.childForm.get('personalDetails.language_known').controls[index].controls['native'].setValue(false)
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['native'].updateValueAndValidity();
 		  this.childForm.get('personalDetails.language_known').controls[index].controls['fluent'].setValue(false)
