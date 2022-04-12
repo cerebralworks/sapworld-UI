@@ -318,7 +318,7 @@
 							<div>Applications</div>
 							<div class="mt-1">
 								<select class="form-control form-control-td" (change)="selectJob($event.target.value)">
-								  <option selected="" disabled>Select</option>
+								  <option selected="" value="0">All</option>
 								  <option [value]="i | json" *ngFor="let i of chartDetails">{{i.title}}</option>
 								</select>
 							</div>

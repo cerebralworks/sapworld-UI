@@ -74,6 +74,7 @@ export class EmployeeChartComponent implements OnInit {
 		public totalAwaiting :any = 0;
 		public jobStatus:any;
 		public chartDetails :any;
+		public maxValues :any =0;
 		public borders:any[]= [
 				"#7cd7ff",
 				"#f68383",
@@ -222,20 +223,24 @@ export class EmployeeChartComponent implements OnInit {
 			scales: {
 				yAxes: [{
 					ticks: {
-						precision: 0
+						min:0,
+						stepSize: 1,
+						suggestedMax:5,
+						
 					}
 				}]
             },
 			legend: {
-           labels: {
-               filter: function(legendItem, chartData) {
-                if (legendItem.text === '') {
-                  return false;
-                }
-                  return true;
+			   display: true,
+                labels: {
+				   filter: function(legendItem, chartData) {
+					if (legendItem.text === '') {
+					  return false;
+					}
+					  return true;
+				   }	   
                }
-               }
-            }
+            },
 			
 		};
 	   public lineChartColors: Color[] = [{
@@ -591,7 +596,7 @@ export class EmployeeChartComponent implements OnInit {
 				    var patchchart ={
 					  data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec],
 					  label:a.title,
-					  borderColor: this.borders[i],
+					  borderColor: '#007bff',
 		              backgroundColor: 'transparent',
 					};
 					this.lineChartData.push(patchchart);  
@@ -659,12 +664,30 @@ export class EmployeeChartComponent implements OnInit {
 	**/
 	
 	selectJob(e){
+	   if(e==0){
+	   //this.lineChartData.shift();
+	   this.lineChartData = [];
+	   this.chartDetails.map((a,i)=>{
+	    console.log(this.lineChartData);
+		
+				    var patchchart ={
+					  data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec],
+					  label:a.title,
+					  borderColor: '#007bff',
+		              backgroundColor: 'transparent',
+					};
+					this.lineChartData.push(patchchart);  
+			  })
+	   
+	   }
+	   else{
 	    var a = JSON.parse(e); 
-		var patchchart ={
+		var patchcharts ={
 			data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec], 
 			label: a.title
 			};
-		this.lineChartData= [patchchart];
+		this.lineChartData= [patchcharts];
+		}
 	}
 	
 	
