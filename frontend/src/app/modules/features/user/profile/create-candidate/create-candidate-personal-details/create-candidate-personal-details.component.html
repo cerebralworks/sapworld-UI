@@ -282,18 +282,18 @@
 			   </ngx-select>
 			  <app-control-messages [control]="ticket['controls']['language']"></app-control-messages>
 		</div>
-		<div class="col-lg-5 col-md-4 matches-33 top-3-remove mt-3">
+		<div class="col-lg-5 col-md-4 matches-33 top-3-remove">
 			<div class="custom-control custom-radio mr-sm-2 custom-control-inline">
-				<input type="checkbox" style="z-index: 999999;"  formControlName="native" class="custom-control-input" id="native"  name="native" (click)="selectOption('native',i)">
-				<label class="custom-control-label" for="native">{{"userProfile.native" | translate }}</label>
+				<input type="checkbox" style="z-index: 999999;"  formControlName="native" class="custom-control-input" id="native"  name="options" (click)="selectOption('native',i)">
+				<label class="custom-control-label" for="options">{{"userProfile.native" | translate }}</label>
 			</div>
 			<div class="custom-control custom-radio mr-sm-2 custom-control-inline">
-				<input type="checkbox" style="z-index: 999999;"   formControlName="intermediate" class="custom-control-input" id="intermediate" name="intermediate" (click)="selectOption('intermediate',i)">
-				<label class="custom-control-label" for="intermediate">{{"userProfile.intermediate" | translate }}</label>
+				<input type="checkbox" style="z-index: 999999;"   formControlName="intermediate" class="custom-control-input" id="intermediate" name="options" (click)="selectOption('intermediate',i)">
+				<label class="custom-control-label" for="options">{{"userProfile.intermediate" | translate }}</label>
 			 </div>
 			<div class="custom-control custom-radio mr-sm-2 custom-control-inline">
-				<input type="checkbox" style="z-index: 999999;"   formControlName="fluent"  class="custom-control-input" id="fluent" name="fluent" (click)="selectOption('fluent',i)">
-				<label class="custom-control-label" for="fluent">{{"userProfile.fluent" | translate }}</label>
+				<input type="checkbox" style="z-index: 999999;"   formControlName="fluent"  class="custom-control-input" id="fluent" name="options" (click)="selectOption('fluent',i)">
+				<label class="custom-control-label" for="options">{{"userProfile.fluent" | translate}}</label>
 			</div>
 		</div>
         <div class="col-lg-2 col-md-3 matches-33">
@@ -304,11 +304,7 @@
         </div>
       </ng-container>
     </div>
-		<span   *ngIf="this.checkboxerror == true" class="pt-3 custom-control   custom-control-inline text-danger" >  Field is required.</span>
-	
-																				
-							
-
+		<span   *ngIf="this.checkboxerror == true" class="pt-3 custom-control   custom-control-inline text-danger" >Field is required.</span>
     <div class="row mt-4">
       <div class="col-lg-4 col-md-12">
         <h6 class="font-weight-bold mt-4 clearfix cursor-pointer" (click)="show = !show">
