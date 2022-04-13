@@ -2697,16 +2697,16 @@ ul.timeline > .blue:before {
 ul.timeline > .green:before {
     color: #11b771!important;
 }
-ul.timeline > .orange:before {
+ul.timeline > .oranges:before {
     color: #e98752!important;
 }
-ul.timeline > .purple:before {
+ul.timeline > .purples:before {
     color: #9c62e8!important;
 }
 ul.timeline > .red:before {
     color: #ff6a4b!important;
 }
-ul.timeline > .yallow:before {
+ul.timeline > .yellow:before {
     color: #ffbc3f!important;
 }
 ul.timeline > li span {

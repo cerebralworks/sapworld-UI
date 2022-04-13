@@ -6,7 +6,7 @@
 	<i class="fas fa-sync"></i>
 	</button> -->
 </div>
-<div class="col-lg-12 info" [ngClass]="(isMultipleMatches === true)?'col-lg-6 mt-3-8':'col-lg-12 mt-3-3'">
+<div class="col-lg-12 info" [ngClass]="(isMultipleMatches === true)?'col-lg-6 mt-3-8':'col-lg-12 mt-3-3'" style="margin-top:1.4rem !important;">
 	<div class="score"  style="margin-top:25px;"[ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
 		{{"shared.score" | translate}}
 		<span>
@@ -276,19 +276,19 @@
 				</div>
 				<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='0'">
 					<li class="list-group-item">
-						<span *ngIf=" (finpostJobDetailsCountry(postedJobsDetails?.country) == findCountrysData([matchingUsers?.profile?.nationality]) || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
-							<div *ngIf="matchedElement && finpostJobDetailsCountry(postedJobsDetails?.country) == findCountrysData([matchingUsers?.profile?.nationality])">
+						<span *ngIf=" (finpostJobDetailsCountry(postedJobsDetails?.job_locations[0]?.country) == findCountrysData([matchingUsers?.profile?.nationality]) || (postedJobsDetails?.work_authorization == 0 || postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) )">
+							<div *ngIf="matchedElement && finpostJobDetailsCountry(postedJobsDetails?.job_locations[0]?.country) == findCountrysData([matchingUsers?.profile?.nationality])">
 							<i class="fa fa-check text-green "></i>  I am a Citizen
 							  </div>
-							  <div *ngIf="matchedElement && finpostJobDetailsCountry(postedJobsDetails?.country) != findCountrysData([matchingUsers?.profile?.nationality]) && checkCountry(postedJobsDetails?.country) && postedJobsDetails?.work_authorization != 0 && (postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) ">
+							  <div *ngIf="matchedElement && finpostJobDetailsCountry(postedJobsDetails?.job_locations[0]?.country) != findCountrysData([matchingUsers?.profile?.nationality]) && checkCountry(postedJobsDetails?.job_locations[0]?.country) && postedJobsDetails?.work_authorization != 0 && (postedJobsDetails?.work_authorization == 1 || postedJobsDetails?.work_authorization == 2) ">
 							<i class="fa fa-check text-green "></i>
 							{{"userProfile.iHaveWorkAuthorization" | translate}}
 							  </div>
-							  <div *ngIf="missingElement && finpostJobDetailsCountry(postedJobsDetails?.country) != findCountrysData([matchingUsers?.profile?.nationality]) && (postedJobsDetails?.work_authorization == 0) ">
+							  <div *ngIf="missingElement && finpostJobDetailsCountry(postedJobsDetails?.job_locations[0]?.country) != findCountrysData([matchingUsers?.profile?.nationality]) && (postedJobsDetails?.work_authorization == 0) ">
 							<i class="fa fa-times text-danger "></i>
 							{{"userProfile.iHaveWorkAuthorization" | translate}}
 							  </div>
-							  <div *ngIf="matchedElement && finpostJobDetailsCountry(postedJobsDetails?.country) != findCountrysData([matchingUsers?.profile?.nationality]) && !checkCountry(postedJobsDetails?.country) && (matchingUsers?.profile?.work_authorization == 1) && postedJobsDetails?.work_authorization == 2 ">
+							  <div *ngIf="matchedElement && finpostJobDetailsCountry(postedJobsDetails?.job_locations[0]?.country) != findCountrysData([matchingUsers?.profile?.nationality]) && !checkCountry(postedJobsDetails?.job_locations[0]?.country) && (matchingUsers?.profile?.work_authorization == 1) && postedJobsDetails?.work_authorization == 2 ">
 							<i class="fa fa-check text-green "></i>
 							{{"userProfile.iNeedVisaAponsorship" | translate}}
 							  </div>
@@ -518,7 +518,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="accordion mt-3 " *ngIf="desired">
+			<div class="accordion mt-3 " style="margin-top: 1.6rem !important;" *ngIf="desired">
 			<div class="pj-titless m-b-1"  [ngClass]="(isMultipleMatches === true)?'padd-5':'padd-10'" ><h6  class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='1'">
 					<ul class="list-group">
@@ -1023,7 +1023,7 @@
 						</div>
 					</div>
 				</div>
-			</div><div class="accordion mt-0 " *ngIf="nice">
+			</div><div class="accordion mt-0 " style="margin-top: -0.3rem !important;" *ngIf="nice">
 				<div class="pj-titles m-b-1"  style="padding: 10px 0px;"><h6  class="mb-0"></h6></div>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='2'">
 					<ul class="list-group">

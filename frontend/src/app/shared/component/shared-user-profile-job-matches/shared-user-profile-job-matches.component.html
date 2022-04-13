@@ -185,7 +185,7 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="checkWork() && postedJobsDetails?.match_select?.work_authorization=='0' && checkWrkAuth === true">
+			<div *ngIf="postedJobsDetails?.match_select?.work_authorization=='0'">
 				<div class="row">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
@@ -194,8 +194,11 @@
 					</ul>
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
-						<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 0 ">
+						<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 0 && checkWrkAuth ===true">
 							{{utilsHelperService.onConvertArrayToString(userInfo?.visa_type)}}
+						</ul>
+						<ul class="list-group ul-value" *ngIf="(userInfo?.work_authorization == 0 || userInfo?.work_authorization == null) && checkWrkAuth ===false">
+							--
 						</ul>
 						<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 1 ">
 							{{"userProfile.iNeedVisaAponsorship" | translate }}
@@ -203,6 +206,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<!-- <div *ngIf="postedJobsDetails?.match_select?.facing_role=='0'">
 				<div class="row">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
@@ -1316,7 +1320,7 @@
 					</div>
 				</div>
 			</div> -->
-			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation==''  && postedJobsDetails?.end_to_end_implementation">
+			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='' && postedJobsDetails?.end_to_end_implementation">
 				<div class="row" *ngIf="userInfo?.end_to_end_implementation">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
 						<ul class="list-group">

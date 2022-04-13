@@ -42,7 +42,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 	constructor(private dataService: DataService,public sharedService: SharedService,public utilsHelperService: UtilsHelperService ) { }
 
 	ngOnInit(): void {
-	
+	    
 		this.dataService.getCountryDataSource().subscribe(
 		response => {
         if (response && Array.isArray(response) && response.length) {
@@ -58,6 +58,13 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
         }
       }
     );
+	this.postedJobsDetails.job_locations.filter((a)=>{
+		if(a.country === this.userInfo['country']){
+		  this.checkWrkAuth = false;
+		}else{
+		  this.checkWrkAuth = true;
+		  }
+		})
 	}
 	
 	/**
@@ -74,7 +81,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		  this.checkWrkAuth = true;
 		  }
 		})
-		console.log(this.checkWrkAuth)
+		//console.log(this.checkWrkAuth)
 			  if(this.postedJobsDetails.match_select){
 				  this.postedJobsDetails.match_select.remote="false";
 				  this.postedJobsDetails.match_select.willing_to_relocate="false";
