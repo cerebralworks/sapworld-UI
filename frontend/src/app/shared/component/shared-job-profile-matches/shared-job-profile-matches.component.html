@@ -225,23 +225,23 @@
 					</li>
                  </ul>
 			</div>
-			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='0' && checkWrkAuth===true">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.work_authorization=='0' || checkWrkAuth===true">
 				 <ul class="list-group">
 					<li class="list-group-item">
-						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
-							<div *ngIf="finpostJobDetailsCountry(jobInfo?.country) == findCountry([userInfo?.nationality])">
+						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
+							<div *ngIf="finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) == findCountry([userInfo?.nationality])">
 							<i class="fa fa-check text-green "></i>  Authorized to work
 							  </div>
-							  <div *ngIf="finpostJobDetailsCountry(jobInfo?.country) != findCountry([userInfo?.nationality]) && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
+							  <div *ngIf="finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) != findCountry([userInfo?.nationality]) && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
 								<i class="fa fa-check text-green "></i>
 								Authorized to work
 							  </div>
-							  <div *ngIf="jobInfo?.visa_sponsorship == true && finpostJobDetailsCountry(jobInfo?.country) != findCountry([userInfo?.nationality]) && userInfo?.work_authorization == 1 ">
+							  <div *ngIf="jobInfo?.visa_sponsorship == true && finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) != findCountry([userInfo?.nationality]) && userInfo?.work_authorization == 1 ">
 								<i class="fa fa-check text-green "></i>
 								Visa Sponsorship Provided
 							  </div>
 						</span>
-						<span *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && finpostJobDetailsCountry(jobInfo?.country) != findCountry([userInfo?.nationality]) )">
+						<span *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) != findCountry([userInfo?.nationality]) )">
 							 <i class="fa fa-times text-danger "></i>
 							 {{(userInfo?.work_authorization || userInfo?.work_authorization ==
 							 0)
