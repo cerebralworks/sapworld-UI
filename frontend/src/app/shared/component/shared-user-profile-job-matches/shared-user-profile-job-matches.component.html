@@ -234,7 +234,7 @@
 				</div>
 			</div> -->
 			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='0'">
-				<div class="row" *ngIf="userInfo?.end_to_end_implementation">
+				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
 							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
@@ -243,9 +243,13 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.end_to_end_implementation !=null">
 								{{userInfo?.end_to_end_implementation}}
 							</li>
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.end_to_end_implementation ==null">
+								--
+							</li>
+							
 						</ul>
 					</div>
 				</div>
@@ -603,7 +607,7 @@
 				</div>
 			</div> -->
 			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='1'">
-				<div class="row" *ngIf="userInfo?.end_to_end_implementation">
+				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
 							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
@@ -612,9 +616,13 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.end_to_end_implementation !=null">
 								{{userInfo?.end_to_end_implementation}}
 							</li>
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.end_to_end_implementation ==null">
+								--
+							</li>
+							
 						</ul>
 					</div>
 				</div>
@@ -963,7 +971,7 @@
 				</div>
 			</div> -->
 			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='2'">
-				<div class="row" *ngIf="userInfo?.end_to_end_implementation">
+				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
 							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
@@ -972,9 +980,13 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.end_to_end_implementation !=null">
 								{{userInfo?.end_to_end_implementation}}
 							</li>
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.end_to_end_implementation ==null">
+								--
+							</li>
+							
 						</ul>
 					</div>
 				</div>
@@ -1320,8 +1332,8 @@
 					</div>
 				</div>
 			</div> -->
-			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation=='' && postedJobsDetails?.end_to_end_implementation">
-				<div class="row" *ngIf="userInfo?.end_to_end_implementation">
+			<div *ngIf="postedJobsDetails?.match_select?.end_to_end_implementation==''">
+				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
 							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
@@ -1330,9 +1342,13 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.end_to_end_implementation !=null">
 								{{userInfo?.end_to_end_implementation}}
 							</li>
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.end_to_end_implementation ==null">
+								--
+							</li>
+							
 						</ul>
 					</div>
 				</div>

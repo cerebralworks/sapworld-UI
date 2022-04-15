@@ -57,15 +57,20 @@
 													</a>
 													<h6 class="mb-0 text-capitalize">
 														<!-- {{matchingJob?.jobs?.job_location?.city +', ' +matchingJob?.jobs?.job_location?.state+', ' +matchingJob?.jobs?.job_location?.country}} -->
-														<ng-container *ngFor="let items of matchingJob?.jobs?.job_locations" >
-															{{items?.city ? items?.city+', '  : ''}}
-															{{items?.state ? items?.state+', '  : ''}}
+														<ng-container *ngFor="let item of matchingJob?.jobs?.job_locations;index as i" >
+															<span *ngIf="i < 2">
+															{{item?.city ? item?.city+', '  : ''}}
+															{{item?.state ? item?.state+', '  : ''}}
 															<span class="text-uppercase" *ngIf="!isMultipleMatches">
-															  {{items?.country ? items?.country : ''}}
+															  {{item?.country ? item?.country : ''}}
 															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
-															  {{items?.countryshort ? items?.countryshort : ''}}
+															  {{item?.countryshort ? item?.countryshort : ''}}
 															</span><br>
-														</ng-container>
+															</span>
+															</ng-container>
+															<span class="text-uppercase" style="color:blue;cursor:pointer;margin-left:14.5rem;margin-top:-1rem;position:absolute;" *ngIf="matchingJob?.jobs?.job_locations.length>2">
+															+{{matchingJob?.jobs?.job_locations.length-2}}
+														  </span>
 														
 													</h6>
 													<h6 class="mt-1 text-capitalize">
@@ -135,15 +140,21 @@
 														<span class="text-uppercase">
 														  {{matchingJobNew?.jobs?.country ? ', ' + matchingJobNew?.jobs?.country : ''}}
 														</span> -->
-														<ng-container *ngFor="let items of matchingJobNew?.jobs?.job_locations" >
-															{{items?.city ? items?.city+', '  : ''}}
-															{{items?.state ? items?.state+', '  : ''}}
+														
+														<ng-container *ngFor="let item of matchingJobNew?.jobs?.job_locations;index as i" >
+															<span *ngIf="i < 2">
+															{{item?.city ? item?.city+', '  : ''}}
+															{{item?.state ? item?.state+', '  : ''}}
 															<span class="text-uppercase" *ngIf="!isMultipleMatches">
-															  {{items?.country ? items?.country : ''}}
+															  {{item?.country ? item?.country : ''}}
 															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
-															  {{items?.countryshort ? items?.countryshort : ''}}
+															  {{item?.countryshort ? item?.countryshort : ''}}
 															</span><br>
-														</ng-container>
+															</span>
+															</ng-container>
+															<span class="text-uppercase" style="color:blue;cursor:pointer;margin-left:14.5rem;margin-top:-1rem;position:absolute;" *ngIf="matchingJobNew?.jobs?.job_locations.length>2">
+															+{{matchingJobNew?.jobs?.job_locations.length-2}}
+														  </span>
 													</h6>
 													<h6 class="mt-1 text-capitalize">
 														{{matchingJobNew?.jobs?.company_name }}

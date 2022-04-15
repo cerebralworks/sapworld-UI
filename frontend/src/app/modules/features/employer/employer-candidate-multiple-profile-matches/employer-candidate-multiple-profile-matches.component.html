@@ -54,7 +54,8 @@
 													</a>
 													
 														<h6 class="mb-0 text-capitalize country-details">
-															<ng-container *ngFor="let item of matchingJob?.jobs?.job_locations" >
+															<ng-container *ngFor="let item of matchingJob?.jobs?.job_locations;index as i" >
+															<span *ngIf="i < 3">
 															{{item?.city ? item?.city+', '  : ''}}
 															{{item?.state ? item?.state+', '  : ''}}
 															<span class="text-uppercase" *ngIf="!isMultipleMatches">
@@ -62,9 +63,12 @@
 															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
 															  {{item?.countryshort ? item?.countryshort : ''}}
 															</span><br>
+															</span>
 															</ng-container>
+															<span class="text-uppercase" style="color:blue;cursor:pointer;margin-left:14.5rem;margin-top:-1rem;position:absolute;" *ngIf="matchingJob?.jobs?.job_locations.length>3">
+															+{{matchingJob?.jobs?.job_locations.length-3}}
+														  </span>
 														</h6>
-														
 													<h6 class="mt-1 text-capitalize">
 														{{matchingJob?.jobs?.company_name }}
 													</h6>
@@ -118,7 +122,9 @@
 														
 													</h6> -->
 													<h6 class="mb-0 text-capitalize country-details">
-															<ng-container *ngFor="let item of matchingJobNew?.jobs?.job_locations" >
+															
+															<ng-container *ngFor="let item of matchingJobNew?.jobs?.job_locations;index as i" >
+															<span *ngIf="i < 3">
 															{{item?.city ? item?.city+', '  : ''}}
 															{{item?.state ? item?.state+', '  : ''}}
 															<span class="text-uppercase" *ngIf="!isMultipleMatches">
@@ -126,7 +132,11 @@
 															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
 															  {{item?.countryshort ? item?.countryshort : ''}}
 															</span><br>
+															</span>
 															</ng-container>
+															<span class="text-uppercase" style="color:blue;cursor:pointer;margin-left:14.5rem;margin-top:-1rem;position:absolute;" *ngIf="matchingJobNew?.jobs?.job_locations.length>3">
+															+{{matchingJobNew?.jobs?.job_locations.length-3}}
+														  </span>
 														</h6>
 													<h6 class="mt-1 text-capitalize">
 														{{matchingJobNew?.jobs?.company_name }}

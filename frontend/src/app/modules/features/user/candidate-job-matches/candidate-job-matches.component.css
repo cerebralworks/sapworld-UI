@@ -1,5 +1,5 @@
 .job-info-container .profile-card{
-  min-height: 120px;
+  max-height: 100px;
 }
 .top-pad{
 	margin-top: 0rem;
@@ -34,7 +34,7 @@
     font-weight: 700;
     font-size: 13px;
     color: #465666;
-    margin-bottom: 7px;
+    margin-bottom: -0.1px;
 }
 .isMatchesView{
 	padding:0px !important;
