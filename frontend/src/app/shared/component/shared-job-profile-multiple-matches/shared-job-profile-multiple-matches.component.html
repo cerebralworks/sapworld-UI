@@ -1,4 +1,8 @@
-<div [ngClass]="isMultipleMatches ? 'top-pad' : 'top-pad-1'" class="matchs-infos" style="z-index: 999;" style="left: 30px;">
+<div *ngIf="isMultipleMatches ===false" [ngClass]="isMultipleMatches ? 'top-pad' : 'top-pad-1'" class="matchs-infos" style="z-index: 999;" style="left: 30px;">
+	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
+</div>
+<div *ngIf="isMultipleMatches ===true" [ngClass]="isMultipleMatches ? 'top-pad' : 'top-pad-1'" class="matchs-infos" style="z-index: 999;" style="left: 30px; margin-top: -3.2rem !important;">
 	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
 </div>
