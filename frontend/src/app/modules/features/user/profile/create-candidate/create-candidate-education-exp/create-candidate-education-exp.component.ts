@@ -6,6 +6,7 @@ import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
+import { ValidationService } from '@shared/service/validation.service';
 
 @Component({
   selector: 'app-create-candidate-education-exp',
@@ -170,8 +171,8 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 			  })]),
 			  experience: new FormControl('', Validators.required),
 			  sap_experience: new FormControl('', Validators.required),
-			  current_employer: new FormControl('', Validators.required),
-			  current_employer_role: new FormControl('', Validators.required),
+			  current_employer: new FormControl('', (Validators.required,ValidationService.emptyStringValidator)),
+			  current_employer_role: new FormControl('', (Validators.required,ValidationService.emptyStringValidator)),
 			  domains_worked: new FormControl('', Validators.required),
 			  //clients_worked: new FormControl(''),
 			  end_to_end_implementation: new FormControl(null),

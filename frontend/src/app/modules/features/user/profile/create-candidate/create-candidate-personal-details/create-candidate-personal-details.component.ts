@@ -734,15 +734,15 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	createForm() {
 		this.childForm = this.parentF.form;
 		this.childForm.addControl('personalDetails', new FormGroup({
-		  first_name: new FormControl('', Validators.required),
-		  last_name: new FormControl('', Validators.required),
+		 first_name: new FormControl('',[Validators.required,ValidationService.emptyStringValidator]),
+		  last_name: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
 		  email: new FormControl(''),
 		  entry: new FormControl(false),
 		  phone: new FormControl(''),
-		  city: new FormControl('', Validators.required),
-		  state: new FormControl('', Validators.required),
+		 city: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
+		  state: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
 		  latlng: new FormControl({}, Validators.required),
-		  country: new FormControl('', Validators.required),
+		  country: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
 		  zipcode: new FormControl(null, Validators.required),
 		  clients_worked: new FormControl(null, Validators.required),
 		  authorized_country: new FormControl(null),

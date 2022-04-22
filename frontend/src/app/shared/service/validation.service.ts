@@ -33,6 +33,14 @@ export class ValidationService {
     // return (control.value.match(/^(?=.*\d)(?=.*[a-zA-Z!@#$%^&*])(?!.*\s).{8,100}$/)) ? '' : { invalidPassword: true };
   }
 
+public static emptyStringValidator(control:AbstractControl):any{
+	  if(!control.value) {return;}
+	  //return(control.value.match(/^(\s+\S+\s*)*(?!\s).*$/)) ? '' : {
+		 // required:true };
+		return(control.value.match((/[\S]/))) ? '' : {
+		  required:true };
+  }
+  
   public static urlValidator(control: AbstractControl): any {
     if (!control.value) { return; }
 
