@@ -8,6 +8,7 @@ export class ValidationService {
   public static getValidationErrorMessage(validatorName: string, validatorValue?: any, labelName?: string): any {
     const config = {
       required: `Field is required.`,
+	  invalidString:`Invalid String.`,
       invalidPassword: 'Invalid password. Password must be at least minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.',
       maxlength: `The field can't contain more than ${validatorValue.requiredLength} characters.`,
       minlength: `The field must contain atleast ${validatorValue.requiredLength} characters.`,
@@ -37,8 +38,10 @@ public static emptyStringValidator(control:AbstractControl):any{
 	  if(!control.value) {return;}
 	  //return(control.value.match(/^(\s+\S+\s*)*(?!\s).*$/)) ? '' : {
 		 // required:true };
-		return(control.value.match((/[\S]/))) ? '' : {
-		  required:true };
+		//return(control.value.match((/[\S]/))) ? '' : {
+		  //required:true };
+		  return(control.value.match(/^[^\s][a-zA-Z\s]+[^\s]$/)) ? '' : {
+		  invalidString:true };
   }
   
   public static urlValidator(control: AbstractControl): any {
