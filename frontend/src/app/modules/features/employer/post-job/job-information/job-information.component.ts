@@ -263,7 +263,7 @@ export class JobInformationComponent implements OnInit {
 		this.childForm = this.parentF.form;
 
 		this.childForm.addControl('jobInfo', new FormGroup({
-			title: new FormControl('', Validators.required),
+			title: new FormControl('',[Validators.required,ValidationService.emptyStringValidator]),
 			employer_role_type: new FormControl(''),
 			entry: new FormControl(false),
 			negotiable: new FormControl(false),

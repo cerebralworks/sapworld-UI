@@ -40,8 +40,11 @@ public static emptyStringValidator(control:AbstractControl):any{
 		 // required:true };
 		//return(control.value.match((/[\S]/))) ? '' : {
 		  //required:true };
-		  return(control.value.match(/^[^\s][a-zA-Z\s]+[^\s]$/)) ? '' : {
+		  //return(control.value.match(/^[^\s][a-zA-Z\s]+[^\s]$/)) ? '' : {
+		  //invalidString:true };
+		  return(control.value.match(/^[a-zA-Z0-9.\-_$@*!]{1,30}$/)) ? '' : {
 		  invalidString:true };
+		  
   }
   
   public static urlValidator(control: AbstractControl): any {
