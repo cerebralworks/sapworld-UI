@@ -212,13 +212,13 @@ export class CreateCandidateFooterComponent implements OnInit {
 				return false;
 			}if( !this.createCandidateForm.value.educationExp['domains_worked'] || !this.createCandidateForm.value.educationExp['domains_worked']['length']|| this.createCandidateForm.value.educationExp['domains_worked']['length']==0){
 				return false;
-			}if( !this.createCandidateForm.value.educationExp['current_employer_role'] || this.createCandidateForm.value.educationExp['current_employer_role']==''){
+			}if( !this.createCandidateForm.value.educationExp['current_employer_role'] || this.createCandidateForm.value.educationExp['current_employer_role'].trim()==''){
 				return false;
 			}if( !this.createCandidateForm.value.educationExp['sap_experience'] || this.createCandidateForm.value.educationExp['sap_experience']==''){
 				return false;
 			}if( !this.createCandidateForm.value.educationExp['experience'] || this.createCandidateForm.value.educationExp['experience']==''){
 				return false;
-			}if( !this.createCandidateForm.value.educationExp['current_employer'] || this.createCandidateForm.value.educationExp['current_employer']==''){
+			}if( !this.createCandidateForm.value.educationExp['current_employer'] || this.createCandidateForm.value.educationExp['current_employer'].trim()==''){
 				return false;
 			}if( !this.createCandidateForm.value.skillSet['programming_skills'] || !this.createCandidateForm.value.skillSet['programming_skills']['length']|| this.createCandidateForm.value.skillSet['programming_skills']['length']==0){
 				return false;
