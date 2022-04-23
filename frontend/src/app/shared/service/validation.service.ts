@@ -46,6 +46,17 @@ public static emptyStringValidator(control:AbstractControl):any{
 		  invalidString:true };
 		  
   }
+  public static StartingEmptyStringValidator(control:AbstractControl):any{
+	  if(!control.value) {return;}
+	  //return(control.value.match(/^(\s+\S+\s*)*(?!\s).*$/)) ? '' : {
+		 // required:true };
+		return(control.value.match((/^[^\s].*$/))) ? '' : {
+		  invalidString:true };
+		  //return(control.value.match(/^(?![\s-])[\w -]+$/)) ? '' : {
+		  //invalidString:true };
+		  //return(control.value.match(/^[a-zA-Z0-9.\-_$@*!]{1,30}$/)) ? '' : {
+		  //invalidString:true };
+  }
   
   public static urlValidator(control: AbstractControl): any {
     if (!control.value) { return; }
