@@ -16,6 +16,7 @@ import { GooglePlaceDirective } from "ngx-google-places-autocomplete";
 import { ComponentRestrictions } from "ngx-google-places-autocomplete/objects/options/componentRestrictions";
 import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
 import {MatChipInputEvent} from '@angular/material/chips';
+import { AmazingTimePickerService } from 'amazing-time-picker';
 
 declare let google: any;
 @Component({
@@ -57,11 +58,13 @@ export class JobInformationComponent implements OnInit {
 	public min: any;
 	public max: any;
 	public editorConfig: AngularEditorConfig = textEditorConfig;
+	public changeToMinutes : boolean =false;
 
 	constructor(
 		private parentF: FormGroupDirective,
 		private formBuilder: FormBuilder,
-		public sharedService: SharedService
+		public sharedService: SharedService,
+		private atp: AmazingTimePickerService 
 	) { }
 
 	/**
@@ -381,11 +384,35 @@ export class JobInformationComponent implements OnInit {
 	**/
 	
 	getValue(event,data){
+		console.log('data',data)
+		if(data == 'min'){
+			var amazingTimePicker = this.atp.open({
+				time : this.min, 
+				changeToMinutes: true,
+			});
+		}if(data == 'max'){
+			var amazingTimePicker = this.atp.open({
+				time : this.max, 
+				changeToMinutes: true,
+			});
+		}
+		
+        amazingTimePicker.afterClose().subscribe(time  => {
+			var splitTime = time.split(':');
+			if( time && data =='min' ){
+				
+				this.min=time;
+				this.childForm.get('jobInfo').controls['min'].setValue(this.min) 
+			}if(time && data =='max'){
+				this.max=time;
+				this.childForm.get('jobInfo').controls['max'].setValue(this.max)
+			}
+
 		this.minError = false;
 		this.maxError = false;
 		var maxCheck = this.childForm.value.jobInfo.max;
 		var minCheck = this.childForm.value.jobInfo.min;
-
+		
 		if(minCheck && maxCheck){
 			maxCheck= maxCheck.split(':');
 			minCheck= minCheck.split(':');
@@ -393,13 +420,25 @@ export class JobInformationComponent implements OnInit {
 			var maxCheck_2=parseInt(maxCheck[1]);
 			var minCheck_1= parseInt(minCheck[0]);
 			var minCheck_2= parseInt(minCheck[1]);
-			if(minCheck_1>maxCheck_1){
+			if(minCheck_1>12 && maxCheck_1>12){
+				//minCheck_1=minCheck_1-12;
+				if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
 				this.minError = true;
-			}else if(minCheck_2>maxCheck_2){
+			}else if(minCheck_1>maxCheck_1){
+				this.minError = true;
+			}
+			}else{
+			if(minCheck_1>maxCheck_1 && minCheck_1<12){
+				
+				this.minError = true;
+			}else if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
 				this.maxError = true;
+
 			}
 			
 		}
+		}
+	});
 		
 	}
 	

@@ -51,13 +51,13 @@
       <div class="col-lg-4 col-md-4 matches-8">
         <div class=" form-group">
           <label>{{"shared.mobileNumber" | translate }}</label>
-          <ngx-intl-tel-input (ngModelChange)="checkNumber()"
+          <div><ngx-intl-tel-input (ngModelChange)="checkNumber()"
           [maxLength]="15"  (countryChange)="onCountryChange($event)" [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
           [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
           [selectedCountryISO]="CountryISO.UnitedStates" [phoneValidation]="true" [separateDialCode]="separateDialCode"
           [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone">
-        </ngx-intl-tel-input>
+        </ngx-intl-tel-input></div>
           <!-- <input ng2TelInput [ng2TelInputOptions]="{initialCountry: childForm?.value?.personalDetails?.country}" (countryChange)="onCountryChange($event)"  appMarkAsterisk numbersOnly formControlName="phone" type="text" class="form-control" placeholder="9876543210"> -->
           <app-control-messages [control]="f['phone']"></app-control-messages>
 		  <small *ngIf="invalidMobile"class="text-danger">Invalid mobile number</small>
