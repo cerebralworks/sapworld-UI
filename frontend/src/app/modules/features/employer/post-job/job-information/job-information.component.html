@@ -116,17 +116,13 @@
 			<div class=" form-group">
 				<label>{{"shared.workTiming" | translate}}</label>
 				<div class="row mt-2">
-					<div class="col-lg-6 col-md-6" >
-						<div (click)="getValue($event,'min')">
-						  <input type="time" formControlName="min"  value="{{min}}"  [max]="childForm['value']['jobInfo']['min']" class="form-control"><i class="fas fa-clock" style="position:absolute; top:1.2rem; right:2rem; color: #a8afb5; "></i>
-						 </div>
-						  <small class="text-danger" *ngIf="minError" > The start time must be lesser than the end time </small>
+					<div class="col-lg-6 col-md-6 ">
+						<input type="time"  formControlName="min" (change)="getValue($event,'min')" [max]="childForm['value']['jobInfo']['min']" class="form-control " >
+						<small class="text-danger" *ngIf="minError" > The start time must be lesser than the end time </small>
 					</div>
-					<div class="col-lg-6 col-md-6">
-						<div (click)="getValue($event,'max')">
-						  <input type="time" formControlName="max" value="{{max}}"  [min]="childForm['value']['jobInfo']['max']" class="form-control"><i class="fas fa-clock" style="position:absolute; top:1.2rem; right:2rem; color: #a8afb5;"></i>
-						 </div>
-							<small class="text-danger" *ngIf="maxError" > The end time must be greater than the start time </small>
+					<div class="col-lg-6 col-md-6 ">
+						<input type="time"  formControlName="max" (change)="getValue($event,'max')" [min]="childForm['value']['jobInfo']['max']" class="form-control " >
+						<small class="text-danger" *ngIf="maxError" > The end time must be greater than the start time </small>
 					</div>
 				</div>
 			</div>
