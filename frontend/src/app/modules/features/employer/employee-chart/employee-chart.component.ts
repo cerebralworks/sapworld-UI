@@ -297,7 +297,7 @@ export class EmployeeChartComponent implements OnInit {
             this.currentEmployerDetails = details['details'];
 			if(this.currentEmployerDetails.email ){
 				//this.getDataStatus('');
-				this.onGetJobsDetails();
+				//this.onGetJobsDetails();
 				this.onGetHiredTrendDetails();
 				this.onGetChartDetails();
 				//this.showData = true;
@@ -494,6 +494,7 @@ export class EmployeeChartComponent implements OnInit {
 				
 				//this.hiredTotal = response.data;
 				//var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
+				this.totalPostedJobs = response.count;
 				this.jobStatus = response.data;
 				var filterApplicant = response.data.map(function(a,b){ return a.applicant });
 				this.totalApplicants= filterApplicant.reduce((a, b) => parseInt(a) + parseInt(b) );
@@ -641,23 +642,23 @@ export class EmployeeChartComponent implements OnInit {
 	
 	/**
 	**	To get the Jobs Details API Calls
-	**/
+	*
 
 	onGetJobsDetails = () => {
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'type';
-     /* requestParams.isActive = this.isActive;
+     requestParams.isActive = this.isActive;
       requestParams.isClosed =  this.isClosed;
       requestParams.isDeleted =  this.isDeleted;
       requestParams.isPaused =  this.isPaused;
       requestParams.startDate =  this.startDate;
-      requestParams.endDate =  this.endDate;*/
+      requestParams.endDate =  this.endDate;
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
 				this.jobsTotal = response.data;
-				/*for(let i=0;i<this.jobsTotal.length;i++){
+				for(let i=0;i<this.jobsTotal.length;i++){
 					var a= this.jobsTotal[i]
 					if(a.type =='1000'){
 						this.jobsTotal[i].type = 'Full Time';
@@ -671,12 +672,12 @@ export class EmployeeChartComponent implements OnInit {
 						this.jobsTotal[i].type = 'Internship'
 					}
 				}
-				var filterData = this.jobsTotal.map(function(a,b){ return a.type });*/
+				var filterData = this.jobsTotal.map(function(a,b){ return a.type });
 				var filterValue = response.data.map(function(a,b){ return a.count });
 				//this.doughnutChartLabelsJobs = filterData;
 				//this.doughnutChartDataJobs = [filterValue];
 				//this.showPostedJob = true;
-				this.totalPostedJobs = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
+				//this.totalPostedJobs = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				
 			}else{
 				//this.showPostedJob = false;
@@ -685,7 +686,7 @@ export class EmployeeChartComponent implements OnInit {
         }, error => {
         }
       )
-	}
+	}*/
 	
 	/**
 	**	To change the application chart view
