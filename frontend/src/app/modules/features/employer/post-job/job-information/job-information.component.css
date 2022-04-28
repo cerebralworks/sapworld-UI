@@ -21,6 +21,6 @@
     font-size: 12px;
 }
 
-/*input[type="time"]::-webkit-calendar-picker-indicator{
+input[type="time"]::-webkit-calendar-picker-indicator{
     display: none;
-}*/
+}
