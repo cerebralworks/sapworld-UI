@@ -551,7 +551,7 @@ export class MatchingJobComponent implements OnInit {
 
 	/**
 	**	To Filter the matches in Skills
-	**/
+	**
 	
 	onFiltertBySkill = (item) => {
 		if(item != 'undefined') {
@@ -570,7 +570,7 @@ export class MatchingJobComponent implements OnInit {
 				this.onRedirectRouteWithQuery({skills: [].toString()})
 			}
 		}
-	}
+	} **/
 
 	/**
 	**	To Filter the matches in Skills

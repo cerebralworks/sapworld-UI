@@ -10,7 +10,7 @@
 		 <li class="breadcrumb-item">
 					<a (click)="onRedirectBack();"  ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a>
 				 </li>
-          <li class="breadcrumb-item active" aria-current="page">{{"shared.candidateViewJobs" | translate}}</li>
+          <li class="breadcrumb-item active" aria-current="page">{{"nav.appliedJobs" | translate}}</li>
         </ol>
       </div>
       <div class="col-lg-7 clearfix">
@@ -35,9 +35,10 @@
 									<div class="col-lg-6 col-md-6 matches-8 " >
 										<a class="btn btn-sm" *ngIf="postedJobsDetails['status'] == 3"  style="margin-right: 4px;    color: #fff;border-color: #b30606;background: #b71111;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.closed" | translate}}</a>
 										<a class="btn btn-outline-green btn-sm" *ngIf="postedJobsDetails?.is_job_applied == 0" (click)="onToggleResumeSelectModal(true, postedJobsDetails) && postedJobsDetails['status'] == 1" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.apply" | translate}}</a>
-										<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.is_job_applied != 0 && postedJobsDetails?.job_applied?.status != 2" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.applied" | translate}}</a>
+										<!--<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.is_job_applied != 0 && postedJobsDetails?.job_applied?.status != 2" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.applied" | translate}}</a>-->
 										<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.job_applied?.status == 2" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.hired" | translate}}</a>
 										<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;" style="margin-right: 4px;"><i class="fas fa-file-alt"></i> {{"shared.description" | translate}}</a>
+										<a class="btn btn-outline-blue btn-sm" href="javascript:;" style="margin-right: 4px;" *ngIf="postedJobsDetails?.negotiable ==true"> {{"shared.negotiable" | translate}}</a>
 										<a class="btn btn-outline-blue btn-sm"  *ngIf="isShowApply && postedJobsDetails['status'] == 1"  (click)="navigateMatches()" href="javascript:;"><i class="fas fa-file-alt"></i> {{"shared.showMatches" | translate}}</a>
 										
 									</div>
@@ -90,7 +91,7 @@
 										<ng-container  *ngIf="postedJobsDetails?.salary_type < 0">
 											--
 										</ng-container>
-										<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 11rem;" *ngIf="postedJobsDetails?.negotiable ==true"> {{"shared.negotiable" | translate}}</a>
+										<!-- <a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 11rem;" *ngIf="postedJobsDetails?.negotiable ==true"> {{"shared.negotiable" | translate}}</a> -->
 										<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.remote)}} </h6>
 										<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}} </h6> -->
 									</div>
