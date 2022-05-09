@@ -549,7 +549,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
 	/**
 	**	To Filter by skills
-	**/
+	*
 	
 	onFiltertBySkill = (item) => {
 		if(item != 'undefined') {
@@ -568,7 +568,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				this.onRedirectRouteWithQuery({skill_tags: [].toString()})
 			}
 		}
-	}
+	} **/
 
 	/**
 	**	To Filer by experience
