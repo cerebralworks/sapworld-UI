@@ -69,6 +69,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	public companyProfileInfo: any;
 	public show: boolean = false;
 	public invalidMobile: boolean = false;
+	public fileExtension: any;
 	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
 	//TooltipLabel = TooltipLabel;
@@ -209,6 +210,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	onUserPhotoUpdate = (callback = () => { }) => {
 		const formData = new FormData();
 		formData.append('photo', this.croppedFile, ((this.croppedFile.name) ? this.croppedFile.name : ''));
+		formData.append('extension', this.fileExtension);
 		this.employerService.photoUpdate(formData).subscribe(
 			response => {
 				callback();
@@ -354,11 +356,11 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 		if (files && files.length > 0) {
 			let fileToUpload = files.item(0);
 			let allowedExtensions = ["jpg", "jpeg", "png", "JPG", "JPEG"];
-			let fileExtension = files
+			this.fileExtension = files
 				.item(0)
 				.name.split(".")
 				.pop();
-			if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+			if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
 				this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
 				return;
 			}

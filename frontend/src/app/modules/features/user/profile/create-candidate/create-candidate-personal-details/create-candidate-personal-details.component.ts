@@ -97,7 +97,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	CountryISO = CountryISO;
 	PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-	public requestParams: any;		 
+	public requestParams: any;	
+    public fileExtension : any;	
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
@@ -853,11 +854,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  let fileToUpload = files.item(0);
 		  let allowedExtensions = ["jpg", "jpeg", "png", "JPG", "JPEG"];
 
-		  let fileExtension = files
+		  this.fileExtension = files
 			.item(0)
 			.name.split(".")
 			.pop();
-		  if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+		  if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
 			this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
 			return;
 		  }
@@ -923,7 +924,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	onImageCropSave() {
 		this.defaultProfilePic = this.profilePicValue;
 		this.previousProfilePic = this.defaultProfilePic;
-		this.dataService.setUserPhoto({ photoBlob: this.croppedFile, base64: this.defaultProfilePic })
+		this.dataService.setUserPhoto({ photoBlob: this.croppedFile, base64: this.defaultProfilePic, ext :this.fileExtension })
 		this.mbRef.close();
 	}
 	

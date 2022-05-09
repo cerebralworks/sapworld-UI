@@ -26,7 +26,7 @@ export class UserResumeComponent implements OnInit {
 	public selectedResumeUrl: any;
 	public selectedCoverUrl: any;
 	public mbRef: NgbModalRef;
-
+	public fileExtension:any;
 	@ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
 	@ViewChild("coverTitleModal", { static: false }) coverTitleModal: TemplateRef<any>;
 	@ViewChild('userResume', { static: false }) userResume: ElementRef;
@@ -83,11 +83,11 @@ export class UserResumeComponent implements OnInit {
 		let files: FileList = event.target.files;
 		if (files && files.length > 0) {
 			let allowedExtensions = ["doc", "docx", "pdf"];
-			let fileExtension = files
+			this.fileExtension = files
 			.item(0)
 			.name.split(".")
 			.pop();
-			if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+			if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
 				this.toastrService.error('File format not supported(Allowed Format:doc,pdf,docx)');
 				return;
 			}
@@ -141,6 +141,7 @@ export class UserResumeComponent implements OnInit {
 		const formData = new FormData();
 		formData.append('doc_resume', this.userSelectedResume, this.userSelectedResume.name);
 		formData.append('title', this.resumeForm.value.title);
+		formData.append('extension', this.fileExtension);
 		this.userService.resumeUpdate(formData).subscribe(
 			response => {
 				this.modalService.dismissAll();
@@ -160,6 +161,7 @@ export class UserResumeComponent implements OnInit {
 		const formData = new FormData();
 		formData.append('doc_cover', this.userSelectedCover, this.userSelectedCover.name);
 		formData.append('title', this.coverForm.value.title);
+		formData.append('extension', this.fileExtension);
 		this.userService.coverUpdate(formData).subscribe(
 			response => {
 				this.modalService.dismissAll();
