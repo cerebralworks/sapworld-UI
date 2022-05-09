@@ -32,7 +32,7 @@ body {
     margin: 0;
      font-family: 'Nunito', sans-serif !important; 
   /*  font-family: sans-serif,'Nunito' !important; */
-    font-size: 13px;
+    font-size: 14px;
 	color: #000000;
     letter-spacing: 0.25px;
 }
@@ -79,7 +79,7 @@ a:hover {
     margin-bottom: 0;
     vertical-align: top;
     padding-top: 2px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: #666;
 }
@@ -135,7 +135,7 @@ a:hover {
     background-color: #ffc107;
     border-color: #ffc107;
 }
-.btn-sm{font-size: 12px;height: 28px;}
+.btn-sm{font-size: 13px;height: 28px;}
 .sm-btn{width:36px;}
 /* .btn {border-radius: 7px!important;} */
 .btn-group-lg>.btn, .btn-lg {
@@ -298,7 +298,7 @@ a:hover {
     height: 24px!important;
     padding: 1px 5px!important;
     min-width: 100px!important;
-    font-size: 13px;
+    font-size: 13.5px;
     border: 1px solid #d2d2d2!important;
     border-radius: 5px;
 }
@@ -548,7 +548,7 @@ a:hover {
 }
 .theme-nav.navbar-light .navbar-nav .nav-link {
     color: #6c757d!important;
-    font-size: 14px;
+    font-size: 15px;
     /* text-transform: capitalize; */
     font-weight: 700;
     padding: 10px 15px;
@@ -812,7 +812,7 @@ a:hover {
 }
 .job-card .media  h6 {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 13.3px;
     color: #465666;
     margin-bottom: 7px;
 }
@@ -1203,7 +1203,7 @@ a:hover {
     border-radius: 2rem;
     width: fit-content;
     background: #efefef;
-    font-size: 12px;
+    font-size: 13px;
     margin: 10px 5px 0 0;
     font-weight: 600;
     float: left;
@@ -1294,7 +1294,7 @@ a:hover {
 }
 .profile-card .pc-info h6 {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 13.3px;
     color: #465666;
     margin-top: -5px;
 }
@@ -1403,7 +1403,7 @@ a:hover {
     width: auto;
     float: left;
     height: 22px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: #385edf;
     border-radius: 75px;
@@ -1451,7 +1451,7 @@ a:hover {
     width: auto;
     float: left;
     height: 34px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: #9b9b9b;
     border: solid 1px #adadad;
@@ -1617,7 +1617,7 @@ a:hover {
     border-radius: 0;
     margin-bottom: 10px;
     color: #888;
-    font-size: 13px;
+    font-size: 13.3px;
     min-height: 26px;
     font-weight: 600;
 }
@@ -1642,7 +1642,7 @@ a:hover {
 .sap-badge {
     background: #ffeaa9;
     padding: 4px 10px 2px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     border-radius: 75px;
     color: #333;
@@ -2114,7 +2114,7 @@ a:hover {
     background: rgb(113 177 30 / 1%);
 }
 .company-jbcard h4{
-    font-size: 0.95rem;
+    font-size: 0.99rem;
     margin-bottom: 5px;
     font-weight: 600;
 }
@@ -2123,7 +2123,7 @@ a:hover {
 }
 .company-jbcard h5 {
     margin-bottom: 5px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     color: #666;
 }
@@ -2472,7 +2472,7 @@ a:hover {
 .sap-badge {
     background: #ffeaa9;
     padding: 4px 10px 2px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     border-radius: 75px;
     color: #333;
@@ -2543,7 +2543,7 @@ a:hover {
 }
 .media h6 {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 13.3px;
     color: #465666;
     margin-bottom: 5px;
 }
@@ -2669,7 +2669,7 @@ ul.timeline > li {
     padding-left: 5px;
     text-align: left;
     font-weight: 500;
-    font-size: 15px; 
+    font-size: 16px; 
 }
 ul.timeline > li:before {
     content: "\f13a";
