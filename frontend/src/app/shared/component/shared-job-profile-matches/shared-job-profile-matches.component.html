@@ -1,7 +1,11 @@
-<div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;" style="top: -33px !important;left: 30px;">
+<div class="chrome_display"><div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;" style="top: -33px !important;left: 30px;">
 	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-</div>
+</div></div>
+<div class="safari_only"><div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;" style="top: -73px !important;left: 30px;">
+	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
+</div></div>
 <div class=" info-box">
 	<div class="col-lg-12 " [ngClass]="isMultipleMatches ? 'top-pad' : 'mt-3'">
 		<div class="accordion ">
