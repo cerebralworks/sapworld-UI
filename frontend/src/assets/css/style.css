@@ -812,7 +812,7 @@ a:hover {
 }
 .job-card .media  h6 {
     font-weight: 700;
-    font-size: 13.3px;
+    font-size: 14px;
     color: #465666;
     margin-bottom: 7px;
 }
@@ -1274,7 +1274,7 @@ a:hover {
 .profile-card h5 {
 	color: #385edf;
 	margin-bottom: 0;
-	font-size: 18px;
+	font-size: 19px;
 	font-weight: 700;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -1294,7 +1294,7 @@ a:hover {
 }
 .profile-card .pc-info h6 {
     font-weight: 700;
-    font-size: 13.3px;
+    font-size: 14px;
     color: #465666;
     margin-top: -5px;
 }
@@ -1617,7 +1617,7 @@ a:hover {
     border-radius: 0;
     margin-bottom: 10px;
     color: #888;
-    font-size: 13.3px;
+    font-size: 14px;
     min-height: 26px;
     font-weight: 600;
 }
@@ -2543,7 +2543,7 @@ a:hover {
 }
 .media h6 {
     font-weight: 700;
-    font-size: 13.3px;
+    font-size: 14px;
     color: #465666;
     margin-bottom: 5px;
 }

@@ -183,13 +183,13 @@
 				</div>
 				<div class="col-lg-7 col-md-7 col-sm-7 info">
 					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" >
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" style="min-width: 260px;">
 							{{"userProfile.shouldBeACitizenPr" | translate }}
 						</li>
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" >
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" style="min-width: 260px;">
 							{{"userProfile.shouldBeHavingAWorkPermit" | translate }}
 						</li>
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" style="min-width: 260px;">
 							{{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }}
 						</li>
 					 </ul>
