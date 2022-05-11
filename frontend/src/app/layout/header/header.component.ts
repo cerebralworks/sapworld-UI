@@ -8,6 +8,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { DataService } from '@shared/service/data.service';
+import { environment as env } from '@env';
 import {
     PushNotificationsService
 } from '@shared/service/notification.service';
@@ -30,8 +31,10 @@ export class HeaderComponent implements OnInit {
   public currentCompanyDetails: any = {};
   public currentUserDetails: any = {};
   public randomNum: number;
-	public screenWidth: any;
-	
+  public screenWidth: any;
+  public employerprofilepath : any;	
+  public userprofilepath : any;	
+  
   constructor(
     public router: Router,
     public translateService: TranslateService,
@@ -46,6 +49,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  
 	  this.screenWidth = window.innerWidth;
 	  this._notificationService.requestPermission();
     this.randomNum = Math.random();
@@ -63,6 +67,7 @@ export class HeaderComponent implements OnInit {
         details => {
           if(details) {
             this.currentEmployerDetails = details;
+			this.employerprofilepath = `${env.apiUrl}/public/images/employer/${details.photo}`;
           }
         }
       )
@@ -79,6 +84,8 @@ export class HeaderComponent implements OnInit {
         details => {
           if(details) {
             this.currentUserDetails = details;
+			this.userprofilepath = `${env.apiUrl}/public/images/user/${details.photo}`;
+			
           }
         }
       )

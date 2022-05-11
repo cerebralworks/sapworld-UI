@@ -132,7 +132,7 @@
            <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            <span class="d-flex align-items-center">
-		    <img class="img-circule" *ngIf="currentEmployerDetails?.photo && currentEmployerDetails?.photo != 'default.png' " [src]="currentEmployerDetails?.photo ? (currentEmployerDetails?.meta?.photo?.path+'/'+ currentEmployerDetails?.meta?.photo?.folder+'/'+currentEmployerDetails?.meta?.photo?.sizes?.medium+'/'+currentEmployerDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
+		    <img class="img-circule" *ngIf="currentEmployerDetails?.photo && currentEmployerDetails?.photo != 'default.png' " [src]="employerprofilepath">
             <ngx-avatar *ngIf="(!currentEmployerDetails?.photo || currentEmployerDetails?.photo == 'default.png' ) && (currentEmployerDetails?.first_name || currentEmployerDetails?.last_name)" class="float-left mr-2" size="35" name="{{(currentEmployerDetails?.first_name ? currentEmployerDetails?.first_name : '') + ' ' + (currentEmployerDetails?.last_name ? currentEmployerDetails?.last_name : '')}}"></ngx-avatar>
             <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
             <span class="text-capitalize">{{(currentEmployerDetails?.first_name ? currentEmployerDetails?.first_name : '') + ' ' + (currentEmployerDetails?.last_name ? currentEmployerDetails?.last_name : '')}}</span>
@@ -210,7 +210,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="d-flex align-items-center">
-                <img class="img-circule" *ngIf="currentUserDetails?.photo" [src]="currentUserDetails?.photo ? (currentUserDetails?.meta?.photo?.path+'/'+ currentUserDetails?.meta?.photo?.folder+'/'+currentUserDetails?.meta?.photo?.sizes?.medium+'/'+currentUserDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
+                <img class="img-circule" *ngIf="currentUserDetails?.photo" [src]="userprofilepath">
             <ngx-avatar *ngIf="!currentUserDetails?.photo" class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name ? currentUserDetails?.first_name : '' + ' ' + currentUserDetails?.last_name ? currentUserDetails?.last_name : ''}}"></ngx-avatar>
                 <!-- <ngx-avatar class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}"></ngx-avatar> -->
                 <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
