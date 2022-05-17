@@ -112,7 +112,7 @@
 																	</a>	
 															</span>	
 															<span  style="display: inline-block;">
-																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
+																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
 																		<small style="display:inline-block;"><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
 																	</a>	
 															</span>	
@@ -203,7 +203,7 @@
 															</span>
 														</h6>
 														<form class="form-inline">
-															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}  </small>
 															</a>
 															<ng-container *ngIf="!OpenMatchPopups(matchingUsers)">
