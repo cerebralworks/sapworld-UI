@@ -130,7 +130,7 @@
         <span class=" profile-btn" *ngIf="!isMultipleMatches" style="display: inline-block;">
           <a *ngIf="!isUploadShow || selectedCover?.file"
           [class.disabled]="!selectedCover?.file"
-          (click)="selectedCover?.file && onToggleCoverForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedCover?.file))" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;">
+          (click)="selectedCover?.file && onToggleCoverForm(true, (selectedCover?.file))" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.coverLetter" | translate }}
           </a>
 		  <a *ngIf="isUploadShow && !selectedCover?.file" 
@@ -141,7 +141,7 @@
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
           <a *ngIf="!isUploadShowResume || selectedResume?.file" style="margin-top: .25rem;"
           [class.disabled]="!selectedResume?.file"
-          (click)="selectedResume?.file && onToggleResumeForm(true, (userInfo?.meta?.doc_resume?.path + '/' + userInfo?.meta?.doc_resume?.folder + '/' + selectedResume?.file))" class="btn btn-smss btn-outline-blue btn-sm" href="javascript:;">
+          (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-smss btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
           </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="margin-top: .25rem;"
          (click)="openResumselect(true)"  id="addResumeFile" 

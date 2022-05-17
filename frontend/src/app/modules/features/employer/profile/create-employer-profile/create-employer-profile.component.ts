@@ -16,7 +16,7 @@ import { base64ToFile, ImageCroppedEvent } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
 import { callbackify } from 'util';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-create-employer-profile',
   templateUrl: './create-employer-profile.component.html',
@@ -70,6 +70,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	public show: boolean = false;
 	public invalidMobile: boolean = false;
 	public fileExtension: any;
+	public employerprofilepath: any;
 	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
 	//TooltipLabel = TooltipLabel;
@@ -103,6 +104,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			details => {
 				if (!this.utilsHelperService.isEmptyObj(details)) {
 					this.employerDetails = details;
+					this.employerprofilepath = `${env.apiUrl}/images/employer/${details.photo}`;
 					this.createCompanyForm.patchValue({
 						email_id: this.employerDetails.email,
 						name: this.employerDetails.company,

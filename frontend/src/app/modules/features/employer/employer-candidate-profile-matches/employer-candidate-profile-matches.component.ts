@@ -321,7 +321,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onToggleCoverForm = (status, selectedCoverUrl?) => {
 		if (selectedCoverUrl) {
-		  this.selectedCoverUrl = selectedCoverUrl;
+		  this.selectedCoverUrl = `${env.apiUrl}/images/${selectedCoverUrl}`;
 		}
 		this.isOpenedCoverModal = status; 
 	}
@@ -493,7 +493,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onToggleResumeForm = (status, selectedResumeUrl?: string) => {
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = selectedResumeUrl;
+			this.selectedResumeUrl = `${env.apiUrl}/images/${selectedResumeUrl}`;
 		}
 		this.isOpenedResumeModal = status;
 	}

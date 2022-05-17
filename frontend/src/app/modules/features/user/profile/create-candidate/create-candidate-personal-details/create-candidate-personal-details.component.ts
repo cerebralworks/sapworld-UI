@@ -75,6 +75,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	public othercountrys: any[] = [];
 	public languageSource: any[] = [];
 	public checkboxerror:boolean=false;
+	public userprofilepath : any;
+	
 	savedUserDetails: any;
 	othercountryValue: any;
 	randomNum: number;
@@ -242,7 +244,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  })
 		this.randomNum = Math.random();
 		this.createForm();
-		
+		this.userprofilepath = `${env.apiUrl}/images/user/`;
 		//To get the tab information
 		
 		this.dataService.getTabInfo().subscribe(response => {

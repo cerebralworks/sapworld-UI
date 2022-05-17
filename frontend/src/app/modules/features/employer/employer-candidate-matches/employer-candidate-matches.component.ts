@@ -82,6 +82,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public loggedUserInfo: any;
   public randomNum: number;
   public userprofilepath :any;
+
   constructor(
     public sharedService: SharedService,
     private router: Router,
@@ -709,8 +710,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	**/
 	
 	onToggleResumeForm = (status, selectedResumeUrl?) => {
+	   console.log(selectedResumeUrl);
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = selectedResumeUrl;
+			this.selectedResumeUrl = `${env.apiUrl}/images/${selectedResumeUrl}`;;
 		}
 		this.isOpenedResumeModal = status;
 	}

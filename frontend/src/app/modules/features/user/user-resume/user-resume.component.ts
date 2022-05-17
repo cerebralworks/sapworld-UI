@@ -5,6 +5,7 @@ import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment as env } from '@env';
 
 @Component({
   selector: 'app-user-resume',
@@ -38,7 +39,7 @@ export class UserResumeComponent implements OnInit {
 	public isDeleteModalOpenedCover: boolean;
 	public resumeForm: FormGroup;
 	public coverForm: FormGroup;
-
+	
 	constructor(
 		private userService: UserService,
 		private utilsHelperService: UtilsHelperService,
@@ -304,8 +305,9 @@ export class UserResumeComponent implements OnInit {
 	**/
 	
 	onToggleResumeForm = (status, selectedResumeUrl?) => {
+	console.log(selectedResumeUrl);
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = selectedResumeUrl;
+			this.selectedResumeUrl = `${env.apiUrl}/images/${selectedResumeUrl}`;
 		}
 		this.isOpenedResumeModal = status;
 	}
@@ -316,7 +318,7 @@ export class UserResumeComponent implements OnInit {
 	
 	onToggleCoverForm = (status, selectedCoverUrl?) => {
 		if (selectedCoverUrl) {
-			this.selectedCoverUrl = selectedCoverUrl;
+			this.selectedCoverUrl = `${env.apiUrl}/images/${selectedCoverUrl}`;;
 		}
 		this.isOpenedCoverModal = status;
 	}

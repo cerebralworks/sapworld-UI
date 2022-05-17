@@ -138,7 +138,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   **/
   onToggleResumeForm = (status, selectedResumeUrl?) => {
     if (selectedResumeUrl) {
-      this.selectedResumeUrl = selectedResumeUrl;
+      this.selectedResumeUrl =`${env.apiUrl}/images/${selectedResumeUrl}`;
     }
     this.isOpenedResumeModal = status;
   }
@@ -148,7 +148,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   **/
   onToggleCoverForm = (status, selectedCoverUrl?) => {
     if (selectedCoverUrl) {
-      this.selectedCoverUrl = selectedCoverUrl;
+      this.selectedCoverUrl = `${env.apiUrl}/images/${selectedCoverUrl}`;
     }
     this.isOpenedCoverModal = status;
   }
