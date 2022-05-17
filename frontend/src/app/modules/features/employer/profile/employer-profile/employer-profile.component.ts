@@ -110,7 +110,11 @@ export class EmployerProfileComponent implements OnInit {
 			}, error => {
 				this.companyProfileInfo = {};
 			}
-		)
+		);
+		this.employerSharedService.getEmployerProfileDetails().subscribe(
+			details => {
+			   this.employerprofilepath = `${env.apiUrl}/images/employer/${details.photo}`;
+			});
 	}
 	
 	/**
