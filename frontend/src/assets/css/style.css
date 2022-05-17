@@ -3134,6 +3134,33 @@ ul.timeline > li span:hover {
 	}
  }
 
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+	 .job-card .media h6 {
+		font-size: 12px;
+	}
+	.matchs-info {
+		top: 40px !important;
+		font-size: 12px!important;
+		right: 0px!important;
+		left: 93px !important;
+	}
+	
+	.col-lg-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+ #media_width{
+	margin-top:-1rem;
+ }
+ #coverletter{
+	 font-size:8px;
+ }
+ #resumeletter{
+	 font-size:8px;
+ }
+ }
+ 
 /*-- Medium devices (tablets, 768px and up)--*/
 @media (min-width: 768px) and (max-width: 1023.98px) {
 	.job-txt{
