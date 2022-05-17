@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
         details => {
           if(details) {
             this.currentEmployerDetails = details;
-			this.employerprofilepath = `${env.apiUrl}/public/images/employer/${details.photo}`;
+			this.employerprofilepath = `${env.apiUrl}/images/employer/${details.photo}`;
           }
         }
       )
@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit {
         details => {
           if(details) {
             this.currentUserDetails = details;
-			this.userprofilepath = `${env.apiUrl}/public/images/user/${details.photo}`;
+			this.userprofilepath = `${env.apiUrl}/images/user/${details.photo}`;
 			
           }
         }

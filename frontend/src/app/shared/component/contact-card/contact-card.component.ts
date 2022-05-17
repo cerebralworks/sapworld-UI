@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '@data/service/user.service';
 
 import jquery from 'jquery';
-
+import { environment as env } from '@env';
 declare var $: any;
 
 @Component({
@@ -53,6 +53,8 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public accountUserSubscription: Subscription;
   public loggedUserInfo: any;
   public selected: any[]=[];
+  public userprofilepath:any;
+  
 toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   constructor(
     public utilsHelperService: UtilsHelperService,
@@ -67,7 +69,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   ngOnInit(): void {
 	  
     this.randomNum = Math.random();
-
+	this.userprofilepath = `${env.apiUrl}/images/user/`;
     this.accountUserSubscription = this.accountService
       .isCurrentUser()
       .subscribe(response => {

@@ -122,7 +122,7 @@
 														<div class="col-lg-8">						
 															<div class="media">
 																<img
-																  [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
+																  [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingUsers?.profile?.photo : 'assets/images/user-img-icon.jpg'">
 																<div class="media-body">
 																	<h6 class="mb-0 text-capitalize" style="text-overflow: ellipsis;">
 																		{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}

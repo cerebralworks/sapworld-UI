@@ -186,7 +186,7 @@
                     <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
                     <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
                       <ng-container *ngIf="item?.privacy_protection?.photo == true; else elsePhotoTemplate">
-                        <img [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+                        <img [src]="item?.photo ? userprofilepath+item?.photo : 'assets/images/user-img-icon.jpg'">
                       </ng-container>
                       <ng-template #elsePhotoTemplate>
                         <img [src]="'assets/images/user-lock.jpg'">
@@ -281,7 +281,7 @@
             </div>
           </div>
          
-         <!-- <div class="card mt-4">
+          <!--<div class="card mt-4">
             <div class="card-header" data-toggle="collapse" data-target="#collapseSkills" aria-expanded="false" aria-controls="collapseSkills">
              {{"shared.sapSkills" | translate }}    <i class="fas fa-angle-down float-right pt-1"></i>
             </div>

@@ -18,7 +18,7 @@
         <div class="company-info">
           <div class="media">
             <div class="media-head" *ngIf="employerDetails?.photo !='default.png'">
-              <img (error)="updateUrl($event)" src="employerDetails?.photo" [src]="employerDetails?.photo ? (employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
+              <img (error)="updateUrl($event)" src="employerDetails?.photo" [src]="employerDetails?.photo ? employerprofilepath: 'assets/images/user-img-icon.jpg'">
             </div>
 			<div style="padding: 30px;" class="media-head" *ngIf="employerDetails?.photo =='default.png'">
             </div>

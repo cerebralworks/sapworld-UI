@@ -13,6 +13,7 @@ import * as lodash from 'lodash';
 import { CandidateProfile } from '@data/schema/create-candidate';
 //import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Subscription } from 'rxjs';
+import { environment as env } from '@env';
 
 @Component({
   selector: 'app-employer-candidate-profile-matches',
@@ -66,7 +67,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public nice: boolean = true;
 	public IsValidate: boolean = false;
 	public matchForm: FormGroup;
-	
+	public userprofilepath:any;
 	constructor(
 		private dataService: DataService,
 		private route: ActivatedRoute,
@@ -242,7 +243,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		requestParams.additional_fields = 'job_application';
 		const sb = this.employerService.getJobScoring(requestParams).subscribe(
 			response => {
-				
+				this.userprofilepath = `${env.apiUrl}/images/user/`;
 				this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
 				this.matchingUsers = { ...this.matchingUsers, profile: {} };
