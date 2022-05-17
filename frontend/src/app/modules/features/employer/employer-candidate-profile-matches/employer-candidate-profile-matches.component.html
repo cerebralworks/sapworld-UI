@@ -30,7 +30,7 @@
 										<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
 									</a>
 									<h6 class="text-capitalize mt-2">{{postedJobsDetails?.company?.company}}</h6>
-									<h6 class="mb-0 text-capitalize job-txt">
+									<h6 class="mb-0 text-capitalize job-txt d-flex">
 										<ng-container *ngFor="let item of postedJobsDetails?.job_locations" >
 										{{item?.city ? item?.city+', '  : ''}}
 										{{item?.state ? item?.state+', '  : ''}}
@@ -105,7 +105,7 @@
 																	</h5>
 																</a>
 														</div>
-														<div class="col-lg-5 col-md-5 change-lays ">
+														<div class="col-lg-5 col-md-5 change-lays " style="display:flex;">
 															<span class="mr-2"  style="display: inline-block;">														
 																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-orange btn-sm" data-toggle="modal" data-target="#resumeModal">
 																		<small style="display:inline-block;"><i class="fas fa-file-alt"></i> {{"shared.coverLetter" | translate}}</small>
