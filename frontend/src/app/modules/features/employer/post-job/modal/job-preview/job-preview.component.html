@@ -1067,15 +1067,19 @@
 			<div class="col-md-3">
 				<h6 class="font-weight-bold mb-2" >{{"shared.workTiming" | translate}} </h6>
 				
+					<ng-container *ngIf="!postJobForm?.value?.jobInfo?.min || !postJobForm?.value?.jobInfo?.max  ">
+							<span>  NA </span>
+						</ng-container>
+				
 					<h6 class="text-capitalize job-cardh6"> 
-						<ng-container *ngIf="postJobForm?.value?.jobInfo?.min ">
+						<ng-container *ngIf="postJobForm?.value?.jobInfo?.min && postJobForm?.value?.jobInfo?.max">
 							{{postJobForm?.value?.jobInfo?.min | time}}
 						</ng-container>
 						<ng-container *ngIf="postJobForm?.value?.jobInfo?.min && postJobForm?.value?.jobInfo?.max  ">
-							-
+							<span>  - </span>
 						</ng-container>
 						
-						<ng-container *ngIf="postJobForm?.value?.jobInfo?.max ">
+						<ng-container *ngIf="postJobForm?.value?.jobInfo?.max  &&postJobForm?.value?.jobInfo?.min">
 							{{postJobForm?.value?.jobInfo?.max | time}}
 						</ng-container>
 					</h6>
