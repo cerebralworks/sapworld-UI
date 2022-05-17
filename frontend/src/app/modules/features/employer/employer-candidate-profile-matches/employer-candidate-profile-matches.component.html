@@ -54,12 +54,12 @@
 								</div>
 								<div class="pc-btn">
 									
-									<a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2" href="javascript:;">
+									<a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2" href="javascript:;" style="display:inline-block;">
 										<i class="fas fa-file-alt"></i> {{"shared.description" | translate }}
 									</a>
 									<a *ngIf="!isMultipleMatches" class="btn d-none-content btn-outline-green btn-sm mr-1"
 									  (click)="onViewOtherMatches()"
-										 href="javascript:;">
+										 href="javascript:;" style="display:inline-block;">
 										<!-- {{"dashboard.matches" | translate}} -->
 										<i class="fas fa-tasks"></i>
 										{{"tabs.matches" | translate }}
@@ -94,8 +94,8 @@
 										<div class="col-lg-12" *ngIf="!isMultipleMatches">
 											<div class="card job-card" style="height:120px;">
 												<div class="card-body">
-													<div class="row">
-														<div class="col-lg-8 col-md-8">
+													<div class="row d-flex">
+														<div class="col-lg-7 col-md-7">
 															<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsers?.profile?.job_location?.id,id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
 																	<h5 class="text-capitalize">
 																		<span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
@@ -105,21 +105,21 @@
 																	</h5>
 																</a>
 														</div>
-														<div class="col-lg-4 col-md-4 change-lays ">
+														<div class="col-lg-5 col-md-5 change-lays ">
 															<span class="mr-2"  style="display: inline-block;">														
 																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-orange btn-sm" data-toggle="modal" data-target="#resumeModal">
-																		<small><i class="fas fa-file-alt"></i> {{"shared.coverLetter" | translate}}</small>
+																		<small style="display:inline-block;"><i class="fas fa-file-alt"></i> {{"shared.coverLetter" | translate}}</small>
 																	</a>	
 															</span>	
 															<span  style="display: inline-block;">
 																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (matchingUsersMeta?.doc_resume?.path + '/' + matchingUsersMeta?.doc_resume?.folder + '/' + onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-																		<small><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
+																		<small style="display:inline-block;"><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
 																	</a>	
 															</span>	
 														</div>
 													</div>
-													<div class="row mt-2">
-														<div class="col-lg-8">						
+													<div class="row mt-2 d-flex">
+														<div class="col-lg-8 col-md-8">						
 															<div class="media">
 																<img
 																  [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingUsers?.profile?.photo : 'assets/images/user-img-icon.jpg'">
@@ -155,7 +155,7 @@
 																</div>
 															</div>	
 														</div>
-														<div class="col-lg-3">
+														<div class="col-lg-4 col-md-4">
 															<ng-container *ngIf="!OpenMatchPopups(matchingUsers)">
 																<a [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsers?.profile?.id,employeeId: matchingUsers?.job?.company }" >
 																	<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>

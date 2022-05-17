@@ -1,5 +1,5 @@
 <div class="row  info-box">
-	<div class="col-lg-12 " style="margin-top: 0rem !important;">
+	<div class="col-lg-12 " style="margin-top: 1.5rem !important;">
 		<div class="accordion  " [ngClass]="isMultipleMatches ? 'mtop-2' : 'mtop-4'">
 			<div  *ngIf="postedJobsDetails?.match_select?.experience=='0'">
 				<div class="row">
@@ -82,7 +82,7 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							 <li class="list-group-item handsExps text-uppercase"> 
+							 <li class="list-group-item handsExps text-uppercase d-flex"> 
 								<ng-container *ngIf="userInfo?.skillses?.length; else elseSkillsTemplate">
 									<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skillses, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 										<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-classes"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -459,13 +459,13 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							 <li class="list-group-item text-uppercase"> 
+							 <li class="list-group-item text-uppercase d-flex"> 
 								<ng-container *ngIf="userInfo?.skillses?.length; else elseSkillsTemplate">
-									<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skillses, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
+									<span class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skillses, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 										<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-classes"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
 											{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}
 										</span>
-									</small>
+									</span>
 								</ng-container>
 								<ng-template #elseSkillsTemplate>
 									<li>--</li>
@@ -823,7 +823,7 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							 <li class="list-group-item handsExps text-uppercase"> 
+							 <li class="list-group-item handsExps text-uppercase d-flex"> 
 								<ng-container *ngIf="userInfo?.skillses?.length; else elseSkillsTemplate">
 									<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skillses, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 										<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-classes"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -1185,7 +1185,7 @@
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							 <li class="list-group-item handsExps text-uppercase"> 
+							 <li class="list-group-item handsExps text-uppercase d-flex"> 
 								<ng-container *ngIf="userInfo?.skillses?.length; else elseSkillsTemplate">
 									<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skillses, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 										<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-classes"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
