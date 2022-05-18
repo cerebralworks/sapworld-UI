@@ -129,7 +129,7 @@
 																<img
 																  [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingUsers?.profile?.photo : 'assets/images/user-img-icon.jpg'">
 																<div class="media-body">
-																	<h6 class="mb-0 text-capitalize" style="text-overflow: ellipsis;">
+																	<h6 class="mb-0 text-capitalize" style="text-overflow: ellipsis;display:grid;">
 																		{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
 																		{{matchingUsers?.profile?.state ? matchingUsers?.profile?.state+', '  : ''}}
 																		<span class="text-uppercase">
@@ -160,7 +160,7 @@
 																</div>
 															</div>	
 														</div>
-														<div class="col-lg-4 col-md-4">
+														<div class="col-lg-4 col-md-4" style="display:contents;">
 															<ng-container *ngIf="!OpenMatchPopups(matchingUsers)">
 																<a [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsers?.profile?.id,employeeId: matchingUsers?.job?.company }" >
 																	<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
