@@ -163,10 +163,17 @@
                     </div>
                     <div class="col-lg-5  col-md-7 text-right mt-2">
 
-                      <span data-toggle="modal" data-target="#exampleModal">
+                      <span data-toggle="modal" data-target="#exampleModal" *ngIf="!item?.job_application">
                         <a
                         [class.disabled]="!onGetFilteredValue(item?.doc_resume)"
                         (click)="onGetFilteredValue(item?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(item?.doc_resume)))" class="btn btn-outline-blue btn-sm" href="javascript:;">
+                          <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
+                        </a>
+                      </span>
+					  <span data-toggle="modal" data-target="#exampleModal" *ngIf="item?.job_application">
+                        <a
+						[class.disabled]="!onGetFilteredValue(item?.doc_resume)"
+                        (click)="onToggleResumeForm(true, (item?.job_application?.user_resume ? item?.job_application?.user_resume :onGetFilteredValue(item?.doc_resume)))" class="btn btn-outline-blue btn-sm" href="javascript:;">
                           <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
                         </a>
                       </span>

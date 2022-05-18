@@ -111,11 +111,16 @@
 																		<small id="coverletter" style="display:inline-block;"><i class="fas fa-file-alt"></i> {{"shared.coverLetter" | translate}}</small>
 																	</a>	
 															</span>	
-															<span  style="display: inline-block;">
+															<span  style="display: inline-block;" *ngIf="!matchingUsers?.application">
 																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-																		<small id="resumeletter" style="display:inline-block;"><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
+																		<small><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
 																	</a>	
-															</span>	
+															</span>
+															<span  style="display: inline-block;" *ngIf="matchingUsers?.application">
+																<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsers?.application ? matchingUsers?.application?.user_resume : onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
+																		<small><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
+																	</a>	
+															</span>
 														</div>
 													</div>
 													<div class="row mt-2 d-flex">
@@ -203,7 +208,10 @@
 															</span>
 														</h6>
 														<form class="form-inline">
-															<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+															<a *ngIf="!matchingUsers?.application" [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}  </small>
+															</a>
+															<a *ngIf="matchingUsers?.application" [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsers?.application ? matchingUsers?.application?.user_resume : onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}  </small>
 															</a>
 															<ng-container *ngIf="!OpenMatchPopups(matchingUsers)">
@@ -266,7 +274,10 @@
 															</span>
 														</h6>
 														<form class="form-inline"  style="display: inline-block;">
-															<a [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+															<a *ngIf="!matchingUsersNew?.application" [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
+																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}</small>
+															</a>
+															<a *ngIf="matchingUsersNew?.application" [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsersNew?.application ? matchingUsersNew?.application?.user_resume : onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
 																<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}</small>
 															</a>
 															<ng-container *ngIf="!OpenMatchPopups(matchingUsersNew)">
