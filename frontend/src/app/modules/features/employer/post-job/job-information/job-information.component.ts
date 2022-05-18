@@ -54,6 +54,8 @@ export class JobInformationComponent implements OnInit {
 	public isContractDuration: boolean = false;
 	public minError: boolean = false;
 	public maxError: boolean = false;
+	public mintimeError: boolean = false;
+	public maxtimeError: boolean = false;
 	public showRemoteOption: boolean = false;
 	public min: any;
 	public max: any;
@@ -434,6 +436,14 @@ export class JobInformationComponent implements OnInit {
 		this.maxError = false;
 		var maxCheck = this.childForm.value.jobInfo.max;
 		var minCheck = this.childForm.value.jobInfo.min;
+		if(minCheck !=null && maxCheck ==null){
+			this.maxtimeError=true;
+		}else if(maxCheck !=null && minCheck ==null){
+			this.mintimeError=true;
+		}else{
+			this.mintimeError=false;
+			this.maxtimeError=false;
+		}
 		
 		if(minCheck && maxCheck){
 			maxCheck= maxCheck.split(':');
