@@ -92,8 +92,8 @@ export class UserResumeComponent implements OnInit {
 				this.toastrService.error('File format not supported(Allowed Format:doc,pdf,docx)');
 				return;
 			}
-			if (files.item(0).size > 3145728) {
-				this.toastrService.error('Size Should be less than or equal to 3 MB');
+			if (files.item(0).size > 10485760) {
+				this.toastrService.error('Size Should be less than or equal to 10 MB');
 				return;
 			}
 			if(data=="cover"){
@@ -305,9 +305,8 @@ export class UserResumeComponent implements OnInit {
 	**/
 	
 	onToggleResumeForm = (status, selectedResumeUrl?) => {
-	console.log(selectedResumeUrl);
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = `${env.apiUrl}/images/${selectedResumeUrl}`;
+			this.selectedResumeUrl = `${env.apiUrl}/documents/resume/${selectedResumeUrl}`;
 		}
 		this.isOpenedResumeModal = status;
 	}
@@ -318,7 +317,7 @@ export class UserResumeComponent implements OnInit {
 	
 	onToggleCoverForm = (status, selectedCoverUrl?) => {
 		if (selectedCoverUrl) {
-			this.selectedCoverUrl = `${env.apiUrl}/images/${selectedCoverUrl}`;;
+			this.selectedCoverUrl = `${env.apiUrl}/documents/cover/${selectedCoverUrl}`;
 		}
 		this.isOpenedCoverModal = status;
 	}

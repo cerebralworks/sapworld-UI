@@ -712,7 +712,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	onToggleResumeForm = (status, selectedResumeUrl?) => {
 	   console.log(selectedResumeUrl);
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = `${env.apiUrl}/images/${selectedResumeUrl}`;;
+			this.selectedResumeUrl = `${env.apiUrl}/documents/resume/${selectedResumeUrl}`;;
 		}
 		this.isOpenedResumeModal = status;
 	}
