@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-cover-modal',
@@ -24,7 +25,8 @@ export class CoverModalComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     public router: Router,
-    public utilsHelperService: UtilsHelperService
+    public utilsHelperService: UtilsHelperService,
+	private ngxLoader: NgxUiLoaderService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class CoverModalComponent implements OnInit {
   **/
   ngAfterViewInit(): void {
     if (this.toggleCoverModal) {
+	  this.ngxLoader.start();
       this.mbRef = this.modalService.open(this.coverModal, {
         windowClass: 'modal-holder',
         centered: true,
@@ -67,6 +70,7 @@ export class CoverModalComponent implements OnInit {
   }
 
   resumeLoaded (event,value)  {
+    this.ngxLoader.stop();
     console.log(event);
 
   }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-resume-modal',
@@ -24,7 +25,8 @@ export class ResumeModalComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     public router: Router,
-    public utilsHelperService: UtilsHelperService
+    public utilsHelperService: UtilsHelperService,
+	private ngxLoader: NgxUiLoaderService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class ResumeModalComponent implements OnInit {
   **/
   ngAfterViewInit(): void {
     if (this.toggleResumeModal) {
+	     this.ngxLoader.start();
       this.mbRef = this.modalService.open(this.resumeModal, {
         windowClass: 'modal-holder',
         centered: true,
@@ -52,15 +55,17 @@ export class ResumeModalComponent implements OnInit {
   }
 
   onClickCloseBtn(status){
+  
     this.onEvent.emit(status);
     if(status == false) {
       this.mbRef.close()
     }
   }
 
-  resumeLoaded (event,value)  {
+  resumeLoaded(event,value){
+    this.ngxLoader.stop();
     console.log(event);
 
   }
-
+ 
 }

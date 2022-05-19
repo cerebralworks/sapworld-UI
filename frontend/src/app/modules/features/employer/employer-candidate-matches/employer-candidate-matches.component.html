@@ -172,7 +172,6 @@
                       </span>
 					  <span data-toggle="modal" data-target="#exampleModal" *ngIf="item?.job_application">
                         <a
-						[class.disabled]="!onGetFilteredValue(item?.doc_resume)"
                         (click)="onToggleResumeForm(true, (item?.job_application?.user_resume ? item?.job_application?.user_resume :onGetFilteredValue(item?.doc_resume)))" class="btn btn-outline-blue btn-sm" href="javascript:;">
                           <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
                         </a>
