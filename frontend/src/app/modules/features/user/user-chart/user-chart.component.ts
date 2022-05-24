@@ -149,11 +149,11 @@ export class UserChartComponent implements OnInit {
 		public totalVisa :any =0;
 		public totalAvailability :any =0;
 		public totalType :any =0;
-		public showMatches :boolean = false;
-		public showApplied :boolean = false;
-		public showAvailiability :boolean = false;
-		public showType :boolean = false;
-		public showVisa :boolean = false;
+		public showMatches :boolean = true;
+		public showApplied :boolean = true;
+		public showAvailiability :boolean = true;
+		public showType :boolean = true;
+		public showVisa :boolean = true;
 		public showData :boolean = false;
 		
 		public isActive:boolean = true;
