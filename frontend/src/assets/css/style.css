@@ -1266,7 +1266,7 @@ a:hover {
 .profile-card {
     border: none;
     background: transparent;
-    min-height: 120px;
+    min-height: 100px;
     border-radius: 10px;
     border: 1px solid rgba(0,0,0,.125);
     padding: 8px;
@@ -1801,7 +1801,7 @@ a:hover {
 }
 .media i {
     margin-right: 15px;
-    line-height: 24px;
+    /*line-height: 24px;*/
     color: #999;
 }
 .footer-bottom {
@@ -2460,12 +2460,13 @@ a:hover {
 }
 .pj-title {
     padding: 5px 0;
-    border-bottom: 1px solid #ffc0d8;
+    border-bottom: 1px solid #48C894;
+	background: #FAFFF9;
 }
 .pj-title h6{
     margin: 0;
-    font-weight: 900;
-    font-size: 0.7rem;
+     font-weight: 600;
+    font-size: 16px;
     text-transform: uppercase;
     line-height: 0.6;
 }
@@ -3809,3 +3810,35 @@ ul.timeline > li span:hover {
     color: #ffffff;
 }
 
+.scorecard{
+	width :100px;
+	height:100px;
+   color:#11B771;
+   border:1px solid;
+   border-radius:10%;
+   padding:1.5rem 1rem 1rem 1.2rem;
+   font-weight:bolder;
+}
+.slideanimations{
+  position: relative;
+  animation: moveleft 0.4s;
+}
+
+@keyframes moveleft {
+  from {left: 0px;}
+  to {left: 100%;}
+}
+.slidearight{
+  position: relative;
+  animation: moveright 0.4s;
+}
+
+@keyframes moveright {
+  from {right: 0px;}
+  to {right: 100%;}
+}
+.profile-card:hover{
+       border-color: #11b771;
+    box-shadow: 5px 5px 5px rgb(17 183 113 / 0.15);
+    background: rgb(113 177 30 / 1%);
+}

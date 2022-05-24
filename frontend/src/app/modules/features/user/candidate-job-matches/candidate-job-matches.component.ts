@@ -40,6 +40,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	private subscriptions: Subscription[] = [];
 	matchingJobMeta: any;
 	public loading : boolean;
+	public userDetails:any;
 	/**
 	**	To implements the import Packages in constructor
 	**/
@@ -82,6 +83,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 						response.skillses = this.utilsHelperService.differenceByPropValArray(response.skills, response.hands_on_experience, 'skill_id')
 					}
 					this.userInfo = response;
+					this.userDetails = response;
+					console.log(this.userDetails)
 					if (this.jobId && this.matchFind ==false) {
 						
 						this.onGetUserScoringById();
@@ -422,15 +425,31 @@ export class CandidateJobMatchesComponent implements OnInit {
 	
 	onChangeUsers = (type) => {
 		const count = this.matchingJobMeta  && this.matchingJobMeta.count ? parseInt(this.matchingJobMeta.count) : 0;
-		if (type == 'next') {
+		var nxt : HTMLElement = document.getElementById('carouselProfile');
+		var nxt1 : HTMLElement = document.getElementById('cardsliders');
+		
+		if(type == 'next') {
+			nxt1.classList.add("slideanimations")
+			nxt.classList.add("slideanimations")
+			setTimeout(()=>{
+			nxt.classList.remove('slideanimations')
+		    nxt1.classList.remove('slideanimations')
+			},1000)
 			if (count > this.page) {
 				if (this.matchingJobMeta.count > 1 && this.matchingJobMeta.count !== this.page) {
 					/* this.matchingJob = { ...this.matchingJob, jobs: {} }; */
 					this.page++;
+					
 					this.onGetUserScoringById(true);
 				}
 			}
 		} else if (type == 'prev' && this.page > 1) {
+		   nxt1.classList.add("slidearight")
+		    nxt.classList.add("slidearight")
+			setTimeout(()=>{
+			nxt.classList.remove('slidearight')
+		    nxt1.classList.remove('slidearight')
+			},1000)
 			if (this.matchingJobMeta.count > 1 ) {
 				/* this.matchingJob = { ...this.matchingJob, jobs: {} }; */
 				this.page--;				

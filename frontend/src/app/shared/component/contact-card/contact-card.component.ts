@@ -54,7 +54,7 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public loggedUserInfo: any;
   public selected: any[]=[];
   public userprofilepath:any;
-  
+  public matchesModels:boolean = false;
 toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   constructor(
     public utilsHelperService: UtilsHelperService,
@@ -75,6 +75,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
       .subscribe(response => {
         this.loggedUserInfo = response;
       });
+	  this.matchesModels = this.router.url==='/user/job-matches/details'?true:false;
   }
 
   /**

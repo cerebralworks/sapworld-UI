@@ -1,5 +1,5 @@
 <div class="row  info-box">
-	<div class="col-lg-12 " style="margin-top: 1.5rem !important;">
+	<div class="col-lg-12 " style="margin-top: -1.5rem !important;">
 		<div class="accordion  " [ngClass]="isMultipleMatches ? 'mtop-2' : 'mtop-4'">
 			<div  *ngIf="postedJobsDetails?.match_select?.experience=='0'">
 				<div class="row">
@@ -237,8 +237,8 @@
 				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-4 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
-							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>-->
+							 <li  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-8 col-md-77 col-sm-8 info">
