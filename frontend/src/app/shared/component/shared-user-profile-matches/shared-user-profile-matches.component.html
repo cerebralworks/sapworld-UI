@@ -7,12 +7,12 @@
 	</button> -->
 </div>
 <div class="col-lg-12 info" [ngClass]="(isMultipleMatches === true)?'col-lg-6 mt-3-8':'col-lg-12 mt-3-3'" style="margin-top:1.6rem !important;">
-	<div class="score"  style="margin-top:25px;"[ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
+	<!--<div class="score"  style="margin-top:25px;"[ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
 		{{"shared.score" | translate}}
 		<span>
 			{{matchingUsers?.score ? matchingUsers?.score : 0}}/10
 		</span>
-	</div>
+	</div>-->
 	<div class="row  info-box">
 		<div class="col-lg-12" [ngClass]="(isMultipleMatches === true)?'padd-55':''">
 			<div class="accordion mt-5 " >

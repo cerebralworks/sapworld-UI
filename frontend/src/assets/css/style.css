@@ -3842,3 +3842,8 @@ ul.timeline > li span:hover {
     box-shadow: 5px 5px 5px rgb(17 183 113 / 0.15);
     background: rgb(113 177 30 / 1%);
 }
+.bluecardtext{
+	color:#6C757D;
+	font-size:15px;
+	font-weight:bold;
+}
