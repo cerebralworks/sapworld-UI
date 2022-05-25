@@ -55,9 +55,9 @@
   <!-- //Sub Header Section -->
 <section class="my-2">
 	<div [ngClass]="(screenWidth >= 1500)?'container':'container'">
-	   <div id="cardsliders" class="row">
+	   <div id="cardsliders" class="row" *ngIf="loading===true">
 	   
-	   <div class="col-10" >
+	   <div class="col-10" *ngIf="!utilsHelperService.isEmptyObj(matchingJob?.jobs)">
 			<div class="card profile-card">
 			<div class="row">
 			   <div class="col-1"> 
