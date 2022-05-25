@@ -45,7 +45,7 @@
   </ul>
   </div>
   <div class="col-3">
-   <a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2" href="javascript:;" style="display:inline-block; float:right;">
+   <a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2" href="javascript:;" style="display:inline-block; float:right; font-size:12px;">
 		<i class="fas fa-calendar-alt"></i> {{"shared.description" | translate }}
 	</a>
   </div>
@@ -100,9 +100,9 @@
 							</span>
 							</div><br /><br />
 				            <div style="float:right;">				
-							<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light "><i class='fas fa-check' style='color:#3AC724;font-size:6px;border:2px solid;border-radius:40%;padding:2px 2px 0px 1px;'></i>{{"shared.matches" | translate}} </button>
-							<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn ml-2 btn-sm btn btn-fltr btn-light "><i class="fa fa-times text-danger" style='color:#DA0000;font-size:7px;border:2px solid;border-radius:40%;padding:2px 1.5px 0px 2px;'></i> {{"shared.missing" | translate}}  </button>
-							<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''"  class="moreBtn  btn-sm ml-2 btn btn-fltr btn-light "><i class="fa fa-info" style='color:#0FBEF4;font-size:7px;border:2px solid;border-radius:40%;padding:2px 3px 0px 3px;'></i> {{"shared.moreSkills" | translate}} </button>
+							<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light "><i class='fas fa-check' style='color:#3AC724;font-size:6px;border:2px solid;border-radius:40%;padding:2px 2px 0px 1px;'></i><span style="font-size:11px;font-weight:500;">&nbsp;{{"shared.matches" | translate}} </span></button>
+							<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn ml-2 btn-sm btn btn-fltr btn-light "><i class="fa fa-times text-danger" style='color:#DA0000;font-size:7px;border:2px solid;border-radius:40%;padding:1px 1.7px 0px 2px;'></i> <span style="font-size:11px;font-weight:500;">&nbsp;{{"shared.missing" | translate}}</span> </button>
+							<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''"  class="moreBtn  btn-sm ml-2 btn btn-fltr btn-light "><i class="fa fa-info" style='color:#0FBEF4;font-size:6px;border:2px solid;border-radius:40%;padding:2px 4px 0px 3px;'></i> <span style="font-size:11px;font-weight:500;">&nbsp;{{"shared.moreSkills" | translate}}</span> </button>
 			                </div>
 		                 </div>
 						</div>

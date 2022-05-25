@@ -279,20 +279,20 @@
         <span class=" profile-btn" *ngIf="!isMultipleMatches" style="display: inline-block;">
           <a *ngIf="!isUploadShow || selectedCover?.file"
           [class.disabled]="!selectedCover?.file"
-          (click)="selectedCover?.file && onToggleCoverForm(true, (selectedCover?.file))" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;">
+          (click)="selectedCover?.file && onToggleCoverForm(true, (selectedCover?.file))" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;" style="font-size:12px;">
             <i class="fas fa-envelope-open-text"></i>  {{"shared.coverLetter" | translate }}
           </a>
 		  <a *ngIf="isUploadShow && !selectedCover?.file" 
-          (click)="openCoverselect(true)" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;">
+          (click)="openCoverselect(true)" class="btn btn-smss btn-outline-orange  btn-sm" style="font-size:12px;" href="javascript:;">
             <i class="fas fa-envelope-open-text"></i>  {{"shared.addCover" | translate }}
           </a>
         </span>
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
-          <a *ngIf="!isUploadShowResume || selectedResume?.file" style="margin-top: .25rem;"
+          <a *ngIf="!isUploadShowResume || selectedResume?.file" style="margin-top: .25rem;font-size:12px;"
           [class.disabled]="!selectedResume?.file"
           (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-smss btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-envelope-open-text"></i> {{"shared.resume" | translate }}
-          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="margin-top: .25rem;"
+          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="margin-top: .25rem;font-size:12px;"
          (click)="openResumselect(true)"  id="addResumeFile" 
            class="btn  btn-smss btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-envelope-open-text"></i>  {{"shared.addResume" | translate }}

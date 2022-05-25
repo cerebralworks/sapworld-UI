@@ -87,15 +87,15 @@
 
 					</div>
 					<div class="col-lg-4 col-md-12 change-lay ml-5"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
-						<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJob?.jobs?.description)">	
+						<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJob?.jobs?.description)" style="font-size:12px;">	
 						<i class="fas fa-calendar-alt"></i> {{"shared.description" | translate}}</a>
 						
 						<div class="media mt-2" >
 							<div class="media-body">
 							
 							 <div style="position: initial !important;margin-top:0px !important;"class="matchs-info " [ngClass]="isMultipleMatches ? 'd-none' : ''" >
-							<button (click)="onShowMatches($event)" id="matchBtnVal"  [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light"><i class='fas fa-check' style='color:#3AC724;font-size:6px;border:2px solid;border-radius:40%;padding:2px 2px 0px 1px;'></i>{{"shared.matches" | translate}} </button>
-							<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn btn-sm btn btn-fltr btn-light"><i class="fa fa-times text-danger" style='color:#DA0000;font-size:7px;border:2px solid;border-radius:40%;padding:2px 1.5px 0px 2px;'></i>  {{"shared.missing" | translate}} </button>
+							<button (click)="onShowMatches($event)" id="matchBtnVal"  [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light"><i class='fas fa-check' style='color:#3AC724;font-size:6px;border:2px solid;border-radius:40%;padding:3px 2px 0px 2px;'></i><span style="font-size:11px;font-weight:500;margin-left:-0.7rem;">{{"shared.matches" | translate}}</span> </button>
+							<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn btn-sm btn btn-fltr btn-light"><i class="fa fa-times text-danger" style='color:#DA0000;font-size:7px;border:2px solid;border-radius:40%;padding:2px 1.5px 0px 2px;'></i> <span style="font-size:11px;font-weight:500;margin-left:-0.7rem;">{{"shared.missing" | translate}}</span></button>
 							
 						</div>
 								<!--<h6 *ngIf="matchingJob?.jobs?.salary_type == 0" [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / hr'}}</h6>
