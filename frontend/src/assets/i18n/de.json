@@ -146,7 +146,8 @@
 		"contractDuration": "Vertragslaufzeit",
 		"enterNumberOfPositions": "Geben Sie die Anzahl der Positionen ein",
 		"validStatus": "Bitte wählen Sie den gültigen Status",
-		"notificationSetting" : "Benachrichtigungseinstellung"
+		"notificationSetting" : "Benachrichtigungseinstellung",
+		"viewjobs":"Job anzeigen"
 	},
 	"auth":{
 		"findRightPlace":"Finden Sie Ihren richtigen Ort",

@@ -10,7 +10,7 @@
 				  <li class="breadcrumb-item">
 					<a (click)="onRedirectBack();"  ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a>
 				 </li>
-				  <li class="breadcrumb-item active" aria-current="page">{{"shared.matches" | translate}}</li>
+				  <li class="breadcrumb-item active" aria-current="page">{{"shared.candidateMatches" | translate}}</li>
 				</ol>
 			</div>
 			<div class="col-lg-7 clearfix">
@@ -117,11 +117,11 @@
 		<div class="col-2 d-flex">
 		<!-- <button type="button" class="card profile-card" style="border:1px solid #11B771;color:#11B771;"></button> -->
 		<div class="scorecard" [ngClass]="{'score-txt-green': matchingJob?.score >= 5, 'score-txt-orange': (matchingJob?.score < 5 && matchingJob?.score > 0), 'score-txt-red': (matchingJob?.score == 0)}">
-		{{"shared.score" | translate}} <span style="font-size:20px;">{{matchingJob?.score ? matchingJob?.score :0}}/10</span>
+		&nbsp;&nbsp;{{"shared.score" | translate}} <span style="font-size:20px;font-weight: 600;">{{matchingJob?.score ? matchingJob?.score :0}}/10</span>
 	    </div>
 		<div class="ml-4">
 		<a *ngIf="page != 1 " (click)="onChangeUsers('prev')"><i style="color:#CCCCCC;font-size:30px;" class="fas fa-arrow-circle-left"></i></a>
-		<h5 style="color:#6C757D;font-weight:bold;">{{page}}/{{matchingJobMeta?.count}}</h5>
+		<h5 *ngIf="matchingJobMeta?.count !=1" style="color:#6C757D;font-weight:600;">{{page}}/{{matchingJobMeta?.count}}</h5>
 		<a *ngIf="page != matchingJobMeta?.count " (click)="onChangeUsers('next')" ><i style="color:#CCCCCC;font-size:30px;" class="fas fa-arrow-circle-right"></i></a>	
 		</div>
 		

@@ -45,7 +45,7 @@
   </ul>
   </div>
   <div class="col-3">
-   <a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2" href="javascript:;" style="display:inline-block; float:right; font-size:12px;">
+   <a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2 btn-sty" href="javascript:;" style="display:inline-block; float:right;">
 		<i class="fas fa-calendar-alt"></i> {{"shared.description" | translate }}
 	</a>
   </div>
@@ -85,17 +85,17 @@
 						<div class="col-5">
 							<div style="float:right;">													
 								<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-orange btn-sm" data-toggle="modal" data-target="#resumeModal">
-										<small id="coverletter" style="display:inline-block;"><i class="fas fa-envelope-open-text"></i> {{"shared.coverLetter" | translate}}</small>
+										<small class="btn-sty" id="coverletter" style="display:inline-block;"><i class="fas fa-envelope-open-text"></i> {{"shared.coverLetter" | translate}}</small>
 									</a>	
 							
 							<span class="ml-2" *ngIf="!matchingUsers?.application">
 								<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-										<small id="resumeletter" style="display:inline-block;"><i class="fas fa-envelope-open-text"></i> {{"shared.resume" | translate}} </small>
+										<small class="btn-sty" id="resumeletter" style="display:inline-block;"><i class="fas fa-envelope-open-text"></i> {{"shared.resume" | translate}} </small>
 									</a>	
 							</span>
 							<span class="ml-2" *ngIf="matchingUsers?.application">
 								<a href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsers?.application ? matchingUsers?.application?.user_resume : onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-										<small><i class="fas fa-envelope-open-text"></i> {{"shared.resume" | translate}} </small>
+										<small class="btn-sty"><i class="fas fa-envelope-open-text"></i> {{"shared.resume" | translate}} </small>
 									</a>	
 							</span>
 							</div><br /><br />
@@ -114,14 +114,13 @@
 			
 		<div class="col-2 d-flex">
 		<div class="scorecard" [ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
-		{{"shared.score" | translate}} <span style="font-size:20px;">{{matchingUsers?.score ? matchingUsers?.score :0}}/10</span>
+		<span style="font-size:14px;font-weight: 600;">&nbsp;&nbsp;&nbsp;{{"shared.score" | translate}}</span> <br /><span style="font-size:20px;font-weight: 600;">{{matchingUsers?.score ? matchingUsers?.score :0}}/10</span>
 	    </div>	
 		<div class="ml-4">
 		<a *ngIf="page != 1 " (click)="onChangeUsers('prev')"><i style="color:#CCCCCC;font-size:30px;" class="fas fa-arrow-circle-left"></i></a>
-		<h5 style="color:#6C757D;font-weight:bold;">{{page}}/{{matchingUsersMeta?.count}}</h5>
+		<h5 *ngIf="matchingUsersMeta?.count != 1 " style="color:#6C757D;font-weight:600;">{{page}}/{{matchingUsersMeta?.count}}</h5>
 		<a *ngIf="page != matchingUsersMeta?.count " (click)="onChangeUsers('next')" ><i style="color:#CCCCCC;font-size:30px;" class="fas fa-arrow-circle-right"></i></a>	
 		</div>
-		
 		</div>
 		</div>
 

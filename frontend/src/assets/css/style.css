@@ -135,7 +135,7 @@ a:hover {
     background-color: #ffc107;
     border-color: #ffc107;
 }
-.btn-sm{font-size: 13px;height: 28px;}
+.btn-sm{font-size: 12px;height: 25px;font-weight:600;}
 .sm-btn{width:36px;}
 /* .btn {border-radius: 7px!important;} */
 .btn-group-lg>.btn, .btn-lg {
@@ -843,7 +843,8 @@ a:hover {
 }
 .job-card h5 small{
 	color: #11b771;
-	font-weight: 600;
+	font-weight: 700;
+	font-size:20px;
 }
 .sm h5 {
     color: #385edf;
@@ -1274,7 +1275,7 @@ a:hover {
 .profile-card h5 {
 	color: #385edf;
 	margin-bottom: 0;
-	font-size: 19px;
+	font-size: 20px;
 	font-weight: 700;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -1631,9 +1632,9 @@ a:hover {
     border-radius: 0;
     margin-bottom: 10px;
     color: #000;
-    font-size: 14.5px;
+    font-size: 16px;
     min-height: 26px;
-    font-weight: 600;
+    font-weight: 700;
     text-overflow: ellipsis;
     overflow: hidden;
     min-width: 350px;
@@ -3813,9 +3814,9 @@ ul.timeline > li span:hover {
 .scorecard{
 	width :100px;
 	height:100px;
-   color:#11B771;
-   border:1px solid;
    border-radius:10%;
+   color: #11b771;
+   border: 1px solid #11b771;
    padding:1.5rem 1rem 1rem 1.2rem;
    font-weight:bolder;
 }
@@ -3846,4 +3847,9 @@ ul.timeline > li span:hover {
 	color:#6C757D;
 	font-size:18px;
 	font-weight:700;
+}
+.btn-sty{
+	font-size:12px;
+	font-weight:600px;
+	
 }

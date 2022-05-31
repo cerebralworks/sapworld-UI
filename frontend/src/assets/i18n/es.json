@@ -142,7 +142,8 @@
 	    "knowledgeOnSAP":"Conocimiento sobre otras habilidades de SAP",
 	    "couldNotFind":"No pude encontrar sus habilidades de SAP",
 	    "addNewSkills":"Agregue una nueva habilidad de SAP",
-		"notificationSetting" :"Notificación de configuración"
+		"notificationSetting" :"Notificación de configuración",
+		"viewjobs":"Ver trabajo"
 	},
 	"auth":{
 	    "findRightPlace":"Encuentra tu lugar correcto",

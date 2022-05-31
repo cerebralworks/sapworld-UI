@@ -90,13 +90,25 @@ export class NotificationComponent implements OnInit {
 		  response => {
 			if(response && response['details']) {
 				response['details'].forEach(item => {
-					if(item.title=='New Application Request' || item.title=='New User Matches'){
+					if(item.title=='New User Matches'){
 						var temp = item.message.split('/');
 						item['uname'] = temp[0];
 						 item['message'] = temp[1];
 						item['path'] = temp[2];
 						item['country'] = temp[3];
 					} 
+					if(item.title=='New Application Request'){
+						var temp = item.message.split('/');
+						 item['message'] = temp[0];
+						item['path'] = temp[1];
+						item['country'] = temp[2];
+					} 
+					if(item.title =='Multiple User Matches'){
+					    var temp = item.message.split('/');
+						item['path2'] = temp[0];
+						item['message'] = temp[1];
+						item['path'] = temp[2];
+					}
 					if(item.title=='Application Under Review'|| item.title=='New Job Matches' || item.title=='Application Shortlisted' || item.title=='Event scheduled'){
 						var temp = item.message.split('/');
 						 item['message'] = temp[0];
@@ -112,6 +124,7 @@ export class NotificationComponent implements OnInit {
 			  this.notificationDetails = response['details'];
 			  this.notificationDetailsMeta = response['meta'];
 			  this.length = this.notificationDetailsMeta['total'];
+			  console.log(this.notificationDetails);
 			}
 		  }, error => {
 		  }

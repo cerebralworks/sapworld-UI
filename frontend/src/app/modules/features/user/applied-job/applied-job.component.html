@@ -19,10 +19,10 @@
 							<ng-container *ngFor="let item of appliedJobs; let j = index">
 								<tr >
 									<td>
-										<a   *ngIf="item?.job_posting?.status != 3 " [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'applied' }"  class="text-capitalize" href="javacript:;">
+										<a   *ngIf="item?.job_posting?.status != 3 && item?.job_posting?.status != 0" [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'applied' }"  class="text-capitalize" href="javacript:;">
 											{{item?.job_posting?.title}}
 										</a>
-										<a (click)="openPopupView()" *ngIf="item?.job_posting?.status ==3 " class="text-capitalize" href="javacript:;">
+										<a (click)="openPopupView()" *ngIf="item?.job_posting?.status ==3 || item?.job_posting?.status ==0" class="text-capitalize" href="javacript:;">
 											{{item?.job_posting?.title}}
 										</a>
 									</td>

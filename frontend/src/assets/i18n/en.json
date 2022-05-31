@@ -58,7 +58,7 @@
 		"candidateMatches":"Post Job Matches View",
 		"jobsMatches":"Jobs Matches",
 		"salary": "Pay",
-		"score":"SCORE",
+		"score":"Score",
 		"viewAll":"View all",
 		"aboutUs": "About Us",
 		"dragAndDrop": "Drag and Drop",
@@ -150,7 +150,8 @@
 		"notificationSetting" : "Notification Setting",
 		"jobLocation" : "Job Location",
 		"workTiming" : "Work Timing",
-		"timing" : "Timing"
+		"timing" : "Timing",
+		"viewjobs" :"View Job"
 	},
 	"auth":{
 		"findRightPlace":"Find Your Right Place",
