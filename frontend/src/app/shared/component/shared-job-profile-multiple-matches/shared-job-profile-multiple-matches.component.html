@@ -1,22 +1,22 @@
-<div *ngIf="isMultipleMatches ===false" [ngClass]="isMultipleMatches ? 'top-pad' : 'top-pad-1'" class="matchs-infos" style="z-index: 999;" style="left: 30px;">
+<!--<div  class="matchs-infos" style="z-index: 10;position:relative;">
 	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-</div>
-<div *ngIf="isMultipleMatches ===true" [ngClass]="isMultipleMatches ? 'top-pad' : 'top-pad-1'" class="matchs-infos" style="z-index: 999;" style="left: 30px; margin-top: -3.2rem !important;">
+</div>-->
+<!--<div *ngIf="isMultipleMatches ===true" [ngClass]="isMultipleMatches ? 'top-pad' : 'top-pad-1'" class="matchs-infos" style="z-index: 999;" style="left: 30px; margin-top: -3.2rem !important;">
 	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-</div>
+</div>-->
 <div class=" info-box">
 	<div class="col-lg-12" >
 		<div class="accordion ">
-			<div class="pj-title "  *ngIf="!isMultipleMatches" >
+			<div class="pj-title ">
 				<h6 class="mb-0" >
 					{{"jobs.requiredSkils" | translate }} 
 				 </h6>
 			</div>
-			<div  *ngIf="isMultipleMatches" [ngClass]="isMultipleMatches ? 'mt-32' : 'mt-27'" >
+			<!--<div  *ngIf="isMultipleMatches" [ngClass]="isMultipleMatches ? 'mt-32' : 'mt-27'" >
 				
-			</div>
+			</div>-->
 			<div class="  mt-3  info-box" *ngIf="jobInfo.match_select?.experience=='0'">
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -423,14 +423,14 @@
 			</div>
 		</div>
 		<div class="accordion" *ngIf="desired">
-			<div class="pj-title m-b-1" *ngIf="!isMultipleMatches" >
+			<div class="pj-title m-b-1">
 				<h6 class="mb-0" >
 					{{"jobs.desired" | translate }}
 				 </h6>
 			</div>
-			<div class="pj-title mt-3" *ngIf="isMultipleMatches" >
+			<!--<div class="pj-title mt-3" >
 				
-			</div>
+			</div>-->
 			<div class="  mt-3  info-box" *ngIf="jobInfo.match_select?.experience=='1'">
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -838,15 +838,15 @@
 			
 		</div>
 		<div class="accordion" *ngIf="nice">
-			<div class="pj-title m-b-1" *ngIf="!isMultipleMatches">
+			<div class="pj-title m-b-1" >
 				<h6 class="mb-0" >
 					{{"jobs.niceToHave" | translate }}
 				 </h6>
 			</div>
 			
-			<div class="pj-title  mt-3" *ngIf="isMultipleMatches" >
+			<!--<div class="pj-title  mt-3" *ngIf="isMultipleMatches" >
 				
-			</div>
+			</div>-->
 			<div class="  mt-3  info-box" *ngIf="jobInfo.match_select?.experience=='2'">
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -1253,14 +1253,14 @@
 			</div>
 		</div>
 		<div class="accordion"  *ngIf="optional">
-			<div class="pj-title m-b-1" *ngIf="!isMultipleMatches" >
+			<div class="pj-title m-b-1" >
 				<h6 class="mb-0" >
 					{{"jobs.otherPreferences" | translate }}
 				 </h6>
 			</div>
-			<div class="pj-title mt-3" *ngIf="isMultipleMatches" >
+			<!--<div class="pj-title mt-3" *ngIf="isMultipleMatches" >
 				
-			</div>
+			</div>-->
 		</div>
 		
 			<div class="  mt-3  info-box" *ngIf="jobInfo.match_select?.experience==''">

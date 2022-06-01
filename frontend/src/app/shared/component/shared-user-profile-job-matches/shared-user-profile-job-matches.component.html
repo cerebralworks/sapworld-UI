@@ -1,12 +1,13 @@
 <div class="row  info-box">
 	<div class="col-lg-12 ">
-		<div class="accordion  " [ngClass]="isMultipleMatches ? 'mtop-2' : 'mtop-4'">
+		<div class="accordion  " [ngClass]="isMultipleMatches ? 'mtop-2' : 'mtop-2'">
 			<div  *ngIf="postedJobsDetails?.match_select?.experience=='0'">
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
-							<li *ngIf="isMultipleMatches" style="font-size:13.5px;" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
+							<li *ngIf="isMultipleMatches" style="font-size:13.5px;" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>-->
+							<li  class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -20,8 +21,9 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li  *ngIf="!isMultipleMatches" style="font-size:13.5px;" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>
+						    <li  style="font-size:13.5px;" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+							<!--<li  *ngIf="!isMultipleMatches" style="font-size:13.5px;" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>-->
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -40,8 +42,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.domains_worked && userInfo?.domains_worked.length ">{{sharedService.onFindDomainFromID(userInfo?.domains_worked)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.domains_worked || !userInfo?.domains_worked.length ">--</li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.domains_worked && userInfo?.domains_worked.length ">{{sharedService.onFindDomainFromID(userInfo?.domains_worked)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.domains_worked || !userInfo?.domains_worked.length ">--</li>
 						</ul>
 					</div>
 				</div>	
@@ -50,14 +52,15 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
 						</ul>
 						
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-uppercase d-flex handsExps skills">
+							<li class="list-group-item text-uppercase d-flex  skills">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
 										<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -82,7 +85,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							 <li class="list-group-item handsExps text-uppercase d-flex"> 
+							 <li class="list-group-item  text-uppercase d-flex"> 
 								<ng-container *ngIf="userInfo?.skillses?.length; else elseSkillsTemplate">
 									<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skillses, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 										<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-classes"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -107,7 +110,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
 						</ul>
 					</div>
 				</div>
@@ -121,8 +124,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
 				</div>					
@@ -136,8 +139,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.certification.length">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.certification.length">--</li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.certification.length">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.certification.length">--</li>
 						</ul>
 					</div>
 				</div>	
@@ -151,7 +154,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group ul-value">
-							<li class="list-group-item handsExps text-capitalize">
+							<li class="list-group-item text-capitalize">
 								{{(userInfo?.job_type || userInfo?.job_type == 0) ? sharedService.onGetJobType(userInfo?.job_type) : '--'}}
 							</li>
 						</ul>
@@ -190,8 +193,9 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>-->
+						 <li class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
 					</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -238,8 +242,9 @@
 				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
-							 <li *ngIf="isMultipleMatches" class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
+							 <li *ngIf="isMultipleMatches" class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>-->
+							 <li class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -266,7 +271,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group ul-value text-capitalize">
-							<li class="list-group-item handsExps text-capitalize">
+							<li class="list-group-item  text-capitalize">
 						{{this.findEducation(userInfo?.education_qualification)}}
 						</li>
 						</ul>
@@ -341,7 +346,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">
+							<li class="list-group-item text-capitalize">
 								{{findLanguageArray(userInfo?.language_known)}}
 							</li>
 						</ul>
@@ -377,14 +382,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="accordion "  [ngClass]="isMultipleMatches ? ' mt-3' : ' mt-3'" *ngIf="desired">
+		<div class="accordion "  [ngClass]="isMultipleMatches ? ' mt-5' : ' mt-3'" *ngIf="desired">
 			<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'" ><h6  class="mb-0"></h6></div>
 			<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='1'">
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -398,8 +404,9 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>
+							<!--<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -428,14 +435,15 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
 						</ul>
 						
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-uppercase d-flex handsExps skills">
+							<li class="list-group-item text-uppercase d-flex  skills">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
 										<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -485,7 +493,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
 						</ul>
 					</div>
 				</div>
@@ -499,8 +507,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
 				</div>					
@@ -514,8 +522,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.certification.length">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.certification.length">--</li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.certification.length">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.certification.length">--</li>
 						</ul>
 					</div>
 				</div>	
@@ -529,7 +537,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group ul-value">
-						<li class="list-group-item handsExps text-capitalize">
+						<li class="list-group-item text-capitalize">
 							{{(userInfo?.job_type || userInfo?.job_type == 0) ? sharedService.onGetJobType(userInfo?.job_type) : '--'}}
 						</li>
 						</ul>
@@ -568,8 +576,9 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
-							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
+							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>-->
+							 <li class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -612,8 +621,9 @@
 				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
-							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
+							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>-->
+							 <li class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -640,7 +650,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group ul-value text-capitalize">
-						<li class="list-group-item handsExps text-capitalize">
+						<li class="list-group-item text-capitalize">
 						{{this.findEducation(userInfo?.education_qualification)}}
 						</li>
 						</ul>
@@ -715,7 +725,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">
+							<li class="list-group-item text-capitalize">
 							
 								{{findLanguageArray(userInfo?.language_known)}}
 							</li>
@@ -742,14 +752,15 @@
 			</div>
 			
 		</div>
-		<div class="accordion  " [ngClass]="isMultipleMatches ? ' mt-3' : ' mt-3'" *ngIf="nice">
+		<div class="accordion  " [ngClass]="isMultipleMatches ? ' mt-5' : ' mt-3'" *ngIf="nice">
 			<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'"><h6  class="mb-0"></h6></div>
 			<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='2'">
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -763,8 +774,9 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>
+							<!--<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -793,14 +805,15 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
 						</ul>
 						
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-uppercase d-flex handsExps skills">
+							<li class="list-group-item text-uppercase d-flex skills">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
 										<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -825,7 +838,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							 <li class="list-group-item handsExps text-uppercase d-flex"> 
+							 <li class="list-group-item  text-uppercase d-flex"> 
 								<ng-container *ngIf="userInfo?.skillses?.length; else elseSkillsTemplate">
 									<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skillses, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 										<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-classes"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -850,7 +863,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
 						</ul>
 					</div>
 				</div>
@@ -864,8 +877,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
 				</div>					
@@ -879,8 +892,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.certification.length">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.certification.length">--</li>
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.certification.length">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.certification.length">--</li>
 						</ul>
 					</div>
 				</div>	
@@ -894,7 +907,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group ul-value">
-						<li class="list-group-item handsExps text-capitalize">
+						<li class="list-group-item text-capitalize">
 							{{(userInfo?.job_type || userInfo?.job_type == 0) ? sharedService.onGetJobType(userInfo?.job_type) : '--'}}
 						</li>
 						</ul>
@@ -933,8 +946,9 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>-->
+						 <li class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
 					</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -977,8 +991,9 @@
 				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
-							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
+							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>-->
+							 <li class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -1004,7 +1019,7 @@
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
-						<ul class="list-group ul-value handsExps text-capitalize">
+						<ul class="list-group ul-value text-capitalize">
 						{{this.findEducation(userInfo?.education_qualification)}}
 						</ul>
 					</div>
@@ -1078,7 +1093,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">
+							<li class="list-group-item text-capitalize">
 								{{findLanguageArray(userInfo?.language_known)}}
 							</li>
 						</ul>
@@ -1105,14 +1120,15 @@
 			</div>
 			
 		</div>
-		<div class="accordion   "  [ngClass]="isMultipleMatches ? ' mt-3' : ' mt-3'" *ngIf="optional">
+		<div class="accordion   "  [ngClass]="isMultipleMatches ? ' mt-5' : ' mt-3'" *ngIf="optional">
 			<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'"><h6  class="mb-0"></h6></div>
 			<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience==''">
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.shorttotalYearsOfExperience" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"userProfile.totalYearsOfExp" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -1126,8 +1142,9 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>
+							<!--<li  *ngIf="!isMultipleMatches"  class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperienceShort" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"matches.totalYearsOfSapExperience" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -1156,14 +1173,15 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
-							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
+							<li *ngIf="isMultipleMatches" class="list-group-item text-capitalize ">{{"matches.handsOnWithShort" | translate }}</li>-->
+							<li class="list-group-item text-capitalize ">{{"userProfile.handsOnExperience" | translate }}</li>
 						</ul>
 						
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-uppercase d-flex handsExps skills">
+							<li class="list-group-item text-uppercase d-flex  skills">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
 										<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -1188,7 +1206,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							 <li class="list-group-item handsExps text-uppercase d-flex"> 
+							 <li class="list-group-item text-uppercase d-flex"> 
 								<ng-container *ngIf="userInfo?.skillses?.length; else elseSkillsTemplate">
 									<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(userInfo?.skillses, userInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 										<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-classes"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -1213,7 +1231,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
 						</ul>
 					</div>
 				</div>
@@ -1227,8 +1245,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
 				</div>					
@@ -1242,8 +1260,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize" *ngIf="userInfo?.certification.length">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
-							<li class="list-group-item handsExps text-capitalize" *ngIf="!userInfo?.certification.length">--</li>
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.certification.length">{{utilsHelperService.onConvertArrayToString(userInfo?.certification)}}</li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.certification.length">--</li>
 						</ul>
 					</div>
 				</div>	
@@ -1257,7 +1275,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group ul-value">
-						<li class="list-group-item handsExps text-capitalize">
+						<li class="list-group-item text-capitalize">
 							{{(userInfo?.job_type || userInfo?.job_type == 0) ? sharedService.onGetJobType(userInfo?.job_type) : '--'}}
 						</li>
 						</ul>
@@ -1296,8 +1314,9 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
-						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
+						 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.workAuthorisationShort" | translate}}</li>-->
+						 <li class=" list-group-item text-capitalize">{{"userProfile.workAuthorisation" | translate}}</li>
 					</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -1340,8 +1359,9 @@
 				<div class="row" *ngIf="userInfo?.end_to_end_implementation || userInfo?.end_to_end_implementation ==null ">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
-							<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
-							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>
+							<!--<li *ngIf="!isMultipleMatches" class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
+							 <li *ngIf="isMultipleMatches"  class=" list-group-item text-capitalize">{{"matches.endToEndImplementationShort" | translate }}</li>-->
+							 <li class=" list-group-item text-capitalize">{{"userProfile.endToEnd" | translate }}</li>
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
@@ -1367,7 +1387,7 @@
 						</ul>
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
-						<ul class="list-group ul-value handsExps text-capitalize">
+						<ul class="list-group ul-value text-capitalize">
 						{{this.findEducation(userInfo?.education_qualification)}}
 						</ul>
 					</div>
@@ -1442,7 +1462,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item handsExps text-capitalize">
+							<li class="list-group-item text-capitalize">
 								{{findLanguageArray(userInfo?.language_known)}}
 							</li>
 						</ul>

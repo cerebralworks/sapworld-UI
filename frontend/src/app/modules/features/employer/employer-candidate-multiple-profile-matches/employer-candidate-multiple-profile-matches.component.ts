@@ -38,7 +38,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	public employeeID: any;
 	public isOpenedResumeSelectModal: boolean;
 	public matchedElement: boolean = true;
-	public missingElement: boolean = false;
+	public missingElement: boolean ;
 	public moreElement: boolean = true;
 	public isMultipleMatches: boolean;
 	// public matchingUsersMeta: any;
@@ -51,6 +51,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	employeePath: any;
 	TotalMatchJobs: any[]=[];
     loading : boolean;
+	public userDetails:any;
 	constructor(
 		private route: ActivatedRoute,
 		private userSharedService: UserSharedService,
@@ -107,11 +108,57 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 			if(response && response.details) {
 				response['details']['skillses'] = response['details']['skills']
 				this.userInfo = {...response.details, meta: response.meta};
+				this.userDetails = response.details;
 				this.onGetPostedJobs();
 			}
 		}, error => {
 		})
 	}
+	
+
+
+    /**
+	**	To show the users details matches
+	**/
+	onShowMatches = (event) => {
+	  var temp = event.target.className.split(' ');
+	  var match = document.getElementById('matchBtnVal');
+	  if(match.classList.contains('btn-fltr-active')){
+	       match.classList.remove("btn-fltr-active");
+			this.matchedElement = false;
+	 }else{
+	      match.classList.add("btn-fltr-active");
+		  this.matchedElement = true;
+	  }
+    if(this.missingElement == false && this.matchedElement == false ){
+		this.matchedElement = true;
+	  }
+	  
+    }
+
+	/**
+	**	To sjow the user details missing
+	**/
+  onShowMissing = (event) => {
+	  var temp = event.target.className.split(' ');
+	  var miss = document.getElementById('missBtnVal');
+	  if(miss.classList.contains('btn-fltr-active')){
+	       
+		   miss.classList.remove("btn-fltr-active");
+			this.missingElement = false;
+	 }else{
+	      
+		  miss.classList.add("btn-fltr-active");
+		  this.missingElement = true;
+	  }
+	   
+	  if(this.missingElement == false && this.matchedElement == false ){
+		this.matchedElement = true;
+	  }
+    
+  }
+  
+  
 	
 	/**
 	**	To get the posted jobs matches for the user
@@ -131,7 +178,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 							if(this.TotalMatchJobs.length!=0){
 								response['count'][i]['match_select']=this.TotalMatchJobs[0]['match_select'];
 							}
-							response['count'][i]['score']=response['count'][i]['score'].toFixed(1);
+							response['count'][i]['score']=parseFloat(response['count'][i]['score'].toFixed(1));
 							this.TotalMatchJobs.push(response['count'][i])
 						}
 					}else if(this.jobID =='all'){
@@ -140,7 +187,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 							if(this.TotalMatchJobs.length!=0){
 								response['count'][i]['match_select']=this.TotalMatchJobs[0]['match_select'];
 							}
-							response['count'][i]['score']=response['count'][i]['score'].toFixed(1);
+							response['count'][i]['score']=parseFloat(response['count'][i]['score'].toFixed(1));
 							this.TotalMatchJobs.push(response['count'][i])
 						}
 					}else{
@@ -162,7 +209,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 											if(this.TotalMatchJobs.length!=0){
 												temp[j]['match_select']=this.TotalMatchJobs[0]['match_select'];
 											}
-											temp[j]['score']=temp[j]['score'].toFixed(1);
+											temp[j]['score']=parseFloat(temp[j]['score'].toFixed(1));
 											this.TotalMatchJobs.push(temp[j]);
 											
 										}
@@ -194,16 +241,17 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	**/
 	
 	ShowData(){
+	  
 		  if(this.TotalMatchJobs.length==1){
 			   this.isMultipleMatches = false;
 			  this.matchingJob.jobs = this.TotalMatchJobs[0];
 			  this.loading = true;
 		  }else if(1<this.TotalMatchJobs.length){
 			  this.isMultipleMatches = true;
-			  this.pageCount = 2;
-			  this.page = 2;
+			  this.pageCount = 1;
+			  this.page = 1;
 			  this.matchingJob.jobs = this.TotalMatchJobs[0];
-			  this.matchingJobNew.jobs = this.TotalMatchJobs[1];
+			  //this.matchingJobNew.jobs = this.TotalMatchJobs[1];
 			  this.loading = true;
 		  }
 	}
@@ -212,39 +260,56 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	**	To next and previous button clicks
 	**/
 	
-	onChangeUser = (type) => {
-		const count = this.TotalMatchJobs.length
+	onChangeUserr = (type) => {
+	
+		const count = this.TotalMatchJobs.length;
+		var nxt : HTMLElement = document.getElementById('carouselProfile');
+		var nxt1 : HTMLElement = document.getElementById('cardsliders');
 		if (type == 'next') {
+		    nxt1.classList.add("slideanimations")
+			nxt.classList.add("slideanimations")
+			setTimeout(()=>{
+			nxt.classList.remove('slideanimations')
+		    nxt1.classList.remove('slideanimations')
+			},1000)
 			if (count > this.page) {
 				if(this.TotalMatchJobs[this.pageCount]){
+				    
 					this.matchingJob.jobs = this.TotalMatchJobs[this.pageCount];
 					this.pageCount = this.pageCount+1;
 					this.page++;
 				}else{
 					this.matchingJob={};
 				}
-				if(this.TotalMatchJobs[this.pageCount]){
-					this.matchingJobNew.jobs = this.TotalMatchJobs[this.pageCount];
+				/*if(this.TotalMatchJobs[this.pageCount]){
+					//this.matchingJobNew.jobs = this.TotalMatchJobs[this.pageCount];
 					this.pageCount = this.pageCount+1;
 					this.page++;
 				}else{
 					this.matchingJobNew={}
-				}
+				}*/
 			}
-		} else if (type == 'prev' && this.pageCount > 2) {
+		} else if (type == 'prev' && this.pageCount > 1) {
 			this.pageCount = this.pageCount-1;
-			if(this.TotalMatchJobs[this.pageCount-1]){
+			/*if(this.TotalMatchJobs[this.pageCount-1]){
 				
 				this.matchingJobNew.jobs = this.TotalMatchJobs[this.pageCount-1];
 				this.page--;
 			}else{
 				this.matchingJobNew={}
-			}
-			!this.isEven(this.page) && this.page--;
-			this.pageCount = this.pageCount-1;
+			}*/
+			//!this.isEven(this.page) && this.page--;
+			 nxt1.classList.add("slidearight")
+		    nxt.classList.add("slidearight")
+			setTimeout(()=>{
+			nxt.classList.remove('slidearight')
+		    nxt1.classList.remove('slidearight')
+			},1000)
+			//this.pageCount = this.pageCount-1;
 			if(this.TotalMatchJobs[this.pageCount-1]){
 				this.matchingJob.jobs = this.TotalMatchJobs[this.pageCount-1];
-				!this.isEven(this.pageCount) && this.pageCount++;
+				this.page--;
+				//!this.isEven(this.pageCount) && this.pageCount++;
 			}else{
 				this.matchingJob={};
 			}

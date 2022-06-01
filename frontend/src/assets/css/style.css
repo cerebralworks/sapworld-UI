@@ -3807,7 +3807,7 @@ ul.timeline > li span:hover {
 .btn-fltr-active {
     background-color: #4caf50;
     border-color: #4caf50;
-    box-shadow: 3px 3px 3px 2px #4caf5057;
+    /*box-shadow: 3px 3px 3px 2px #4caf5057;*/
     color: #ffffff;
 }
 
@@ -3851,5 +3851,15 @@ ul.timeline > li span:hover {
 .btn-sty{
 	font-size:12px;
 	font-weight:600px;
+	
+}
+.bcstyle{
+	color:white;
+	background:#CCCCCC;
+	height:64px;
+	width:64px;
+	padding:17px;
+	font-size:30px;
+	border-radius:5px;
 	
 }
