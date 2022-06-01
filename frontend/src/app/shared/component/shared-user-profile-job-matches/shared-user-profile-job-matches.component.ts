@@ -4,6 +4,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { DataService } from '@shared/service/data.service';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
+import { Router } from '@angular/router';
 @Component({
 	selector: 'app-shared-user-profile-job-matches',
 	templateUrl: './shared-user-profile-job-matches.component.html',
@@ -39,7 +40,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		{  id:2, text: 'Functional' },
 		{  id:3, text: 'Technofunctional' }
 	];
-	constructor(private dataService: DataService,public sharedService: SharedService,public utilsHelperService: UtilsHelperService ) { }
+	constructor(private dataService: DataService,public sharedService: SharedService,public utilsHelperService: UtilsHelperService,public router:Router ) { }
 
 	ngOnInit(): void {
 	    

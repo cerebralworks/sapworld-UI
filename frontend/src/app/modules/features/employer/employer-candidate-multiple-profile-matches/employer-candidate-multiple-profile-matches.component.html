@@ -63,7 +63,7 @@
 			   </div>
 				<div class="d-flex col-11">
 					<div class="col-lg-8 col-md-12 muliticard">
-						<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id ,location_id: matchingJob?.jobs?.job_location?.id }"  class="text-capitalize" href="javascript:;">
+						<a [routerLink]="[ '/employer/job-detail-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id }"  class="text-capitalize" href="javascript:;">
 							<h5>{{matchingJob?.jobs?.title}} <small></small></h5>
 						</a>
 						<!--<h6 class="text-capitalize">

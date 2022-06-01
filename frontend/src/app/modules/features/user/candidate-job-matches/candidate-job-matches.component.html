@@ -86,11 +86,11 @@
 						</h6>
 
 					</div>
-					<div class="col-lg-4 col-md-12 change-lay ml-5"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
-						<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJob?.jobs?.description)" style="font-size:12px;">	
+					<div class="col-lg-4 col-md-12 change-lay"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
+						<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJob?.jobs?.description)" style="font-size:12px;float:right;">	
 						<i class="fas fa-calendar-alt"></i> {{"shared.description" | translate}}</a>
 						
-						<div class="media mt-2" >
+						<div class="media mt-2" style="float:right;">
 							<div class="media-body">
 							
 							 <div style="position: initial !important;margin-top:0px !important;"class="matchs-info " [ngClass]="isMultipleMatches ? 'd-none' : ''" >

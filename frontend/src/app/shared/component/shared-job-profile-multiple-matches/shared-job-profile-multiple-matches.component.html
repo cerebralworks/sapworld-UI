@@ -1560,7 +1560,7 @@
                       </li>
 				</ul>
 			</div> -->
-			<div class=" info-box" *ngIf="jobInfo.match_select?.end_to_end_implementation=='' && jobInfo?.end_to_end_implementation  ">
+			<div class=" info-box" *ngIf="jobInfo.match_select?.end_to_end_implementation=='' && (jobInfo?.end_to_end_implementation ||jobInfo?.end_to_end_implementation ==0 )">
 				<ul class="list-group">
 					<li class="list-group-item">
                          <span *ngIf="matchedElement && (jobInfo.end_to_end_implementation <= userInfo?.end_to_end_implementation)">
