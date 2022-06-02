@@ -93,7 +93,7 @@
 						<div class="media mt-2" style="float:right;">
 							<div class="media-body">
 							
-							 <div style="position: initial !important;margin-top:0px !important;"class="matchs-info ">
+							 <div style="position: initial !important;margin-top:0px !important;"class="matchs-info " [ngClass]="isMultipleMatches ? 'd-none' : ''" >
 							<button (click)="onShowMatches($event)" id="matchBtnVal"  [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light"><i class='fas fa-check' style='color:#3AC724;font-size:6px;border:2px solid;border-radius:40%;padding:3px 2px 0px 2px;'></i><span style="font-size:11px;font-weight:500;margin-left:-0.7rem;">{{"shared.matches" | translate}}</span> </button>
 							<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn btn-sm btn btn-fltr btn-light"><i class="fa fa-times text-danger" style='color:#DA0000;font-size:7px;border:2px solid;border-radius:40%;padding:2px 1.5px 0px 2px;'></i> <span style="font-size:11px;font-weight:500;margin-left:-0.7rem;">{{"shared.missing" | translate}}</span></button>
 							
@@ -128,7 +128,7 @@
 		</div>
 	   </div>
 		<div class="row" *ngIf="loading===true">
-			<div class="col-6 matches-8">
+			<div [ngClass]="(isMultipleMatches === true)?'col-lg-4 col-md-4':'col-lg-6 col-md-6 matches-8'">
 				<!--<div class="row">
 					<div class="col-lg-12">
 						<app-contact-card
@@ -143,15 +143,15 @@
 						</app-contact-card>
 					</div>
 				</div>-->
-				<app-shared-user-profile-job-matches [isMultipleMatches]="false" [fieldsExclude]="{clients_worked: true, job_role: true, willing_to_relocate: true}" [userInfo]="userInfo" [postedJobsDetails]="matchingJob?.jobs"></app-shared-user-profile-job-matches>
+				<app-shared-user-profile-job-matches [isMultipleMatches]="isMultipleMatches" [fieldsExclude]="{clients_worked: true, job_role: true, willing_to_relocate: true}" [userInfo]="userInfo" [postedJobsDetails]="matchingJob?.jobs"></app-shared-user-profile-job-matches>
 		  </div>
-		<div class="top-pad col-6  matches-8">
+		<div class="top-pad" [ngClass]="(isMultipleMatches === true)?'col-lg-8 col-md-8':'col-lg-6 col-md-6 matches-8'">
 			<div id="carouselProfile" class="slide job-info-container">
 				<div class="carousel-inner">
 					<!--Profile1-->
 					<div class="carousel-item active">
 						<div class="row">
-							<div *ngIf="!utilsHelperService.isEmptyObj(matchingJob?.jobs)" class="col-12">
+							<div *ngIf="!utilsHelperService.isEmptyObj(matchingJob?.jobs)" [ngClass]="(isMultipleMatches === true)?'col-lg-6':'col-lg-12'" >
 								<div class="row info-box">
 								<!--Header Sec-->
 									<!--<div class="col-lg-12" >
@@ -213,11 +213,11 @@
 									</div>-->
 									
 									<!--Body Sec-->
-									<div class="col-lg-12 info mt-0" >
+									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-0' : 'mt-0'">
 										<!--<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJob?.score >= 5, 'score-txt-orange': (matchingJob?.score < 5 && matchingJob?.score > 0), 'score-txt-red': (matchingJob?.score == 0)}">
 											{{"shared.score" | translate}} <span>{{matchingJob?.score ? matchingJob?.score :0}}/10</span>
 										</div>-->
-										<app-shared-job-profile-matches [jobInfo]="matchingJob?.jobs"  [isMultipleMatches]="false" 
+										<app-shared-job-profile-matches [jobInfo]="matchingJob?.jobs"  [isMultipleMatches]="isMultipleMatches" 
 										[missingElement]="missingElement" [matchedElement]="matchedElement"
 										[moreElement]="moreElement" [userInfo]="userInfo">
 										</app-shared-job-profile-matches>
@@ -229,7 +229,84 @@
 									</div>
 								</div>
 							</div>
-							
+							<div class="col-lg-6" *ngIf="isMultipleMatches && !utilsHelperService.isEmptyObj(matchingJobNew?.jobs)">
+								<div class="row info-box">
+									<!--Header Sec-->
+									<div class="col-lg-12">
+										<div class="card profile-card">
+											<div class="d-flex">
+												<div class="col-lg-8  job-cards">
+													<a  [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id: matchingJobNew?.jobs?.id ,location_id: matchingJobNew?.jobs?.job_location?.id }" class="text-capitalize" href="javascript:;">
+														<h5>{{matchingJobNew?.jobs?.title}} <small></small></h5>
+													</a>
+													<h6 class="mb-0 text-capitalize">
+														<!-- {{matchingJobNew?.jobs?.job_location?.city +', ' +matchingJobNew?.jobs?.job_location?.state+', ' +matchingJobNew?.jobs?.job_location?.country}} -->
+														<!-- {{matchingJobNew?.jobs?.city ? matchingJobNew?.jobs?.city : ''}}
+														{{matchingJobNew?.jobs?.state ? ', ' + matchingJobNew?.jobs?.state : ''}}
+														<span class="text-uppercase">
+														  {{matchingJobNew?.jobs?.country ? ', ' + matchingJobNew?.jobs?.country : ''}}
+														</span> -->
+														
+														<ng-container *ngFor="let item of matchingJobNew?.jobs?.job_locations;index as i" >
+															<span *ngIf="i < 2">
+															{{item?.city ? item?.city+', '  : ''}}
+															{{item?.state ? item?.state+', '  : ''}}
+															<span class="text-uppercase" *ngIf="!isMultipleMatches">
+															  {{item?.country ? item?.country : ''}}
+															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
+															  {{item?.countryshort ? item?.countryshort : ''}}
+															</span><br>
+															</span>
+															</ng-container>
+															<span class="text-uppercase" style="color:blue;cursor:pointer;margin-left:14.5rem;margin-top:-1rem;position:absolute;" *ngIf="matchingJobNew?.jobs?.job_locations.length>2">
+															+{{matchingJobNew?.jobs?.job_locations.length-2}}
+														  </span>
+													</h6>
+													<h6 class="mt-1 text-capitalize">
+														{{matchingJobNew?.jobs?.company_name }}
+													</h6>
+													<form class="form-inline">
+														<!-- <a href="javascript:;" class="mr-3" data-toggle="modal" data-target="#matchpostModal">
+															<small><i class="fab fa-buffer"></i> View Other Matches</small>
+														</a> -->
+													</form>
+												</div>
+												<div class="col-lg-4"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
+													<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJobNew?.jobs?.description)">	
+													<i class="fas fa-file-alt"></i>  {{"shared.description" | translate}}</a>
+													<div class="media mt-2" >
+														<div class="media-body">
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 0"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / hr'}}</h6>
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 1"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / Annual '}}</h6>
+															<h6 *ngIf="matchingJobNew?.jobs?.salary_type == 2"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJobNew?.jobs?.salary_currency)?.symbol + matchingJobNew?.jobs?.salary + ' / month'}}</h6>
+															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 0px;left: 8rem;" *ngIf="matchingJobNew?.jobs?.negotiable ==true && !isMultipleMatches"> {{"shared.negotiable" | translate}}</a>
+															<a class="btn btn-smss btn-outline-blue btn-sm mr-1" href="javascript:;" style="position: absolute;top: 4.7rem;left: 0rem;" *ngIf="matchingJobNew?.jobs?.negotiable ==true && isMultipleMatches"> {{"shared.negotiable" | translate}}</a>
+															<h6 class="text-capitalize job-cardh6"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  >{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.remote)}} </h6>
+															<h6 class="text-capitalize job-cardh6"  [ngClass]="(isMultipleMatches === true)?'isMatchesViewFont':''"  >{{utilsHelperService.onGetRemoteOption(matchingJob?.jobs?.remote_option)}}</h6>
+															<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(matchingJobNew?.jobs?.willing_to_relocate)}} </h6> -->
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--Body Sec-->
+									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-0' : 'mt-0'">
+										<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJobNew?.score >= 5, 'score-txt-orange': (matchingJobNew?.score < 5 && matchingJobNew?.score > 0), 'score-txt-red': (matchingJobNew?.score == 0)}">
+											{{"shared.score" | translate}} <span>{{matchingJobNew?.score ? matchingJobNew?.score : 0}}/10</span>
+										</div>
+										<app-shared-job-profile-matches [jobInfo]="matchingJobNew?.jobs"  [isMultipleMatches]="isMultipleMatches" 
+										[missingElement]="missingElement" [matchedElement]="matchedElement"
+										[moreElement]="moreElement" [userInfo]="userInfo">
+										</app-shared-job-profile-matches>
+									</div>
+									<div class="col-lg-12 info" style="text-align:end;">
+										<button type="button"   *ngIf="!matchingJobNew?.jobs.is_job_applied "  [ngClass]="{'applied-btn-green': (matchingJobNew?.jobs.is_job_applied ), 'btn-outline-green': !matchingJobNew?.jobs.is_job_applied}" [disabled]="matchingJobNew?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJobNew?.jobs)" class="btn btn-outline-green ml-auto" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.apply" | translate}}</button>
+										<button type="button"  *ngIf="matchingJobNew?.jobs.is_job_applied && matchingJobNew?.jobs?.job_application?.status != 2 " [disabled]="matchingJobNew?.jobs.is_job_applied "  class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.applied" | translate}}</button>
+										<button type="button"  *ngIf="matchingJobNew?.jobs.is_job_applied && matchingJobNew?.jobs?.job_application?.status == 2 " [disabled]="matchingJobNew?.jobs.is_job_applied "  class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.hired" | translate}} </button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<!--//Profile1-->
