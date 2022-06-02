@@ -3864,3 +3864,19 @@ ul.timeline > li span:hover {
 	border-radius:5px;
 	
 }
+
+.otherpreff {
+    position: relative;
+    display: block;
+    padding: .15rem 0;
+    background-color: transparent;
+    border: unset;
+	cursor:pointer;
+    border-radius: 0;
+    margin-bottom: 10px;
+    color: #000;
+    font-size: 16px;
+    min-height: 26px;
+    font-weight: 700;
+    width: 250px;
+}

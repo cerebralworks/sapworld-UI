@@ -124,7 +124,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="otherpreff text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
 							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
@@ -374,7 +374,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info" >
 						<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '0'" >
+							<li class="otherpreff text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '0'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -507,7 +507,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="otherpreff  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
 							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
@@ -743,7 +743,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info" >
 						<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '1'" >
+							<li class="otherpreff text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '1'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -877,7 +877,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="otherpreff  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
 							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
@@ -1111,7 +1111,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info" >
 						<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '2'" >
+							<li class="otherpreff text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == '2'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -1245,7 +1245,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
+							<li class="otherpreff text-capitalize" *ngIf="userInfo?.other_skills && userInfo?.other_skills.length ">{{utilsHelperService.onConvertArrayToString(userInfo?.other_skills)}}</li>
 							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.other_skills || !userInfo?.other_skills.length ">--</li>
 						</ul>
 					</div>
@@ -1480,7 +1480,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info" >
 						<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == ''" >
+							<li class="otherpreff text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="postedJobsDetails?.match_select[item?.id] == ''" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>

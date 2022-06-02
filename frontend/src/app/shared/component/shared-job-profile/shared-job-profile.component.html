@@ -333,7 +333,7 @@
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-7 info" >
 						<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="jobInfo?.match_select[item?.id] == '0'" >
+							<li class="otherpreff text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="jobInfo?.match_select[item?.id] == '0'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -674,7 +674,7 @@
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-7 info" >
 						<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="jobInfo?.match_select[item?.id] == '1'" >
+							<li class="otherpreff text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="jobInfo?.match_select[item?.id] == '1'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -1016,7 +1016,7 @@
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-7 info" >
 						<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"   [ngClass]="(isMultipleMatches === true)?'min-handsExps':''" *ngIf="jobInfo?.match_select[item?.id] == '2'" >
+							<li class="otherpreff text-capitalize handsExp"   [ngClass]="(isMultipleMatches === true)?'min-handsExps':''" *ngIf="jobInfo?.match_select[item?.id] == '2'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -1331,7 +1331,7 @@
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-7 info" >
 						<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'')" >
+							<li class="otherpreff text-capitalize handsExp" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'')" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
