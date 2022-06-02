@@ -336,6 +336,11 @@ export class JobPreviewComponent implements OnInit {
 	**/
 	
 	onRedirectDashboard(status) {
+	this.childForm.patchValue({
+			jobInfo: {
+				salary: this.childForm.controls.jobInfo.value.salary.toString(),
+			}
+		});
 		this.postJob.next(status);
 	}
 
