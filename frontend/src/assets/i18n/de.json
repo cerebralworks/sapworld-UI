@@ -147,7 +147,8 @@
 		"enterNumberOfPositions": "Geben Sie die Anzahl der Positionen ein",
 		"validStatus": "Bitte wählen Sie den gültigen Status",
 		"notificationSetting" : "Benachrichtigungseinstellung",
-		"viewjobs":"Job anzeigen"
+		"viewjobs":"Job anzeigen",
+		"editProfile" :"Profil bearbeiten"
 	},
 	"auth":{
 		"findRightPlace":"Finden Sie Ihren richtigen Ort",
@@ -181,7 +182,8 @@
 		"profile": "Profil",
 		"notification": "Benachrichtigung",
 		"settings": "Einstellungen",
-		"logout": "Logout"
+		"logout": "Logout",
+		"deleteaccount" : "Konto löschen"
 	},
 	"nav":{
 		"hiringTrend":"Einstellungstrend",

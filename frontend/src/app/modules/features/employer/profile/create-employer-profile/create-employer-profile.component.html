@@ -5,7 +5,8 @@
       <div class="col-lg-5">
         <ol class="breadcrumb">
 		  <li class="breadcrumb-item"><a href="#" onclick="window.history.go(-1); return false;"><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
-          <li class="breadcrumb-item active" aria-current="page">{{"shared.createProfile" | translate}}</li>
+          <li *ngIf="!companyProfileInfo?.id" class="breadcrumb-item active" aria-current="page">{{"shared.createProfile" | translate}}</li>
+		  <li *ngIf="companyProfileInfo?.id" class="breadcrumb-item active" aria-current="page">{{"shared.editProfile" | translate}}</li>
         </ol>
       </div>
     </div>
@@ -190,7 +191,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="form-group">
-            <button [disabled]="!createCompanyForm.valid && !invalidMobile || invalidMobile" type="submit" class="btn btn-theme-blue btn-block btn-lg">{{"shared.submit" | translate }}</button>
+            <button [disabled]="!createCompanyForm.valid && !invalidMobile" type="submit" class="btn btn-theme-blue btn-block btn-lg">{{"shared.submit" | translate }}</button>
           </div>
         </div>
       </div>

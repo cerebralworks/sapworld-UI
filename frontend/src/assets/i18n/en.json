@@ -151,7 +151,8 @@
 		"jobLocation" : "Job Location",
 		"workTiming" : "Work Timing",
 		"timing" : "Timing",
-		"viewjobs" :"View Job"
+		"viewjobs" :"View Job",
+		"editProfile" :"Edit Profile"
 	},
 	"auth":{
 		"findRightPlace":"Find Your Right Place",
@@ -185,7 +186,8 @@
 		"profile": "Profile",
 		"notification": "Notification",
 		"settings": "Settings",
-		"logout": "Logout" 
+		"logout": "Logout",
+		"deleteaccount" : "Delete account"
 	},
 	"nav":{
 		"hiringTrend":"Hiring Trend",

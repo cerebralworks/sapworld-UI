@@ -131,6 +131,33 @@ module.exports = (app, env, rp) => {
 			res.status(500).json(err)
 		})
 	})
+	
+	/**
+	* User's account delete.
+	*/
+	
+	app.post('/api/users/delete-account', (req, res) => {
+		var options = {
+			method: 'POST',
+			uri: `${serverRoutes.userDelete}`,
+			json: true,
+			body: req.body,
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			}
+		}
+		rp(options)
+		.then(function (parsedBody) {
+			
+			let responseData = { ...parsedBody }
+			responseData.success = true;
+			res.status(200).json(responseData);
+		})
+		.catch(function (err) {
+			res.status(500).json(err)
+		})
+	})
 
 	/**
 	* User's account verify.

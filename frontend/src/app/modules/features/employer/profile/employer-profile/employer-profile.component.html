@@ -4,7 +4,8 @@
 			<div class="col-lg-5">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="#" onclick="window.history.go(-1); return false;"><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
-					<li  class="breadcrumb-item-active" aria-current="page"> {{"shared.createProfile" | translate}} </li>
+					<li *ngIf="!companyProfileInfo?.id" class="breadcrumb-item active" aria-current="page">{{"shared.createProfile" | translate}}</li>
+		            <li *ngIf="companyProfileInfo?.id" class="breadcrumb-item active" aria-current="page">{{"shared.editProfile" | translate}}</li>
 				</ol>
 			</div>
 		</div>

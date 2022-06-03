@@ -2,6 +2,7 @@ const routes = {
     login: '/oauth/token',
     employerSignup: '/employers/signup',
     userSignup: '/users/signup',
+    userDelete: '/users/delete-account',
     accountVerify: '/accounts/verify',
     listIndustries: '/industries/list',
     employerProfile: '/employers/profile',

@@ -163,7 +163,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 		(response: any) => {
 			
 			  this.employerSharedService.saveEmployerCompanyDetails(response.details);
-			this.companyProfileInfo = { ...response.details };
+			   this.companyProfileInfo = { ...response.details };
 				if(this.companyProfileInfo.social_media_link){
 					this.companyProfileInfo.social_media_link = this.companyProfileInfo.social_media_link.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
 				}

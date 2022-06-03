@@ -139,6 +139,21 @@ export class AccountService extends CacheService {
     );
   };
   
+  
+  /**
+   * To delete user account
+   */
+  userDeleteAccount = (requestParams: any): Observable<any> => {
+    return this.apiService.post('/api/users/delete-account', requestParams).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  
+  
+  
+  
   /**
    * To Signup the user after send invite link
    */

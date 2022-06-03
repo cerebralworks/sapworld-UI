@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit,HostListener } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit,HostListener, TemplateRef, ViewChild,} from '@angular/core';
 import { Router } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { AccountLogin } from '@data/schema/account';
@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { DataService } from '@shared/service/data.service';
 import { environment as env } from '@env';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
     PushNotificationsService
 } from '@shared/service/notification.service';
@@ -34,7 +35,9 @@ export class HeaderComponent implements OnInit {
   public screenWidth: any;
   public employerprofilepath : any;	
   public userprofilepath : any;	
-  
+  public mbRefs: NgbModalRef;
+  @ViewChild('deleteAccountModal', { static: false }) deleteAccountModal: TemplateRef<any>;
+  public modelshow :boolean=false;
   constructor(
     public router: Router,
     public translateService: TranslateService,
@@ -45,7 +48,8 @@ export class HeaderComponent implements OnInit {
 	private dataService: DataService,
     private employerSharedService: EmployerSharedService,
     private userSharedService: UserSharedService,
-	private _notificationService: PushNotificationsService
+	private _notificationService: PushNotificationsService,
+	private modelService: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -133,6 +137,46 @@ export class HeaderComponent implements OnInit {
 
   onOpenLangMenu = () => {
     this.isLangMenuOpen = true;
+  }
+  
+  /* To open popup for delete account*/
+  
+  openpopup(){
+  
+      this.modelshow = true;
+		setTimeout(() => {
+			this.mbRefs = this.modelService.open(this.deleteAccountModal, {
+				windowClass: 'modal-holder',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		});
+ 
+  
+  }
+  
+   /* To close popup for delete account*/
+   
+  closepopup(){
+  
+  this.modelshow = false;
+  this.mbRefs.close();
+  
+  }
+  
+  /* To delete the user account */
+  
+  deleteaccount(){
+  
+     var data ={
+	   id:this.currentUserDetails.account
+	 };
+    this.accountService.userDeleteAccount(data).subscribe(data=>{
+	   this.closepopup();
+	   this.logout();
+	})
+  
   }
   
   navigateNotification(){
