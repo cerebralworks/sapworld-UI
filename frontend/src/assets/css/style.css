@@ -1624,7 +1624,7 @@ a:hover {
 }
 .info .list-group-item {
     position: relative;
-    display: block;
+    display: inline-block;
     padding: .15rem 0;
     background-color: transparent;
     border: unset;
@@ -1637,7 +1637,7 @@ a:hover {
     min-height: 26px;
     font-weight: 700;
     text-overflow: ellipsis;
-    /*overflow: hidden;*/
+    overflow: hidden;
     max-width: 100%;
     white-space: nowrap;
 }
