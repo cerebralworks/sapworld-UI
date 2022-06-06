@@ -2462,7 +2462,7 @@ a:hover {
 }
 .pj-title {
     padding: 5px 0;
-    border-bottom: 1px solid #48C894;
+    border-bottom: 0.5px solid #3AC724;
 	background: #FAFFF9;
 }
 .pj-title h6{
@@ -3822,22 +3822,28 @@ ul.timeline > li span:hover {
    font-weight:bolder;
 }
 .slideanimations{
-  position: relative;
-  animation: moveleft 0.4s;
+  animation: moveleft 0.3s;
 }
 
 @keyframes moveleft {
-  from {left: 0px;}
-  to {left: 100%;}
+  from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(100%);
+    }
 }
 .slidearight{
-  position: relative;
-  animation: moveright 0.4s;
+  animation: moveright 0.3s;
 }
 
 @keyframes moveright {
-  from {right: 0px;}
-  to {right: 100%;}
+  from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
 }
 .profile-card:hover{
        border-color: #11b771;
