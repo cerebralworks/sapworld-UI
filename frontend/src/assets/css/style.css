@@ -2456,6 +2456,7 @@ a:hover {
 	width: 95%;
 	max-width: 425px !important;
 	white-space: pre-wrap !important;
+	visibility:hidden;
 }
 .holds-the-iframe {
   background: url(../images/loading.gif)no-repeat center top;

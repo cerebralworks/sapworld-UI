@@ -427,6 +427,7 @@
 					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
+						<span style="visibility:hidden;" *ngIf="(matchedElement==true && missingElement==false && checkValuesField(item?.id , 'no')) || (matchedElement==false && missingElement==true && checkValuesField(item?.id , 'yes')) " > <i class="fas fa-check text-blue " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					</li>
 				 </ul>
 			</div>
@@ -850,6 +851,7 @@
 					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span style="visibility:hidden;" *ngIf="(matchedElement==true && missingElement==false && checkValuesField(item?.id , 'no')) || (matchedElement==false && missingElement==true && checkValuesField(item?.id , 'yes')) " > <i class="fas fa-check text-blue " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					</li>
 				 </ul>
 			</div>
@@ -1277,6 +1279,7 @@
 					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'2')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
 					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span style="visibility:hidden;" *ngIf="(matchedElement==true && missingElement==false && checkValuesField(item?.id , 'no')) || (matchedElement==false && missingElement==true && checkValuesField(item?.id , 'yes')) " > <i class="fas fa-check text-blue " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
 					</li>
 				 </ul>
@@ -1704,6 +1707,7 @@
 					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
 					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span style="visibility:hidden;" *ngIf="(matchedElement==true && missingElement==false && checkValuesField(item?.id , 'no')) || (matchedElement==false && missingElement==true && checkValuesField(item?.id , 'yes')) " > <i class="fas fa-check text-blue " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
 					</li>
 				 </ul>
