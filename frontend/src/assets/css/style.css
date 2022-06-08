@@ -3891,3 +3891,11 @@ ul.timeline > li span:hover {
 	white-space:nowrap;
 	overflow:hidden;
 }
+
+
+@media (min-width: 1500px){
+#navbarNavDropdown{
+	
+	margin-right:4rem;
+}
+}

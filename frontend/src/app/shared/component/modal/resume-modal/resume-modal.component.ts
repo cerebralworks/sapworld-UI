@@ -38,7 +38,7 @@ export class ResumeModalComponent implements OnInit {
   **/
   ngAfterViewInit(): void {
     if (this.toggleResumeModal) {
-	    // this.ngxLoader.start();
+	     this.ngxLoader.start();
       this.mbRef = this.modalService.open(this.resumeModal, {
         windowClass: 'modal-holder',
         centered: true,
@@ -63,7 +63,7 @@ export class ResumeModalComponent implements OnInit {
   }
 
   resumeLoaded(event,value){
-    //this.ngxLoader.stop();
+    this.ngxLoader.stop();
     console.log(event);
 
   }
