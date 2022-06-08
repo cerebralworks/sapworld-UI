@@ -2455,8 +2455,10 @@ a:hover {
 	color:#ffff !important;
 	width: 95%;
 	max-width: 425px !important;
-	white-space: pre-wrap !important;
-	visibility:hidden;
+	/*white-space: pre-wrap !important;*/
+	white-space: nowrap !important;
+	/*visibility:hidden;*/
+	display: none;
 }
 .holds-the-iframe {
   background: url(../images/loading.gif)no-repeat center top;
@@ -3885,5 +3887,7 @@ ul.timeline > li span:hover {
     font-size: 16px;
     min-height: 26px;
     font-weight: 700;
-    width: 250px;
+    width: 100%;
+	white-space:nowrap;
+	overflow:hidden;
 }

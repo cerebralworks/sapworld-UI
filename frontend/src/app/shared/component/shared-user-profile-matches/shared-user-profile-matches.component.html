@@ -512,7 +512,6 @@
 								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'0')" >
 								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
-								  <span style="visibility:hidden;" *ngIf="(matchedElement==true && missingElement==false && checkValuesField(item?.id , 'no')) || (matchedElement==false && missingElement==true && checkValuesField(item?.id , 'yes')) " > <i class="fas fa-check text-blue " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								</li>
 							 </ul>
 						</div>
@@ -520,7 +519,10 @@
 				</div>
 			</div>
 			<div class="accordion mt-3 " *ngIf="desired">
-			<div class="pj-titless"  [ngClass]="(isMultipleMatches === true)?'padd-5':'padd-10'" ><h6  class="mb-0"></h6></div>
+			<div  *ngIf="matchedElement==true;else elsepoint" class="pj-titless"  [ngClass]="(isMultipleMatches === true)?'padd-5':'padd-10'" ><h6  class="mb-0"></h6></div>
+			<ng-template #elsepoint>
+			<div style="margin-bottom:0.9rem;" class="pj-titless"  [ngClass]="(isMultipleMatches === true)?'padd-5':'padd-10'" ><h6  class="mb-0"></h6></div>
+			</ng-template>
 				<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='1'">
 					<ul class="list-group">
 						<li class="list-group-item">
@@ -1018,7 +1020,6 @@
 								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'1')" >
 								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
-									<span style="visibility:hidden;" *ngIf="(matchedElement==true && missingElement==false && checkValuesField(item?.id , 'no')) || (matchedElement==false && missingElement==true && checkValuesField(item?.id , 'yes')) " > <i class="fas fa-check text-blue " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								</li>
 							 </ul>
 						</div>
@@ -1523,7 +1524,6 @@
 								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'2')" >
 								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
-								  <span style="visibility:hidden;" *ngIf="(matchedElement==true && missingElement==false && checkValuesField(item?.id , 'no')) || (matchedElement==false && missingElement==true && checkValuesField(item?.id , 'yes')) " > <i class="fas fa-check text-blue " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								</li>
 							 </ul>
 						</div>
@@ -2030,7 +2030,6 @@
 								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'')" >
 								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
-									<span style="visibility:hidden;" *ngIf="(matchedElement==true && missingElement==false && checkValuesField(item?.id , 'no')) || (matchedElement==false && missingElement==true && checkValuesField(item?.id , 'yes')) " > <i class="fas fa-check text-blue " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								</li>
 							 </ul>
 						</div>
