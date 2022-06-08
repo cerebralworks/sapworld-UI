@@ -92,10 +92,9 @@ export class NotificationComponent implements OnInit {
 				response['details'].forEach(item => {
 					if(item.title=='New User Matches'){
 						var temp = item.message.split('/');
-						item['uname'] = temp[0];
-						 item['message'] = temp[1];
-						item['path'] = temp[2];
-						item['country'] = temp[3];
+						item['path'] = temp[0];
+						item['country'] = temp[1];
+						item['message'] = '';
 					} 
 					if(item.title=='New Application Request'){
 						var temp = item.message.split('/');
