@@ -23,7 +23,7 @@
       <div class="col-lg-12">
         <ul class="nav">
 		  <li class="nav-item">
-			<a class="nav-link" href="#" onclick="window.history.go(-1); return false;"><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a>
+			<a class="nav-link" href="#" (click)="goBack()"><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a>
 		 </li>
           <li class="nav-item">
             <a (click)="onTabChange({tabName: 'chart', tabNumber: 7})"
