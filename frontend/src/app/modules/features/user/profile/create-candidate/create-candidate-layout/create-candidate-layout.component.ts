@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserSharedService } from '@data/service/user-shared.service';
 import * as lodash from 'lodash';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
-
+import { EmployerService } from '@data/service/employer.service';
 const left = [
 	query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
 	group([
@@ -69,7 +69,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	public userInfo: any;
 	public requestParams: any;
 	public tabInfos: tabInfo[];
-	
+	public skils : any=[];
+	public candiatevalues :any;
+	public checkUpdateSkills : boolean =false;
 	constructor(
 		private formBuilder: FormBuilder,
 		private modalService: NgbModal,
@@ -80,6 +82,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		private dataService: DataService,
 		private toastrService: ToastrService,
 		private userSharedService: UserSharedService,
+		private employerService: EmployerService,
 		private utilsHelperService: UtilsHelperService
 	) { }
 	
@@ -275,6 +278,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					other_skills: new FormControl(null),
 					certification: new FormControl(null),
 					bio: new FormControl('Lorem Ipsum'),
+					new_skills: new FormArray([]),
+					skills_Data: new FormControl(null),
+					skills_Datas: new FormControl(null),
 				}));
 				this.candidateForm.addControl('educationExp', new FormGroup({
 					education_qualification: new FormArray([this.formBuilder.group({
@@ -418,7 +424,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			...this.candidateForm.value.skillSet,
 			...this.candidateForm.value.jobPref
 		};
-
+        this.candiatevalues = candidateInfo;
 		if(candidateInfo && candidateInfo.education_qualification && Array.isArray(candidateInfo.education_qualification)) {
 			let educationQualification = candidateInfo.education_qualification.filter((val) => {
 				return (val.degree != null && val.degree != '') && (val.field_of_study != null && val.field_of_study != '') && (val.year_of_completion != null && val.year_of_completion != '')
@@ -454,20 +460,58 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		  candidateInfo.skills = lodash.uniq([...tempSkill, ...candidateInfo.skills]);
 		}
 
-		if(Array.isArray(tempSkill) && Array.isArray(candidateInfo.skills)) {
+		/*if(Array.isArray(tempSkill) && Array.isArray(candidateInfo.skills)) {
 		  candidateInfo.skills = lodash.uniq([...tempSkill, ...candidateInfo.skills]);
+		}*/
+		
+		if(candidateInfo.skills && candidateInfo.skills.length && candidateInfo.skills.length!=0){
+			for(let i=0;i<this.skils.length;i++){
+				var temp = this.skils[i];
+				candidateInfo.skills.push(temp);
+			}
+		}else{
+			candidateInfo.skills = this.skils;
 		}
 		
 		if (this.candidateForm.valid) {
 			if(this.userPhotoInfo && this.userPhotoInfo.photoBlob) {
 				this.onUserPhotoUpdate(candidateInfo);
 			}else{
-				this.onUserUpdate(candidateInfo);
+			    if(this.candidateForm.value.skillSet.new_skills.length!==0 && this.checkUpdateSkills ==false){
+				  this.postSkills();
+				}else{
+				  this.onUserUpdate(candidateInfo);
+				}
 			}
 			
 		}
 		
 	}
+	
+	/**
+	**	To create a new skills
+	**/
+	
+	postSkills(){
+
+		for(let i=0;i<this.candidateForm.value.skillSet.new_skills.length;i++){
+			var val=this.candidateForm.value.skillSet.new_skills[i];
+			this.employerService.createSkills(val).subscribe(
+				response => {
+					if(response && response['details']){
+						this.skils.push(response['details']['id'])
+					}
+					this.checkUpdateSkills=true;
+					if(this.skils.length == this.candidateForm.value.skillSet.new_skills.length){
+						this.createCandidate();
+					}
+				}, error => {
+				}
+			)
+		}
+	}
+	
+	
     
 	randomString(length, chars) {
 		var result = '';
@@ -497,15 +541,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		response => {
 			
 			this.router.navigate(['/user/dashboard']).then(() => {
-				/*if(this.userInfo && this.userInfo.profile_completed == false){
-				if(!response.matches && response.matches  !=true && response.matches !=false){
-					response= JSON.parse(response);
-				}
-				if(response.matches == true){
-					this.dataService.setMatchesCompletion();
-				}
-			}*/
-			if(this.userInfo){
+				if(this.userInfo && this.userInfo.profile_completed == false){
 				if(!response.matches && response.matches  !=true && response.matches !=false){
 					response= JSON.parse(response);
 				}
@@ -513,6 +549,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					this.dataService.setMatchesCompletion();
 				}
 			}
+			//this.dataService.setMatchesCompletion();
           if(this.userInfo && (!this.userInfo.doc_resume || this.userInfo.doc_resume.length == 0)) {
             this.dataService.setProfileCompletion();
 			
