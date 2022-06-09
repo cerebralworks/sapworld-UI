@@ -90,31 +90,32 @@ export class NotificationComponent implements OnInit {
 		  response => {
 			if(response && response['details']) {
 				response['details'].forEach(item => {
+				    var temp = item.message.split('/');
 					if(item.title=='New User Matches'){
-						var temp = item.message.split('/');
 						item['path'] = temp[0];
 						item['country'] = temp[1];
 						item['message'] = '';
 					} 
 					if(item.title=='New Application Request'){
-						var temp = item.message.split('/');
 						 item['message'] = temp[0];
 						item['path'] = temp[1];
 						item['country'] = temp[2];
 					} 
 					if(item.title =='Multiple User Matches'){
-					    var temp = item.message.split('/');
 						item['path2'] = temp[0];
 						item['message'] = temp[1];
 						item['path'] = temp[2];
 					}
+					if(item.title =='Multiple Job Matches'){
+						item['message'] = temp[0];
+						item['path4'] = temp[1];
+						
+					}
 					if(item.title=='Application Under Review'|| item.title=='New Job Matches' || item.title=='Application Shortlisted' || item.title=='Event scheduled'){
-						var temp = item.message.split('/');
 						 item['message'] = temp[0];
 						item['path1'] = temp[1];
 					}
 					if(item.title=='Job Invitation' || item.title=='New Meeting Link' || item.title=='New Invite Link' || item.title=='New schedule status'){
-						var temp = item.message.split('/');
 						 item['message'] = temp[0];
 						item['path1'] = temp[1];
 						item['message1'] = temp[2];

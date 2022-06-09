@@ -18,7 +18,7 @@
 		</div>
 	</div>
 </section>
-<section>
+<section *ngIf="loading===true">
 <div class="pt-2 mb-3 mt-1" style="background-color:#EEFCFF;">
   <div [ngClass]="(screenWidth >= 1500)?'container':'container'">
   <div class="row">
