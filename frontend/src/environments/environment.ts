@@ -17,6 +17,7 @@ export const environment = {
   eventUrl: 'https://api.calendly.com/event_types',
   serverUrl: `${baseUrl}:5000`,
   adminUrl: `${baseUrl}:4201`,
+  apiUrl: `${baseUrl}:1337`,
   envName: 'DEV',
   API_URL: 'assets/api',
   clientUrl: `${baseUrl}:${port}`
