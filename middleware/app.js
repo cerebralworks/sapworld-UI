@@ -55,7 +55,7 @@ app.use(cookieParser("sapWorldRedisSession"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var whitelist = ['http://172.168.1.203', 'http://172.168.1.201'];
+var whitelist = ['http://172.168.1.203', 'http://149.56.180.252'];
 // Enabling CORS for all requests
 app.use(
   require("cors")({
