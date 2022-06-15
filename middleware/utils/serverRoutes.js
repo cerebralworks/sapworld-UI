@@ -81,6 +81,12 @@ const routes = {
 	notification : 'notification/count',
 	notificationDetails : 'notification/details',
 	contactCreate : 'contact/create',
+	uploadcountry : 'country/upload',
+	uploadLanguage :'language/upload',
+	uploadProgram :'program/upload',
+	uploadSkills :'skill-tags/upload',
+	uploadIndustry :'industries/upload',
+	
 	
 }
 
