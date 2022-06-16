@@ -57,7 +57,14 @@ module.exports = (app, env, rp) => {
 		let requestBody = { ...req.body };    
 		requestCustom.custompost(`${serverRoutes.uploadIndustry}`, req, res, requestBody);
 	});
+	/**
+	* upload scoremaster table
+	*/
 	
+	app.post("/api/scoremaster/upload", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.custompost(`${serverRoutes.uploadScoree}`, req, res, requestBody);
+	});
 	
 	/**
 	* Admin Dashboard details GET

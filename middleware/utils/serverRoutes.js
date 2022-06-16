@@ -86,6 +86,8 @@ const routes = {
 	uploadProgram :'program/upload',
 	uploadSkills :'skill-tags/upload',
 	uploadIndustry :'industries/upload',
+	uploadScoree :'scoremaster/upload',
+	
 	
 	
 }
