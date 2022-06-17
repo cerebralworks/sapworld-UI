@@ -211,7 +211,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="1 / 1"
         [autoCrop]="true" [resizeToWidth]="295" format="png" (imageCropped)="imageCropped($event)"
         (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed($event)">
       </image-cropper>

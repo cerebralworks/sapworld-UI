@@ -34,8 +34,4 @@
   font-size: 18px;
   color: #a8a8a8;
 }
-image-cropper .ngx-ic-cropper{
-	width : 100% !important;
-	height : 100% !important;
-	left : 0 !important;
-}
+
