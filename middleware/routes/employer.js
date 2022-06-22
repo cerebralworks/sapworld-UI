@@ -14,6 +14,59 @@ module.exports = (app, env, rp) => {
 	});
 	
 	/**
+	* upload country table
+	*/
+	
+	app.post("/api/country/upload", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.custompost(`${serverRoutes.uploadcountry}`, req, res, requestBody);
+	});
+	
+	/**
+	* upload language table
+	*/
+	
+	app.post("/api/language/upload", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.custompost(`${serverRoutes.uploadLanguage}`, req, res, requestBody);
+	});
+	
+	/**
+	* upload program table
+	*/
+	
+	app.post("/api/program/upload", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.custompost(`${serverRoutes.uploadProgram}`, req, res, requestBody);
+	});
+	
+	/**
+	* upload skilltag table
+	*/
+	
+	app.post("/api/skill-tags/upload", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.custompost(`${serverRoutes.uploadSkills}`, req, res, requestBody);
+	});
+	
+		/**
+	* upload industry table
+	*/
+	
+	app.post("/api/industries/upload", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.custompost(`${serverRoutes.uploadIndustry}`, req, res, requestBody);
+	});
+	/**
+	* upload scoremaster table
+	*/
+	
+	app.post("/api/scoremaster/upload", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.custompost(`${serverRoutes.uploadScoree}`, req, res, requestBody);
+	});
+	
+	/**
 	* Admin Dashboard details GET
 	*/
 	

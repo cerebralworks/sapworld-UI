@@ -2,6 +2,7 @@ const routes = {
     login: '/oauth/token',
     employerSignup: '/employers/signup',
     userSignup: '/users/signup',
+    userDelete: '/users/delete-account',
     accountVerify: '/accounts/verify',
     listIndustries: '/industries/list',
     employerProfile: '/employers/profile',
@@ -80,6 +81,14 @@ const routes = {
 	notification : 'notification/count',
 	notificationDetails : 'notification/details',
 	contactCreate : 'contact/create',
+	uploadcountry : 'country/upload',
+	uploadLanguage :'language/upload',
+	uploadProgram :'program/upload',
+	uploadSkills :'skill-tags/upload',
+	uploadIndustry :'industries/upload',
+	uploadScoree :'scoremaster/upload',
+	
+	
 	
 }
 
