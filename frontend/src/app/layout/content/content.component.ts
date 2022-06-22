@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class ContentComponent implements OnInit, OnDestroy {
   accountUserSubscription: any;
   loggedUserInfo: any;
+  public showData:boolean = false;
 
   constructor(
     private employerSharedService: EmployerSharedService,
@@ -28,6 +29,9 @@ export class ContentComponent implements OnInit, OnDestroy {
       .subscribe(response => {
         this.loggedUserInfo = response;
       });
+		setTimeout(() => {
+		  this.showData = true	
+		},300);
   }
   /**
    * To destroy the page if leaves

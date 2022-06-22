@@ -12,7 +12,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
 import {PageEvent} from '@angular/material/paginator';
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-employer-candidate-matches',
   templateUrl: './employer-candidate-matches.component.html',
@@ -81,6 +81,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public tempQueryParams: any = {};
   public loggedUserInfo: any;
   public randomNum: number;
+  public userprofilepath :any;
 
   constructor(
     public sharedService: SharedService,
@@ -495,6 +496,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			response => {
 				if(response && response.items && response.items.length > 0) {
 					this.userList = [...response.items];
+					this.userprofilepath = `${env.apiUrl}/images/user/`;
 					this.savedProfiles = this.userList.filter(function(a,b){ return a.is_saved_profile ==true}).map(function(a,b){ return a.id});
 				}else if(response && response.items && response.items.length == 0) {
 					this.userList = [];
@@ -549,7 +551,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 
 	/**
 	**	To Filter by skills
-	**/
+	*
 	
 	onFiltertBySkill = (item) => {
 		if(item != 'undefined') {
@@ -569,7 +571,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			}
 		}
 	}
-
+       **/
 	/**
 	**	To Filer by experience
 	**/
@@ -708,8 +710,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	**/
 	
 	onToggleResumeForm = (status, selectedResumeUrl?) => {
+	   console.log(selectedResumeUrl);
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = selectedResumeUrl;
+			this.selectedResumeUrl = `${env.apiUrl}/documents/resume/${selectedResumeUrl}`;;
 		}
 		this.isOpenedResumeModal = status;
 	}

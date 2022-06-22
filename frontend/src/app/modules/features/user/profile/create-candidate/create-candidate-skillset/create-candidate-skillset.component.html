@@ -58,6 +58,56 @@
       </ng-container>
     </div>
 </ng-container>
+<div class="row mt-3">
+		<div class="col-lg-12 col-md-12">									
+			<div class=" form-group">
+				<div class="custom-control custom-checkbox mb-2">
+					<input type="checkbox" class="custom-control-input" id="customChecktitle11AA">
+					<label class="custom-control-label font-weight-bold text-dark" for="customChecktitle11AA" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">{{"shared.couldNotFind" | translate }} </label>
+				</div>
+			</div>
+		</div>	
+		<ng-container *ngIf="childForm.controls.skillSet.controls.new_skills.controls.length && childForm.controls.skillSet.controls.new_skills.controls.length !=0">
+			<div class="col-lg-12 col-md-6">		
+				<div class="row mt-2"  *ngFor="let itemss of newskills.controls;let i=index;">
+					<ng-container >
+						<div class="col-lg-6 col-md-8 matches-80">
+							<div class=" form-group">
+								<div class="custom-control mb-2">
+									<label class=" font-weight-bold text-dark" style="word-break: break-all;">{{itemss.value.tag}} - {{itemss.value.long_tag}}  </label>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-1 matches-20" >
+							<button type="button" class="text-danger btn p-0 btn-small"
+								style="line-height: 1.75; padding: .5rem 1.0rem;border:none;" (click)="onRemoveOthers(i)"><i class="fas fa-times"></i></button>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</ng-container>
+	</div>	
+	<div class="row mt-2 collapse" id="collapseExample">	
+		<div class="col-lg-9 col-md-12">
+			<div class=" form-group">
+				<label>{{"shared.addNewSkills" | translate }}</label>
+				<div>				
+					<div class="row">
+						<div class="col-lg-5 col-md-5">
+							<input type="text" formControlName="skills_Data"  class="form-control" placeholder="Ex: SAP DS">
+						</div>	
+						<div class="col-lg-5 col-md-5">
+							<input type="text" formControlName="skills_Datas"  class="form-control" placeholder="Ex: Data Science">
+						</div>							
+						<div class="col-lg-2 col-md-1 matches-10">
+							<button type="button" class="btn btn-outline-success" (click)="onDuplicateOthers()" style="line-height: 1.75; padding: .5rem 1.0rem;"><i class="fas fa-plus"></i></button>
+						</div>
+					</div>	
+					<small class="text-danger " *ngIf="errorShown"> Already Exists SAP Skills.</small> 
+				</div>
+			</div>
+		</div>
+	</div>
   <div class="row mt-3">
     <div class="col-lg-9 col-md-12">
       <div class=" form-group">

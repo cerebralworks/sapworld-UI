@@ -82,3 +82,24 @@ padding: 13px 0 !important;
 p{
 	margin-bottom:0px !important;
 }
+
+.safari_only{
+		  display:none;
+		  }
+		  
+.chrome_display{
+	 display:block;
+	}	
+		  
+@media not all and (min-resolution:.001dpcm) { 
+     @supports (-webkit-appearance:none) {
+			
+	.chrome_display{
+	 display:none;
+	 }
+     .safari_only{
+          display:block;
+		  }
+	
+    }
+}

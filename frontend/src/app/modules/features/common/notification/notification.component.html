@@ -43,10 +43,13 @@
 									{{items?.created_at ? (items?.created_at | date: "MMM d, y, h:mm a") : '-'}}
 								</td>
 								<td>
-									<a *ngIf="items?.uname" class="primaryData" [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: items?.user_id,notification:true}" routerLinkActive="router-link-active"  >{{items?.uname ? items?.uname : ''}}</a>{{items?.message ? items?.message : '--'}}
-									<a *ngIf="items?.path1" class="primaryData" [routerLink]="['/user/candidate-job-view/details']" [queryParams]="{id: items?.job_id}" routerLinkActive="router-link-active"  >{{items?.path1}}</a>
+								    <a *ngIf="items?.path2" class="primaryData" [routerLink]="['/employer/dashboard']" [queryParams]="{activeTab:'matches',id: items?.job_id}" routerLinkActive="router-link-active"  >{{items?.path2 ? items?.path2 : ''}}</a>
+									<a *ngIf="items?.uname" class="primaryData" [routerLink]="['/employer/candidate-profile']" [queryParams]="{id: items?.user_id,notification:true}" routerLinkActive="router-link-active"  >{{items?.uname ? items?.uname : ''}}</a>{{items?.message ? items?.message : ''}}
+									<a *ngIf="items?.path1 && (items?.jobstatus!==0 && items?.jobstatus !==3 )" class="primaryData" [routerLink]="['/user/candidate-job-view/details']" [queryParams]="{id: items?.job_id,notification:true}" routerLinkActive="router-link-active"  >{{items?.path1}}</a>
+									<a *ngIf="items?.path1 && (items?.jobstatus===0 ||items?.jobstatus===3 )" class="primaryData">{{items?.path1}}</a>
 									{{items?.message1 ? items?.message1 : ''}}
 									<a *ngIf="items?.path" class="primaryData" [routerLink]="['/employer/job-detail-view', 'details']" [queryParams]="{id: items?.job_id}" routerLinkActive="router-link-active"  >{{items?.path}}</a>
+									 <a *ngIf="items?.path4" class="primaryData" [routerLink]="['/user/dashboard']" [queryParams]="{activeTab:'matches'}" routerLinkActive="router-link-active"  >{{items?.path4 ? items?.path4 : ''}}</a>
 									<a >{{items?.country}}</a>
 								</td>
 							</tr>

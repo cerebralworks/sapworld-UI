@@ -27,7 +27,7 @@
 		"byJobType":"By Job Type",
 		"default": "Default",
 		"byVisa":"Visa Sponsord Jobs" , 
-		"coverLetter":"Cover Lettter",
+		"coverLetter":"Cover Letter",
 		"addCover":"Add cover",
 		"addCoverTitle":" Cover Tilte",
 		"resume": "Resume",
@@ -50,15 +50,15 @@
 		"salary":"Salary",
 		"sapSkills":"SAP Skills",
 		"applied":"Applied",
-		"description":"Responsibility",
+		"description":"Responsibilities",
 		"apply":"Apply",
 		"missing":"Missing",
 		"moreSkills":"More Skills",
 		"applyNow":"Apply Now",
-		"candidateMatches":"Candidate Matches",
+		"candidateMatches":"Post Job Matches View",
 		"jobsMatches":"Jobs Matches",
 		"salary": "Pay",
-		"score":"SCORE",
+		"score":"Score",
 		"viewAll":"View all",
 		"aboutUs": "About Us",
 		"dragAndDrop": "Drag and Drop",
@@ -150,7 +150,13 @@
 		"notificationSetting" : "Notification Setting",
 		"jobLocation" : "Job Location",
 		"workTiming" : "Work Timing",
-		"timing" : "Timing"
+		"timing" : "Timing",
+		"viewjobs" :"View Job",
+		"editProfile" :"Edit Profile",
+		"candidateSkills" :"CANDIDATE SKILLS",
+		"jobMatches" : "Job Matches",
+		"jobDescription" : "Job Description"
+		
 	},
 	"auth":{
 		"findRightPlace":"Find Your Right Place",
@@ -184,7 +190,8 @@
 		"profile": "Profile",
 		"notification": "Notification",
 		"settings": "Settings",
-		"logout": "Logout" 
+		"logout": "Logout",
+		"deleteaccount" : "Delete account"
 	},
 	"nav":{
 		"hiringTrend":"Hiring Trend",
@@ -200,6 +207,14 @@
 		"openJobs":"Open Jobs",
 		"employees":"Employees",
 		"myAttachments":"My Attachments"
+	},
+	"chart":{
+		"interviewed":"Interviewed",
+		"offered":"Offered",
+		"accepted":"Accepted",
+		"denied":"Denied",
+		"awaiting":"Awaiting",
+		"jobStatus":"Job Status"
 	},
 	"tabs":{
 		"matches": "Matches",

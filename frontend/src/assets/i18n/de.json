@@ -55,7 +55,7 @@
 		"missing":"Fehlen",
 		"moreSkills":"Mehr Fähigkeiten",
 		"applyNow":"Jetzt bewerben",
-		"candidateMatches":"Kandidaten-Matches",
+		"candidateMatches":"Post-Job-Matches-Ansicht",
 		"jobsMatches":"Jobs Übereinstimmungen",
 		"salary": "Zahlen",
 		"score":"SPIELSTAND",
@@ -146,7 +146,10 @@
 		"contractDuration": "Vertragslaufzeit",
 		"enterNumberOfPositions": "Geben Sie die Anzahl der Positionen ein",
 		"validStatus": "Bitte wählen Sie den gültigen Status",
-		"notificationSetting" : "Benachrichtigungseinstellung"
+		"notificationSetting" : "Benachrichtigungseinstellung",
+		"viewjobs":"Job anzeigen",
+		"editProfile" :"Profil bearbeiten",
+		"candidateSkills" :"KANDIDATEN-FÄHIGKEITEN"
 	},
 	"auth":{
 		"findRightPlace":"Finden Sie Ihren richtigen Ort",
@@ -180,7 +183,8 @@
 		"profile": "Profil",
 		"notification": "Benachrichtigung",
 		"settings": "Einstellungen",
-		"logout": "Logout"
+		"logout": "Logout",
+		"deleteaccount" : "Konto löschen"
 	},
 	"nav":{
 		"hiringTrend":"Einstellungstrend",
@@ -196,6 +200,14 @@
 		"openJobs": "Offene Stellen",
 		"employees": "Mitarbeiter",
 		"myAttachments": "Meine Anhänge"
+	},
+	"chart":{
+	  "interviewed": "Bewerbungsgespräch",
+	  "offered": "Angeboten",
+	  "accepted": "Angenommen",
+	  "denied": "Abgelehnt",
+	  "awaiting": "Wartend",
+	  "jobStatus": "Auftragsstatus"
 	},
 	"tabs":{
 		"matches": "Streichhölzer",

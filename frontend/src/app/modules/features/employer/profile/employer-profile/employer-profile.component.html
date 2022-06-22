@@ -4,7 +4,8 @@
 			<div class="col-lg-5">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="#" onclick="window.history.go(-1); return false;"><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
-					<li  class="breadcrumb-item-active" aria-current="page"> {{"shared.createProfile" | translate}} </li>
+					<li *ngIf="!companyProfileInfo?.id" class="breadcrumb-item active" aria-current="page">{{"shared.createProfile" | translate}}</li>
+		            <li *ngIf="companyProfileInfo?.id" class="breadcrumb-item active" aria-current="page">{{"shared.editProfile" | translate}}</li>
 				</ol>
 			</div>
 		</div>
@@ -18,7 +19,7 @@
         <div class="company-info">
           <div class="media">
             <div class="media-head" *ngIf="employerDetails?.photo !='default.png'">
-              <img (error)="updateUrl($event)" src="employerDetails?.photo" [src]="employerDetails?.photo ? (employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
+              <img (error)="updateUrl($event)" src="employerDetails?.photo" [src]="employerDetails?.photo ? employerprofilepath: 'assets/images/user-img-icon.jpg'">
             </div>
 			<div style="padding: 30px;" class="media-head" *ngIf="employerDetails?.photo =='default.png'">
             </div>

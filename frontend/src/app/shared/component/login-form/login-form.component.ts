@@ -64,7 +64,7 @@ export class LoginFormComponent implements OnInit {
   **/
   login() {
 	  
-    this.isLoading = true;
+    //this.isLoading = true;
     this.showError = false;
 
     let userCredentials = this.loginForm.value;
@@ -74,7 +74,7 @@ export class LoginFormComponent implements OnInit {
       this.accountService.login(userCredentials).subscribe(
         response => {
 		sessionStorage.clear();
-          this.isLoading = false;
+          //this.isLoading = false;
           if (response.isLoggedIn && response.role.includes(0)) {
 			  if(response['verified']==true){
 				  if(this.route.snapshot.queryParams['redirect']){
@@ -87,7 +87,7 @@ export class LoginFormComponent implements OnInit {
 						this.router.navigate(['/user/dashboard']);
 					  }
 				  }else{
-					this.router.navigate([this.returnUserUrl]);
+					this.router.navigate(['/user/dashboard']);
 				  }
 			  }else{
 				  this.router.navigate(['/user/create-candidate']);
@@ -95,8 +95,8 @@ export class LoginFormComponent implements OnInit {
             
           }else if (response.isLoggedIn && response.role.includes(1)) {
 			  if(response['verified']==true){
-				  let requestParams: any = {};
-				  this.SharedAPIService.onGetCompanyDetails(requestParams);
+				  //let requestParams: any = {};
+				  //this.SharedAPIService.onGetCompanyDetails(requestParams);
 				  this.router.navigate([this.returnEmployerUrl]);
 			  }else{
 				  

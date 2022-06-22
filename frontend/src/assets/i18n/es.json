@@ -55,7 +55,7 @@
         "missing": "Desaparecido",
         "moreSkills": "Más habilidades",
         "applyNow": "Aplicar ahora",
-        "candidateMatches": "Coincidencias de candidatos",
+        "candidateMatches": "Publicar coincidencias de empleo Ver",
 		"jobsMatches":"coincidencias de trabajos",
         "score": "PUNTUACIÓN",
         "viewAll": "Ver todo",
@@ -142,7 +142,10 @@
 	    "knowledgeOnSAP":"Conocimiento sobre otras habilidades de SAP",
 	    "couldNotFind":"No pude encontrar sus habilidades de SAP",
 	    "addNewSkills":"Agregue una nueva habilidad de SAP",
-		"notificationSetting" :"Notificación de configuración"
+		"notificationSetting" :"Notificación de configuración",
+		"viewjobs":"Ver trabajo",
+		"editProfile" :"Editar perfil",
+		"candidateSkills" :"HABILIDADES DEL CANDIDATO"
 	},
 	"auth":{
 	    "findRightPlace":"Encuentra tu lugar correcto",
@@ -176,7 +179,8 @@
         "profile": "Perfil",
         "notification": "Notificación",
         "settings": "Configuración",
-        "logout": "Cerrar sesión"
+        "logout": "Cerrar sesión",
+		"deleteaccount" : "Borrar cuenta"
 	},
 	"nav": {
 	    "hiringTrend":"Tendencia de contratación",
@@ -192,6 +196,14 @@
         "openJobs": "Empleos abiertos",
         "employees": "Empleados",
         "myAttachments": "Mis archivos adjuntos"
+	},
+	"chart":{
+	  "interviewed": "Entrevistado",
+	  "offered": "Ofrecido",
+	  "accepted": "Aceptado",
+	  "denied": "Denegado",
+	  "awaiting": "Esperando",
+	  "jobStatus": "Estado del trabajo"
 	},
 	"tabs": {
         "matches": "Partidos",
@@ -320,7 +332,7 @@
 	    "teleCommuting": "Teletrabajo",
 	    "wellnessProgram": "Programa de bienestar",
 	    "paidSickLeaves": "Licencias por enfermedad pagadas",
-            "remoteOption" :"Seleccione la opción remota"
+		"remoteOption" :"Seleccione la opción remota"
 	},
 	"common": {
         "message": "Mensaje",

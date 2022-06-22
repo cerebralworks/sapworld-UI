@@ -29,6 +29,8 @@ export class CandidateJobViewComponent implements OnInit {
 	public isgetValue: boolean = false;
 	public screenWidth: any;
     public loading : boolean;
+	public backToNotication:boolean = false;
+	
 	constructor(
 		private route: ActivatedRoute,
 		private userSharedService: UserSharedService,
@@ -54,6 +56,9 @@ export class CandidateJobViewComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
+				if(urlQueryParams.notification){
+				this.backToNotication = true;
+				}
 				if(urlQueryParams && urlQueryParams.id) {
 					sessionStorage.setItem('view-job-id',urlQueryParams.id);
 					sessionStorage.setItem('view-job-location-id',urlQueryParams.location_id);
@@ -125,6 +130,8 @@ export class CandidateJobViewComponent implements OnInit {
 			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'applied'}});
 		}else if(sessionStorage.getItem('view-job-path')=='shortlisted'){
 			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'shortlisted'}});
+		}else if(this.backToNotication ===true){
+			this.router.navigate(['/notification']);
 		}else{
 			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
 		}

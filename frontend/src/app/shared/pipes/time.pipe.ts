@@ -16,8 +16,14 @@ export class TimePipe implements PipeTransform {
 				maxCheck_1 = maxCheck_1-12;
 				maxCheck_1 = maxCheck_1+':'+value[1]+' PM ';
 				return maxCheck_1;
+			}else if(0 == maxCheck_1){
+				maxCheck_1 = '12'+':'+value[1]+' AM ';
+				return maxCheck_1;
+			}else if(12 == maxCheck_1){
+				maxCheck_1 = maxCheck_1+':'+value[1]+' PM ';
+				return maxCheck_1;
 			}else{
-				maxCheck_1 = maxCheck_1+' : '+value[1]+' AM ';
+				maxCheck_1 = maxCheck_1+':'+value[1]+' AM ';
 				return maxCheck_1;
 			}
 			

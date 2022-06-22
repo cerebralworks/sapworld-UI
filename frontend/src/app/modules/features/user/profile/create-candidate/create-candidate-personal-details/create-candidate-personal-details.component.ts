@@ -75,6 +75,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	public othercountrys: any[] = [];
 	public languageSource: any[] = [];
 	public checkboxerror:boolean=false;
+	public userprofilepath : any;
+	
 	savedUserDetails: any;
 	othercountryValue: any;
 	randomNum: number;
@@ -97,7 +99,8 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	CountryISO = CountryISO;
 	PhoneNumberFormat = PhoneNumberFormat;
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-	public requestParams: any;		 
+	public requestParams: any;	
+    public fileExtension : any;	
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
@@ -241,7 +244,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  })
 		this.randomNum = Math.random();
 		this.createForm();
-		
+		this.userprofilepath = `${env.apiUrl}/images/user/`;
 		//To get the tab information
 		
 		this.dataService.getTabInfo().subscribe(response => {
@@ -734,12 +737,12 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	createForm() {
 		this.childForm = this.parentF.form;
 		this.childForm.addControl('personalDetails', new FormGroup({
-		  first_name: new FormControl('', Validators.required),
-		  last_name: new FormControl('', Validators.required),
+		 first_name: new FormControl('',[Validators.required,ValidationService.emptyStringValidator]),
+		  last_name: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
 		  email: new FormControl(''),
 		  entry: new FormControl(false),
 		  phone: new FormControl(''),
-		  city: new FormControl('', Validators.required),
+		 city: new FormControl('', Validators.required),
 		  state: new FormControl('', Validators.required),
 		  latlng: new FormControl({}, Validators.required),
 		  country: new FormControl('', Validators.required),
@@ -853,11 +856,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  let fileToUpload = files.item(0);
 		  let allowedExtensions = ["jpg", "jpeg", "png", "JPG", "JPEG"];
 
-		  let fileExtension = files
+		  this.fileExtension = files
 			.item(0)
 			.name.split(".")
 			.pop();
-		  if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+		  if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
 			this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
 			return;
 		  }
@@ -923,7 +926,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	onImageCropSave() {
 		this.defaultProfilePic = this.profilePicValue;
 		this.previousProfilePic = this.defaultProfilePic;
-		this.dataService.setUserPhoto({ photoBlob: this.croppedFile, base64: this.defaultProfilePic })
+		this.dataService.setUserPhoto({ photoBlob: this.croppedFile, base64: this.defaultProfilePic, ext :this.fileExtension })
 		this.mbRef.close();
 	}
 	

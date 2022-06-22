@@ -4,6 +4,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { DataService } from '@shared/service/data.service';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
+import { Router } from '@angular/router';
 @Component({
 	selector: 'app-shared-user-profile-job-matches',
 	templateUrl: './shared-user-profile-job-matches.component.html',
@@ -39,10 +40,10 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		{  id:2, text: 'Functional' },
 		{  id:3, text: 'Technofunctional' }
 	];
-	constructor(private dataService: DataService,public sharedService: SharedService,public utilsHelperService: UtilsHelperService ) { }
+	constructor(private dataService: DataService,public sharedService: SharedService,public utilsHelperService: UtilsHelperService,public router:Router ) { }
 
 	ngOnInit(): void {
-	
+	    
 		this.dataService.getCountryDataSource().subscribe(
 		response => {
         if (response && Array.isArray(response) && response.length) {
@@ -58,6 +59,13 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
         }
       }
     );
+	this.postedJobsDetails.job_locations.filter((a)=>{
+		if(a.country === this.userInfo['country']){
+		  this.checkWrkAuth = false;
+		}else{
+		  this.checkWrkAuth = true;
+		  }
+		})
 	}
 	
 	/**
@@ -74,7 +82,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		  this.checkWrkAuth = true;
 		  }
 		})
-		console.log(this.checkWrkAuth)
+		//console.log(this.checkWrkAuth)
 			  if(this.postedJobsDetails.match_select){
 				  this.postedJobsDetails.match_select.remote="false";
 				  this.postedJobsDetails.match_select.willing_to_relocate="false";

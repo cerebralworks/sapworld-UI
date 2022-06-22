@@ -1,6 +1,6 @@
 <!-- Sub Header Section -->
 <section class="sub-header" style="padding:0px;">
-	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container container-big'"   >
+	<div [ngClass]="(screenWidth >= 1500)?'container':'container'"   >
 		<div class="row">
 			<div class="col-lg-5 d-flex align-items-center">
 				<!-- <button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
@@ -17,12 +17,15 @@
 	</div>
 </section>
   <!-- //Sub Header Section -->
-<section class="my-5">
-	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container container-big'"   >
-		<div class="row" *ngIf="loading === true">
-			<div [ngClass]="(isMultipleMatches === true)?'col-lg-4':'col-lg-6'">
+  <section>
+  <div class="title-card clearfix">
+			<div class="container">
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-8">
+						<h5 class="text-capitalize">{{userDetails.first_name +' '+ userDetails.last_name}}<span class="mx-2"> | </span>{{userDetails.current_employer_role}}</h5>
+					</div>
+					<div class="col-4 text-right">
+						
 						<app-contact-card
 						  [userInfo]="userInfo"
 						  [isEdit]="false"
@@ -34,18 +37,179 @@
 						</app-contact-card>
 					</div>
 				</div>
+			</div>
+		</div>
+<!--<div class="pt-2 mb-3 mt-1" style="background-color:#EEFCFF;">
+  <div [ngClass]="(screenWidth >= 1500)?'container':'container'">
+  <div class="row">
+  <div class="col-3 d-flex">
+  <h4 style="color:#385EDF;font-weight:bold;" class="text-capitalize">{{userDetails.first_name +' '+ userDetails.last_name}}&nbsp;</h4>
+  <h6 style="color:#48C894;font-weight:bold;" class="mt-2 text-capitalize"> - {{userDetails.current_employer_role}}</h6>
+  </div>
+  <div class="col-3">
+  <ul class="mb-1">
+  <li class="text-capitalize bluecardtext">Location :  {{userDetails?.city+', '+userDetails?.state+', '+userDetails?.country}}</li>
+  </ul>
+  </div>
+  <div class="col-3">
+  <ul>
+  <li class="text-capitalize bluecardtext">{{userDetails?.current_employer}}</li>
+  </ul>
+  </div>
+  <div class="col-3 mt-2">
+   <app-contact-card
+	  [userInfo]="userInfo"
+	  [isEdit]="false"
+	  [isUploadShow]="true"
+	  [isContactIcon]="false"
+	  [isResume]="true"
+	  [isMatchesShow]="true"
+	  [isMultipleMatches]="isMultipleMatches"
+	  [isMatchesView]="false">
+	</app-contact-card>
+  </div>
+  </div>
+  </div>
+</div>-->
+</section>
+<section class="my-2">
+	<div [ngClass]="(screenWidth >= 1500)?'container':'container'"   >
+	   <div id="cardsliders" class="row" *ngIf="loading===true">
+	   <div class="col-10" *ngIf="!utilsHelperService.isEmptyObj(matchingJob?.jobs)">
+				<div class="ee-infobox d-flex justify-content-between">
+					<div class="d-flex">
+						<div class="avtr">
+							<img src="assets/images/job-logo-img.png" class="img-fluid mx-auto">
+						</div>
+						<div class="text">
+							<a [routerLink]="[ '/employer/job-detail-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id }"  class="text-capitalize" href="javascript:;">
+							<h5>{{matchingJob?.jobs?.title}}</h5>
+						</a>
+							<h5><ng-container *ngFor="let item of matchingJob?.jobs?.job_locations;index as i" >
+								<small class="text-capitalize">
+								{{item?.city ? item?.city+', '+item?.stateshort+',' : ''}}
+								<span  *ngIf="!isMultipleMatches">
+								  {{item?.country ? item?.country : ''}}
+								</span><span *ngIf="isMultipleMatches">
+								  {{item?.countryshort ? item?.countryshort : ''}}
+								</span><br>
+								</small>
+								</ng-container></h5>
+							<h5 class="text-capitalize"><small>{{matchingJob?.jobs?.company_name }}</small></h5>
+						</div>
+					</div>
+					<div class="butn">
+						<div class="mb-2">
+							
+								<a class="btn btn-outline-light btn-sm" href="javascript:;" (click)="onToggleJDModal(true,matchingJob?.jobs?.description)">	
+								<i class="fas fa-file-alt mr-1"></i>{{"shared.jobDescription" | translate}}</a> &nbsp;
+							
+							<span>
+								<a class="btn btn-outline-light btn-sm" [routerLink]="['/user/dashboard']" [queryParams]="{activeTab:'matches'}" routerLinkActive="router-link-active" >	
+								<i class="fas fa-tasks"></i>{{"tabs.matches" | translate}}</a>
+							</span>
+						</div>
+						<div class="">
+							<button (click)="onShowMatches($event)" id="matchBtnVal"  [ngClass]="matchedElement ? 'btn-fltr-active' : ''" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="13px">{{"shared.matches" | translate}}</button>&nbsp;
+							<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="12px">{{"shared.missing" | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-1">
+				<div class="ee-scorebox text-uppercase">{{"shared.score" | translate}}<h4>{{matchingJob?.jobs.score ? matchingJob?.jobs.score :0}}/10</h4></div>
+			</div>
+	   <!--<div class="col-10" *ngIf="!utilsHelperService.isEmptyObj(matchingJob?.jobs)">
+			<div class="card profile-card">
+			<div class="row">
+			   <div class="col-1"> 
+			   <i class='fas fa-briefcase bcstyle mt-2 ml-2' ></i>
+			   </div>
+				<div class="d-flex col-11">
+					<div class="col-lg-8 col-md-12 muliticard">
+						<a [routerLink]="[ '/employer/job-detail-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id }"  class="text-capitalize" href="javascript:;">
+							<h5>{{matchingJob?.jobs?.title}} <small></small></h5>
+						</a>
+						<h6 class="text-capitalize">
+							{{matchingJob?.jobs?.company_name }}
+						</h6>
+						<h6 class="text-capitalize">
+		
+							<ng-container *ngFor="let item of matchingJob?.jobs?.job_locations;index as i" >
+								<span>
+								{{item?.city ? item?.city+', '  : ''}}
+								<span class="text-uppercase" *ngIf="!isMultipleMatches">
+								  {{item?.country ? item?.country : ''}}
+								</span><span class="text-uppercase" *ngIf="isMultipleMatches">
+								  {{item?.countryshort ? item?.countryshort : ''}}
+								</span><br>
+								</span>
+								</ng-container>
+						</h6>
+
+					</div>
+					<div class="col-lg-4 col-md-12 change-lay ml-5"  [ngClass]="(isMultipleMatches === true)?'isMatchesView':''">
+						<a class="btn btn-outline-blue btn-sm text-right" href="javascript:;" (click)="onToggleJDModal(true,matchingJob?.jobs?.description)" style="font-size:12px;">	
+						<i class="fas fa-calendar-alt"></i> {{"shared.description" | translate}}</a>
+						
+						<div class="media mt-2" >
+							<div class="media-body">
+							
+							 <div style="position: initial !important;margin-top:0px !important;"class="matchs-info " >
+							<button (click)="onShowMatches($event)" id="matchBtnVal"  [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light"><i class='fas fa-check' style='color:#3AC724;font-size:6px;border:2px solid;border-radius:40%;padding:3px 2px 1px 2px;'></i><span style="font-size:11px;font-weight:500;margin-left:-0.7rem;">{{"shared.matches" | translate}}</span> </button>
+							<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn btn-sm btn btn-fltr btn-light"><i class="fa fa-times text-danger" style='color:#DA0000;font-size:7px;border:2px solid;border-radius:40%;padding: 2px 2.5px 1px 2.5px;'></i> <span style="font-size:11px;font-weight:500;margin-left:-0.7rem;">{{"shared.missing" | translate}}</span></button>
+							
+						</div>
+								
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-2 d-flex">
+		<div class="scorecard" [ngClass]="{'score-txt-green': matchingJob?.score >= 5, 'score-txt-orange': (matchingJob?.score < 5 && matchingJob?.score > 0), 'score-txt-red': (matchingJob?.score == 0)}">
+		&nbsp;&nbsp;{{"shared.score" | translate}} <span style="font-size:20px;font-weight: 600;">{{matchingJob?.jobs.score ? matchingJob?.jobs.score :0}}/10</span>
+	    </div>
+		<div class="ml-4">
+		<a *ngIf="page != 1 " (click)="onChangeUserr('prev')"><i style="color:#CCCCCC;font-size:30px;" class="fas fa-arrow-circle-left"></i></a>
+		<h5 style="color:#6C757D;font-weight:600;" [ngClass]="(TotalMatchJobs.length == 1)? 'mt-4': ''">{{page}}/{{TotalMatchJobs.length}}</h5>
+		<a *ngIf="page != TotalMatchJobs.length" (click)="onChangeUserr('next')" ><i style="color:#CCCCCC;font-size:30px;" class="fas fa-arrow-circle-right"></i></a>
+		
+		</div>
+		
+		</div>-->
+	   </div>
+		<div class="row" *ngIf="loading === true">
+			<div [ngClass]="(isMultipleMatches === true)?'col-lg-6':'col-lg-6'">
+				<!--<div class="row">
+					<div class="col-lg-12">
+						<app-contact-card
+						  [userInfo]="userInfo"
+						  [isEdit]="false"
+						  [isContactIcon]="false"
+						  [isResume]="true"
+						  [isMatchesShow]="true"
+						  [isMultipleMatches]="isMultipleMatches"
+						  [isMatchesView]="false">
+						</app-contact-card>
+					</div>
+				</div>-->
 				<app-shared-user-profile-job-matches [isMultipleMatches]="isMultipleMatches" [fieldsExclude]="{clients_worked: true, job_role: true, willing_to_relocate: true}" [userInfo]="userInfo" [postedJobsDetails]="matchingJob?.jobs"></app-shared-user-profile-job-matches>
 		  </div>
-		<div  class="top-pad top-pads" [ngClass]="(isMultipleMatches === true)?'col-lg-8':'col-lg-6'">
+		<div  class="top-pad top-pads" [ngClass]="(isMultipleMatches === true)?'col-lg-6':'col-lg-6'">
 			<div id="carouselProfile" class="carousel slide job-info-container" data-interval="false" data-ride="carousel">
 				<div class="carousel-inner">
 					<!--Profile1-->
 					<div class="carousel-item active">
 						<div class="row">
-							<div *ngIf="!utilsHelperService.isEmptyObj(matchingJob?.jobs)" [ngClass]="(isMultipleMatches === true)?'col-lg-6':'col-lg-12'" >
+							<div *ngIf="!utilsHelperService.isEmptyObj(matchingJob?.jobs)" [ngClass]="(isMultipleMatches === true)?'col-lg-12':'col-lg-12'" >
 								<div class="row info-box">
 								<!--Header Sec-->
-									<div class="col-lg-12" >
+									<!--<div class="col-lg-12" >
 										<div class="card profile-card">
 											<div class="d-flex">
 												<div class="col-lg-8 job-cards">
@@ -54,7 +218,8 @@
 													</a>
 													
 														<h6 class="mb-0 text-capitalize country-details">
-															<ng-container *ngFor="let item of matchingJob?.jobs?.job_locations" >
+															<ng-container *ngFor="let item of matchingJob?.jobs?.job_locations;index as i" >
+															<span *ngIf="i < 3">
 															{{item?.city ? item?.city+', '  : ''}}
 															{{item?.state ? item?.state+', '  : ''}}
 															<span class="text-uppercase" *ngIf="!isMultipleMatches">
@@ -62,9 +227,12 @@
 															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
 															  {{item?.countryshort ? item?.countryshort : ''}}
 															</span><br>
+															</span>
 															</ng-container>
+															<span class="text-uppercase" style="color:blue;cursor:pointer;margin-left:14.5rem;margin-top:-1rem;position:absolute;" *ngIf="matchingJob?.jobs?.job_locations.length>3">
+															+{{matchingJob?.jobs?.job_locations.length-3}}
+														  </span>
 														</h6>
-														
 													<h6 class="mt-1 text-capitalize">
 														{{matchingJob?.jobs?.company_name }}
 													</h6>
@@ -80,20 +248,20 @@
 															<h6 *ngIf="matchingJob?.jobs?.salary_type == 2" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(matchingJob?.jobs?.salary_currency)?.symbol + matchingJob?.jobs?.salary + ' / month'}}</h6>
 															<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.remote)}} </h6>
 															<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(matchingJob?.jobs?.willing_to_relocate)}} </h6> -->
-														</div>
+														<!--</div>
 													</div>
 												</div>
 											</div>
 										</div>
 										
-									</div>
+									</div>-->
 									<!--Body Sec-->
-									<div class="col-lg-12 info" [ngClass]="isMultipleMatches ? 'mt-3' : 'mt-4'">
-										<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJob?.jobs.score >= 5, 'score-txt-orange': (matchingJob?.jobs.score < 5 && matchingJob?.jobs.score > 0), 'score-txt-red': (matchingJob?.jobs.score == 0)}">
+									<div class="col-lg-12 info">
+										<!--<div class="score mt-5" [ngClass]="{'score-txt-green': matchingJob?.jobs.score >= 5, 'score-txt-orange': (matchingJob?.jobs.score < 5 && matchingJob?.jobs.score > 0), 'score-txt-red': (matchingJob?.jobs.score == 0)}">
 											{{"shared.score" | translate}} <span>{{matchingJob?.jobs.score ? matchingJob?.jobs.score :0}}/10</span>
-										</div>
+										</div>-->
 										<app-shared-job-profile-multiple-matches [jobInfo]="matchingJob?.jobs"  [isMultipleMatches]="isMultipleMatches" 
-										[missingElement]="true" [matchedElement]="true"
+										[missingElement]="missingElement" [matchedElement]="matchedElement"
 										[moreElement]="moreElement" [userInfo]="userInfo">
 										</app-shared-job-profile-multiple-matches>
 									</div>
@@ -118,7 +286,9 @@
 														
 													</h6> -->
 													<h6 class="mb-0 text-capitalize country-details">
-															<ng-container *ngFor="let item of matchingJobNew?.jobs?.job_locations" >
+															
+															<ng-container *ngFor="let item of matchingJobNew?.jobs?.job_locations;index as i" >
+															<span *ngIf="i < 3">
 															{{item?.city ? item?.city+', '  : ''}}
 															{{item?.state ? item?.state+', '  : ''}}
 															<span class="text-uppercase" *ngIf="!isMultipleMatches">
@@ -126,7 +296,11 @@
 															</span><span class="text-uppercase" *ngIf="isMultipleMatches">
 															  {{item?.countryshort ? item?.countryshort : ''}}
 															</span><br>
+															</span>
 															</ng-container>
+															<span class="text-uppercase" style="color:blue;cursor:pointer;margin-left:14.5rem;margin-top:-1rem;position:absolute;" *ngIf="matchingJobNew?.jobs?.job_locations.length>3">
+															+{{matchingJobNew?.jobs?.job_locations.length-3}}
+														  </span>
 														</h6>
 													<h6 class="mt-1 text-capitalize">
 														{{matchingJobNew?.jobs?.company_name }}
@@ -171,7 +345,7 @@
 					<!--//Profile1-->
 				</div>
 				<!--PrevNext-->
-				<div class="matchCount" style="top:-45px;">{{page}}/{{TotalMatchJobs.length}}</div>
+				<!--<div class="matchCount" style="top:-45px;">{{page}}/{{TotalMatchJobs.length}}</div>
 				<a  *ngIf="page != 1 " (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
 				data-slide="prev" style="top:-45px;">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -181,7 +355,17 @@
 				data-slide="next" style="top:-45px;">
 					<span class="carousel-control-next-icon" aria-hidden="true"></span>
 					<span class="sr-only">Next</span>
-				</a>
+				</a>-->
+				<div class="ee-count clearfix">
+					<div class="count-num">{{page}}/{{TotalMatchJobs.length}}</div>
+					<a *ngIf="page != 1 " style="cursor:pointer;" (click)="onChangeUserr('prev')" class="carousel-control-prev">
+						Prev
+					</a>
+					<a *ngIf="page != TotalMatchJobs.length " style="cursor:pointer;" (click)="onChangeUserr('next')" class="carousel-control-next">
+						Next
+					</a>
+				 </div>
+					 
 			</div>
 		</div>
 	</div>

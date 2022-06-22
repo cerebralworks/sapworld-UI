@@ -3,8 +3,8 @@
   border: 1px solid #ff8645;
 }
 .score-txt-green {
-  color: #35ad97;
-  border: 1px solid #35ad97;
+  color: #11b771;
+  border: 1px solid #11b771;
 }
 .score-txt-red {
   color: #dc3545;
@@ -32,4 +32,10 @@
 }
 .a-class{
 	color: #385edf;
+}
+.location-role{
+	font-weight: 700;
+    font-size: 14px;
+    color: #9AA0A6;
+    margin-top:-0.4rem;
 }

@@ -32,7 +32,7 @@ body {
     margin: 0;
      font-family: 'Nunito', sans-serif !important; 
   /*  font-family: sans-serif,'Nunito' !important; */
-    font-size: 13px;
+    font-size: 14px;
 	color: #000000;
     letter-spacing: 0.25px;
 }
@@ -50,7 +50,7 @@ a {
   transition: all .5s ease;
 }
 .btn{
-	border: 1px solid;
+	/*border: 1px solid;*/
 }
 .mat-form-field-flex {
 	border-bottom: 1px solid;
@@ -79,7 +79,7 @@ a:hover {
     margin-bottom: 0;
     vertical-align: top;
     padding-top: 2px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: #666;
 }
@@ -135,7 +135,7 @@ a:hover {
     background-color: #ffc107;
     border-color: #ffc107;
 }
-.btn-sm{font-size: 12px;height: 28px;}
+.btn-sm{font-size: 12px;height: 25px;font-weight:600;}
 .sm-btn{width:36px;}
 /* .btn {border-radius: 7px!important;} */
 .btn-group-lg>.btn, .btn-lg {
@@ -298,7 +298,7 @@ a:hover {
     height: 24px!important;
     padding: 1px 5px!important;
     min-width: 100px!important;
-    font-size: 13px;
+    font-size: 13.5px;
     border: 1px solid #d2d2d2!important;
     border-radius: 5px;
 }
@@ -548,7 +548,7 @@ a:hover {
 }
 .theme-nav.navbar-light .navbar-nav .nav-link {
     color: #6c757d!important;
-    font-size: 14px;
+    font-size: 15px;
     /* text-transform: capitalize; */
     font-weight: 700;
     padding: 10px 15px;
@@ -812,7 +812,7 @@ a:hover {
 }
 .job-card .media  h6 {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 14px;
     color: #465666;
     margin-bottom: 7px;
 }
@@ -843,7 +843,8 @@ a:hover {
 }
 .job-card h5 small{
 	color: #11b771;
-	font-weight: 600;
+	font-weight: 700;
+	font-size:20px;
 }
 .sm h5 {
     color: #385edf;
@@ -1203,7 +1204,7 @@ a:hover {
     border-radius: 2rem;
     width: fit-content;
     background: #efefef;
-    font-size: 12px;
+    font-size: 13px;
     margin: 10px 5px 0 0;
     font-weight: 600;
     float: left;
@@ -1266,7 +1267,7 @@ a:hover {
 .profile-card {
     border: none;
     background: transparent;
-    min-height: 120px;
+    min-height: 100px;
     border-radius: 10px;
     border: 1px solid rgba(0,0,0,.125);
     padding: 8px;
@@ -1274,7 +1275,7 @@ a:hover {
 .profile-card h5 {
 	color: #385edf;
 	margin-bottom: 0;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 700;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -1294,9 +1295,9 @@ a:hover {
 }
 .profile-card .pc-info h6 {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 14px;
     color: #465666;
-    margin-bottom: 7px;
+    margin-top: -5px;
 }
 .profile-card .pc-info h6 a{
     color: #465666;
@@ -1403,7 +1404,7 @@ a:hover {
     width: auto;
     float: left;
     height: 22px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: #385edf;
     border-radius: 75px;
@@ -1451,7 +1452,7 @@ a:hover {
     width: auto;
     float: left;
     height: 34px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: #9b9b9b;
     border: solid 1px #adadad;
@@ -1608,7 +1609,7 @@ a:hover {
     border-radius: .5rem;
 }
 .caption .list-group-item {
-    position: relative;
+     position: relative;
     display: block;
     padding: .15rem 0;
     background-color: transparent;
@@ -1616,10 +1617,11 @@ a:hover {
     /* border-bottom: 1px solid rgba(0,0,0,.15); */
     border-radius: 0;
     margin-bottom: 10px;
-    color: #888;
-    font-size: 13px;
+    color: #999;
+    font-size: 14px;
     min-height: 26px;
     font-weight: 600;
+    min-width: 150px;
 }
 .info .list-group-item {
     position: relative;
@@ -1630,19 +1632,19 @@ a:hover {
     /* border-bottom: 1px solid rgba(0,0,0,.15); */
     border-radius: 0;
     margin-bottom: 10px;
-    color: #000;
+    color: #222;
     font-size: 14px;
     min-height: 26px;
     font-weight: 600;
     text-overflow: ellipsis;
     overflow: hidden;
-    min-width: 350px;
+    /* min-width: 350px; */
     white-space: nowrap;
 }
 .sap-badge {
     background: #ffeaa9;
     padding: 4px 10px 2px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     border-radius: 75px;
     color: #333;
@@ -1801,7 +1803,7 @@ a:hover {
 }
 .media i {
     margin-right: 15px;
-    line-height: 24px;
+    /*line-height: 24px;*/
     color: #999;
 }
 .footer-bottom {
@@ -2114,7 +2116,7 @@ a:hover {
     background: rgb(113 177 30 / 1%);
 }
 .company-jbcard h4{
-    font-size: 0.95rem;
+    font-size: 0.99rem;
     margin-bottom: 5px;
     font-weight: 600;
 }
@@ -2123,7 +2125,7 @@ a:hover {
 }
 .company-jbcard h5 {
     margin-bottom: 5px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     color: #666;
 }
@@ -2459,8 +2461,10 @@ a:hover {
   background: url(../images/loading.gif)no-repeat center top;
 }
 .pj-title {
-    padding: 5px 0;
-    border-bottom: 1px solid #ffc0d8;
+    padding: 10px 10px;
+    border-bottom: 1px solid #11b771;
+    background: #f2fffa;
+    margin: 15px 0;
 }
 .pj-title h6{
     margin: 0;
@@ -2472,7 +2476,7 @@ a:hover {
 .sap-badge {
     background: #ffeaa9;
     padding: 4px 10px 2px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     border-radius: 75px;
     color: #333;
@@ -2543,7 +2547,7 @@ a:hover {
 }
 .media h6 {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 14px;
     color: #465666;
     margin-bottom: 5px;
 }
@@ -2669,7 +2673,7 @@ ul.timeline > li {
     padding-left: 5px;
     text-align: left;
     font-weight: 500;
-    font-size: 15px; 
+    font-size: 16px; 
 }
 ul.timeline > li:before {
     content: "\f13a";
@@ -2697,16 +2701,16 @@ ul.timeline > .blue:before {
 ul.timeline > .green:before {
     color: #11b771!important;
 }
-ul.timeline > .orange:before {
+ul.timeline > .oranges:before {
     color: #e98752!important;
 }
-ul.timeline > .purple:before {
+ul.timeline > .purples:before {
     color: #9c62e8!important;
 }
 ul.timeline > .red:before {
     color: #ff6a4b!important;
 }
-ul.timeline > .yallow:before {
+ul.timeline > .yellow:before {
     color: #ffbc3f!important;
 }
 ul.timeline > li span {
@@ -3134,6 +3138,33 @@ ul.timeline > li span:hover {
 	}
  }
 
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+	 .job-card .media h6 {
+		font-size: 12px;
+	}
+	.matchs-info {
+		top: 48px !important;
+		font-size: 12px!important;
+		right: 0px!important;
+		left: 93px !important;
+	}
+	
+	.col-lg-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+ #media_width{
+	margin-top:-1rem;
+ }
+ #coverletter{
+	 font-size:8px;
+ }
+ #resumeletter{
+	 font-size:8px;
+ }
+ }
+ 
 /*-- Medium devices (tablets, 768px and up)--*/
 @media (min-width: 768px) and (max-width: 1023.98px) {
 	.job-txt{
@@ -3778,6 +3809,219 @@ ul.timeline > li span:hover {
 .btn-fltr-active {
     background-color: #4caf50;
     border-color: #4caf50;
-    box-shadow: 3px 3px 3px 2px #4caf5057;
+    /*box-shadow: 3px 3px 3px 2px #4caf5057;*/
     color: #ffffff;
 }
+
+.scorecard{
+	width :100px;
+	height:100px;
+   border-radius:10%;
+   color: #11b771;
+   border: 1px solid #11b771;
+   padding:1.5rem 1rem 1rem 1.2rem;
+   font-weight:bolder;
+}
+.slideanimations{
+  animation: moveleft 0.6s;
+}
+
+@keyframes moveleft {
+  from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+}
+.slidearight{
+  animation: moveright 0.6s;
+}
+
+@keyframes moveright {
+  from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+}
+.profile-card:hover{
+       border-color: #11b771;
+    box-shadow: 5px 5px 5px rgb(17 183 113 / 0.15);
+    background: rgb(113 177 30 / 1%);
+}
+.btn-sty{
+	font-size:12px;
+	font-weight:600px;
+	
+}
+.bcstyle{
+	color:white;
+	background:#CCCCCC;
+	height:64px;
+	width:64px;
+	padding:17px;
+	font-size:30px;
+	border-radius:5px;
+	
+}
+
+.otherpreff {
+    position: relative;
+    display: block;
+    padding: .15rem 0;
+    background-color: transparent;
+    border: unset;
+	cursor:pointer;
+    border-radius: 0;
+    margin-bottom: 10px;
+    color: #000;
+    font-size: 14px;
+    min-height: 26px;
+    font-weight: 600;
+    width: 250px;
+}
+
+
+@media (min-width: 1500px){
+#navbarNavDropdown{
+	
+	margin-right:4rem;
+}
+}
+.title-card {
+    background-image: linear-gradient(#00baf4,#385edf);
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+.title-card h5{
+    color:#fff;
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+.ee-infobox {
+    background: #6C757D;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.ee-infobox .avtr {
+    width: 105px;
+    height: 105px;
+    margin-right: 15px;
+}
+.ee-infobox .text {
+    padding: 15px 0 0;
+}
+.ee-infobox .text h5 {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+.ee-infobox .text h5 .small, .ee-infobox .text h5 small {
+    font-size: 70%;
+    font-weight: 600;
+}
+.ee-infobox .butn {
+    text-align: right;
+    padding: 15px 15px 15px 0;
+}
+.ee-infobox .butn img {
+    vertical-align: middle;
+    border-style: none;
+    margin-bottom: 3px;
+    margin-right: 3px;
+}
+.ee-scorebox {
+    margin-top: 16px;
+    margin-left: -30px;
+    border: 1px solid #3564e1;
+    border-left: 0;
+    padding: 15px;
+    width: fit-content;
+    border-radius: 0px 7px 7px 0;
+    text-align: center;
+    color: #3564e1;
+    font-weight: 700;
+}
+.ee-scorebox h4{
+    margin-bottom: 0px;
+    color: #3564e1;
+    font-weight: 700;
+	font-size: 1.25rem;
+}
+.ee-count {
+    position: absolute;
+    top: -74px;
+    right: 46px;
+}
+.ee-count .count-num {
+    position: relative;
+    bottom: 25px;
+    right: 6px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #6c757d;
+    z-index: 1;
+}
+
+#carouselProfile .carousel-control-prev {
+    right: 0;
+    left: unset;
+    background: #ececec;
+    padding: 3px 10px;
+    border-radius: 4px;
+    color: #000;
+    font-weight: 600;
+	width: 50px;
+}
+#carouselProfile .carousel-control-next {
+    right: 0;
+    top: 35px;
+    background: #ececec;
+    padding: 3px 10px;
+    border-radius: 4px;
+    color: #000;
+    font-weight: 600;
+	width: 50px;
+}
+.moreSkl{
+	color : #385edf;
+}
+.moreSkl:hover{
+color: #11b771;
+}
+.doticonss{
+	background-color: #f8f9fa;
+	padding: 5px;
+    border-radius: 76px;
+	font-size: 13px;
+}
+/*--popover--*/
+.popover{
+    max-width: 100%; 
+	border: none;
+ }
+ .popover-body {
+    padding: 0 ;
+    color: #333;
+    background: #fff;
+    border: 1px solid #eee;
+    font-size: 13px;
+	
+}
+ .popover-body .d-flex{	 
+    padding: 0 0.5rem;
+ }
+ .popover-body .heading{
+    padding: 0.5rem;
+    background: #fafafa;
+	font-weight:300;
+	color:#000;
+}
+.matchwidths{
+	margin-right: 77px;
+    margin-left: 77px;
+}
+

@@ -1,7 +1,11 @@
-<div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;" style="top: -33px !important;left: 30px;">
+<div class="chrome_display"><div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;" style="top: -33px !important;left: 30px;">
 	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
-</div>
+</div></div>
+<div class="safari_only"><div *ngIf="isMultipleMatches" class="matchs-info" style="z-index: 999;" style="top: -33px !important;left: 30px;">
+	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
+	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
+</div></div>
 <div class=" info-box">
 	<div class="col-lg-12 " [ngClass]="isMultipleMatches ? 'top-pad' : 'mt-3'">
 		<div class="accordion ">
@@ -89,7 +93,8 @@
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.skills=='0'">
-				<ul class="list-group">
+				<ul class="list-group" style="list-style-type: none;display: flex;
+    flex-direction: row;">
                       <li class="list-group-item  text-uppercase">
                         <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
                           <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
@@ -112,6 +117,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
+					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='0'">
@@ -225,23 +231,23 @@
 					</li>
                  </ul>
 			</div>
-			<div class="  info-box" *ngIf="checkWork() && jobInfo.match_select?.work_authorization=='0' && checkWrkAuth===true">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.work_authorization=='0' || checkWrkAuth===true">
 				 <ul class="list-group">
 					<li class="list-group-item">
-						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
-							<div *ngIf="finpostJobDetailsCountry(jobInfo?.country) == findCountry([userInfo?.nationality])">
+						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
+							<div *ngIf="finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) == findCountry([userInfo?.nationality])">
 							<i class="fa fa-check text-green "></i>  Authorized to work
 							  </div>
-							  <div *ngIf="finpostJobDetailsCountry(jobInfo?.country) != findCountry([userInfo?.nationality]) && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
+							  <div *ngIf="finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) != findCountry([userInfo?.nationality]) && userInfo?.work_authorization != 1 && (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2)">
 								<i class="fa fa-check text-green "></i>
 								Authorized to work
 							  </div>
-							  <div *ngIf="jobInfo?.visa_sponsorship == true && finpostJobDetailsCountry(jobInfo?.country) != findCountry([userInfo?.nationality]) && userInfo?.work_authorization == 1 ">
+							  <div *ngIf="jobInfo?.visa_sponsorship == true && finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) != findCountry([userInfo?.nationality]) && userInfo?.work_authorization == 1 ">
 								<i class="fa fa-check text-green "></i>
 								Visa Sponsorship Provided
 							  </div>
 						</span>
-						<span *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && finpostJobDetailsCountry(jobInfo?.country) != findCountry([userInfo?.nationality]) )">
+						<span *ngIf="missingElement && (jobInfo?.visa_sponsorship == false &&userInfo?.work_authorization == 1 && finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) != findCountry([userInfo?.nationality]) )">
 							 <i class="fa fa-times text-danger "></i>
 							 {{(userInfo?.work_authorization || userInfo?.work_authorization ==
 							 0)
@@ -419,7 +425,7 @@
 			</div>
 			<div *ngIf="isOtherRequired">
 				<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-					<li class="list-group-item text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'0')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
+					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'0')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
 					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
@@ -512,7 +518,8 @@
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.skills=='1'">
-				<ul class="list-group">
+				<ul class="list-group" style="list-style-type: none;display: flex;
+    flex-direction: row;">
                       <li class="list-group-item  text-uppercase">
                         <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
                           <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
@@ -535,6 +542,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
+					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='1'">
@@ -842,7 +850,7 @@
 			</div>
 			<div *ngIf="isOtherDesired">
 				<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-					<li class="list-group-item text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'1')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
+					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'1')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
 					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
@@ -937,7 +945,8 @@
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.skills=='2'">
-				<ul class="list-group">
+				<ul class="list-group" style="list-style-type: none;display: flex;
+    flex-direction: row;">
                       <li class="list-group-item  text-uppercase">
                         <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
                           <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
@@ -960,6 +969,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
+					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='2'">
@@ -1270,7 +1280,7 @@
 			</div>
 			<div *ngIf="isOtherNice">
 				<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-					<li class="list-group-item text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'2')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
+					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'2')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
 					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
@@ -1365,7 +1375,8 @@
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.skills==''">
-				<ul class="list-group">
+				<ul class="list-group" style="list-style-type: none;display: flex;
+    flex-direction: row;">
                       <li class="list-group-item  text-uppercase">
                         <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
                           <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
@@ -1388,6 +1399,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
+					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills==''">
@@ -1586,7 +1598,7 @@
                       </li>
 				</ul>
 			</div> -->
-			<div class=" info-box" *ngIf="jobInfo.match_select?.end_to_end_implementation=='' && jobInfo?.end_to_end_implementation  ">
+			<div class=" info-box" *ngIf="jobInfo.match_select?.end_to_end_implementation=='' && (jobInfo?.end_to_end_implementation ||jobInfo?.end_to_end_implementation ==0)">
 				<ul class="list-group">
 					<li class="list-group-item">
                          <span *ngIf="matchedElement && (jobInfo.end_to_end_implementation <= userInfo?.end_to_end_implementation)">
@@ -1697,7 +1709,7 @@
 			</div>
 			<div *ngIf="isOtherOptional">
 				<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-					<li class="list-group-item text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
+					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
 					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
@@ -1705,4 +1717,39 @@
 				 </ul>
 			</div>
 	</div>
+	<ng-template #popContent>
+		<div class="popover-body">
+			<h5 class="heading text-center">More</h5>
+			<div class="d-flex">
+				<div class="p-2">
+					<p>
+					
+					 <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
+                            <span
+                              *ngIf="onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
+                              <i class="fas fa-check text-green " ></i>
+                              {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}<br />
+                            </span>
+                          </ng-container>
+								
+					</p>
+					
+				</div>
+				
+				<div class="p-2">
+					<p>
+					<ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
+                            <span
+                              *ngIf="onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
+                              <i class="fas fa-times text-danger "></i>
+                              {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}<br />
+
+                            </span>
+                          </ng-container>
+					</p>
+					
+				</div>
+			</div>
+		</div>
+	</ng-template>
 </div>

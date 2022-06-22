@@ -19,7 +19,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<!-- {{(userProfileInfo?.meta?.doc_resume?.path + '/' + userProfileInfo?.meta?.doc_resume?.folder + '/' + item?.file) | json}} -->
-				<a (click)="onToggleResumeForm(true, (userProfileInfo?.meta?.doc_resume?.path + '/' + userProfileInfo?.meta?.doc_resume?.folder + '/' + item?.file))" href="#" data-toggle="modal" data-target="#resumeModal">
+				<a (click)="onToggleResumeForm(true, (item?.file))" href="#" data-toggle="modal" data-target="#resumeModal">
 					<!-- <ngx-doc-viewer [url]="item?.meta?.doc_resume?.path + '/' + item?.meta?.doc_resume?.folder + '/' + item?.file" viewer="google" style="width:100%;height:50vh;"></ngx-doc-viewer> -->
 					<i class="far fa-file-alt h1"></i>
 					<p class="card-title mb-2">{{item?.title}}</p>
@@ -50,7 +50,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<!-- {{(userProfileInfo?.meta?.doc_resume?.path + '/' + userProfileInfo?.meta?.doc_resume?.folder + '/' + item?.file) | json}} -->
-				<a (click)="onToggleCoverForm(true, (userProfileInfo?.meta?.doc_resume?.path + '/' + userProfileInfo?.meta?.doc_resume?.folder + '/' + item?.file))" href="#" data-toggle="modal" data-target="#coverModal">
+				<a (click)="onToggleCoverForm(true, (item?.file))" href="#" data-toggle="modal" data-target="#coverModal">
 					<!-- <ngx-doc-viewer [url]="item?.meta?.doc_resume?.path + '/' + item?.meta?.doc_resume?.folder + '/' + item?.file" viewer="google" style="width:100%;height:50vh;"></ngx-doc-viewer> -->
 					<i class="far fa-file-alt h1"></i>
 					<p class="card-title mb-2">{{item?.title}}</p>

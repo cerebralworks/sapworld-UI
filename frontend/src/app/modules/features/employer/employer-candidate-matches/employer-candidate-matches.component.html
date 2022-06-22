@@ -163,10 +163,16 @@
                     </div>
                     <div class="col-lg-5  col-md-7 text-right mt-2">
 
-                      <span data-toggle="modal" data-target="#exampleModal">
+                      <span data-toggle="modal" data-target="#exampleModal" *ngIf="!item?.job_application">
                         <a
                         [class.disabled]="!onGetFilteredValue(item?.doc_resume)"
-                        (click)="onGetFilteredValue(item?.doc_resume) && onToggleResumeForm(true, (userMeta?.doc_resume?.path + '/' + userMeta?.doc_resume?.folder + '/' + onGetFilteredValue(item?.doc_resume)))" class="btn btn-outline-blue btn-sm" href="javascript:;">
+                        (click)="onGetFilteredValue(item?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(item?.doc_resume)))" class="btn btn-outline-blue btn-sm" href="javascript:;">
+                          <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
+                        </a>
+                      </span>
+					  <span data-toggle="modal" data-target="#exampleModal" *ngIf="item?.job_application">
+                        <a
+                        (click)="onToggleResumeForm(true, (item?.job_application?.user_resume ? item?.job_application?.user_resume :onGetFilteredValue(item?.doc_resume)))" class="btn btn-outline-blue btn-sm" href="javascript:;">
                           <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
                         </a>
                       </span>
@@ -186,7 +192,7 @@
                     <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
                     <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
                       <ng-container *ngIf="item?.privacy_protection?.photo == true; else elsePhotoTemplate">
-                        <img [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+                        <img [src]="item?.photo ? userprofilepath+item?.photo : 'assets/images/user-img-icon.jpg'">
                       </ng-container>
                       <ng-template #elsePhotoTemplate>
                         <img [src]="'assets/images/user-lock.jpg'">
@@ -281,7 +287,7 @@
             </div>
           </div>
          
-          <div class="card mt-4">
+          <!--<div class="card mt-4">
             <div class="card-header" data-toggle="collapse" data-target="#collapseSkills" aria-expanded="false" aria-controls="collapseSkills">
              {{"shared.sapSkills" | translate }}    <i class="fas fa-angle-down float-right pt-1"></i>
             </div>
@@ -297,7 +303,7 @@
 
               </div>
             </div>
-          </div>
+          </div>-->
           </div>
         </div>
       </div>

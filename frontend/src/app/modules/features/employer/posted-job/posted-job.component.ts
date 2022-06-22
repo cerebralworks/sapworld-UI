@@ -343,7 +343,7 @@ export class PostedJobComponent implements OnInit {
 			}
 		)
 	}
-	
+  	
 	
 		/**
 	**	TO Get the postedJobs count
@@ -373,7 +373,8 @@ export class PostedJobComponent implements OnInit {
 			}
 		)
 	}
-  	
+	
+	
 	/**
 	**	To assign the delete popup Text
 	**/

@@ -132,7 +132,7 @@
            <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            <span class="d-flex align-items-center">
-		    <img class="img-circule" *ngIf="currentEmployerDetails?.photo && currentEmployerDetails?.photo != 'default.png' " [src]="currentEmployerDetails?.photo ? (currentEmployerDetails?.meta?.photo?.path+'/'+ currentEmployerDetails?.meta?.photo?.folder+'/'+currentEmployerDetails?.meta?.photo?.sizes?.medium+'/'+currentEmployerDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
+		    <img class="img-circule" *ngIf="currentEmployerDetails?.photo && currentEmployerDetails?.photo != 'default.png' " [src]="employerprofilepath">
             <ngx-avatar *ngIf="(!currentEmployerDetails?.photo || currentEmployerDetails?.photo == 'default.png' ) && (currentEmployerDetails?.first_name || currentEmployerDetails?.last_name)" class="float-left mr-2" size="35" name="{{(currentEmployerDetails?.first_name ? currentEmployerDetails?.first_name : '') + ' ' + (currentEmployerDetails?.last_name ? currentEmployerDetails?.last_name : '')}}"></ngx-avatar>
             <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
             <span class="text-capitalize">{{(currentEmployerDetails?.first_name ? currentEmployerDetails?.first_name : '') + ' ' + (currentEmployerDetails?.last_name ? currentEmployerDetails?.last_name : '')}}</span>
@@ -210,7 +210,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="d-flex align-items-center">
-                <img class="img-circule" *ngIf="currentUserDetails?.photo" [src]="currentUserDetails?.photo ? (currentUserDetails?.meta?.photo?.path+'/'+ currentUserDetails?.meta?.photo?.folder+'/'+currentUserDetails?.meta?.photo?.sizes?.medium+'/'+currentUserDetails?.photo)+'?v='+ randomNum: 'assets/images/user-img-icon.jpg'">
+                <img class="img-circule" *ngIf="currentUserDetails?.photo" [src]="userprofilepath">
             <ngx-avatar *ngIf="!currentUserDetails?.photo" class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name ? currentUserDetails?.first_name : '' + ' ' + currentUserDetails?.last_name ? currentUserDetails?.last_name : ''}}"></ngx-avatar>
                 <!-- <ngx-avatar class="float-left mr-2" size="35" name="{{currentUserDetails?.first_name + ' ' + currentUserDetails?.last_name}}"></ngx-avatar> -->
                 <!-- <span class="letter-custom-abb">{{onChangeNameAbb(currentEmployerDetails?.first_name + ' ' + currentEmployerDetails?.last_name)}}</span> -->
@@ -223,6 +223,7 @@
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/notification']" href="javascript:;">{{"header.notification" | translate}}</a></li>
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/calendar']" href="javascript:;">{{"common.calender" | translate}}</a></li>
               <li class="submenu"> <a class="dropdown-item" [routerLink]="['/user/profile-setting']" href="javascript:;">{{"header.settings" | translate}}</a></li>
+			  <li class="submenu" (click)="openpopup()"> <a class="dropdown-item" href="javascript:;">{{"header.deleteaccount" | translate}}</a></li>
               <li class="submenu"> <a class="dropdown-item" (click)="logout()" href="javascript:;">{{"header.logout" | translate}}</a></li>
             </ul>
           </li>
@@ -257,3 +258,15 @@
     </div>
   </nav>
 </header>
+<ng-template *ngIf="modelshow" #deleteAccountModal let-modal let-d="dismiss">
+		<div class="modal-content">
+			<div class="modal-body text-center">
+				<h6 class="mt-3" style="font-size: 20px;">Are You Sure You want to delete account permanently?</h6>
+			</div>
+			
+		<div class="modal-footer">
+      <button type="button" (click)="closepopup()" class="btn btn-secondary" data-dismiss="modal">{{"shared.no" | translate}} </button>
+      <button (click)="deleteaccount()" type="button" class="btn btn-danger " data-dismiss="modal">{{"shared.yes" | translate}} </button>
+      </div>
+		</div>	
+	</ng-template>

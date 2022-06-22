@@ -13,6 +13,7 @@ import * as lodash from 'lodash';
 import { CandidateProfile } from '@data/schema/create-candidate';
 //import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Subscription } from 'rxjs';
+import { environment as env } from '@env';
 
 @Component({
   selector: 'app-employer-candidate-profile-matches',
@@ -66,7 +67,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public nice: boolean = true;
 	public IsValidate: boolean = false;
 	public matchForm: FormGroup;
-	
+	public userprofilepath:any;
 	constructor(
 		private dataService: DataService,
 		private route: ActivatedRoute,
@@ -242,7 +243,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		requestParams.additional_fields = 'job_application';
 		const sb = this.employerService.getJobScoring(requestParams).subscribe(
 			response => {
-				
+				this.userprofilepath = `${env.apiUrl}/images/user/`;
 				this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
 				this.matchingUsers = { ...this.matchingUsers, profile: {} };
@@ -320,7 +321,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onToggleCoverForm = (status, selectedCoverUrl?) => {
 		if (selectedCoverUrl) {
-		  this.selectedCoverUrl = selectedCoverUrl;
+		  this.selectedCoverUrl = `${env.apiUrl}/documents/cover/${selectedCoverUrl}`;
 		}
 		this.isOpenedCoverModal = status; 
 	}
@@ -436,7 +437,15 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onChangeUsers = (type) => {
 		const count = this.matchingUsersMeta  && this.matchingUsersMeta.count ? parseInt(this.matchingUsersMeta.count) : 0;
+		var nxt : HTMLElement = document.getElementById('carouselProfile');
+		var nxt1 : HTMLElement = document.getElementById('cardsliders');
 		if (type == 'next') {
+		    nxt1.classList.add("slideanimations")
+			nxt.classList.add("slideanimations")
+			setTimeout(()=>{
+			nxt.classList.remove('slideanimations')
+		    nxt1.classList.remove('slideanimations')
+			},1000)
 			if (count > this.page) {
 				if (this.matchingUsersMeta.count > 1 && this.matchingUsersMeta.count !== this.page) {
 					/* this.postedJobsMatchDetailsUsers =[];
@@ -447,6 +456,12 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 				}
 			}
 		} else if (type == 'prev' && this.page > 1) {
+		    nxt1.classList.add("slidearight")
+		    nxt.classList.add("slidearight")
+			setTimeout(()=>{
+			nxt.classList.remove('slidearight')
+		    nxt1.classList.remove('slidearight')
+			},1000)
 			if (this.matchingUsersMeta.count > 1 ) {
 				/* this.postedJobsMatchDetailsUsers =[];
 				this.toggleMatchModal = false;
@@ -492,7 +507,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onToggleResumeForm = (status, selectedResumeUrl?: string) => {
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = selectedResumeUrl;
+			this.selectedResumeUrl = `${env.apiUrl}/documents/resume/${selectedResumeUrl}`;
 		}
 		this.isOpenedResumeModal = status;
 	}

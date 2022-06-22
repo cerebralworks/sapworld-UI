@@ -1,5 +1,5 @@
-<ng-template #jdModal let-modal>
-  <div class="modal-header">
+<ng-template #jdModal let-modal >
+ <!--<div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">{{"shared.jobDesc" | translate}} </h5>
     <button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">×</span>
@@ -10,7 +10,26 @@
       <p style="word-break: break-all;" *ngIf="isRichTextEnabled" [innerHTML]="sanitizer.bypassSecurityTrustHtml(description)"></p>
     </div>
     <div class="modal-footer">
-    <!-- <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button> -->
     <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-theme-blue btn-sm" data-dismiss="modal">{{"shared.ok" | translate}}</button>
-    </div>
+    </div>-->
+	
+	<div class="modal-dialog" style="margin-top:0 !important;margin-bottom:0 !important;">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Job Description</h5>
+			<button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">×</span>
+			</button>
+		  </div>
+		  <div class="modal-body text-justify">
+			 <p style="word-break: break-all;"  *ngIf="!isRichTextEnabled">{{description ? description : '--'}}</p>
+      <p style="word-break: break-all;" *ngIf="isRichTextEnabled" [innerHTML]="sanitizer.bypassSecurityTrustHtml(description)"></p>
+		  </div>
+		  <div class="modal-footer">
+			<button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{"shared.close" | translate}}</button>
+			<button (click)="onClickCloseBtn(false)" type="button" class="btn btn-theme-blue btn-sm" data-dismiss="modal">{{"shared.ok" | translate}}</button>
+		  </div>
+		</div>
+	  </div>
+	
 </ng-template>

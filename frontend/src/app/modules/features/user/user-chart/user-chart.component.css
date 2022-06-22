@@ -127,3 +127,27 @@ ul.statusHistory .content p{
 .small, small {
     font-weight: 900;
 }
+
+.hole {
+  width: 125px; 
+  height: 125px;
+  border-radius: 50%;
+  background: #fff;
+}
+ 
+.donut {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  background:grey;
+  margin-left: 5rem;
+}
+.zerolabel{
+	margin-top:2rem;
+	margin-left:3rem;
+	font-weight:800;
+	font-size:1.75rem;
+}

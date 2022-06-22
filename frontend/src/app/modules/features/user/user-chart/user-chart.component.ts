@@ -149,11 +149,11 @@ export class UserChartComponent implements OnInit {
 		public totalVisa :any =0;
 		public totalAvailability :any =0;
 		public totalType :any =0;
-		public showMatches :boolean = false;
-		public showApplied :boolean = false;
-		public showAvailiability :boolean = false;
-		public showType :boolean = false;
-		public showVisa :boolean = false;
+		public showMatches :boolean = true;
+		public showApplied :boolean = true;
+		public showAvailiability :boolean = true;
+		public showType :boolean = true;
+		public showVisa :boolean = true;
 		public showData :boolean = false;
 		
 		public isActive:boolean = true;
@@ -314,6 +314,7 @@ export class UserChartComponent implements OnInit {
 						}
 					}
 				}
+				
 				this.MatchesTotal = response.data;
 				var filterData = response.data.map(function(a,b){ return a.city.charAt(0).toUpperCase() + a.city.substr(1) });
 				var filterValue = response.data.map(function(a,b){ return a.count });
@@ -321,7 +322,6 @@ export class UserChartComponent implements OnInit {
 				this.doughnutChartData = [filterValue];
 				this.showMatches = true;
 				this.totalMatches = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
-				console.log(filterData);
 			}else{
 				this.showMatches = false;				
 			}

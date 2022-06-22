@@ -46,6 +46,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		this.savedUserDetails = inFo;
 	}
 	public requestParams: any;	
+	public errorShown: boolean = false;
 	public searchCallback = (search: string, item) => true; 
 	programCtrl = new FormControl();
 	filteredProgram: Observable<any[]>;
@@ -525,6 +526,9 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 				exp_type: ['years', [Validators.required]]
 			  })]),
 			  skills: new FormControl(null),
+			  new_skills: new FormArray([]),
+			  skills_Data: new FormControl(null),
+			  skills_Datas: new FormControl(null),
 			  programming_skills: new FormControl(null, Validators.required),
 			  other_skills: new FormControl(null),
 			  certification: new FormControl(null),
@@ -539,6 +543,9 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 				exp_type: ['years']
 			  })]),
 			  skills: new FormControl(null),
+			  new_skills: new FormArray([]),
+			  skills_Data: new FormControl(null),
+			  skills_Datas: new FormControl(null),
 			  programming_skills: new FormControl([]),
 			  other_skills: new FormControl(null),
 			  certification: new FormControl(null),
@@ -556,6 +563,9 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		return this.f.hands_on_experience as FormArray;
 	}
 	
+	get newskills() {
+		return this.f.new_skills as FormArray;
+	}
 	/**
 	**	To add the hands_on_experience
 	**/
@@ -590,5 +600,49 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		}
 	}
   
+  /**
+	**	create a new hands_on_experience
+	**/
+	
+	onDuplicateOthers(){
+		var value = this.childForm.value.skillSet.skills_Data.trim();
+		var skills_Datas = this.childForm.value.skillSet.skills_Datas.trim();
+		if(!skills_Datas || skills_Datas==undefined){
+
+		}
+		this.errorShown = false;
+		if(value !=null && value !=undefined && value !='' && skills_Datas !=null && skills_Datas !=undefined && skills_Datas !=''){
+			var Checking = this.commonSkills.filter(function(a,b){ return a.tag.toLowerCase() == value.toLowerCase() }).length;
+			var CheckingSkills = this.newskills.value.filter(function(a,b){ return a.tag.toLowerCase() == value.toLowerCase() }).length;
+			if(Checking==0 && CheckingSkills ==0 ){
+				this.newskills.push(this.formBuilder.group({
+					tag: [value, Validators.required],
+					status: [1, Validators.required],
+					long_tag: [skills_Datas, Validators.required]
+				}));
+				this.childForm.patchValue({
+					skillSet : {
+						skills_Data :null,
+						skills_Datas :null
+					}
+				});
+			}else{
+				this.errorShown = true;
+			}
+		}
+		
+	}
+	
+	/**
+	**	Remove the hands_on_experience
+	**/
+	
+	onRemoveOthers = (index) => {
+		if(index == 0 &&this.newskills.value.length==1) {
+			this.newskills.removeAt(index);
+		}else {
+			this.newskills.removeAt(index);
+		}
+	}
 
 }

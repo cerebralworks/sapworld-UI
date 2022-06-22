@@ -16,6 +16,7 @@ import { GooglePlaceDirective } from "ngx-google-places-autocomplete";
 import { ComponentRestrictions } from "ngx-google-places-autocomplete/objects/options/componentRestrictions";
 import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
 import {MatChipInputEvent} from '@angular/material/chips';
+import { AmazingTimePickerService } from 'amazing-time-picker';
 
 declare let google: any;
 @Component({
@@ -53,15 +54,19 @@ export class JobInformationComponent implements OnInit {
 	public isContractDuration: boolean = false;
 	public minError: boolean = false;
 	public maxError: boolean = false;
+	public mintimeError: boolean = false;
+	public maxtimeError: boolean = false;
 	public showRemoteOption: boolean = false;
 	public min: any;
 	public max: any;
 	public editorConfig: AngularEditorConfig = textEditorConfig;
+	public changeToMinutes : boolean =false;
 
 	constructor(
 		private parentF: FormGroupDirective,
 		private formBuilder: FormBuilder,
-		public sharedService: SharedService
+		public sharedService: SharedService,
+		private atp: AmazingTimePickerService 
 	) { }
 
 	/**
@@ -263,7 +268,7 @@ export class JobInformationComponent implements OnInit {
 		this.childForm = this.parentF.form;
 
 		this.childForm.addControl('jobInfo', new FormGroup({
-			title: new FormControl('', Validators.required),
+			title: new FormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator]),
 			employer_role_type: new FormControl(''),
 			entry: new FormControl(false),
 			negotiable: new FormControl(false),
@@ -271,7 +276,7 @@ export class JobInformationComponent implements OnInit {
 			contract_duration: new FormControl(''),
 			min: new FormControl(null),
 			max: new FormControl(null),
-			description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(100), Validators.maxLength(2000)])),
+			description: new FormControl('', Validators.required),
 			salary_type: new FormControl('', Validators.required),
 			salary_currency: new FormControl('USD', Validators.required),
 			salary: new FormControl(null, Validators.required),
@@ -377,10 +382,10 @@ export class JobInformationComponent implements OnInit {
 
 	/**
 	**	When the Address Change
-	**  assign lat&lng
+	**  assign lat&lng 
 	**/
 	
-	getValue(event,data){
+	/*getValue(event,data){
 		this.minError = false;
 		this.maxError = false;
 		var maxCheck = this.childForm.value.jobInfo.max;
@@ -400,6 +405,72 @@ export class JobInformationComponent implements OnInit {
 			}
 			
 		}
+		
+	}*/
+	
+	getValue(event,data){
+		console.log('data',data)
+		if(data == 'min'){
+			var amazingTimePicker = this.atp.open({
+				time : this.min, 
+				changeToMinutes: true,
+			});
+		}if(data == 'max'){
+			var amazingTimePicker = this.atp.open({
+				time : this.max, 
+				changeToMinutes: true,
+			});
+		}
+		
+        amazingTimePicker.afterClose().subscribe(time  => {
+			var splitTime = time.split(':');
+			if( time && data =='min' ){
+				this.min=time;
+				this.childForm.get('jobInfo').controls['min'].setValue(this.min) 
+			}if(time && data =='max'){
+				this.max=time;
+				this.childForm.get('jobInfo').controls['max'].setValue(this.max)
+			}
+
+		this.minError = false;
+		this.maxError = false;
+		var maxCheck = this.childForm.value.jobInfo.max;
+		var minCheck = this.childForm.value.jobInfo.min;
+		if(minCheck !=null && maxCheck ==null){
+			this.maxtimeError=true;
+		}else if(maxCheck !=null && minCheck ==null){
+			this.mintimeError=true;
+		}else{
+			this.mintimeError=false;
+			this.maxtimeError=false;
+		}
+		
+		if(minCheck && maxCheck){
+			maxCheck= maxCheck.split(':');
+			minCheck= minCheck.split(':');
+			var maxCheck_1=parseInt(maxCheck[0]);
+			var maxCheck_2=parseInt(maxCheck[1]);
+			var minCheck_1= parseInt(minCheck[0]);
+			var minCheck_2= parseInt(minCheck[1]);
+			if(minCheck_1>12 && maxCheck_1>12){
+				//minCheck_1=minCheck_1-12;
+				if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
+				this.minError = true;
+			}else if(minCheck_1>maxCheck_1){
+				this.minError = true;
+			}
+			}else{
+			if(minCheck_1>maxCheck_1 && minCheck_1<12){
+				
+				this.minError = true;
+			}else if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
+				this.maxError = true;
+
+			}
+			
+		}
+		}
+	});
 		
 	}
 	

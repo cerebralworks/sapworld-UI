@@ -74,8 +74,8 @@ export class EmployeeChartComponent implements OnInit {
 		public totalAwaiting :any = 0;
 		public jobStatus:any;
 		public chartDetails :any;
-		public maxValues :any =0;
-		public borders:any[]= [
+		public totalApplications:any[]=[];
+		/*public borders:any[]= [
 				"#7cd7ff",
 				"#f68383",
 				"#6bc182",
@@ -112,7 +112,7 @@ export class EmployeeChartComponent implements OnInit {
 				"#e56996",
 				"#e7b512",
 				"#6b6b6b"
-			]
+			]*/
 		//public filterChart :any[]=[];
 		//public doughnutChartType: ChartType = 'doughnut'; 
 		//public doughnutBorderWidth: BorderWidth = 0; 
@@ -234,13 +234,17 @@ export class EmployeeChartComponent implements OnInit {
 			   display: true,
                 labels: {
 				   filter: function(legendItem, chartData) {
-					if (legendItem.text === '') {
+					if (legendItem.text === '' || legendItem.strokeStyle === 'transparent') {
 					  return false;
 					}
 					  return true;
 				   }	   
                }
             },
+		    tooltips: {
+				 mode: 'index',
+				 intersect: true
+		   }
 			
 		};
 	   public lineChartColors: Color[] = [{
@@ -293,7 +297,7 @@ export class EmployeeChartComponent implements OnInit {
             this.currentEmployerDetails = details['details'];
 			if(this.currentEmployerDetails.email ){
 				//this.getDataStatus('');
-				this.onGetJobsDetails();
+				//this.onGetJobsDetails();
 				this.onGetHiredTrendDetails();
 				this.onGetChartDetails();
 				//this.showData = true;
@@ -490,6 +494,7 @@ export class EmployeeChartComponent implements OnInit {
 				
 				//this.hiredTotal = response.data;
 				//var filterData = response.data.map(function(a,b){ return a.title.charAt(0).toUpperCase()+ a.title.substr(1)  });
+				this.totalPostedJobs = response.count;
 				this.jobStatus = response.data;
 				var filterApplicant = response.data.map(function(a,b){ return a.applicant });
 				this.totalApplicants= filterApplicant.reduce((a, b) => parseInt(a) + parseInt(b) );
@@ -499,7 +504,7 @@ export class EmployeeChartComponent implements OnInit {
 				this.totalShortlisted= filterShortlist.reduce((a, b) => parseInt(a) + parseInt(b) );
 				var filterRejected = response.data.map(function(a,b){ return a.rejected });
 				this.totalRejected= filterRejected.reduce((a, b) => parseInt(a) + parseInt(b) );
-				var filterAwaiting = response.data.map(function(a,b){ return a.rejected });
+				var filterAwaiting = response.data.map(function(a,b){ return a.holdon });
 				this.totalAwaiting= filterAwaiting.reduce((a, b) => parseInt(a) + parseInt(b) );
 				/*this.doughnutChartLabelsHired = filterData;
 				if(this.hiredTotal['length']<6){
@@ -590,17 +595,41 @@ export class EmployeeChartComponent implements OnInit {
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
-			  //console.log(response.data);
 			  this.chartDetails = response.data;
-			  this.chartDetails.map((a,i)=>{
-				    var patchchart ={
-					  data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec],
-					  label:a.title,
+			  var TotalJan = response.data.map(function(a){ return a.jan }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalFeb = response.data.map(function(a){ return a.feb }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalMar = response.data.map(function(a){ return a.mar }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalApr = response.data.map(function(a){ return a.apr }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalMay = response.data.map(function(a){ return a.may }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalJun = response.data.map(function(a){ return a.jun }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalJul = response.data.map(function(a){ return a.jul }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalAug = response.data.map(function(a){ return a.aug }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalSep = response.data.map(function(a){ return a.sep }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalOct = response.data.map(function(a){ return a.oct }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalNov = response.data.map(function(a){ return a.nov }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  var TotalDec = response.data.map(function(a){ return a.dec }).reduce((a, b) => parseInt(a) + parseInt(b) );
+			  this.totalApplications = [TotalJan,TotalFeb,TotalMar,TotalApr,TotalMay,TotalJun,TotalJul,TotalAug,TotalSep,TotalOct,TotalNov,TotalDec];
+			  var patchchart1 ={
+					  data: this.totalApplications,
+					  label:"All Applications",
 					  borderColor: '#007bff',
+		              backgroundColor: 'transparent',
+					};
+			this.lineChartData.push(patchchart1);
+			this.chartDetails.map((a,i)=>{
+			 var arrData = [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec];
+			 arrData = arrData.map(function(val, i) {
+					return val === '0' ? null : val;
+				});
+				    var patchchart ={
+					  data:arrData ,
+					  label:a.title,
+					  borderColor: 'transparent',
 		              backgroundColor: 'transparent',
 					};
 					this.lineChartData.push(patchchart);  
 			  })
+			
 			}else{
 				
 			}
@@ -613,23 +642,23 @@ export class EmployeeChartComponent implements OnInit {
 	
 	/**
 	**	To get the Jobs Details API Calls
-	**/
+	*
 
 	onGetJobsDetails = () => {
       let requestParams: any = {};
       requestParams.id = this.currentEmployerDetails['id'];
       requestParams.view = 'type';
-     /* requestParams.isActive = this.isActive;
+     requestParams.isActive = this.isActive;
       requestParams.isClosed =  this.isClosed;
       requestParams.isDeleted =  this.isDeleted;
       requestParams.isPaused =  this.isPaused;
       requestParams.startDate =  this.startDate;
-      requestParams.endDate =  this.endDate;*/
+      requestParams.endDate =  this.endDate;
       this.employerService.getEmployeeDashboard(requestParams).subscribe(
         response => {
 			if(response.count !=0 && response.count>=1){
 				this.jobsTotal = response.data;
-				/*for(let i=0;i<this.jobsTotal.length;i++){
+				for(let i=0;i<this.jobsTotal.length;i++){
 					var a= this.jobsTotal[i]
 					if(a.type =='1000'){
 						this.jobsTotal[i].type = 'Full Time';
@@ -643,12 +672,12 @@ export class EmployeeChartComponent implements OnInit {
 						this.jobsTotal[i].type = 'Internship'
 					}
 				}
-				var filterData = this.jobsTotal.map(function(a,b){ return a.type });*/
+				var filterData = this.jobsTotal.map(function(a,b){ return a.type });
 				var filterValue = response.data.map(function(a,b){ return a.count });
 				//this.doughnutChartLabelsJobs = filterData;
 				//this.doughnutChartDataJobs = [filterValue];
 				//this.showPostedJob = true;
-				this.totalPostedJobs = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
+				//this.totalPostedJobs = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				
 			}else{
 				//this.showPostedJob = false;
@@ -657,7 +686,7 @@ export class EmployeeChartComponent implements OnInit {
         }, error => {
         }
       )
-	}
+	}*/
 	
 	/**
 	**	To change the application chart view
@@ -665,19 +694,27 @@ export class EmployeeChartComponent implements OnInit {
 	
 	selectJob(e){
 	   if(e==0){
-	   //this.lineChartData.shift();
-	   this.lineChartData = [];
-	   this.chartDetails.map((a,i)=>{
-	    console.log(this.lineChartData);
-		
-				    var patchchart ={
-					  data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec],
-					  label:a.title,
-					  borderColor: '#007bff',
-		              backgroundColor: 'transparent',
-					};
-					this.lineChartData.push(patchchart);  
-			  })
+	   this.lineChartData.shift();
+		var patchchart1 ={
+				  data: this.totalApplications,
+				  label:"All Applications",
+				  borderColor: '#007bff',
+				  backgroundColor: 'transparent',
+				};
+		this.lineChartData.push(patchchart1);
+	    this.chartDetails.map((a,i)=>{
+	        var arrData = [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec];
+			 arrData = arrData.map(function(val, i) {
+					return val === '0' ? null : val;
+				});
+			var patchchart ={
+			  data: arrData,
+			  label:a.title,
+			  borderColor: 'transparent',
+			  backgroundColor: 'transparent',
+			};
+			this.lineChartData.push(patchchart);  
+		})
 	   
 	   }
 	   else{

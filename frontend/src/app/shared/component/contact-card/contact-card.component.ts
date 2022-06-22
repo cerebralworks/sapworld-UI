@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '@data/service/user.service';
 
 import jquery from 'jquery';
-
+import { environment as env } from '@env';
 declare var $: any;
 
 @Component({
@@ -53,6 +53,8 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public accountUserSubscription: Subscription;
   public loggedUserInfo: any;
   public selected: any[]=[];
+  public userprofilepath:any;
+  public matchesModels:boolean = false;
 toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   constructor(
     public utilsHelperService: UtilsHelperService,
@@ -67,12 +69,13 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   ngOnInit(): void {
 	  
     this.randomNum = Math.random();
-
+	this.userprofilepath = `${env.apiUrl}/images/user/`;
     this.accountUserSubscription = this.accountService
       .isCurrentUser()
       .subscribe(response => {
         this.loggedUserInfo = response;
       });
+	  this.matchesModels = (this.router.url==='/user/job-matches/details') || (this.router.url==='/employer/job-multiple-candidate-matches')?true:false;
   }
 
   /**
@@ -136,7 +139,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   **/
   onToggleResumeForm = (status, selectedResumeUrl?) => {
     if (selectedResumeUrl) {
-      this.selectedResumeUrl = selectedResumeUrl;
+      this.selectedResumeUrl =`${env.apiUrl}/documents/resume/${selectedResumeUrl}`;
     }
     this.isOpenedResumeModal = status;
   }
@@ -146,7 +149,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   **/
   onToggleCoverForm = (status, selectedCoverUrl?) => {
     if (selectedCoverUrl) {
-      this.selectedCoverUrl = selectedCoverUrl;
+      this.selectedCoverUrl = `${env.apiUrl}/documents/cover/${selectedCoverUrl}`;
     }
     this.isOpenedCoverModal = status;
   }

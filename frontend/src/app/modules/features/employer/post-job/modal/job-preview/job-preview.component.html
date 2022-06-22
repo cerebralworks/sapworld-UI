@@ -502,9 +502,7 @@
 			<div class="col-lg-5 col-md-5 info">
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.otherPref?.certification">
-							<small class="m-0 float-left" *ngFor="let item of postJobForm?.value?.otherPref?.certification; let i = index; let last = last;">
-								<span class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
-							</small> 
+								<span *ngFor="let item of postJobForm?.value?.otherPref?.certification; let i = index; let last = last;" class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
 							<button *ngIf="postJobForm?.value?.otherPref?.certification.length==0" style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('certification')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate}}  </button>
 					</li>
@@ -866,7 +864,7 @@
 			</div>
 			<div class="col-lg-4 col-md-4">
 				<ul class="list-group">
-					<li class="list-group-item border-0 p-0 m-0 ">							
+					<li class="list-group-item border-0 p-0 m-0 " *ngIf="postJobForm?.value?.requirement?.education ">							
 						<div class="d-flex">
 							<div class="rdn-radio">
 								<div class="custom-control custom-radio">
@@ -883,6 +881,28 @@
 							 <div class="rdn-radio">
 								<div class="custom-control custom-radio">
 								  <input type="radio"  disabled="{{!postJobForm?.value?.requirement?.education || postJobForm?.value?.requirement?.education=='' }}"  (click)="handleChange($event)"    value="2"  id="customRadio20C" name="education" formControlName="education"  class="custom-control-input">
+								  <label class="custom-control-label" for="customRadio20C">&nbsp;</label>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item border-0 p-0 m-0 " *ngIf="!postJobForm?.value?.requirement?.education || postJobForm?.value?.requirement?.education =='' ">							
+						<div class="d-flex">
+							<div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio"  disabled class="custom-control-input" >
+									<label class="custom-control-label" for="customRadio20A">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+									<input type="radio"  disabled  class="custom-control-input">
+									<label class="custom-control-label" for="customRadio20B">&nbsp;</label>
+								</div>
+							 </div>
+							 <div class="rdn-radio">
+								<div class="custom-control custom-radio">
+								  <input type="radio"  disabled  class="custom-control-input">
 								  <label class="custom-control-label" for="customRadio20C">&nbsp;</label>
 								</div>
 							</div>
@@ -1067,15 +1087,19 @@
 			<div class="col-md-3">
 				<h6 class="font-weight-bold mb-2" >{{"shared.workTiming" | translate}} </h6>
 				
+					<ng-container *ngIf="!postJobForm?.value?.jobInfo?.min || !postJobForm?.value?.jobInfo?.max  ">
+							<span>  NA </span>
+						</ng-container>
+				
 					<h6 class="text-capitalize job-cardh6"> 
-						<ng-container *ngIf="postJobForm?.value?.jobInfo?.min ">
+						<ng-container *ngIf="postJobForm?.value?.jobInfo?.min && postJobForm?.value?.jobInfo?.max">
 							{{postJobForm?.value?.jobInfo?.min | time}}
 						</ng-container>
 						<ng-container *ngIf="postJobForm?.value?.jobInfo?.min && postJobForm?.value?.jobInfo?.max  ">
-							-
+							<span>  - </span>
 						</ng-container>
 						
-						<ng-container *ngIf="postJobForm?.value?.jobInfo?.max ">
+						<ng-container *ngIf="postJobForm?.value?.jobInfo?.max  &&postJobForm?.value?.jobInfo?.min">
 							{{postJobForm?.value?.jobInfo?.max | time}}
 						</ng-container>
 					</h6>

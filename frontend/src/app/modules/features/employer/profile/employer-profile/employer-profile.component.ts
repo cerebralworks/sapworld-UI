@@ -3,7 +3,7 @@ import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-employer-profile',
   templateUrl: './employer-profile.component.html',
@@ -26,7 +26,7 @@ export class EmployerProfileComponent implements OnInit {
 	public validateSubscribe: number = 0;
 	public randomNum: number;
 	public privacyProtection: any;
-	
+	public employerprofilepath: any;
 	constructor(
 		private employerService: EmployerService,
 		private toastrService: ToastrService,
@@ -55,6 +55,7 @@ export class EmployerProfileComponent implements OnInit {
 			details => {
 				if (!this.utilsHelperService.isEmptyObj(details) && this.validateSubscribe ==0 ) {
 					this.employerDetails = details;
+					this.employerprofilepath = `${env.apiUrl}/images/employer/${details.photo}`;
 					this.privacyProtection = details.privacy_protection;					
 					if(this.privacyProtection==null || this.privacyProtection ==undefined){
 						this.privacyProtection={
@@ -109,7 +110,11 @@ export class EmployerProfileComponent implements OnInit {
 			}, error => {
 				this.companyProfileInfo = {};
 			}
-		)
+		);
+		this.employerSharedService.getEmployerProfileDetails().subscribe(
+			details => {
+			   this.employerprofilepath = `${env.apiUrl}/images/employer/${details.photo}`;
+			});
 	}
 	
 	/**

@@ -16,7 +16,7 @@ import { base64ToFile, ImageCroppedEvent } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
 import { callbackify } from 'util';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-create-employer-profile',
   templateUrl: './create-employer-profile.component.html',
@@ -69,6 +69,8 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	public companyProfileInfo: any;
 	public show: boolean = false;
 	public invalidMobile: boolean = false;
+	public fileExtension: any;
+	public employerprofilepath: any;
 	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
 	//TooltipLabel = TooltipLabel;
@@ -102,6 +104,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			details => {
 				if (!this.utilsHelperService.isEmptyObj(details)) {
 					this.employerDetails = details;
+					this.employerprofilepath = `${env.apiUrl}/images/employer/${details.photo}`;
 					this.createCompanyForm.patchValue({
 						email_id: this.employerDetails.email,
 						name: this.employerDetails.company,
@@ -160,7 +163,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 		(response: any) => {
 			
 			  this.employerSharedService.saveEmployerCompanyDetails(response.details);
-			this.companyProfileInfo = { ...response.details };
+			   this.companyProfileInfo = { ...response.details };
 				if(this.companyProfileInfo.social_media_link){
 					this.companyProfileInfo.social_media_link = this.companyProfileInfo.social_media_link.filter((v,i,a)=>a.findIndex(t=>(t.media === v.media))===i)
 				}
@@ -209,6 +212,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	onUserPhotoUpdate = (callback = () => { }) => {
 		const formData = new FormData();
 		formData.append('photo', this.croppedFile, ((this.croppedFile.name) ? this.croppedFile.name : ''));
+		formData.append('extension', this.fileExtension);
 		this.employerService.photoUpdate(formData).subscribe(
 			response => {
 				callback();
@@ -354,11 +358,11 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 		if (files && files.length > 0) {
 			let fileToUpload = files.item(0);
 			let allowedExtensions = ["jpg", "jpeg", "png", "JPG", "JPEG"];
-			let fileExtension = files
+			this.fileExtension = files
 				.item(0)
 				.name.split(".")
 				.pop();
-			if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+			if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
 				this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
 				return;
 			}

@@ -26,7 +26,7 @@ import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs 
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService,PrintService],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class CalendarComponent implements OnInit {
 	

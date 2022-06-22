@@ -47,7 +47,7 @@
 			<div class=" form-group">
 				<label>{{"userProfile.availability" | translate }}</label>
 				<select appMarkAsterisk formControlName="availability" class="form-control">
-					<option [value]="null">{{"shared.select" | translate }}</option>
+					<option [value]="null" disabled>{{"shared.select" | translate }}</option>
 					<option *ngFor="let type of availabilityArray" [value]="type.id">{{ type.text }}</option>
 				</select>
 				<app-control-messages [control]="f['availability']"></app-control-messages>
@@ -70,7 +70,7 @@
 			<div class=" form-group">
 				<label>{{"userProfile.travel" | translate }} </label>
 				<select appMarkAsterisk formControlName="travel" class="form-control">
-					<option [value]="null">{{"shared.select" | translate }}</option>
+					<option [value]="null" disabled>{{"shared.select" | translate }}</option>
 					<option *ngFor="let travel of travelArray; let i = index" [value]="travel?.id">
 						{{travel?.text}}
 					</option>

@@ -344,6 +344,17 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		this.mbRef.close()
 	}
 	
+	goBack(){
+	if(this.queryParams['activeTab']==='matches'){
+		this.router.navigate(['/user/dashboard']);
+		return false;
+	}else{
+	   window.history.go(-1); 
+	   return false;
+	}
+	
+	}
+	
 	
 	@HostListener('window:resize', ['$event'])  
   onResize(event) {  
@@ -354,5 +365,10 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
    if(this.checkDB === true){
 	 window.history.forward();
 	 }
+   if(this.queryParams['activeTab']==='matches'){
+   setTimeout(()=>{
+		this.router.navigate(['/user/dashboard']);
+		})
+	}
   }
 }

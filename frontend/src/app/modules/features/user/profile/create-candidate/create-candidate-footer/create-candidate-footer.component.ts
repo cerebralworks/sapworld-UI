@@ -24,6 +24,7 @@ export class CreateCandidateFooterComponent implements OnInit {
 	public savedUserDetails: any;
 	public nextBtnValidate: boolean =false ;
 	public userInfo: any;
+	public index:any;
 
 	tabInfos: any[];
 	@Input('userDetails')
@@ -167,8 +168,8 @@ export class CreateCandidateFooterComponent implements OnInit {
 	
 	onToggleRegisterReview = (status) => {
 		if(this.checValue()){
-			if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >=this.createCandidateForm.value.educationExp.sap_experience ) {
-				
+			if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >= this.createCandidateForm.value.educationExp.sap_experience ) {
+				console.log('true')
 				if(this.createCandidateForm.value.personalDetails.authorized_country_select){
 				
 					if(this.createCandidateForm.value.personalDetails.authorized_country){
@@ -189,7 +190,7 @@ export class CreateCandidateFooterComponent implements OnInit {
 				
 				this.onEnableJobPreviewModal.emit(status);
 				
-			}
+			}else{console.log('errors')}
 		}
 	}
 	
@@ -198,18 +199,26 @@ export class CreateCandidateFooterComponent implements OnInit {
 	**/
 	
 	checValue(){
+
 		if(this.createCandidateForm.value.personalDetails['entry']==false){
+			for(let i=0;i<this.createCandidateForm.value.skillSet['hands_on_experience']['length'];i++){
+			this.index=i;
+			
+			if(!this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['skill_id'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['experience'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['exp_type']){
+					return false;
+			}
+		}
 			if( !this.createCandidateForm.value.personalDetails['clients_worked'] || !this.createCandidateForm.value.personalDetails['clients_worked']['length']|| this.createCandidateForm.value.personalDetails['clients_worked']['length']==0){
 				return false;
 			}if( !this.createCandidateForm.value.educationExp['domains_worked'] || !this.createCandidateForm.value.educationExp['domains_worked']['length']|| this.createCandidateForm.value.educationExp['domains_worked']['length']==0){
 				return false;
-			}if( !this.createCandidateForm.value.educationExp['current_employer_role'] || this.createCandidateForm.value.educationExp['current_employer_role']==''){
+			}if( !this.createCandidateForm.value.educationExp['current_employer_role'] || this.createCandidateForm.value.educationExp['current_employer_role'].trim()==''){
 				return false;
 			}if( !this.createCandidateForm.value.educationExp['sap_experience'] || this.createCandidateForm.value.educationExp['sap_experience']==''){
 				return false;
 			}if( !this.createCandidateForm.value.educationExp['experience'] || this.createCandidateForm.value.educationExp['experience']==''){
 				return false;
-			}if( !this.createCandidateForm.value.educationExp['current_employer'] || this.createCandidateForm.value.educationExp['current_employer']==''){
+			}if( !this.createCandidateForm.value.educationExp['current_employer'] || this.createCandidateForm.value.educationExp['current_employer'].trim()==''){
 				return false;
 			}if( !this.createCandidateForm.value.skillSet['programming_skills'] || !this.createCandidateForm.value.skillSet['programming_skills']['length']|| this.createCandidateForm.value.skillSet['programming_skills']['length']==0){
 				return false;

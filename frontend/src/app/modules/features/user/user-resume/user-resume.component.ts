@@ -5,6 +5,7 @@ import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment as env } from '@env';
 
 @Component({
   selector: 'app-user-resume',
@@ -26,7 +27,7 @@ export class UserResumeComponent implements OnInit {
 	public selectedResumeUrl: any;
 	public selectedCoverUrl: any;
 	public mbRef: NgbModalRef;
-
+	public fileExtension:any;
 	@ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
 	@ViewChild("coverTitleModal", { static: false }) coverTitleModal: TemplateRef<any>;
 	@ViewChild('userResume', { static: false }) userResume: ElementRef;
@@ -38,7 +39,7 @@ export class UserResumeComponent implements OnInit {
 	public isDeleteModalOpenedCover: boolean;
 	public resumeForm: FormGroup;
 	public coverForm: FormGroup;
-
+	
 	constructor(
 		private userService: UserService,
 		private utilsHelperService: UtilsHelperService,
@@ -83,16 +84,16 @@ export class UserResumeComponent implements OnInit {
 		let files: FileList = event.target.files;
 		if (files && files.length > 0) {
 			let allowedExtensions = ["doc", "docx", "pdf"];
-			let fileExtension = files
+			this.fileExtension = files
 			.item(0)
 			.name.split(".")
 			.pop();
-			if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+			if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
 				this.toastrService.error('File format not supported(Allowed Format:doc,pdf,docx)');
 				return;
 			}
-			if (files.item(0).size > 3145728) {
-				this.toastrService.error('Size Should be less than or equal to 3 MB');
+			if (files.item(0).size > 10485760) {
+				this.toastrService.error('Size Should be less than or equal to 10 MB');
 				return;
 			}
 			if(data=="cover"){
@@ -141,6 +142,7 @@ export class UserResumeComponent implements OnInit {
 		const formData = new FormData();
 		formData.append('doc_resume', this.userSelectedResume, this.userSelectedResume.name);
 		formData.append('title', this.resumeForm.value.title);
+		formData.append('extension', this.fileExtension);
 		this.userService.resumeUpdate(formData).subscribe(
 			response => {
 				this.modalService.dismissAll();
@@ -160,6 +162,7 @@ export class UserResumeComponent implements OnInit {
 		const formData = new FormData();
 		formData.append('doc_cover', this.userSelectedCover, this.userSelectedCover.name);
 		formData.append('title', this.coverForm.value.title);
+		formData.append('extension', this.fileExtension);
 		this.userService.coverUpdate(formData).subscribe(
 			response => {
 				this.modalService.dismissAll();
@@ -303,7 +306,7 @@ export class UserResumeComponent implements OnInit {
 	
 	onToggleResumeForm = (status, selectedResumeUrl?) => {
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = selectedResumeUrl;
+			this.selectedResumeUrl = `${env.apiUrl}/documents/resume/${selectedResumeUrl}`;
 		}
 		this.isOpenedResumeModal = status;
 	}
@@ -314,7 +317,7 @@ export class UserResumeComponent implements OnInit {
 	
 	onToggleCoverForm = (status, selectedCoverUrl?) => {
 		if (selectedCoverUrl) {
-			this.selectedCoverUrl = selectedCoverUrl;
+			this.selectedCoverUrl = `${env.apiUrl}/documents/cover/${selectedCoverUrl}`;
 		}
 		this.isOpenedCoverModal = status;
 	}

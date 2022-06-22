@@ -5,7 +5,8 @@
       <div class="col-lg-5">
         <ol class="breadcrumb">
 		  <li class="breadcrumb-item"><a href="#" onclick="window.history.go(-1); return false;"><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
-          <li class="breadcrumb-item active" aria-current="page">{{"shared.createProfile" | translate}}</li>
+          <li *ngIf="!companyProfileInfo?.id" class="breadcrumb-item active" aria-current="page">{{"shared.createProfile" | translate}}</li>
+		  <li *ngIf="companyProfileInfo?.id" class="breadcrumb-item active" aria-current="page">{{"shared.editProfile" | translate}}</li>
         </ol>
       </div>
     </div>
@@ -101,7 +102,7 @@
           <div class="upload-box">
             <div class="box text-center upload-image uploads-image">
               <img *ngIf="(defaultProfilePic || employerDetails?.photo !='default.png')"
-                [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo+'?v='+ randomNum"
+                [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : employerprofilepath"
                 alt="upload-photo" class="img-fluid mx-auto check-img rounded-circle border border-primary"
                 style="width:150px;height:150px;">
               <input  *ngIf="employerDetails?.photo =='default.png'" [style.top]="(defaultProfilePic || employerDetails?.photo) ? '0px' : '0px'" type="file" class="upload-input" #companyImage
@@ -210,7 +211,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+     <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="1 / 1"
         [autoCrop]="true" [resizeToWidth]="295" format="png" (imageCropped)="imageCropped($event)"
         (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed($event)">
       </image-cropper>

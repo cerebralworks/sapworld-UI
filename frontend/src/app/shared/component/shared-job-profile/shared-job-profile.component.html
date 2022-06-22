@@ -1,7 +1,7 @@
 <div class="row  info-box">
 	<div class="col-lg-12">
 		<div class="accordion mt-3 ">
-			<div class="pj-titler "  *ngIf="required">
+			<div class="pj-title "  *ngIf="required">
 				<h6 class="mb-0" >
 					{{"jobs.requiredSkils" | translate }} 
 				 </h6>
@@ -77,7 +77,7 @@
 				</div>
 				<div class="col-lg-7 col-md-7 col-sm-7 info">
 					<ul class="list-group">
-						<li class=" list-group-item text-uppercase">
+						<li class=" list-group-item text-uppercase d-flex">
 							<ng-container *ngIf="jobInfo?.skills?.length; else elseSkillsTemplate">
 							  <span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo?.skills, jobInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 								<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-class"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -183,13 +183,13 @@
 				</div>
 				<div class="col-lg-7 col-md-7 col-sm-7 info">
 					<ul class="list-group">
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" >
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 0" style="min-width: 260px;">
 							{{"userProfile.shouldBeACitizenPr" | translate }}
 						</li>
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" >
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 1" style="min-width: 260px;">
 							{{"userProfile.shouldBeHavingAWorkPermit" | translate }}
 						</li>
-						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" >
+						<li class=" list-group-item text-capitalize" *ngIf="jobInfo?.work_authorization == 2" style="min-width: 260px;">
 							{{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }}
 						</li>
 					 </ul>
@@ -333,7 +333,7 @@
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-7 info" >
 						<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="jobInfo?.match_select[item?.id] == '0'" >
+							<li class="otherpreff text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="jobInfo?.match_select[item?.id] == '0'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -341,7 +341,7 @@
 				</div>
 			</div>
 		<div class="accordion" *ngIf="desired">
-			<div class="pj-titler m-b-1" >
+			<div class="pj-title m-b-1" >
 				<h6 class="mb-0" >
 					{{"jobs.desired" | translate }}
 				 </h6>
@@ -417,7 +417,7 @@
 				</div>
 				<div class="col-lg-7 col-md-7 col-sm-7 info">
 					<ul class="list-group">
-						<li class=" list-group-item text-uppercase">
+						<li class=" list-group-item text-uppercase d-flex">
 							<ng-container *ngIf="jobInfo?.skills?.length; else elseSkillsTemplate">
 							  <span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo?.skills, jobInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 								<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-class"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -674,7 +674,7 @@
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-7 info" >
 						<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="jobInfo?.match_select[item?.id] == '1'" >
+							<li class="otherpreff text-capitalize handsExp"  [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"  *ngIf="jobInfo?.match_select[item?.id] == '1'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -683,7 +683,7 @@
 			</div>
 		</div>
 		<div class="accordion" *ngIf="nice">
-			<div class="pj-titler m-b-1"  >
+			<div class="pj-title m-b-1"  >
 				<h6 class="mb-0" >
 					{{"jobs.niceToHave" | translate }}
 				 </h6>
@@ -759,7 +759,7 @@
 				</div>
 				<div class="col-lg-7 col-md-7 col-sm-7 info">
 					<ul class="list-group">
-						<li class=" list-group-item text-uppercase">
+						<li class=" list-group-item text-uppercase d-flex">
 							<ng-container *ngIf="jobInfo?.skills?.length; else elseSkillsTemplate">
 							  <span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo?.skills, jobInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 								<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-class"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -1016,7 +1016,7 @@
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-7 info" >
 						<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp"   [ngClass]="(isMultipleMatches === true)?'min-handsExps':''" *ngIf="jobInfo?.match_select[item?.id] == '2'" >
+							<li class="otherpreff text-capitalize handsExp"   [ngClass]="(isMultipleMatches === true)?'min-handsExps':''" *ngIf="jobInfo?.match_select[item?.id] == '2'" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -1025,7 +1025,7 @@
 			</div>
 		</div>
 		<div class="accordion"  *ngIf="optional">
-			<div class="pj-titler m-b-1"  >
+			<div class="pj-title m-b-1"  >
 				<h6 class="mb-0" >
 					{{"jobs.otherPreferences" | translate }}
 				 </h6>
@@ -1074,7 +1074,7 @@
 				</div>
 				<div class="col-lg-7 col-md-7 col-sm-7 info">
 					<ul class="list-group">
-						<li class=" list-group-item text-uppercase">
+						<li class=" list-group-item text-uppercase d-flex">
 							<ng-container *ngIf="jobInfo?.skills?.length; else elseSkillsTemplate">
 							  <span class="m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo?.skills, jobInfo?.hands_on_experience, 'skill_id'); let i = index; let last = last;">
 								<span style="cursor: pointer;" class="float-left skils-short" *ngIf="!utilsHelperService.isEmptyObj(sharedService.onFindSkillsFromSingleID(item))" tooltipClass="my-custom-class"  container="body"  placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -1331,7 +1331,7 @@
 					</div>
 					<div class="col-lg-7 col-md-7 col-sm-7 info" >
 						<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
-							<li class="list-group-item text-capitalize handsExp" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'')" >
+							<li class="otherpreff text-capitalize handsExp" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'')" >
 							  <span  >{{item?.title ? item?.title : '--'}}</span>
 							</li>
 						 </ul>
@@ -1341,7 +1341,7 @@
 		</div>
 		
 		<div class="accordion" *ngIf="IsShown && !isHideData">
-			<div class="pj-titler m-b-1" >
+			<div class="pj-title m-b-1" >
 				<h6 class="mb-0" >
 					{{"jobs.perksBenfits" | translate}}
 				 </h6>

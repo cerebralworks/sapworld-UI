@@ -20,14 +20,51 @@ export class PostJobFooterComponent implements OnInit {
 
 	public btnType: string;
 	public isOpenedJobPreviewModal: any;
+	public timeError: boolean = false;
 
 	constructor() { }
 
 	ngOnInit(): void {
+	
 	}
+	
+	
+	
+	
 	/**
 	**	To click the pervoius Button
 	**/
+	
+	checkWrkTime(){
+	this.timeError=false;
+		var maxCheck = this.postJobForm.controls.jobInfo.value.max;
+		var minCheck = this.postJobForm.controls.jobInfo.value.min;
+		if(minCheck !=null && maxCheck !=null){
+			maxCheck= maxCheck.split(':');
+			minCheck= minCheck.split(':');
+			var maxCheck_1=parseInt(maxCheck[0]);
+			var maxCheck_2=parseInt(maxCheck[1]);
+			var minCheck_1= parseInt(minCheck[0]);
+			var minCheck_2= parseInt(minCheck[1]);
+			if(minCheck_1>12 && maxCheck_1>12){
+				if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
+				this.timeError=true;
+			}else if(minCheck_1>maxCheck_1){
+				this.timeError = true;
+			}
+			}else{
+			if(minCheck_1>maxCheck_1 && minCheck_1<12){
+				this.timeError = true;
+			}else if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
+				this.timeError = true;
+
+			}
+			
+		}
+	}
+	
+	
+	}
 	
 	onPrevious = () => {
 		
@@ -70,6 +107,8 @@ export class PostJobFooterComponent implements OnInit {
 	**	To check the table information
 	**/
 	onTabChange = () => {
+		
+	
 		if(this.btnType == 'next' && this.currentTabInfo.tabNumber==1&&this.postJobForm.controls.jobInfo.valid){
 			let nextTabProgressor = {} as tabInfo;
 			nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
@@ -141,6 +180,7 @@ export class PostJobFooterComponent implements OnInit {
 	**/
 	
 	onToggleJobPreviewModal = (status) => {
+	
 		if(this.postJobForm.valid || this.postJobForm.controls.otherPref.valid ) {
 			this.onEnableJobPreviewModal.emit(status);
 		}
