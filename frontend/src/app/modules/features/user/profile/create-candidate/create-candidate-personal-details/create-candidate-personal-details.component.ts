@@ -737,7 +737,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	createForm() {
 		this.childForm = this.parentF.form;
 		this.childForm.addControl('personalDetails', new FormGroup({
-		 first_name: new FormControl('',[Validators.required,ValidationService.emptyStringValidator]),
+		 first_name: new FormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator]),
 		  last_name: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
 		  email: new FormControl(''),
 		  entry: new FormControl(false),

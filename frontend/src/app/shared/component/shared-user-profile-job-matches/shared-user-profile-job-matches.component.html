@@ -1,7 +1,12 @@
-<div class="row  info-box" style="margin-top:0rem !important;">
-	<div class="col-lg-12 " [ngClass]="(router?.url?.includes('/user'))?'mt-4':''">
-		<div class="accordion  " [ngClass]="isMultipleMatches ? 'mtop-2' : 'mtop-2'">
+<div class="row  info-box">
+	<div class="col-lg-12 ">
+		<div class="accordion">
 			<div  *ngIf="postedJobsDetails?.match_select?.experience=='0'">
+			    <div class="pj-title ">
+				<h6 class="mb-0" >
+					{{"shared.candidateSkills" | translate}}
+				 </h6>
+			</div>
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
@@ -382,12 +387,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="accordion "  [ngClass]="isMultipleMatches ? ' mt-5' : ' mt-3'" *ngIf="desired">
-			<div  *ngIf="isMultipleMatches;else elseblock" [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'" ><h6  class="mb-0"></h6></div>
-			<ng-template #elseblock>
-				<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'"  style="padding:12px 0px;"><h6  class="mb-0"></h6></div>
-			</ng-template>
-			<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='1'">
+		<div class="accordion " *ngIf="desired">
+			<div class="pj-title " style="visibility:hidden;">
+				<h6 class="mb-0" >
+					{{"shared.candidateSkills" | translate}}
+				 </h6>
+			</div>
+			<div *ngIf="postedJobsDetails?.match_select?.experience=='1'">
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
@@ -755,9 +761,13 @@
 			</div>
 			
 		</div>
-		<div class="accordion  " [ngClass]="isMultipleMatches ? ' mt-5' : ' mt-3'" *ngIf="nice">
-			<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'"><h6  class="mb-0"></h6></div>
-			<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience=='2'">
+		<div class="accordion  " *ngIf="nice">
+			<div class="pj-title " style="visibility:hidden;">
+				<h6 class="mb-0" >
+					{{"shared.candidateSkills" | translate}}
+				 </h6>
+			</div>
+			<div  *ngIf="postedJobsDetails?.match_select?.experience=='2'">
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
@@ -1123,9 +1133,13 @@
 			</div>
 			
 		</div>
-		<div class="accordion   "  [ngClass]="isMultipleMatches ? ' mt-5' : ' mt-3'" *ngIf="optional">
-			<div [ngClass]="isMultipleMatches ? 'pj-titles-0' : 'pj-titles'"><h6  class="mb-0"></h6></div>
-			<div style="margin-top:-12px;" *ngIf="postedJobsDetails?.match_select?.experience==''">
+		<div class="accordion   "  *ngIf="optional">
+			<div class="pj-title " style="visibility:hidden;">
+				<h6 class="mb-0" >
+					{{"shared.candidateSkills" | translate}}
+				 </h6>
+			</div>
+			<div *ngIf="postedJobsDetails?.match_select?.experience==''">
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">

@@ -93,7 +93,8 @@
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.skills=='0'">
-				<ul class="list-group">
+				<ul class="list-group" style="list-style-type: none;display: flex;
+    flex-direction: row;">
                       <li class="list-group-item  text-uppercase">
                         <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
                           <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
@@ -116,6 +117,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
+					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='0'">
@@ -516,7 +518,8 @@
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.skills=='1'">
-				<ul class="list-group">
+				<ul class="list-group" style="list-style-type: none;display: flex;
+    flex-direction: row;">
                       <li class="list-group-item  text-uppercase">
                         <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
                           <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
@@ -539,6 +542,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
+					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='1'">
@@ -941,7 +945,8 @@
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.skills=='2'">
-				<ul class="list-group">
+				<ul class="list-group" style="list-style-type: none;display: flex;
+    flex-direction: row;">
                       <li class="list-group-item  text-uppercase">
                         <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
                           <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
@@ -964,6 +969,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
+					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='2'">
@@ -1369,7 +1375,8 @@
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.skills==''">
-				<ul class="list-group">
+				<ul class="list-group" style="list-style-type: none;display: flex;
+    flex-direction: row;">
                       <li class="list-group-item  text-uppercase">
                         <ng-container *ngIf="jobInfo.skills?.length; else elseSkillsTemplate">
                           <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
@@ -1392,6 +1399,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
+					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills==''">
@@ -1709,4 +1717,39 @@
 				 </ul>
 			</div>
 	</div>
+	<ng-template #popContent>
+		<div class="popover-body">
+			<h5 class="heading text-center">More</h5>
+			<div class="d-flex">
+				<div class="p-2">
+					<p>
+					
+					 <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
+                            <span
+                              *ngIf="onChangeStringNumber('skills', 'skills', item, 'check').type == 'check'">
+                              <i class="fas fa-check text-green " ></i>
+                              {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}<br />
+                            </span>
+                          </ng-container>
+								
+					</p>
+					
+				</div>
+				
+				<div class="p-2">
+					<p>
+					<ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(jobInfo.skills, jobInfo.hands_on_experience, 'skill_id'); let first = first;">
+                            <span
+                              *ngIf="onChangeStringNumber('skills', 'skills', item, 'close').type == 'close'">
+                              <i class="fas fa-times text-danger "></i>
+                              {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}<br />
+
+                            </span>
+                          </ng-container>
+					</p>
+					
+				</div>
+			</div>
+		</div>
+	</ng-template>
 </div>

@@ -1,7 +1,7 @@
 .ul-value{
-	font-size: 16px;
+	font-size: 14px;
     min-height: 26px;
-	font-weight: 700;
+	font-weight: 600;
 }
 .my-custom-classe .tooltip-inner {
     color: #000;
@@ -48,11 +48,11 @@
 	display: contents !important;
 }
 .pj-titles{
-    padding: 10px 0;
+    padding: 5px 0;
     /* border-bottom: 1px solid #ffc0d8; */
 }
 .pj-titles-0{
-    /*padding: 5px 0 !important;*/
+    padding: 5px 0 !important;
     /* border-bottom: 1px solid #ffc0d8; */
 }
 .pj-titles  h6{

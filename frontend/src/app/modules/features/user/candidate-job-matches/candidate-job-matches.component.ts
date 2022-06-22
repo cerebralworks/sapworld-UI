@@ -8,7 +8,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import * as lodash from 'lodash';
 import { Subscription } from 'rxjs';
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-candidate-job-matches',
   templateUrl: './candidate-job-matches.component.html',
@@ -41,6 +41,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	matchingJobMeta: any;
 	public loading : boolean;
 	public userDetails:any;
+	public userprofilepath:any;
 	/**
 	**	To implements the import Packages in constructor
 	**/
@@ -60,6 +61,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
+	this.userprofilepath = `${env.apiUrl}/images/user/`;
 	  this.screenWidth = window.innerWidth;	
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
@@ -84,7 +86,6 @@ export class CandidateJobMatchesComponent implements OnInit {
 					}
 					this.userInfo = response;
 					this.userDetails = response;
-					console.log(this.userDetails)
 					if (this.jobId && this.matchFind ==false) {
 						
 						this.onGetUserScoringById();

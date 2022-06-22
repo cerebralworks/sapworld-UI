@@ -276,26 +276,26 @@
   </div>
 </div>
 <div *ngIf="matchesModels">
-        <span class=" profile-btn" style="display: inline-block;">
+        <span class=" profile-btn" style="display: inline-block;margin-right:0.3rem !important;">
           <a *ngIf="!isUploadShow || selectedCover?.file"
           [class.disabled]="!selectedCover?.file"
-          (click)="selectedCover?.file && onToggleCoverForm(true, (selectedCover?.file))" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;" style="font-size:12px;">
-            <i class="fas fa-envelope-open-text"></i>  {{"shared.coverLetter" | translate }}
+          (click)="selectedCover?.file && onToggleCoverForm(true, (selectedCover?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;" style="font-size:12px;">
+            <i class="fas fa-file-alt"></i>  {{"shared.coverLetter" | translate }}
           </a>
 		  <a *ngIf="isUploadShow && !selectedCover?.file" 
-          (click)="openCoverselect(true)" class="btn btn-smss btn-outline-orange  btn-sm" style="font-size:12px;" href="javascript:;">
-            <i class="fas fa-envelope-open-text"></i>  {{"shared.addCover" | translate }}
+          (click)="openCoverselect(true)" class="btn btn-outline-blue btn-sm" style="font-size:12px;" href="javascript:;">
+            <i class="fas fa-file-alt"></i>  {{"shared.addCover" | translate }}
           </a>
         </span>
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
           <a *ngIf="!isUploadShowResume || selectedResume?.file" style="font-size:12px;"
           [class.disabled]="!selectedResume?.file"
-          (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-smss btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-envelope-open-text"></i> {{"shared.resume" | translate }}
+          (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
           </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="font-size:12px;"
          (click)="openResumselect(true)"  id="addResumeFile" 
-           class="btn  btn-smss btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-envelope-open-text"></i>  {{"shared.addResume" | translate }}
+           class="btn btn-outline-blue btn-sm" href="javascript:;">
+            <i class="fas fa-file-alt"></i>  {{"shared.addResume" | translate }}
           </a>
         </span>
 

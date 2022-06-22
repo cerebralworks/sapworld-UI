@@ -148,7 +148,8 @@
 		"validStatus": "Bitte wählen Sie den gültigen Status",
 		"notificationSetting" : "Benachrichtigungseinstellung",
 		"viewjobs":"Job anzeigen",
-		"editProfile" :"Profil bearbeiten"
+		"editProfile" :"Profil bearbeiten",
+		"candidateSkills" :"KANDIDATEN-FÄHIGKEITEN"
 	},
 	"auth":{
 		"findRightPlace":"Finden Sie Ihren richtigen Ort",

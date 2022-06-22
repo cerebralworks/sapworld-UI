@@ -144,7 +144,8 @@
 	    "addNewSkills":"Agregue una nueva habilidad de SAP",
 		"notificationSetting" :"Notificación de configuración",
 		"viewjobs":"Ver trabajo",
-		"editProfile" :"Editar perfil"
+		"editProfile" :"Editar perfil",
+		"candidateSkills" :"HABILIDADES DEL CANDIDATO"
 	},
 	"auth":{
 	    "findRightPlace":"Encuentra tu lugar correcto",

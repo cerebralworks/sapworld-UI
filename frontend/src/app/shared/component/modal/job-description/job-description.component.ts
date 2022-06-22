@@ -40,7 +40,7 @@ export class JobDescriptionComponent implements OnInit {
         windowClass: 'modal-holder',
         centered: true,
         backdrop: 'static',
-        size: 'lg',
+        size: 'md',
         keyboard: false
       });
     }

@@ -27,7 +27,7 @@
 		"byJobType":"By Job Type",
 		"default": "Default",
 		"byVisa":"Visa Sponsord Jobs" , 
-		"coverLetter":"Cover Lettter",
+		"coverLetter":"Cover Letter",
 		"addCover":"Add cover",
 		"addCoverTitle":" Cover Tilte",
 		"resume": "Resume",
@@ -152,7 +152,11 @@
 		"workTiming" : "Work Timing",
 		"timing" : "Timing",
 		"viewjobs" :"View Job",
-		"editProfile" :"Edit Profile"
+		"editProfile" :"Edit Profile",
+		"candidateSkills" :"CANDIDATE SKILLS",
+		"jobMatches" : "Job Matches",
+		"jobDescription" : "Job Description"
+		
 	},
 	"auth":{
 		"findRightPlace":"Find Your Right Place",
