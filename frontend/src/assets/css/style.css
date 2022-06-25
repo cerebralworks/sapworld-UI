@@ -4025,4 +4025,28 @@ color: #11b771;
 	margin-right: 77px;
     margin-left: 77px;
 }
+policy-sec {
+    font-size: 14px;
+}
+.policy-sec p {
+    font-size: 14px;
+}
+.policy-sec h3 {
+    font-size: 18px;
+    font-weight: 700;
+    background: #e6fbff;
+    padding: 7px 10px;
+    border-bottom: 2px solid #2cd7fe;
+    color: #333;
+    margin: 30px 0 15px;
+}
+.policy-sec table {
+        border: 1px solid #edeff2;
+    font-weight: 600;
+}
+
+.policy-sec .table td, .policy-sec .table th {
+   white-space: unset!important;
+}
+
 
