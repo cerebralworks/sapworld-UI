@@ -1,6 +1,9 @@
 <ng-template #registerReviewModal let-modal>
 	<div class="modal-header">
 		<h5 class="modal-title" id="exampleModalLabel">{{"userProfile.profilePreview" | translate }}</h5>
+		<button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
     </div>
     <div class="modal-body" style="height:550px; overflow-x:hidden; overflow-y:scroll;">
 		<div class="row">
@@ -529,7 +532,7 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button  (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{"shared.edit" | translate }}   </button>
+		<button  (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{"shared.close" | translate }}   </button>
 		<button type="button" class="btn btn-theme-blue btn-sm" (click)="onRedirectDashboard()">{{"shared.saveClose" | translate }} </button>
 	</div>
 </ng-template>

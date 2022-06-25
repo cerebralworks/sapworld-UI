@@ -199,7 +199,6 @@ export class CreateCandidateFooterComponent implements OnInit {
 	**/
 	
 	checValue(){
-
 		if(this.createCandidateForm.value.personalDetails['entry']==false){
 			for(let i=0;i<this.createCandidateForm.value.skillSet['hands_on_experience']['length'];i++){
 			this.index=i;
@@ -245,5 +244,22 @@ export class CreateCandidateFooterComponent implements OnInit {
 		return errors;
 	}
 
+/**
+	**	To check reference email validation
+	**/
+	
+	
+checkref(){
+	if(this.createCandidateForm.controls.personalDetails.value.reference[0].email == ''){
+		return true;
+	}
+	else if(this.createCandidateForm.controls.personalDetails.value.reference[0].email !==null){
+		var validRegex =/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+		var em = this.createCandidateForm.controls.personalDetails.value.reference[0].email;
+		if(!em.match(validRegex)){
+			return false;
+		}
+		}
+}
 
 }

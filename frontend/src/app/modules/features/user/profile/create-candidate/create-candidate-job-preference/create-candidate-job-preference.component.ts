@@ -134,6 +134,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			
 			if (this.childForm && this.savedUserDetails) {
 				if(this.savedUserDetails.work_authorization==0){
+					
 					var temps =this.savedUserDetails.authorized_country;
 					var temps1 =this.savedUserDetails.authorized_country_select;
 					var tempCoun =[];
@@ -282,23 +283,23 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						  }));
 						  this.address=[];
 					}else if ((this.savedUserDetails.preferred_locations.length == 1) || (this.t && this.t.length) !== (this.savedUserDetails.preferred_locations && this.savedUserDetails.preferred_locations.length)) {
-					 this.t.removeAt(0);
-					  this.savedUserDetails.preferred_locations.map((value, index) => {
+					// this.t.removeAt(0);
+					 /*this.savedUserDetails.preferred_locations.map((value, index) => {
 						this.t.push(this.formBuilder.group({
 							city: [''],
 							state: [''],
 							stateShort: [''],
 							country: ['']
 						  }));
-					  });
+					  });*/
 					}
 					var tempData =[];
 				if(this.t.value){
-						 tempData = this.savedUserDetails.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
+						 tempData = this.childForm.controls.jobPref.value.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
 						 if(tempData.length ==0 && this.savedUserDetails.preferred_locations && this.savedUserDetails.preferred_locations.length != 0){
 							this.childForm.patchValue({
 								jobPref: {
-									preferred_locations: this.savedUserDetails.preferred_locations,
+									preferred_locations: this.childForm.controls.jobPref.value.preferred_locations,
 								},
 							});
 							tempData = this.childForm.controls.jobPref.value.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
@@ -307,7 +308,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
 				return a.city+'-'+a.stateShort });
 					}
-				  
 				this.address=tempData;
 				}
 				if(this.childForm.controls.personalDetails.value.work_authorization==0){
@@ -402,7 +402,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						this.options.componentRestrictions['country'] = tempCoun;
 					}
 				}
-				
 				if(this.childForm.controls.jobPref.value.preferred_locations!=null){
 					if(this.childForm.controls.jobPref.value.preferred_locations.length == 0){
 						this.t.removeAt(0);
@@ -426,7 +425,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					}
 					var tempData =[];
 				if(this.t.value){
-						 tempData = this.savedUserDetails.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
+						 tempData = this.childForm.controls.jobPref.value.preferred_locations.filter(function(a,b){ return a.city!=''||a.country!=''});
 						 tempData = tempData.map(function(a,b){ 
 				a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
 				return a.city+'-'+a.stateShort });
@@ -434,7 +433,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				  
 				this.address=tempData;
 				}
-				if(this.savedUserDetails.job_type!=null){		  
+				/*if(this.savedUserDetails.job_type!=null){		  
 					if(this.savedUserDetails.job_type.length !=0){
 						for(let i=0;i<this.savedUserDetails.job_type.length;i++){
 							for(let j=0;j<document.getElementsByClassName('jobtype').length;j++){
@@ -446,7 +445,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					}else{
 						
 					}
-				}else if(this.childForm.controls.jobPref.value.job_type!=null){		  
+					console.log(this.childForm.controls.jobPref.value.job_type);
+				}else */if(this.childForm.controls.jobPref.value.job_type!=null){		
 					if(this.childForm.controls.jobPref.value.job_type.length !=0){
 						for(let i=0;i<this.childForm.controls.jobPref.value.job_type.length;i++){
 							for(let j=0;j<document.getElementsByClassName('jobtype').length;j++){
@@ -459,6 +459,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						
 					}
 				}
+				
 			}
 			if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
 				if(this.tabInfos && this.tabInfos.length) {
@@ -492,15 +493,10 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		  
 				this.childForm.patchValue({
 					jobPref: {
-						...this.savedUserDetails
+						//...this.childForm.controls.jobPref.value
 					},
 				});
-				this.childForm.patchValue({
-					jobPref: {
-						visa_sponsered: this.savedUserDetails.visa_sponsered,
-						remote_only: this.savedUserDetails.remote_only,
-					},
-				});
+				
 			}
 		},300);
 	}
@@ -679,7 +675,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	
 	onRemove = (index) => {
 		let removedValue = this.t.value[index];
-	 
 		if (index == 0 && this.t.length == 1) {
 		  this.t.removeAt(0);
 		  this.t.push(this.formBuilder.group({

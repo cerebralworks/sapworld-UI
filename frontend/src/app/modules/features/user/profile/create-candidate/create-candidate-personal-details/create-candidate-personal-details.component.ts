@@ -284,8 +284,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**	To check the form details and assign the data's
 	**/
   ngOnChanges(changes: SimpleChanges): void {
-	 
-	  setTimeout(async () => {
+	 setTimeout(async () => {
 				if(this.childForm.controls.personalDetails.status =="INVALID"){
     if(this.childForm && this.savedUserDetails) {
 		if(this.childForm.value.personalDetails.country){
@@ -772,11 +771,11 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  })]),
 		  reference: new FormArray([this.formBuilder.group({
 			name: new FormControl(null),
-			email: new FormControl(''),
+			email: [null,ValidationService.emailValidator],
 			company_name: new FormControl(null)
 		  })]),
 		}));
-
+      
 	}
 
 	get f() {
@@ -1079,13 +1078,24 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**	To create a new reference
 	**/
 	
+	checkref(index){
+		var validRegex =/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+		var em = this.r.value[index]['email'];
+		if(!em.match(validRegex)){
+			return false;
+		}else{
+			return true;
+		}	
+}
+
+
 	onDuplicateR = (index) => {
-	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
+	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null || this.checkref(index)==false){
 		 
 	  }else{
 		this.r.push(this.formBuilder.group({
 			name: new FormControl(null),
-			email: new FormControl(''),
+			email: [null,ValidationService.emailValidator],
 			company_name: new FormControl(null)
 		}));
 	  }
