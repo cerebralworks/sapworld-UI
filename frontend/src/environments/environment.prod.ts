@@ -10,7 +10,7 @@ export const environment = {
   webhookUrl: 'https://api.calendly.com/webhook_subscriptions',
   membershipUrl: 'https://api.calendly.com/organization_memberships',
   eventUrl: 'https://api.calendly.com/event_types',
-  adminEmail : 'sapworldprod@gmail.com',
+  adminEmail :'anand@cerebral-works.com',
   serverUrl:`${baseUrl}:5002`,
   apiUrl:`${baseUrl}:1339`,
   adminUrl: `${baseAdminUrl}`,
