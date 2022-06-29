@@ -292,5 +292,12 @@ export class EmployerDashboardComponent implements OnInit {
    if(this.checkDB === true){
 	 window.history.forward();
 	 }
+	 if(this.queryParams['activeTab']==='postedJobs' || this.queryParams['activeTab']==='matches'){
+      setTimeout(()=>{
+		this.router.navigate(['/employer/dashboard']);
+		
+		})
+		
+	}
   }
 }

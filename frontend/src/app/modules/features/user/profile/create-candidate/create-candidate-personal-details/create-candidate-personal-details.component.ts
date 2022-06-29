@@ -745,7 +745,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  state: new FormControl('', Validators.required),
 		  latlng: new FormControl({}, Validators.required),
 		  country: new FormControl('', Validators.required),
-		  zipcode: new FormControl(null, Validators.required),
+		  zipcode: new FormControl(null, [Validators.required,Validators.minLength(4)]),
 		  clients_worked: new FormControl(null, Validators.required),
 		  authorized_country: new FormControl(null),
 		  authorized_country_select: new FormControl(null),

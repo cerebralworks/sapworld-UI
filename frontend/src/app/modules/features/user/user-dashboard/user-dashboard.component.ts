@@ -365,7 +365,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
    if(this.checkDB === true){
 	 window.history.forward();
 	 }
-   if(this.queryParams['activeTab']==='matches'){
+   if(this.queryParams['activeTab']==='matches' || this.queryParams['activeTab']==='applied'){
    setTimeout(()=>{
 		this.router.navigate(['/user/dashboard']);
 		})

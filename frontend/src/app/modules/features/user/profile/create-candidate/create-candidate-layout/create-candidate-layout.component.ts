@@ -541,7 +541,15 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		response => {
 			
 			this.router.navigate(['/user/dashboard']).then(() => {
-				if(this.userInfo && this.userInfo.profile_completed == false){
+				/*if(this.userInfo && this.userInfo.profile_completed == false){
+				if(!response.matches && response.matches  !=true && response.matches !=false){
+					response= JSON.parse(response);
+				}
+				if(response.matches == true){
+					this.dataService.setMatchesCompletion();
+				}
+			}*/
+			if(this.userInfo){
 				if(!response.matches && response.matches  !=true && response.matches !=false){
 					response= JSON.parse(response);
 				}
@@ -549,7 +557,6 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					this.dataService.setMatchesCompletion();
 				}
 			}
-			//this.dataService.setMatchesCompletion();
           if(this.userInfo && (!this.userInfo.doc_resume || this.userInfo.doc_resume.length == 0)) {
             this.dataService.setProfileCompletion();
 			

@@ -20,7 +20,7 @@ import { DayService, WeekService, WorkWeekService,PrintService, MonthService,Pop
 import { extend, Internationalization } from '@syncfusion/ej2-base';
 
 import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs } from "@syncfusion/ej2-angular-schedule";
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-calendar',
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService,PrintService],
@@ -899,8 +899,9 @@ export class CalendarComponent implements OnInit {
 	**/
 	
 	getUserDetailsData(){
-		
-		var emailData = { 'email' : this.employerDetails.email ? this.employerDetails.email.toLowerCase() : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		var adminemail = `${env.adminEmail}`;
+		//var emailData = { 'email' : this.employerDetails.email ? this.employerDetails.email.toLowerCase() : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		var emailData = { 'email' : adminemail,'organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
 		this.accountService.userCalendlyDetailsGet(emailData,this.loggedUserInfo).subscribe(
 			response => {
 				if(response && response.collection && response.collection.length ){
