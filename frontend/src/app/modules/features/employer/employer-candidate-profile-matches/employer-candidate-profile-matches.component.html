@@ -148,13 +148,13 @@ Location:
 height: 105px;" [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingUsers?.profile?.photo : 'assets/images/user-img-icon.jpg'">
 			</div>
 			<div class="text">
-			<h5 class="text-capitalize">{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
+			<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsers?.profile?.job_location?.id,id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;"><h5 class="text-capitalize">{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
 + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}<small *ngIf="matchingUsers?.profile?.job_role"> -
-{{matchingUsers?.profile?.job_role}}</small></h5>
+{{matchingUsers?.profile?.job_role}}</small></h5></a>
 				<h5 class="text-capitalize"><small>{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
 {{matchingUsers?.profile?.state ? matchingUsers?.profile?.state+', '  : ''}}{{matchingUsers?.profile?.country ? matchingUsers?.profile?.country : ''}}
 				</small></h5>
-				<h5><small *ngIf="matchingUsers?.profile?.clients_worked">{{matchingUsers?.profile?.clients_worked}}</small></h5>
+				<h5><small *ngIf="matchingUsers?.profile?.current_employer">{{matchingUsers?.profile?.current_employer}}</small></h5>
 			</div>
 		</div>
 		<div class="butn">
