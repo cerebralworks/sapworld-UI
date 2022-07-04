@@ -426,14 +426,14 @@ export class CandidateJobMatchesComponent implements OnInit {
 	
 	onChangeUsers = (type) => {
 		const count = this.matchingJobMeta  && this.matchingJobMeta.count ? parseInt(this.matchingJobMeta.count) : 0;
-		var nxt : HTMLElement = document.getElementById('carouselProfile');
+		//var nxt : HTMLElement = document.getElementById('carouselProfile');
 		var nxt1 : HTMLElement = document.getElementById('cardsliders');
 		
 		if(type == 'next') {
 			nxt1.classList.add("slideanimations")
-			nxt.classList.add("slideanimations")
+			//nxt.classList.add("slideanimations")
 			setTimeout(()=>{
-			nxt.classList.remove('slideanimations')
+			//nxt.classList.remove('slideanimations')
 		    nxt1.classList.remove('slideanimations')
 			},1000)
 			if (count > this.page) {
@@ -446,9 +446,9 @@ export class CandidateJobMatchesComponent implements OnInit {
 			}
 		} else if (type == 'prev' && this.page > 1) {
 		   nxt1.classList.add("slidearight")
-		    nxt.classList.add("slidearight")
+		   // nxt.classList.add("slidearight")
 			setTimeout(()=>{
-			nxt.classList.remove('slidearight')
+			//nxt.classList.remove('slidearight')
 		    nxt1.classList.remove('slidearight')
 			},1000)
 			if (this.matchingJobMeta.count > 1 ) {

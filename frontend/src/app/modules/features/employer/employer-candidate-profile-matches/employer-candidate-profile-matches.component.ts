@@ -437,13 +437,13 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onChangeUsers = (type) => {
 		const count = this.matchingUsersMeta  && this.matchingUsersMeta.count ? parseInt(this.matchingUsersMeta.count) : 0;
-		var nxt : HTMLElement = document.getElementById('carouselProfile');
+		//var nxt : HTMLElement = document.getElementById('carouselProfile');
 		var nxt1 : HTMLElement = document.getElementById('cardsliders');
 		if (type == 'next') {
 		    nxt1.classList.add("slideanimations")
-			nxt.classList.add("slideanimations")
+			//nxt.classList.add("slideanimations")
 			setTimeout(()=>{
-			nxt.classList.remove('slideanimations')
+			//nxt.classList.remove('slideanimations')
 		    nxt1.classList.remove('slideanimations')
 			},1000)
 			if (count > this.page) {
@@ -456,10 +456,10 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 				}
 			}
 		} else if (type == 'prev' && this.page > 1) {
-		    nxt1.classList.add("slidearight")
-		    nxt.classList.add("slidearight")
+		   nxt1.classList.add("slidearight")
+		   // nxt.classList.add("slidearight")
 			setTimeout(()=>{
-			nxt.classList.remove('slidearight')
+			//nxt.classList.remove('slidearight')
 		    nxt1.classList.remove('slidearight')
 			},1000)
 			if (this.matchingUsersMeta.count > 1 ) {
