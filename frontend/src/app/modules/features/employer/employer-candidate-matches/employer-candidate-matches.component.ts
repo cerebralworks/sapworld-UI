@@ -882,15 +882,17 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	}
 	
 	filterCountry(clr){
+		var f = this.selectedJob.job_locations.map(a=>{return a.city});
 		var temp = clr.target.className.split(' ');
 		if(temp[temp.length-1]=='btn-fltr-active' || temp[temp.length-2]=='btn-fltr-active'){
-			if(this.countryFilterList.length+1 == this.selectedJob?.job_locations?.length){
+			
+			//if(this.countryFilterList.length+1 == this.selectedJob?.job_locations?.length){
 				
-			}else{
+			//}else{
 				clr.target.className = clr.target.className.replace('btn-fltr-active','');
 				var dataCheck = clr.target.id.split('_')[1].toString();
 				this.countryFilterList.push(dataCheck);
-			}
+			//}
 		}else{
 			clr.target.className = 'btn btn-fltr btn-fltr-active';
 			var dataCheck = clr.target.id.split('_')[1].toString();
@@ -901,7 +903,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		if(this.countryFilterList.length==0){
 			this.queryParams.location_filter = null;
 		}else{
-			this.queryParams.location_filter = this.countryFilterList;
+			var a = f.filter(x => !this.countryFilterList.includes(x));
+			this.queryParams.location_filter = a;
 		}
 		this.onGetCandidateList(this.selectedJob.id);
 		
