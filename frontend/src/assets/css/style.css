@@ -493,7 +493,7 @@ a:hover {
     color: #848484;
 }
 .modal-content {
-    border-radius: 1rem !important;
+    border-radius: 0.5rem;
     font-family: 'Nunito', sans-serif !important;
     border: none !important;
 }

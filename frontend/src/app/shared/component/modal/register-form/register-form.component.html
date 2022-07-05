@@ -29,8 +29,16 @@
         </div>
         <app-control-messages [control]="f['lastName']"></app-control-messages>
       </div>
+	  <div class="form-group" *ngIf="router?.url.includes('employer') || router?.url.includes('agency')">
+        <label>{{"shared.companyName" | translate }}</label>
+        <div appMarkAsterisk class="input-with-icon">
+          <input autocomplete="disabled" type="text" class="form-control" [placeholder]="'Company Name'" formControlName="companyName">
+          <i class="fas fa-building"></i>
+        </div>
+        <app-control-messages [control]="f['companyName']"></app-control-messages>
+      </div>
       <div class="form-group">
-        <label>{{"auth.email" | translate }}</label>
+        <label>{{"shared.emailAddress" | translate }}<small *ngIf="router?.url.includes('employer')" class="text-secondary"> (Company Email Address)</small></label>
         <div appMarkAsterisk class="input-with-icon">
           <input type="text" autocomplete="disabled" style="text-transform: lowercase;" class="form-control" [placeholder]="'Email Address'" formControlName="email">
           <i class="fas fa-envelope"></i>
@@ -39,14 +47,6 @@
           {{formError[0]?.rules[0]?.rule == 'unique' ? formError[0]?.rules[0]?.message : ''}}
         </small>
         <app-control-messages [control]="f['email']"></app-control-messages>
-      </div>
-      <div class="form-group" *ngIf="router?.url.includes('employer') || router?.url.includes('agency')">
-        <label>{{"shared.companyName" | translate }}</label>
-        <div appMarkAsterisk class="input-with-icon">
-          <input autocomplete="disabled" type="text" class="form-control" [placeholder]="'Company Name'" formControlName="companyName">
-          <i class="fas fa-industry"></i>
-        </div>
-        <app-control-messages [control]="f['companyName']"></app-control-messages>
       </div>
       <div class="form-group">
         <label>{{"auth.password" | translate }} </label>
@@ -66,7 +66,7 @@
        class="form-group mt-5">
         <button type="submit" [ngClass]="{'btn-theme-blue': router?.url.includes('employer'), 'btn-theme-orange':router?.url.includes('agency'), 'btn-theme-green':router?.url.includes('user') }"
          class="btn btn-block btn-lg" [disabled]="(registerForm.invalid || (!registerForm?.value?.isAgreed))">
-         <span [hidden]="isLoading">{{"shared.submit" | translate }}</span>
+         <span [hidden]="isLoading">{{"auth.register" | translate }}</span>
          <span [hidden]="!isLoading">
            <i class="fa fa-spinner" aria-hidden="true"></i>
          </span>
