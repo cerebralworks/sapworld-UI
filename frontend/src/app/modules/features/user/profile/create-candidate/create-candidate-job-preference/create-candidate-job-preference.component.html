@@ -47,7 +47,7 @@
 			<div class=" form-group">
 				<label>{{"userProfile.availability" | translate }}</label>
 				<select appMarkAsterisk formControlName="availability" class="form-control">
-					<option [value]="null" disabled>{{"shared.select" | translate }}</option>
+					<option [value]="''" disabled>{{"shared.select" | translate }}</option>
 					<option *ngFor="let type of availabilityArray" [value]="type.id">{{ type.text }}</option>
 				</select>
 				<app-control-messages [control]="f['availability']"></app-control-messages>
