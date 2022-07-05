@@ -59,7 +59,7 @@
       <div class="form-group">
         <div class="custom-control custom-checkbox">
         <input autocomplete="disabled" type="checkbox" class="custom-control-input" id="termsService" formControlName="isAgreed">
-        <label class="custom-control-label" for="termsService">{{"auth.terms" | translate }} <a href="#">View</a></label>
+        <label class="custom-control-label" for="termsService">{{"auth.terms" | translate }} <a [routerLink]="['/terms-and-conditions']" href="javascript:;" target="_blank">View</a></label>
         </div>
       </div>
       <div
