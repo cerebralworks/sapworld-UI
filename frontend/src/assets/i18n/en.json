@@ -171,7 +171,11 @@
 		"password":"Password",
 		"rememberMe":"Remember Me",
 		"forgotPassword":"Forgot Password?",
-		"haveAccount":"Don't have an account?"
+		"haveAccount":"Don't have an account?",
+		"userName" :"Username",
+		"employerLogin" : "Employer Login",
+		"userLogin" :"Jobseeker Login"
+		
 		},
 	"profileSettings":{
 		"photo":"Profile Image",

@@ -160,7 +160,10 @@
 	    "password":"Contraseña",
 	    "rememberMe":"Recuérdame",
 	    "forgotPassword":"Has olvidado tu contraseña?",
-	    "haveAccount":"No tienes una cuenta?"
+	    "haveAccount":"No tienes una cuenta?",
+		"userName" :"Nombre de usuario",
+		"employerLogin" : "Ingreso del empleador",
+		"userLogin" :"Inicio de sesión para solicitantes de empleo"
 	},
 	"profileSettings": {
         "photo": "Imagen de perfil",

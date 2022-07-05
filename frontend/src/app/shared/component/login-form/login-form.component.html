@@ -1,10 +1,11 @@
 
 <form class="login-form"  [formGroup]="loginForm" (ngSubmit)="login()">
-  <h1>{{"auth.login" | translate }}</h1>
+  <h1 *ngIf="checkrole==0">{{"auth.userLogin" | translate }}</h1>
+   <h1 *ngIf="checkrole==1">{{"auth.employerLogin" | translate }}</h1>
   <div class="form-group">
-    <label>{{"auth.email" | translate }}</label>
+    <label>{{"auth.userName" | translate }}</label>
     <div class="input-with-icon">
-      <input type="email" class="form-control" [placeholder]="'Email'" formControlName="username"/>
+      <input type="email" class="form-control" [placeholder]="'Username'" formControlName="username"/>
       <i class="fas fa-user-alt"></i>
     </div>
     <app-control-messages [control]="f['username']"></app-control-messages>
@@ -39,7 +40,7 @@
     class="btn btn-block btn-lg"
     [ngClass]="{'btn-theme-blue': router?.url.includes('employer'), 'btn-theme-orange':router?.url.includes('agency'), 'btn-theme-green':router?.url.includes('user') }"
     type="submit" [disabled]="loginForm.invalid">
-      <span [hidden]="isLoading">{{"shared.submit" | translate }}</span>
+      <span [hidden]="isLoading">{{"auth.login" | translate }}</span>
       <span [hidden]="!isLoading">
         <i class="fa fa-spinner" aria-hidden="true"></i>
       </span>
