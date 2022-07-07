@@ -341,8 +341,13 @@
          <input type="time" class="form-control" formControlName="interviewTime" name="interviewTime">
       </div>
 	   <div class="col-5 form-group">
-        <label>Time Zone</label>   
-         <input type="text" class="form-control" formControlName="timeZone" name="timeZone">
+        <label>Time Zone</label> 
+		 <select formControlName="timeZone" class="form-control" name="timeZone">
+					<option value='' disabled>Select Time Zone</option>
+					<option value="AST">AST</option>
+					<option  value="UTC">UTC</option>
+					<option  value="GMT">GMT</option>
+				</select>
       </div>
 	  </div>
 	  <div class="form-group">

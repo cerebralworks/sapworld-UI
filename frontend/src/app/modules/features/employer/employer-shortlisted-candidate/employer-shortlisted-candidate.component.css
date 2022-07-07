@@ -136,3 +136,25 @@ ul.statusHistory .content p{
 	color: #ff0000;
     font-weight: bold;
 }
+.modal-header{
+	padding: 1rem;
+    border-radius: 5px;
+    background: #fbfbfb !important;
+    border-bottom: 1px solid #dee2e6;
+}
+.modal-header .close {
+    float: right;
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #a8a8a8;
+    text-shadow: unset;
+    opacity: .85;
+}
+.modal-header .modal-title {
+    margin-bottom: 0;
+    line-height: 1.25;
+    color: #385edf;
+    font-weight: 700;
+    font-size: 1rem;
+}
