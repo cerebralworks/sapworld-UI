@@ -358,7 +358,8 @@
 		"addCalenders":"Agregar calendarios",
 	    "AddInviteLink":"Agregar enlace de invitación",
 	    "inviteSettingsAddCustom":"Haga clic aquí para agregar el enlace del programador",
-        "addResume": "Agregar currículum"
+        "addResume": "Agregar currículum",
+		"meetingLink" :"Enlace de reunión"
 	},
 	"home": {
         "title": "Contratar expertos o ser contratado para cualquier trabajo, en cualquier momento",

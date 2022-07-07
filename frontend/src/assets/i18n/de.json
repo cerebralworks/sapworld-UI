@@ -362,7 +362,8 @@
 		"addCalenders":"Kalender hinzufügen",
 		"AddInviteLink":"Einladungslink hinzufügen",
 		"inviteSettingsAddCustom":"Klicken Sie hier, um den Scheduler-Link hinzuzufügen",
-		"addResume": "Lebenslauf hinzufügen"
+		"addResume": "Lebenslauf hinzufügen",
+		"meetingLink" :"Meeting-Link"
 	},
 	"home":{
 		"title": "Stellen Sie Experten ein oder werden Sie für jeden Job und zu jeder Zeit eingestellt",

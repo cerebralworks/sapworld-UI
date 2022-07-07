@@ -38,7 +38,8 @@ export class CalendarComponent implements OnInit {
 	public currentView: View = 'Agenda';
 	public appliedJobs: any[] = [];	
 	public createCompanyForm: FormGroup;
-	public currentTabInfo: tabInfo = {tabNumber: 2, tabName: 'inviteLink'};
+	//public currentTabInfo: tabInfo = {tabNumber: 2, tabName: 'inviteLink'};
+	public currentTabInfo: tabInfo = {tabNumber: 3, tabName: 'calender'};
 	public employerDetails: any;
 	//TooltipLabel = TooltipLabel;
 	public companyProfileInfo: any;
@@ -899,8 +900,7 @@ export class CalendarComponent implements OnInit {
 	**/
 	
 	getUserDetailsData(){
-		var adminemail = `${env.adminEmail}`;
-		//var emailData = { 'email' : this.employerDetails.email ? this.employerDetails.email.toLowerCase() : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		/*var adminemail =`${env.adminEmail}`;
 		var emailData = { 'email' : adminemail,'organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
 		this.accountService.userCalendlyDetailsGet(emailData,this.loggedUserInfo).subscribe(
 			response => {
@@ -911,7 +911,7 @@ export class CalendarComponent implements OnInit {
 			}, error => {
 				console.log(error);
 			}
-		)
+		)*/
 	}
 	
 	/**
@@ -920,8 +920,7 @@ export class CalendarComponent implements OnInit {
 	**/
 	
 	getEventDetails(){
-		
-		var emailData = { 'user' : this.calendlyInfo['user']['uri'] ? this.calendlyInfo['user']['uri'] : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		/*var emailData = { 'user' : this.calendlyInfo['user']['uri'] ? this.calendlyInfo['user']['uri'] : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
 		this.accountService.userCalendlyDetailsEventGet(emailData,this.loggedUserInfo).subscribe(
 			response => {
 				console.log(response);
@@ -936,7 +935,7 @@ export class CalendarComponent implements OnInit {
 			}, error => {
 				console.log(error);
 			}
-		)
+		)*/
 	}
 	
 	

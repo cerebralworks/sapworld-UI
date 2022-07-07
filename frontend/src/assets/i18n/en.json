@@ -376,7 +376,8 @@
 		"inviteSettingsTitle":"Click here to add the calendly",
 		"inviteSettingsAddCustom":"Click here to add the Other Link",
 		"AddInviteLink":"Add Invite Link",
-		"addResume": "Add Resume"
+		"addResume": "Add Resume",
+		"meetingLink" :"Meeting Link"
 	},
 	"home": {
 		"title": "Hire experts or be hired for any job, any time",

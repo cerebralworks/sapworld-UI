@@ -132,7 +132,7 @@ export class CalendarComponent implements OnInit {
 		if(this.appliedJobs && this.appliedJobs['length'] && this.appliedJobs['length']!=0){
 			var tempArray=[];
 			for(let i=0;i<=this.appliedJobs.length-1;i++){
-				var ArrayValue = this.appliedJobs[i];
+				/*var ArrayValue = this.appliedJobs[i];
 				var ArrayValueEvents = this.appliedJobs[i]['events'];
 				if(ArrayValue && ArrayValueEvents && ArrayValueEvents['length'] &&ArrayValueEvents['length']!=0){
 					
@@ -227,12 +227,64 @@ export class CalendarComponent implements OnInit {
 							
 						}
 					}
+				}*/
+				
+				var ArrayValue = this.appliedJobs[i];
+				var ArrayValueEvents = this.appliedJobs[i]['application_status'];
+				if(ArrayValue && ArrayValueEvents && ArrayValueEvents['length'] &&ArrayValueEvents['length']!=0){
+					for(let j=0;j<=ArrayValueEvents['length']-1;j++){
+						var CategoryColor = "#008000";
+						var input1Date =  new Date();
+						var input2Date =  new Date();		
+						var ArrayResource = ArrayValueEvents[j];
+						if(ArrayResource['link']){
+							var dataValue = ArrayResource['link'] ;
+						
+								var tempStatus = ArrayResource['status'];
+								var titleUpper =ArrayValue['job_posting']['title'].toUpperCase();
+								var statusUpper = tempStatus.toUpperCase();
+								
+								var tempDescription= '<h6> <strong>Title : </strong>Meeting Invitation details</h6> </br>';
+								input2Date =  new Date(ArrayResource['interviewdate']);
+								var a = input2Date.toDateString()+' '+ArrayResource['interviewtime'];
+								var shortTime = new Date(a).toLocaleTimeString([], {timeStyle: 'short'});
+									if (input1Date > input2Date && input1Date.getTime() > new Date(a).getTime()){
+										CategoryColor = "green";
+									}else{
+										CategoryColor = "blue";
+									}
+					
+									
+											if(dataValue.includes('www')){		
+												
+												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+											}else{
+												
+												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+											}
+								
+								var tempTitle= ArrayValue['job_posting']['title']+' - '+tempStatus;
+								tempTitle=tempTitle.toUpperCase();
+								var tempInsertData = {
+									'Id':j,
+									'Subject':tempTitle,
+									'StartTime':a.toLocaleString(),
+									'EndTime':a.toLocaleString(),
+									'CategoryColor':CategoryColor,
+									'Description':tempDescription
+								}
+								tempArray.push(tempInsertData);
+								
+							}
+							
+						}
+					}
 				}
 			}
-			
+			console.log(tempArray);
 			  this.eventSettings = { dataSource:tempArray};
 			
-		}
+	
 	}
 	openPopup(){
 		console.log('test');

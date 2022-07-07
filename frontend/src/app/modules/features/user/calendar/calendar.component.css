@@ -154,3 +154,6 @@
 .e-month-view .e-appointment{
 	width:157px !important;
 }
+.e-quick-popup-wrapper .e-event-popup .e-date-time{
+	display:none !important;
+}
