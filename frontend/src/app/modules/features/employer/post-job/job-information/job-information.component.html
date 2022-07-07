@@ -33,7 +33,7 @@
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6 matches-8 ">
 			<div class=" form-group">
-				<label>{{"shared.jobType" | translate}}</label>
+				<label>{{"shared.jobType" | translate}}<span class="required-asterisk">*</span></label>
 				<select (change)="onChangeJobType($event?.target?.value)"  formControlName="type" class="form-control" name="type">
 					<option value="" selected="" >Select Job Type</option>
 					<option  value="1000">Full Time</option>
@@ -54,8 +54,8 @@
 		</div>
 		<div class="col-lg-4 col-md-6 matches-8 d-flex">
 			<div class=" form-group w-50">
-				<label>{{"shared.pay" | translate}}</label>
-				<select appMarkAsterisk formControlName="salary_type" class="form-control" name="job-type">
+				<label>{{"shared.pay" | translate}}<span class="required-asterisk">*</span></label>
+				<select formControlName="salary_type" class="form-control" name="job-type">
 					<option value="" selected="" disabled="">{{"shared.select" | translate}} {{"shared.pay" | translate}}</option>
 					<option [value]="0">Hourly </option>
 					<option [value]="2">Monthly</option>
@@ -195,8 +195,8 @@
 	<div class="row mt-2">
 		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
-				<label>{{"userProfile.availability" | translate}}</label>
-				<select appMarkAsterisk formControlName="availability" class="form-control">
+				<label>{{"userProfile.availability" | translate}}<span class="required-asterisk">*</span></label>
+				<select  formControlName="availability" class="form-control">
 					<option [value]="null" disabled >{{"shared.select" | translate }}</option>
 					<option *ngFor="let type of availabilityArray" [value]="type.id">{{ type.text }}</option>
 				</select>
@@ -205,8 +205,8 @@
 		</div>
 		<div class="col-lg-4 col-md-6 matches-8">
 			<div class=" form-group">
-				<label>{{"userProfile.remote" | translate}} </label>
-				<div appMarkAsterisk class="mt-2">
+				<label>{{"userProfile.remote" | translate}} <span class="required-asterisk">*</span></label>
+				<div class="mt-2">
 					<div class="custom-control custom-radio custom-control-inline">
 						<input [value]="true" (click)="changeRemote('yes')" id="remote_PJ_Y" formControlName="remote" type="radio" class="custom-control-input">
 						<label class="custom-control-label" for="remote_PJ_Y">{{"shared.yes" | translate}}</label>
@@ -221,9 +221,9 @@
 		</div>
 		<div class="col-lg-4 col-md-6" *ngIf="showRemoteOption" style="margin-left:-12rem;">
 		<div class=" form-group">
-				<label>{{"jobs.remoteOption" | translate}}
+				<label>{{"jobs.remoteOption" | translate}}<span class="required-asterisk">*</span>
 				</label>
-				<div appMarkAsterisk class="pt-2">
+				<div  class="pt-2">
 					<button type="button" (click)="remoteOptions('0',$event)" id="domestic" class="btn btn-fltr" formControlName="remote_option">Domestic</button>
 					<button type="button" (click)="remoteOptions('1',$event)" id="worldwide" class="btn btn-fltr" formControlName="remote_option">worldwide</button>
 				</div>
@@ -250,8 +250,8 @@
 	<div class="row mt-2">
 		<div class="col-md-12">
 			<div class="form-group">
-				<label>{{"shared.jobDesc" | translate}} </label>
-				<angular-editor appMarkAsterisk formControlName="description" [config]="editorConfig" [placeholder]="'shared.description' | translate"></angular-editor>
+				<label>{{"shared.jobDesc" | translate}} <span class="required-asterisk">*</span></label>
+				<angular-editor formControlName="description" [config]="editorConfig" [placeholder]="'shared.description' | translate"></angular-editor>
 			</div>
 			<app-control-messages [control]="f['description']"></app-control-messages>
 		</div>
