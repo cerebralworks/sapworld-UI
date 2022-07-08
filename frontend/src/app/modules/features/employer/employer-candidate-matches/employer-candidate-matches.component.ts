@@ -123,7 +123,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				}
 			}
 			if(urlQueryParams && urlQueryParams.reset) {
-				sessionStorage.clear();
+				//sessionStorage.clear();
 			}
 
 			const jobTypes = this.route.snapshot.queryParamMap.get('job_types');
