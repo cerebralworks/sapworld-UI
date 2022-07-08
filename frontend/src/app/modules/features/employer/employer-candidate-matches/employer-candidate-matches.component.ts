@@ -344,7 +344,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 							this.onGetCandidateList(this.selectedJob.id);
 						}else {
 							if(!sessionStorage.getItem('match-job-id')){
-								this.selectedJob = this.postedJobs[0];
+								//this.selectedJob = this.postedJobs[0];
 							}else{
 								var ids = parseInt(sessionStorage.getItem('match-job-id'));
 								var temps = this.postedJobs.filter(function(a,b){ return a.id==ids })
