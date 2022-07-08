@@ -52,7 +52,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContactFormComponent } from './component/contact-form/contact-form.component';
-
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 @NgModule({
   declarations: [
     LoginFormComponent,
@@ -107,7 +107,8 @@ import { ContactFormComponent } from './component/contact-form/contact-form.comp
     PerfectScrollbarModule,
     Ng2TelInputModule,
     NgxDocViewerModule,
-    CarouselModule
+    CarouselModule,
+	AmazingTimePickerModule
   ],
   exports: [
     LoginFormComponent,
@@ -159,7 +160,8 @@ import { ContactFormComponent } from './component/contact-form/contact-form.comp
     PhonePipe,
     TimePipe,
     CarouselModule,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+	AmazingTimePickerModule
   ],
   providers: [ApiService,PushNotificationsService]
 })
