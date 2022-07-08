@@ -250,7 +250,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
 			this.candidateForm.addControl('jobPref', new FormGroup({
 				job_type: new FormControl(null, Validators.required),
-				job_role: new FormControl(''),
+				job_role: new FormControl('', Validators.required),
 				willing_to_relocate: new FormControl(null, Validators.required),
 				preferred_location: new FormControl(null),
 				preferred_countries: new FormControl(null),
@@ -363,7 +363,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		//'skills': [Validators.required],
 		//'programming_skills': [Validators.required],
 		//'other_skills': [Validators.required],
-		//'job_role': [Validators.required],
+		'job_role': [Validators.required],
 		'job_type': [Validators.required],
 		'willing_to_relocate': [Validators.required],
 		'travel': [Validators.required],

@@ -257,10 +257,10 @@ export class CalendarComponent implements OnInit {
 									
 											if(dataValue.includes('www')){		
 												
-												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}else{
 												
-												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}
 								
 								var tempTitle= ArrayValue['job_posting']['title']+' - '+tempStatus;
@@ -281,7 +281,7 @@ export class CalendarComponent implements OnInit {
 					}
 				}
 			}
-			console.log(tempArray);
+			
 			  this.eventSettings = { dataSource:tempArray};
 			
 	

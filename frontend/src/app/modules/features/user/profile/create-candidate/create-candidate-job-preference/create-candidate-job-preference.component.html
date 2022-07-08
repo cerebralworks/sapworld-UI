@@ -22,7 +22,7 @@
 		<div class="col-lg-4 col-md-4 matches-8">
 			<div class=" form-group">
 				<label>{{"userProfile.rolesLookingFor" | translate }}</label>
-				<input formControlName="job_role" type="text" class="form-control text-capitalize" [placeholder]="'userProfile.rolesLookingFor' | translate">
+				<input appMarkAsterisk formControlName="job_role" type="text" class="form-control text-capitalize" [placeholder]="'userProfile.rolesLookingFor' | translate">
 				<app-control-messages [control]="f['job_role']"></app-control-messages>
 			</div>
 		</div>

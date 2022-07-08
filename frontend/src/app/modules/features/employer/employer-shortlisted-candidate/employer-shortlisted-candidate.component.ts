@@ -821,7 +821,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
     this.meetingform = this.formBuilder.group({
 	  interviewDate: ['',Validators.required],
       interviewTime: ['',Validators.required],
-      timeZone: [''],
+      timeZone: ['',Validators.required],
       name: ['',Validators.required],
       link: ['',Validators.required]
     });
@@ -834,7 +834,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	this.requestParam.application_status[this.requestParam.application_status.length-1] = {
 		      id: this.requestParam.application_status[this.requestParam.application_status.length-1].id,
 				status: this.requestParam.application_status[this.requestParam.application_status.length-1].status,
-				date: this.requestParam.application_status[this.requestParam.application_status.length-1].date,
+				date: new Date(),
 				views: this.requestParam.application_status[this.requestParam.application_status.length-1].views,
 				comments: this.requestParam.application_status[this.requestParam.application_status.length-1].comments,
 				invite_url: '',

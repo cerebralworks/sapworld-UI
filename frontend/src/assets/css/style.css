@@ -4057,5 +4057,10 @@ policy-sec {
 	background: #fff;
 }
 
+.e-quick-popup-wrapper .e-event-popup .e-date-time{
+	display:none !important;
+}
+
+
 
 
