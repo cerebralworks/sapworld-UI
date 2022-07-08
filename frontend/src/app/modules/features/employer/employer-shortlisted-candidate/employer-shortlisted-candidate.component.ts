@@ -7,6 +7,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AmazingTimePickerService } from 'amazing-time-picker';
 @Component({
   selector: 'app-employer-shortlisted-candidate',
   templateUrl: './employer-shortlisted-candidate.component.html',
@@ -85,6 +86,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		private location: Location,
 		private employerSharedService: EmployerSharedService,
 		 private formBuilder: FormBuilder,
+		 private atp: AmazingTimePickerService 
 	) {
 		
 		this.route.queryParams.subscribe(params => {
@@ -825,6 +827,17 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
       name: ['',Validators.required],
       link: ['',Validators.required]
     });
+  }
+  
+  
+  getTimeValue(e){
+  
+  var amazingTimePicker = this.atp.open({	
+				changeToMinutes: true,
+			});
+  amazingTimePicker.afterClose().subscribe(time  => {
+  this.meetingform.controls['interviewTime'].setValue(time);
+  });
   }
   
   /** To send the meeting link*/

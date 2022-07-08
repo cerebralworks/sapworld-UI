@@ -338,7 +338,16 @@
 	  <div class="row">
 	   <div class="col-7 form-group">
         <label>Interview Time</label>   
-         <input type="time" class="form-control" formControlName="interviewTime" name="interviewTime">
+         <!-- <input type="time" class="form-control" formControlName="interviewTime" name="interviewTime"> -->
+         
+		 <div (click)="getTimeValue($event)" class="chrome_display">
+		  <input type="time" formControlName="interviewTime" class="form-control"><i class="fas fa-clock" style="position:absolute; top:3rem; right:2rem; color: #a8afb5; "></i>
+		 
+		 </div>
+		  <div (click)="getTimeValue($event)" class="safari_only">
+		  <input type="button" formControlName="interviewTime" class="form-control"><i class="fas fa-clock" style="position:absolute; top:3rem; right:2rem; color: #a8afb5; "></i>
+		 
+		 </div>
       </div>
 	   <div class="col-5 form-group">
         <label>Time Zone</label> 

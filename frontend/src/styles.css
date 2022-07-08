@@ -73,7 +73,10 @@ a.disabled {
   color: #fff;
   text-decoration: none;
 }
-
+#time-picker-wrapper{
+	
+	 z-index: 10000000 !important;
+}
 
 
 .upload-box .box label {
