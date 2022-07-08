@@ -77,6 +77,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	@ViewChild("MeetingLink", { static: false }) MeetingLink: TemplateRef<any>;
 	public meetingform: FormGroup;
 	public requestParam : any={};
+	public itime:any;
 	constructor(
 		private employerService: EmployerService,
 		private modalService: NgbModal,
@@ -832,11 +833,25 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
   
   getTimeValue(e){
   
-  var amazingTimePicker = this.atp.open({	
+  var amazingTimePicker = this.atp.open({
 				changeToMinutes: true,
 			});
   amazingTimePicker.afterClose().subscribe(time  => {
-  this.meetingform.controls['interviewTime'].setValue(time);
+	var a= time.split(':');
+	this.itime=time;
+  if(parseInt(a[0], 10) > 0 && parseInt(a[0], 10) <12){
+     var newtime =time+'AM';
+  }else if(parseInt(a[0], 10) > 12 && parseInt(a[0], 10) !=12){
+    var newtime=parseInt(a[0])-12+':'+a[1]+'PM';
+  }else if(a[0] ==='00'){
+  var newtime= '12:00AM';
+  
+  }else if(a[0] =='12'){
+  var newtime= '12:00PM';
+  
+  }
+ 
+  this.meetingform.controls['interviewTime'].setValue(newtime);
   });
   }
   
@@ -854,7 +869,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				name: this.meetingform.value.name,
 				link: this.meetingform.value.link,
 				interviewdate : this.meetingform.value.interviewDate,
-				interviewtime : this.meetingform.value.interviewTime,
+				interviewtime : this.itime,
 				zone :this.meetingform.value.timeZone
 		
 	}
@@ -865,6 +880,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				response => {
 					this.closemeeting();
 					this.meetingform.reset();
+					this.itime ='';
 				}
 					
 			);
