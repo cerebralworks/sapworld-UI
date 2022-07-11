@@ -58,11 +58,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
         }
 		var arr = [];
 		  if(this.jobInfo){
-		  var checkSkils = this.jobInfo['skills'].filter(a=> !this.jobInfo['hands_on_skills'].includes(a));
 			  if(this.jobInfo.match_select){
-			      if(this.jobInfo['end_to_end_implementation'] ==0 &&this.jobInfo.match_select['end_to_end_implementation'] ==''){
-					this.jobInfo.match_select['end_to_end_implementation']="false";  
-				  }
 				  this.jobInfo.match_select['remote']="false";
 				  this.jobInfo.match_select['willing_to_relocate']="false";
 				  if(!this.jobInfo.certification){
@@ -87,7 +83,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 					  
 				  }else{
 					  this.jobInfo.match_select['training_experience']="false";
-				  }if(this.jobInfo['skills'] ==null || this.jobInfo['skills']['length'] ==0 || this.jobInfo['skills'] ==undefined || checkSkils.length ==0){
+				  }if(this.jobInfo['skills'] ==null || this.jobInfo['skills']['length'] ==0 || this.jobInfo['skills'] ==undefined){
 					this.jobInfo.match_select['skills']="false";
 					  
 				  }if(this.jobInfo['work_authorization'] ==null || this.jobInfo.match_select['work_authorization'] =='' || this.jobInfo['work_authorization'] ==undefined){
@@ -182,13 +178,10 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 		  if(b == a.skill_id){this.hideknm = false;}
 		  else{this.hideknm = true;}
 		  })  
-	  });
-       var checkSkils = this.jobInfo['skills'].filter(a=> !this.jobInfo['hands_on_skills'].includes(a));
+	  })
+	  console.log(this.hideknm)
 		if(this.jobInfo){
 			  if(this.jobInfo.match_select){
-			  if(this.jobInfo['end_to_end_implementation'] ==0 &&this.jobInfo.match_select['end_to_end_implementation'] ==''){
-					this.jobInfo.match_select['end_to_end_implementation']="false";  
-				  }
 				   this.jobInfo.match_select['remote']="false";
 				  this.jobInfo.match_select['willing_to_relocate']="false";
 				  if(!this.jobInfo.certification){
@@ -213,7 +206,7 @@ export class SharedJobProfileComponent implements OnInit,OnChanges {
 					  
 				  }else{
 					  this.jobInfo.match_select['training_experience']="false";
-				  }if(this.jobInfo['skills'] ==null || this.jobInfo['skills']['length'] ==0 || this.jobInfo['skills'] ==undefined || checkSkils.length ==0){
+				  }if(this.jobInfo['skills'] ==null || this.jobInfo['skills']['length'] ==0 || this.jobInfo['skills'] ==undefined){
 					this.jobInfo.match_select['skills']="false";
 					  
 				  }if(this.jobInfo['work_authorization'] ==null || this.jobInfo.match_select['work_authorization'] =='' || this.jobInfo['work_authorization'] ==undefined){

@@ -287,7 +287,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 		
 		this.createCompanyForm = this.formBuilder.group({
 			email_id: ['', [Validators.required, ValidationService.emailValidator]],
-			name: ['', Validators.compose([Validators.required,Validators.minLength(3),ValidationService.StartingEmptyStringValidator])],
+			name: ['', Validators.compose([Validators.required,Validators.minLength(3)])],
 			city: ['', Validators.required],
 			firstName: [''],
 			lastName: [''],
