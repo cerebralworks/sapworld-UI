@@ -337,7 +337,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
+                        <span *ngIf="(missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing'))|| (missingElement && userInfo?.education_degree.length ==0 && jobInfo.education.length>0)">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -751,7 +751,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
+                        <span *ngIf="(missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing'))|| (missingElement && userInfo?.education_degree.length ==0 && jobInfo.education.length>0)">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -1167,7 +1167,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
+                        <span *ngIf="(missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing'))|| (missingElement && userInfo?.education_degree.length ==0 && jobInfo.education.length>0)">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -1583,7 +1583,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
+                        <span *ngIf="(missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing'))|| (missingElement && userInfo?.education_degree.length ==0 && jobInfo.education.length>0)">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>

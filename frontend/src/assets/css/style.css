@@ -3881,7 +3881,7 @@ ul.timeline > li span:hover {
     font-size: 14px;
     min-height: 26px;
     font-weight: 600;
-    width: 250px;
+    /*width: 250px;*/
 }
 
 

@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-
+import { ValidationService } from '@shared/service/validation.service';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
 @Component({
 	selector: 'app-candidate-review-modal',
@@ -1131,17 +1131,35 @@ export class CandidateReviewModalComponent implements OnInit {
 	}
 	
 	/**
+	**	To create a new reference
+	**/
+	
+	checkref(index){
+		var validRegex =/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+		var em = this.r.value[index]['email'];
+		if(em !== ''){
+		if(!em.match(validRegex)){
+			return false;
+		}else{
+			return true;
+		}
+		}else{
+		return true;
+		}
+}
+
+	/**
 	**	To add the preference
 	**/
 	
 	onDuplicateR = (index) => {
-		if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
-		  
-		}else{
+		if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null || this.checkref(index)==false){
+		 
+	  }else{
 			this.r.push(this.formBuilder.group({
 				name: new FormControl(null),
-				email: new FormControl(''),
-				company_name: new FormControl(null)
+			email: [null,ValidationService.emailValidator],
+			company_name: new FormControl(null)
 			}));
 		}
 	}
