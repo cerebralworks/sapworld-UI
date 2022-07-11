@@ -266,6 +266,7 @@
 				<label >{{"userProfile.endToEnd" | translate }} </label>
 				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
 				<input numbersOnly type="text" class="form-control w-25" formControlName="end_to_end_implementation">
+				<app-control-messages [control]="f['end_to_end_implementation']"></app-control-messages>
 			</div>
 		</div>
 	</div>

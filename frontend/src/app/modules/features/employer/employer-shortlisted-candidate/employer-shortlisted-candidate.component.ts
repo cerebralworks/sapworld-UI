@@ -8,6 +8,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AmazingTimePickerService } from 'amazing-time-picker';
+import { environment as env } from '@env';
 @Component({
   selector: 'app-employer-shortlisted-candidate',
   templateUrl: './employer-shortlisted-candidate.component.html',
@@ -78,6 +79,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public meetingform: FormGroup;
 	public requestParam : any={};
 	public itime:any;
+	public userprofilepath: any;
 	constructor(
 		private employerService: EmployerService,
 		private modalService: NgbModal,
@@ -273,6 +275,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.messagePopupValueStatus = '';
 		if (this.isCheckModel) {
 			this.messagePopupValue = item;
+			this.userprofilepath = `${env.apiUrl}/images/user/${item.user.photo}`;
 			if(item.status>=7){
 				var idValue = item.status-7;
 				if(item['job_posting']['screening_process'][idValue]){

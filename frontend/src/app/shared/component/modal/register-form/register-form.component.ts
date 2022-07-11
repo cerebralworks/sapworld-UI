@@ -66,7 +66,7 @@ export class RegisterFormComponent implements OnInit {
       });
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 1) {
-        this.registerForm.get('companyName').setValidators([Validators.required]);
+        this.registerForm.get('companyName').setValidators([Validators.required,ValidationService.StartingEmptyStringValidator]);
         this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator, ValidationService.noFreeEmail]);
         this.registerForm.get('companyName').updateValueAndValidity();
       }else {

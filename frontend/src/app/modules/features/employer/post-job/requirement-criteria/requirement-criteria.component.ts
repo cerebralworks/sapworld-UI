@@ -560,7 +560,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				visa_sponsorship: new FormControl(false, Validators.required),
 				need_reference: new FormControl(false, Validators.required),
 				travel_opportunity: new FormControl(null, Validators.required),
-				end_to_end_implementation: new FormControl(null)
+				end_to_end_implementation: new FormControl(null,Validators.required)
 			}));
 		}else{
 			
