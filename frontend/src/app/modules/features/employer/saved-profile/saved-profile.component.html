@@ -33,7 +33,7 @@
                     <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" style="width:36px;" [src]="item?.photo ? (savedProfileMeta?.photo?.path+'/'+ savedProfileMeta?.photo?.folder+'/'+savedProfileMeta?.photo?.sizes?.medium+'/'+item?.photo) : 'assets/images/user-img-icon.jpg'">
                     <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
                       <ng-container *ngIf="item?.privacy_protection?.photo == true; else elsePhotoTemplate">
-                        <img  style="width:36px;" [src]="item?.photo ? savedProfileMeta?.photo?.path+'/'+ savedProfileMeta?.photo?.folder+'/'+savedProfileMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">
+                        <img  style="width:36px;" [src]="item?.photo ? userprofilepath+item?.photo : 'assets/images/user-img-icon.jpg'">
                       </ng-container>
                       <ng-template #elsePhotoTemplate>
                         <img  style="width:36px;" [src]="'assets/images/user-lock.jpg'">
