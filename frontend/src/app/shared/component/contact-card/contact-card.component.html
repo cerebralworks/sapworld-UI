@@ -151,7 +151,7 @@
         </span>
 		<a *ngIf="!isMail && isMatchesView " (click)="onTabChange()" style="margin-top: .25rem;display:inline-block;" class="btn btn-smss btn-outline-green btn-sm profile-btn" href="javascript:;" title="Edit"><i
             class="fas fa-tasks" ></i>  {{"shared.matches" | translate }} </a>
-        <span  *ngIf="isMail && jobInfo?.id  && jobInfo['status'] == 1 && jobInfo['score'] && jobInfo['score']['mail'] !=true "  style="display: inline-block;">
+        <span  *ngIf="jobInfo.is_job_applied ==0 && isMail && jobInfo?.id  && jobInfo['status'] == 1 && jobInfo['score'] && jobInfo['score']['mail'] !=true "  style="display: inline-block;">
           <a (click)="onToggleSendMail(true,jobInfo)"  style="margin-top: .25rem;" class="btn  btn-smss btn-outline-orange btn-sm profile-btn profile-btn" href="javascript:;">
           <i class="fas fa-paper-plane"></i>  {{"shared.sendMail" | translate }}  </a>
         </span>
