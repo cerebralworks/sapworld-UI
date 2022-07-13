@@ -51,7 +51,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe(response => {
 		this.loggedUserInfo = response;
       });
-	 this.checkrole = this.router.url == '/auth/user/login'? 0 : 1;
+	 this.checkrole = this.router.url.includes('user')? 0 : 1;
   }
 
   get f() {

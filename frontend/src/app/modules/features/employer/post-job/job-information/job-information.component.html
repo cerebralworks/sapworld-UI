@@ -21,7 +21,7 @@
 			<div class=" form-group">
 				<label>{{"userProfile.roleType" | translate }}</label>
 				<select formControlName="employer_role_type" class="form-control text-capitalize">
-					<option value="" selected="" >Select Role Type</option>
+					<option [value]="''" disabled >Select Role Type</option>
 					<option  value="Technical">Technical</option>
 					<option  value="Functional">Functional</option>
 					<option  value="Technofunctional">Technofunctional</option>
@@ -35,7 +35,7 @@
 			<div class=" form-group">
 				<label>{{"shared.jobType" | translate}}<span class="required-asterisk">*</span></label>
 				<select (change)="onChangeJobType($event?.target?.value)"  formControlName="type" class="form-control" name="type">
-					<option value="" selected="" >Select Job Type</option>
+					<option [value]="''" disabled >Select Job Type</option>
 					<option  value="1000">Full Time</option>
 					<option  value="1001">Part Time</option>
 					<option  value="1002">Contract</option>

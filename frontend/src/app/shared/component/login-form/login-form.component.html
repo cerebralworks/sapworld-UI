@@ -1,7 +1,7 @@
 
 <form class="login-form"  [formGroup]="loginForm" (ngSubmit)="login()">
-  <h1 *ngIf="checkrole==0">{{"auth.userLogin" | translate }}</h1>
-   <h1 *ngIf="checkrole==1">{{"auth.employerLogin" | translate }}</h1>
+  <h1 *ngIf="router?.url.includes('user')">{{"auth.userLogin" | translate }}</h1>
+   <h1 *ngIf="router?.url.includes('employer')">{{"auth.employerLogin" | translate }}</h1>
   <div class="form-group">
     <label>{{"auth.userName" | translate }}</label>
     <div class="input-with-icon">
