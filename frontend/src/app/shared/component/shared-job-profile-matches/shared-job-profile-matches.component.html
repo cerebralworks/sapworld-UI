@@ -208,6 +208,10 @@
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
+						<span *ngIf="missingElement && jobInfo.employer_role_type && !userInfo?.employer_role_type">
+                          <i class="fas fa-times text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
                       </li>
 				</ul>
 			</div>
@@ -630,6 +634,10 @@
                           {{jobInfo.employer_role_type}}
                         </span>
                         <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
+                          <i class="fas fa-times text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
+						<span *ngIf="missingElement && jobInfo.employer_role_type && !userInfo?.employer_role_type">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
@@ -1060,6 +1068,10 @@
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
+						<span *ngIf="missingElement && jobInfo.employer_role_type && !userInfo?.employer_role_type">
+                          <i class="fas fa-times text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
                       </li>
 				</ul>
 			</div>
@@ -1487,6 +1499,10 @@
                           {{jobInfo.employer_role_type}}
                         </span>
                         <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
+                          <i class="fas fa-times text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
+						<span *ngIf="missingElement && jobInfo.employer_role_type && !userInfo?.employer_role_type">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
