@@ -22,7 +22,7 @@
 			<div class="container container-big">
 				<div class="row">
 					<div class="col-8">
-						<h5 class="text-capitalize">{{userDetails.first_name +' '+ userDetails.last_name}}<span class="mx-2"> | </span>{{userDetails.current_employer_role}}</h5>
+						<h5 class="text-capitalize">{{userDetails.first_name +' '+ userDetails.last_name}}<span *ngIf="userDetails.current_employer_role" class="mx-2"> | </span>{{userDetails.current_employer_role}}</h5>
 					</div>
 					<div class="col-4 text-right">
 						
