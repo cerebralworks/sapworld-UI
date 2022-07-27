@@ -39,6 +39,7 @@ if (
     cert: fs.readFileSync("/var/www/production/sapworld_ssl_certificate/3db15e2858acb1e1.pem", "utf8"),
     ca: [fs.readFileSync("/var/www/production/sapworld_ssl_certificate/gd_bundle-g2-g1.crt", "utf8")]
   };
+  console.log('test');
   server = https.createServer(options, app);
 } else {
   // http implementation
