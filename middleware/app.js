@@ -29,15 +29,15 @@ const app = express();
 // Server implementation
 let server;
 if (
-  fs.existsSync("/sslcert/private.key") &&
-  fs.existsSync("/sslcert/a0b1d880eaa433e4.pem") &&
-  fs.existsSync("/sslcert/gd_bundle-g2-g1.crt")
+  fs.existsSync("/var/www/production/sapworld_ssl_certificate/sapworld.key") &&
+ fs.existsSync("/var/www/production/sapworld_ssl_certificate/3db15e2858acb1e1.pem") &&
+  fs.existsSync("/var/www/production/sapworld_ssl_certificate/gd_bundle-g2-g1.crt")
 ) {
   // https implementation
   const options = {
-    key: fs.readFileSync("/sslcert/private.key", "utf8"),
-    cert: fs.readFileSync("/sslcert/a0b1d880eaa433e4.pem", "utf8"),
-    ca: [fs.readFileSync("/sslcert/gd_bundle-g2-g1.crt", "utf8")],
+    key: fs.readFileSync("/var/www/production/sapworld_ssl_certificate/sapworld.key", "utf8"),
+    cert: fs.readFileSync("/var/www/production/sapworld_ssl_certificate/3db15e2858acb1e1.pem", "utf8"),
+    ca: [fs.readFileSync("/var/www/production/sapworld_ssl_certificate/gd_bundle-g2-g1.crt", "utf8")]
   };
   server = https.createServer(options, app);
 } else {
