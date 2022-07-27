@@ -28,7 +28,7 @@ const app = express();
 
 // Server implementation
 let server;
-/*if (
+if (
   fs.existsSync("/sslcert/private.key") &&
   fs.existsSync("/sslcert/a0b1d880eaa433e4.pem") &&
   fs.existsSync("/sslcert/gd_bundle-g2-g1.crt")
@@ -43,17 +43,8 @@ let server;
 } else {
   // http implementation
   server = http.createServer(app);
-}*/
+}
 
-// https implementation
-  const options = {
-    key: fs.readFileSync("/sslcert/private.key", "utf8"),
-    cert: fs.readFileSync("/sslcert/a0b1d880eaa433e4.pem", "utf8"),
-    ca: [fs.readFileSync("/sslcert/gd_bundle-g2-g1.crt", "utf8")],
-  };
-  server = https.createServer(options, app);
-  
-  
 // Adding Helmet to enhance your API's security
 app.use(helmet());
 
@@ -64,9 +55,9 @@ app.use(cookieParser("sapWorldRedisSession"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var whitelist = ['https://sapworld.io', 'https://api.sapworld.io'];
+var whitelist = ['http://172.168.1.203', 'http://149.56.180.252'];
 // Enabling CORS for all requests
-/*app.use(
+app.use(
   require("cors")({
     origin: function(origin, callback) {
       callback(null, true);
@@ -77,15 +68,10 @@ var whitelist = ['https://sapworld.io', 'https://api.sapworld.io'];
       callback(new Error('Not allowed by CORS'))
     } */
 	
-    /*},
+    },
     credentials: true,
   })
-);*/
-
-app.use(cors({
-    origin: ['https://sapworld.io', 'https://api.sapworld.io'],
-	credentials: true,
-}));
+);
 
 redisClient.on("error", err => {
   // console.log("Redis error: ", err);
