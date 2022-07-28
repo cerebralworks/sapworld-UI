@@ -351,7 +351,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 								if(temps.length==1){
 									this.selectedJob = temps[0];
 								}else{
-									this.selectedJob = this.postedJobs[0];
+									//this.selectedJob = this.postedJobs[0];
 								}
 							}
 							this.onGetCandidateList(this.selectedJob.id);              
