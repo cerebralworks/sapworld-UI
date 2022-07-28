@@ -189,9 +189,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			if(details) {
 			  if((details && details.id) && this.validateSubscribe == 0) {
 				this.onGetPostedJobCount(details.id);
-				setTimeout(()=>{
-				this.onGetPostedJob(details.id);
-					});			
+				//this.onGetPostedJob(details.id);				
 				this.validateSubscribe ++;
 			  }
 			}
@@ -393,7 +391,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 					var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
 					if(document.getElementById('MatchesCount')){
 						document.getElementById('MatchesCount').innerHTML="("+TotalValue+")";
-					}			
+					}
+					this.onGetPostedJob(companyId);
 				}else{			
 				}
 			}, error => {
