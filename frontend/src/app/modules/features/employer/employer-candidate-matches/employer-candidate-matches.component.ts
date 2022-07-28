@@ -189,7 +189,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			if(details) {
 			  if((details && details.id) && this.validateSubscribe == 0) {
 				this.onGetPostedJobCount(details.id);
-				this.onGetPostedJob(details.id);				
+				setTimeout(()=>{
+				this.onGetPostedJob(details.id);
+					});			
 				this.validateSubscribe ++;
 			  }
 			}
