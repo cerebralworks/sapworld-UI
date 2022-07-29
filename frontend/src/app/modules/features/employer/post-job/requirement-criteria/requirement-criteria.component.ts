@@ -686,6 +686,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	**/
 	
 	onGetSkill(searchString: string = "") {
+	
 		this.isLoading = true;
 		let requestParams: any = {};
 		requestParams.page = 1;
@@ -696,9 +697,21 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			if(response && response.items) {
 				for(let i=0;i<response.items.length;i++){
 				  response['items'][i]['tags'] =response['items'][i]['tag']+' -- '+response['items'][i]['long_tag'];
-				} 
-			  this.skillItems = [...response.items];
-			  this.skillsItems = [...response.items];
+				}
+				 if(this.getPostedJobsDetails == undefined){
+				    this.skillItems = [...response.items];
+			        this.skillsItems = [...response.items];
+				 
+				 }else{
+				 var data = response.items;
+				 this.skillItems = data.filter(a=>{
+				    return !this.getPostedJobsDetails['skills'].includes(a.id);
+				 });
+				var pj = this.getPostedJobsDetails['hands_on_skills'].map(Number);
+			    this.skillsItems = data.filter(a=>{ 
+		            return !pj.includes(a.id)
+                }); 
+			    }
 			  this.commonSkills = [...response.items];
 			}
 			this.isLoading = false;

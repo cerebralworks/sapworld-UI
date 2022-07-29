@@ -210,7 +210,7 @@ export class CandidateReviewModalComponent implements OnInit {
 				backdrop: 'static',
 				keyboard: false
 			});
-			if(this.childForm.value.skillSet &&this.childForm.value.skillSet.skills){
+			if(this.childForm.value.skillSet &&this.childForm.value.skillSet.skills.length !==0){
 				this.childForm.controls.skillSet.value.skills = this.childForm.controls.skillSet.value.skills.filter(function(a,b){ return !Number.isNaN(a) });
 				if(!this.childForm.value.skillSet.skills || !this.childForm.value.skillSet.skills.length || this.childForm.value.skillSet.skills.length ==0){
 					var temFilter =this.childForm.value.skillSet.hands_on_experience.map(function(a,b){ return a.skill_id });
