@@ -585,6 +585,7 @@ export class CandidateReviewModalComponent implements OnInit {
 		this.skills = false;
 		this.programming_skills = false;
 		this.other_skills = false;
+		this.certificationBoolean = false;
 		this.clients_worked = false;
 		this.criteriaModalRef.close();
 	}
@@ -618,6 +619,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	**/
 	
 	onOpenCriteriaModal = (value) => {
+	    this.certificationBoolean = false;
 		if(value=='jobtype'){
 			this.jobtype = true;
 		}else if(value=='end_to_end_implementation'){

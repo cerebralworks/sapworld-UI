@@ -1,0 +1,3 @@
+::ng-deep .ngx-select__choices{
+	max-height:105px !important;
+}
