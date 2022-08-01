@@ -25,7 +25,7 @@ var rp = require("request-promise-native").defaults({
 
 // Defining the Express app
 const app = express();
-
+app.use(express.static('uploads'));
 // Server implementation
 let server;
 if (
