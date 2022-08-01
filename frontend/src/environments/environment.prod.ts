@@ -14,7 +14,7 @@ export const environment = {
   //serverUrl:`${baseUrl}:5003`,
   serverUrl:'http://api.sapworld.io:5003',
   //apiUrl:`${baseUrl}:1339`,
-  apiUrl:'http://api.sapworld.io:5003',
+  apiUrl:'https://api.sapworld.io:5003',
   adminUrl: `${baseAdminUrl}`,
   envName: 'PROD',
   API_URL: 'assets/api',
