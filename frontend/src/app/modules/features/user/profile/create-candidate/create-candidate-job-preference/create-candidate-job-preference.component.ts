@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component,ViewChild,ElementRef, Input, OnInit, SimpleChanges,HostListener } from '@angular/core';
+import { Component,ViewChild,ElementRef, Input, OnInit, SimpleChanges} from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -613,14 +613,16 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	
 	jobClick(value,clr){
 	  var temp = clr.target.className.split(' ');
+	  var a:HTMLElement=document.getElementById('errjobtype');
 	  if(temp[temp.length-1]=='btn-fltr-active'){
 		 if(this.childForm.value.jobPref.job_type){
 				this.childForm.value.jobPref.job_type.pop(clr.target.id);
 				if(this.childForm.value.jobPref.job_type.length==0){
-					this.job_type_error = true;					
+					this.job_type_error = true;			
 				}
 		 }else{
 			 this.job_type_error = true;
+			 a.style.display = "block";
 		 }
 		 clr.target.className = clr.target.className.replace('btn-fltr-active','');
 	  }else{
@@ -636,7 +638,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			}else{
 				//this.childForm.value.jobPref.job_type.push(clr.target.id);
 			}
-			 
+			 a.style.display = "none";
 			this.job_type_error = false;
 		}
 		var CalVal =document.getElementsByClassName('btn-fltr-active');
@@ -730,13 +732,5 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			}
 		}
 	};
-	
-   @HostListener("click", ["$event.target"]) onClick(e) {
-	 if(e.classList.contains('jobtype')){
-	  var a:HTMLElement=document.getElementById('errjobtype');
-	  a.style.display = "none";
-	 }
-	 
-	 }
-	
+
 }

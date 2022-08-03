@@ -51,7 +51,7 @@
       <div class="form-group">
         <label>{{"auth.password" | translate }} </label>
         <div appMarkAsterisk class="input-with-icon input-group">
-          <input appPassword type="password" class="form-control" [placeholder]="'Password'" formControlName="password">
+          <input appPassword id="regpass" type="password" class="form-control" [placeholder]="'Password'" formControlName="password">
           <i class="fas fa-key"></i>
         </div>
         <app-control-messages [control]="f['password']"></app-control-messages>

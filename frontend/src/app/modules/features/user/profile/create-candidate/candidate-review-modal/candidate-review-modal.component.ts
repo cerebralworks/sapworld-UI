@@ -203,6 +203,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	
 	ngAfterViewInit(): void {
 		if (this.toggleRegisterReviewModal) {
+		 setTimeout(()=>{
 			this.mbRef = this.modalService.open(this.registerReviewModal, {
 				windowClass: 'modal-holder',
 				size: 'lg',
@@ -210,6 +211,11 @@ export class CandidateReviewModalComponent implements OnInit {
 				backdrop: 'static',
 				keyboard: false
 			});
+			});
+			if(this.childForm.value.educationExp.experience===''){
+			this.childForm.value.educationExp.experience=0;
+			
+			}
 			if(this.childForm.value.skillSet &&this.childForm.value.skillSet.skills.length !==0){
 				this.childForm.controls.skillSet.value.skills = this.childForm.controls.skillSet.value.skills.filter(function(a,b){ return !Number.isNaN(a) });
 				if(!this.childForm.value.skillSet.skills || !this.childForm.value.skillSet.skills.length || this.childForm.value.skillSet.skills.length ==0){

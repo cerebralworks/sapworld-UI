@@ -96,9 +96,16 @@ export class RegisterFormComponent implements OnInit {
 	this.registerForm.markAllAsTouched();
 	for (const key of Object.keys(this.registerForm.controls)) {
 			  if(this.registerForm.controls[key].invalid) {
+			  if(key==='password'){ 
+			  var pass: HTMLElement = document.getElementById('regpass');
+				pass.focus();
+				break;
+			  
+			  }else{
 				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
 				invalidControl.focus();
 				break;
+				}
 			 }
 		  }
     if (this.registerForm.valid && this.registerForm.value.isAgreed===true) {
@@ -173,9 +180,10 @@ export class RegisterFormComponent implements OnInit {
       //firstName: ['', Validators.required],
 	  firstName: ['', Validators.compose([Validators.required,ValidationService.StartingEmptyStringValidator,Validators.minLength(3)])],
       lastName: ['', [Validators.required,ValidationService.emptyStringValidator]],
+	  companyName: [''],
       email: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
-      companyName: [''],
+      
       isAgreed: ['',Validators.required]
     });
   }
