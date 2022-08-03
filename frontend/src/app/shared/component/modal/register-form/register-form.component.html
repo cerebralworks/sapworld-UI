@@ -61,11 +61,12 @@
         <input autocomplete="disabled" type="checkbox" class="custom-control-input" id="termsService" formControlName="isAgreed">
         <label class="custom-control-label" for="termsService">{{"auth.terms" | translate }} <a [routerLink]="['/terms-and-conditions']" href="javascript:;" target="_blank">View</a></label>
         </div>
+		<app-control-messages [control]="f['isAgreed']"></app-control-messages>
       </div>
       <div
        class="form-group mt-5">
         <button type="submit" [ngClass]="{'btn-theme-blue': router?.url.includes('employer'), 'btn-theme-orange':router?.url.includes('agency'), 'btn-theme-green':router?.url.includes('user') }"
-         class="btn btn-block btn-lg" [disabled]="(registerForm.invalid || (!registerForm?.value?.isAgreed))">
+         class="btn btn-block btn-lg">
          <span [hidden]="isLoading">{{"auth.register" | translate }}</span>
          <span [hidden]="!isLoading">
            <i class="fa fa-spinner" aria-hidden="true"></i>

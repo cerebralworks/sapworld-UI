@@ -736,21 +736,31 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	createForm() {
 		this.childForm = this.parentF.form;
 		this.childForm.addControl('personalDetails', new FormGroup({
+		 entry: new FormControl(false),
 		 first_name: new FormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator]),
 		  last_name: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
 		  email: new FormControl(''),
-		  entry: new FormControl(false),
 		  phone: new FormControl(''),
 		 city: new FormControl('', Validators.required),
 		  state: new FormControl('', Validators.required),
-		  latlng: new FormControl({}, Validators.required),
-		  country: new FormControl('', Validators.required),
 		  zipcode: new FormControl(null, [Validators.required,Validators.minLength(4)]),
+		  country: new FormControl('', Validators.required),
+		  nationality: new FormControl(null, Validators.required),
 		  clients_worked: new FormControl(null, Validators.required),
 		  authorized_country: new FormControl(null),
 		  authorized_country_select: new FormControl(null),
 		  visa_type: new FormControl(null),
-		  nationality: new FormControl(null, Validators.required),
+		  language_known: new FormArray([this.formBuilder.group({
+			language: [null, Validators.required],
+			native: new FormControl(null, Validators.required),
+			intermediate: new FormControl(null, Validators.required),
+			fluent: new FormControl(null, Validators.required)
+		  })]),
+		  reference: new FormArray([this.formBuilder.group({
+			name: new FormControl(null),
+			email: [null,ValidationService.emailValidator],
+			company_name: new FormControl(null)
+		  })]),
 		  social_media_link: new FormControl(null),
 		  linkedin: new FormControl(''),
 		  github: new FormControl(''),
@@ -763,18 +773,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  blogBoolen: new FormControl(false),
 		  portfolioBoolen: new FormControl(false),
 		  work_authorization: new FormControl(null),
-		  language_known: new FormArray([this.formBuilder.group({
-			language: [null, Validators.required],
-			native: new FormControl(null, Validators.required),
-			intermediate: new FormControl(null, Validators.required),
-			fluent: new FormControl(null, Validators.required)
-		  })]),
-		  reference: new FormArray([this.formBuilder.group({
-			name: new FormControl(null),
-			email: [null,ValidationService.emailValidator],
-			company_name: new FormControl(null)
-		  })]),
+		  latlng: new FormControl({}, Validators.required),
 		}));
+		
       
 	}
 

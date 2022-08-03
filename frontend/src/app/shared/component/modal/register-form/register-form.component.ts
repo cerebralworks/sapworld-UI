@@ -93,9 +93,16 @@ export class RegisterFormComponent implements OnInit {
   }
 
   register = () => {
-    this.isLoading = true;
-
-    if (this.registerForm.valid) {
+	this.registerForm.markAllAsTouched();
+	for (const key of Object.keys(this.registerForm.controls)) {
+			  if(this.registerForm.controls[key].invalid) {
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+			 }
+		  }
+    if (this.registerForm.valid && this.registerForm.value.isAgreed===true) {
+	  this.isLoading = true;
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 0) {
         this.registerUser();
@@ -169,7 +176,7 @@ export class RegisterFormComponent implements OnInit {
       email: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       companyName: [''],
-      isAgreed: [false]
+      isAgreed: ['',Validators.required]
     });
   }
 

@@ -134,12 +134,15 @@
 							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 						</mat-chip>
 						<input placeholder=""
+						    id="clients_works"
 							[matChipInputFor]="chipList"
 							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 							[matChipInputAddOnBlur]="addOnBlur"
-							(matChipInputTokenEnd)="addEmplyee($event)">
+							(matChipInputTokenEnd)="addEmplyee($event)"
+							>
 					</mat-chip-list>
 				</mat-form-field>
+				<app-control-messages [control]="f['clients_worked']"></app-control-messages>
 			</div>	
 		</div>	
 	</div>
@@ -246,6 +249,7 @@
 						</mat-option>
 					</mat-autocomplete>
 				</mat-form-field>
+				<app-control-messages [control]="f['visa_type']"></app-control-messages>
 			</div>	
 		</div>	
 	</div>
@@ -259,6 +263,7 @@
 		<ng-container [formGroup]="ticket">
 			<div class="col-lg-4 col-md-4 matches-33">
 				<ngx-select
+				  id="langknw"
 				  class="text-capitalize"
 				  [placeholder]="'Select Language'"
 				  [items]="languageSource"

@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { Component,ViewChild,ElementRef, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component,ViewChild,ElementRef, Input, OnInit, SimpleChanges,HostListener } from '@angular/core';
 import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -513,6 +513,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			job_role: new FormControl(''),
 			willing_to_relocate: new FormControl(null, Validators.required),
 			preferred_location: new FormControl(null),
+			availability : new FormControl('', Validators.required),
 			travel: new FormControl(null, Validators.required),
 			//preferred_countries: new FormControl(null, Validators.required),
 			preferred_locations : new FormArray([this.formBuilder.group({
@@ -521,7 +522,6 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				stateShort: [''],
 				country: ['']
 			  })]),
-			availability : new FormControl('', Validators.required),
 			remote_only: new FormControl(false, Validators.required),
 			visa_sponsered: new FormControl(false, Validators.required),
 		}));
@@ -730,5 +730,13 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			}
 		}
 	};
+	
+   @HostListener("click", ["$event.target"]) onClick(e) {
+	 if(e.classList.contains('jobtype')){
+	  var a:HTMLElement=document.getElementById('errjobtype');
+	  a.style.display = "none";
+	 }
+	 
+	 }
 	
 }

@@ -16,6 +16,7 @@
 				</div>
 			</div>
 			<small *ngIf="job_type_error" class="text-danger">{{"userProfile.jobTypeError" | translate }}</small>
+			<small  id="errjobtype" class="text-danger" style="display:none;">{{"userProfile.jobTypeError" | translate }}</small>
 		</div>
 	</div>
 	<div class="row mt-5 ">
@@ -39,6 +40,7 @@
 						<label class="custom-control-label" for="customRadioInline4">{{"shared.no" | translate }}</label>
 					</div>
 				</div>
+				<app-control-messages [control]="f['willing_to_relocate']"></app-control-messages>
 			</div>
 		</div>
 	</div>

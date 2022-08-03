@@ -9,29 +9,28 @@
 
 	<div class="col-lg-2 col-md-6">
 		<div class="form-group">
-			<button [disabled]="(!createCandidateForm.controls.personalDetails.valid || checkref() ===false)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 1" type="button"
+			<button (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 1" type="button"
 				class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
 				{{userInfo?.profile_completed ? ("shared.updateNext" | translate) : ("shared.next" | translate) }}
 			</button>
-			<button [disabled]="(!createCandidateForm.controls.educationExp.valid || (createCandidateForm.controls.educationExp.value.sap_experience > createCandidateForm.controls.educationExp.value.experience || (createCandidateForm.controls.educationExp.value.sap_experience==0 || createCandidateForm.controls.educationExp.value.experience==0) || createCandidateForm.controls.educationExp.value.current_employer.trim()=='' || createCandidateForm.controls.educationExp.value.current_employer_role.trim()=='' || createCandidateForm.controls.educationExp.value.domains_worked=='')&& createCandidateForm.controls.personalDetails.value.entry===false || checkref() ===false )" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 2 && userInfo?.profile_completed ===true" type="button"
+			<button (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 2 && userInfo?.profile_completed ===true" type="button"
 				class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
 				{{userInfo?.profile_completed ? ("shared.updateNext" | translate) : ("shared.next" | translate) }}
 			</button>
-			<button [disabled]="(!createCandidateForm.controls.educationExp.valid || (createCandidateForm.controls.educationExp.value.sap_experience > createCandidateForm.controls.educationExp.value.experience || (createCandidateForm.controls.educationExp.value.sap_experience==0 || createCandidateForm.controls.educationExp.value.experience==0) || createCandidateForm.controls.educationExp.value.current_employer.trim()=='' || createCandidateForm.controls.educationExp.value.current_employer_role.trim()=='' || createCandidateForm.controls.educationExp.value.domains_worked=='')&& createCandidateForm.controls.personalDetails.value.entry===false || checkref() ===false)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 2 && userInfo?.profile_completed ===false" type="button"
+			
+			<button (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 2 && userInfo?.profile_completed ===false" type="button"
 				class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
 				{{userInfo?.profile_completed ? ("shared.updateNext" | translate) : ("shared.next" | translate) }}
 			</button>
-			<button [disabled]="(!createCandidateForm.controls.skillSet.valid ||  (checValue()===false || createCandidateForm.controls.skillSet.value.programming_skills=='' || checkref() ===false)&& createCandidateForm.controls.personalDetails.value.entry===false)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 3 && userInfo.profile_completed===true " type="button"
+			<button (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 3 && userInfo.profile_completed===true " type="button"
 				class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
 				{{userInfo?.profile_completed ? ("shared.updateNext" | translate) : ("shared.next" | translate) }}
 			</button>
-			<button [disabled]="(!createCandidateForm.controls.skillSet.valid 
-			||(checValue()===false || createCandidateForm.controls.skillSet.value.programming_skills=='' || checkref() ===false)
-			&& createCandidateForm.controls.personalDetails.value.entry===false)" (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 3 && userInfo?.profile_completed===false" type="button"
+			<button (click)="onNext()" *ngIf="currentTabInfo.tabNumber == 3 && userInfo?.profile_completed===false" type="button"
 				class="btn btn-theme-blue btn-block btn-lg btnNext" style="padding: 10px;">
 				{{userInfo?.profile_completed ? ("shared.updateNext" | translate) : ("shared.next" | translate) }}
 			</button>
-			<button  [disabled]="(!createCandidateForm.valid ||  checValue()===false || createCandidateForm.controls.jobPref.value.job_type.length==0 || checkref() ===false)" *ngIf="currentTabInfo.tabNumber == 4" type="button" class="btn btn-theme-green btn-block btn-lg btnSubmit"
+			<button *ngIf="currentTabInfo.tabNumber == 4" type="button" class="btn btn-theme-green btn-block btn-lg btnSubmit"
 				(click)="onToggleRegisterReview(true)">
 				{{"shared.submit" | translate }}
 			</button>
@@ -39,7 +38,7 @@
 	</div>
 	<div class="col-lg-2 col-md-6" *ngIf="((currentTabInfo.tabNumber != 4) && userInfo?.profile_completed===true)">
 		<div class="form-group">
-			<button [disabled]="!createCandidateForm.valid || checValue()===false ||  createCandidateForm.controls.jobPref.value.job_type.length==0 || (createCandidateForm.controls.educationExp.value.sap_experience > createCandidateForm.controls.educationExp.value.experience || !createCandidateForm.controls.skillSet.value.hands_on_experience[this.index])&& createCandidateForm.controls.personalDetails.value.entry===false || checkref() ===false" (click)="onToggleRegisterReview(true)" type="button"
+			<button [disabled]="!createCandidateForm.valid || checValue()===false ||  createCandidateForm.controls.jobPref.value.job_type.length==0" (click)="onToggleRegisterReview(true)" type="button"
 				class="btn btn-theme-blue btn-block btn-lg btnNext">
 				{{"shared.update" | translate }}
 			</button>

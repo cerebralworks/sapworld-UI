@@ -226,8 +226,16 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	**/
 	
 	onSaveComapnyInfo = () => {
-		
-		if (this.createCompanyForm.valid) {
+		this.createCompanyForm.markAllAsTouched();
+	for (const key of Object.keys(this.createCompanyForm.controls)) {
+			  if(this.createCompanyForm.controls[key].invalid) {
+			  
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+			 }
+		  }
+		if (this.createCompanyForm.valid && this.invalidMobile===false) {
 			let requestParams: any = { ...this.createCompanyForm.value };
 			requestParams.email_id = this.employerDetails.email;
 			if (this.createCompanyForm.value && this.createCompanyForm.value.contact && !Array.isArray(this.createCompanyForm.value.contact)) {
