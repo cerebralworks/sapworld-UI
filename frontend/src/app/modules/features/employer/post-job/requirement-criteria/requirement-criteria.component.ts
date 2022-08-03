@@ -222,8 +222,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	
 	ngOnInit(): void {
     
-		this.jobId = this.route.snapshot.queryParamMap.get('id');
 		this.createForm();
+		this.jobId = this.route.snapshot.queryParamMap.get('id');
 		this.onGetIndustries();
 		this.onGetSkill();
 		this.dataService.getCountryDataSource().subscribe(
@@ -319,6 +319,28 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 					}));
 				}
 				
+				// job type entry or exp bug fix
+				if (this.childForm.value.jobInfo.entry == false) {
+					this.childForm.get('requirement.domain').setValidators([Validators.required]);
+					this.childForm.get('requirement.domain').updateValueAndValidity();
+					this.childForm.get('requirement.optinal_skills').setValidators([Validators.required]);
+					this.childForm.get('requirement.optinal_skills').updateValueAndValidity();
+					this.childForm.get('requirement.end_to_end_implementation').setValidators([Validators.required]);
+					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
+					this.childForm.get('requirement.experience').setValidators([Validators.required]);
+					this.childForm.get('requirement.experience').updateValueAndValidity();
+				}
+				if (this.childForm.value.jobInfo.entry == true) {
+					this.childForm.get('requirement.domain').setValidators(null);
+					this.childForm.get('requirement.domain').updateValueAndValidity();
+					this.childForm.get('requirement.optinal_skills').setValidators(null);
+					this.childForm.get('requirement.optinal_skills').updateValueAndValidity();
+					this.childForm.get('requirement.end_to_end_implementation').setValidators(null);
+					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
+					this.childForm.get('requirement.experience').setValidators(null);
+					this.childForm.get('requirement.experience').updateValueAndValidity();
+				}
+				
 				if (this.childForm.value.jobInfo.entry == true) {
 					if(this.t && this.t.length){
 						for(let i=0;i<=this.t.value.length;i++){
@@ -396,6 +418,27 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 						experience: ['', [Validators.required,]],
 						exp_type: ['years', [Validators.required]]
 					}));
+				}
+				// job type entry or exp bug fix
+				if (this.childForm.value.jobInfo.entry == false) {
+					this.childForm.get('requirement.domain').setValidators([Validators.required]);
+					this.childForm.get('requirement.domain').updateValueAndValidity();
+					this.childForm.get('requirement.optinal_skills').setValidators([Validators.required]);
+					this.childForm.get('requirement.optinal_skills').updateValueAndValidity();
+					this.childForm.get('requirement.end_to_end_implementation').setValidators([Validators.required]);
+					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
+					this.childForm.get('requirement.experience').setValidators([Validators.required]);
+					this.childForm.get('requirement.experience').updateValueAndValidity();
+				}
+				if (this.childForm.value.jobInfo.entry == true) {
+					this.childForm.get('requirement.domain').setValidators(null);
+					this.childForm.get('requirement.domain').updateValueAndValidity();
+					this.childForm.get('requirement.optinal_skills').setValidators(null);
+					this.childForm.get('requirement.optinal_skills').updateValueAndValidity();
+					this.childForm.get('requirement.end_to_end_implementation').setValidators(null);
+					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
+					this.childForm.get('requirement.experience').setValidators(null);
+					this.childForm.get('requirement.experience').updateValueAndValidity();
 				}
 				
 				if (this.childForm.value.jobInfo.entry == true) {
@@ -559,8 +602,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				work_authorization: new FormControl(null),
 				visa_sponsorship: new FormControl(false, Validators.required),
 				need_reference: new FormControl(false, Validators.required),
-				travel_opportunity: new FormControl(null, Validators.required),
-				end_to_end_implementation: new FormControl(null,Validators.required)
+				end_to_end_implementation: new FormControl(null,Validators.required),
+				travel_opportunity: new FormControl(null, Validators.required)
 			}));
 		}else{
 			
@@ -584,8 +627,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 				work_authorization: new FormControl(null),
 				visa_sponsorship: new FormControl(false, Validators.required),
 				need_reference: new FormControl(false, Validators.required),
-				travel_opportunity: new FormControl(null, Validators.required),
-				end_to_end_implementation: new FormControl(null)
+				end_to_end_implementation: new FormControl(null),
+				travel_opportunity: new FormControl(null, Validators.required)
 			}));
 		}
 

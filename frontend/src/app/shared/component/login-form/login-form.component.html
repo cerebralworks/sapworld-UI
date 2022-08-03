@@ -36,10 +36,19 @@
     Login
   </button> -->
   <div class="form-group mt-5">
-    <button type="submit"
+    <!--<button type="submit"
     class="btn btn-block btn-lg"
     [ngClass]="{'btn-theme-blue': router?.url.includes('employer'), 'btn-theme-orange':router?.url.includes('agency'), 'btn-theme-green':router?.url.includes('user') }"
     type="submit" [disabled]="loginForm.invalid">
+      <span [hidden]="isLoading">{{"auth.login" | translate }}</span>
+      <span [hidden]="!isLoading">
+        <i class="fa fa-spinner" aria-hidden="true"></i>
+      </span>
+    </button>-->
+<button type="submit"
+    class="btn btn-block btn-lg"
+    [ngClass]="{'btn-theme-blue': router?.url.includes('employer'), 'btn-theme-orange':router?.url.includes('agency'), 'btn-theme-green':router?.url.includes('user') }"
+    type="submit" >
       <span [hidden]="isLoading">{{"auth.login" | translate }}</span>
       <span [hidden]="!isLoading">
         <i class="fa fa-spinner" aria-hidden="true"></i>

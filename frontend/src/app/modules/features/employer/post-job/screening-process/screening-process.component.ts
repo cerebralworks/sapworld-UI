@@ -145,9 +145,11 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 	**/
 	
 	onDuplicate = () => {
+		var a:HTMLElement=document.getElementById('errorScreeningProcess');
 		var value = this.childForm.value.screeningProcess.temp_screening_process;
 		
 		if(value !=null && value !=undefined && value !=''){
+		a.style.display = "none";
 			this.t.push(this.formBuilder.group({
 				title: [value, Validators.required]
 			}));
@@ -177,11 +179,13 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 	**/
 	
 	handleChange(event,index){
+	var a:HTMLElement=document.getElementById('errorScreeningProcess');
 		if(index !=null && index !=undefined &&index !='default'){
 			if(this.screeningProcess[index]){
 				var checkData = this.screeningProcess[index];
 				if(checkData && checkData.length){
 					for(let i=0;i<checkData.length;i++){
+					a.style.display = "none";
 						var value=checkData[i]['title'];
 						this.t.push(this.formBuilder.group({
 							title: [value]

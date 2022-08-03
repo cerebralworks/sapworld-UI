@@ -268,34 +268,33 @@ export class JobInformationComponent implements OnInit {
 		this.childForm = this.parentF.form;
 
 		this.childForm.addControl('jobInfo', new FormGroup({
-			title: new FormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator]),
+			title: new FormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator,Validators.minLength(3)]),
 			employer_role_type: new FormControl(''),
 			entry: new FormControl(false),
 			negotiable: new FormControl(false),
 			type: new FormControl('', Validators.required),
 			contract_duration: new FormControl(''),
-			min: new FormControl(null),
-			max: new FormControl(null),
-			description: new FormControl('', [Validators.required,Validators.minLength(100)]),
 			salary_type: new FormControl('', Validators.required),
 			salary_currency: new FormControl('USD', Validators.required),
 			salary: new FormControl(null, Validators.required),
-			/* city: new FormControl('', Validators.required),
-			state: new FormControl('', Validators.required),
+			//city: new FormControl(null, Validators.required),
+			/*state: new FormControl('', Validators.required),
 			latlng: new FormControl({}, Validators.required),
 			country: new FormControl('', Validators.required),
 			zipcode: new FormControl(null, Validators.required), */
-			availability: new FormControl(null, Validators.required),
-			remote: new FormControl(null, Validators.required),
-			//willing_to_relocate: new FormControl(null, Validators.required),
 			job_locations : new FormArray([this.formBuilder.group({
-				city: ['', Validators.required],
+				city:['',Validators.required],
 				state: ['', Validators.required],
 				stateshort: ['', Validators.required],
 				countryshort: ['', Validators.required],
 				zipcode: [''],
 				country: ['', Validators.required]
 			})]),
+			min: new FormControl(null),
+			max: new FormControl(null),
+			availability: new FormControl(null, Validators.required),
+			remote: new FormControl(null, Validators.required),
+			//willing_to_relocate: new FormControl(null, Validators.required),
 			willing_to_relocate: new FormControl(null),
 			health_wellness: new FormGroup({
 			  dental: new FormControl(false),
@@ -325,6 +324,7 @@ export class JobInformationComponent implements OnInit {
 			  office_space: new FormControl(false)
 			}),
 			remote_option : new FormControl(null),
+			description: new FormControl('', [Validators.required,Validators.minLength(100)]),
 		}));
 	}
 
@@ -364,7 +364,7 @@ export class JobInformationComponent implements OnInit {
 	**/
 	
 	onChangeJobType = (value) => {
-		if( value == '03'){
+		if( value == '1002'){
 		  this.isContractDuration = true;
 		  this.childForm.get('jobInfo.contract_duration').setValidators([Validators.required]);
 		  this.childForm.get('jobInfo.contract_duration').updateValueAndValidity();
@@ -425,9 +425,13 @@ export class JobInformationComponent implements OnInit {
         amazingTimePicker.afterClose().subscribe(time  => {
 			var splitTime = time.split(':');
 			if( time && data =='min' ){
+			this.childForm.get('jobInfo.max').setValidators([Validators.required]);
+			this.childForm.get('jobInfo.max').updateValueAndValidity();
 				this.min=time;
 				this.childForm.get('jobInfo').controls['min'].setValue(this.min) 
 			}if(time && data =='max'){
+				this.childForm.get('jobInfo.min').setValidators([Validators.required]);
+				this.childForm.get('jobInfo.min').updateValueAndValidity();
 				this.max=time;
 				this.childForm.get('jobInfo').controls['max'].setValue(this.max)
 			}
@@ -551,7 +555,9 @@ export class JobInformationComponent implements OnInit {
 			};
 			this.chipsInput.nativeElement.value='';
 			if(address['city'] !=null &&address['state'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
-				address['city'] !=undefined &&address['state'] !=undefined &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){ 
+				address['city'] !=undefined &&address['state'] !=undefined &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){
+				var a:HTMLElement=document.getElementById('jobLocationsErroe');
+				a.style.display = "none"; 
 				if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
 					
 					if(tempData.length !=0){
@@ -577,8 +583,12 @@ export class JobInformationComponent implements OnInit {
 	changeRemote(e){
 	   if(e == 'yes'){
 	    this.showRemoteOption = true;
+		this.childForm.get('jobInfo.remote_option').setValidators([Validators.required]);
+		 this.childForm.get('jobInfo.remote_option').updateValueAndValidity();
 	   }else{
 		   this.showRemoteOption = false;
+		   this.childForm.get('jobInfo.remote_option').setValidators(null);
+			this.childForm.get('jobInfo.remote_option').updateValueAndValidity();
 		   this.childForm.patchValue({
 			  jobInfo: {
 				remote_option: null
@@ -589,7 +599,7 @@ export class JobInformationComponent implements OnInit {
 	}
 	
 	remoteOptions(value,e){
-	 console.log(value)
+
 	 var temp = e.target.className.split(' ');
 	 var tempID = e.target.id;
 

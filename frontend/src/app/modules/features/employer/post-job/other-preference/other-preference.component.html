@@ -72,6 +72,7 @@
 				  [items]="languageSource"
 				  formControlName="language"
 				[multiple]="true"
+				id="language"
 				  optionValueField="id"
 				  optionTextField="name"
 				  autoClearSearch="true"
@@ -87,6 +88,7 @@
 					  Nothing found
 				  </ng-template>
 				</ngx-select>
+				<app-control-messages [control]="f['language']"></app-control-messages>
 			</div>
 		</div>
 	</div>	

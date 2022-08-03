@@ -63,7 +63,17 @@ export class LoginFormComponent implements OnInit {
   ** 	If exists navigate based on the role
   **/
   login() {
-	  
+	if(this.loginForm.invalid === true){
+	this.loginForm.markAllAsTouched();
+	for (const key of Object.keys(this.loginForm.controls)) {
+      if (this.loginForm.controls[key].invalid) {
+			const invalidControl: HTMLElement = document.querySelector('[formcontrolname="'+ key +'"]');
+			invalidControl.focus();
+			break;
+		}
+	}
+	
+	}else{
     //this.isLoading = true;
     this.showError = false;
 
@@ -113,6 +123,7 @@ export class LoginFormComponent implements OnInit {
         }
       )
     }
+	}
   }
   
   
