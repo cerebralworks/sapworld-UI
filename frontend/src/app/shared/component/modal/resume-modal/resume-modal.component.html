@@ -7,26 +7,19 @@
     </div>
     <div class="modal-body" style="height:670px; overflow-y:scroll;">
     <img *ngIf="!url" src="assets/images/JS-Project-Manager-Resume.jpg" class="img-fluid mx-auto"/>
-   <ngx-doc-viewer
+    <ngx-doc-viewer
     *ngIf="url"
     [url]="url"
     [googleCheckContentLoaded]="true"
     (loaded)="resumeLoaded($event,this)"
     [googleCheckInterval]="3000"
     [googleMaxChecks]="50"
-    viewer="pdf" style="width:100%;height:150vh;">
-	
+    viewer="google" style="width:100%;height:150vh;">
 </ngx-doc-viewer>
-<!--<iframe
-  src="https://view.officeapps.live.com/op/embed.aspx?src=http://localhost:1337/documents/resume/resume5671654593082119.docx"
-  width="100%"
-  height="500px"
-  frameborder="0"
-></iframe>-->
     </div>
     <div class="modal-footer">
     <button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-    <a [href]="(url ? url : 'javascript:;')">
+    <a [href]="(url ? url : 'javascript:;')" target="_blank">
       <button type="button" class="btn btn-primary btn-sm" >Download Resume</button>
     </a>
     </div>

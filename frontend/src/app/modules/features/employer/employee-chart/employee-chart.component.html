@@ -258,7 +258,7 @@
 							  <i class="bi bi-chat-right-text"></i>
 							</div>
 							<div class="info-card pl-3">
-								<h6>0</h6>
+								<h6>{{totalInterviewed}}</h6>
 								<span>{{"chart.interviewed" | translate}}</span>
 							</div>
 						</div>	
@@ -347,7 +347,7 @@
 						</div>
 					</div>
 					<div class="col-lg-12">
-						<div class="table-responsive tableBox">
+						<div style="position: relative;overflow-y: auto;height: 300px;" class="table-responsive tableBox">
 							<table class="table">
 							  <thead>
 								<tr>
@@ -373,7 +373,7 @@
 								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.shortlist}}</a>
 								  <a  *ngIf="item.shortlist ==0 "  style="cursor: no-drop;" > {{item.shortlist}}</a>
 								  </td>
-								  <td class="text-center"><a style="cursor: no-drop;">0</a></td>
+								  <td class="text-center"><a style="cursor: no-drop;">{{item.interviewed}}</a></td>
 								  <td class="text-center"><a *ngIf="item.hired !=0 " [routerLink]="['/employer/dashboard']"
 								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.hired}}</a>
 								  <a  *ngIf="item.hired ==0 "  style="cursor: no-drop;" > {{item.hired}}</a>

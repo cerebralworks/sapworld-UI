@@ -52,7 +52,7 @@
 					optionValueField="id"
 					optionTextField="name"
 				></ngx-select>
-				<!-- <app-control-messages [control]="f['domain']"></app-control-messages> -->
+				<app-control-messages [control]="f['domain']"></app-control-messages>
 			</div>
 		</div>
 	</div>
@@ -243,12 +243,14 @@
 							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 						</mat-chip>
 						<input placeholder=""
+						id="optinal_skills"
 							[matChipInputFor]="chipLists"
 							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 							[matChipInputAddOnBlur]="addOnBlur"
 							(matChipInputTokenEnd)="addOptional($event)">
 					</mat-chip-list>
 				</mat-form-field>
+				<app-control-messages [control]="f['optinal_skills']"></app-control-messages>
 			</div>	
 		</div>	
 	
@@ -266,6 +268,7 @@
 				<label >{{"userProfile.endToEnd" | translate }} </label>
 				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
 				<input numbersOnly type="text" class="form-control w-25" formControlName="end_to_end_implementation">
+				<app-control-messages [control]="f['end_to_end_implementation']"></app-control-messages>
 			</div>
 		</div>
 	</div>
@@ -319,7 +322,7 @@
 						{{travel?.text}}
 					</option>
 				</select>
-				<app-control-messages [control]="f['travel']"></app-control-messages>
+				<app-control-messages [control]="f['travel_opportunity']"></app-control-messages>
 			</div>
 		</div>
 		<div class="col-lg-2 col-md-6" style="margin-top: 42px;">

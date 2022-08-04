@@ -8,6 +8,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import {PageEvent} from '@angular/material/paginator';
+import { environment as env } from '@env';
 
 @Component({
   selector: 'app-saved-profile',
@@ -38,7 +39,7 @@ export class SavedProfileComponent implements OnInit {
 	public loggedUserInfo: any;
 	public randomNum: number;
 	public userInfo: any;
-
+	public userprofilepath: any;
 	constructor(
 		private employerService: EmployerService,
 		public sharedService: SharedService,
@@ -97,6 +98,8 @@ export class SavedProfileComponent implements OnInit {
 				if (response && response.items) {
 					this.savedProfile = [...this.savedProfile, ...response.items];
 				}
+				console.log(response);
+				this.userprofilepath = `${env.apiUrl}/images/user/`;
 				this.savedProfileMeta = { ...response.meta }
 				if(response['meta']['total']){
 					var TotalValue = response['meta']['total'];

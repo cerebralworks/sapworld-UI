@@ -47,11 +47,11 @@ export class SharedService {
   onGetJobType = (index?) => {
 	  var temp=[];
 	  let jobTypeArray = [
-		{id: 1000, text: 'Full Time'},
-		{id: 1001, text: 'Part Time'},
-		{id: 1002, text: 'Contract'},
-		{id: 1003, text: 'Freelance'},
-		{id: 1004, text: 'Internship'},
+		{id: 1000, text: ' Full Time'},
+		{id: 1001, text: ' Part Time'},
+		{id: 1002, text: ' Contract'},
+		{id: 1003, text: ' Freelance'},
+		{id: 1004, text: ' Internship'},
 	  ];
      //let jobTypeArray = ['','', '', '', '', '', 'Temporary', 'Permanent', 'Onsite'];
      if(index) {

@@ -21,6 +21,8 @@ export class PostJobFooterComponent implements OnInit {
 	public btnType: string;
 	public isOpenedJobPreviewModal: any;
 	public timeError: boolean = false;
+	public sapExpError: boolean = false;
+	public formgroup : FormGroup;
 
 	constructor() { }
 
@@ -29,10 +31,33 @@ export class PostJobFooterComponent implements OnInit {
 	}
 	
 	
+	/**
+	To scroll to error
+	**/
+	scrollTo(el: Element): void {
+	   if (el) {
+		  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	   }
+    }
+	
 	
 	
 	/**
-	**	To click the pervoius Button
+	**	To click the sapExprience value
+	**/
+	checksapExprience(){
+	this.sapExpError=false;
+		var maxExp = this.postJobForm.controls.requirement.value.experience;
+		var minExp = this.postJobForm.controls.requirement.value.sap_experience;
+		var entryJob= this.postJobForm.controls.jobInfo.value.entry;
+		if( ((maxExp < minExp) || (maxExp==0 || minExp==0)) && entryJob == false){
+			this.sapExpError=true;
+			
+		}
+	}
+	
+	/**
+	**	To click the Timpicker value
 	**/
 	
 	checkWrkTime(){
@@ -65,6 +90,9 @@ export class PostJobFooterComponent implements OnInit {
 	
 	
 	}
+	/**
+	**	To click the pervoius Button
+	**/
 	
 	onPrevious = () => {
 		
@@ -77,8 +105,102 @@ export class PostJobFooterComponent implements OnInit {
 	**/
 	
 	onNext = () => {
-		this.btnType = 'next';
-		this.onTabChange();
+	if(this.currentTabInfo.tabNumber==1){
+	this.checkWrkTime();
+		if(this.postJobForm.controls.jobInfo.invalid === true && this.timeError ===false){
+			this.postJobForm.controls.jobInfo.markAllAsTouched();
+			var a:HTMLElement=document.getElementById('jobLocationsErroe');
+			a.style.display = "block";
+			if( !this.postJobForm.controls.jobInfo['controls']['job_locations'].valid == true){
+				a.style.display = "block";
+			}else{
+				a.style.display = "none";
+			}
+			this.formgroup = this.postJobForm.get('jobInfo') as FormGroup;
+			for (const key of Object.keys(this.formgroup.controls) ){
+				  if (this.formgroup.controls[key].invalid){
+					  if(key =='job_locations'){
+							const invalidControl: HTMLElement = document.querySelector('[id="preferredLocation"]');
+							this.scrollTo(invalidControl);
+							invalidControl.focus();
+							break;
+						}else if(key =='min' || key =='max'){
+							const invalidControl:HTMLElement=document.getElementById('timeError');
+							this.scrollTo(invalidControl);
+							const invalidControlTime: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+							invalidControlTime.focus();
+						}else{
+							const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+							this.scrollTo(invalidControl);
+							invalidControl.focus();
+							break;
+							}
+					}
+				}
+		}else if(this.timeError === true){
+			//const invalidControl: HTMLElement = document.querySelector('[formcontrolname="min"]');
+			const invalidControl:HTMLElement=document.getElementById('timeError');
+			this.scrollTo(invalidControl);
+			invalidControl.focus();
+		}else{
+			this.btnType = 'next';
+			this.onTabChange();
+		}
+	}else if(this.currentTabInfo.tabNumber==2){
+	this.checksapExprience();
+		if(this.postJobForm.controls.requirement.invalid === true && this.sapExpError === false){
+			this.postJobForm.controls.requirement.markAllAsTouched();
+			this.formgroup = this.postJobForm.get('requirement') as FormGroup;
+			for (const key of Object.keys(this.formgroup.controls) ){
+				  if (this.formgroup.controls[key].invalid){
+				  if(key =='optinal_skills'){
+						const invalidControl: HTMLElement = document.querySelector('[id="optinal_skills"]');
+						this.scrollTo(invalidControl);
+						invalidControl.focus();
+						break;
+					}else if(key =='domain'){
+						const invalidControl: HTMLElement = document.querySelector('[class="ngx-select__search form-control ng-star-inserted"]');
+						this.scrollTo(invalidControl);
+						invalidControl.focus();
+						break;
+					}else if(key =='hands_on_experience'){
+						const invalidControl: HTMLElement = document.querySelector('[class="form-control ng-pristine ng-invalid ng-touched"]');
+						this.scrollTo(invalidControl);
+						invalidControl.focus();
+						break;
+					}else{
+						const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+						this.scrollTo(invalidControl);
+						invalidControl.focus();
+						break;
+						}
+					}
+				}
+		}else if(this.sapExpError === true){
+			const invalidControl: HTMLElement = document.querySelector('[formcontrolname="experience"]');
+			this.scrollTo(invalidControl);
+			invalidControl.focus();
+		}else{
+			this.btnType = 'next';
+			this.onTabChange();
+		}
+	}else if(this.currentTabInfo.tabNumber==3){
+		if(this.postJobForm.controls.otherPref.invalid === true){
+			this.postJobForm.controls.otherPref.markAllAsTouched();
+			this.formgroup = this.postJobForm.get('otherPref') as FormGroup;
+			for (const key of Object.keys(this.formgroup.controls) ){
+				  if (this.formgroup.controls[key].invalid){
+						const invalidControl: HTMLElement = document.querySelector('[class="ngx-select__search form-control ng-star-inserted"]');
+						this.scrollTo(invalidControl);
+						invalidControl.focus();
+						break;
+					}
+				}
+		}else{
+			this.btnType = 'next';
+			this.onTabChange();
+		}
+	}
 	}
 
     // this function removes single error
@@ -107,14 +229,13 @@ export class PostJobFooterComponent implements OnInit {
 	**	To check the table information
 	**/
 	onTabChange = () => {
-		
-	
-		if(this.btnType == 'next' && this.currentTabInfo.tabNumber==1&&this.postJobForm.controls.jobInfo.valid){
+
+		if( this.timeError === false && this.btnType == 'next' && this.currentTabInfo.tabNumber==1&&this.postJobForm.controls.jobInfo.valid ){
 			let nextTabProgressor = {} as tabInfo;
 			nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
 			nextTabProgressor.tabName = this.onGetTabName(nextTabProgressor.tabNumber);
 			this.onTabChangeEvent.emit(nextTabProgressor);
-		}else if(this.btnType == 'next' && this.currentTabInfo.tabNumber==2&&this.postJobForm.controls.requirement.valid){
+		}else if(this.sapExpError == false && this.btnType == 'next' && this.currentTabInfo.tabNumber==2&&this.postJobForm.controls.requirement.valid){
 			let nextTabProgressor = {} as tabInfo;
 			nextTabProgressor.tabNumber = this.currentTabInfo.tabNumber + 1;
 			nextTabProgressor.tabName = this.onGetTabName(nextTabProgressor.tabNumber);
@@ -175,13 +296,19 @@ export class PostJobFooterComponent implements OnInit {
 		return tabName;
 	}
 	
+	
 	/**
 	**	To enable the job preview model view
 	**/
 	
 	onToggleJobPreviewModal = (status) => {
-	
-		if(this.postJobForm.valid || this.postJobForm.controls.otherPref.valid ) {
+	var a:HTMLElement=document.getElementById('errorScreeningProcess');
+	if(this.postJobForm.value.screeningProcess.screening_process.length == 0){
+		a.style.display = "block";
+		 this.scrollTo(a);
+	}
+		if( (this.postJobForm.valid || this.postJobForm.controls.otherPref.valid) &&
+		this.postJobForm.value.screeningProcess.screening_process.length != 0 ){
 			this.onEnableJobPreviewModal.emit(status);
 		}
 	}

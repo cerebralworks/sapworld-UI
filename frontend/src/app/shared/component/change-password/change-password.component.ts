@@ -95,11 +95,18 @@ export class ChangePasswordComponent implements OnInit {
   **	To upload the reset user data
   **/
   change() {
-    this.isLoading = true;
-
+	this.changePasswordForm.markAllAsTouched();
+	for (const key of Object.keys(this.changePasswordForm.controls)) {
+			  if(this.changePasswordForm.controls[key].invalid) {
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+			 }
+		  }
     const requestParams = {...this.changePasswordForm.value};
     delete requestParams.confirmPassword
     if (this.changePasswordForm.valid) {
+	this.isLoading = true;
       this.accountService.changePassword(requestParams).subscribe(
         response => {
           this.isLoading = false;

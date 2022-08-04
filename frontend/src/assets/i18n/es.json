@@ -160,7 +160,10 @@
 	    "password":"Contraseña",
 	    "rememberMe":"Recuérdame",
 	    "forgotPassword":"Has olvidado tu contraseña?",
-	    "haveAccount":"No tienes una cuenta?"
+	    "haveAccount":"No tienes una cuenta?",
+		"userName" :"Nombre de usuario",
+		"employerLogin" : "Ingreso del empleador",
+		"userLogin" :"Inicio de sesión para solicitantes de empleo"
 	},
 	"profileSettings": {
         "photo": "Imagen de perfil",
@@ -355,7 +358,8 @@
 		"addCalenders":"Agregar calendarios",
 	    "AddInviteLink":"Agregar enlace de invitación",
 	    "inviteSettingsAddCustom":"Haga clic aquí para agregar el enlace del programador",
-        "addResume": "Agregar currículum"
+        "addResume": "Agregar currículum",
+		"meetingLink" :"Enlace de reunión"
 	},
 	"home": {
         "title": "Contratar expertos o ser contratado para cualquier trabajo, en cualquier momento",

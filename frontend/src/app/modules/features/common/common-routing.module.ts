@@ -50,6 +50,21 @@ const routes: Routes = [
     loadChildren: () =>
       import('@modules/features/common/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
+  {
+    path: 'privacy-policy',
+    loadChildren: () =>
+      import('@modules/features/common/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule)
+  },
+  {
+    path: 'terms-and-conditions',
+    loadChildren: () =>
+      import('@modules/features/common/terms-condition/terms-condition.module').then(m => m.TermsConditionModule)
+  },
+  {
+    path: 'cookie-policy',
+    loadChildren: () =>
+      import('@modules/features/common/cookie-policy/cookie-policy.module').then(m => m.CookiePolicyModule)
+  },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 

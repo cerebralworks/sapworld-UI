@@ -6,16 +6,16 @@
 	<i class="fas fa-sync"></i>
 	</button> -->
 </div>
-<div class="col-lg-12 info" [ngClass]="(isMultipleMatches === true)?'col-lg-6 mt-3-8':'col-lg-12'">
+<!-- <div class="col-lg-12 info" [ngClass]="(isMultipleMatches === true)?'col-lg-6 mt-3-8':'col-lg-12'"> -->
 	<!--<div class="score"  style="margin-top:25px;"[ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
 		{{"shared.score" | translate}}
 		<span>
 			{{matchingUsers?.score ? matchingUsers?.score : 0}}/10
 		</span>
 	</div>-->
-	<div class="row  info-box">
-		<div class="col-lg-12" [ngClass]="(isMultipleMatches === true)?'padd-55':''">
-			<div class="accordion" >
+	<div class="row  info info-box">
+		<div class="offset-lg-6 col-lg-6" >
+			<div class="accordion " >
 			<div class="pj-title ">
 				<h6 class="mb-0" >
 					{{"shared.candidateSkills" | translate}}
@@ -146,7 +146,7 @@
 							<!-- <a><i class="fas fa-ellipsis-v doticonss"></i></a> -->
 							
 						</li>
-						<li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
+						<li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
 				   </ul>   
 				</div>
 				
@@ -260,6 +260,9 @@
 								<span  *ngIf="missingElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'missing');">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
+								</span>
+								<span  *ngIf="missingElement && postedJobsDetails?.employer_role_type && !matchingUsers?.profile?.employer_role_type">
+									<i class="fas fa-times text-danger "></i>--
 								</span>
 							</span>
 						</li>
@@ -392,6 +395,10 @@
 								  {{item.degree}}
 								</span>
 							</ng-container> 
+							<span *ngIf="missingElement && matchingUsers?.profile?.education_qualification=='' && postedJobsDetails?.education">
+							  <i class="fa fa-times text-danger "  ></i>
+								  --
+							</span>
 							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.education_qualification,postedJobsDetails?.education,'education')">
 								<i class="fa fa-times text-danger "  ></i>
 								  {{postedJobsDetails.education}}
@@ -505,7 +512,7 @@
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-								<li class="list-group-item text-capitalize " [ngClass]="(isMultipleMatches === true)?'handsExp-multi':'handsExp'"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'0')" >
+								<li class="otherpreff  text-capitalize " [ngClass]="(isMultipleMatches === true)?'handsExp-multi':'handsExp'"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'0')" >
 								  <span *ngIf="missingElement" ><i class="fa fa-times text-danger "></i>  -- 
 									<a class="handsExp-color"> {{item?.title}} </a> 
 									</span> 
@@ -521,7 +528,7 @@
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'0')" >
+								<li class="otherpreff text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'0')" >
 								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								</li>
@@ -659,7 +666,7 @@
 								<p>--</p>
 							</ng-template>
 						</li>
-						<li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
+						<li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
 				   </ul>
 				</div>
 				<div *ngIf="postedJobsDetails?.match_select?.programming_skills=='1'">
@@ -771,6 +778,9 @@
 								<span  *ngIf="missingElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'missing');">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
+								</span>
+								<span  *ngIf="missingElement && postedJobsDetails?.employer_role_type && !matchingUsers?.profile?.employer_role_type">
+									<i class="fas fa-times text-danger "></i>--
 								</span>
 							</span>
 						</li>
@@ -903,6 +913,10 @@
 								  {{item.degree}}
 								</span>
 							</ng-container> 
+							<span *ngIf="missingElement && matchingUsers?.profile?.education_qualification=='' && postedJobsDetails?.education">
+							  <i class="fa fa-times text-danger "  ></i>
+								  --
+							</span>
 							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.education_qualification,postedJobsDetails?.education,'education')">
 								<i class="fa fa-times text-danger "  ></i>
 								  {{postedJobsDetails.education}}
@@ -1017,7 +1031,7 @@
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-								<li class="list-group-item text-capitalize "  [ngClass]="(isMultipleMatches === true)?'handsExp-multi':'handsExp'"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'1')" >
+								<li class="otherpreff text-capitalize "  [ngClass]="(isMultipleMatches === true)?'handsExp-multi':'handsExp'"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'1')" >
 								  <span *ngIf="missingElement" ><i class="fa fa-times text-danger "></i>  -- 
 									<a class="handsExp-color"> {{item?.title}} </a> 
 									</span> 
@@ -1033,7 +1047,7 @@
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'1')" >
+								<li class="otherpreff text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'1')" >
 								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								
@@ -1170,7 +1184,7 @@
 								<p>--</p>
 							</ng-template>
 						</li>
-						<li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
+						<li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
 				   </ul>
 				</div>
 				<div *ngIf="postedJobsDetails?.match_select?.programming_skills=='2'">
@@ -1282,6 +1296,9 @@
 								<span  *ngIf="missingElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'missing');">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
+								</span>
+								<span  *ngIf="missingElement && postedJobsDetails?.employer_role_type && !matchingUsers?.profile?.employer_role_type">
+									<i class="fas fa-times text-danger "></i>--
 								</span>
 							</span>
 						</li>
@@ -1413,8 +1430,13 @@
 								  
 								  {{item.degree}}
 								</span>
-							</ng-container> 
+							</ng-container>
+							<span *ngIf="missingElement && matchingUsers?.profile?.education_qualification=='' && postedJobsDetails?.education">
+							  <i class="fa fa-times text-danger "  ></i>
+								  --
+							</span>
 							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.education_qualification,postedJobsDetails?.education,'education')">
+							
 								<i class="fa fa-times text-danger "  ></i>
 								  {{postedJobsDetails.education}}
 							</span>
@@ -1528,7 +1550,7 @@
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-								<li class="list-group-item text-capitalize " [ngClass]="(isMultipleMatches === true)?'handsExp-multi':'handsExp'"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'2')" >
+								<li class="otherpreff text-capitalize " [ngClass]="(isMultipleMatches === true)?'handsExp-multi':'handsExp'"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'2')" >
 								  <span *ngIf="missingElement" ><i class="fa fa-times text-danger "></i>  -- 
 									<a class="handsExp-color"> {{item?.title}} </a> 
 									</span> 
@@ -1544,7 +1566,7 @@
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'2')" >
+								<li class="otherpreff text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'2')" >
 								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								
@@ -1682,7 +1704,7 @@
 								<p>--</p>
 							</ng-template>
 						</li>
-						<li><a [ngbPopover]="popContent" > <i class="fas fa-ellipsis-v doticonss"></i></a></li>
+						<li style="margin:auto;"><a [ngbPopover]="popContent" > <i class="fas fa-ellipsis-v doticonss"></i></a></li>
 				   </ul>
 				</div>
 				<div *ngIf="postedJobsDetails?.match_select?.programming_skills==''">
@@ -1794,6 +1816,9 @@
 								<span  *ngIf="missingElement && checkTypeValue(postedJobsDetails?.employer_role_type,matchingUsers?.profile?.employer_role_type,'missing');">
 									<i class="fas fa-times text-danger "></i>
 									{{postedJobsDetails?.employer_role_type }}
+								</span>
+								<span  *ngIf="missingElement && postedJobsDetails?.employer_role_type && !matchingUsers?.profile?.employer_role_type">
+									<i class="fas fa-times text-danger "></i>--
 								</span>
 							</span>
 						</li>
@@ -1926,6 +1951,10 @@
 								  {{item.degree}}
 								</span>
 							</ng-container> 
+							<span *ngIf="missingElement && matchingUsers?.profile?.education_qualification=='' && postedJobsDetails?.education">
+							  <i class="fa fa-times text-danger "  ></i>
+								  --
+							</span>
 							<span *ngIf="missingElement && checkType(matchingUsers?.profile?.education_qualification,postedJobsDetails?.education,'education')">
 								<i class="fa fa-times text-danger "  ></i>
 								  {{postedJobsDetails.education}}
@@ -2041,7 +2070,7 @@
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-								<li class="list-group-item text-capitalize " [ngClass]="(isMultipleMatches === true)?'handsExp-multi':'handsExp'"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'')" >
+								<li class="otherpreff text-capitalize " [ngClass]="(isMultipleMatches === true)?'handsExp-multi':'handsExp'"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'')" >
 								  <span *ngIf="missingElement" ><i class="fa fa-times text-danger "></i>  -- 
 									<a class="handsExp-color"> {{item?.title}} </a> 
 									</span> 
@@ -2057,7 +2086,7 @@
 					<div class="row info-box"  >
 						<div class="col-lg-7 info" >
 							<ul class="list-group" *ngFor="let item of postedJobsDetails?.others; let i=index">
-								<li class="list-group-item text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'')" >
+								<li class="otherpreff text-capitalize"  *ngIf="checkDataOthers(postedJobsDetails?.match_select[item?.id],'')" >
 								  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
 								
@@ -2104,5 +2133,3 @@
 		</div>
 	</ng-template>
 			
-		 
-</div>   

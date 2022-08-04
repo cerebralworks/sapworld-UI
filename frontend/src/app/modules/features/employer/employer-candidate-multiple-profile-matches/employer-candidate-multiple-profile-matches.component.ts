@@ -263,13 +263,13 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 	onChangeUserr = (type) => {
 	
 		const count = this.TotalMatchJobs.length;
-		var nxt : HTMLElement = document.getElementById('carouselProfile');
+		//var nxt : HTMLElement = document.getElementById('carouselProfile');
 		var nxt1 : HTMLElement = document.getElementById('cardsliders');
 		if (type == 'next') {
 		    nxt1.classList.add("slideanimations")
-			nxt.classList.add("slideanimations")
+			//nxt.classList.add("slideanimations")
 			setTimeout(()=>{
-			nxt.classList.remove('slideanimations')
+			//nxt.classList.remove('slideanimations')
 		    nxt1.classList.remove('slideanimations')
 			},1000)
 			if (count > this.page) {
@@ -300,9 +300,9 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 			}*/
 			//!this.isEven(this.page) && this.page--;
 			 nxt1.classList.add("slidearight")
-		    nxt.classList.add("slidearight")
+		   // nxt.classList.add("slidearight")
 			setTimeout(()=>{
-			nxt.classList.remove('slidearight')
+			//nxt.classList.remove('slidearight')
 		    nxt1.classList.remove('slidearight')
 			},1000)
 			//this.pageCount = this.pageCount-1;

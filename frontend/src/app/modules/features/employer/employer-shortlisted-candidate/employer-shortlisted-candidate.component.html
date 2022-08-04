@@ -27,7 +27,7 @@
               <th scope="col">{{"tabs.jobDetails" | translate}}</th>
               <th scope="col">{{"shared.status" | translate}}</th>
               <th scope="col">{{"tabs.message" | translate}}</th>
-              <th scope="col" class="text-center">{{"common.inviteLink" | translate}}</th>
+              <th scope="col" class="text-center">{{"common.meetingLink" | translate}}</th>
               <th scope="col" class="text-center">{{"common.history" | translate}}</th>
             </tr>
             </thead>
@@ -69,7 +69,8 @@
 					</select>
 					</td>
 				  <td class="text-center text-blue"><a class="poin" (click)="openMessagePopup(item)"><i class="fas fa-file-alt"></i></a></td> 
-				  <td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 && item?.status !=1 " (click)="openMessagePopupInviteLink(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>
+				  <!--<td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 && item?.status !=1 " (click)="openMessagePopupInviteLink(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>-->
+				  <td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 && item?.status !=1 " (click)="openMeetingLinkPopup(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>
 				  <td class="text-center" *ngIf="(validateStatus(item) == true  ) && item?.status !=6 && item?.status !=5 &&item?.status !=1 && item?.status !=2 && item?.status !=4 "><a  class="text-danger poin"><i class="fas fa-envelope"></i></a></td>
 				  <td class="text-center" *ngIf="(validateStatus(item) == false && item?.invite_status == true ) && item?.status !=6 && item?.status !=1 &&item?.status !=5 && item?.status !=2 && item?.status !=4 "><a   (click)="openReschedulePopup(item,item?.status)" class="text-warning poin"><i class="fas fa-envelope"></i></a></td>
 				  <td class="text-center" *ngIf=" item?.status ==5 ||item?.status ==6 || item?.status ==2 || item?.status ==4|| item?.status ==1 "><a  class="text-danger poin-no"><i class="fas fa-comment-slash"></i></a></td>
@@ -200,12 +201,14 @@
 									<div class="content">
 										<h4>{{items?.status}}</h4>
 										<p>{{items?.comments}}</p>
-										<br>
-										<h6 style="font-size: 11px;margin-bottom:5px;" *ngIf="items?.rescheduled || items?.invited || items?.created || items?.canceled">History</h6>
+										
+										<h6 style="margin-bottom:2px;" *ngIf="items?.link">History</h6>
+										<p *ngIf="items?.link">You have been sent a meeting invitation on <span class="blu" >{{items?.date | date: 'longDate' }} </span> at <span class="blu" >{{items?.date | date: 'shortTime' }} </span> </p>
+										<!--<h6 style="font-size: 11px;margin-bottom:5px;" *ngIf="items?.rescheduled || items?.invited || items?.created || items?.canceled">History</h6>
 										<p *ngIf="items?.invited">You have been sent the invite link on <span class="blu" >{{items?.invited | date: 'longDate' }} </span> at <span class="blu" >{{items?.invited | date: 'shortTime' }} </span> </p>
 										<p *ngIf="items?.created">Accepted the invite link on <span class="gre" >{{items?.created | date: 'longDate' }} </span> at <span class="gre" >{{items?.created | date: 'shortTime' }} </span> </p>
 										<p *ngIf="items?.canceled">Canceled the invite link on  <span class="re" >{{items?.canceled | date: 'longDate' }} </span> at <span class="re" >{{items?.canceled | date: 'shortTime' }} </span></p>
-										<p *ngIf="items?.rescheduled">Rescheduled the invite link on <span class="yel" >{{items?.rescheduled | date: 'longDate' }} </span> at <span class="yel" >{{items?.rescheduled | date: 'shortTime' }} </span></p>
+										<p *ngIf="items?.rescheduled">Rescheduled the invite link on <span class="yel" >{{items?.rescheduled | date: 'longDate' }} </span> at <span class="yel" >{{items?.rescheduled | date: 'shortTime' }} </span></p>-->
 									</div>
 								</li>
 								<li class=" success" *ngIf="items?.id == '2' " >
@@ -268,7 +271,7 @@
 		</div>
 		<div class="modal-body job-card" style="box-shadow: none;">
 			<div class="media">
-				<img class="mr-3" [src]="messagePopupValue?.user?.photo ? (shortListedMeta?.photo?.path+'/'+ shortListedMeta?.photo?.folder+'/'+shortListedMeta?.photo?.sizes?.medium+'/'+messagePopupValue?.user?.photo) : 'assets/images/user-img-icon.jpg'">
+				<img class="mr-3" [src]="messagePopupValue?.user?.photo ? userprofilepath : 'assets/images/user-img-icon.jpg'" style="width:70px;height:70px;">
 				<div class="media-body">
 					<h6 class="text-green">{{(messagePopupValue?.user?.first_name ? messagePopupValue?.user?.first_name : '') + ' '
 						+ (messagePopupValue?.user?.last_name ? messagePopupValue?.user?.last_name : '')}}</h6>
@@ -299,5 +302,99 @@
 			<button type="button" class="btn btn-sm btn-secondary" (click)="cancelCheck()" >{{"shared.close" | translate}}</button>
 			<button type="button" [disabled]="selectedStatusValue ==null || selectedStatusValue =='' || selectedStatusMessage == null || selectedStatusMessage =='' " class="btn btn-sm btn-primary"  (click)="sendMessage()"  >{{"shared.sendMessage" | translate}} </button>
 		</div>
+	</div>
+</ng-template>
+<ng-template *ngIf="isSchedulediscuss" #ScheduleDiscuss let-modal>
+	
+		<div class="modal-content">
+			<div class="modal-body text-center">
+				<h6 class="mt-3" style="font-size: 20px;">Would you like to schedule a discussion?</h6>
+			</div>
+			
+		<div class="modal-footer d-flex justify-content-center">
+		 <button type="button" class="btn btn-primary " (click)="openYesSchedule()" data-dismiss="modal">{{"shared.yes" | translate}} </button>
+      <button type="button"  class="btn btn-secondary" (click)="closeSchedule()" data-dismiss="modal">{{"shared.no" | translate}} </button>
+     
+      </div>
+		</div>	
+		
+</ng-template>
+
+<ng-template *ngIf="isMeetingLink" #MeetingLink let-modal>
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Meeting Invitation</h5>
+			<button type="button" class="close" (click)="closemeeting()">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>
+	</div>
+	<div class="modal-body">
+	 <form [formGroup]="meetingform" (ngSubmit)="sendmeetinglink()">
+	 <div class="form-group">
+        <label>Interview Date</label>   
+          <input type="date" class="form-control" formControlName="interviewDate" name="interviewDate">
+      </div>
+	  <div class="row">
+	   <div class="col-7 form-group">
+        <label>Interview Time</label>   
+         <!-- <input type="time" class="form-control" formControlName="interviewTime" name="interviewTime"> -->
+         
+		 <div (click)="getTimeValue($event)">
+		  <input type="text" formControlName="interviewTime" class="form-control" placeholder="-- -- --" readonly><i class="fas fa-clock" style="position:absolute; top:3rem; right:2rem; color: #a8afb5; "></i>
+		 </div>
+      </div>
+	   <div class="col-5 form-group">
+        <label>Time Zone</label> 
+		 <select formControlName="timeZone" class="form-control" name="timeZone">
+					<option value='' disabled>Select Time Zone</option>
+					<option value="AST">AST</option>
+					<option  value="UTC">UTC</option>
+					<option  value="GMT">GMT</option>
+					<option  value="ECT">ECT</option>
+					<option  value="EET">EET</option>
+					<option  value="ART">ART</option>
+					<option  value="EAT">EAT</option>
+					<option  value="MET">MET</option>
+					<option  value="NET">NET</option>
+					<option  value="PLT">PLT</option>
+					<option  value="IST">IST</option>
+					<option  value="BST">BST</option>
+					<option  value="VST">VST</option>
+					<option  value="CTT">CTT</option>
+					<option  value="JST">JST</option>
+					<option  value="ACT">ACT</option>
+					<option  value="AET">AET</option>
+					<option  value="NST">NST</option>
+					<option  value="MIT">MIT</option>
+					<option  value="HST">HST</option>
+					<option  value="PST">PST</option>
+					<option  value="PNT">PNT</option>
+					<option  value="MST">MST</option>
+					<option  value="CST">CST</option>
+					<option  value="EST">EST</option>
+					<option  value="IET">IET</option>
+					<option  value="PRT">PRT</option>
+					<option  value="CNT">CNT</option>
+					<option  value="AGT">AGT</option>
+					<option  value="BET">BET</option>
+					<option  value="CAT">CAT</option>
+				</select>
+      </div>
+	  </div>
+	  <div class="form-group">
+        <label>Interviewer Name</label>   
+          <input type="text" class="form-control" formControlName="name" name="name">
+      </div>
+	   <div class="form-group">
+        <label>Interview Link</label>   
+         <input type="text" class="form-control" formControlName="link" name="link">
+      </div>
+	  <div class="modal-footer">
+		 <button type="button" class="btn btn-secondary " (click)="closemeeting()" data-dismiss="modal">{{"shared.close" | translate}} </button>
+      <button type="submit" [disabled]="!meetingform.valid" class="btn btn-primary" data-dismiss="modal">{{"shared.submit" | translate}} </button>
+     
+      </div>
+	 </form>
 	</div>
 </ng-template>

@@ -123,7 +123,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				}
 			}
 			if(urlQueryParams && urlQueryParams.reset) {
-				sessionStorage.clear();
+				//sessionStorage.clear();
 			}
 
 			const jobTypes = this.route.snapshot.queryParamMap.get('job_types');
@@ -189,7 +189,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			if(details) {
 			  if((details && details.id) && this.validateSubscribe == 0) {
 				this.onGetPostedJobCount(details.id);
-				this.onGetPostedJob(details.id);				
+				//this.onGetPostedJob(details.id);				
 				this.validateSubscribe ++;
 			  }
 			}
@@ -344,14 +344,14 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 							this.onGetCandidateList(this.selectedJob.id);
 						}else {
 							if(!sessionStorage.getItem('match-job-id')){
-								this.selectedJob = this.postedJobs[0];
+								//this.selectedJob = this.postedJobs[0];
 							}else{
 								var ids = parseInt(sessionStorage.getItem('match-job-id'));
 								var temps = this.postedJobs.filter(function(a,b){ return a.id==ids })
 								if(temps.length==1){
 									this.selectedJob = temps[0];
 								}else{
-									this.selectedJob = this.postedJobs[0];
+									//this.selectedJob = this.postedJobs[0];
 								}
 							}
 							this.onGetCandidateList(this.selectedJob.id);              
@@ -391,7 +391,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 					var TotalValue =response['count'].map(function(a,b){return parseInt(a.count)}).reduce((a, b) => a + b, 0);
 					if(document.getElementById('MatchesCount')){
 						document.getElementById('MatchesCount').innerHTML="("+TotalValue+")";
-					}			
+					}
+					this.onGetPostedJob(companyId);
 				}else{			
 				}
 			}, error => {
@@ -882,15 +883,17 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	}
 	
 	filterCountry(clr){
+		var f = this.selectedJob.job_locations.map(a=>{return a.city});
 		var temp = clr.target.className.split(' ');
 		if(temp[temp.length-1]=='btn-fltr-active' || temp[temp.length-2]=='btn-fltr-active'){
-			if(this.countryFilterList.length+1 == this.selectedJob?.job_locations?.length){
+			
+			//if(this.countryFilterList.length+1 == this.selectedJob?.job_locations?.length){
 				
-			}else{
+			//}else{
 				clr.target.className = clr.target.className.replace('btn-fltr-active','');
 				var dataCheck = clr.target.id.split('_')[1].toString();
 				this.countryFilterList.push(dataCheck);
-			}
+			//}
 		}else{
 			clr.target.className = 'btn btn-fltr btn-fltr-active';
 			var dataCheck = clr.target.id.split('_')[1].toString();
@@ -901,7 +904,8 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 		if(this.countryFilterList.length==0){
 			this.queryParams.location_filter = null;
 		}else{
-			this.queryParams.location_filter = this.countryFilterList;
+			var a = f.filter(x => !this.countryFilterList.includes(x));
+			this.queryParams.location_filter = a;
 		}
 		this.onGetCandidateList(this.selectedJob.id);
 		

@@ -284,8 +284,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**	To check the form details and assign the data's
 	**/
   ngOnChanges(changes: SimpleChanges): void {
-	 
-	  setTimeout(async () => {
+	 setTimeout(async () => {
 				if(this.childForm.controls.personalDetails.status =="INVALID"){
     if(this.childForm && this.savedUserDetails) {
 		if(this.childForm.value.personalDetails.country){
@@ -737,21 +736,31 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	createForm() {
 		this.childForm = this.parentF.form;
 		this.childForm.addControl('personalDetails', new FormGroup({
-		 first_name: new FormControl('',[Validators.required,ValidationService.emptyStringValidator]),
+		 entry: new FormControl(false),
+		 first_name: new FormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator]),
 		  last_name: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
 		  email: new FormControl(''),
-		  entry: new FormControl(false),
 		  phone: new FormControl(''),
 		 city: new FormControl('', Validators.required),
 		  state: new FormControl('', Validators.required),
-		  latlng: new FormControl({}, Validators.required),
+		  zipcode: new FormControl(null, [Validators.required,Validators.minLength(4)]),
 		  country: new FormControl('', Validators.required),
-		  zipcode: new FormControl(null, Validators.required),
+		  nationality: new FormControl(null, Validators.required),
 		  clients_worked: new FormControl(null, Validators.required),
 		  authorized_country: new FormControl(null),
 		  authorized_country_select: new FormControl(null),
 		  visa_type: new FormControl(null),
-		  nationality: new FormControl(null, Validators.required),
+		  language_known: new FormArray([this.formBuilder.group({
+			language: [null, Validators.required],
+			native: new FormControl(null, Validators.required),
+			intermediate: new FormControl(null, Validators.required),
+			fluent: new FormControl(null, Validators.required)
+		  })]),
+		  reference: new FormArray([this.formBuilder.group({
+			name: new FormControl(null),
+			email: [null,ValidationService.emailValidator],
+			company_name: new FormControl(null)
+		  })]),
 		  social_media_link: new FormControl(null),
 		  linkedin: new FormControl(''),
 		  github: new FormControl(''),
@@ -764,19 +773,10 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		  blogBoolen: new FormControl(false),
 		  portfolioBoolen: new FormControl(false),
 		  work_authorization: new FormControl(null),
-		  language_known: new FormArray([this.formBuilder.group({
-			language: [null, Validators.required],
-			native: new FormControl(null, Validators.required),
-			intermediate: new FormControl(null, Validators.required),
-			fluent: new FormControl(null, Validators.required)
-		  })]),
-		  reference: new FormArray([this.formBuilder.group({
-			name: new FormControl(null),
-			email: new FormControl(''),
-			company_name: new FormControl(null)
-		  })]),
+		  latlng: new FormControl({}, Validators.required),
 		}));
-
+		
+      
 	}
 
 	get f() {
@@ -1079,13 +1079,24 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**	To create a new reference
 	**/
 	
+	checkref(index){
+		var validRegex =/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+		var em = this.r.value[index]['email'];
+		if(!em.match(validRegex)){
+			return false;
+		}else{
+			return true;
+		}	
+}
+
+
 	onDuplicateR = (index) => {
-	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
+	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null || this.checkref(index)==false){
 		 
 	  }else{
 		this.r.push(this.formBuilder.group({
 			name: new FormControl(null),
-			email: new FormControl(''),
+			email: [null,ValidationService.emailValidator],
 			company_name: new FormControl(null)
 		}));
 	  }

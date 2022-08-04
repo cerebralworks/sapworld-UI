@@ -288,11 +288,11 @@
           </a>
         </span>
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
-          <a *ngIf="!isUploadShowResume || selectedResume?.file" style="font-size:12px;"
+          <a *ngIf="!isUploadShowResume && selectedResume?.file" style="font-size:12px;"
           [class.disabled]="!selectedResume?.file"
           (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
-          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="font-size:12px;"
+          </a> <a *ngIf="isUploadShowResume || !selectedResume?.file" style="font-size:12px;"
          (click)="openResumselect(true)"  id="addResumeFile" 
            class="btn btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.addResume" | translate }}

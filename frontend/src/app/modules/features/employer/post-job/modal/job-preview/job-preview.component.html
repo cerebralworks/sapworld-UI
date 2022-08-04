@@ -350,7 +350,8 @@
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.requirement?.programming_skills">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.programming_skills.length; else elseSkillsTemplates">
-							{{postJobForm?.value?.requirement?.programming_skills}}
+							<!--{{postJobForm?.value?.requirement?.programming_skills}}-->
+							<span *ngFor="let item of postJobForm?.value?.requirement?.programming_skills; let i = index; let last = last;" class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
 						</ng-container>
 						<ng-template #elseSkillsTemplates>
 							<button *ngIf="postJobForm?.value?.requirement?.programming_skills?.length==0 " style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('programming_skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
@@ -428,7 +429,8 @@
 				<ul class="list-group">
 					<li class="list-group-item text-uppercase" *ngIf="postJobForm?.value?.requirement?.optinal_skills">
 						<ng-container *ngIf="postJobForm?.value?.requirement?.optinal_skills.length; else elseSkillsTemplatesss">
-							{{postJobForm?.value?.requirement?.optinal_skills}}
+							<!--{{postJobForm?.value?.requirement?.optinal_skills}}-->
+							<span *ngFor="let item of postJobForm?.value?.requirement?.optinal_skills; let i = index; let last = last;" class="float-left">{{item}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}</span>
 						</ng-container>
 						<ng-template #elseSkillsTemplatesss>
 							<button *ngIf="postJobForm?.value?.requirement?.optinal_skills?.length==0 " style="font-size: 10px;padding: 5px;" (click)="onOpenCriteriaModal('optinal_skill')" type="button" class="btn btn-theme-green" data-toggle="modal"

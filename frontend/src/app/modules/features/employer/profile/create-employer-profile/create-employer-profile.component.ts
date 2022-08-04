@@ -226,8 +226,16 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	**/
 	
 	onSaveComapnyInfo = () => {
-		
-		if (this.createCompanyForm.valid) {
+		this.createCompanyForm.markAllAsTouched();
+	for (const key of Object.keys(this.createCompanyForm.controls)) {
+			  if(this.createCompanyForm.controls[key].invalid) {
+			  
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+			 }
+		  }
+		if (this.createCompanyForm.valid && this.invalidMobile===false) {
 			let requestParams: any = { ...this.createCompanyForm.value };
 			requestParams.email_id = this.employerDetails.email;
 			if (this.createCompanyForm.value && this.createCompanyForm.value.contact && !Array.isArray(this.createCompanyForm.value.contact)) {
@@ -287,7 +295,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 		
 		this.createCompanyForm = this.formBuilder.group({
 			email_id: ['', [Validators.required, ValidationService.emailValidator]],
-			name: ['', Validators.compose([Validators.required,Validators.minLength(3)])],
+			name: ['', Validators.compose([Validators.required,Validators.minLength(3),ValidationService.StartingEmptyStringValidator])],
 			city: ['', Validators.required],
 			firstName: [''],
 			lastName: [''],
@@ -296,7 +304,7 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 			address: [''],
 			country: ['', Validators.required],
 			zipcode: [null, Validators.compose([Validators.minLength(4)])],
-			description: ['', Validators.compose([Validators.maxLength(2500), Validators.minLength(100)])],
+			description: [''],
 			website: ['', Validators.compose([ValidationService.urlValidator])],
 			contact: [''],
 			latlng: [null],

@@ -1,412 +1,111 @@
-<section class="sub-header">
-<div class="matchwidths"  >
-<div class="row">
-	<div class="col-lg-5 d-flex align-items-center">
-		<!-- <button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
-			<i class="fas fa-arrow-left"></i>
-		</button> -->
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a (click)="onRedirectBack();" ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
-			<li class="breadcrumb-item active" aria-current="page">{{"shared.candidateMatches" | translate }}</li>
-		</ol>
-	</div>
-	<div class="col-lg-7 clearfix">
-	</div>
-</div>
-</div>
+ <!-- //Header Section -->
+    <!-- Sub Header Section -->
+	<section class="sub-header">
+		<div class="matchwidths"  >
+		<div class="row">
+			<div class="col-lg-5 d-flex align-items-center">
+				<!-- <button (click)="onRedirectBack();" type="button" class="btn btn-outline-green btn-sm mr-1">
+					<i class="fas fa-arrow-left"></i>
+				</button> -->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a (click)="onRedirectBack();" ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
+					<li class="breadcrumb-item active" aria-current="page">{{"shared.candidateMatches" | translate }}</li>
+				</ol>
+			</div>
+			<div class="col-lg-7 clearfix">
+			</div>
+		</div>
+		</div>
 </section>
-<section>
-<!--<div class="pt-2 mb-3 mt-1" style="background-color:#EEFCFF;">
-<div [ngClass]="(screenWidth >= 1500)?'container':'container'">
-<div class="row">
-<div class="col-3 d-flex">
-
-<a [routerLink]="['/employer/job-detail-view/details']"  [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;">
-<h4 style="color:#385EDF;font-weight:bold;" class="text-capitalize">{{postedJobsDetails?.title}}&nbsp;</h4>
-</a>
-</div>
-<div class="col-3">
-<ul class="mb-1">
-<li class="text-capitalize bluecardtext">
-Location:
-<ng-container *ngFor="let item of postedJobsDetails?.job_locations" >
-{{item?.city ? item?.city+'-'+item?.countryshort: ''}}
-</ng-container>
-</li>
-</ul>
-</div>
-<div class="col-3">
-<ul>
-<li class="text-capitalize bluecardtext">
-<span *ngIf="postedJobsDetails?.salary_type == 0">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / hr'}}</span>
-<span *ngIf="postedJobsDetails?.salary_type == 1">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual '}}</span>
-<span *ngIf="postedJobsDetails?.salary_type == 2">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / month'}}</span>
-</li>
-</ul>
-</div>
-<div class="col-3">
-<a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2 btn-sty" href="javascript:;" style="display:inline-block; float:right;">
-<i class="fas fa-calendar-alt"></i> {{"shared.description" | translate }}
-</a>
-</div>
-</div>
-</div>
-</div>-->
-<div class="title-card clearfix">
-<div class="matchwidths">
-<div class="row">
-	<div class="col-8">
-		<h5 class="text-capitalize">{{postedJobsDetails?.title}}  <span class="mx-2"> | </span>
-		<ng-container *ngFor="let item of postedJobsDetails?.job_locations" >
-		{{item?.city ? item?.city+', '+item?.stateshort+', '+item?.countryshort: ''}}
-		</ng-container>
-		</h5>
-	</div>
-	<div class="col-4 text-right">
-		<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;"><i class="fas fa-file-alt"></i> {{"shared.description" | translate }}</a>
-	</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- //Sub Header Section -->
-<section class="my-2">
-<div class="matchwidths">
-<!--<div id="cardsliders" class="row"> 
-<div class="col-10" *ngIf="!isMultipleMatches">
-	<div class="card job-card" style="min-height:100px;">
-		<div class="card-body">
-			<div class="row d-flex">
-				<div class="col-1 media">
-				<img class="mt-1 ml-1" [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingUsers?.profile?.photo : 'assets/images/user-img-icon.jpg'">
-					
+    <!-- //Sub Header Section -->
+	<section class="mb-5">
+		<div class="title-card clearfix">
+			<div class="container container-big">
+			<div class="row">
+				<div class="col-8">
+					<h5 class="text-capitalize">{{postedJobsDetails?.title}}  <span class="mx-2"> | </span>
+					<ng-container *ngFor="let item of postedJobsDetails?.job_locations" >
+					{{item?.city ? item?.city+', '+item?.stateshort+', '+item?.countryshort: ''}}
+					</ng-container>
+					</h5>
 				</div>
-				<div class="col-11 d-flex">
-				   <div class="col-7">
-					<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsers?.profile?.job_location?.id,id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">	
-					<h5 class="text-capitalize">
-					<span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
-					  + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
-					<small *ngIf="matchingUsers?.profile?.job_role"> -
-					  {{matchingUsers?.profile?.job_role}}</small>
-					 </h5>
+				<div class="col-4 text-right">
+					<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;"><i class="fas fa-file-alt"></i> {{"shared.description" | translate }}</a>
+				</div>
+			</div>
+			</div>
+       </div>
+		<div class="container container-big">	
+			<div class="row">
+				<div class="col-xl-12 col-lg-12 col-md-6">										
+					<div class="match-details">										
+						<app-shared-job-profile [jobInfo]="postedJobsDetails" [isShownRequiements]="true"  [isMultipleMatches]="isMultipleMatches"[isHideData]="isHideData" 
+			[fieldsExclude]="{salary: false, visa_sponsorship: false, end_to_end_implementation: true}">
+		                 </app-shared-job-profile>
+					</div>	
+					<div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel" >
+					  <!--PrevNext-->
+					    <div class="ee-count clearfix">
+					<div class="count-num">{{page}}/{{matchingUsersMeta?.count}}</div>
+					<a *ngIf="page != 1 "  style="cursor:pointer;" (click)="onChangeUsers('prev')" class="carousel-control-prev" href="#carouselProfile" role="button" data-slide="prev">
+						Prev
 					</a>
-					<h6 class="text-capitalize location-role">		 
-					{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
+					<a *ngIf="page != matchingUsersMeta?.count " (click)="onChangeUsers('next')" class="carousel-control-next" href="#carouselProfile" role="button" data-slide="next">
+						Next
+					</a>
+			          </div>
+					  <div  id="cardsliders" class="carousel-inner">
+						<!--Profile1-->
+						<div class="carousel-item active">
+						<div  class="row">
+					<div class="col-10">
+						<div class="ee-infobox d-flex justify-content-between">
+							<div class="d-flex">
+								<div class="avtr">
+									<img style="width: 105px;
+					height: 105px;" [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingUsers?.profile?.photo : 'assets/images/user-img-icon.jpg'">
+								</div>
+								<div class="text">
+								<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsers?.profile?.job_location?.id,id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;"><h5 class="text-capitalize">{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
+					+ (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}<small *ngIf="matchingUsers?.profile?.job_role"> -
+					{{matchingUsers?.profile?.job_role}}</small></h5></a>
+									<h5 class="text-capitalize"><small>{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
 					{{matchingUsers?.profile?.state ? matchingUsers?.profile?.state+', '  : ''}}{{matchingUsers?.profile?.country ? matchingUsers?.profile?.country : ''}}
-				</h6>
-				<h6 class="text-capitalize location-role" >{{matchingUsers?.profile?.current_employer}}</h6>
-				</div>
-				<div class="col-5">
-					<div style="float:right;">													
-						<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-orange btn-sm" data-toggle="modal" data-target="#resumeModal">
-								<small class="btn-sty" id="coverletter" style="display:inline-block;"><i class="fas fa-envelope-open-text"></i> {{"shared.coverLetter" | translate}}</small>
-							</a>	
-					
-					<span class="ml-2" *ngIf="!matchingUsers?.application">
-						<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-								<small class="btn-sty" id="resumeletter" style="display:inline-block;"><i class="fas fa-envelope-open-text"></i> {{"shared.resume" | translate}} </small>
-							</a>	
-					</span>
-					<span class="ml-2" *ngIf="matchingUsers?.application">
-						<a href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsers?.application ? matchingUsers?.application?.user_resume : onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-								<small class="btn-sty"><i class="fas fa-envelope-open-text"></i> {{"shared.resume" | translate}} </small>
-							</a>	
-					</span>
-					</div><br /><br />
-					<div style="float:right;">				
-					<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn btn-sm btn btn-fltr btn-light "><i class='fas fa-check' style='color:#3AC724;font-size:6px;border:2px solid;border-radius:40%;padding:2px 2px 0px 1px;'></i><span style="font-size:11px;font-weight:500;">&nbsp;{{"shared.matches" | translate}} </span></button>
-					<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn ml-2 btn-sm btn btn-fltr btn-light "><i class="fa fa-times text-danger" style='color:#DA0000;font-size:7px;border:2px solid;border-radius:40%;padding:1px 1.7px 0px 2px;'></i> <span style="font-size:11px;font-weight:500;">&nbsp;{{"shared.missing" | translate}}</span> </button>
-					<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''"  class="moreBtn  btn-sm ml-2 btn btn-fltr btn-light "><i class="fa fa-info" style='color:#0FBEF4;font-size:6px;border:2px solid;border-radius:40%;padding:2px 4px 0px 3px;'></i> <span style="font-size:11px;font-weight:500;">&nbsp;{{"shared.moreSkills" | translate}}</span> </button>
-					</div>
-				 </div>
-				</div>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-	
-<div class="col-2 d-flex">
-<div class="scorecard" [ngClass]="{'score-txt-green': matchingUsers?.score >= 5, 'score-txt-orange': (matchingUsers?.score < 5 && matchingUsers?.score > 0), 'score-txt-red': (matchingUsers?.score == 0)}">
-<span style="font-size:14px;font-weight: 600;">&nbsp;&nbsp;&nbsp;{{"shared.score" | translate}}</span> <br /><span style="font-size:20px;font-weight: 600;">{{matchingUsers?.score ? matchingUsers?.score :0}}/10</span>
-</div>	
-<div class="ml-4">
-<a *ngIf="page != 1 " (click)="onChangeUsers('prev')"><i style="color:#CCCCCC;font-size:30px;" class="fas fa-arrow-circle-left"></i></a>
-<h5 *ngIf="matchingUsersMeta?.count != 1 " style="color:#6C757D;font-weight:600;">{{page}}/{{matchingUsersMeta?.count}}</h5>
-<a *ngIf="page != matchingUsersMeta?.count " (click)="onChangeUsers('next')" ><i style="color:#CCCCCC;font-size:30px;" class="fas fa-arrow-circle-right"></i></a>	
-</div>
-</div>
-</div>-->
-<div id="cardsliders" class="row">
-<div class="col-10">
-	<div class="ee-infobox d-flex justify-content-between">
-		<div class="d-flex">
-			<div class="avtr">
-				<img style="width: 105px;
-height: 105px;" [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingUsers?.profile?.photo : 'assets/images/user-img-icon.jpg'">
-			</div>
-			<div class="text">
-			<h5 class="text-capitalize">{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
-+ (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}<small *ngIf="matchingUsers?.profile?.job_role"> -
-{{matchingUsers?.profile?.job_role}}</small></h5>
-				<h5 class="text-capitalize"><small>{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
-{{matchingUsers?.profile?.state ? matchingUsers?.profile?.state+', '  : ''}}{{matchingUsers?.profile?.country ? matchingUsers?.profile?.country : ''}}
-				</small></h5>
-				<h5><small *ngIf="matchingUsers?.profile?.clients_worked">{{matchingUsers?.profile?.clients_worked}}</small></h5>
-			</div>
-		</div>
-		<div class="butn">
-			<div class="mb-2">
-			<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-light btn-sm" data-toggle="modal" data-target="#resumeModal">
-								<i class="fas fa-file-alt"></i>{{"shared.coverLetter" | translate}}
-							</a>&nbsp;
-					
-					<span *ngIf="!matchingUsers?.application">
-						<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-light btn-sm" data-toggle="modal" data-target="#resumeModal">
-								<i class="fas fa-file-alt"></i>{{"shared.resume" | translate}}
-							</a>	
-					</span>
-					<span *ngIf="matchingUsers?.application">
-						<a href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsers?.application ? matchingUsers?.application?.user_resume : onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-light btn-sm" data-toggle="modal" data-target="#resumeModal">
-								<i class="fas fa-file-alt"></i>{{"shared.resume" | translate}}
-							</a>	
-					</span>
-				
-			</div>
-			<div class="">
-				<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="13px"> {{"shared.matches" | translate}} </button>&nbsp;
-				<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="12px"> {{"shared.missing" | translate}} </button>&nbsp;
-				<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png" width="13px">{{"shared.moreSkills" | translate}} </button>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="col-1">
-	<div class="ee-scorebox text-uppercase">{{"shared.score" | translate}}<h4>{{matchingUsers?.score ? matchingUsers?.score :0}}/10</h4></div>
-</div>
-</div>
-
-<div class="row" *ngIf="loading === true">
-	<div  class="top-pad top-pads" [ngClass]="(isMultipleMatches === true)?'col-lg-4 col-md-4 matches-8':'col-lg-6 col-md-6 matches-8'">
-		<!--<div class="row">
-			<div class="col-lg-12">
-				<div class="card profile-card border p-2">
-					<div class="d-flex">
-						<div class="pc-info">
-							<a [routerLink]="['/employer/job-detail-view/details']"  [queryParams]="{id: postedJobsDetails?.id}" href="javascript:;">
-								<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
-							</a>
-							<h6 class="text-capitalize mt-2">{{postedJobsDetails?.company?.company}}</h6>
-							<h6 class="mb-0 text-capitalize job-txt d-flex">
-								<ng-container *ngFor="let item of postedJobsDetails?.job_locations" >
-								{{item?.city ? item?.city+', '  : ''}}
-								{{item?.state ? item?.state+', '  : ''}}
-								<span class="text-uppercase">
-								  {{item?.country ? item?.country : ''}}
-								</span><br>
-								</ng-container>
-							</h6>
-							<h6 class="font-weight-bold mb-2"*ngIf="postedJobsDetails?.min && postedJobsDetails?.max"style="padding-top:0.5rem;">{{"shared.timing" | translate}} : 
-								<ng-container *ngIf="postedJobsDetails?.min ">
-									{{postedJobsDetails?.min | time}}
-								</ng-container>
-								<ng-container *ngIf="postedJobsDetails?.min && postedJobsDetails?.max  ">
-									-
-								</ng-container>
-								
-								<ng-container *ngIf="postedJobsDetails?.max ">
-									{{postedJobsDetails?.max | time}}
-								</ng-container>
-							</h6>
-						</div>
-						<div class="pc-btn">
-							
-							<a (click)="onToggleJDModal(true)" class="btn btn-outline-blue btn-sm text-right mr-2" href="javascript:;" style="display:inline-block;">
-								<i class="fas fa-file-alt"></i> {{"shared.description" | translate }}
-							</a>
-							<a *ngIf="!isMultipleMatches" class="btn d-none-content btn-outline-green btn-sm mr-1"
-							  (click)="onViewOtherMatches()"
-								 href="javascript:;" style="display:inline-block;">
-								<!-- {{"dashboard.matches" | translate}} -->
-								<!--<i class="fas fa-tasks"></i>
-								{{"tabs.matches" | translate }}
-							</a>
-							<div class="media "  [ngClass]="(isMultipleMatches === true)?'moreTxt':'mt-2'">
-								<div class="media-body">
-									<h6 *ngIf="postedJobsDetails?.salary_type == 0" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / hr'}}</h6>
-									<h6 *ngIf="postedJobsDetails?.salary_type == 1" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual '}}</h6>
-									<h6 *ngIf="postedJobsDetails?.salary_type == 2" class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / month'}}</h6>
-									<h6 class="text-capitalize job-cardh6">{{"userProfile.remote" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.remote)}} </h6>
-									<h6 class="text-capitalize job-cardh6" >{{utilsHelperService.onGetRemoteOption(postedJobsDetails?.remote_option)}}</h6>
-									<!-- <h6 class="text-capitalize job-cardh6" >{{"postJob.relocate" | translate}} :  {{onGetYesOrNoValue(postedJobsDetails?.willing_to_relocate)}} </h6> -->
-								<!--</div>
+									</small></h5>
+									<h5><small *ngIf="matchingUsers?.profile?.current_employer">{{matchingUsers?.profile?.current_employer}}</small></h5>
+								</div>
+							</div>
+							<div class="butn">
+								<div class="mb-2">
+								<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-light btn-sm" data-toggle="modal" data-target="#resumeModal">
+													<i class="fas fa-file-alt"></i>{{"shared.coverLetter" | translate}}
+												</a>&nbsp;
+										
+										<span *ngIf="!matchingUsers?.application">
+											<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-light btn-sm" data-toggle="modal" data-target="#resumeModal">
+													<i class="fas fa-file-alt"></i>{{"shared.resume" | translate}}
+												</a>	
+										</span>
+										<span *ngIf="matchingUsers?.application">
+											<a href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsers?.application ? matchingUsers?.application?.user_resume : onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-light btn-sm" data-toggle="modal" data-target="#resumeModal">
+													<i class="fas fa-file-alt"></i>{{"shared.resume" | translate}}
+												</a>	
+										</span>
+									
+								</div>
+								<div class="">
+									<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="13px"> {{"shared.matches" | translate}} </button>&nbsp;
+									<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="12px"> {{"shared.missing" | translate}} </button>&nbsp;
+									<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png" width="13px">{{"shared.moreSkills" | translate}} </button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>-->
-		<app-shared-job-profile [jobInfo]="postedJobsDetails" [isShownRequiements]="true"  [isMultipleMatches]="isMultipleMatches"[isHideData]="isHideData" 
-			[fieldsExclude]="{salary: false, visa_sponsorship: false, end_to_end_implementation: true}">
-		</app-shared-job-profile>
-	</div>
-	<div  class="top-pad top-pads" [ngClass]="(isMultipleMatches === true)?'col-lg-8 col-md-8 matches-8':'col-lg-6 col-md-6 matches-8 pad-0-job'">
-		<div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel">
-			<div class="carousel-inner">
-				<!--Profile1-->
-				<div class="carousel-item active">
-					<div class="row">
-						<div *ngIf="!utilsHelperService.isEmptyObj(matchingUsers?.profile)" [ngClass]="(isMultipleMatches === true)?'col-lg-6 col-md-6 matches-8':'col-lg-12 col-md-12 matches-8'" >
-							<div class="info-box">
-								<!--<div class="col-lg-12" *ngIf="!isMultipleMatches">
-									<div class="card job-card" style="height:120px;">
-										<div class="card-body">
-											<div class="row d-flex">
-												<div class="col-lg-7 col-md-7">
-													<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsers?.profile?.job_location?.id,id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
-															<h5 class="text-capitalize">
-																<span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
-																  + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
-																<small *ngIf="matchingUsers?.profile?.job_role"> -
-																  {{matchingUsers?.profile?.job_role}}</small>
-															</h5>
-														</a>
-												</div>
-												<div class="col-lg-5 col-md-5 change-lays " style="display:flex;">
-													<span class="mr-2"  style="display: inline-block;">														
-														<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_cover)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_cover) && onToggleCoverForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_cover)))" class="btn btn-outline-orange btn-sm" data-toggle="modal" data-target="#resumeModal">
-																<small id="coverletter" style="display:inline-block;"><i class="fas fa-file-alt"></i> {{"shared.coverLetter" | translate}}</small>
-															</a>	
-													</span>	
-													<span  style="display: inline-block;" *ngIf="!matchingUsers?.application">
-														<a [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-																<small id="resumeletter" style="display:inline-block;"><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
-															</a>	
-													</span>
-													<span  style="display: inline-block;" *ngIf="matchingUsers?.application">
-														<a href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsers?.application ? matchingUsers?.application?.user_resume : onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="btn btn-outline-blue btn-sm" data-toggle="modal" data-target="#resumeModal">
-																<small><i class="fas fa-file-alt"></i> {{"shared.resume" | translate}} </small>
-															</a>	
-													</span>
-												</div>
-											</div>
-											<div class="row mt-2 d-flex">
-												<div class="col-lg-8 col-md-8">						
-													<div class="media" id="media_width">
-														<img
-														  [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingUsers?.profile?.photo : 'assets/images/user-img-icon.jpg'">
-														<div class="media-body">
-															<h6 class="mb-0 text-capitalize" style="text-overflow: ellipsis;display:grid;">
-																{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
-																{{matchingUsers?.profile?.state ? matchingUsers?.profile?.state+', '  : ''}}
-																<span class="text-uppercase">
-																	{{matchingUsers?.profile?.country ? matchingUsers?.profile?.country : ''}}
-																</span>
-															</h6>
-															<h6 class="mb-1 text-capitalize" >{{matchingUsers?.profile?.current_employer}}</h6>
-															 <h6 *ngIf="matchingUsers?.profile?.social_media_link?.length" class="mb-1">
-																<ng-container  *ngFor="let item of matchingUsers?.profile?.social_media_link">
-																	<a class="mr-1" href="{{item.url}}" target="_blank">
-																		<ng-container *ngIf="item?.visibility == true" [ngSwitch]="item?.media">
-																			<ng-container *ngSwitchCase="'youtube'">
-																				<i class="fab fa-youtube-square" *ngIf="item?.visibility"></i>
-																			</ng-container>
-																			<ng-container *ngSwitchCase="'portfolio'">
-																				<i class="fas fa-laptop-code" *ngIf="item?.visibility" ></i>
-																			</ng-container>
-																			<ng-container *ngSwitchCase="'blog'">
-																				<i class="fas fa-blog" *ngIf="item?.visibility"></i>
-																			</ng-container>
-																			<ng-container *ngSwitchDefault>
-																				<i class="fab fa-{{item.media}}" *ngIf="item?.visibility" ></i>
-																			</ng-container>
-																		</ng-container>
-																	</a>
-																</ng-container>
-															</h6>
-														</div>
-													</div>	
-												</div>
-												<div class="col-lg-4 col-md-4" style="display:contents;">
-													<ng-container *ngIf="!OpenMatchPopups(matchingUsers)">
-														<a [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsers?.profile?.id,employeeId: matchingUsers?.job?.company }" >
-															<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
-														</a>
-													</ng-container>
-													<ng-container *ngIf="OpenMatchPopups(matchingUsers)">
-														<a>
-															<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
-														</a>
-													</ng-container>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="matchs-info" >
-										<button (click)="onShowMatches($event)" id="matchBtnVal" [ngClass]="matchedElement ? 'btn-fltr-active' : ''"  class="matchBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/matchs-icon.png" width="16px"> {{"shared.matches" | translate}}  </button>
-										<button (click)="onShowMissing($event)" id="missBtnVal"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  class="missBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> {{"shared.missing" | translate}}  </button>
-										<button (click)="onShowMore($event)" id="moreBtnVal"  [ngClass]="moreElement ? 'btn-fltr-active' : ''"  class="moreBtn  btn-sm btn btn-fltr btn-light "><img src="assets/images/info-icon.png"  width="16px"> {{"shared.moreSkills" | translate}} </button>
-										<!-- <button (click)="onReset()" class="btn btn-sm btn-light ml-1" style="margin-top: -12px;">
-										<i class="fas fa-sync"></i>
-										</button> -->
-									<!--</div>
-								</div>-->
-								<div class="col-lg-12" *ngIf="isMultipleMatches">
-									<div class="card profile-card">
-										<div class="d-flex">
-											<div class="pc-img">
-												<img
-												  [src]="matchingUsers?.profile?.photo ? (matchingUsers?.meta?.photo?.path+'/'+ matchingUsers?.meta?.photo?.folder+'/'+matchingUsers?.meta?.photo?.sizes?.medium+'/'+matchingUsers?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
-											</div>
-											<div class="pc-info">
-												<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsers?.profile?.job_location?.id,id: matchingUsers?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
-													<h5 class="text-capitalize">
-														<span>{{(matchingUsers?.profile?.first_name ? matchingUsers?.profile?.first_name : '') + ' '
-														  + (matchingUsers?.profile?.last_name ? matchingUsers?.profile?.last_name : '')}}</span>
-														<small *ngIf="matchingUsers?.profile?.job_role"> -
-														  {{matchingUsers?.profile?.job_role}}</small>
-													</h5>
-												</a>
-												<h6 class="mb-0 text-capitalize">
-													{{matchingUsers?.profile?.city ? matchingUsers?.profile?.city+', '  : ''}}
-													{{matchingUsers?.profile?.state ?  matchingUsers?.profile?.state+', '  : ''}}
-													<span class="text-uppercase">
-														{{matchingUsers?.profile?.country ? matchingUsers?.profile?.country : ''}}
-													</span>
-												</h6>
-												<form class="form-inline">
-													<a *ngIf="!matchingUsers?.application" [class.disabled]="!onGetFilteredValue(matchingUsers?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsers?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
-														<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}  </small>
-													</a>
-													<a *ngIf="matchingUsers?.application" href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsers?.application ? matchingUsers?.application?.user_resume : onGetFilteredValue(matchingUsers?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
-														<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}  </small>
-													</a>
-													<ng-container *ngIf="!OpenMatchPopups(matchingUsers)">
-														<a [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsers?.profile?.id,employeeId: matchingUsers?.job?.company }" >
-															<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
-														</a>
-													</ng-container>
-													<ng-container *ngIf="OpenMatchPopups(matchingUsers)">
-														<a>
-															<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
-														</a>
-													</ng-container>
-													
-												</form>
-											</div>
-										</div>
-									</div>
-									<div class="matchs-info" *ngIf="!isMultipleMatches">
-										<button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px">  {{"shared.matches" | translate}}  </button>
-										<button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0">  {{"shared.missing" | translate}}  </button>
-										<button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px"> {{"shared.moreSkills" | translate}}   </button>
-										<button (click)="onReset()" class="btn btn-sm btn-light ml-1">
-										<i class="fas fa-sync"></i>
-										</button>
-									</div>
-								</div>
+					<div class="col-1">
+						<div class="ee-scorebox text-uppercase">{{"shared.score" | translate}}<h4>{{matchingUsers?.score ? matchingUsers?.score :0}}/10</h4></div>
+					</div>
+					</div>
+							
 								<app-shared-user-profile-matches  [isShownRequiements]="true" [postedJobsDetails]="postedJobsDetails"  [isMultipleMatches]="isMultipleMatches" [application]="matchingUsers?.application" 
 								[matchedElement]="matchedElement" [missingElement]="missingElement"
 								[moreElement]="moreElement" [matchingUsers]="matchingUsers" [matchingUsersNew]="matchingUsersNew">
@@ -415,130 +114,17 @@ height: 105px;" [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingU
 									<button *ngIf="!matchingUsers?.application && postedJobsDetails?.status == 1 " (click)="onToggleSendMail(true, matchingUsers?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
 										class="fas fa-paper-plane"></i> {{"shared.sendMail" | translate}}</button>
 								</div>
-							</div>
+							
 						</div>
-						<div class="col-lg-6" *ngIf="isMultipleMatches && !utilsHelperService.isEmptyObj(matchingUsersNew?.profile)">
-							<div class="info-box">
-								<div class="col-lg-12">
-									<div class="card profile-card">
-										<div class="d-flex">
-											<div class="pc-img">
-												<img
-												  [src]="matchingUsersNew?.profile?.photo ? (matchingUsersNew?.meta?.photo?.path+'/'+ matchingUsersNew?.meta?.photo?.folder+'/'+matchingUsersNew?.meta?.photo?.sizes?.medium+'/'+matchingUsersNew?.profile?.photo) : 'assets/images/user-img-icon.jpg'">
-											</div>
-											<div class="pc-info">
-												<a [routerLink]="['/employer/candidate-profile']" [queryParams]="{location_id: matchingUsersNew?.profile?.job_location?.id,id: matchingUsersNew?.profile?.id, jobId: postedJobsDetails?.id}" href="javascript:;">
-													<h5 class="text-capitalize">
-														<span>{{(matchingUsersNew?.profile?.first_name ? matchingUsersNew?.profile?.first_name : '') + ' '
-														  + (matchingUsersNew?.profile?.last_name ? matchingUsersNew?.profile?.last_name : '')}}</span>
-														<small *ngIf="matchingUsersNew?.profile?.job_role"> -
-														  {{matchingUsersNew?.profile?.job_role}}</small>
-													</h5>
-												</a>
-												<h6 class="mb-0 text-capitalize">
-													{{matchingUsersNew?.profile?.city ? matchingUsersNew?.profile?.city+', '  : ''}}
-													{{matchingUsersNew?.profile?.state ?  matchingUsersNew?.profile?.state+', '  : ''}}
-													<span class="text-uppercase">
-														{{matchingUsersNew?.profile?.country ? matchingUsersNew?.profile?.country : ''}}
-													</span>
-												</h6>
-												<form class="form-inline"  style="display: inline-block;">
-													<a *ngIf="!matchingUsersNew?.application" [class.disabled]="!onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)" href="javascript:;" (click)="onGetFilteredValue(matchingUsersNew?.profile?.doc_resume) && onToggleResumeForm(true, (onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
-														<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}</small>
-													</a>
-													<a *ngIf="matchingUsersNew?.application" href="javascript:;" (click)="onToggleResumeForm(true, (matchingUsersNew?.application ? matchingUsersNew?.application?.user_resume : onGetFilteredValue(matchingUsersNew?.profile?.doc_resume)))" class="mr-3" data-toggle="modal" data-target="#resumeModal">
-														<small><i class="fas fa-file-alt"></i>  {{"shared.resume" | translate}}</small>
-													</a>
-													<ng-container *ngIf="!OpenMatchPopups(matchingUsersNew)">
-														<a [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsersNew?.profile?.id,employeeId: matchingUsersNew?.job?.company }" >
-															<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
-														</a>
-													</ng-container>
-													<ng-container *ngIf="OpenMatchPopups(matchingUsersNew)">
-														<a>
-															<small><i class="fab fa-buffer"></i> {{"shared.viewOtherMatches" | translate}}  </small>
-														</a>
-													</ng-container>
-													<!-- <a [class.disabled]="OpenMatchPopups(matchingUsersNew)"    [routerLink]="['/employer/job-multiple-candidate-matches']"  [queryParams]="{jobId:'all',path:'userscoring',id:matchingUsersNew?.profile?.id,employeeId: postedJobsDetails?.company.id }" href="javascript:;" class="mr-3" >
-														<small><i class="fab fa-buffer"></i>  {{"shared.viewOtherMatches" | translate}} </small>
-													</a> -->
-													<!-- 
-													<a [routerLink]="['/employer/job-multiple-candidate-matches']" [queryParams]="{id: matchingUsersNew?.profile?.id, employeeId: postedJobsDetails?.company,path:'userscoring'}"  class="mr-3" >
-														<small><i class="fab fa-buffer"></i> View Other Matches</small>
-													</a> -->
-												</form>
-											</div>
-										</div>
-									</div>
-									<div class="matchs-info" *ngIf="!isMultipleMatches">
-										<button (click)="onShowMatches()" class="matchBtn btn btn-sm btn-light"><img src="assets/images/matchs-icon.png" width="16px">  {{"shared.matches" | translate}} </button>
-										<button (click)="onShowMissing()" class="missBtn btn btn-sm btn-light"><img src="assets/images/missing-icon.png" width="15px" class="ml-0">  {{"shared.missing" | translate}} </button>
-										<button (click)="onShowMore()" class="moreBtn btn btn-sm btn-light"><img src="assets/images/info-icon.png"  width="16px"> {{"shared.moreSkills" | translate}} </button>
-										<button (click)="onReset()" class="btn btn-sm btn-light ml-1">
-										<i class="fas fa-sync"></i>
-										</button>
-									</div>
-								</div>
-								<app-shared-user-profile-matches  [isShownRequiements]="true" [postedJobsDetails]="postedJobsDetails"  [isMultipleMatches]="isMultipleMatches" 
-								[matchedElement]="matchedElement" [missingElement]="missingElement"  [application]="matchingUsersNew?.application" 
-								[moreElement]="moreElement" [matchingUsers]="matchingUsersNew" [matchingUsersNew]="matchingUsersNew">
-								</app-shared-user-profile-matches>
-								<div class="col-lg-12 info" style="text-align:end;" *ngIf="matchingUsersNew?.profile?.mail !=true " >
-									<button  [disabled]="matchingUsersNew?.application && postedJobsDetails?.status == 1 " (click)="onToggleSendMail(true, matchingUsersNew?.profile)" type="button" class="btn btn-outline-orange ml-auto"  style="bottom: 15px; right: 15px;"> <i
-										class="fas fa-paper-plane"></i> {{"shared.sendMail" | translate}}</button>
-								</div>
-							</div>
-						</div>
-					</div>
+						
+					  </div>
+					</div>	
 				</div>
-				<!--//Profile1-->
-			</div>
-			<!--PrevNext-->
-			<!--<div class="matchCount" style="top:-45px;">{{page}}/{{matchingUsersMeta?.count}}</div>
-			  <div *ngIf="!isMultipleMatches">
-				  <a  *ngIf="page != 1 " (click)="onChangeUsers('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
-					data-slide="prev" style="top:-45px;">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				  </a>
-				  <a *ngIf="page != matchingUsersMeta?.count " (click)="onChangeUsers('next')" class="carousel-control-next" href="#carouselProfile" role="button"
-					data-slide="next" style="top:-45px;">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				  </a>
-			</div>-->
-			
-			<!--PrevNext-->
-			   <div class="ee-count clearfix">
-					<div class="count-num">{{page}}/{{matchingUsersMeta?.count}}</div>
-					<a *ngIf="page != 1 " href="#carouselProfile" style="cursor:pointer;" (click)="onChangeUsers('prev')" class="carousel-control-prev" role="button" data-slide="prev">
-						Prev
-					</a>
-					<a *ngIf="page != matchingUsersMeta?.count " (click)="onChangeUsers('next')" href="#carouselProfile" style="cursor:pointer;" class="carousel-control-next" role="button" data-slide="next">
-						Next
-					</a>
-			  </div>
-			  
-			  
-			<div *ngIf="isMultipleMatches">
-				  <a  *ngIf="page != 1 " (click)="onChangeUser('prev')" class="carousel-control-prev" href="#carouselProfile" role="button"
-					data-slide="prev" style="top:-45px;">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				  </a>
-				  <a *ngIf="page != matchingUsersMeta?.count " (click)="onChangeUser('next')" class="carousel-control-next" href="#carouselProfile" role="button"
-					data-slide="next" style="top:-45px;">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				  </a>
 			</div>
 		</div>
-	</div>
-</div>
-</div>
-</section>
-
-<ng-template *ngIf="toggleMatchModal" #deleteModal let-modal let-d="dismiss">
+	</section>
+	
+	<ng-template *ngIf="toggleMatchModal" #deleteModal let-modal let-d="dismiss">
 <div class="full-width">
 <div class="modal-header bg-dblue text-white">
 	<h3 class="modal-title" id="exampleModalLabel"> {{"shared.matchOtherPosts" | translate}} </h3>
@@ -602,3 +188,5 @@ height: 105px;" [src]="matchingUsers?.profile?.photo ? userprofilepath+matchingU
 [toggleSendMailModal]="isOpenedSendMailModal"
 (onEvent)="onToggleSendMail($event)">
 </app-send-mail-job-preview>
+
+	

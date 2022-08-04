@@ -89,7 +89,6 @@ export class NotificationComponent implements OnInit {
 		this.employerService.onGetNotificationDetails(requestParams).subscribe(
 		  response => {
 			if(response && response['details']) {
-			    console.log(response['details']);
 				response['details'].forEach(item => {
 				    var temp = item.message.split('/');
 					if(item.title=='New User Matches'){
@@ -125,7 +124,7 @@ export class NotificationComponent implements OnInit {
 			  this.notificationDetails = response['details'];
 			  this.notificationDetailsMeta = response['meta'];
 			  this.length = this.notificationDetailsMeta['total'];
-			  
+			  console.log(this.notificationDetails);
 			}
 		  }, error => {
 		  }

@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-
+import { ValidationService } from '@shared/service/validation.service';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
 @Component({
 	selector: 'app-candidate-review-modal',
@@ -203,6 +203,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	
 	ngAfterViewInit(): void {
 		if (this.toggleRegisterReviewModal) {
+		 setTimeout(()=>{
 			this.mbRef = this.modalService.open(this.registerReviewModal, {
 				windowClass: 'modal-holder',
 				size: 'lg',
@@ -210,7 +211,12 @@ export class CandidateReviewModalComponent implements OnInit {
 				backdrop: 'static',
 				keyboard: false
 			});
-			if(this.childForm.value.skillSet &&this.childForm.value.skillSet.skills){
+			});
+			if(this.childForm.value.educationExp.experience===''){
+			this.childForm.value.educationExp.experience=0;
+			
+			}
+			if(this.childForm.value.skillSet &&this.childForm.value.skillSet.skills.length !==0){
 				this.childForm.controls.skillSet.value.skills = this.childForm.controls.skillSet.value.skills.filter(function(a,b){ return !Number.isNaN(a) });
 				if(!this.childForm.value.skillSet.skills || !this.childForm.value.skillSet.skills.length || this.childForm.value.skillSet.skills.length ==0){
 					var temFilter =this.childForm.value.skillSet.hands_on_experience.map(function(a,b){ return a.skill_id });
@@ -585,6 +591,7 @@ export class CandidateReviewModalComponent implements OnInit {
 		this.skills = false;
 		this.programming_skills = false;
 		this.other_skills = false;
+		this.certificationBoolean = false;
 		this.clients_worked = false;
 		this.criteriaModalRef.close();
 	}
@@ -618,6 +625,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	**/
 	
 	onOpenCriteriaModal = (value) => {
+	    this.certificationBoolean = false;
 		if(value=='jobtype'){
 			this.jobtype = true;
 		}else if(value=='end_to_end_implementation'){
@@ -1131,17 +1139,35 @@ export class CandidateReviewModalComponent implements OnInit {
 	}
 	
 	/**
+	**	To create a new reference
+	**/
+	
+	checkref(index){
+		var validRegex =/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+		var em = this.r.value[index]['email'];
+		if(em !== ''){
+		if(!em.match(validRegex)){
+			return false;
+		}else{
+			return true;
+		}
+		}else{
+		return true;
+		}
+}
+
+	/**
 	**	To add the preference
 	**/
 	
 	onDuplicateR = (index) => {
-		if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null ){
-		  
-		}else{
+		if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null || this.checkref(index)==false){
+		 
+	  }else{
 			this.r.push(this.formBuilder.group({
 				name: new FormControl(null),
-				email: new FormControl(''),
-				company_name: new FormControl(null)
+			email: [null,ValidationService.emailValidator],
+			company_name: new FormControl(null)
 			}));
 		}
 	}

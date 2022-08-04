@@ -6,8 +6,8 @@
 	<button (click)="onShowMatches($event)" id="matchBtnVal" class="matchBtn  btn-sm btn btn-fltr btn-light" [ngClass]="matchedElement ? 'btn-fltr-active' : ''" ><img src="assets/images/matchs-icon.png" width="16px"> Matches </button>
 	<button (click)="onShowMissing($event)" id="missBtnVal"  class="missBtn  btn-sm btn btn-fltr btn-light"  [ngClass]="missingElement ? 'btn-fltr-active' : ''"  ><img src="assets/images/missing-icon.png" width="15px" class="ml-0"> Missing </button>
 </div></div>
-<div class=" info-box">
-	<div class="col-lg-12 " [ngClass]="isMultipleMatches ? 'top-pad' : 'mt-3'">
+<div class="info info-box">
+	<div class="offset-lg-6">
 		<div class="accordion ">
 			<div class="pj-title "  *ngIf="!isMultipleMatches">
 				<h6 class="mb-0" >
@@ -117,7 +117,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
-					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
+					  <li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='0'">
@@ -205,6 +205,10 @@
                           {{jobInfo.employer_role_type}}
                         </span>
                         <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
+                          <i class="fas fa-times text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
+						<span *ngIf="missingElement && jobInfo.employer_role_type && !userInfo?.employer_role_type">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
@@ -339,7 +343,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
+                        <span *ngIf="(missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')) || (missingElement && userInfo?.education_degree.length ==0 && jobInfo.education.length>0)">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -542,7 +546,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
-					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
+					  <li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='1'">
@@ -630,6 +634,10 @@
                           {{jobInfo.employer_role_type}}
                         </span>
                         <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
+                          <i class="fas fa-times text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
+						<span *ngIf="missingElement && jobInfo.employer_role_type && !userInfo?.employer_role_type">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
@@ -764,7 +772,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
+                        <span *ngIf="(missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')) || (missingElement && userInfo?.education_degree.length ==0 && jobInfo.education.length>0)">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -969,7 +977,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
-					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
+					  <li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills=='2'">
@@ -1057,6 +1065,10 @@
                           {{jobInfo.employer_role_type}}
                         </span>
                         <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
+                          <i class="fas fa-times text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
+						<span *ngIf="missingElement && jobInfo.employer_role_type && !userInfo?.employer_role_type">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
@@ -1191,7 +1203,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
+                        <span *ngIf="(missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')) || (missingElement && userInfo?.education_degree.length ==0 && jobInfo.education.length>0)">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>
@@ -1399,7 +1411,7 @@
                           <p>--</p>
                         </ng-template>
                       </li>
-					  <li><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
+					  <li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
                 </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.programming_skills==''">
@@ -1487,6 +1499,10 @@
                           {{jobInfo.employer_role_type}}
                         </span>
                         <span *ngIf="missingElement && checkTypeValue(jobInfo.employer_role_type,userInfo?.employer_role_type,'missing')">
+                          <i class="fas fa-times text-danger "></i>
+							{{jobInfo.employer_role_type}}
+                        </span>
+						<span *ngIf="missingElement && jobInfo.employer_role_type && !userInfo?.employer_role_type">
                           <i class="fas fa-times text-danger "></i>
 							{{jobInfo.employer_role_type}}
                         </span>
@@ -1621,7 +1637,7 @@
                           <i class="fa fa-check text-green "></i>
                           {{jobInfo.education}}
                         </span>
-                        <span *ngIf="missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')">
+                        <span *ngIf="(missingElement && checkType(userInfo?.education_qualification,jobInfo.education,'missing')) || (missingElement && userInfo?.education_degree.length ==0 && jobInfo.education.length>0)">
                           <i class="fa fa-times text-danger "></i>
                           {{jobInfo.education}}
                         </span>

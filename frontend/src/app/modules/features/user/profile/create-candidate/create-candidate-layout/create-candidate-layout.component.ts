@@ -72,6 +72,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	public skils : any=[];
 	public candiatevalues :any;
 	public checkUpdateSkills : boolean =false;
+	public validationType:any;
+	
 	constructor(
 		private formBuilder: FormBuilder,
 		private modalService: NgbModal,
@@ -92,8 +94,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	
 	validateInfo = 0;
 	ngOnInit(): void {
+	
 	  this.screenWidth = window.innerWidth;	
-		 console.log({'Enter the oninit':'CreateCandidateLayoutComponent'})
+		// console.log({'Enter the oninit':'CreateCandidateLayoutComponent'})
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
@@ -125,7 +128,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
           }
         })
 		this.ngAfterViewInitCheck();
-		 console.log({'Exist the oninit':'CreateCandidateLayoutComponent'})
+		// console.log({'Exist the oninit':'CreateCandidateLayoutComponent'})
 	}
 	
 	validateOnAPI = 0;
@@ -136,7 +139,8 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	**/
 	
 	ngAfterViewInitCheck(){
-		console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
+	
+		//console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
 		if(this.tabInfos && this.tabInfos.length &&  !this.utilsHelperService.isEmptyObj(this.userInfo)) {
 				if (this.candidateForm.controls.educationExp !=undefined && this.userInfo && this.userInfo.education_qualification && Array.isArray(this.userInfo.education_qualification)) {
 					if(this.userInfo.education_qualification.length == 0){
@@ -234,14 +238,14 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				});
 			
 		}
-		console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
+		//console.log({'Exist the ngAfterViewInitCheck':'CreateCandidateLayoutComponent'})
 
 	}
 	ngAfterViewInit(): void {
-		console.log({'Enter the ngAfterViewInit':'CreateCandidateLayoutComponent'})
+		//console.log({'Enter the ngAfterViewInit':'CreateCandidateLayoutComponent'})
 		this.createFormData();
 		this.ngAfterViewInitCheck();
-		console.log({'Exist the ngAfterViewInit':'CreateCandidateLayoutComponent'})
+		//console.log({'Exist the ngAfterViewInit':'CreateCandidateLayoutComponent'})
 	}
 	/**
 	**	To buildForm for the profile
@@ -249,9 +253,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	createFormData(){
 		if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
 			this.candidateForm.addControl('jobPref', new FormGroup({
-				job_type: new FormControl(null, Validators.required),
+				job_type: new FormControl(null),
 				job_role: new FormControl(''),
-				willing_to_relocate: new FormControl(null, Validators.required),
+				willing_to_relocate: new FormControl(null),
 				preferred_location: new FormControl(null),
 				preferred_countries: new FormControl(null),
 				preferred_locations : new FormArray([this.formBuilder.group({
@@ -289,7 +293,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					year_of_completion: ['']
 				})]),
 				employer_role_type: new FormControl(null),
-				experience: new FormControl(''),
+				experience: new FormControl('', Validators.required),
 				sap_experience: new FormControl(''),
 				current_employer: new FormControl(''),
 				current_employer_role: new FormControl(''),
@@ -307,7 +311,38 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	**/
 	
 	onNext() {
-		//console.log({'Enter the onNext':'CreateCandidateLayoutComponent'})
+	
+		if(this.candidateForm.value.personalDetails.entry==true){
+		  this.validationType = {
+		'job_role': [Validators.required],
+		'job_type': [Validators.required],
+		'willing_to_relocate': [Validators.required],
+		'travel': [Validators.required],
+		'availability': [Validators.required],
+	      }
+		}else{
+		this.validationType = {
+		'experience': [Validators.required],
+		'sap_experience': [Validators.required],
+		'current_employer': [Validators.required],
+		'current_employer_role': [Validators.required],
+		'domains_worked': [Validators.required],
+		//'skill_id': [Validators.required],
+		//'exp_type': [Validators.required],
+		//'skills': [Validators.required],
+		'programming_skills': [Validators.required],
+		//'other_skills': [Validators.required],
+		'job_role': [Validators.required],
+        'job_type': [Validators.required],
+		'willing_to_relocate': [Validators.required],
+		'travel': [Validators.required],
+		'availability': [Validators.required],
+	}
+		
+		
+		
+		
+		}
 		if (this.slidingCounter != this.slindingList.length - 1) {
 			this.slidingCounter++;
 			setTimeout(() => {
@@ -352,23 +387,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		}
 	}
 
-	validationType = {
-		//'experience': [Validators.required],
-		//'sap_experience': [Validators.required],
-		//'current_employer': [Validators.required],
-		//'current_employer_role': [Validators.required],
-		//'domains_worked': [Validators.required],
-		//'skill_id': [Validators.required],
-		//'exp_type': [Validators.required],
-		//'skills': [Validators.required],
-		//'programming_skills': [Validators.required],
-		//'other_skills': [Validators.required],
-		//'job_role': [Validators.required],
-		'job_type': [Validators.required],
-		'willing_to_relocate': [Validators.required],
-		'travel': [Validators.required],
-		'availability': [Validators.required],
-	}
+	
 	
 	/**
 	**	To slide change the prevoius section
@@ -541,7 +560,15 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		response => {
 			
 			this.router.navigate(['/user/dashboard']).then(() => {
-				if(this.userInfo && this.userInfo.profile_completed == false){
+				/*if(this.userInfo && this.userInfo.profile_completed == false){
+				if(!response.matches && response.matches  !=true && response.matches !=false){
+					response= JSON.parse(response);
+				}
+				if(response.matches == true){
+					this.dataService.setMatchesCompletion();
+				}
+			}*/
+			if(this.userInfo){
 				if(!response.matches && response.matches  !=true && response.matches !=false){
 					response= JSON.parse(response);
 				}
@@ -549,7 +576,6 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					this.dataService.setMatchesCompletion();
 				}
 			}
-			//this.dataService.setMatchesCompletion();
           if(this.userInfo && (!this.userInfo.doc_resume || this.userInfo.doc_resume.length == 0)) {
             this.dataService.setProfileCompletion();
 			

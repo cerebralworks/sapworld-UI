@@ -1,6 +1,9 @@
 <ng-template #registerReviewModal let-modal>
 	<div class="modal-header">
 		<h5 class="modal-title" id="exampleModalLabel">{{"userProfile.profilePreview" | translate }}</h5>
+		<button (click)="onClickCloseBtn(false)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
     </div>
     <div class="modal-body" style="height:550px; overflow-x:hidden; overflow-y:scroll;">
 		<div class="row">
@@ -310,7 +313,7 @@
 				</div>
 				<div class="col-lg-8 col-md-8 matches-6  col-sm-8 info">
 					<ul class="list-group">
-						<li class="list-group-item text-uppercase" *ngIf="childForm?.value?.skillSet?.skills"> 
+						<li class="list-group-item text-uppercase" *ngIf="childForm?.value?.skillSet?.skills; else elsenullknw"> 
 							<ng-container *ngIf="childForm?.value?.skillSet?.skills.length; else elseSkillsTemplate">
 							<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id'); let last = last;">
 							<span class="knldge"  tooltipClass="my-custom-class"  container="body"   placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
@@ -323,8 +326,8 @@
 			data-target="#addCriteria">{{"shared.add" | translate }} </button>
 				</ng-template>
 						</li>
-						<ng-template *ngIf="!childForm?.value?.skillSet?.skills">
-							<<li class="list-group-item" >
+						<ng-template #elsenullknw>
+							<li class="list-group-item" >
 						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
 			data-target="#addCriteria">{{"shared.add" | translate }} </button></li>
 				</ng-template>
@@ -529,7 +532,7 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button  (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{"shared.edit" | translate }}   </button>
+		<button  (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{{"shared.close" | translate }}   </button>
 		<button type="button" class="btn btn-theme-blue btn-sm" (click)="onRedirectDashboard()">{{"shared.saveClose" | translate }} </button>
 	</div>
 </ng-template>
@@ -860,7 +863,7 @@
 			<button (click)="closeAdd()" type="button" class="btn btn-theme-orange">
 				{{"shared.close" | translate }} 
 			</button>
-			<button (click)="closeSave()" type="button" class="btn btn-theme-blue">
+			<button [disabled]="!r.valid" (click)="closeSave()" type="button" class="btn btn-theme-blue">
 				{{"shared.save" | translate }} 
 			</button>
 		</div>

@@ -171,8 +171,13 @@ export class JobPreviewComponent implements OnInit {
 	/**
 	**	To check status of the optional data's
 	**/
-	
 	checkValidator(){
+	    if(this.postJobForm.value.requirement.end_to_end_implementation===0){
+		this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['end_to_end_implementation'].setValidators(null);
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['end_to_end_implementation'].setValue('');
+			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['end_to_end_implementation'].updateValueAndValidity();
+		
+		}
 		if(!this.postJobForm?.value?.requirement?.education || this.postJobForm?.value?.requirement?.education=='' ){
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValidators(null);
 			this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['education'].setValue('');
@@ -336,6 +341,11 @@ export class JobPreviewComponent implements OnInit {
 	**/
 	
 	onRedirectDashboard(status) {
+	this.childForm.patchValue({
+			jobInfo: {
+				salary: this.childForm.controls.jobInfo.value.salary.toString(),
+			}
+		});
 		this.postJob.next(status);
 	}
 

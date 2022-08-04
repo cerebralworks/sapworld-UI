@@ -6,7 +6,9 @@ import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AmazingTimePickerService } from 'amazing-time-picker';
+import { environment as env } from '@env';
 @Component({
   selector: 'app-employer-shortlisted-candidate',
   templateUrl: './employer-shortlisted-candidate.component.html',
@@ -66,9 +68,18 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public historyRef: NgbModalRef;
 	@ViewChild("HistoryModel", { static: false }) HistoryModel: TemplateRef<any>;
 	public isResendURL: boolean = false;
+	public isSchedulediscuss: boolean = false;
+	public isMeetingLink: boolean = false;
 	public ResendRef: NgbModalRef;
+	public ScheduleMod: NgbModalRef;
+	public MeetingRef: NgbModalRef;
 	@ViewChild("ResendURLModel", { static: false }) ResendURLModel: TemplateRef<any>;
-
+	@ViewChild("ScheduleDiscuss", { static: false }) ScheduleDiscuss: TemplateRef<any>;
+	@ViewChild("MeetingLink", { static: false }) MeetingLink: TemplateRef<any>;
+	public meetingform: FormGroup;
+	public requestParam : any={};
+	public itime:any;
+	public userprofilepath: any;
 	constructor(
 		private employerService: EmployerService,
 		private modalService: NgbModal,
@@ -76,7 +87,9 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private location: Location,
-		private employerSharedService: EmployerSharedService
+		private employerSharedService: EmployerSharedService,
+		 private formBuilder: FormBuilder,
+		 private atp: AmazingTimePickerService 
 	) {
 		
 		this.route.queryParams.subscribe(params => {
@@ -100,6 +113,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	**/
 	 
 	ngOnInit(): void {
+		this.buildForm();
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
 				this.employeeValue =details;
@@ -261,6 +275,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.messagePopupValueStatus = '';
 		if (this.isCheckModel) {
 			this.messagePopupValue = item;
+			this.userprofilepath = `${env.apiUrl}/images/user/${item.user.photo}`;
 			if(item.status>=7){
 				var idValue = item.status-7;
 				if(item['job_posting']['screening_process'][idValue]){
@@ -435,14 +450,19 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				canceled: val.canceled,
 				rescheduled: val.rescheduled,
 				created: val.created,
-				invite_url: ''
+				invite_url: '',
+				name: val.name,
+				link: val.link,
+				interviewdate :val.interviewdate,
+				interviewtime : val.interviewtime,
+				zone :val.zone
 			  }
 			});
 			requestParams.application_status = item.application_status ;
 			if(values>=7){
 				var idValue = values-7;
 				if(item['job_posting']['screening_process'][idValue]){
-					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'views': false,'date': new Date(),'comments':' ','invite_url':'' };
+					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'views': false,'date': new Date(),'comments':' ','invite_url':''};
 					requestParams.application_status.push(datas);
 				}
 			}else{
@@ -452,6 +472,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 					requestParams.application_status.push(datas);
 				}
 			}
+			requestParams.apps = true;
 			this.employerService.shortListUser(requestParams).subscribe(
 				response => {
 					this.onGetShortListedJobs();
@@ -496,11 +517,11 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				invite_url: ''
 			  }
 			});
+			
 			requestParams.application_status = item.application_status ;
 			requestParams.application_status[requestParams.application_status.length-1]['invite_url'] =  this.inviteUrlLink ;
 			requestParams.application_status[requestParams.application_status.length-1]['invited'] =  new Date() ;
 			requestParams.application_status[requestParams.application_status.length-1]['views'] =  false ;
-			
 			this.employerService.shortListUser(requestParams).subscribe(
 				response => {
 					this.onGetShortListedJobs();
@@ -587,7 +608,77 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.statusVal = false;
 		this.inviteUrlLink = '';
 		this.onChangeStatus(item, values);
+		if(values > 6 || values ==1){
+		this.isSchedulediscuss = true;
+		this.requestParam.job_posting = item.job_posting.id;
+		this.requestParam.user =item.user.id;
+		this.requestParam.short_listed = true ;
+		this.requestParam.views = false ;
+		this.requestParam.status = values ;
+		this.requestParam.invite_status = false ;
+		this.requestParam.application_status = item.application_status ;
+		setTimeout(() => {
+		this.ScheduleMod = this.modalService.open(this.ScheduleDiscuss, {
+		  windowClass: 'modal-holder',
+		  centered: true,
+		  backdrop: 'static',
+		  keyboard: false
+		});
+	    },300);
+		}
+	}
+	
+	openYesSchedule(){
+		this.closeSchedule();
+		this.isMeetingLink = true;
+		setTimeout(() => {
+		this.MeetingRef = this.modalService.open(this.MeetingLink, {
+		  windowClass: 'modal-holder',
+		  centered: true,
+		  backdrop: 'static',
+		  keyboard: false
+		});
+		},300);
+	}
+	
+	/**
+	**	To open the meeting link popup 
+	**/
+	
+	openMeetingLinkPopup(item,value){
 		
+		this.isMeetingLink = true;
+		this.requestParam.job_posting = item.job_posting.id;
+		this.requestParam.user =item.user.id;
+		this.requestParam.short_listed = true ;
+		this.requestParam.views = false ;
+		this.requestParam.status = value ;
+		this.requestParam.invite_status = false ;
+		this.requestParam.application_status = item.application_status ;
+		
+		setTimeout(() => {
+		this.MeetingRef = this.modalService.open(this.MeetingLink, {
+		  windowClass: 'modal-holder',
+		  centered: true,
+		  backdrop: 'static',
+		  keyboard: false
+		});
+		},300);
+	}
+	
+	/* To close the schedule discussion popup*/
+	
+	closeSchedule(){
+		this.isSchedulediscuss = false;
+		this.ScheduleMod.close();
+	}
+	
+	/* To close the meeting link popup*/
+	
+	closemeeting(){
+		this.isMeetingLink = false;
+		this.meetingform.reset();
+		this.MeetingRef.close();
 	}
 	
 	/**
@@ -729,5 +820,72 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		}
 	}
 	
+/**
+  **	To build the meting form
+  **/
+  private buildForm(): void {
+    this.meetingform = this.formBuilder.group({
+	  interviewDate: ['',Validators.required],
+      interviewTime: ['',Validators.required],
+      timeZone: ['',Validators.required],
+      name: ['',Validators.required],
+      link: ['',Validators.required]
+    });
+  }
+  
+  
+  getTimeValue(e){
+  
+  var amazingTimePicker = this.atp.open({
+				changeToMinutes: true,
+			});
+  amazingTimePicker.afterClose().subscribe(time  => {
+	var a= time.split(':');
+	this.itime=time;
+  if(parseInt(a[0], 10) > 0 && parseInt(a[0], 10) <12){
+     var newtime =time+'AM';
+  }else if(parseInt(a[0], 10) > 12 && parseInt(a[0], 10) !=12){
+    var newtime=parseInt(a[0])-12+':'+a[1]+'PM';
+  }else if(a[0] ==='00'){
+  var newtime= '12:00AM';
+  
+  }else if(a[0] =='12'){
+  var newtime= '12:00PM';
+  
+  }
+ 
+  this.meetingform.controls['interviewTime'].setValue(newtime);
+  });
+  }
+  
+  /** To send the meeting link*/
+  
+  sendmeetinglink(){
+   
+	this.requestParam.application_status[this.requestParam.application_status.length-1] = {
+		      id: this.requestParam.application_status[this.requestParam.application_status.length-1].id,
+				status: this.requestParam.application_status[this.requestParam.application_status.length-1].status,
+				date: new Date(),
+				views: this.requestParam.application_status[this.requestParam.application_status.length-1].views,
+				comments: this.requestParam.application_status[this.requestParam.application_status.length-1].comments,
+				invite_url: '',
+				name: this.meetingform.value.name,
+				link: this.meetingform.value.link,
+				interviewdate : this.meetingform.value.interviewDate,
+				interviewtime : this.itime,
+				zone :this.meetingform.value.timeZone
 		
+	}
+	this.requestParam.apps = true;
+	this.requestParam.meeting_send = true;
+	if(this.meetingform.invalid){return}
+	this.employerService.shortListUser(this.requestParam).subscribe(
+				response => {
+					this.closemeeting();
+					this.meetingform.reset();
+					this.itime ='';
+				}
+					
+			);
+  }
 }

@@ -66,7 +66,7 @@ export class RegisterFormComponent implements OnInit {
       });
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 1) {
-        this.registerForm.get('companyName').setValidators([Validators.required]);
+        this.registerForm.get('companyName').setValidators([Validators.required,ValidationService.StartingEmptyStringValidator]);
         this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator, ValidationService.noFreeEmail]);
         this.registerForm.get('companyName').updateValueAndValidity();
       }else {
@@ -93,9 +93,23 @@ export class RegisterFormComponent implements OnInit {
   }
 
   register = () => {
-    this.isLoading = true;
-
-    if (this.registerForm.valid) {
+	this.registerForm.markAllAsTouched();
+	for (const key of Object.keys(this.registerForm.controls)) {
+			  if(this.registerForm.controls[key].invalid) {
+			  if(key==='password'){ 
+			  var pass: HTMLElement = document.getElementById('regpass');
+				pass.focus();
+				break;
+			  
+			  }else{
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+				}
+			 }
+		  }
+    if (this.registerForm.valid && this.registerForm.value.isAgreed===true) {
+	  this.isLoading = true;
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 0) {
         this.registerUser();
@@ -164,12 +178,13 @@ export class RegisterFormComponent implements OnInit {
   private buildForm(): void {
     this.registerForm = this.formBuilder.group({
       //firstName: ['', Validators.required],
-	  firstName: ['', Validators.compose([Validators.required,ValidationService.emptyStringValidator,Validators.minLength(3)])],
+	  firstName: ['', Validators.compose([Validators.required,ValidationService.StartingEmptyStringValidator,Validators.minLength(3)])],
       lastName: ['', [Validators.required,ValidationService.emptyStringValidator]],
+	  companyName: [''],
       email: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
-      companyName: [''],
-      isAgreed: [false]
+      
+      isAgreed: ['',Validators.required]
     });
   }
 

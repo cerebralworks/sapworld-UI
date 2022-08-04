@@ -21,7 +21,7 @@ export class ResumeModalComponent implements OnInit {
   public mbRef: NgbModalRef;
   public resumeModalSub: Subscription;
   @ViewChild("resumeModal", { static: false }) resumeModal: TemplateRef<any>;
-  public links :any;
+
   constructor(
     private modalService: NgbModal,
     public router: Router,
@@ -30,6 +30,7 @@ export class ResumeModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
   }
 
   /**
@@ -37,7 +38,7 @@ export class ResumeModalComponent implements OnInit {
   **/
   ngAfterViewInit(): void {
     if (this.toggleResumeModal) {
-	   this.ngxLoader.start();
+	     this.ngxLoader.start();
       this.mbRef = this.modalService.open(this.resumeModal, {
         windowClass: 'modal-holder',
         centered: true,

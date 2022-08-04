@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output,ChangeDetectorRef} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { tabInfo, tabProgressor } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -34,11 +34,11 @@ export class CreateCandidateFooterComponent implements OnInit {
 	public btnType: string;
 	isOpenedRegisterReviewModal: any;
 	public requestParams: any;
-	
 	constructor(
 		private userSharedService: UserSharedService,
 		private SharedAPIService: SharedApiService,
-		private dataService: DataService
+		private dataService: DataService,
+		private ref:ChangeDetectorRef
     ) { }
 	
 	/**
@@ -74,12 +74,86 @@ export class CreateCandidateFooterComponent implements OnInit {
 	}
 	
 	/**
+	To scroll to error
+	**/
+	scrollTo(el: Element): void {
+	   if (el) {
+		  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	   }
+    }
+
+	
+	/**
 	**	click the next section
 	**/
 	
 	onNext = () => {
+	    this.createCandidateForm.markAllAsTouched();
 		this.btnType = 'next';
-		this.onTabChange();
+		
+		if(this.currentTabInfo.tabNumber == 1 ){
+			for (const key of Object.keys(this.createCandidateForm.controls.personalDetails['controls'])) {
+			  if(this.createCandidateForm.controls.personalDetails['controls'][key].invalid) {
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				if(key==='clients_worked'){
+				var a:HTMLElement = document.getElementById('clients_works');
+				a.focus();
+				}else if(key==='language_known'){
+				var b:HTMLElement= document.querySelector('[formcontrolname="language"]');
+				this.scrollTo(b);
+				}else if(key==='visa_type'){
+				  var v:HTMLElement = document.getElementById('visaType');
+				  v.focus();
+				}
+				
+				invalidControl.focus();
+				break;
+			 }
+		  }
+		  if(this.createCandidateForm.controls.personalDetails.valid || this.checkref() ===true){
+		  this.onTabChange();
+		  }
+		}
+		else if(this.currentTabInfo.tabNumber == 2){
+		for (const key of Object.keys(this.createCandidateForm.controls.educationExp['controls'])) {
+			  if(this.createCandidateForm.controls.educationExp['controls'][key].invalid) {
+			  if(key==='domains_worked'){
+			    var b:HTMLElement=document.querySelector('.ngx-select__search');
+			    b.focus();
+				}
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+			 }
+		  }
+		  if(this.createCandidateForm.controls.educationExp.valid && this.createCandidateForm.value.personalDetails.entry ===true){
+		  this.onTabChange();
+		  }else if(this.createCandidateForm.controls.educationExp.valid && this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience < this.createCandidateForm.controls.educationExp.value.experience)){
+		  this.onTabChange();
+		  }
+		}else if(this.currentTabInfo.tabNumber == 3){
+		  for (const key of Object.keys(this.createCandidateForm.controls.skillSet['controls'])) {
+			  if(this.createCandidateForm.controls.skillSet['controls'][key].invalid) {
+			   console.log(key);
+			    if(key==='programming_skills'){
+				
+				  var a:HTMLElement = document.getElementById('pskills');
+				  a.focus();
+				
+				}else if(key==='hands_on_experience'){
+				  var e:HTMLElement = document.querySelector('[formcontrolname="experience"]');
+				  e.focus();
+				}
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+			 }
+		  }
+		  if(this.createCandidateForm.controls.skillSet.valid){
+		  this.onTabChange();
+		  }
+		}
+		//this.onTabChange();
 	}
 	
 	/**
@@ -167,6 +241,23 @@ export class CreateCandidateFooterComponent implements OnInit {
 	**/
 	
 	onToggleRegisterReview = (status) => {
+	if(this.currentTabInfo.tabNumber == 4){
+	    this.createCandidateForm.markAllAsTouched();
+		var a:HTMLElement=document.getElementById('errjobtype');
+		if(this.createCandidateForm.value.jobPref.job_type==null){
+		  a.style.display = "block";
+		  this.scrollTo(a);
+		}else{
+			a.style.display = "none";
+		}
+		for (const key of Object.keys(this.createCandidateForm.controls.jobPref['controls'])) {
+			  if(this.createCandidateForm.controls.jobPref['controls'][key].invalid) {
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+			 }
+		  }
+		}
 		if(this.checValue()){
 			if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >= this.createCandidateForm.value.educationExp.sap_experience ) {
 				console.log('true')
@@ -199,7 +290,6 @@ export class CreateCandidateFooterComponent implements OnInit {
 	**/
 	
 	checValue(){
-
 		if(this.createCandidateForm.value.personalDetails['entry']==false){
 			for(let i=0;i<this.createCandidateForm.value.skillSet['hands_on_experience']['length'];i++){
 			this.index=i;
@@ -245,5 +335,22 @@ export class CreateCandidateFooterComponent implements OnInit {
 		return errors;
 	}
 
+/**
+	**	To check reference email validation
+	**/
+	
+	
+checkref(){
+	if(this.createCandidateForm.controls.personalDetails.value.reference[0].email == ''){
+		return true;
+	}
+	else if(this.createCandidateForm.controls.personalDetails.value.reference[0].email !==null){
+		var validRegex =/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+		var em = this.createCandidateForm.controls.personalDetails.value.reference[0].email;
+		if(!em.match(validRegex)){
+			return false;
+		}
+		}
+}
 
 }

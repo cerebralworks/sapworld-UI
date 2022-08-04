@@ -6,7 +6,7 @@
         <div class=" form-group">
           <label>{{"userProfile.degree" | translate }} </label>
           <select (change)="onChangeDegreeValue($event?.target?.value, i)" formControlName="degree" class="form-control text-capitalize">
-            <option [value]="''">{{"shared.select" | translate }} {{"userProfile.degree" | translate }}
+            <option [value]="''" disabled>{{"shared.select" | translate }} {{"userProfile.degree" | translate }}
             </option>
             <ng-container *ngFor="let education of educations; let i = index">
               <option [style.display]="educationsSelectedArrayCheck(education,ticket) ? 'none' : 'block'" [value]="education">
@@ -83,7 +83,7 @@
       <div class=" form-group">
         <label>{{"userProfile.roleType" | translate }}</label>
           <select formControlName="employer_role_type" class="form-control text-capitalize">
-              <option value=''>Select Role Type</option>
+              <option  value=null disabled>Select Role Type</option>
               <option  value="Technical">Technical</option>
               <option  value="Functional">Functional</option>
               <option  value="Technofunctional">Technofunctional</option>

@@ -20,7 +20,7 @@ import { DayService, WeekService, WorkWeekService,PrintService, MonthService,Pop
 import { extend, Internationalization } from '@syncfusion/ej2-base';
 
 import {    ScheduleComponent, ScheduleModel,EventRenderedArgs, ActionEventArgs } from "@syncfusion/ej2-angular-schedule";
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-calendar',
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService,PrintService],
@@ -38,7 +38,8 @@ export class CalendarComponent implements OnInit {
 	public currentView: View = 'Agenda';
 	public appliedJobs: any[] = [];	
 	public createCompanyForm: FormGroup;
-	public currentTabInfo: tabInfo = {tabNumber: 2, tabName: 'inviteLink'};
+	//public currentTabInfo: tabInfo = {tabNumber: 2, tabName: 'inviteLink'};
+	public currentTabInfo: tabInfo = {tabNumber: 3, tabName: 'calender'};
 	public employerDetails: any;
 	//TooltipLabel = TooltipLabel;
 	public companyProfileInfo: any;
@@ -556,7 +557,7 @@ export class CalendarComponent implements OnInit {
 		if (!args.element || !categoryColor) {
 		  return;
 		}
-		let btn: HTMLElement = document.createElement('button');
+		/*let btn: HTMLElement = document.createElement('button');
 			if(date1 > date2){
 			btn.innerHTML  = "Send meeting link";
 			}
@@ -566,7 +567,7 @@ export class CalendarComponent implements OnInit {
 				if(date1 > date2){
 					formElement111.append(btn);
 				}
-		   }
+		   }*/
 		  args.element['firstChild']['style']['borderLeftColor'] = categoryColor;
 		  if(args.element.className.includes('e-agenda-item')){
 			  
@@ -614,7 +615,7 @@ export class CalendarComponent implements OnInit {
 	**/
 	
 	insertCalendarDetails(){
-		if(this.appliedJobs && this.appliedJobs['length'] && this.appliedJobs['length']!=0){
+		/*if(this.appliedJobs && this.appliedJobs['length'] && this.appliedJobs['length']!=0){
 			var tempArray=[];
 			for(let i=0;i<=this.appliedJobs.length-1;i++){
 				var ArrayValue = this.appliedJobs[i];
@@ -659,9 +660,7 @@ export class CalendarComponent implements OnInit {
 								}
 								
 								if(ArrayValue['status'] === ArrayResource['status']  && !ArrayResource['rescheduled'] && !ArrayResource['canceled'] && ArrayValueEvents['length']-1 == j ){
-									//tempDescription += '<h6> <strong>Reschedule Meeting : </strong><a href="'+ArrayValue['reschedule_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
-									//tempDescription += '<h6> <strong>Cancel Meeting : </strong><a href="'+ArrayValue['cancel_url']+'" target="_blank" rel="noopener noreferrer"> click here </a></h6> </br>';
-									//CategoryColor = "#008000";
+									
 								}
 								
 								if(ArrayResource['canceled']){
@@ -728,7 +727,69 @@ export class CalendarComponent implements OnInit {
 				}
 			};
 			
-		}
+		}*/
+		
+		if(this.appliedJobs && this.appliedJobs['length'] && this.appliedJobs['length']!=0){
+			var tempArray=[];
+			for(let i=0;i<=this.appliedJobs.length-1;i++){
+				
+				var ArrayValue = this.appliedJobs[i];
+				var ArrayValueEvents = this.appliedJobs[i]['application_status'];
+				if(ArrayValue && ArrayValueEvents && ArrayValueEvents['length'] &&ArrayValueEvents['length']!=0){
+					for(let j=0;j<=ArrayValueEvents['length']-1;j++){
+						var CategoryColor = "#008000";
+						var input1Date =  new Date();
+						var input2Date =  new Date();		
+						var ArrayResource = ArrayValueEvents[j];
+						if(ArrayResource['link']){
+							var dataValue = ArrayResource['link'] ;
+						
+								var tempStatus = ArrayResource['status'];
+								var titleUpper =ArrayValue['job_posting']['title'].toUpperCase();
+								var statusUpper = tempStatus.toUpperCase();
+								var names =  ArrayValue['user']['first_name']+' '+ ArrayValue['user']['last_name'];
+								var tempDescription= '<h6> <strong>Title : </strong>Meeting Invitation details</h6> </br>';
+								input2Date =  new Date(ArrayResource['interviewdate']);
+								var a = input2Date.toDateString()+' '+ArrayResource['interviewtime'];
+								var shortTime = new Date(a).toLocaleTimeString([], {timeStyle: 'short'});
+									if (input1Date > input2Date && input1Date.getTime() > new Date(a).getTime()){
+										CategoryColor = "green";
+									}else{
+										CategoryColor = "blue";
+									}
+					
+									
+											if(dataValue.includes('www')){		
+												
+												tempDescription += '<h6><strong>Applicant Name : </strong><span style="color:blue;">'+names+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+											}else{
+												
+												tempDescription += '<h6><strong>Applicant Name : </strong><span style="color:blue;">'+names+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+											}
+								
+								var tempTitle= ArrayValue['job_posting']['title']+' - '+tempStatus;
+								tempTitle=tempTitle.toUpperCase();
+								var tempInsertData = {
+									'Id':j,
+									'Subject':tempTitle,
+									'StartTime':a.toLocaleString(),
+									'EndTime':a.toLocaleString(),
+									'CategoryColor':CategoryColor,
+									'Description':tempDescription
+								}
+								tempArray.push(tempInsertData);
+								
+							}
+							
+						}
+					}
+				}
+			}
+			
+			  this.eventSettings = { dataSource:tempArray};
+			
+	
+		
 	}
 	
 	/**
@@ -736,7 +797,7 @@ export class CalendarComponent implements OnInit {
 	** Editor popup and the QuickInfo popup
 	**/
 	
-	onPopupOpen(args: PopupOpenEventArgs): void {
+	/*onPopupOpen(args: PopupOpenEventArgs): void {
 		
 		if (args.type === 'Editor') {
 			let formElement: HTMLElement = <HTMLElement>args.element.querySelector('.e-all-day-time-zone-row');
@@ -829,7 +890,7 @@ export class CalendarComponent implements OnInit {
 			formElementHeader.style.backgroundColor = args.data.CategoryColor;
 		}
 		
-	}
+	}*/
 	
 	/**
 	** To checking save 
@@ -899,8 +960,8 @@ export class CalendarComponent implements OnInit {
 	**/
 	
 	getUserDetailsData(){
-		
-		var emailData = { 'email' : this.employerDetails.email ? this.employerDetails.email.toLowerCase() : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		/*var adminemail =`${env.adminEmail}`;
+		var emailData = { 'email' : adminemail,'organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
 		this.accountService.userCalendlyDetailsGet(emailData,this.loggedUserInfo).subscribe(
 			response => {
 				if(response && response.collection && response.collection.length ){
@@ -910,7 +971,7 @@ export class CalendarComponent implements OnInit {
 			}, error => {
 				console.log(error);
 			}
-		)
+		)*/
 	}
 	
 	/**
@@ -919,8 +980,7 @@ export class CalendarComponent implements OnInit {
 	**/
 	
 	getEventDetails(){
-		
-		var emailData = { 'user' : this.calendlyInfo['user']['uri'] ? this.calendlyInfo['user']['uri'] : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
+		/*var emailData = { 'user' : this.calendlyInfo['user']['uri'] ? this.calendlyInfo['user']['uri'] : '','organization': 'https://api.calendly.com/organizations/'+this.loggedUserInfo['ORGANIZATION_ID'] } ;
 		this.accountService.userCalendlyDetailsEventGet(emailData,this.loggedUserInfo).subscribe(
 			response => {
 				console.log(response);
@@ -935,7 +995,7 @@ export class CalendarComponent implements OnInit {
 			}, error => {
 				console.log(error);
 			}
-		)
+		)*/
 	}
 	
 	
