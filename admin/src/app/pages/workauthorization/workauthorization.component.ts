@@ -70,7 +70,7 @@ dtElement:  DataTableDirective;
 		this.requestParams.status = 1;
     this.dtOption = {
         "searching": false,
-        processing : true,
+        processing : false,
 				"info": false,
 				serverSide: true,
 				deferRender: true,
@@ -78,8 +78,13 @@ dtElement:  DataTableDirective;
     
 				"dom": '<"top"i>rt<"bottom"flp><"clear">',
       ajax:  (dataTablesParameters: any, callback) => {
-          this.pages = parseInt(dataTablesParameters.start)/dataTablesParameters.length;
-          this.pages++;
+          if(this.valUpd && dataTablesParameters.start == 0 ){
+			this.pages = this.pages;
+			dataTablesParameters.start = this.pages;
+		}else{
+			this.pages = parseInt(dataTablesParameters.start)/dataTablesParameters.length;
+			this.pages++;
+		}
 					this.limit = dataTablesParameters.length;
 					var cloumns =dataTablesParameters.order[0].column;
 					this.column = dataTablesParameters.columns[cloumns]["data"];
@@ -314,6 +319,10 @@ this.es.postWorkauth(arraryval).subscribe(data=>{
   this.addWA.reset();
   this.ref.detectChanges();
   this.rerender()
+  setTimeout(() => {
+  this.show = false;
+  this.ref.detectChanges()
+}, 1000);
 },error=>{
   this.err = error['error'].meesage;
 			//console.log(this.err)

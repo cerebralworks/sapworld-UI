@@ -23,7 +23,7 @@ import { AuthService } from '@modules/auth/_services/auth.service';
 import { AccountService } from '@data/service/account.service';
 import { EmployerService } from '@data/service/employer.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     0
   );
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-
+  public adminprofilepath:any;
   constructor(
     private accountService: AccountService,
 		private employerService: EmployerService,
@@ -162,6 +162,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 		let requestParams: any = {};
 		this.employerService.getCompanyProfileInfo(requestParams).subscribe(
 			(response: any) => {
+				this.adminprofilepath = `${env.apiPath}/images/admin/${response.details.photo}`;
 				this.ref.detectChanges();
 				this.companyProfileInfo = { ...response.details };
 				this.companyProfileInfo['meta'] = response.meta;

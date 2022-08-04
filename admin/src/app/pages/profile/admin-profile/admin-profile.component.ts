@@ -2,7 +2,7 @@ import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/services/utils-helper.service';
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-admin-profile',
   templateUrl: './admin-profile.component.html',
@@ -25,7 +25,7 @@ export class AdminProfileComponent implements OnInit {
 	public validateSubscribe: number = 0;
 	public randomNum: number;
 	public privacyProtection: any;
-
+	public adminprofilepath:any;
 	constructor(
 		private employerService: EmployerService,
 		private ref: ChangeDetectorRef,
@@ -76,6 +76,7 @@ export class AdminProfileComponent implements OnInit {
 		let requestParams: any = {};
 		this.employerService.getCompanyProfileInfo(requestParams).subscribe(
 			(response: any) => {
+				this.adminprofilepath = `${env.apiPath}/images/admin/${response.details.photo}`;
 				this.companyProfileInfo = { ...response.details };
 				this.companyProfileInfo['meta'] = response.meta;
 				this.ref.detectChanges();

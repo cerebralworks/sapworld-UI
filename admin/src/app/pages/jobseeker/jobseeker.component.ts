@@ -47,7 +47,7 @@ export class JobSeekerComponent implements OnInit {
 		this.paramsEmployee['view'] ='all';
 		this.dtOptionsss = {
 			pageLength: this.limit,
-			processing: true,
+			processing: false,
 			"searching": false,
 			"info": false,
 			serverSide: true,

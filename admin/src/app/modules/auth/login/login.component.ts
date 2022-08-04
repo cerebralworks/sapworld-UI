@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       this.isLoading = true;
       let userCredentials = this.loginForm.value;
+	  userCredentials.roles = 2;
       userCredentials.username = userCredentials.username.toLowerCase();
       const loginSubscr = this.accountService.login(userCredentials)
       .pipe(first())

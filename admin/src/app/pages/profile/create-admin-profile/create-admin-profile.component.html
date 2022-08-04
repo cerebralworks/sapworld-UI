@@ -91,7 +91,7 @@
           <div class="upload-box">
             <div class="box text-center upload-image">
               <img *ngIf="(defaultProfilePic || employerDetails?.photo !='default.png')"
-                [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : employerDetails?.meta?.photo?.path+'/'+ employerDetails?.meta?.photo?.folder+'/'+employerDetails?.meta?.photo?.sizes?.medium+'/'+employerDetails?.photo+'?v='+ randomNum"
+                [src]="defaultProfilePic ? convertToImage(defaultProfilePic) : adminprofilepath"
                 alt="upload-photo" class="img-fluid mx-auto rounded-circle border border-primary"
                 style="width:150px;height:150px;">
               <input  *ngIf="!defaultProfilePic && employerDetails?.photo =='default.png'" [style.top]="(defaultProfilePic || employerDetails?.photo) ? '0px' : '0px'" type="file" class="upload-input" #companyImage
@@ -192,7 +192,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="1 / 1"
         [autoCrop]="true" [resizeToWidth]="295" format="png" (imageCropped)="imageCropped($event)"
         (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed($event)">
       </image-cropper>

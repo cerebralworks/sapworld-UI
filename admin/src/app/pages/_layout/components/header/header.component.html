@@ -16,7 +16,7 @@
 					<li class="dropdown">
 						<a class="nav-link dropdown-toggle nav-user" ngbDropdownToggle style="cursor:pointer;">
 							<span class="account-user-avatar" *ngIf="companyProfileInfo?.photo"> 
-								<img (error)="updateUrl($event)" src="companyProfileInfo?.photo" [src]="companyProfileInfo?.photo ? (companyProfileInfo?.meta?.photo?.path+'/'+ companyProfileInfo?.meta?.photo?.folder+'/'+companyProfileInfo?.meta?.photo?.sizes?.medium+'/'+companyProfileInfo?.photo)+'?v='+ randomNum: 'assets/img/user-avatar-01.png'" class="rounded-circle">
+								<img (error)="updateUrl($event)" src="companyProfileInfo?.photo" [src]="companyProfileInfo?.photo ? adminprofilepath: 'assets/img/user-avatar-01.png'" class="rounded-circle">
 							</span>
 							<span class="account-user-name">{{companyProfileInfo?.first_name }} {{companyProfileInfo?.last_name  }}</span>
 						</a>

@@ -12,7 +12,7 @@ import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
 import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-create-admin-profile',
   templateUrl: './create-admin-profile.component.html',
@@ -107,6 +107,8 @@ export class CreateAdminProfileComponent implements OnInit, DoCheck {
 	public companyProfileInfo: any;
 	public show: boolean = false;
 	public invalidMobile: boolean = false;
+	public fileExtension: any;
+	public adminprofilepath:any;
 	separateDialCode = false;
 	SearchCountryField = SearchCountryField;
 	CountryISO = CountryISO;
@@ -133,6 +135,7 @@ export class CreateAdminProfileComponent implements OnInit, DoCheck {
 		
 		this.employerService.profile().subscribe(
 			details => {
+				this.adminprofilepath = `${env.apiPath}/images/admin/${details.details.photo}`;
 				if (!this.utilsHelperService.isEmptyObj(details)) {
 					this.employerDetails = details['details'];
 					this.employerDetails['meta'] = details['meta'];
@@ -242,6 +245,7 @@ export class CreateAdminProfileComponent implements OnInit, DoCheck {
 	onUserPhotoUpdate = (callback = () => { }) => {
 		const formData = new FormData();
 		formData.append('photo', this.croppedFile, ((this.croppedFile.name) ? this.croppedFile.name : ''));
+		formData.append('extension', this.fileExtension);
 		this.employerService.photoUpdate(formData).subscribe(
 			response => {
 				callback();
@@ -391,11 +395,11 @@ export class CreateAdminProfileComponent implements OnInit, DoCheck {
 		if (files && files.length > 0) {
 			let fileToUpload = files.item(0);
 			let allowedExtensions = ["jpg", "jpeg", "png", "JPG", "JPEG"];
-			let fileExtension = files
+			this.fileExtension = files
 				.item(0)
 				.name.split(".")
 				.pop();
-			if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+			if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
 				return;
 			}
 			if (files.item(0).size > 3145728) {

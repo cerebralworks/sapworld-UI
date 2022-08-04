@@ -6,7 +6,7 @@
 				<div class="company-info">
 					<div class="media">
 						<div class="media-head" *ngIf="companyProfileInfo?.photo !='default.png'">
-							<img (error)="updateUrl($event)" src="companyProfileInfo?.photo" [src]="companyProfileInfo?.photo ? (companyProfileInfo?.meta?.photo?.path+'/'+ companyProfileInfo?.meta?.photo?.folder+'/'+companyProfileInfo?.meta?.photo?.sizes?.medium+'/'+companyProfileInfo?.photo)+'?v='+ randomNum: 'assets/img/user-avatar-01.png'">
+							<img (error)="updateUrl($event)" src="companyProfileInfo?.photo" [src]="companyProfileInfo?.photo ? adminprofilepath: 'assets/img/user-avatar-01.png'">
 						</div>
 						<div style="padding: 30px;" class="media-head" *ngIf="companyProfileInfo?.photo =='default.png'">
 						</div>

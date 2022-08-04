@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild} from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild, HostListener} from '@angular/core';
 import { EmployerService } from '@data/service/employer.service';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
@@ -176,7 +176,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		if(this.ShowJobTotal ==true || this.ShowJobAcive == true || this.ShowJobInActive == true){
 			this.dtOptions = {
 				pageLength: this.limit,
-				processing: true,
+				processing: false,
 				"searching": false,
 				"info": false,
 				serverSide: true,
@@ -246,7 +246,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		}	else{
 			this.dtOptions = {
 				pageLength: this.limit,
-				processing: true,
+				processing: false,
 				"searching": false,
 				"info": false,
 				serverSide: true,
@@ -696,4 +696,8 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		this.paramsEmployee['search'] =searchValue;
 		this.rerender();
 	}
+	@HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+	 window.history.forward();
+	 }
 }

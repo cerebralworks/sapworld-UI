@@ -75,8 +75,13 @@ export class SkillsComponent implements OnInit {
 			pageLength: this.limit,    
 			"dom": '<"top"i>rt<"bottom"flp><"clear">',
 			ajax:  (dataTablesParameters: any, callback) => {
-				this.pages = parseInt(dataTablesParameters.start)/dataTablesParameters.length;
-				this.pages++;
+				if(this.valUpd && dataTablesParameters.start == 0 ){
+					this.pages = this.pages;
+					dataTablesParameters.start = this.pages;
+				}else{
+					this.pages = parseInt(dataTablesParameters.start)/dataTablesParameters.length;
+					this.pages++;
+				}
 				this.limit = dataTablesParameters.length;
 				var cloumns =dataTablesParameters.order[0].column;
 				this.column = dataTablesParameters.columns[cloumns]["data"];
