@@ -12,7 +12,7 @@ export const environment = {
   eventUrl: 'https://api.calendly.com/event_types',
   adminEmail :'anand@cerebral-works.com',
   //serverUrl:`${baseUrl}:5003`,
-  serverUrl:'http://api.sapworld.io:5003',
+  serverUrl:'https://api.sapworld.io:5003',
   //apiUrl:`${baseUrl}:1339`,
   apiUrl:'https://api.sapworld.io:5003',
   adminUrl: `${baseAdminUrl}`,
