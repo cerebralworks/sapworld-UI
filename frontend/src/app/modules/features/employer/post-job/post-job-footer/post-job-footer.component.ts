@@ -124,6 +124,11 @@ export class PostJobFooterComponent implements OnInit {
 							this.scrollTo(invalidControl);
 							invalidControl.focus();
 							break;
+						}else if(key =='min' || key =='max'){
+							const invalidControl:HTMLElement=document.getElementById('timeError');
+							this.scrollTo(invalidControl);
+							const invalidControlTime: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+							invalidControlTime.focus();
 						}else{
 							const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
 							this.scrollTo(invalidControl);
@@ -133,7 +138,8 @@ export class PostJobFooterComponent implements OnInit {
 					}
 				}
 		}else if(this.timeError === true){
-			const invalidControl: HTMLElement = document.querySelector('[formcontrolname="min"]');
+			//const invalidControl: HTMLElement = document.querySelector('[formcontrolname="min"]');
+			const invalidControl:HTMLElement=document.getElementById('timeError');
 			this.scrollTo(invalidControl);
 			invalidControl.focus();
 		}else{
