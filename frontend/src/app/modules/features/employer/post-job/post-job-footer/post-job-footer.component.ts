@@ -31,6 +31,15 @@ export class PostJobFooterComponent implements OnInit {
 	}
 	
 	
+	/**
+	To scroll to error
+	**/
+	scrollTo(el: Element): void {
+	   if (el) {
+		  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	   }
+    }
+	
 	
 	
 	/**
@@ -112,10 +121,12 @@ export class PostJobFooterComponent implements OnInit {
 				  if (this.formgroup.controls[key].invalid){
 					  if(key =='job_locations'){
 							const invalidControl: HTMLElement = document.querySelector('[id="preferredLocation"]');
+							this.scrollTo(invalidControl);
 							invalidControl.focus();
 							break;
 						}else{
 							const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+							this.scrollTo(invalidControl);
 							invalidControl.focus();
 							break;
 							}
@@ -123,6 +134,7 @@ export class PostJobFooterComponent implements OnInit {
 				}
 		}else if(this.timeError === true){
 			const invalidControl: HTMLElement = document.querySelector('[formcontrolname="min"]');
+			this.scrollTo(invalidControl);
 			invalidControl.focus();
 		}else{
 			this.btnType = 'next';
@@ -130,27 +142,29 @@ export class PostJobFooterComponent implements OnInit {
 		}
 	}else if(this.currentTabInfo.tabNumber==2){
 	this.checksapExprience();
-	console.log(this.postJobForm.controls.requirement);
 		if(this.postJobForm.controls.requirement.invalid === true && this.sapExpError === false){
 			this.postJobForm.controls.requirement.markAllAsTouched();
 			this.formgroup = this.postJobForm.get('requirement') as FormGroup;
 			for (const key of Object.keys(this.formgroup.controls) ){
 				  if (this.formgroup.controls[key].invalid){
-				  console.log(key);
 				  if(key =='optinal_skills'){
 						const invalidControl: HTMLElement = document.querySelector('[id="optinal_skills"]');
+						this.scrollTo(invalidControl);
 						invalidControl.focus();
 						break;
 					}else if(key =='domain'){
 						const invalidControl: HTMLElement = document.querySelector('[class="ngx-select__search form-control ng-star-inserted"]');
+						this.scrollTo(invalidControl);
 						invalidControl.focus();
 						break;
 					}else if(key =='hands_on_experience'){
 						const invalidControl: HTMLElement = document.querySelector('[class="form-control ng-pristine ng-invalid ng-touched"]');
+						this.scrollTo(invalidControl);
 						invalidControl.focus();
 						break;
 					}else{
 						const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+						this.scrollTo(invalidControl);
 						invalidControl.focus();
 						break;
 						}
@@ -158,6 +172,7 @@ export class PostJobFooterComponent implements OnInit {
 				}
 		}else if(this.sapExpError === true){
 			const invalidControl: HTMLElement = document.querySelector('[formcontrolname="experience"]');
+			this.scrollTo(invalidControl);
 			invalidControl.focus();
 		}else{
 			this.btnType = 'next';
@@ -170,6 +185,7 @@ export class PostJobFooterComponent implements OnInit {
 			for (const key of Object.keys(this.formgroup.controls) ){
 				  if (this.formgroup.controls[key].invalid){
 						const invalidControl: HTMLElement = document.querySelector('[class="ngx-select__search form-control ng-star-inserted"]');
+						this.scrollTo(invalidControl);
 						invalidControl.focus();
 						break;
 					}
@@ -273,14 +289,7 @@ export class PostJobFooterComponent implements OnInit {
 		}
 		return tabName;
 	}
-	/**
-	To scroll to error
-	**/
-	scrollTo(el: Element): void {
-	   if (el) {
-		  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-	   }
-    }
+	
 	
 	/**
 	**	To enable the job preview model view
