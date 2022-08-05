@@ -92,6 +92,7 @@ export class AppComponent implements OnInit, OnDestroy {
       response => {
         this.loggedInResponse = response;
         if(this.loggedInResponse && (this.loggedInResponse.isLoggedIn == false)) {
+		  this.router.navigate(['/auth/login']);
           // this.validateCall = 0;
         }
         // this.getUserInfo();
