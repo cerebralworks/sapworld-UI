@@ -106,7 +106,8 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		this.userService.profileView(requestParams).subscribe(
 		response => {
 			if(response && response.details) {
-				response['details']['skillses'] = response['details']['skills']
+				//response['details']['skillses'] = response['details']['skills']
+				response['details']['skillses'] = this.utilsHelperService.differenceByPropValArray(response['details']['skills'], response['details'].hands_on_experience, 'skill_id')
 				this.userInfo = {...response.details, meta: response.meta};
 				this.userDetails = response.details;
 				this.onGetPostedJobs();
@@ -211,6 +212,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 											}
 											temp[j]['score']=parseFloat(temp[j]['score'].toFixed(1));
 											this.TotalMatchJobs.push(temp[j]);
+											response['count'][i]['skills']=this.utilsHelperService.differenceByPropValArray(response['count'][i]['skills'], response['count'][i]['hands_on_experience'], 'skill_id')
 											
 										}
 									}

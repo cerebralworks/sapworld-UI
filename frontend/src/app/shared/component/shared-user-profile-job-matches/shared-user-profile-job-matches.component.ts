@@ -82,7 +82,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 		  this.checkWrkAuth = true;
 		  }
 		})
-		//console.log(this.checkWrkAuth)
+		//console.log(this.postedJobsDetails)
 			  if(this.postedJobsDetails.match_select){
 				  this.postedJobsDetails.match_select.remote="false";
 				  this.postedJobsDetails.match_select.willing_to_relocate="false";
@@ -144,9 +144,7 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 							}
 						}
 				  }
-				  
-				  
-				  
+				   
 				  this.isShownRequiements = false;
 				  this.isOtherRequired = false;
 				  this.isOtherNice = false;
@@ -163,13 +161,13 @@ export class SharedUserProfileJobMatchesComponent implements OnInit {
 					  for(let i=0;i<this.postedJobsDetails.others.length;i++){
 						  var id = this.postedJobsDetails.others[i]['id'];
 						  if(this.isShownRequiements == false){
-							  if(this.postedJobsDetails.match_select[id] =='0'){
+							  if(this.postedJobsDetails.match_select[id] =='0' && this.postedJobsDetails.others[i]['value'] ==true){
 								  this.isOtherRequired = true;
-							  }if(this.postedJobsDetails.match_select[id] =='2'){
+							  }if(this.postedJobsDetails.match_select[id] =='2' && this.postedJobsDetails.others[i]['value'] ==true){
 								  this.isOtherNice = true;
-							  }if(this.postedJobsDetails.match_select[id] =='1'){
+							  }if(this.postedJobsDetails.match_select[id] =='1' && this.postedJobsDetails.others[i]['value'] ==true){
 								  this.isOtherDesired = true;
-							  }if(this.postedJobsDetails.match_select[id] ==''){
+							  }if(this.postedJobsDetails.match_select[id] =='' && this.postedJobsDetails.others[i]['value'] ==true){
 								  this.isOtherOptional = true;
 							  }
 						  }else{

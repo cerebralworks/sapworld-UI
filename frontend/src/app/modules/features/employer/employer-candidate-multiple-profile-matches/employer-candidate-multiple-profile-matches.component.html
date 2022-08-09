@@ -43,7 +43,7 @@
 			<div class="row">
 				<div class="col-xl-12 col-lg-12 col-md-6">										
 					<div class="match-details">										
-						<app-shared-user-profile-job-matches [isMultipleMatches]="true" [fieldsExclude]="{clients_worked: true, job_role: true, willing_to_relocate: true}" [userInfo]="userInfo" [postedJobsDetails]="matchingJob?.jobs"></app-shared-user-profile-job-matches>
+						<app-shared-user-profile-job-matches [isMultipleMatches]="false" [fieldsExclude]="{clients_worked: true, job_role: true, willing_to_relocate: true}" [userInfo]="userInfo" [postedJobsDetails]="matchingJob?.jobs"></app-shared-user-profile-job-matches>
 					</div>	
 					<div id="carouselProfile" class="carousel slide" data-interval="false" data-ride="carousel" >
 					  <!--PrevNext-->
@@ -113,7 +113,7 @@
 				<div class="ee-scorebox text-uppercase">{{"shared.score" | translate}}<h4>{{matchingJob?.jobs.score ? matchingJob?.jobs.score :0}}/10</h4></div>
 			</div>
 		</div>			
-					<app-shared-job-profile-multiple-matches [jobInfo]="matchingJob?.jobs"  [isMultipleMatches]="isMultipleMatches" 
+					<app-shared-job-profile-multiple-matches [jobInfo]="matchingJob?.jobs"  [isMultipleMatches]="false" 
 					[missingElement]="missingElement" [matchedElement]="matchedElement"
 					[moreElement]="moreElement" [userInfo]="userInfo">
 					</app-shared-job-profile-multiple-matches>
