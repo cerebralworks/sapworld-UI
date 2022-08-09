@@ -32,6 +32,11 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 	public optional: boolean = false;
 	public nice: boolean = false;
 	public IsShown: boolean = false;
+	public isOtherRequired: boolean = false;
+	public isOtherOptional: boolean = false;
+	public isOtherNice: boolean = false;
+	public isOtherDesired: boolean = false;
+	
 	public educationItems = [
 		{  id:0, text: 'high school' },
 		{  id:1, text: 'diploma' },
@@ -132,11 +137,32 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 							}
 						}
 				  }
+				  this.isOtherRequired = false;
+				  this.isOtherNice = false;
+				  this.isOtherDesired = false;
+				  this.isOtherOptional = false;
 				  
 				  if(this.jobInfo.others && this.jobInfo.others.length){
 					  for(let i=0;i<this.jobInfo.others.length;i++){
 						  var id = this.jobInfo.others[i]['id'];
-						  this.jobInfo.match_select[id] = 'false';
+						 
+							  if(this.jobInfo.match_select[id] =='0' && this.jobInfo.others[i]['value'] ===true){
+								  this.isOtherRequired = true;
+							  }if(this.jobInfo.match_select[id] =='2' && this.jobInfo.others[i]['value'] ===true){
+								  this.isOtherNice = true;
+							  }if(this.jobInfo.match_select[id] =='1' && this.jobInfo.others[i]['value'] ===true){
+								  this.isOtherDesired = true;
+							  }if(this.jobInfo.match_select[id] =='' && this.jobInfo.others[i]['value'] ===true){
+								  this.isOtherOptional = true;
+							  }
+						  
+					  }
+				  }
+				  
+				  if(this.jobInfo.otherss && this.jobInfo.otherss.length){
+					  for(let i=0;i<this.jobInfo.others.length;i++){
+						  //var id = this.jobInfo.others[i]['id'];
+						 // this.jobInfo.match_select[id] = 'false';
 					  }
 				  }	
 				  
@@ -187,6 +213,7 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
   ngOnChanges(changes): void {
     setTimeout( async () => {
 		var arr = [];
+		console.log(this.jobInfo);
 		if(this.jobInfo){
 			  if(this.jobInfo.match_select){
 				Object.keys(this.jobInfo.match_select).forEach(key => {
@@ -205,6 +232,27 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 				}if(optionalFilter.length>0){
 					this.optional =true;
 				}
+				this.isOtherRequired = false;
+				  this.isOtherNice = false;
+				  this.isOtherDesired = false;
+				  this.isOtherOptional = false;
+				  
+				  if(this.jobInfo.others && this.jobInfo.others.length){
+					  for(let i=0;i<this.jobInfo.others.length;i++){
+						  var id = this.jobInfo.others[i]['id'];
+						 
+							  if(this.jobInfo.match_select[id] =='0' && this.jobInfo.others[i]['value'] ===true){
+								  this.isOtherRequired = true;
+							  }if(this.jobInfo.match_select[id] =='2' && this.jobInfo.others[i]['value'] ===true){
+								  this.isOtherNice = true;
+							  }if(this.jobInfo.match_select[id] =='1' && this.jobInfo.others[i]['value'] ===true){
+								  this.isOtherDesired = true;
+							  }if(this.jobInfo.match_select[id] =='' && this.jobInfo.others[i]['value'] ===true){
+								  this.isOtherOptional = true;
+							  }
+						  
+					  }
+				  }
 				
 			  }
 			  if(this.jobInfo.health_wellness && this.jobInfo.paid_off && this.jobInfo.office_perks){
@@ -584,6 +632,56 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 			return false;
 		}
 		return true;
+	}
+	
+	checkDataOthers(data,value){
+		  if(data == value){
+			  return true;
+		  }else{
+			return false;  
+		  }
+	  }
+	  
+	  checkValuesField(id,dataValue){
+		if(!this.jobInfo['otherss']){
+			if(dataValue=='no'){
+				return true
+			}else{
+				return false
+			}
+		}
+		if(id && this.jobInfo['otherss'] && this.jobInfo['otherss']['length']){
+			id = parseInt(id);
+			var temp = this.jobInfo['otherss'].filter(function(a,b){ return a.id ==id });
+			if(temp.length !=0){
+				if(temp[0]['value']){
+					if(temp[0]['value'].toLowerCase() ==dataValue.toLowerCase()){
+						return true
+					}else{
+						return false
+					}
+				}
+			}
+		}
+		if(dataValue == 'false'){
+			return true
+		}else{
+			return false
+		}
+		return false;
+	}
+	
+	checkValues(id){
+		if(id && this.jobInfo['otherss'] && this.jobInfo['otherss']&& this.jobInfo['otherss']['length']){
+			id = parseInt(id);
+			var temp = this.jobInfo['otherss'].filter(function(a,b){ return a.id ==id });
+			if(temp.length !=0){
+				if(temp[0]['value']){
+					return temp[0]['value']
+				}
+			}
+		}
+		return '--';
 	}
 	
 }

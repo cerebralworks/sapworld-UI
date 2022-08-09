@@ -425,6 +425,16 @@
 					</li>
 				</ul>
 			</div>
+			<div *ngIf="isOtherRequired">
+				<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
+					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'0')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >				
+					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span *ngIf="((matchedElement && !missingElement && checkValuesField(item?.id , 'no')) || (missingElement && !matchedElement && checkValuesField(item?.id , 'yes')))" ><a class="handsExp-color"> {{item?.title}} </a></span>
+						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
+					</li>
+				 </ul>
+			</div>
 		</div>
 		<div class="accordion" *ngIf="desired">
 			<div class="pj-title m-b-1">
@@ -843,7 +853,16 @@
 					</li>
 				</ul>
 			</div>
-			
+			<div *ngIf="isOtherDesired">
+				<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
+					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'1')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
+					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span *ngIf="((matchedElement && !missingElement && checkValuesField(item?.id , 'no')) || (missingElement && !matchedElement && checkValuesField(item?.id , 'yes')))" ><a class="handsExp-color"> {{item?.title}} </a></span>
+					  <span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
+					</li>
+				 </ul>
+			</div>
 		</div>
 		<div class="accordion" *ngIf="nice">
 			<div class="pj-title m-b-1" >
@@ -1262,6 +1281,17 @@
 						</ng-container> 
 					</li>
 				</ul>
+			</div>
+			<div *ngIf="isOtherNice">
+				<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
+					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'2')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
+					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span *ngIf="((matchedElement && !missingElement && checkValuesField(item?.id , 'no')) || (missingElement && !matchedElement && checkValuesField(item?.id , 'yes')))" ><a class="handsExp-color"> {{item?.title}} </a></span>
+						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
+						
+					</li>
+				 </ul>
 			</div>
 		</div>
 		<div class="accordion"  *ngIf="optional">
@@ -1683,6 +1713,16 @@
 						</ng-container> 
 					</li>
 				</ul>
+			</div>
+			<div *ngIf="isOtherOptional">
+				<ul class="list-group" *ngFor="let item of jobInfo?.others; let i=index">
+					<li class="otherpreff text-capitalize handsExp" *ngIf="checkDataOthers(jobInfo?.match_select[item?.id],'')" [ngClass]="(isMultipleMatches === true)?'min-handsExps':''"   >			  
+					  <span *ngIf="matchedElement && checkValuesField(item?.id , 'yes')" > <i class="fas fa-check text-green " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span *ngIf="missingElement && checkValuesField(item?.id , 'no')" > <i class="fas fa-times text-danger " ></i> {{checkValues(item?.id)}} <a class="handsExp-color"> {{item?.title}} </a> </span>
+					  <span *ngIf="((matchedElement && !missingElement && checkValuesField(item?.id , 'no')) || (missingElement && !matchedElement && checkValuesField(item?.id , 'yes')))" ><a class="handsExp-color"> {{item?.title}} </a></span>
+						<span  *ngIf="jobInfo?.is_job_applied == false && !missingElement "> <a class="handsExp-color"> {{item?.title}} </a> </span>
+					</li>
+				 </ul>
 			</div>
 	</div>
 </div>

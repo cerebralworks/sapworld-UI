@@ -228,7 +228,6 @@ export class SharedJobProfileMatchesComponent implements OnInit,OnChanges {
 		  this.checkWrkAuth = true;
 		  }
 		})
-		console.log(this.checkWrkAuth)
 			  if(this.jobInfo.match_select){
 				  this.jobInfo.match_select['remote']="false";
 				  this.jobInfo.match_select['willing_to_relocate']="false";
