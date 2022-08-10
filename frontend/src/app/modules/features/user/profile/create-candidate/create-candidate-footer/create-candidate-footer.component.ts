@@ -258,9 +258,9 @@ export class CreateCandidateFooterComponent implements OnInit {
 			 }
 		  }
 		}
+		
 		if(this.checValue()){
 			if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >= this.createCandidateForm.value.educationExp.sap_experience ) {
-				console.log('true')
 				if(this.createCandidateForm.value.personalDetails.authorized_country_select){
 				
 					if(this.createCandidateForm.value.personalDetails.authorized_country){
@@ -290,14 +290,16 @@ export class CreateCandidateFooterComponent implements OnInit {
 	**/
 	
 	checValue(){
+	   
 		if(this.createCandidateForm.value.personalDetails['entry']==false){
 			for(let i=0;i<this.createCandidateForm.value.skillSet['hands_on_experience']['length'];i++){
 			this.index=i;
 			
-			if(!this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['skill_id'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['experience'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['exp_type']){
+			if((!this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['skill_id'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['experience'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][this.index]['exp_type']) && this.createCandidateForm.value.skillSet['new_skills'].length===0){
 					return false;
 			}
 		}
+		
 			if( !this.createCandidateForm.value.personalDetails['clients_worked'] || !this.createCandidateForm.value.personalDetails['clients_worked']['length']|| this.createCandidateForm.value.personalDetails['clients_worked']['length']==0){
 				return false;
 			}if( !this.createCandidateForm.value.educationExp['domains_worked'] || !this.createCandidateForm.value.educationExp['domains_worked']['length']|| this.createCandidateForm.value.educationExp['domains_worked']['length']==0){

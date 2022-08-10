@@ -90,6 +90,9 @@
 				<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 1 ">
 					{{"userProfile.iNeedVisaAponsorship" | translate }}
 				</ul>
+				<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == null ">
+				--
+				</ul>
 			</div>
 		</div>
 	</div>

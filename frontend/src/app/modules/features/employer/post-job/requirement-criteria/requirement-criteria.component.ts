@@ -682,6 +682,14 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 						skills_Datas :null
 					}
 				});
+				
+				this.f.hands_on_experience.controls[0].get('experience').setValidators(null); 
+				this.f.hands_on_experience.controls[0].get('experience').updateValueAndValidity();
+				this.f.hands_on_experience.controls[0].get('skill_id').setValidators(null); 
+				this.f.hands_on_experience.controls[0].get('skill_id').updateValueAndValidity();
+				this.f.hands_on_experience.controls[0].get('exp_type').setValidators(null); 
+				this.f.hands_on_experience.controls[0].get('exp_type').updateValueAndValidity();
+				
 			}else{
 				this.errorShown = true;
 			}
@@ -696,6 +704,12 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	onRemoveOthers = (index) => {
 		if(index == 0 &&this.newskills.value.length==1) {
 			this.newskills.removeAt(index);
+			this.f.hands_on_experience.controls[0].get('experience').setValidators(Validators.required); 
+			this.f.hands_on_experience.controls[0].get('experience').updateValueAndValidity();
+			this.f.hands_on_experience.controls[0].get('skill_id').setValidators(Validators.required); 
+			this.f.hands_on_experience.controls[0].get('skill_id').updateValueAndValidity();
+			this.f.hands_on_experience.controls[0].get('exp_type').setValidators(Validators.required); 
+			this.f.hands_on_experience.controls[0].get('exp_type').updateValueAndValidity();
 		}else {
 			this.newskills.removeAt(index);
 		}
@@ -805,7 +819,9 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			this.skillsItems.push(temp[0]);
 		}
 		if(index == 0 &&this.t.value.length==1) {
-			this.t.reset();
+		this.t.controls[0]['controls']['experience'].reset();
+		this.t.controls[0]['controls']['skill_id'].reset();
+		this.t.controls[0]['controls']['skill_name'].reset();
 		}else {
 			this.t.removeAt(index);
 		}
