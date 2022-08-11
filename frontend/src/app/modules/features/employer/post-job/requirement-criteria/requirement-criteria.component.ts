@@ -301,6 +301,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
 			 if(this.childForm && this.getPostedJobsDetails) {
+			 console.log(this.getPostedJobsDetails);
 				if (this.childForm.value.requirement.optinal_skills != null) {
 					this.optinal_skills = this.childForm.value.requirement.optinal_skills;
 				}
@@ -341,7 +342,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 					this.childForm.get('requirement.experience').updateValueAndValidity();
 				}
 				
-				if (this.childForm.value.jobInfo.entry == true) {
+				if (this.childForm.value.jobInfo.entry == true && ( !this.childForm.value.requirement.hands_on_experience || !this.childForm.value.requirement.hands_on_experience.length || this.childForm.value.requirement.hands_on_experience==0  || ( this.childForm.value.requirement.hands_on_experience[0] && this.childForm.value.requirement.hands_on_experience[0]['experience'] =='' ))) {
 					if(this.t && this.t.length){
 						for(let i=0;i<=this.t.value.length;i++){
 							this.t.removeAt(0);
@@ -441,7 +442,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 					this.childForm.get('requirement.experience').updateValueAndValidity();
 				}
 				
-				if (this.childForm.value.jobInfo.entry == true) {
+				/*if (this.childForm.value.jobInfo.entry == true) {
 					if(this.t && this.t.length){
 						for(let i=0;i<=this.t.value.length;i++){
 							this.t.removeAt(0);
@@ -454,7 +455,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 						experience: [''],
 						exp_type: ['years']
 					}));
-				}
+				}*/
 				if(this.childForm.value.jobInfo.entry==true){
 					this.childForm.patchValue({
 						requirement : {
@@ -682,6 +683,14 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 						skills_Datas :null
 					}
 				});
+				
+				this.f.hands_on_experience.controls[0].get('experience').setValidators(null); 
+				this.f.hands_on_experience.controls[0].get('experience').updateValueAndValidity();
+				this.f.hands_on_experience.controls[0].get('skill_id').setValidators(null); 
+				this.f.hands_on_experience.controls[0].get('skill_id').updateValueAndValidity();
+				this.f.hands_on_experience.controls[0].get('exp_type').setValidators(null); 
+				this.f.hands_on_experience.controls[0].get('exp_type').updateValueAndValidity();
+				
 			}else{
 				this.errorShown = true;
 			}
@@ -696,6 +705,14 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	onRemoveOthers = (index) => {
 		if(index == 0 &&this.newskills.value.length==1) {
 			this.newskills.removeAt(index);
+			if(this.childForm.value.jobInfo.entry == false){
+			this.f.hands_on_experience.controls[0].get('experience').setValidators(Validators.required); 
+			this.f.hands_on_experience.controls[0].get('experience').updateValueAndValidity();
+			this.f.hands_on_experience.controls[0].get('skill_id').setValidators(Validators.required); 
+			this.f.hands_on_experience.controls[0].get('skill_id').updateValueAndValidity();
+			this.f.hands_on_experience.controls[0].get('exp_type').setValidators(Validators.required); 
+			this.f.hands_on_experience.controls[0].get('exp_type').updateValueAndValidity();
+			}
 		}else {
 			this.newskills.removeAt(index);
 		}
@@ -805,7 +822,9 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			this.skillsItems.push(temp[0]);
 		}
 		if(index == 0 &&this.t.value.length==1) {
-			this.t.reset();
+		this.t.controls[0]['controls']['experience'].reset();
+		this.t.controls[0]['controls']['skill_id'].reset();
+		this.t.controls[0]['controls']['skill_name'].reset();
 		}else {
 			this.t.removeAt(index);
 		}

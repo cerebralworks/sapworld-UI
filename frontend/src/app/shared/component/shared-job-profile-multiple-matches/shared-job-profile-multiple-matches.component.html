@@ -63,7 +63,7 @@
                    </li>
                </ul>
 			</div>
-			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='0' && jobInfo?.entry==false ">
+			<div class="  info-box" *ngIf="jobInfo.match_select?.hands_on_experience=='0'">
 				<ul class="list-group">
 					<li class="list-group-item handsExp text-uppercase" style="min-height: 48px;">
                       <ng-container *ngIf="jobInfo.hands_on_experience?.length; else elseHandsTemplate">

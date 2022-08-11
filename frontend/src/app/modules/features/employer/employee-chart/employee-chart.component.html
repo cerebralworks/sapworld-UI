@@ -373,7 +373,12 @@
 								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.shortlist}}</a>
 								  <a  *ngIf="item.shortlist ==0 "  style="cursor: no-drop;" > {{item.shortlist}}</a>
 								  </td>
-								  <td class="text-center"><a style="cursor: no-drop;">{{item.interviewed}}</a></td>
+								  
+								  <td class="text-center">
+								  <a *ngIf="item.interviewed !=0 " [routerLink]="['/employer/dashboard']"
+								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.interviewed}}</a>
+								  <a *ngIf="item.interviewed ==0 " style="cursor: no-drop;">{{item.interviewed}}</a>
+								  </td>
 								  <td class="text-center"><a *ngIf="item.hired !=0 " [routerLink]="['/employer/dashboard']"
 								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.hired}}</a>
 								  <a  *ngIf="item.hired ==0 "  style="cursor: no-drop;" > {{item.hired}}</a>

@@ -90,6 +90,9 @@
 				<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == 1 ">
 					{{"userProfile.iNeedVisaAponsorship" | translate }}
 				</ul>
+				<ul class="list-group ul-value" *ngIf="userInfo?.work_authorization == null ">
+				--
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -194,7 +197,7 @@
 		</ul>
 	</div>
 </div>	
-<div class="row"  *ngIf="!userInfo?.entry">
+<div class="row">
 	<div class="col-lg-4 col-md-4 matches-6 col-sm-4 caption">
 		<ul class="list-group">
 			<li class="list-group-item" style="min-height: 46px;">{{"userProfile.handsOnExperience" | translate }}</li>

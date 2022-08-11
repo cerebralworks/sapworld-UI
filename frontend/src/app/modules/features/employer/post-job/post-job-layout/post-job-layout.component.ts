@@ -571,20 +571,32 @@ export class PostJobLayoutComponent implements OnInit {
 				...this.postedJobsDetails
 			}
 		});
-		  if(this.postedJobsDetails &&this.postedJobsDetails.entry !=true && this.postedJobsDetails.hands_on_experience && Array.isArray(this.postedJobsDetails.hands_on_experience)) {
+		  if(this.postedJobsDetails && this.postedJobsDetails.hands_on_experience && Array.isArray(this.postedJobsDetails.hands_on_experience)) {
 					
 					for(let i=0;i<=this.postJobForm.controls.requirement['controls']['hands_on_experience'].length;i++){
 						this.postJobForm.controls.requirement['controls']['hands_on_experience'].removeAt(0);
 						i=0;
 					}
 					this.postedJobsDetails.hands_on_experience.map((value, index) => {
+					if(this.postedJobsDetails.entry==false){
 						this.postJobForm.controls.requirement['controls']['hands_on_experience'].push(this.formBuilder.group({
 							skill_id: [null, Validators.required],
 							skill_name: [''],
 							experience: ['', [Validators.required,]],
 							exp_type: ['years', [Validators.required]]
 						}));
+						}else{
+						this.postJobForm.controls.requirement['controls']['hands_on_experience'].push(this.formBuilder.group({
+							skill_id: [null],
+							skill_name: [''],
+							experience: [''],
+							exp_type: ['years']
+						}));
+						
+						
+						}
 					});
+					
 				}
 		if (this.postedJobsDetails.skills != null) {
 			for(let i=0;i<this.postedJobsDetails.skills.length;i++){

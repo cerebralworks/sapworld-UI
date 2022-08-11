@@ -179,12 +179,21 @@ export class CreateCandidateLayoutComponent implements OnInit {
 					this.candidateForm.controls.skillSet['controls']['hands_on_experience'].removeAt(0);
 				this.userInfo.hands_on_experience.map((value, index) => {
 				  value.skill_id = (value && value.skill_id )? value.skill_id.toString() : '';
+				  if(this.userInfo.entry==false){
 				  this.candidateForm.controls.skillSet['controls']['hands_on_experience'].push(this.formBuilder.group({
 					  skill_id: [null, Validators.required],
 					  skill_name: [''],
 					  experience: ['', [Validators.required,]],
 					  exp_type: ['years', [Validators.required]]
 					}));
+					}else{
+					this.candidateForm.controls.skillSet['controls']['hands_on_experience'].push(this.formBuilder.group({
+					  skill_id: [null],
+					  skill_name: [''],
+					  experience: [''],
+					  exp_type: ['years']
+					}));
+					}
 				});
 				}}
 				if (this.userInfo && this.userInfo.hands_on_experience == null) {

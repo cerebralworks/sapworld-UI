@@ -53,7 +53,7 @@
 					</div>
 				</div>	
 			</div>
-			<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='0' && postedJobsDetails?.entry==false ">
+			<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='0'">
 				<div class="row">
 					<div class="col-lg-6 col-md-55 col-sm-4 caption">
 						<ul class="list-group">
@@ -68,13 +68,26 @@
 							<li class="list-group-item text-uppercase d-flex  skills">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
-										<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
+										<div *ngIf="userInfo?.hands_on_skills.length !=0; else elseHandsnull" [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
 											{{item?.skill_id ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag) : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
 										</div>
+										<ng-template #elseHandsnull>
+								  <p>--</p>
+								  <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index" >
+								  <div style="visibility: hidden;" [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body">
+									{{item?.skill_name}}<br>({{item?.experience}}
+									</div>
+									</ng-container>
+								</ng-template>
 									</ng-container>
 								</ng-container>
 								<ng-template #elseHandsTemplate>
-									<p>--</p>
+								  <p>--</p>
+								  <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index" >
+								  <div style="visibility: hidden;" [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body">
+									{{item?.skill_name}}<br>({{item?.experience}}
+									</div>
+									</ng-container>
 								</ng-template>
 							</li>
 						</ul>
