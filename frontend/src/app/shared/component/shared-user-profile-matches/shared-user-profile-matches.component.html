@@ -149,7 +149,12 @@
 								
 							</ng-container>
 							<ng-template #elseSkillsTemplate>
-								<p>--</p>
+								<ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id'); let first = first;">
+									<span *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
+										<i class="fas fa-times text-danger " ></i>
+										{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+									</span>
+								</ng-container>
 							</ng-template>
 							<!-- <a><i class="fas fa-ellipsis-v doticonss"></i></a> -->
 							
@@ -672,7 +677,12 @@
 								</ng-container>
 							</ng-container>
 							<ng-template #elseSkillsTemplate>
-								<p>--</p>
+							   <ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id'); let first = first;">
+									<span *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
+										<i class="fas fa-times text-danger " ></i>
+										{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+									</span>
+								</ng-container>
 							</ng-template>
 						</li>
 						<li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
@@ -1191,7 +1201,12 @@
 								</ng-container>
 							</ng-container>
 							<ng-template #elseSkillsTemplate>
-								<p>--</p>
+								<ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id'); let first = first;">
+									<span *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
+										<i class="fas fa-times text-danger " ></i>
+										{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+									</span>
+								</ng-container>
 							</ng-template>
 						</li>
 						<li style="margin:auto;"><a [ngbPopover]="popContent"> <i class="fas fa-ellipsis-v doticonss"></i></a></li>
@@ -1711,7 +1726,12 @@
 								</ng-container>
 							</ng-container>
 							<ng-template #elseSkillsTemplate>
-								<p>--</p>
+								<ng-container *ngFor="let item of utilsHelperService.differenceByPropValArray(postedJobsDetails?.skills, postedJobsDetails?.hands_on_experience, 'skill_id'); let first = first;">
+									<span *ngIf="missingElement && onChangeStringNumber('skills', 'skills', item, 'info').type == 'info'">
+										<i class="fas fa-times text-danger " ></i>
+										{{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag)}}
+									</span>
+								</ng-container>
 							</ng-template>
 						</li>
 						<li style="margin:auto;"><a [ngbPopover]="popContent" > <i class="fas fa-ellipsis-v doticonss"></i></a></li>
