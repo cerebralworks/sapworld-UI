@@ -207,11 +207,15 @@
 	<div class="col-lg-8 col-md-8 matches-6 col-sm-8 info">
 		<ul class="list-group">
 			<li class="list-group-item text-uppercase d-flex handsExps skills">
+			<!-- <h1>{{userInfo?.hands_on_skills?.length}}</h1> -->
 				<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 					<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
-						<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
+						<div *ngIf="userInfo?.hands_on_skills?.length !=0;else elsehandsnull" [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
 							{{item?.skill_id ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag) : '--'}} <br>({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
 						</div>
+						<ng-template #elsehandsnull>
+							<p>--</p>
+				        </ng-template>
 					</ng-container>
 				</ng-container>
 				<ng-template #elseHandsTemplate>
