@@ -213,7 +213,7 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
   ngOnChanges(changes): void {
     setTimeout( async () => {
 		var arr = [];
-		console.log(this.jobInfo);
+		//console.log(this.jobInfo);
 		if(this.jobInfo){
 			  if(this.jobInfo.match_select){
 				Object.keys(this.jobInfo.match_select).forEach(key => {
@@ -225,12 +225,23 @@ export class SharedJobProfileMultipleMatchesComponent implements OnInit,OnChange
 				var optionalFilter = arr.filter(function(a,b){return a=='' });
 				if(requiredFilter.length>0){
 					this.required =true;
-				}if(desiredFilter.length>0){
+				}else{
+				    this.required =false;
+				}
+				if(desiredFilter.length>0){
 					this.desired=true;
-				}if(niceFilter.length>0){
+				}else{
+				    this.desired =false;
+				}
+				if(niceFilter.length>0){
 					this.nice =true;
-				}if(optionalFilter.length>0){
+				}else{
+				    this.nice =false;
+				}
+				if(optionalFilter.length>0){
 					this.optional =true;
+				}else{
+				    this.optional =false;
 				}
 				this.isOtherRequired = false;
 				  this.isOtherNice = false;

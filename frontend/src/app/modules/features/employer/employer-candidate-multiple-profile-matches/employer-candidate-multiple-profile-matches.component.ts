@@ -208,7 +208,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 										if(typeof temp[j]['score'] != 'string'){
 
 											if(this.TotalMatchJobs.length!=0){
-												temp[j]['match_select']=this.TotalMatchJobs[0]['match_select'];
+												//temp[j]['match_select']=this.TotalMatchJobs[0]['match_select'];
 											}
 											temp[j]['score']=parseFloat(temp[j]['score'].toFixed(1));
 											this.TotalMatchJobs.push(temp[j]);
