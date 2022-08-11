@@ -56,8 +56,8 @@
 			</div>
 		</div>
 	</div>
-	<ng-container  *ngIf="!this.childForm.value.jobInfo.entry">
-		<div class="row mt-2"  *ngIf="!this.childForm.value.jobInfo.entry">
+	<ng-container>
+		<div class="row mt-2">
 			<div class="col-lg-12 col-md-12">
 				<label>{{"userProfile.handsOnWith" | translate }} </label>
 				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>

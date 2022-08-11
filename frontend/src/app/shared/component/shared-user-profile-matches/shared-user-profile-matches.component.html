@@ -76,7 +76,7 @@
 						</li>
 					</ul>
 				</div>
-				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='0'  && postedJobsDetails?.entry==false ">
+				<div  *ngIf="postedJobsDetails?.match_select?.hands_on_experience=='0'">
 					<ul class="list-group">
 						<li class="list-group-item text-uppercase d-flex handsExps" style="min-height: 55px;">
 							<ng-container *ngIf="matchingUsers?.profile?.hands_on_experience?.length; else elseHandsTemplate">
@@ -92,7 +92,7 @@
 								<ng-container
 								  *ngFor="let item of onChangeValue(matchingUsers?.profile?.hands_on_experience, postedJobsDetails?.hands_on_experience); let i = index; let first = first;">
 								  <div class="text-center border-right pr-3 moreSkl"
-									*ngIf="moreElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close'">
+									*ngIf="moreElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'close', 'skill_id').type == 'close' && matchingUsers?.profile?.hands_on_skills.length !=0">
 									  {{utilsHelperService.onSplitTag(item.skill_name)}}
 									  <br>
 									
@@ -110,7 +110,15 @@
 								</ng-container>
 						  </ng-container>
 						  <ng-template #elseHandsTemplate>
-							 <p>--</p>
+							 <ng-container *ngFor="let item of postedJobsDetails?.hands_on_experience; let i = index; let first = first;">
+								  <div class="text-center border-right pr-3"
+									*ngIf="missingElement && onChangeObj('hands_on_experience', 'hands_on_experience', item, 'info', 'skill_id').type == 'info'">
+									  {{utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.tag)}}
+									  <br>
+									<i class="fas fa-times text-danger " ></i>
+									({{item?.experience + ' ' + item?.exp_type?.charAt(0)}})
+								  </div>
+								</ng-container>
 						 </ng-template>
 					   </li>	
 					</ul>	

@@ -369,7 +369,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			  }
 			});
 			}}else{
-				if(this.childForm.controls.personalDetails.value.entry == true){
+				if(this.childForm.controls.personalDetails.value.entry == true && ( !this.childForm.controls.skillSet.value.hands_on_experience || !this.childForm.controls.skillSet.value.hands_on_experience.length || this.childForm.controls.skillSet.value.hands_on_experience.length==0 || ( this.childForm.controls.skillSet.value.hands_on_experience[0] && this.childForm.controls.skillSet.value.hands_on_experience[0]['experience'] =='' ) )){
 					if(this.t && this.t.length){
 						for(let i=0;i<=this.t.value.length;i++){
 							this.t.removeAt(0);

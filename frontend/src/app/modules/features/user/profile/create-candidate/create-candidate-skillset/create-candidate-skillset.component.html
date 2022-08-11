@@ -1,10 +1,10 @@
 
 <div formGroupName="skillSet">
- <ng-container *ngIf="childForm.value.personalDetails.entry==false">
+ <ng-container>
   <div class="row mt-5">
     <div class="col-lg-12 col-md-6">
       <label>{{"userProfile.handsOnExperience" | translate }}</label>
-      <div appMarkAsterisk></div>
+      <div appMarkAsterisk *ngIf="childForm.value.personalDetails.entry==false"></div>
     </div>
   </div>
     <div class="row mt-2" *ngFor="let ticket of t.controls; let i = index; let last = last">
