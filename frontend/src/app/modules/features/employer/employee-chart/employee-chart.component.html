@@ -280,7 +280,7 @@
 							  <i class="bi bi-file-earmark-check"></i>
 							</div>
 							<div class="info-card pl-3">
-								<h6>0</h6>
+								<h6>{{totalAccepted}}</h6>
 								<span>{{"chart.accepted" | translate}}</span>
 							</div>
 						</div>	
@@ -383,7 +383,10 @@
 								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.hired}}</a>
 								  <a  *ngIf="item.hired ==0 "  style="cursor: no-drop;" > {{item.hired}}</a>
 								  </td>	
-								  <td class="text-center"><a style="cursor: no-drop;">0</a></td>
+								  <td class="text-center"><a *ngIf="item.accepted !=0 " [routerLink]="['/employer/dashboard']"
+								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.accepted}}</a>
+								  <a  *ngIf="item.accepted ==0 "  style="cursor: no-drop;" > {{item.accepted}}</a>
+								  </td>
 								  <td class="text-center"><a *ngIf="item.rejected !=0 " [routerLink]="['/employer/dashboard']"
 								  [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{item.rejected}}</a>
 								  <a  *ngIf="item.rejected ==0 "  style="cursor: no-drop;" > {{item.rejected}}</a>

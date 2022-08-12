@@ -58,22 +58,26 @@
 					  <option [value]="3" [selected]="item?.status == 3"  *ngIf="item?.status <= 3 " >Interview scheduled</option>
 					  <ng-container *ngIf="item?.job_posting?.screening_process?.length;">
 					  <ng-container  *ngFor="let option of item?.job_posting?.screening_process; index as i">
-						<option *ngIf="item?.status <= i+7 "
-							[value]="i+7" [selected]="item?.status == i+7"> <span >{{ option.title }} </span></option>
+						<option *ngIf="item?.status <= i+11"
+							[value]="i+11" [selected]="item?.status == i+11"> <span >{{ option.title }} </span></option>
 					  </ng-container>
 					  </ng-container>
 					  <option [value]="5" [selected]="item?.status == 5">On Hold</option>
 					  <option [value]="6" [selected]="item?.status == 6">Not Available</option>
+					  <option [value]="10" [selected]="item?.status == 10">Offered</option>
+					  <option [value]="9" [selected]="item?.status == 9">Accepted</option>
+					  <option [value]="8" [selected]="item?.status == 8">Denied</option>
+					  <option [value]="7" [selected]="item?.status == 7">Awaiting</option>
 					  <option [value]="2" [selected]="item?.status == 2">Hired</option>					  
 					  <option [value]="4" [selected]="item?.status == 4">Rejected</option>
 					</select>
 					</td>
 				  <td class="text-center text-blue"><a class="poin" (click)="openMessagePopup(item)"><i class="fas fa-file-alt"></i></a></td> 
 				  <!--<td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 && item?.status !=1 " (click)="openMessagePopupInviteLink(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>-->
-				  <td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 && item?.status !=1 " (click)="openMeetingLinkPopup(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>
+				  <td class="text-center" *ngIf="validateStatus(item) == false && item?.invite_status != true && item?.status !=6 && item?.status !=5 && item?.status !=2 && item?.status !=4 && item?.status !=1 && item?.status !=7 && item?.status !=8 && item?.status !=9 && item?.status !=10" (click)="openMeetingLinkPopup(item,item?.status)"><a  class="text-green poin" ><i class="fas fa-envelope-open-text"></i></a></td>
 				  <td class="text-center" *ngIf="(validateStatus(item) == true  ) && item?.status !=6 && item?.status !=5 &&item?.status !=1 && item?.status !=2 && item?.status !=4 "><a  class="text-danger poin"><i class="fas fa-envelope"></i></a></td>
 				  <td class="text-center" *ngIf="(validateStatus(item) == false && item?.invite_status == true ) && item?.status !=6 && item?.status !=1 &&item?.status !=5 && item?.status !=2 && item?.status !=4 "><a   (click)="openReschedulePopup(item,item?.status)" class="text-warning poin"><i class="fas fa-envelope"></i></a></td>
-				  <td class="text-center" *ngIf=" item?.status ==5 ||item?.status ==6 || item?.status ==2 || item?.status ==4|| item?.status ==1 "><a  class="text-danger poin-no"><i class="fas fa-comment-slash"></i></a></td>
+				  <td class="text-center" *ngIf=" item?.status ==5 ||item?.status ==6 || item?.status ==2 || item?.status ==4|| item?.status ==1 || item?.status ==7 || item?.status ==8 || item?.status ==9 || item?.status ==10"><a  class="text-danger poin-no"><i class="fas fa-comment-slash"></i></a></td>
 				  <td class="text-center" ><a  (click)="openHistoryPopup(item)" class="text-danger poin"><i class="fas fa-history"></i></a></td>
                 </tr>
               </ng-container>
