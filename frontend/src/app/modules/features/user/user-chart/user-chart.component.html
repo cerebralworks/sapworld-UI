@@ -1,5 +1,5 @@
 <!-- //Nav Tab Section -->
-<section class="my-4">
+<!--<section class="my-4">
 	<div [ngClass]="(screenWidth >= 1500)?'container':'container'" >
 		<div class="row my-5">
 			<div class="col-lg-7 col-md-7 matches-8">
@@ -7,7 +7,7 @@
 				<!-- <button (click)="getDataStatus('paused')" [ngClass]="isPaused ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-info rounded-pill px-3 mr-1 ">Paused <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('closed')" [ngClass]="isClosed ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-warning rounded-pill px-3 mr-1">Closed <i class="fas fa-times small ml-1"></i></button>
 				<button (click)="getDataStatus('deleted')" [ngClass]="isDeleted ? 'active' : ''"  type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 mr-1">Deleted <i class="fas fa-times small ml-1"></i></button> -->
-			</div>
+			<!--</div>
 			<div class="col-lg-5 col-md-5 matches-8 mt-time clearfix">
 				<div id="multiDate" class="float-right multi-date">
 					<i class="fas fa-calendar-alt"></i>&nbsp;
@@ -303,4 +303,158 @@
 			</ng-container >
 		</div>
 	</div>
-</section>
+</section>-->
+
+<!--New design-->
+<section class="bg-light py-5">
+		<div class="container">
+			<div class="cardBox">
+				<div class="row">
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-5">
+							<div class="icon-card d-flex align-items-center justify-content-center">
+							  <i class="bi bi-card-checklist"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalMatches}}</h6>
+								<span>{{"shared.totalMatches" | translate}}</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-5">
+							<div class="icon-card yallow d-flex align-items-center justify-content-center">
+							  <i class="bi bi-file-earmark-check"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalApplied}}</h6>
+								<span>{{"nav.appliedJobs" | translate}}</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-5">
+							<div class="icon-card green d-flex align-items-center justify-content-center">
+							
+					  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+							<path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+							<path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/>
+						</svg>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalInterviewed}}</h6>
+								<span>{{"chart.interviewed" | translate}}</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-5">
+							<div class="icon-card orange d-flex align-items-center justify-content-center">
+							  <i class="bi bi-hand-thumbs-up"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalShortlisted}}</h6>
+								<span>{{"nav.shortlisted" | translate}}</span>
+							</div>
+						</div>	
+					</div>
+					<div class="col-lg-3 col-md-4">
+						<div class="d-flex align-items-center pb-lg-0 pb-md-5">
+							<div class="icon-card purple d-flex align-items-center justify-content-center">
+							  <i class="bi bi-tags"></i>
+							</div>
+							<div class="info-card pl-3">
+								<h6>{{totalVisa}}</h6>
+								<span>{{"shared.byVisa" | translate}}</span>
+							</div>
+						</div>	
+					</div>
+					
+				</div>
+			</div>
+			<!--//-->
+			
+			<div class="cardBox">
+				<div class="row">
+					<div class="col-lg-12">					
+						<div class="chartTitle mb-4">
+							{{"nav.appliedJobs" | translate}}&nbsp;{{"shared.status" | translate}}
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div style="position: relative;overflow-y: auto;height: 300px;" class="table-responsive tableBox">
+							<table class="table">
+							  <thead>
+								<tr>
+								  <th scope="col">{{"shared.jobTitle" | translate}}</th>
+								  <th scope="col">{{"shared.location" | translate}}</th>
+								  <th scope="col">{{"shared.appliedDate" | translate}}</th>
+								  <th scope="col">Type</th>
+								  <th scope="col">{{"shared.status" | translate}}</th>
+								</tr>
+							  </thead>
+							  <tbody >
+							   <tr *ngIf="appliedJobs.length ===0">
+							   <td>No Jobs Found</td></tr>
+								<tr *ngFor="let item of appliedJobs; let j = index">
+								  <td>
+										<a   *ngIf="item?.job_posting?.status != 3 && item?.job_posting?.status != 0" [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id:item?.job_posting?.id,path:'applied' }"  class="text-capitalize" href="javacript:;">
+											{{item?.job_posting?.title}}
+										</a>
+										<a (click)="openPopupView()" *ngIf="item?.job_posting?.status ==3 || item?.job_posting?.status ==0" class="text-capitalize" href="javacript:;">
+											{{item?.job_posting?.title}}
+										</a>
+									</td>
+								  <td class="text-capitalize" container="body" placement="top" ngbTooltip="TH3 tooltip" >
+										<ng-container>
+											{{item?.job_posting?.job_locations[0].city ? item?.job_posting?.job_locations[0].city + ', ' : ''}}
+										  {{item?.job_posting?.job_locations[0].state ? item?.job_posting?.job_locations[0].state + ', ' : ''}}
+										  <span class="text-uppercase">
+											{{item?.job_posting?.job_locations[0].country ? item?.job_posting?.job_locations[0].country : ''}}
+										  </span>
+										   <span class="text-uppercase" style="color:blue;cursor:pointer;" *ngIf="item?.job_posting?.job_locations?.length-1 !=0" >
+											+{{item?.job_posting?.job_locations?.length-1}}
+										  </span>
+										</ng-container>
+									</td>
+								  <td>
+										{{item?.created_at ? (item?.created_at | date: "MMM dd, y") : '-'}}
+									</td>
+								  <td>
+								  <span *ngIf="item?.job_posting?.type=='1000'">Full Time</span>
+								  <span *ngIf="item?.job_posting?.type=='1001'">Part Time</span>
+								  <span *ngIf="item?.job_posting?.type=='1002'">Contract</span>
+								  <span *ngIf="item?.job_posting?.type=='1003'">Freelance</span>
+								  <span *ngIf="item?.job_posting?.type=='1004'">Internship</span>
+								  </td>
+								  <td *ngIf="item?.short_listed == false && item?.job_posting?.status != 3">
+									Not a Fit
+								  </td>
+								  <td *ngIf="(item?.short_listed == null || item?.short_listed != false) && item?.short_listed != true && item?.status == 1 &&  item?.job_posting?.status != 0 && item?.job_posting?.status != 3">
+								  Applied
+								  </td>	
+								  <td *ngIf="item?.job_posting?.status == 0 || item?.job_posting?.status == 3">
+									Closed 
+									</td>
+									<td *ngIf="item?.short_listed == true ">
+										{{itemReturn(item?.status,item?.application_status)}}
+											
+									</td>
+									<!--<td *ngIf="item?.short_listed == true && item?.status != 3 &&item?.status != 2 && item?.status != 4 && item?.status != 5 && item?.status != 6 &&  item?.job_posting?.status != 0 && item?.job_posting?.status != 3">
+										{{itemReturn(item?.status,item?.application_status)}}
+											
+									</td>
+									<td *ngIf="item?.short_listed == true && (item?.status == 4 ||item?.status == 3 || item?.status == 5 || item?.status == 6) &&  item?.job_posting?.status != 0 && item?.job_posting?.status != 3">
+										{{itemReturn(item?.status,item?.application_status)}}
+											
+									</td>-->
+								</tr>
+								
+							  </tbody>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>	
+		</div>
+	</section>

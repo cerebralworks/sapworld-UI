@@ -23,11 +23,11 @@ export class UserChartComponent implements OnInit {
 	
 	@Input()screenWidth:any;
 		public currentUserDetails:any ;
-		@ViewChild(DaterangepickerComponent)
-		private picker: DaterangepickerComponent;
+		//@ViewChild(DaterangepickerComponent)
+		//private picker: DaterangepickerComponent;
 	
 		// Doughnut
-		@ViewChildren(BaseChartDirective) chart: QueryList<BaseChartDirective>;
+		/*@ViewChildren(BaseChartDirective) chart: QueryList<BaseChartDirective>;
 		@ViewChild(BaseChartDirective) chartVisa: BaseChartDirective;
 		@ViewChild(BaseChartDirective) chartType: BaseChartDirective;
 		@ViewChild(BaseChartDirective) chartAvailability: BaseChartDirective;
@@ -46,7 +46,7 @@ export class UserChartComponent implements OnInit {
 		public doughnutChartDataType: MultiDataSet = [];
 		
 		public doughnutChartLabelsVisa: Label[] = [];
-		public doughnutChartDataVisa: MultiDataSet = [];
+		public doughnutChartDataVisa: MultiDataSet = [];*/
 		
 		public MatchesTotal:any[]=[];
 		public AppliedTotal:any[]=[];
@@ -54,7 +54,7 @@ export class UserChartComponent implements OnInit {
 		public AppliedType:any[]=[];
 		public AppliedVisa:any[]=[];
 		
-		public doughnutChartType: ChartType = 'doughnut'; 
+		/*public doughnutChartType: ChartType = 'doughnut'; 
 		public doughnutBorderWidth: BorderWidth = 0; 
 		public doughnutChartColors: Color[] = [{
 			backgroundColor: [
@@ -128,10 +128,10 @@ export class UserChartComponent implements OnInit {
 						legendItem.hidden = true;
 					}
 				}  */
-			}
-		};
+			/*}
+		};*/
 
-		public doughnutOptions: ChartOptions ={
+		/*public doughnutOptions: ChartOptions ={
 			cutoutPercentage: 66,
 			responsive: true,
 			legend: {
@@ -142,13 +142,20 @@ export class UserChartComponent implements OnInit {
 					usePointStyle: true  //<-- set this
 				}
 			}
-		};
+		};*/
 		
 		public totalMatches :any =0;
 		public totalApplied :any =0;
 		public totalVisa :any =0;
 		public totalAvailability :any =0;
 		public totalType :any =0;
+		public totalShortlisted :any =0;
+		public totalInterviewed :any = 0;
+		public appliedJobs: any[] = [];
+		public appliedJobMeta: any;
+		length = 0;
+		/*public page: number = 1;
+		public limit: number = 10;*/
 		public showMatches :boolean = true;
 		public showApplied :boolean = true;
 		public showAvailiability :boolean = true;
@@ -163,7 +170,16 @@ export class UserChartComponent implements OnInit {
 		
 		public startDate:any;
 		public endDate:any;
-		
+		public statusvalue: any[] = [
+		{id:1,text:'APPLICATION UNDER REVIEW'},
+		{id:2,text:'Hired'},
+		{id:3,text:'Interview Scheduled'},
+		{id:4,text:'Rejected'},
+		{id:5,text:'On Hold'},
+		{id:6,text:'Not Available'},
+		{id:98,text:'Not a Fit'},
+		{id:99,text:'Closed'}
+	];
 	/**	
 	**	To implement the package section constructor
 	**/
@@ -175,7 +191,7 @@ export class UserChartComponent implements OnInit {
 		private daterangepickerOptions: DaterangepickerConfig,
 		private userSharedService: UserSharedService
 	) { 
-		this.daterangepickerOptions.settings = {
+		/*this.daterangepickerOptions.settings = {
             locale: { format: 'MMMM D, YYYY' },
             alwaysShowCalendars: false,
 			startDate: moment().subtract(29, 'days'),
@@ -189,7 +205,7 @@ export class UserChartComponent implements OnInit {
 			   'This Month': [moment().startOf('month'), moment().endOf('month')],
 			   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 			}
-        };
+        };*/
 	}
 
 	/**
@@ -202,8 +218,19 @@ export class UserChartComponent implements OnInit {
           if(details) {
             this.currentUserDetails = details['details'];
 			if(this.showData ==false && this.currentUserDetails.email ){
-				this.getDataStatus('');
+				this.onGetMatchesDetails();
+				this.onGetVisaDetails();
+				
+				//new function
+				this.onGetInterviews()
+				this.onGetShortlisted();
+				this.onGetAppliedJobsCount();
+				
+				this.onGetAppliedJobsDetails();
+				
+				//this.getDataStatus('');
 				this.showData = true;
+				
 			}
           }
         }
@@ -219,14 +246,14 @@ export class UserChartComponent implements OnInit {
        // this.picker.datePicker.setEndDate('2017-04-08');
     }
 	public calendarApplied(event) {
-      this.getDataStatus('');
+     // this.getDataStatus('');
     }
 	
 	/**
 	**	To status of the chart data
 	**/
 	
-	public getDataStatus(data){
+	/*public getDataStatus(data){
 		if(data=='active'){
 			if(this.isActive==true){
 				this.isActive = false;
@@ -268,7 +295,7 @@ export class UserChartComponent implements OnInit {
 		this.startDate = tempStartYear+'-'+tempStartMonth+'-'+tempStartDate+' 0:00:00';
 		this.endDate = tempEndYear+'-'+tempEndMonth+'-'+tempEndDate+' 23:59:59'; */
 		
-		var start =this.picker.datePicker.startDate;
+		/*var start =this.picker.datePicker.startDate;
 		var end = this.picker.datePicker.endDate;
 		var tempStartDate = start.date();
 		var tempStartMonth = start.month()+1;
@@ -287,21 +314,103 @@ export class UserChartComponent implements OnInit {
 		this.onGetAppliedJobs('');
 				
 	}
+	*/
+	/**
+	**	To get the Applied Jobs Details API Calls
+	**/
+
+	onGetAppliedJobsDetails = () => {
+      let requestParams: any = {};
+      /*requestParams.page = this.page;
+      requestParams.limit = this.limit;*/
+      requestParams.expand = "job_posting,user,employer";
+	  requestParams.sort = "updated_at.desc";
+      this.userService.applicationsListForUser(requestParams).subscribe(
+        response => {
+			this.appliedJobs=[];
+          if(response && response.items && response.items.length > 0) {
+            this.appliedJobs = [...this.appliedJobs, ...response.items];
+          }
+		  this.appliedJobMeta = { ...response.meta }
+		  if(document.getElementById('appliedCountValue')){
+				document.getElementById('appliedCountValue').innerHTML="("+this.appliedJobMeta.total+")";
+			}
+		  if(this.appliedJobMeta.total){
+			  this.length =this.appliedJobMeta.total;
+		  }
+        }, error => {
+        }
+      )
+	}
+		
+	/**
+	**	To get the Applied Jobs Interviews API Calls
+	**/
+	onGetInterviews = () =>{
+		let requestParams: any = {};
+      requestParams.id = this.currentUserDetails['id'];
+      requestParams.view = 'interview';
+      /*requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;*/
+	  
+	  this.userService.getUserDashboard(requestParams).subscribe(
+        response => {
+			if(response.count !=0 && response.count>=1){
+				var filterInterviewed = response.data.map(function(a,b){ return a.count });
+				this.totalInterviewed = filterInterviewed.reduce((a, b) => parseInt(a) + parseInt(b) );
+			}else{
+			}
+			},error =>{
+			}
+		)
+	}
+	
+	/**
+	**	To get the Applied Jobs Shortlisted  API Calls
+	**/
+	onGetShortlisted = () =>{
+		let requestParams: any = {};
+      requestParams.id = this.currentUserDetails['id'];
+      requestParams.view = 'shortlisted';
+     /* requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;*/
+	  
+	  this.userService.getUserDashboard(requestParams).subscribe(
+        response => {
+			if(response.count !=0 && response.count>=1){
+				var filtershortlisted = response.data.map(function(a,b){ return a.count });
+				this.totalShortlisted = filtershortlisted.reduce((a, b) => parseInt(a) + parseInt(b) );
+			}else{
+			}
+			},error =>{
+			}
+		)
+	}
+
 	
 	/**
 	**	To get the Applied Jobs Details API Calls
 	**/
 
 	onGetMatchesDetails = () => {
+	
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'matches';
-      requestParams.isActive = this.isActive;
+     /* requestParams.isActive = this.isActive;
       requestParams.isClosed =  this.isClosed;
       requestParams.isDeleted =  this.isDeleted;
       requestParams.isPaused =  this.isPaused;
       requestParams.startDate =  this.startDate;
-      requestParams.endDate =  this.endDate;
+      requestParams.endDate =  this.endDate;*/
 		
       this.userService.getUserDashboard(requestParams).subscribe(
         response => {
@@ -318,8 +427,8 @@ export class UserChartComponent implements OnInit {
 				this.MatchesTotal = response.data;
 				var filterData = response.data.map(function(a,b){ return a.city.charAt(0).toUpperCase() + a.city.substr(1) });
 				var filterValue = response.data.map(function(a,b){ return a.count });
-				this.doughnutChartLabels = filterData;
-				this.doughnutChartData = [filterValue];
+				//this.doughnutChartLabels = filterData;
+				//this.doughnutChartData = [filterValue];
 				this.showMatches = true;
 				this.totalMatches = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 			}else{
@@ -335,7 +444,7 @@ export class UserChartComponent implements OnInit {
 	**	To get the applied job details
 	**/
 	
-	onGetAppliedJobs = (city) => {
+	/*onGetAppliedJobs = (city) => {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'applied';
@@ -364,20 +473,42 @@ export class UserChartComponent implements OnInit {
 				this.doughnutChartDataApplied = [filterValue];
 				this.showApplied = true;
 				this.totalApplied = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
-				console.log(filterData);
+				console.log(this.totalApplied);
 			}else{
 				this.showApplied = false;				
 			}
         }, error => {
         }
       )
+	}*/
+	onGetAppliedJobsCount = () => {
+	let requestParams: any = {};
+      requestParams.id = this.currentUserDetails['id'];
+      requestParams.view = 'applied';
+      /*requestParams.isActive = this.isActive;
+      requestParams.isClosed =  this.isClosed;
+      requestParams.isDeleted =  this.isDeleted;
+      requestParams.isPaused =  this.isPaused;
+      requestParams.startDate =  this.startDate;
+      requestParams.endDate =  this.endDate;*/
+	  
+	  this.userService.getUserDashboard(requestParams).subscribe(
+        response => {
+			if(response.count !=0 && response.count>=1){
+				var filterapplied = response.data.map(function(a,b){ return a.count });
+				this.totalApplied = filterapplied.reduce((a, b) => parseInt(a) + parseInt(b) );
+			}else{
+				}
+			},error =>{
+			}
+		)
 	}
 	
 	/**
 	**	To get the availability job details
 	**/
 	
-	onGetAvailabilityDetails = (city) => {
+	/*onGetAvailabilityDetails = (city) => {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'availability';
@@ -412,13 +543,13 @@ export class UserChartComponent implements OnInit {
         }, error => {
         }
       )
-	}
+	}*/
 	
 	/**
 	**	To get the job type details
 	**/
 	
-	onGetTypeDetails = (city) => {
+	/*onGetTypeDetails = (city) => {
       let requestParams: any = {};
       requestParams.id = this.currentUserDetails['id'];
       requestParams.view = 'type';
@@ -460,7 +591,7 @@ export class UserChartComponent implements OnInit {
         }, error => {
         }
       )
-	}
+	}*/
 	
 	/**
 	**	To get the visa sponsered details
@@ -490,8 +621,8 @@ export class UserChartComponent implements OnInit {
 				this.AppliedVisa =response.data;
 				var filterData = response.data.map(function(a,b){ return a.city.charAt(0).toUpperCase() + a.city.substr(1) });
 				var filterValue = response.data.map(function(a,b){ return a.count });
-				this.doughnutChartLabelsVisa = filterData;
-				this.doughnutChartDataVisa = [filterValue];
+				//this.doughnutChartLabelsVisa = filterData;
+				//this.doughnutChartDataVisa = [filterValue];
 				this.showVisa = true;
 				this.totalVisa = filterValue.reduce((a, b) => parseInt(a) + parseInt(b) );
 				console.log(filterData);
@@ -508,15 +639,15 @@ export class UserChartComponent implements OnInit {
 	**/
 	
 	chartClickEvent(event,index){
-		this.checkTotalChart();
-		this.graphClickEvent();		
+		/*this.checkTotalChart();*/
+		//this.graphClickEvent();		
 	}
 	
 	/**
 	**	To check the total count of the chart
 	**/
 	
-	checkTotalChart(){
+	/*checkTotalChart(){
 		//CheckMatchesTotal
 		setTimeout(()=>{
 			var Check = this.chart['first']['chart']['legend']['legendItems'].filter(function(a,b){ return a.hidden==true});
@@ -538,10 +669,10 @@ export class UserChartComponent implements OnInit {
 				this.totalMatches = this.MatchesTotal.map(function(a,b){ return a.count }).reduce((a, b) => parseInt(a) + parseInt(b) );
 			}
 		},600);
-	}
+	}*/
 	
 	
-	checkTotalChartApplied(event){
+	/*checkTotalChartApplied(event){
 		//CheckMatchesTotal
 		setTimeout(()=>{
 			var CheckVal = this.chart['_results'][1];			
@@ -629,9 +760,9 @@ export class UserChartComponent implements OnInit {
 			}
 		},600);
 	}
+	*/
 	
-	
-	checkTotalChartVisa(event){
+	/*checkTotalChartVisa(event){
 		//CheckMatchesTotal
 		setTimeout(()=>{
 			var temp = 1;
@@ -666,9 +797,9 @@ export class UserChartComponent implements OnInit {
 			}
 		},600);
 	}
+	*/
 	
-	
-	  graphClickEvent(){
+	  /*graphClickEvent(){
 		setTimeout(()=>{
 				if(this.chart['first']['chart']['legend']['legendItems']){
 					var Check = this.chart['first']['chart']['legend']['legendItems'].filter(function(a,b){ return a.hidden==false});
@@ -703,6 +834,28 @@ export class UserChartComponent implements OnInit {
 						}
 					}
 				}
+				
 			},500);
+	}*/
+	
+	/**
+	**	To filter the status of the applied job
+	**/
+	
+	itemReturn(id,application_status){
+		if(id !=null && id !=undefined ){
+			var valCheck = this.statusvalue.filter(function(a,b){ return parseInt(a.id) == parseInt(id)});
+			if(valCheck.length !=0){
+				return valCheck[0]['text'];
+			}
+			if(application_status && application_status.length){
+				var valChecks = application_status.filter(function(a,b){ return parseInt(a.id) == parseInt(id)});
+				if(valChecks.length !=0){
+					return valChecks[0]['status'];
+				}
+			}
+			
+		}
+		return '--';
 	}
 }
