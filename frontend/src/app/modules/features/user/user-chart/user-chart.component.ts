@@ -154,8 +154,8 @@ export class UserChartComponent implements OnInit {
 		public appliedJobs: any[] = [];
 		public appliedJobMeta: any;
 		length = 0;
-		/*public page: number = 1;
-		public limit: number = 10;*/
+		public page: number = 1;
+		/*public limit: number = 10;*/
 		public showMatches :boolean = true;
 		public showApplied :boolean = true;
 		public showAvailiability :boolean = true;
@@ -226,7 +226,7 @@ export class UserChartComponent implements OnInit {
 				this.onGetShortlisted();
 				this.onGetAppliedJobsCount();
 				
-				this.onGetAppliedJobsDetails();
+				//this.onGetAppliedJobsDetails();
 				
 				//this.getDataStatus('');
 				this.showData = true;
@@ -321,8 +321,8 @@ export class UserChartComponent implements OnInit {
 
 	onGetAppliedJobsDetails = () => {
       let requestParams: any = {};
-      /*requestParams.page = this.page;
-      requestParams.limit = this.limit;*/
+      requestParams.page = this.page;
+      requestParams.limit = this.totalApplied;
       requestParams.expand = "job_posting,user,employer";
 	  requestParams.sort = "updated_at.desc";
       this.userService.applicationsListForUser(requestParams).subscribe(
@@ -497,6 +497,7 @@ export class UserChartComponent implements OnInit {
 			if(response.count !=0 && response.count>=1){
 				var filterapplied = response.data.map(function(a,b){ return a.count });
 				this.totalApplied = filterapplied.reduce((a, b) => parseInt(a) + parseInt(b) );
+				this.onGetAppliedJobsDetails();
 			}else{
 				}
 			},error =>{
