@@ -436,7 +436,7 @@
 								  <td *ngIf="item?.job_posting?.status == 0 || item?.job_posting?.status == 3">
 									Closed 
 									</td>
-									<td *ngIf="item?.short_listed == true ">
+									<td *ngIf="item?.short_listed == true && item?.job_posting?.status != 3 && item?.job_posting?.status != 0">
 										{{itemReturn(item?.status,item?.application_status)}}
 											
 									</td>
