@@ -48,7 +48,11 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	{id:3,text:'Interview Scheduled'},
 	{id:4,text:'Rejected'},
 	{id:5,text:'On Hold'},
-	{id:6,text:'Not Available'}
+	{id:6,text:'Not Available'},
+	{id:7,text:'Awaiting'},
+	{id:8,text:'Denied'},
+	{id:9,text:'Accepted'},
+	{id:10,text:'Offered'},
 	];
 	public validateSubscribe: number = 0;
 	public isCheckModel: boolean = false;
@@ -276,8 +280,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		if (this.isCheckModel) {
 			this.messagePopupValue = item;
 			this.userprofilepath = `${env.apiUrl}/images/user/${item.user.photo}`;
-			if(item.status>=7){
-				var idValue = item.status-7;
+			if(item.status>=11){
+				var idValue = item.status-11;
 				if(item['job_posting']['screening_process'][idValue]){
 					this.selectedStatusValue =item.status;
 					this.selectedStatusMessage = null;
@@ -345,14 +349,19 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				canceled: val.canceled,
 				rescheduled: val.rescheduled,
 				created: val.created,
-				invite_url: val.invite_url
+				invite_url: val.invite_url,
+				name: val.name,
+				link: val.link,
+				interviewdate :val.interviewdate,
+				interviewtime : val.interviewtime,
+				zone :val.zone
 			  }
 			});
 			requestParams.application_status =  this.messagePopupValue.application_status ;
 			var datas ='';
 			var values = parseInt(this.selectedStatusValue);
-			if(values>=7){
-				var idValue =  values-7;
+			if(values>=11){
+				var idValue =  values-11;
 				datas = this.messagePopupValue['job_posting']['screening_process'][idValue]['title'];
 			}else{
 				
@@ -364,10 +373,18 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			if(datas !=''){
 				for(let i=0;i< requestParams.application_status.length;i++){
 					if(requestParams.application_status[i]['status'] == datas){
-						requestParams.application_status[i]['comments'] = this.selectedStatusMessage;
+					  var arr=[];
+					  if(requestParams.application_status[i]['comments']==' '){
+					     arr.push(this.selectedStatusMessage)
+					    requestParams.application_status[i]['comments']=arr;
+					  }else{
+					     requestParams.application_status[i]['comments'].push(this.selectedStatusMessage);
+					  
+					  }	//requestParams.application_status[i]['comments']=this.selectedStatusMessage;
 						this.isErrorShown= true;
 					}
 				}
+				
 				if(this.isErrorShown== true){
 					this.employerService.shortListUser(requestParams).subscribe(
 						response => {
@@ -396,8 +413,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		if(this.selectedStatusValue !=null && this.selectedStatusValue !=''){
 			var datas ='';
 			var val = parseInt(this.selectedStatusValue);
-			if(val>=7){
-				var idValue =  val-7;
+			if(val>=11){
+				var idValue =  val-11;
 				datas = this.messagePopupValue['job_posting']['screening_process'][idValue]['title'];
 			}else{
 				var values = val;
@@ -459,8 +476,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			  }
 			});
 			requestParams.application_status = item.application_status ;
-			if(values>=7){
-				var idValue = values-7;
+			if(values>=11){
+				var idValue = values-11;
 				if(item['job_posting']['screening_process'][idValue]){
 					var datas = {'id':values,'status':item['job_posting']['screening_process'][idValue]['title'], 'views': false,'date': new Date(),'comments':' ','invite_url':''};
 					requestParams.application_status.push(datas);
@@ -608,7 +625,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.statusVal = false;
 		this.inviteUrlLink = '';
 		this.onChangeStatus(item, values);
-		if(values > 6 || values ==1){
+		if(values > 10 || values ==1){
 		this.isSchedulediscuss = true;
 		this.requestParam.job_posting = item.job_posting.id;
 		this.requestParam.user =item.user.id;
@@ -768,7 +785,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			  size: 'xl',
 			  keyboard: false
 			});
-		}, 10);
+		},10);
 	}
 	
 	/**

@@ -498,7 +498,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 				candidateInfo.skills.push(temp);
 			}
 		}else{
-			candidateInfo.skills = this.skils;
+			candidateInfo.skills = tempSkill;
 		}
 		
 		if (this.candidateForm.valid) {

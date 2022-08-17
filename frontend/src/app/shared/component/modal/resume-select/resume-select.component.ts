@@ -23,6 +23,7 @@ export class ResumeSelectComponent implements OnInit {
   public isOpenedCoverModal: boolean;
   public isShowData: boolean = false;
   public isShowUpload: boolean = true;
+  public fileExtension:any;
   @Input() toggleresumeSelectModal: boolean;
   @Output() onEvent = new EventEmitter<boolean>();
 
@@ -107,11 +108,11 @@ export class ResumeSelectComponent implements OnInit {
     if (files && files.length > 0) {
       let allowedExtensions = ["doc", "docx", "pdf"];
 
-      let fileExtension = files
+      this.fileExtension = files
         .item(0)
         .name.split(".")
         .pop();
-      if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+      if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
         this.toastrService.error('File format not supported(Allowed Format:doc,pdf,docx)');
         return;
       }
@@ -161,6 +162,7 @@ export class ResumeSelectComponent implements OnInit {
 
     formData.append('doc_resume', this.userSelectedCover, this.userSelectedCover.name);
     formData.append('title', this.resumeForm.value.title);
+	formData.append('extension', this.fileExtension);
     this.userService.resumeUpdate(formData).subscribe(
       response => {
        

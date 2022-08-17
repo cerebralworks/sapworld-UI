@@ -55,8 +55,10 @@ export class ResetPasswordComponent implements OnInit {
     if (this.resetPasswordForm.valid) {
       this.accountService.resetPassword(userCredentials).subscribe(
         response => {
+		 var returnpath = response.user===0 ?'/auth/user/login':'/auth/employer/login';
           this.isLoading = false;
-          this.router.navigate([this.returnUrl]);
+          //this.router.navigate([this.returnUrl]);
+          this.router.navigate([returnpath]);
         }, error => {
           this.isLoading = false;
           if(error && error.error && error.error.errors)

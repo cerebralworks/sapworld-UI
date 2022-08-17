@@ -72,6 +72,7 @@ export class EmployeeChartComponent implements OnInit {
 	    public screenWidth: any;
 		public totalRejected :any = 0;
 		public totalAwaiting :any = 0;
+		public totalAccepted :any = 0;
 		public totalInterviewed :any = 0;
 		public jobStatus:any;
 		public chartDetails :any;
@@ -509,6 +510,8 @@ export class EmployeeChartComponent implements OnInit {
 				this.totalAwaiting= filterAwaiting.reduce((a, b) => parseInt(a) + parseInt(b) );
 				var filterInterviewed = response.data.map(function(a,b){ return a.interviewed });
 				this.totalInterviewed= filterInterviewed.reduce((a, b) => parseInt(a) + parseInt(b) );
+				var filterAccepted = response.data.map(function(a,b){ return a.accepted });
+				this.totalAccepted= filterAccepted.reduce((a, b) => parseInt(a) + parseInt(b) );
 				/*this.doughnutChartLabelsHired = filterData;
 				if(this.hiredTotal['length']<6){
 					this.doughnutChartDataHired = [{
