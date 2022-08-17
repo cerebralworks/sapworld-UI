@@ -125,7 +125,7 @@
         "companyDetails": "Datos de la empresa",
         "contactUs": "Contáctenos",
         "addNotes": "Agregar notas",
-        "candidateProfile": "Perfil de vista del candidato",
+        "candidateProfile": "Perfil del candidato",
         "candidateMultipleJobMatches": "Candidato Múltiples coincidencias de trabajo",
         "mostMatched": "Mostrarme perfiles que coincidan más en",
         "statusMessage": "Mensaje de estado",
@@ -145,7 +145,8 @@
 		"notificationSetting" :"Notificación de configuración",
 		"viewjobs":"Ver trabajo",
 		"editProfile" :"Editar perfil",
-		"candidateSkills" :"HABILIDADES DEL CANDIDATO"
+		"candidateSkills" :"HABILIDADES DEL CANDIDATO",
+		"otherposition" :"Otras Posiciones"
 	},
 	"auth":{
 	    "findRightPlace":"Encuentra tu lugar correcto",

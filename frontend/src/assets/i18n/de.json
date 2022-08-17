@@ -133,7 +133,7 @@
 		"companyDetails": "Firmendaten",
 		"contactUs": "Kontaktieren Sie uns",
 		"addNotes": "Notizen hinzufügen",
-		"candidateProfile": "Profil der Kandidatenansicht",
+		"candidateProfile": "Profil Kandidatenansicht",
 		"candidateMultipleJobMatches": "Kandidaten-Mehrfach-Job-Übereinstimmungen",
 		"mostMatched": "Zeige mir Profile, die am besten zu den besten passen in",
 		"statusMessage": "Statusmeldung",
@@ -149,7 +149,8 @@
 		"notificationSetting" : "Benachrichtigungseinstellung",
 		"viewjobs":"Job anzeigen",
 		"editProfile" :"Profil bearbeiten",
-		"candidateSkills" :"KANDIDATEN-FÄHIGKEITEN"
+		"candidateSkills" :"KANDIDATEN-FÄHIGKEITEN",
+		"otherposition" :"Andere Positionen"
 	},
 	"auth":{
 		"findRightPlace":"Finden Sie Ihren richtigen Ort",

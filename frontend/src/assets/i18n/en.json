@@ -130,7 +130,7 @@
 		"companyDetails": "Company Details",
 		"contactUs": "Contact Us",
 		"addNotes": "Add Notes",
-		"candidateProfile": "Candidate View Profile",
+		"candidateProfile": "Candidate Profile",
 		"candidateMultipleJobMatches": "Candidate Multiple Job Matches",
 		"mostMatched":"Show me profiles matching the most in",
 		"statusMessage":"Status Message",
@@ -155,7 +155,8 @@
 		"editProfile" :"Edit Profile",
 		"candidateSkills" :"CANDIDATE SKILLS",
 		"jobMatches" : "Job Matches",
-		"jobDescription" : "Job Description"
+		"jobDescription" : "Job Description",
+		"otherposition" :"Other Positions"
 		
 	},
 	"auth":{

@@ -260,7 +260,6 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				this.shortListedJobs =[];
 				if(response && response.items && response.items.length > 0) {
 					this.shortListedJobs = [...this.shortListedJobs, ...response.items];
-					console.log(this.shortListedJobs);
 				}
 				this.shortListedMeta = { ...response.meta }
 				if(this.shortListedMeta.total){
@@ -350,7 +349,12 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				canceled: val.canceled,
 				rescheduled: val.rescheduled,
 				created: val.created,
-				invite_url: val.invite_url
+				invite_url: val.invite_url,
+				name: val.name,
+				link: val.link,
+				interviewdate :val.interviewdate,
+				interviewtime : val.interviewtime,
+				zone :val.zone
 			  }
 			});
 			requestParams.application_status =  this.messagePopupValue.application_status ;
@@ -369,10 +373,18 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			if(datas !=''){
 				for(let i=0;i< requestParams.application_status.length;i++){
 					if(requestParams.application_status[i]['status'] == datas){
-						requestParams.application_status[i]['comments'] = this.selectedStatusMessage;
+					  var arr=[];
+					  if(requestParams.application_status[i]['comments']==' '){
+					     arr.push(this.selectedStatusMessage)
+					    requestParams.application_status[i]['comments']=arr;
+					  }else{
+					     requestParams.application_status[i]['comments'].push(this.selectedStatusMessage);
+					  
+					  }	//requestParams.application_status[i]['comments']=this.selectedStatusMessage;
 						this.isErrorShown= true;
 					}
 				}
+				
 				if(this.isErrorShown== true){
 					this.employerService.shortListUser(requestParams).subscribe(
 						response => {
@@ -773,7 +785,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			  size: 'xl',
 			  keyboard: false
 			});
-		}, 10);
+		},10);
 	}
 	
 	/**
