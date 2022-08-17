@@ -32,7 +32,7 @@ export class CoverSelectComponent implements OnInit {
   @ViewChild("coverTitleModal", { static: false }) coverTitleModal: TemplateRef<any>;
   public coverSelectForm: FormGroup;
   public resumeSelected: any;
-
+  public fileExtension:any;
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -119,11 +119,11 @@ export class CoverSelectComponent implements OnInit {
     if (files && files.length > 0) {
       let allowedExtensions = ["doc", "docx", "pdf"];
 
-      let fileExtension = files
+      this.fileExtension = files
         .item(0)
         .name.split(".")
         .pop();
-      if (!this.utilsHelperService.isInArray(allowedExtensions, fileExtension)) {
+      if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
         this.toastrService.error('File format not supported(Allowed Format:doc,pdf,docx)');
         return;
       }
@@ -176,6 +176,7 @@ export class CoverSelectComponent implements OnInit {
 
     formData.append('doc_cover', this.userSelectedCover, this.userSelectedCover.name);
     formData.append('title', this.coverSelectForm.value.title);
+	formData.append('extension', this.fileExtension);
     this.userService.coverUpdate(formData).subscribe(
       response => {
        
