@@ -89,7 +89,7 @@
   <app-shortlisted-job *ngIf="currentTabInfo.tabNumber == 5" [screenWidth]="screenWidth">
   </app-shortlisted-job>
   
-  <app-user-chart *ngIf="currentTabInfo.tabNumber == 7" [screenWidth]="screenWidth">
+  <app-user-chart *ngIf="currentTabInfo.tabNumber == 7" [applicantCouuntDetails]="applicantCouuntDetails" [screenWidth]="screenWidth">
   </app-user-chart>
 
 <app-user-resume *ngIf="currentTabInfo.tabNumber == 6 && dashboardView" [screenWidth]="screenWidth">
