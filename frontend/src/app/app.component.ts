@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router,RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { LoggedIn } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
@@ -50,6 +50,17 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+  
+  
+  this.router.events.subscribe(event => {
+      if (event instanceof RouteConfigLoadStart) {
+        document.getElementsByTagName('body')[0].style.display="none";
+      } else if (event instanceof RouteConfigLoadEnd) {
+        document.getElementsByTagName('body')[0].style.display="block";
+      }
+    });
+	
+	
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
 
