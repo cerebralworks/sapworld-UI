@@ -38,6 +38,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	public nationality:any[]=[];
 	public screenWidth: any;
 	public checkDB : boolean = false;
+	public applicantCouuntDetails: any;
 	constructor(
 		private route: ActivatedRoute,
 		private userSharedService: UserSharedService,
@@ -237,6 +238,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		//requestParams.expand = "job_posting,user,employer";
 		this.userService.applicationsListForUser(requestParams).subscribe(
 			response => {
+				this.applicantCouuntDetails=response['meta']['total'];
 				if(response && response['meta'] && response['meta']['total'] ) {
 					if(document.getElementById('appliedCountValue')){
 						document.getElementById('appliedCountValue').innerHTML="("+response['meta']['total']+")";
