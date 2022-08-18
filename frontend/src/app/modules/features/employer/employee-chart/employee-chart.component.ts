@@ -582,6 +582,7 @@ export class EmployeeChartComponent implements OnInit {
 				//console.log(filterData);*/
 			}else{
 				//this.showHired = false;
+				this.jobStatus = 0;
 			}
 			
         }, error => {
