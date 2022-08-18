@@ -20,17 +20,18 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 	<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-	<style type="text/css">
-  app-root:empty::after {
-    display: none !important;
-  }
-</style>
 </head>
 <body>
-  <app-root></app-root>
+  <app-root style="display:none;"></app-root>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlNbHgwIyn7mVCKpkdie_uu8_a87A1fvc&libraries=places&language=en"></script>
 	<script src="assets/js/parallax.js"></script>
 	
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+window.addEventListener('load',function(){
+
+document.getElementsByTagName('app-root')[0].style.display='block';
+})
+</script>
 </body>
 </html>
