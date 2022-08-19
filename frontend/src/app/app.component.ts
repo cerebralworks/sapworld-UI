@@ -92,9 +92,14 @@ export class AppComponent {
     this.accountService.checkUserloggedIn().subscribe(
       response => {
         this.loggedInResponse = response;
+		var redir = response.role[0] ===0 ?'/user/dashboard':'/employer/dashboard';
         if(this.loggedInResponse && (this.loggedInResponse.isLoggedIn == false)) {
           this.validateCall = 0;
-        }
+        }else if(this.loggedInResponse && this.loggedInResponse.isLoggedIn === true){
+			if(!this.router.url.includes('/auth') && !this.router.url.includes('/user') && !this.router.url.includes('/employer') && !this.router.url.includes('/notification')){
+		      this.router.navigate([redir]);
+		    }
+		}
         this.getUserInfo();
       },
       error => {
