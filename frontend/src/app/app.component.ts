@@ -47,6 +47,7 @@ export class AppComponent {
     private ngxService?: NgxUiLoaderService, 
 	private _notificationService?: PushNotificationsService
   ) { this._notificationService.requestPermission();
+      this.checkUserLoggedIn();   
   }
 
   ngOnInit(): void {
