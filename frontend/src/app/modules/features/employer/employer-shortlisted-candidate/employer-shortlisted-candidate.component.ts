@@ -384,7 +384,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 						this.isErrorShown= true;
 					}
 				}
-				
+				this.requestParam.apps = true;
 				if(this.isErrorShown== true){
 					this.employerService.shortListUser(requestParams).subscribe(
 						response => {
