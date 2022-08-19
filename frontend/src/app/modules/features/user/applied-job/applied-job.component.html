@@ -65,7 +65,7 @@
 											<span class="badges" *ngIf="item?.view == false " [id]="j" >1</span>
 										</a>
 									</td>
-									<td *ngIf="item?.short_listed == false && item?.job_posting?.status != 3">
+									<td *ngIf="item?.short_listed == false && item?.job_posting?.status != 3 && item?.job_posting?.status != 0">
 										<a class="text-danger text-capitalize"  data-toggle="collapse" [href]="getIdVal(item)" (click)="stopPropagation($event,item,j);">
 											Not a Fit
 											<i class="fas fa-caret-down"></i>
