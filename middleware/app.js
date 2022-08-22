@@ -13,7 +13,7 @@ const https = require("https");
 const http = require("http");
 const routes = require("./routes");
 const serverRoutes = require("./utils/serverRoutes");
-const compression = require('compression');
+//const compression = require('compression');
 // Environment variable configuration
 const env = require("./config");
 const { SERVICE_API_URL, PORT, NODE_ENV } = env;
@@ -26,7 +26,7 @@ var rp = require("request-promise-native").defaults({
 // Defining the Express app
 const app = express();
 app.use(express.static('uploads'));
-app.use(compression());
+//app.use(compression());
 // Server implementation
 let server;
 if (

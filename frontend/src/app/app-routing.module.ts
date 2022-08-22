@@ -10,8 +10,7 @@ const routes: Routes = [];
     scrollPositionRestoration: "enabled",
 	anchorScrolling: 'enabled',
     useHash: true,
-    relativeLinkResolution: 'legacy',
-	enableTracing: true
+    relativeLinkResolution: 'legacy'
 }),
     LayoutModule
   ],
