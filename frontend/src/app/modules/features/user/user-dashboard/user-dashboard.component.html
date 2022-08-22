@@ -52,7 +52,7 @@
             <a (click)="onTabChange({tabName: 'applied', tabNumber: 4})"
               [ngClass]="{'active': currentTabInfo.tabNumber == 4}" class="nav-link" href="javascript:;">
               {{"tabs.jobsApplied" | translate}}
-               <small id="appliedCountValue" >(0)</small> 
+               <small >({{applicantCouuntDetails}})</small> 
             </a>
           </li>
           <!-- <li class="nav-item">
