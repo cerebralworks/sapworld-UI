@@ -124,10 +124,9 @@
 							</div>
 							<div [ngClass]="{'show': queryParams?.type}" class="card-body collapse multi-collapse" id="collapseJoptype">
 								<ul class="list-group list-group-flush">
-									<li class="list-group-item" *ngFor="let item of sharedService.onGetJobType(); let i=index">
+									<!--<li class="list-group-item" *ngFor="let item of sharedService.onGetJobType(); let i=index">
 										<div class="custom-control custom-checkbox">
 											<input [value]="item.id" [checked]="queryParams?.type?.includes(item.id)" (change)="onFiltertByJobType('type', item.id)" type="checkbox" class="custom-control-input" id="customCheck_{{i}}">
-											<!-- <label class="custom-control-label" for="customCheck_{{i}}">{{item.text}} </label> -->
 											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1000">{{"shared.fullTime" | translate }} </label>
 											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1001">{{"shared.partTime" | translate }} </label>
 											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1002">{{"shared.contract" | translate }}</label>
@@ -135,7 +134,38 @@
 											<label class="custom-control-label" for="customCheck_{{i}}" *ngIf="item?.id==1004">{{"shared.internship" | translate }} </label>
 										  
 										</div>
-									</li>
+									</li>-->
+									
+									<li class="list-group-item">
+				<div class="custom-control custom-checkbox">
+				    <input [value]="1000" [checked]="queryParams?.job_types?.includes(1000)" (change)="onFiltertByJobType('job_types',1000)" type="checkbox" class="custom-control-input" id="customCheck_0">
+                    <label class="custom-control-label" for="customCheck_0">{{"shared.fullTime" | translate }} </label>
+				</div>
+				</li>
+				<li class="list-group-item">
+				<div class="custom-control custom-checkbox">
+				    <input [value]="1001" [checked]="queryParams?.job_types?.includes(1001)" (change)="onFiltertByJobType('job_types',1001)" type="checkbox" class="custom-control-input" id="customCheck_1">
+                    <label class="custom-control-label" for="customCheck_1">{{"shared.partTime" | translate }} </label>
+				</div>
+				</li>
+				<li class="list-group-item">
+				<div class="custom-control custom-checkbox">
+				    <input [value]="1002" [checked]="queryParams?.job_types?.includes(1002)" (change)="onFiltertByJobType('job_types',1002)" type="checkbox" class="custom-control-input" id="customCheck_2">
+                    <label class="custom-control-label" for="customCheck_2">{{"shared.contract" | translate }} </label>
+				</div>
+				</li>
+				<li class="list-group-item">
+				<div class="custom-control custom-checkbox">
+				    <input [value]="1003" [checked]="queryParams?.job_types?.includes(1003)" (change)="onFiltertByJobType('job_types',1003)" type="checkbox" class="custom-control-input" id="customCheck_3">
+                    <label class="custom-control-label" for="customCheck_3">{{"shared.freelance" | translate }} </label>
+				</div>
+				</li>
+				<li class="list-group-item">
+				<div class="custom-control custom-checkbox">
+				    <input [value]="1004" [checked]="queryParams?.job_types?.includes(1004)" (change)="onFiltertByJobType('job_types',1004)" type="checkbox" class="custom-control-input" id="customCheck_4">
+                    <label class="custom-control-label" for="customCheck_4">{{"shared.internship" | translate }} </label>
+				</div>
+				</li>
 								</ul>
 							</div>
 						</div>
