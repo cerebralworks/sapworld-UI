@@ -20,23 +20,27 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 	<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-	<style type="text/css">
-  app-root:empty::after {
-    content: "Loading...";
-    position: absolute;
-    display: block;
-    top: 50%;
-    left: 50%;
-    font-size: 20px;
-    transform: translate(-50%, -50%);
-  }
-</style>
+	
 </head>
-<body>
+<body style="visibility: hidden;">
   <app-root></app-root>
+  
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlNbHgwIyn7mVCKpkdie_uu8_a87A1fvc&libraries=places&language=en"></script>
 	<script src="assets/js/parallax.js"></script>
 	
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+let domReady = (cb) => {
+  document.readyState === 'interactive' || document.readyState === 'complete'
+    ? cb()
+    : document.addEventListener('DOMContentLoaded', cb);
+};
+
+domReady(() => {
+  // Display body when DOM is loaded
+  document.body.style.visibility = 'visible';
+});
+
+</script>
 </body>
 </html>
