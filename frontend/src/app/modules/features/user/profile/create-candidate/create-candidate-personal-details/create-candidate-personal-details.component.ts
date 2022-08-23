@@ -287,6 +287,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	 setTimeout(async () => {
 				if(this.childForm.controls.personalDetails.status =="INVALID"){
     if(this.childForm && this.savedUserDetails) {
+	
 		if(this.childForm.value.personalDetails.country){
 			this.savedUserDetails.first_name=this.childForm.value.personalDetails.first_name;
 			this.savedUserDetails.last_name= this.childForm.value.personalDetails.last_name;
@@ -515,7 +516,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
       }
 				}
 				}else{
-					
+					this.savedUserDetails.education_qualification=this.childForm.value.educationExp.education_qualification;
 					this.childForm.patchValue({
 						personalDetails: {
 							nationality: this.childForm.value.personalDetails.nationality,
