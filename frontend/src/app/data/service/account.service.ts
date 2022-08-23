@@ -26,6 +26,17 @@ export class AccountService extends CacheService {
   constructor(private apiService: ApiService) {
     super();
   }
+  
+  Init() {
+        return new Promise<void>((resolve, reject) => {
+
+           setTimeout(() => {
+                resolve();
+            });
+        });
+    }
+
+
 	
   /**
    * To Save the user profile details

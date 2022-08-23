@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA ,APP_INITIALIZER} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,7 +63,8 @@ import { ChartsModule } from 'ng2-charts';
       ],
     })
   ],
-  providers: [AccountService],
+  providers: [AccountService,{ provide: APP_INITIALIZER,useFactory: initializeApp1, deps: [AccountService], multi: true}
+],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
@@ -73,4 +74,10 @@ export class AppModule { }
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json?v=' + new Date().getTime());
+}
+
+export function initializeApp1(appInitService: AccountService) {
+  return (): Promise<void> => { 
+    return appInitService.Init();
+  }
 }
