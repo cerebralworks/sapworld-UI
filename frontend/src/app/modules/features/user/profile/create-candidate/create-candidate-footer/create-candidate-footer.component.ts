@@ -128,9 +128,9 @@ export class CreateCandidateFooterComponent implements OnInit {
 		  }
 		  if(this.createCandidateForm.controls.educationExp.valid && this.createCandidateForm.value.personalDetails.entry ===true){
 		  this.onTabChange();
-		  }else if(this.createCandidateForm.controls.educationExp.valid && this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience < this.createCandidateForm.controls.educationExp.value.experience)){
+		  }else if(this.createCandidateForm.controls.educationExp.valid && this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience <= this.createCandidateForm.controls.educationExp.value.experience)){
 		  this.onTabChange();
-		  }else if(this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience == this.createCandidateForm.controls.educationExp.value.experience)){
+		  }else if(this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience > this.createCandidateForm.controls.educationExp.value.experience)){
 		  var b:HTMLElement= document.querySelector('[formcontrolname="experience"]');
 			   b.focus();
 				this.scrollTo(b);
