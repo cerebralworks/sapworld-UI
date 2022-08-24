@@ -75,7 +75,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
       .subscribe(response => {
         this.loggedUserInfo = response;
       });
-	  this.matchesModels = (this.router.url==='/user/job-matches/details') || (this.router.url==='/employer/job-multiple-candidate-matches')?true:false;
+	  this.matchesModels = (this.router.url.includes('/user/job-matches/details')) || (this.router.url.includes('/employer/job-multiple-candidate-matches'))?true:false;
   }
 
   /**
