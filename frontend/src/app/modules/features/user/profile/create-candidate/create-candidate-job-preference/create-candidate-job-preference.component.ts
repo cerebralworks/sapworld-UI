@@ -32,6 +32,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	@ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
+	public validationType:any;
 	private autocomplete: any;
 	public availabilityArray: { id: number; text: string; }[];
 	public travelArray: { id: number; text: string; }[];
@@ -125,13 +126,41 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	}
 	
 	/**
+	   To validate field by tab change
+	**/ 
+	
+    valJobPrefTab(){
+	this.validationType = {
+        'job_role': [Validators.required],
+        'job_type': [Validators.required],
+		'willing_to_relocate': [Validators.required],
+		'travel': [Validators.required],
+		'availability': [Validators.required],
+		}
+		
+	    this.addValidators(<FormGroup>this.childForm.controls['jobPref']);
+	
+	}
+	
+	public addValidators(form: FormGroup) {
+		if(form && form.controls) {
+			for (const key in form.controls) {
+				form.get(key).setValidators(this.validationType[key]);
+				form.get(key).updateValueAndValidity();
+			}		
+		}
+	}
+	
+	
+	
+	/**
 	**	When the module after loading the contents the ngOnChanges calls
 	**  To validate the form and inserting the form data
 	**/
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout(async () => {
-			
+			this.valJobPrefTab();
 			if (this.childForm && this.savedUserDetails) {
 				if(this.savedUserDetails.work_authorization==0){
 					

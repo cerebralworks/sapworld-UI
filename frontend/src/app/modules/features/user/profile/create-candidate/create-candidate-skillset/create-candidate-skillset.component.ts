@@ -40,6 +40,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	public commonSkills: any[] = [];
 	public programItems: any[] = [];
 	public userInfo: any;
+	public validationType:any;
 	savedUserDetails: any;
 	@Input('userDetails')
 	set userDetails(inFo: any) {
@@ -290,7 +291,34 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			});
 		}
 	}
-
+  
+  
+	/**
+	   To validate field by tab change
+	**/ 
+	
+    valSkillTab(){
+	this.validationType = {
+		'skill_id': [Validators.required],
+		'experience': [Validators.required],
+		'exp_type': [Validators.required],
+		'programming_skills': [Validators.required]
+		}
+		if(this.childForm.value.personalDetails.entry===false){
+	    this.addValidators(<FormGroup>this.childForm.controls['skillSet']);
+	  }
+	
+	
+	}
+	
+	public addValidators(form: FormGroup) {
+		if(form && form.controls) {
+			for (const key in form.controls) {
+				form.get(key).setValidators(this.validationType[key]);
+				form.get(key).updateValueAndValidity();
+			}		
+		}
+	}
 	
 	/**
 	**	To detect the changes in the skillSet form data's
@@ -299,6 +327,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	ngOnChanges(changes: SimpleChanges): void {
 	  
 		setTimeout(async () => {
+		    this.valSkillTab();
 			if(this.childForm.controls.skillSet.status =="INVALID"){
 			  
 		  if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
