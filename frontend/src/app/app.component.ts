@@ -12,7 +12,6 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { DataService } from '@shared/service/data.service';
 import { PushNotificationsService } from '@shared/service/notification.service';
-
 import * as moment from 'moment';
 
 @Component({
@@ -63,7 +62,7 @@ export class AppComponent {
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
-        this.checkUserLoggedIn();
+          this.checkUserLoggedIn();
       }
       if (event instanceof NavigationEnd) {
        if(event.url == '/home') {
@@ -73,6 +72,10 @@ export class AppComponent {
        }
       }
     });
+	 window.onload = (event) => {
+	var splashscreen:HTMLElement = document.getElementById('splash-screen');
+	splashscreen.style.display="none";
+	}
 	this.dataService.getNotificationDataSource().subscribe(
 	  response => {
 		if(response && response['total']) {

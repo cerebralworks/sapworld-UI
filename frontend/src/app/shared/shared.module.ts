@@ -53,6 +53,7 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContactFormComponent } from './component/contact-form/contact-form.component';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
+import {SplashScreenComponent} from './component/splash-screen/splash-screen.component';
 @NgModule({
   declarations: [
     LoginFormComponent,
@@ -88,7 +89,8 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
     JobPreviewModalComponent,
     PhonePipe,
     TimePipe,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+	SplashScreenComponent
   ],
   imports: [
     NgbModule,
@@ -161,7 +163,8 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
     TimePipe,
     CarouselModule,
     ChangePasswordComponent,
-	AmazingTimePickerModule
+	AmazingTimePickerModule,
+	SplashScreenComponent
   ],
   providers: [ApiService,PushNotificationsService]
 })
