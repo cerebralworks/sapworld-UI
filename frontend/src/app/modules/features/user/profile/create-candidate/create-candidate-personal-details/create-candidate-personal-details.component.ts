@@ -258,11 +258,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         if (response && Array.isArray(response) && response.length) {
           this.nationality = response;
 		  if(this.childForm.controls.personalDetails.status =="VALID"){
+		    setTimeout(()=>{
 				this.childForm.patchValue({
 					personalDetails: {
-						nationality: this.childForm.value.personalDetails.nationality,
+						nationality: this.savedUserDetails.nationality,
 					}
 				});
+				},0)
 			}
 			this.othercountry =  response.filter(function(a,b){
 				return a.id !="226"&&a.id !="254"&&a.id !="225"&&a.id !="13"&&a.id !="153"&&a.id !="192"&&a.id !="38"
