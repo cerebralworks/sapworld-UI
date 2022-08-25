@@ -891,9 +891,9 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		}else if(parseInt(splitTime[0], 10) > 12 && parseInt(splitTime[0], 10) !=12){
 		var newtime=parseInt(splitTime[0])-12+':'+splitTime[1]+' PM';
 		}else if(splitTime[0] ==='00'){
-		var newtime= '12:00 AM';
+		var newtime='12:'+splitTime[1]+' AM';
 		}else if(splitTime[0] =='12'){
-		var newtime= '12:00 PM';
+		var newtime='12:'+splitTime[1]+' PM';
 		}
 		if( time && data =='min' ){
 			this.min=newtime;
