@@ -909,8 +909,6 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		
 		//console.log(!this.meetingform.valid);
 		if(minCheck && maxCheck){
-			console.log(minCheck);
-			console.log(maxCheck);
 			maxCheck= maxCheck.split(':');
 			minCheck= minCheck.split(':');
 			var maxCheck_1=parseInt(maxCheck[0]);
@@ -919,26 +917,19 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			var minCheck_1= parseInt(minCheck[0]);
 			var minCheck_2= parseInt(minCheck[1]);
 			var minCheck_3= (minCheck[1].split(' '));
-			console.log(maxCheck_1,maxCheck_2,maxCheck_3[1]);
-			console.log(minCheck_1,minCheck_2,minCheck_3[1]);
 			if(minCheck_1>12 && maxCheck_1>12){
 				//minCheck_1=minCheck_1-12;
 				if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
-					console.log(1);
 				this.minError = true;
 			}else if(minCheck_1>maxCheck_1){
-				console.log(2);
 				this.minError = true;
 			}
 			}else if((maxCheck_1==minCheck_1) && (maxCheck_2==minCheck_2) && (maxCheck_3[1] == minCheck_3[1])){
-				console.log(3);
 				this.minError = true;
 			}else{
 			if(minCheck_1>maxCheck_1 && minCheck_1<12 && (maxCheck_3[1] == minCheck_3[1]) ){
-				console.log(4);
 				this.minError = true;
 			}else if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1) && (maxCheck_3[1] == minCheck_3[1])){
-				console.log(5);
 				this.maxError = true;
 			}
 			
