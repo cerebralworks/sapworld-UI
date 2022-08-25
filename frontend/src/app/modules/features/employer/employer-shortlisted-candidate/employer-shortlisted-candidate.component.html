@@ -337,18 +337,26 @@
 	 <form [formGroup]="meetingform" (ngSubmit)="sendmeetinglink()">
 	 <div class="form-group">
         <label>Interview Date</label>   
-          <input type="date" class="form-control" formControlName="interviewDate" name="interviewDate">
+          <input type="date" [min]="currentdata" class="form-control" formControlName="interviewDate" name="interviewDate">
       </div>
 	  <div class="row">
-	   <div class="col-7 form-group">
-        <label>Interview Time</label>   
-         <!-- <input type="time" class="form-control" formControlName="interviewTime" name="interviewTime"> -->
-         
-		 <div (click)="getTimeValue($event)">
+	   <div class="col-6 form-group">
+        <label>Interview start Time</label>           
+		 <div (click)="getTimeValue($event,'min')">
 		  <input type="text" formControlName="interviewTime" class="form-control" placeholder="-- -- --" readonly><i class="fas fa-clock" style="position:absolute; top:3rem; right:2rem; color: #a8afb5; "></i>
+		  <small class="text-danger" *ngIf="minError"  > The start time must be lesser than the end time </small>
 		 </div>
       </div>
-	   <div class="col-5 form-group">
+	  <div class="col-6 form-group">
+        <label>Interview End Time</label>   
+		 <div (click)="getTimeValue($event,'max')">
+		  <input type="text" formControlName="interviewEndTime" class="form-control" placeholder="-- -- --" readonly><i class="fas fa-clock" style="position:absolute; top:3rem; right:2rem; color: #a8afb5; "></i>
+			<small class="text-danger"  *ngIf="maxError" > The end time must be greater than the start time </small>
+		 </div>
+      </div>
+	  </div>
+	  <div class="row">
+	   <div class="col-12 form-group">
         <label>Time Zone</label> 
 		 <select formControlName="timeZone" class="form-control" name="timeZone">
 					<option value='' disabled>Select Time Zone</option>
@@ -396,7 +404,7 @@
       </div>
 	  <div class="modal-footer">
 		 <button type="button" class="btn btn-secondary " (click)="closemeeting()" data-dismiss="modal">{{"shared.close" | translate}} </button>
-      <button type="submit" [disabled]="!meetingform.valid" class="btn btn-primary" data-dismiss="modal">{{"shared.submit" | translate}} </button>
+      <button type="submit" [disabled]="!meetingform.valid || (minError || maxError)" class="btn btn-primary" data-dismiss="modal">{{"shared.submit" | translate}} </button>
      
       </div>
 	 </form>

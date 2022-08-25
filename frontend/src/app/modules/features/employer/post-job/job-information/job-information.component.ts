@@ -462,10 +462,13 @@ export class JobInformationComponent implements OnInit {
 				this.minError = true;
 			}else if(minCheck_1>maxCheck_1){
 				this.minError = true;
+			}else if( (maxCheck_1==minCheck_1) && (maxCheck_2==minCheck_2) ){
+					this.minError = true;
 			}
+			}else if((maxCheck_1==minCheck_1) && (maxCheck_2==minCheck_2) ){
+				this.minError = true;
 			}else{
 			if(minCheck_1>maxCheck_1 && minCheck_1<12){
-				
 				this.minError = true;
 			}else if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
 				this.maxError = true;

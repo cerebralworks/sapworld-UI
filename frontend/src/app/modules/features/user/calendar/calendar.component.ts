@@ -236,6 +236,7 @@ export class CalendarComponent implements OnInit {
 						var CategoryColor = "#008000";
 						var input1Date =  new Date();
 						var input2Date =  new Date();		
+						var input3Date =  new Date();		
 						var ArrayResource = ArrayValueEvents[j];
 						if(ArrayResource['link']){
 							var dataValue = ArrayResource['link'] ;
@@ -247,7 +248,10 @@ export class CalendarComponent implements OnInit {
 								var tempDescription= '<h6> <strong>Title : </strong>Meeting Invitation details</h6> </br>';
 								input2Date =  new Date(ArrayResource['interviewdate']);
 								var a = input2Date.toDateString()+' '+ArrayResource['interviewtime'];
+								input3Date =  new Date(ArrayResource['interviewdate']);
+								var b = input2Date.toDateString()+' '+ArrayResource['interviewendtime'];
 								var shortTime = new Date(a).toLocaleTimeString([], {timeStyle: 'short'});
+								var shortTime1 = new Date(b).toLocaleTimeString([], {timeStyle: 'short'});
 									if (input1Date > input2Date && input1Date.getTime() > new Date(a).getTime()){
 										CategoryColor = "green";
 									}else{
@@ -257,10 +261,10 @@ export class CalendarComponent implements OnInit {
 									
 											if(dataValue.includes('www')){		
 												
-												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Start Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Interview End Time : </strong><span style="color:blue;">'+shortTime1+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}else{
 												
-												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+												tempDescription += '<h6><strong>Interviewer Name : </strong><span style="color:blue;">'+ArrayResource['name']+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Start Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Interview End Time : </strong><span style="color:blue;">'+shortTime1+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}
 								
 								var tempTitle= ArrayValue['job_posting']['title']+' - '+tempStatus;
@@ -269,7 +273,7 @@ export class CalendarComponent implements OnInit {
 									'Id':j,
 									'Subject':tempTitle,
 									'StartTime':a.toLocaleString(),
-									'EndTime':a.toLocaleString(),
+									'EndTime':b.toLocaleString(),
 									'CategoryColor':CategoryColor,
 									'Description':tempDescription
 								}
