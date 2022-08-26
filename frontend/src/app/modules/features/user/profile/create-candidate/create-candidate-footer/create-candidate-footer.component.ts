@@ -128,9 +128,9 @@ export class CreateCandidateFooterComponent implements OnInit {
 		  }
 		  if(this.createCandidateForm.controls.educationExp.valid && this.createCandidateForm.value.personalDetails.entry ===true){
 		  this.onTabChange();
-		  }else if(this.createCandidateForm.controls.educationExp.valid && this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience <= this.createCandidateForm.controls.educationExp.value.experience)){
+		  }else if(this.createCandidateForm.controls.educationExp.valid && this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience <= this.createCandidateForm.controls.educationExp.value.experience) && this.createCandidateForm.controls.educationExp.value.experience !==0){
 		  this.onTabChange();
-		  }else if(this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience > this.createCandidateForm.controls.educationExp.value.experience)){
+		  }else if(this.createCandidateForm.value.personalDetails.entry ===false && (this.createCandidateForm.controls.educationExp.value.sap_experience > this.createCandidateForm.controls.educationExp.value.experience) || this.createCandidateForm.controls.educationExp.value.experience ===0){
 		  var b:HTMLElement= document.querySelector('[formcontrolname="experience"]');
 			   b.focus();
 				this.scrollTo(b);
@@ -262,7 +262,6 @@ export class CreateCandidateFooterComponent implements OnInit {
 			 }
 		  }
 		}
-		
 		if(this.checValue()){
 			if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >= this.createCandidateForm.value.educationExp.sap_experience ) {
 				if(this.createCandidateForm.value.personalDetails.authorized_country_select){
@@ -282,7 +281,6 @@ export class CreateCandidateFooterComponent implements OnInit {
 						
 					}
 				}
-				
 				this.onEnableJobPreviewModal.emit(status);
 				
 			}else{console.log('errors')}

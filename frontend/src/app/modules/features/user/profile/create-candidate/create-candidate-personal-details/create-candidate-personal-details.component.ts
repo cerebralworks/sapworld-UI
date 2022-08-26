@@ -258,11 +258,13 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
         if (response && Array.isArray(response) && response.length) {
           this.nationality = response;
 		  if(this.childForm.controls.personalDetails.status =="VALID"){
+		    setTimeout(()=>{
 				this.childForm.patchValue({
 					personalDetails: {
 						nationality: this.childForm.value.personalDetails.nationality,
 					}
 				});
+				},0)
 			}
 			this.othercountry =  response.filter(function(a,b){
 				return a.id !="226"&&a.id !="254"&&a.id !="225"&&a.id !="13"&&a.id !="153"&&a.id !="192"&&a.id !="38"
@@ -624,6 +626,12 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**/
 	
 	handleChange(event,val){
+	  this.childForm.patchValue({
+					personalDetails:{
+						authorized_country:[],
+						authorized_country_select:[]
+					}
+				})
 		if(val ==0){
 			if(this.childForm.value.personalDetails.work_authorization == 0 ){
 				this.childForm.controls.personalDetails['controls']['work_authorization'].setValue(null);
@@ -643,7 +651,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 				this.onChangeFieldValue(event,val);
 			}
 		}else if(val ==1){
-			if(this.childForm.value.personalDetails.work_authorization == 1 ){
+			if(this.childForm.value.personalDetails.work_authorization == 1 ){ 
 				this.childForm.controls.personalDetails['controls']['work_authorization'].setValue(null);
 				this.childForm.controls.personalDetails['controls']['work_authorization'].updateValueAndValidity();
 				this.showAuthorization = false;
@@ -662,6 +670,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 				
 			}
 		}
+		this.loadPrefLoc();
 	}
 	
 	/**
@@ -704,10 +713,21 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 					this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
 			
 				}
-				
-				
+				this.loadPrefLoc();
 			}
+			
 		}
+	}
+	
+	/**
+	**	To reset the preferred_locations
+	**/
+	loadPrefLoc(){
+	     if(this.savedUserDetails.profile_completed==true){
+	      for(let i=0;i<=this.childForm.value.jobPref.preferred_locations.length-1;i++){
+			this.childForm.controls.jobPref['controls']['preferred_locations'].removeAt(0);
+			}
+			}
 	}
 	
 	/**
@@ -1161,7 +1181,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			this.childForm.value.personalDetails.authorized_country.push(clr.target.id);
 		}
 	  }
-	  console.log(value);
+	 this.loadPrefLoc();
 	  //this.choosedCountry.push(value)
 	  //console.log(this.choosedCountry)
 	}

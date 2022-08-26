@@ -363,7 +363,8 @@
 							  </thead>
 							  <tbody >
 								<tr *ngIf="jobStatus ===0">
-									<td>No Jobs Found</td></tr>
+									<td>No Jobs Found</td>
+								</tr>
 								<tr *ngFor="let item of jobStatus">
 								  <td><a class="text-capitalize" href="javascript:;" [routerLink]="['/employer/job-detail-view', 'details']" [queryParams]="{id: item?.id}" routerLinkActive="router-link-active" >{{item.title}} </a></td>
 								  <td class="text-center">

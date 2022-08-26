@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { Location,DatePipe } from '@angular/common';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Component,ViewEncapsulation, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -84,6 +84,11 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	public requestParam : any={};
 	public itime:any;
 	public userprofilepath: any;
+	public currentdata: any;
+	public min: any;
+	public max: any;
+	public minError: boolean = false;
+	public maxError: boolean = false;
 	constructor(
 		private employerService: EmployerService,
 		private modalService: NgbModal,
@@ -117,6 +122,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	**/
 	 
 	ngOnInit(): void {
+		const datePipe = new DatePipe('en-Us');
+		 this.currentdata = datePipe.transform(new Date(), 'yyyy-MM-dd');
 		this.buildForm();
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
@@ -354,6 +361,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				link: val.link,
 				interviewdate :val.interviewdate,
 				interviewtime : val.interviewtime,
+				interviewendtime : val.interviewendtime,
 				zone :val.zone
 			  }
 			});
@@ -384,7 +392,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 						this.isErrorShown= true;
 					}
 				}
-				this.requestParam.apps = true;
+				requestParams.apps = true;
 				if(this.isErrorShown== true){
 					this.employerService.shortListUser(requestParams).subscribe(
 						response => {
@@ -472,6 +480,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				link: val.link,
 				interviewdate :val.interviewdate,
 				interviewtime : val.interviewtime,
+				interviewendtime : val.interviewendtime,
 				zone :val.zone
 			  }
 			});
@@ -844,6 +853,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
     this.meetingform = this.formBuilder.group({
 	  interviewDate: ['',Validators.required],
       interviewTime: ['',Validators.required],
+	  interviewEndTime: ['',Validators.required],
       timeZone: ['',Validators.required],
       name: ['',Validators.required],
       link: ['',Validators.required]
@@ -851,12 +861,12 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
   }
   
   
-  getTimeValue(e){
+  getTimeValue(e,data){
   
   var amazingTimePicker = this.atp.open({
 				changeToMinutes: true,
 			});
-  amazingTimePicker.afterClose().subscribe(time  => {
+  /*amazingTimePicker.afterClose().subscribe(time  => {
 	var a= time.split(':');
 	this.itime=time;
   if(parseInt(a[0], 10) > 0 && parseInt(a[0], 10) <12){
@@ -872,6 +882,59 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
   }
  
   this.meetingform.controls['interviewTime'].setValue(newtime);
+  });*/
+    amazingTimePicker.afterClose().subscribe(time  => {
+		this.itime=time;
+		var splitTime = time.split(':');
+		if(parseInt(splitTime[0], 10) > 0 && parseInt(splitTime[0], 10) <12){
+		var newtime =time+' AM';
+		}else if(parseInt(splitTime[0], 10) > 12 && parseInt(splitTime[0], 10) !=12){
+		var newtime=parseInt(splitTime[0])-12+':'+splitTime[1]+' PM';
+		}else if(splitTime[0] ==='00'){
+		var newtime='12:'+splitTime[1]+' AM';
+		}else if(splitTime[0] =='12'){
+		var newtime='12:'+splitTime[1]+' PM';
+		}
+		if( time && data =='min' ){
+			this.min=newtime;
+			this.meetingform.controls['interviewTime'].setValue(newtime);
+		}if(time && data =='max'){
+			this.max=newtime;
+			this.meetingform.controls['interviewEndTime'].setValue(newtime);
+		}
+		this.minError = false;
+		this.maxError = false;
+		var maxCheck = this.meetingform.value.interviewEndTime;
+		var minCheck = this.meetingform.value.interviewTime;
+		
+		//console.log(!this.meetingform.valid);
+		if(minCheck && maxCheck){
+			maxCheck= maxCheck.split(':');
+			minCheck= minCheck.split(':');
+			var maxCheck_1=parseInt(maxCheck[0]);
+			var maxCheck_2=parseInt(maxCheck[1]);
+			var maxCheck_3=(maxCheck[1].split(' '));
+			var minCheck_1= parseInt(minCheck[0]);
+			var minCheck_2= parseInt(minCheck[1]);
+			var minCheck_3= (minCheck[1].split(' '));
+			if(minCheck_1>12 && maxCheck_1>12){
+				//minCheck_1=minCheck_1-12;
+				if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
+				this.minError = true;
+			}else if(minCheck_1>maxCheck_1){
+				this.minError = true;
+			}
+			}else if((maxCheck_1==minCheck_1) && (maxCheck_2==minCheck_2) && (maxCheck_3[1] == minCheck_3[1])){
+				this.minError = true;
+			}else{
+			if(minCheck_1>maxCheck_1 && minCheck_1<12 && (maxCheck_3[1] == minCheck_3[1]) ){
+				this.minError = true;
+			}else if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1) && (maxCheck_3[1] == minCheck_3[1])){
+				this.maxError = true;
+			}
+			
+		}
+		}
   });
   }
   
@@ -889,7 +952,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				name: this.meetingform.value.name,
 				link: this.meetingform.value.link,
 				interviewdate : this.meetingform.value.interviewDate,
-				interviewtime : this.itime,
+				interviewtime : this.meetingform.value.interviewTime,
+				interviewendtime : this.meetingform.value.interviewEndTime,
 				zone :this.meetingform.value.timeZone
 		
 	}
@@ -901,6 +965,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 					this.closemeeting();
 					this.meetingform.reset();
 					this.itime ='';
+					this.onGetShortListedJobs();
 				}
 					
 			);

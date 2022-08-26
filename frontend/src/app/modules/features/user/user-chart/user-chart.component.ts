@@ -323,7 +323,7 @@ export class UserChartComponent implements OnInit {
 	onGetAppliedJobsDetails = () => {
       let requestParams: any = {};
       requestParams.page = this.page;
-		requestParams.limit = this.applicantCouuntDetails;
+      requestParams.limit = this.applicantCouuntDetails;
       requestParams.expand = "job_posting,user,employer";
 	  requestParams.sort = "updated_at.desc";
       this.userService.applicationsListForUser(requestParams).subscribe(
@@ -495,10 +495,10 @@ export class UserChartComponent implements OnInit {
 	  
 	  this.userService.getUserDashboard(requestParams).subscribe(
         response => {
+			this.onGetAppliedJobsDetails();
 			if(response.count !=0 && response.count>=1){
 				var filterapplied = response.data.map(function(a,b){ return a.count });
 				this.totalApplied = filterapplied.reduce((a, b) => parseInt(a) + parseInt(b) );
-				this.onGetAppliedJobsDetails();
 			}else{
 				}
 			},error =>{

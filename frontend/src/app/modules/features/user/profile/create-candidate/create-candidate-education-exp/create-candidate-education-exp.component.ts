@@ -29,6 +29,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	public educationsSelectedArray: any[] = [];
 	public sapExpError: boolean = false;
 	public totalExpError: boolean = false;
+	public validationType:any;
 	educationsSelectedValue: any;
 	educationsSelectedIndex: number;
 	userInfo: any;
@@ -82,11 +83,39 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	}
 	
 	/**
+	   To validate field by tab change
+	**/
+	
+	valEduTab(){
+	  this.validationType = {
+		'experience': [Validators.required],
+		'sap_experience': [Validators.required],
+		'current_employer': [Validators.required],
+		'current_employer_role': [Validators.required],
+		'domains_worked': [Validators.required]
+		}
+		if(this.childForm.value.personalDetails.entry===false){
+	    this.addValidators(<FormGroup>this.childForm.controls['educationExp']);
+	  }
+	}
+	
+	public addValidators(form: FormGroup) {
+		if(form && form.controls) {
+			for (const key in form.controls) {
+				form.get(key).setValidators(this.validationType[key]);
+				form.get(key).updateValueAndValidity();
+			}		
+		}
+	}
+
+	
+	/**
 	**	To detect onchange event in education-exp tabInfo
 	**/	
   
 	ngOnChanges(changes): void {
 		setTimeout( async () => {
+		this.valEduTab();
 		if((this.childForm.value.educationExp.sap_experience !==0 || this.childForm.value.educationExp.sap_experience !==null) && this.childForm.value.personalDetails.entry ===true){
 		  this.childForm.patchValue({
 						educationExp : {

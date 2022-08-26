@@ -28,8 +28,8 @@ export class SharedService {
     requestParams.page = 1;
     requestParams.limit = 1000;
     requestParams.search = '';
-    //sharedApiService.onGetSkill(requestParams);
-    //sharedApiService.onGetIndustries(requestParams);
+    sharedApiService.onGetSkill(requestParams);
+    sharedApiService.onGetIndustries(requestParams);
    // sharedApiService.onGetCountry(requestParams);
    // sharedApiService.onGetLanguage(requestParams);
    }

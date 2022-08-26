@@ -38,7 +38,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	public nationality:any[]=[];
 	public screenWidth: any;
 	public checkDB : boolean = false;
-	public applicantCouuntDetails: any;
+	public applicantCouuntDetails:any = 0;
 	constructor(
 		private route: ActivatedRoute,
 		private userSharedService: UserSharedService,
@@ -239,11 +239,11 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		this.userService.applicationsListForUser(requestParams).subscribe(
 			response => {
 				this.applicantCouuntDetails=response['meta']['total'];
-				if(response && response['meta'] && response['meta']['total'] ) {
+				/*if(response && response['meta'] && response['meta']['total'] ) {
 					if(document.getElementById('appliedCountValue')){
 						document.getElementById('appliedCountValue').innerHTML="("+response['meta']['total']+")";
 					}
-				}
+				}*/
 			}, error => {
 			}
 		)

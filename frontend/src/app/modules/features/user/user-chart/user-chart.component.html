@@ -308,7 +308,7 @@
 <!--New design-->
 <section class="bg-light py-5">
 		<div class="container">
-			<div class="cardBox">
+<div class="cardBox">
 				<div class="row">
 					<div class="col-lg-3 col-md-4">
 						<div class="d-flex align-items-center pb-5">
@@ -427,7 +427,7 @@
 								  <span *ngIf="item?.job_posting?.type=='1003'">Freelance</span>
 								  <span *ngIf="item?.job_posting?.type=='1004'">Internship</span>
 								  </td>
-								  <td *ngIf="item?.short_listed == false && item?.job_posting?.status != 3">
+								  <td *ngIf="item?.short_listed == false && item?.job_posting?.status != 3 && item?.job_posting?.status != 0 ">
 									Not a Fit
 								  </td>
 								  <td *ngIf="(item?.short_listed == null || item?.short_listed != false) && item?.short_listed != true && item?.status == 1 &&  item?.job_posting?.status != 0 && item?.job_posting?.status != 3">

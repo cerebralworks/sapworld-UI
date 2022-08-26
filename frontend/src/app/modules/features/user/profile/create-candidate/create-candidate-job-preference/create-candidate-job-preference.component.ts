@@ -32,6 +32,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	@ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
 	@Input() currentTabInfo: tabInfo;
 	public childForm;
+	public validationType:any;
 	private autocomplete: any;
 	public availabilityArray: { id: number; text: string; }[];
 	public travelArray: { id: number; text: string; }[];
@@ -40,6 +41,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	public IsShow: boolean = false;
 	public savedUserDetails: any;
 	public tabInfos: tabInfo[];
+	public filterNation :any[]=[];
+	public prefLocErr: boolean = false;
 	@Input('userDetails')
 	set userDetails(inFo: any) {
 		this.savedUserDetails = inFo;
@@ -125,18 +128,46 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	}
 	
 	/**
+	   To validate field by tab change
+	**/ 
+	
+    valJobPrefTab(){
+	this.validationType = {
+        'job_role': [Validators.required],
+        'job_type': [Validators.required],
+		'willing_to_relocate': [Validators.required],
+		'travel': [Validators.required],
+		'availability': [Validators.required],
+		}
+		
+	    this.addValidators(<FormGroup>this.childForm.controls['jobPref']);
+	
+	}
+	
+	public addValidators(form: FormGroup) {
+		if(form && form.controls) {
+			for (const key in form.controls) {
+				form.get(key).setValidators(this.validationType[key]);
+				form.get(key).updateValueAndValidity();
+			}		
+		}
+	}
+	
+	
+	
+	/**
 	**	When the module after loading the contents the ngOnChanges calls
 	**  To validate the form and inserting the form data
 	**/
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout(async () => {
+			this.valJobPrefTab();
 			
 			if (this.childForm && this.savedUserDetails) {
-				if(this.savedUserDetails.work_authorization==0){
-					
-					var temps =this.savedUserDetails.authorized_country;
-					var temps1 =this.savedUserDetails.authorized_country_select;
+				if(this.childForm.value.personalDetails.work_authorization==0){
+					var temps =this.childForm.value.personalDetails.authorized_country;
+					var temps1 =this.childForm.value.personalDetails.authorized_country_select;
 					var tempCoun =[];
 					if(!temps){
 						temps =[];
@@ -150,15 +181,17 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						for(let i=0;i<temps.length;i++){
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
 							if(vali.length==1){
+						         
 								if(parseInt(vali[0]['id'])==parseInt("254")){
-									var EUCountry =["AT","LI","BE","LT",
+									/*var EUCountry =["AT","LI","BE","LT",
 										"LU","DK","MT","EE","FI","NO","CZ",
 										"FR","PL","DE","PT","GR","SK","HU","NL",
 										"SI","IS","ES","IT","SE","LV","CH","IE"
 										]
 										for(let j=0;j<EUCountry.length;j++){
 											tempCoun.push(EUCountry[j]);
-										}
+										}*/
+										tempCoun.push('EU');
 								}else{
 									if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 										tempCoun.push(vali[0]['iso']);
@@ -183,14 +216,16 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps1[i])});
 							if(vali.length==1){
 								if(parseInt(vali[0]['id'])==parseInt("254")){
-									var EUCountry =["AT","LI","BE","LT",
+								
+									/*var EUCountry =["AT","LI","BE","LT",
 										"LU","DK","MT","EE","FI","NO","CZ",
 										"FR","PL","DE","PT","GR","SK","HU","NL",
 										"SI","IS","ES","IT","SE","LV","CH","IE"
 										]
 										for(let j=0;j<EUCountry.length;j++){
 											tempCoun.push(EUCountry[j]);
-										}
+										}*/
+										tempCoun.push('EU');
 								}else{
 									if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 										tempCoun.push(vali[0]['iso']);
@@ -202,31 +237,39 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 
 						}
 					}
-					
+					tempCoun=[...new Set(tempCoun)];
 					if(tempCoun.length==0){
-						
 						this.options.componentRestrictions['country'] = [];
 						
 					}else{
+						if(tempCoun.includes('EU')){
+						this.childForm.get('jobPref.willing_to_relocate').setValue(true)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
+						 this.options.componentRestrictions['country'] = [];
+						}else{
+						  
+						  this.options.componentRestrictions['country'] = tempCoun;
 						
-						this.options.componentRestrictions['country'] = tempCoun;
+						}
 					}
 					
-				}else if(this.savedUserDetails.work_authorization==1){
+				}
+				else if(this.childForm.value.personalDetails.work_authorization==1){
 					var temps =this.childForm.value.personalDetails.nationality;
 					var tempCoun =[];
 					if(temps){
 						var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps)});
 						if(vali.length==1){
 							if(parseInt(vali[0]['id'])==parseInt("254")){
-								var EUCountry =["AT","LI","BE","LT",
+								/*var EUCountry =["AT","LI","BE","LT",
 									"LU","DK","MT","EE","FI","NO","CZ",
 									"FR","PL","DE","PT","GR","SK","HU","NL",
 									"SI","IS","ES","IT","SE","LV","CH","IE"
 									]
 									for(let j=0;j<EUCountry.length;j++){
 										tempCoun.push(EUCountry[j]);
-									}
+									}*/
+							   tempCoun.push('EU');
 							}else{
 								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 									tempCoun.push(vali[0]['iso']);
@@ -236,10 +279,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						}
 						
 					}
+					tempCoun=[...new Set(tempCoun)];
 					if(tempCoun.length==0){
 						this.options.componentRestrictions['country'] = [];
 					}else{
-						this.options.componentRestrictions['country'] = tempCoun;
+					    if(tempCoun.includes('EU')){
+						this.childForm.get('jobPref.willing_to_relocate').setValue(true)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
+						 this.options.componentRestrictions['country'] = [];
+						}else{
+						 
+						  this.options.componentRestrictions['country'] = tempCoun;
+						
+						}
 					}
 				}else{
 					var temps =this.childForm.value.personalDetails.nationality;
@@ -248,14 +300,15 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps)});
 						if(vali.length==1){
 							if(parseInt(vali[0]['id'])==parseInt("254")){
-								var EUCountry =["AT","LI","BE","LT",
+								/*var EUCountry =["AT","LI","BE","LT",
 									"LU","DK","MT","EE","FI","NO","CZ",
 									"FR","PL","DE","PT","GR","SK","HU","NL",
 									"SI","IS","ES","IT","SE","LV","CH","IE"
 									]
 									for(let j=0;j<EUCountry.length;j++){
 										tempCoun.push(EUCountry[j]);
-									}
+									}*/
+									tempCoun.push('EU');
 							}else{
 								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 									tempCoun.push(vali[0]['iso']);
@@ -265,10 +318,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						}
 						
 					}
+					tempCoun=[...new Set(tempCoun)];
 					if(tempCoun.length==0){
 						this.options.componentRestrictions['country'] = [];
 					}else{
-						this.options.componentRestrictions['country'] = tempCoun;
+						if(tempCoun.includes('EU')){
+						this.childForm.get('jobPref.willing_to_relocate').setValue(true)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
+						 this.options.componentRestrictions['country'] = [];
+						}else{
+						  
+						  this.options.componentRestrictions['country'] = tempCoun;
+						
+						}
 					}
 				}
 				this.IsShow = true;
@@ -327,14 +389,15 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps[i])});
 							if(vali.length==1){
 								if(parseInt(vali[0]['id'])==parseInt("254")){
-								var EUCountry =["AT","LI","BE","LT",
+								/*var EUCountry =["AT","LI","BE","LT",
 									"LU","DK","MT","EE","FI","NO","CZ",
 									"FR","PL","DE","PT","GR","SK","HU","NL",
 									"SI","IS","ES","IT","SE","LV","CH","IE"
 									]
 									for(let j=0;j<EUCountry.length;j++){
 										tempCoun.push(EUCountry[j]);
-									}
+									}*/
+									tempCoun.push('EU');
 							}else{
 								if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 									tempCoun.push(vali[0]['iso']);
@@ -354,14 +417,15 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 							var vali =this.othercountry.filter(function(a,b){ return a.id==parseInt(temps1[i])});
 							if(vali.length==1){
 								if(parseInt(vali[0]['id'])==parseInt("254")){
-									var EUCountry =["AT","LI","BE","LT",
+									/*var EUCountry =["AT","LI","BE","LT",
 										"LU","DK","MT","EE","FI","NO","CZ",
 										"FR","PL","DE","PT","GR","SK","HU","NL",
 										"SI","IS","ES","IT","SE","LV","CH","IE"
 										]
 										for(let j=0;j<EUCountry.length;j++){
 											tempCoun.push(EUCountry[j]);
-										}
+										}*/
+										tempCoun.push('EU');
 								}else{
 									if(vali[0]['iso']!=null && vali[0]['iso']!='' && vali[0]['iso']!=undefined){
 										tempCoun.push(vali[0]['iso']);
@@ -373,14 +437,21 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 
 						}
 					}
-					
+					tempCoun=[...new Set(tempCoun)];
 					if(tempCoun.length==0){
 						
 						this.options.componentRestrictions['country'] = [];
 						
 					}else{
+						if(tempCoun.includes('EU')){
+						this.childForm.get('jobPref.willing_to_relocate').setValue(true)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
+						 this.options.componentRestrictions['country'] = [];
+						}else{
+						 
+						  this.options.componentRestrictions['country'] = tempCoun;
 						
-						this.options.componentRestrictions['country'] = tempCoun;
+						}
 					}
 					
 				}else if(this.childForm.controls.personalDetails.value.work_authorization==1){
@@ -396,10 +467,19 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 						}
 						
 					}
+					tempCoun=[...new Set(tempCoun)];
 					if(tempCoun.length==0){
 						this.options.componentRestrictions['country'] = [];
 					}else{
-						this.options.componentRestrictions['country'] = tempCoun;
+						if(tempCoun.includes('EU')){
+						this.childForm.get('jobPref.willing_to_relocate').setValue(true)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
+						 this.options.componentRestrictions['country'] = [];
+						}else{
+						 
+						  this.options.componentRestrictions['country'] = tempCoun;
+						
+						}
 					}
 				}
 				if(this.childForm.controls.jobPref.value.preferred_locations!=null){
@@ -498,6 +578,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 				});
 				
 			}
+			this.filterNation=tempCoun.filter(a=> a!=='EU');
 		},300);
 	}
 
@@ -705,12 +786,23 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	
 	handleAddressChange = (event) => {
 		const address = this.sharedService.fromGooglePlace(event);
+		//console.log(address);
+		var restCount = [];
+		var EUCountry =["AT","LI","BE","LT",
+						"LU","DK","MT","EE","FI","NO","CZ",
+						"FR","PL","DE","PT","GR","SK","HU","NL",
+						"SI","IS","ES","IT","SE","LV","CH","IE"
+						];
+		if(this.options.componentRestrictions['country'].length ===0){
+		   restCount =EUCountry.concat(this.filterNation);
+		}else{
+		   restCount =this.options.componentRestrictions['country'];
+		}
 		if(event.geometry){
 			var tempData =[];
 			if(this.t.value){
 				 tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateShort!=''});
 			}
-			
 			var datas:any = {
 			city: address.city ? address.city : event.formatted_address,
 			state: address.state,
@@ -718,9 +810,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			country: address.country
 			};
 			this.chipsInput.nativeElement.value='';
-			if(address['city'] !=null &&address['state'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
-				address['city'] !=undefined &&address['state'] !=undefined &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){ 
-				if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
+			if(restCount.includes(address.countryShort)){
+			 this.prefLocErr=false;
+			if(address['city'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
+				address['city'] !=undefined  &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){ 
+				if(tempData.filter(function(a,b){ return a.city == datas.city  && a.country ==datas.country }).length==0){
 					this.onDuplicate();
 					tempData.push(datas);
 					this.t.patchValue(tempData);
@@ -729,6 +823,9 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 					return a.city+'-'+a.stateShort });
 					this.address=tempData;
 				}
+			}
+			}else{
+			  this.prefLocErr=true;
 			}
 		}
 	};
