@@ -87,7 +87,7 @@
         <div class="tab-content" id="myTabContent">
           <!--About Company-->
           <div class="tab-pane fade show active" id="company" role="tabpanel" aria-labelledby="company-tab">
-            <h6>{{"shared.description" | translate}}</h6>
+            <!-- <h6>{{"shared.description" | translate}}</h6> -->
             <ng-container *ngIf="companyProfileInfo?.description; else elseDesTemplate">
               <div style="word-break: break-all;" [innerHTML]="companyProfileInfo?.description">
               </div>

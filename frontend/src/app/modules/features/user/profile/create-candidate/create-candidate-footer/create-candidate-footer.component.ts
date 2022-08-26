@@ -262,7 +262,6 @@ export class CreateCandidateFooterComponent implements OnInit {
 			 }
 		  }
 		}
-		
 		if(this.checValue()){
 			if(this.createCandidateForm.value.jobPref.availability !='null' && this.createCandidateForm.value.jobPref.travel !='null' && this.createCandidateForm.valid && this.createCandidateForm.value.educationExp.experience >= this.createCandidateForm.value.educationExp.sap_experience ) {
 				if(this.createCandidateForm.value.personalDetails.authorized_country_select){
@@ -282,7 +281,6 @@ export class CreateCandidateFooterComponent implements OnInit {
 						
 					}
 				}
-				
 				this.onEnableJobPreviewModal.emit(status);
 				
 			}else{console.log('errors')}

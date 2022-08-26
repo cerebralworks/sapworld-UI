@@ -76,6 +76,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	public mobileNumber: boolean = false;
 	public toggleresumeSelectModal: boolean = false;
 	public preferredLocation: boolean = false;
+	public prefLocErr1: boolean = false;
 	@Output() createCandidate: EventEmitter<any> = new EventEmitter();
 	public savedUserDetails: any;
 	public jobId: string;
@@ -119,6 +120,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	public other_skills: boolean = false;
 	public employers: any[] = [];
 	public clients_worked: boolean = false;
+	public prefLocFilter: any[] = [];
 	
 	@ViewChild("registerReviewModal", { static: false }) registerReviewModal: TemplateRef<any>;
 	@ViewChild("criteriaModal", { static: false }) criteriaModal: TemplateRef<any>;
@@ -212,6 +214,7 @@ export class CandidateReviewModalComponent implements OnInit {
 				keyboard: false
 			});
 			});
+			
 			if(this.childForm.value.educationExp.experience===''){
 			this.childForm.value.educationExp.experience=0;
 			
@@ -231,7 +234,7 @@ export class CandidateReviewModalComponent implements OnInit {
 			}else{
 				this.childForm.controls.skillSet.value.skills = [] ;
 			}
-			this.checkPreferred();
+			//this.checkPreferred();
 		}
 	}
 	
@@ -665,14 +668,15 @@ export class CandidateReviewModalComponent implements OnInit {
 
 					}
 				}
-				
+				tempCoun=[...new Set(tempCoun)];
 				if(tempCoun.length==0){
-				
 					this.options.componentRestrictions['country'] = [];
-					
 				}else{
-					
-					this.options.componentRestrictions['country'] = tempCoun;
+					if(tempCoun.includes('EU')){
+						 this.options.componentRestrictions['country'] = [];
+						}else{
+						  this.options.componentRestrictions['country'] = tempCoun;
+						}
 				}
 				
 				}else if(this.childForm.value.personalDetails.work_authorization==1){
@@ -688,11 +692,16 @@ export class CandidateReviewModalComponent implements OnInit {
 						}
 						
 					}
-					if(tempCoun.length==0){
-						this.options.componentRestrictions['country'] = [];
-					}else{
-						this.options.componentRestrictions['country'] = tempCoun;
-					}
+					tempCoun=[...new Set(tempCoun)];
+				if(tempCoun.length==0){
+					this.options.componentRestrictions['country'] = [];	
+				}else{
+					if(tempCoun.includes('EU')){
+						 this.options.componentRestrictions['country'] = [];
+						}else{
+						  this.options.componentRestrictions['country'] = tempCoun;
+						}
+				}
 				}else{
 					var temps =this.childForm.value.personalDetails.nationality;
 					var tempCoun =[];
@@ -706,11 +715,16 @@ export class CandidateReviewModalComponent implements OnInit {
 						}
 						
 					}
-					if(tempCoun.length==0){
-						this.options.componentRestrictions['country'] = [];
-					}else{
-						this.options.componentRestrictions['country'] = tempCoun;
-					}
+					tempCoun=[...new Set(tempCoun)];
+				if(tempCoun.length==0){
+					this.options.componentRestrictions['country'] = [];
+				}else{
+					if(tempCoun.includes('EU')){
+						 this.options.componentRestrictions['country'] = [];
+						}else{
+						  this.options.componentRestrictions['country'] = tempCoun;
+						}
+				}
 				}
 				
 		}else if(value=='reference'){
@@ -739,6 +753,7 @@ export class CandidateReviewModalComponent implements OnInit {
 			});
 		  }, 300);
 		}
+		this.prefLocFilter=tempCoun.filter(a=> a!=='EU');
 	}
   
 	/**
@@ -1107,6 +1122,17 @@ export class CandidateReviewModalComponent implements OnInit {
 	
 	handleAddressChange = (event) => {
 		const address = this.sharedService.fromGooglePlace(event);
+		var restCount = [];
+		var EUCountry =["AT","LI","BE","LT",
+						"LU","DK","MT","EE","FI","NO","CZ",
+						"FR","PL","DE","PT","GR","SK","HU","NL",
+						"SI","IS","ES","IT","SE","LV","CH","IE"
+						];
+		if(this.options.componentRestrictions['country'].length ===0){
+		   restCount =EUCountry.concat(this.prefLocFilter);
+		}else{
+		   restCount =this.options.componentRestrictions['country'];
+		}
 		if(event.geometry){
 			var tempData =[];
 			if(this.ts.value){
@@ -1123,6 +1149,8 @@ export class CandidateReviewModalComponent implements OnInit {
 		if(document.getElementById(this.idValueGet)){
 		document.getElementById(this.idValueGet)['value']='';
 		}
+		if(restCount.includes(address.countryShort)){
+		this.prefLocErr1=false;
 		if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
 		this.onDuplicates();
 		tempData.push(datas);
@@ -1131,7 +1159,11 @@ export class CandidateReviewModalComponent implements OnInit {
 		a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
 		return a.city+'-'+a.stateShort });
 		this.address=tempData;
-		}}
+		}
+		}else{
+		this.prefLocErr1=true;
+		}
+		}
 	};
   
 	get r() {
