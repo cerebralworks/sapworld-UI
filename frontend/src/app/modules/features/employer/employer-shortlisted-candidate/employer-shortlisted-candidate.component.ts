@@ -965,6 +965,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 					this.closemeeting();
 					this.meetingform.reset();
 					this.itime ='';
+					this.onGetShortListedJobs();
 				}
 					
 			);
