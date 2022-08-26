@@ -1151,7 +1151,7 @@ export class CandidateReviewModalComponent implements OnInit {
 		}
 		if(restCount.includes(address.countryShort)){
 		this.prefLocErr1=false;
-		if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
+		if(tempData.filter(function(a,b){ return a.city == datas.city  && a.country ==datas.country }).length==0){
 		this.onDuplicates();
 		tempData.push(datas);
 		this.ts.patchValue(tempData);

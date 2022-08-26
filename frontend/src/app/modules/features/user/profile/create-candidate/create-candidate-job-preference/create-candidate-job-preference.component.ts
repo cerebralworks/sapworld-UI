@@ -247,6 +247,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						 this.options.componentRestrictions['country'] = [];
 						}else{
+						  this.childForm.get('jobPref.willing_to_relocate').setValue(false)
+		                  this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						  this.options.componentRestrictions['country'] = tempCoun;
 						
 						}
@@ -287,6 +289,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						 this.options.componentRestrictions['country'] = [];
 						}else{
+						  this.childForm.get('jobPref.willing_to_relocate').setValue(false)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						  this.options.componentRestrictions['country'] = tempCoun;
 						
 						}
@@ -325,6 +329,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						 this.options.componentRestrictions['country'] = [];
 						}else{
+						  this.childForm.get('jobPref.willing_to_relocate').setValue(false)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						  this.options.componentRestrictions['country'] = tempCoun;
 						
 						}
@@ -445,6 +451,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						 this.options.componentRestrictions['country'] = [];
 						}else{
+						  this.childForm.get('jobPref.willing_to_relocate').setValue(false)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						  this.options.componentRestrictions['country'] = tempCoun;
 						
 						}
@@ -472,6 +480,8 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						 this.options.componentRestrictions['country'] = [];
 						}else{
+						  this.childForm.get('jobPref.willing_to_relocate').setValue(false)
+		                this.childForm.get('jobPref.willing_to_relocate').updateValueAndValidity();
 						  this.options.componentRestrictions['country'] = tempCoun;
 						
 						}
