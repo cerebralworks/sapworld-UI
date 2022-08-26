@@ -626,10 +626,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**/
 	
 	handleChange(event,val){
-	    var b= this.childForm.value.personalDetails.authorized_country.filter(a=> a ==this.childForm.value.personalDetails.nationality)
-		 this.childForm.patchValue({
+	  this.childForm.patchValue({
 					personalDetails:{
-						authorized_country:b,
+						authorized_country:[],
 						authorized_country_select:[]
 					}
 				})
@@ -652,7 +651,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 				this.onChangeFieldValue(event,val);
 			}
 		}else if(val ==1){
-			if(this.childForm.value.personalDetails.work_authorization == 1 ){
+			if(this.childForm.value.personalDetails.work_authorization == 1 ){ 
 				this.childForm.controls.personalDetails['controls']['work_authorization'].setValue(null);
 				this.childForm.controls.personalDetails['controls']['work_authorization'].updateValueAndValidity();
 				this.showAuthorization = false;
