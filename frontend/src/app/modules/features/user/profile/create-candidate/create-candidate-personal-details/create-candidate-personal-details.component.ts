@@ -670,6 +670,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 				
 			}
 		}
+		this.loadPrefLoc();
 	}
 	
 	/**
@@ -712,10 +713,21 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 					this.childForm.patchValue({personalDetails: {authorized_country: tempCountryVal,}});
 			
 				}
-				
-				
+				this.loadPrefLoc();
 			}
+			
 		}
+	}
+	
+	/**
+	**	To reset the preferred_locations
+	**/
+	loadPrefLoc(){
+	     if(this.savedUserDetails.profile_completed==true){
+	      for(let i=0;i<=this.childForm.value.jobPref.preferred_locations.length-1;i++){
+			this.childForm.controls.jobPref['controls']['preferred_locations'].removeAt(0);
+			}
+			}
 	}
 	
 	/**
@@ -1169,7 +1181,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			this.childForm.value.personalDetails.authorized_country.push(clr.target.id);
 		}
 	  }
-	  console.log(value);
+	 this.loadPrefLoc();
 	  //this.choosedCountry.push(value)
 	  //console.log(this.choosedCountry)
 	}
