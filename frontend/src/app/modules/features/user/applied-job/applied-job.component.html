@@ -119,7 +119,7 @@
 																<div class="content">
 																	<h4>{{items?.status}}</h4>
 																	<p *ngFor="let item of items?.comments; index as i; trackBy: trackByFn">{{item}}</p>
-																	<p *ngIf="items?.link">You have received a meeting invitation on <span class="gre" >{{items?.date | date: 'longDate' }} </span> at <span class="gre" >{{items?.date | date: 'shortTime' }} </span> </p>
+																	<p *ngIf="items?.meeting_form">You have received a meeting invitation on <span class="gre" >{{items?.date | date: 'longDate' }} </span> at <span class="gre" >{{items?.date | date: 'shortTime' }} </span> </p>
 																	<!--<p  class="linksValue"  (click)="openPopupViewInvite(item);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true  && items?.invite_url.includes('calendly') == true" [href]="items?.invite_url">Schedule the timing</p>
 																	<p  class="linksValue"  (click)="openPopupViewInviteNew(item,event);" *ngIf="items?.id == item?.status && items?.invite_url && item?.invite_status ==true  && items?.invite_url.includes('calendly') == false" [href]="items?.invite_url">Schedule the timing</p>
 																	<p  *ngIf="items?.id == item?.status && items?.invite_url && item?.canceled !=true && item?.invite_status != true" > <span class="linksValue cancel" (click)="openPopupViewCancel(item);"  [href]="item?.cancel_url" *ngIf="item?.cancel_url !=null ||item?.cancel_url !='' "> Cancel the {{items?.status}} </span>  -   <span  class="linksValue reschedule"  (click)="openPopupViewReschedule(item);" [href]="item?.reschedule_url"   *ngIf="item?.reschedule_url !=null ||item?.reschedule_url !='' " > Reschedule the  {{items?.status}}</span>  </p>
