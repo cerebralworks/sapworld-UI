@@ -253,8 +253,16 @@ export class CalendarComponent implements OnInit {
 								var a = input2Date.toDateString()+' '+ArrayMeeting['interviewtime'];
 								input3Date =  new Date(ArrayMeeting['interviewdate']);
 								var b = input2Date.toDateString()+' '+ArrayMeeting['interviewendtime'];
-								var shortTime = new Date(a).toLocaleTimeString([], {timeStyle: 'short'});
-								var shortTime1 = new Date(b).toLocaleTimeString([], {timeStyle: 'short'});
+								//var shortTime = new Date(a).toLocaleTimeString([], {timeStyle: 'short'});
+								var shortTime = ArrayMeeting['interviewtime'];
+								if(shortTime.split(':')[0].charAt(0)==0){
+									shortTime = ArrayMeeting['interviewtime'].substr(1);
+								}
+								//var shortTime1 = new Date(b).toLocaleTimeString([], {timeStyle: 'short'});
+								var shortTime1 = ArrayMeeting['interviewendtime'];
+								if(shortTime1.split(':')[0].charAt(0)==0){
+									shortTime1 = ArrayMeeting['interviewendtime'].substr(1);
+								}
 									if (input1Date > input2Date && input1Date.getTime() > new Date(a).getTime()){
 										CategoryColor = "green";
 									}else{
