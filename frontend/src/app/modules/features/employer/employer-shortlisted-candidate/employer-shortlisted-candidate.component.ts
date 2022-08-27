@@ -82,6 +82,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	@ViewChild("MeetingLink", { static: false }) MeetingLink: TemplateRef<any>;
 	public meetingform: FormGroup;
 	public requestParam : any={};
+	public meetingformdata : any;
+	public meetingformdata1: any[]=[];
 	public itime:any;
 	public userprofilepath: any;
 	public currentdata: any;
@@ -357,12 +359,13 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				rescheduled: val.rescheduled,
 				created: val.created,
 				invite_url: val.invite_url,
-				name: val.name,
+				/*name: val.name,
 				link: val.link,
 				interviewdate :val.interviewdate,
 				interviewtime : val.interviewtime,
 				interviewendtime : val.interviewendtime,
-				zone :val.zone
+				zone :val.zone*/
+				meeting_form:val.meeting_form
 			  }
 			});
 			requestParams.application_status =  this.messagePopupValue.application_status ;
@@ -476,12 +479,13 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				rescheduled: val.rescheduled,
 				created: val.created,
 				invite_url: '',
-				name: val.name,
+				/*name: val.name,
 				link: val.link,
 				interviewdate :val.interviewdate,
 				interviewtime : val.interviewtime,
 				interviewendtime : val.interviewendtime,
-				zone :val.zone
+				zone :val.zone*/
+				meeting_form:val.meeting_form
 			  }
 			});
 			requestParams.application_status = item.application_status ;
@@ -502,6 +506,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			this.employerService.shortListUser(requestParams).subscribe(
 				response => {
 					this.onGetShortListedJobs();
+					this.meetingformdata1=[];
 				}, error => {
 					this.onGetShortListedJobs();
 				}
@@ -634,7 +639,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.statusVal = false;
 		this.inviteUrlLink = '';
 		this.onChangeStatus(item, values);
-		if(values > 10 || values ==1){
+		if(values > 10 || values ==1 || values==3){
 		this.isSchedulediscuss = true;
 		this.requestParam.job_posting = item.job_posting.id;
 		this.requestParam.user =item.user.id;
@@ -681,7 +686,12 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		this.requestParam.status = value ;
 		this.requestParam.invite_status = false ;
 		this.requestParam.application_status = item.application_status ;
-		
+		if(this.meetingformdata1['length']==0){
+			if(this.requestParam.application_status[this.requestParam.application_status.length-1].meeting_form){
+					this.meetingformdata1=this.requestParam.application_status[this.requestParam.application_status.length-1].meeting_form;
+					console.log('starttrue',this.meetingformdata1);	
+			}
+		}
 		setTimeout(() => {
 		this.MeetingRef = this.modalService.open(this.MeetingLink, {
 		  windowClass: 'modal-holder',
@@ -941,6 +951,16 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
   /** To send the meeting link*/
   
   sendmeetinglink(){
+	  
+	  this.meetingformdata = {
+		   'name':this.meetingform.value.name,
+		   'link':this.meetingform.value.link,
+		   'interviewdate': this.meetingform.value.interviewDate,
+		   'interviewtime':this.meetingform.value.interviewTime,
+		   'interviewendtime':this.meetingform.value.interviewEndTime,
+		   'zone':this.meetingform.value.timeZone
+		   };
+		   this.meetingformdata1.push(this.meetingformdata);
    
 	this.requestParam.application_status[this.requestParam.application_status.length-1] = {
 		      id: this.requestParam.application_status[this.requestParam.application_status.length-1].id,
@@ -949,12 +969,13 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 				views: this.requestParam.application_status[this.requestParam.application_status.length-1].views,
 				comments: this.requestParam.application_status[this.requestParam.application_status.length-1].comments,
 				invite_url: '',
-				name: this.meetingform.value.name,
+				/*name: this.meetingform.value.name,
 				link: this.meetingform.value.link,
 				interviewdate : this.meetingform.value.interviewDate,
 				interviewtime : this.meetingform.value.interviewTime,
 				interviewendtime : this.meetingform.value.interviewEndTime,
-				zone :this.meetingform.value.timeZone
+				zone :this.meetingform.value.timeZone*/
+				meeting_form:this.meetingformdata1
 		
 	}
 	this.requestParam.apps = true;
