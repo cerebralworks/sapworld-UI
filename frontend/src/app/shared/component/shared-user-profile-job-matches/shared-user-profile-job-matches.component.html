@@ -65,7 +65,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-uppercase d-flex  skills">
+							<li class="list-group-item text-uppercase d-flex  skills" style="min-height:42px;">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
 										<div *ngIf="userInfo?.hands_on_skills.length !=0; else elseHandsnull" [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -465,7 +465,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-uppercase d-flex  skills">
+							<li class="list-group-item text-uppercase d-flex  skills" style="min-height:42px;">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
 										<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -839,7 +839,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-uppercase d-flex skills">
+							<li class="list-group-item text-uppercase d-flex skills" style="min-height:42px;">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
 										<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">
@@ -1211,7 +1211,7 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-uppercase d-flex  skills">
+							<li class="list-group-item text-uppercase d-flex  skills" style="min-height:42px;">
 								<ng-container *ngIf="userInfo?.hands_on_experience?.length; else elseHandsTemplate">
 									<ng-container *ngFor="let item of userInfo?.hands_on_experience; let i = index" >
 										<div [ngClass]="{'pl-2': i >= 1}" class="text-center border-right pr-2 skils-short"  tooltipClass="my-custom-classes"  container="body" placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item?.skill_id)?.long_tag)">

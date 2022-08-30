@@ -314,9 +314,9 @@ export class CreateCandidateFooterComponent implements OnInit {
 				return false;
 			}if( !this.createCandidateForm.value.educationExp['current_employer'] || this.createCandidateForm.value.educationExp['current_employer'].trim()==''){
 				return false;
-			}if( !this.createCandidateForm.value.skillSet['programming_skills'] || !this.createCandidateForm.value.skillSet['programming_skills']['length']|| this.createCandidateForm.value.skillSet['programming_skills']['length']==0){
+			}/*if( !this.createCandidateForm.value.skillSet['programming_skills'] || !this.createCandidateForm.value.skillSet['programming_skills']['length']|| this.createCandidateForm.value.skillSet['programming_skills']['length']==0){
 				return false;
-			}/*if( !this.createCandidateForm.value.skillSet['other_skills'] || !this.createCandidateForm.value.skillSet['other_skills']['length']|| this.createCandidateForm.value.skillSet['other_skills']['length']==0){
+			}*//*if( !this.createCandidateForm.value.skillSet['other_skills'] || !this.createCandidateForm.value.skillSet['other_skills']['length']|| this.createCandidateForm.value.skillSet['other_skills']['length']==0){
 				return false;
 			}*/
 		}
