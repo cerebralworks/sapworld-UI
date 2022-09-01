@@ -29,10 +29,10 @@
 						<div class="card job-card">
 							<div class="card-body">
 								<div class="row">
-									<div class="col-lg-6 col-md-6 matches-8 ">
+									<div class="col-lg-7 col-md-7 matches-8 ">
 										<h5 class="text-capitalize">{{postedJobsDetails?.title}}</h5>
 									</div>
-									<div class="col-lg-6 col-md-6 matches-8 " >
+									<div class="col-lg-5 col-md-5 matches-8 " >
 										<a class="btn btn-sm" *ngIf="postedJobsDetails['status'] == 3"  style="margin-right: 4px;    color: #fff;border-color: #b30606;background: #b71111;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.closed" | translate}}</a>
 										<a class="btn btn-outline-green btn-sm" *ngIf="postedJobsDetails?.is_job_applied == 0" (click)="onToggleResumeSelectModal(true, postedJobsDetails) && postedJobsDetails['status'] == 1" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.apply" | translate}}</a>
 										<!--<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.is_job_applied != 0 && postedJobsDetails?.job_applied?.status != 2" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.applied" | translate}}</a>-->
@@ -44,7 +44,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="media col-lg-6">
+									<div class="media col-lg-7">
 										<div class="media-body">
 											<h6>{{postedJobsDetails?.company?.company ? postedJobsDetails?.company?.company : ''}}</h6>
 											<!-- <h6 class="text-capitalize">
@@ -77,7 +77,7 @@
 											</h6>
 										</div>
 									</div>
-									<div class="col-lg-6" >
+									<div class="col-lg-5" >
 										<ng-container *ngIf="postedJobsDetails?.salary_type == 0">
 											<h6 class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / hr'}}</h6>
 											

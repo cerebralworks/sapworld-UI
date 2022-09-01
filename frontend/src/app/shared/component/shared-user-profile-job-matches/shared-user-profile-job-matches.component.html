@@ -128,7 +128,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item  text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.programming_skills && userInfo?.programming_skills .length">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.programming_skills || !userInfo?.programming_skills .length">--</li>
 						</ul>
 					</div>
 				</div>
@@ -515,7 +516,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item  text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.programming_skills && userInfo?.programming_skills .length">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.programming_skills || !userInfo?.programming_skills .length">--</li>
 						</ul>
 					</div>
 				</div>
@@ -889,7 +891,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item  text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize" *ngIf="userInfo?.programming_skills && userInfo?.programming_skills .length">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.programming_skills || !userInfo?.programming_skills .length">--</li>
 						</ul>
 					</div>
 				</div>
@@ -1261,7 +1264,8 @@
 					</div>
 					<div class="col-lg-6 col-md-77 col-sm-8 info">
 						<ul class="list-group">
-							<li class="list-group-item text-capitalize">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item text-capitalize" *ngIf="userInfo?.programming_skills && userInfo?.programming_skills .length">{{utilsHelperService.onConvertArrayToString(userInfo?.programming_skills)}} </li>
+							<li class="list-group-item  text-capitalize" *ngIf="!userInfo?.programming_skills || !userInfo?.programming_skills .length">--</li>
 						</ul>
 					</div>
 				</div>
