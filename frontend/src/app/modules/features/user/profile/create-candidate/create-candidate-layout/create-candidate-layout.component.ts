@@ -339,7 +339,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		//'skill_id': [Validators.required],
 		//'exp_type': [Validators.required],
 		//'skills': [Validators.required],
-		'programming_skills': [Validators.required],
+		//'programming_skills': [Validators.required],
 		//'other_skills': [Validators.required],
 		'job_role': [Validators.required],
         'job_type': [Validators.required],

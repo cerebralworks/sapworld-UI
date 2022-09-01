@@ -742,20 +742,31 @@ export class CalendarComponent implements OnInit {
 						var input2Date =  new Date();
 						var input3Date =  new Date();						
 						var ArrayResource = ArrayValueEvents[j];
-						if(ArrayResource['link']){
-							var dataValue = ArrayResource['link'] ;
+						var MeetingForm = ArrayResource['meeting_form'];
+						if(MeetingForm){
+							for(let k=0;k<=MeetingForm['length']-1;k++){
+								var ArrayMeeting=MeetingForm[k];
+							var dataValue = ArrayMeeting['link'] ;
 						
 								var tempStatus = ArrayResource['status'];
 								var titleUpper =ArrayValue['job_posting']['title'].toUpperCase();
 								var statusUpper = tempStatus.toUpperCase();
 								var names =  ArrayValue['user']['first_name']+' '+ ArrayValue['user']['last_name'];
 								var tempDescription= '<h6> <strong>Title : </strong>Meeting Invitation details</h6> </br>';
-								input2Date =  new Date(ArrayResource['interviewdate']);
-								var a = input2Date.toDateString()+' '+ArrayResource['interviewtime'];
-								input3Date =  new Date(ArrayResource['interviewdate']);
-								var b = input3Date.toDateString()+' '+ArrayResource['interviewendtime'];
-								var shortTime = new Date(a).toLocaleTimeString([], {timeStyle: 'short'});
-								var shortTime1 = new Date(b).toLocaleTimeString([], {timeStyle: 'short'});
+								input2Date =  new Date(ArrayMeeting['interviewdate']);
+								var a = input2Date.toDateString()+' '+ArrayMeeting['interviewtime'];
+								input3Date =  new Date(ArrayMeeting['interviewdate']);
+								var b = input3Date.toDateString()+' '+ArrayMeeting['interviewendtime'];
+								//var shortTime = new Date(a).toLocaleTimeString([], {timeStyle: 'short'});
+								var shortTime = ArrayMeeting['interviewtime'];
+								if(shortTime.split(':')[0].charAt(0)==0){
+									shortTime = ArrayMeeting['interviewtime'].substr(1);
+								}
+								//var shortTime1 = new Date(b).toLocaleTimeString([], {timeStyle: 'short'});
+								var shortTime1 = ArrayMeeting['interviewendtime'];
+								if(shortTime1.split(':')[0].charAt(0)==0){
+									shortTime1 = ArrayMeeting['interviewendtime'].substr(1);
+								}
 									if (input1Date > input2Date && input1Date.getTime() > new Date(a).getTime()){
 										CategoryColor = "green";
 									}else{
@@ -765,10 +776,10 @@ export class CalendarComponent implements OnInit {
 									
 											if(dataValue.includes('www')){		
 												
-												tempDescription += '<h6><strong>Applicant Name : </strong><span style="color:blue;">'+names+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Start Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Interview End Time : </strong><span style="color:blue;">'+shortTime1+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+												tempDescription += '<h6><strong>Applicant Name : </strong><span style="color:blue;">'+names+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Start Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayMeeting['zone']+')'+'</span></br><strong>Interview End Time : </strong><span style="color:blue;">'+shortTime1+' ('+ArrayMeeting['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}else{
 												
-												tempDescription += '<h6><strong>Applicant Name : </strong><span style="color:blue;">'+names+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Start Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayResource['zone']+')'+'</span></br><strong>Interview End Time : </strong><span style="color:blue;">'+shortTime1+' ('+ArrayResource['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
+												tempDescription += '<h6><strong>Applicant Name : </strong><span style="color:blue;">'+names+'</span></br> <strong>Interview Date : </strong><span style="color:blue;">'+input2Date.toDateString()+'</span></br><strong>Interview Start Time : </strong><span style="color:blue;">'+shortTime+' ('+ArrayMeeting['zone']+')'+'</span></br><strong>Interview End Time : </strong><span style="color:blue;">'+shortTime1+' ('+ArrayMeeting['zone']+')'+'</span></br><strong>Meeting Link : </strong> <a href="https://www.'+dataValue+'" target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a></h6> </br>';
 											}
 								
 								var tempTitle= ArrayValue['job_posting']['title']+' - '+tempStatus;
@@ -782,7 +793,7 @@ export class CalendarComponent implements OnInit {
 									'Description':tempDescription
 								}
 								tempArray.push(tempInsertData);
-								
+							}	
 							}
 							
 						}

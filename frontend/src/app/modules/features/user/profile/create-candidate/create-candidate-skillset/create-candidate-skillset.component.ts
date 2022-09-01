@@ -301,8 +301,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	this.validationType = {
 		'skill_id': [Validators.required],
 		'experience': [Validators.required],
-		'exp_type': [Validators.required],
-		'programming_skills': [Validators.required]
+		'exp_type': [Validators.required]
+		//'programming_skills': [Validators.required]
 		}
 		if(this.childForm.value.personalDetails.entry===false){
 	    this.addValidators(<FormGroup>this.childForm.controls['skillSet']);
@@ -559,7 +559,8 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 			  new_skills: new FormArray([]),
 			  skills_Data: new FormControl(null),
 			  skills_Datas: new FormControl(null),
-			  programming_skills: new FormControl(null, Validators.required),
+			  //programming_skills: new FormControl(null, Validators.required),
+			  programming_skills: new FormControl([]),
 			  other_skills: new FormControl(null),
 			  certification: new FormControl(null),
 			  bio: new FormControl('Lorem Ipsum')
