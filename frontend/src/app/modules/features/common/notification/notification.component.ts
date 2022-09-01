@@ -90,7 +90,7 @@ export class NotificationComponent implements OnInit {
 		  response => {
 			if(response && response['details']) {
 				response['details'].forEach(item => {
-				    var temp = item.message.split('/');
+				    var temp = item.message.split('//');
 					if(item.title=='New User Matches'){
 						item['path'] = temp[0];
 						item['country'] = temp[1];
