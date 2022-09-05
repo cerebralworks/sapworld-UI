@@ -9,7 +9,7 @@ import { JobPosting } from '@data/schema/post-job';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
 import { Options} from "ngx-google-places-autocomplete/objects/options/options";
 import { GooglePlaceDirective } from "ngx-google-places-autocomplete";
@@ -61,12 +61,15 @@ export class JobInformationComponent implements OnInit {
 	public max: any;
 	public editorConfig: AngularEditorConfig = textEditorConfig;
 	public changeToMinutes : boolean =false;
-
+	public filterJL:any[]=[];
+	public checkJL : boolean =false;
+	public errEuro : boolean =false;
 	constructor(
 		private parentF: FormGroupDirective,
 		private formBuilder: FormBuilder,
 		public sharedService: SharedService,
-		private atp: AmazingTimePickerService 
+		private atp: AmazingTimePickerService,
+		private route: ActivatedRoute,
 	) { }
 
 	/**
@@ -114,6 +117,11 @@ export class JobInformationComponent implements OnInit {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
+		    var EUCountry =["AT","LI","BE","LT",
+							"LU","DK","MT","EE","FI","NO","CZ",
+							"FR","PL","DE","PT","GR","SK","HU","NL",
+							"SI","IS","ES","IT","SE","LV","CH","IE"
+							];
 			if(this.childForm && this.getPostedJobsDetails) {
 			
 			   if(this.getPostedJobsDetails.remote ==true){
@@ -128,7 +136,19 @@ export class JobInformationComponent implements OnInit {
 			   }else{
 			      this.showRemoteOption = false;
 			   }
-			 console.log(this.childForm.value);
+			   var datCount;
+			   if(this.getPostedJobsDetails.job_locations.length !==0){
+			   if(EUCountry.includes(this.getPostedJobsDetails.job_locations[0]['countryshort'])){
+			      datCount=[];
+			   }else{
+			      datCount=this.getPostedJobsDetails.job_locations[0]['countryshort'];
+			   }
+			        var tempCountry = {
+						country: datCount
+					};
+					this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+					this.places['autocomplete']['componentRestrictions'] = tempCountry;
+			   }
 				if (this.childForm.value.jobInfo.job_locations) {
 					var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
 					if(tempData.length !=0){
@@ -145,19 +165,19 @@ export class JobInformationComponent implements OnInit {
 									i=0;
 								}
 							}
-							if(this.getPostedJobsDetails.job_locations[0]['countryshort']){
+							/*if(this.getPostedJobsDetails.job_locations[0]['countryshort']){
 								var tempCountry = {
 									country: this.getPostedJobsDetails.job_locations[0]['countryshort']
 								};
-								this.places['autocomplete']['setComponentRestrictions'](tempCountry);
-								this.places['autocomplete']['componentRestrictions'] = tempCountry;
-							}
+								//this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+								//this.places['autocomplete']['componentRestrictions'] = tempCountry;
+							}*/
 							var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
 							if(tempData.length ==0){
 								this.getPostedJobsDetails.job_locations.map((value, index) => {
 									this.t.push(this.formBuilder.group({
 										city: ['', Validators.required],
-										state: ['', Validators.required],
+										state: [''],
 										stateshort: ['', Validators.required],
 										countryshort: ['', Validators.required],
 										zipcode: [''],
@@ -217,6 +237,18 @@ export class JobInformationComponent implements OnInit {
 					}
 				} */
 			}else if(this.childForm) {
+			     if(this.t.value[0].countryshort=='' || EUCountry.includes(this.t.value[0].countryshort)){
+			        tempCountry = {
+						country: []
+					};
+				  }else{
+				    tempCountry = {
+						country: this.t.value[0].countryshort
+					};
+				  
+				  }
+					this.places['autocomplete']['setComponentRestrictions'](tempCountry);
+					this.places['autocomplete']['componentRestrictions'] = tempCountry;
 				if (this.childForm.value.jobInfo.job_locations) {
 					var tempData = this.t.value.filter(function(a,b){ return a.city!='' && b.stateshort!=''});
 					if(tempData.length !=0){
@@ -256,6 +288,7 @@ export class JobInformationComponent implements OnInit {
 			      this.showRemoteOption = false;
 			   }
 			}
+			
 		});
 	}
 
@@ -284,7 +317,7 @@ export class JobInformationComponent implements OnInit {
 			zipcode: new FormControl(null, Validators.required), */
 			job_locations : new FormArray([this.formBuilder.group({
 				city:['',Validators.required],
-				state: ['', Validators.required],
+				state: [''],
 				stateshort: ['', Validators.required],
 				countryshort: ['', Validators.required],
 				zipcode: [''],
@@ -492,7 +525,7 @@ export class JobInformationComponent implements OnInit {
 	onDuplicate = () => {
       this.t.push(this.formBuilder.group({
         city: ['', Validators.required],
-        state: ['', Validators.required],
+        state: [''],
         stateshort: ['', Validators.required],
         countryshort: ['', Validators.required],
         zipcode: [''],
@@ -506,12 +539,12 @@ export class JobInformationComponent implements OnInit {
 	
 	onRemove = (index) => {
 		let removedValue = this.t.value[index];
-	 
+	   this.errEuro=false;
 		if (index == 0 && this.t.length == 1) {
 		  this.t.removeAt(0);
 		  this.t.push(this.formBuilder.group({
 			city: ['', Validators.required],
-			state: ['', Validators.required],
+			state: [''],
 			stateshort: ['', Validators.required],
 			countryshort: ['', Validators.required],
 			zipcode: [''],
@@ -521,6 +554,8 @@ export class JobInformationComponent implements OnInit {
 		  var tempCountry = {
 			country: []
 		};
+		this.filterJL=[];
+		//this.checkJL=false;
 		this.places['autocomplete']['setComponentRestrictions'](tempCountry);
 		this.places['autocomplete']['componentRestrictions'] = tempCountry;
 		} else {
@@ -540,7 +575,18 @@ export class JobInformationComponent implements OnInit {
 	**	handle the address change
 	**/
 	
+	/**
+	**	handle the address change
+	**/
+	
 	handleAddressChange = (event) => {
+	   var EUCountry =["AT","LI","BE","LT",
+							"LU","DK","MT","EE","FI","NO","CZ",
+							"FR","PL","DE","PT","GR","SK","HU","NL",
+							"SI","IS","ES","IT","SE","LV","CH","IE"
+							];
+		var valLen=this.places['autocomplete']['componentRestrictions']['country'].length;
+		
 		const address = this.sharedService.fromGooglePlace(event);
 		if(event.geometry){
 			var tempData =[];
@@ -556,31 +602,110 @@ export class JobInformationComponent implements OnInit {
 			zipcode: address.zipcode,
 			country: address.country
 			};
+			
 			this.chipsInput.nativeElement.value='';
-			if(address['city'] !=null &&address['state'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
-				address['city'] !=undefined &&address['state'] !=undefined &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){
+			if(address['city'] !=null &&address['stateShort'] !=null &&address['country'] !=null &&
+				address['city'] !=undefined  &&address['stateShort'] !=undefined  &&address['country'] !=undefined ){
 				var a:HTMLElement=document.getElementById('jobLocationsErroe');
 				a.style.display = "none"; 
-				if(tempData.filter(function(a,b){ return a.city == datas.city && a.state ==datas.state && a.country ==datas.country }).length==0){
-					
+				if(tempData.filter(function(a,b){ return a.city == datas.city  && a.country ==datas.country }).length==0){
 					if(tempData.length !=0){
+					    
 						this.onDuplicate();
 					}
+					
+					if(this.route.snapshot.queryParamMap.get('id') !=null && valLen===0 && EUCountry.includes(datas.countryshort)){
+					this.errEuro=false;
 					tempData.push(datas);
+					
 					this.t.patchValue(tempData);
 					tempData = tempData.map(function(a,b){ 
 						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
 					return a.city+'-'+a.stateshort });
 					this.address=tempData;
 					var tempCountry = {
-						country: datas.countryshort
+						country: []
 					};
 					this.places['autocomplete']['setComponentRestrictions'](tempCountry);
 					this.places['autocomplete']['componentRestrictions'] = tempCountry;
-
+					}else if(this.route.snapshot.queryParamMap.get('id') !=null && valLen !==0 && !EUCountry.includes(datas.countryshort)){
+					this.errEuro=false;
+					tempData.push(datas);
+					
+					this.t.patchValue(tempData);
+					tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+					return a.city+'-'+a.stateshort });
+					this.address=tempData;
+					var tempCountry1 = {
+						country: datas.countryshort
+					};
+					this.places['autocomplete']['setComponentRestrictions'](tempCountry1);
+					this.places['autocomplete']['componentRestrictions'] = tempCountry1;
+					}else if(this.route.snapshot.queryParamMap.get('id') !=null && valLen ==0 && !EUCountry.includes(datas.countryshort) && (tempData.length ==0 || tempData ==undefined)){
+					this.errEuro=false;
+					tempData.push(datas);
+					
+					this.t.patchValue(tempData);
+					tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+					return a.city+'-'+a.stateshort });
+					this.address=tempData;
+					var tempCountry11 = {
+						country: datas.countryshort
+					};
+					this.places['autocomplete']['setComponentRestrictions'](tempCountry11);
+					this.places['autocomplete']['componentRestrictions'] = tempCountry11;
+					}else if(this.route.snapshot.queryParamMap.get('id') ==null && valLen ==0 && EUCountry.includes(datas.countryshort)){
+					this.errEuro=false;
+					tempData.push(datas);
+					
+					this.t.patchValue(tempData);
+					tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+					return a.city+'-'+a.stateshort });
+					this.address=tempData;
+					var tempCountry2 = {
+						country: []
+					};
+					this.places['autocomplete']['setComponentRestrictions'](tempCountry2);
+					this.places['autocomplete']['componentRestrictions'] = tempCountry2;
+					}else if(this.route.snapshot.queryParamMap.get('id') ==null && valLen ==0 && !EUCountry.includes(datas.countryshort) && (tempData.length ==0 || tempData ==undefined)){
+					this.errEuro=false;
+					tempData.push(datas);
+					
+					this.t.patchValue(tempData);
+					tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+					return a.city+'-'+a.stateshort });
+					this.address=tempData;
+					var tempCountr = {
+						country: datas.countryshort
+					};
+					this.places['autocomplete']['setComponentRestrictions'](tempCountr);
+					this.places['autocomplete']['componentRestrictions'] = tempCountr;
+					}else if(this.route.snapshot.queryParamMap.get('id') ==null && valLen !=0){
+					this.errEuro=false;
+					tempData.push(datas);
+					this.t.patchValue(tempData);
+					tempData = tempData.map(function(a,b){ 
+						a.city = a.city.toLowerCase().replace( /\b./g, function(a){ return a.toUpperCase();});
+					return a.city+'-'+a.stateshort });
+					this.address=tempData;
+					var tempCountry3 = {
+						country: datas.countryshort
+					};
+					this.places['autocomplete']['setComponentRestrictions'](tempCountry3);
+					this.places['autocomplete']['componentRestrictions'] = tempCountry3;
+					}else{
+					this.t.removeAt(this.t.value.length-1);
+					this.errEuro=true;
+					
+					}
 				}
 			}
 		}
+		//console.log(this.t.value)
 	};
 	
 	changeRemote(e){

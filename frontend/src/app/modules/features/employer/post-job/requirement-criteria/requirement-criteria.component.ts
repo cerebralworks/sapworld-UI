@@ -301,7 +301,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
 			 if(this.childForm && this.getPostedJobsDetails) {
-			 console.log(this.getPostedJobsDetails);
+			 this.getPostedJobsDetails.job_locations=this.childForm.value.jobInfo.job_locations;
 				if (this.childForm.value.requirement.optinal_skills != null) {
 					this.optinal_skills = this.childForm.value.requirement.optinal_skills;
 				}
