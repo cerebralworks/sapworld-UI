@@ -608,6 +608,7 @@ export class JobInformationComponent implements OnInit {
 					}
 					
 					if(this.route.snapshot.queryParamMap.get('id') !=null && valLen===0 && EUCountry.includes(datas.countryshort)){
+					this.onDuplicate();
 					this.errEuro=false;
 					tempData.push(datas);
 					
@@ -622,6 +623,7 @@ export class JobInformationComponent implements OnInit {
 					this.places['autocomplete']['setComponentRestrictions'](tempCountry);
 					this.places['autocomplete']['componentRestrictions'] = tempCountry;
 					}else if(this.route.snapshot.queryParamMap.get('id') !=null && valLen !==0 && !EUCountry.includes(datas.countryshort)){
+					this.onDuplicate();
 					this.errEuro=false;
 					tempData.push(datas);
 					
@@ -636,6 +638,7 @@ export class JobInformationComponent implements OnInit {
 					this.places['autocomplete']['setComponentRestrictions'](tempCountry1);
 					this.places['autocomplete']['componentRestrictions'] = tempCountry1;
 					}else if(this.route.snapshot.queryParamMap.get('id') !=null && valLen ==0 && !EUCountry.includes(datas.countryshort) && (tempData.length ==0 || tempData ==undefined)){
+					this.onDuplicate();
 					this.errEuro=false;
 					tempData.push(datas);
 					
@@ -650,6 +653,7 @@ export class JobInformationComponent implements OnInit {
 					this.places['autocomplete']['setComponentRestrictions'](tempCountry11);
 					this.places['autocomplete']['componentRestrictions'] = tempCountry11;
 					}else if(this.route.snapshot.queryParamMap.get('id') ==null && valLen ==0 && EUCountry.includes(datas.countryshort)){
+					this.onDuplicate();
 					this.errEuro=false;
 					tempData.push(datas);
 					
@@ -664,6 +668,7 @@ export class JobInformationComponent implements OnInit {
 					this.places['autocomplete']['setComponentRestrictions'](tempCountry2);
 					this.places['autocomplete']['componentRestrictions'] = tempCountry2;
 					}else if(this.route.snapshot.queryParamMap.get('id') ==null && valLen ==0 && !EUCountry.includes(datas.countryshort) && (tempData.length ==0 || tempData ==undefined)){
+					this.onDuplicate();
 					this.errEuro=false;
 					tempData.push(datas);
 					
@@ -678,6 +683,7 @@ export class JobInformationComponent implements OnInit {
 					this.places['autocomplete']['setComponentRestrictions'](tempCountr);
 					this.places['autocomplete']['componentRestrictions'] = tempCountr;
 					}else if(this.route.snapshot.queryParamMap.get('id') ==null && valLen !=0){
+					this.onDuplicate();
 					this.errEuro=false;
 					tempData.push(datas);
 					this.t.patchValue(tempData);
@@ -697,7 +703,6 @@ export class JobInformationComponent implements OnInit {
 				}
 			}
 		}
-		console.log(this.t.value)
 	};
 	
 	changeRemote(e){
