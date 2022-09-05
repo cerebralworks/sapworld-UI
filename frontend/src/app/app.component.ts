@@ -12,9 +12,9 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { DataService } from '@shared/service/data.service';
 import { PushNotificationsService } from '@shared/service/notification.service';
-
+declare let gtag: Function;
 import * as moment from 'moment';
-
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -51,6 +51,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+  this.setUpAnalytics();
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
 
@@ -89,6 +90,19 @@ export class AppComponent {
     this.translateService.setDefaultLang(lang);
   }
 
+
+setUpAnalytics() {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
+        .subscribe((event: NavigationEnd) => {
+            gtag('config', 'G-7HE57PE2C5',
+                {
+                    page_path: event.urlAfterRedirects
+                }
+            );
+        });
+}
+
+
   checkUserLoggedIn = () => {
     this.accountService.checkUserloggedIn().subscribe(
       response => {
@@ -98,7 +112,7 @@ export class AppComponent {
           this.validateCall = 0;
         }else if(this.loggedInResponse && this.loggedInResponse.isLoggedIn === true){
 			if(!this.router.url.includes('/auth') && !this.router.url.includes('/user') && !this.router.url.includes('/employer') && !this.router.url.includes('/notification')){
-		      this.router.navigate([redir]);
+		     this.router.navigate([redir]);
 		    }
 		}
         this.getUserInfo();
@@ -130,7 +144,7 @@ export class AppComponent {
 			params.view = 'user';
 			this.employerService.onGetNotification(params).subscribe(
 			  response => {
-			   //console.log(response)
+			   console.log(response)
 				if(response && response['data']) {
 					if(window.location.href.includes('notification') && this.check ==false){
 						this.totalValue =0;
