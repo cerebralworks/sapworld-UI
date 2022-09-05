@@ -161,7 +161,8 @@ export class SharedUserProfileComponent implements OnInit {
 	**	To find preferred Location
 	**/
 	filterPrefered(value){
-		if(value){
+	  var a=value.filter(a=>{return a.city !=''});
+		if(a.length !==0){
 			if(value.length !=0){
 				var temp = value.map(function(a,b){
 					if(a['stateShort']){
@@ -178,8 +179,9 @@ export class SharedUserProfileComponent implements OnInit {
 					return this.utilsHelperService.onConvertArrayToString(temp);
 				}
 			}
-		}
+		}else{
 		return '--';
+		}
 	}
 	
 }

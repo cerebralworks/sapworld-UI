@@ -188,12 +188,14 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	keyPress() {
 	//if(this.childForm.value.educationExp.sap_experience !="" && this.childForm.value.educationExp.experience != ""){
 	  
-		if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience){
+		if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience && this.childForm.value.educationExp.sap_experience!=0 ){
 			this.totalExpError = false;
 			this.sapExpError = false;
 		}else{
+			if(this.childForm.value.personalDetails.entry==false){
 			this.totalExpError = true;
 			this.sapExpError = true;
+		}
 		}
 	//}
     

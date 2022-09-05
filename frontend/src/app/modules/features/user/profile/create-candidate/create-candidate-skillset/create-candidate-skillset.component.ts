@@ -602,7 +602,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	**/
 	
 	onDuplicate = (index) => {
-	  if(this.t.value[index]['skill_id']== null ||this.t.value[index]['experience']== '' ){
+	  if(this.t.value[index]['skill_id']== null ||this.t.value[index]['experience']== '' || isNaN(this.t.value[index]['skill_id'])==true || this.t.value[index]['experience']== null){
 		  
 	  }else{
 		this.t.push(this.formBuilder.group({
