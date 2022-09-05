@@ -177,7 +177,7 @@ export class JobInformationComponent implements OnInit {
 								this.getPostedJobsDetails.job_locations.map((value, index) => {
 									this.t.push(this.formBuilder.group({
 										city: ['', Validators.required],
-										state: ['', Validators.required],
+										state: [''],
 										stateshort: ['', Validators.required],
 										countryshort: ['', Validators.required],
 										zipcode: [''],
@@ -698,6 +698,7 @@ export class JobInformationComponent implements OnInit {
 				}
 			}
 		}
+		//console.log(this.t.value)
 	};
 	
 	changeRemote(e){
