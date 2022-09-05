@@ -237,9 +237,16 @@ export class JobInformationComponent implements OnInit {
 					}
 				} */
 			}else if(this.childForm) {
+			     if(this.t.value[0].countryshort=='' || EUCountry.includes(this.t.value[0].countryshort)){
 			        tempCountry = {
 						country: []
 					};
+				  }else{
+				    tempCountry = {
+						country: this.t.value[0].countryshort
+					};
+				  
+				  }
 					this.places['autocomplete']['setComponentRestrictions'](tempCountry);
 					this.places['autocomplete']['componentRestrictions'] = tempCountry;
 				if (this.childForm.value.jobInfo.job_locations) {
