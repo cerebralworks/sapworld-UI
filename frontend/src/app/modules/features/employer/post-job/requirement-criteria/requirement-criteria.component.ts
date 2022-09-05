@@ -278,7 +278,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	**	To detect keyPress event
 	**/
 	
-	keyPress() {
+	/*keyPress() {
 		if(this.childForm.value.requirement.sap_experience && this.childForm.value.requirement.experience ){
 			if(this.childForm.value.requirement.sap_experience !="" && this.childForm.value.requirement.experience != ""){
 				if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience){
@@ -291,6 +291,17 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			}
 		}
 		
+	}*/
+	keyPress(){
+	if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience && this.childForm.value.requirement.sap_experience!=0 ){
+			this.totalExpError = false;
+			this.sapExpError = false;
+		}else{
+		if(this.childForm.value.jobInfo.entry==false){
+			this.totalExpError = true;
+			this.sapExpError = true;
+		}
+		}
 	}
 
 	/**
@@ -300,6 +311,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
+		this.keyPress();
 			 if(this.childForm && this.getPostedJobsDetails) {
 			 this.getPostedJobsDetails.job_locations=this.childForm.value.jobInfo.job_locations;
 				if (this.childForm.value.requirement.optinal_skills != null) {

@@ -130,7 +130,7 @@ export class AppComponent {
 			params.view = 'user';
 			this.employerService.onGetNotification(params).subscribe(
 			  response => {
-			   console.log(response)
+			   //console.log(response)
 				if(response && response['data']) {
 					if(window.location.href.includes('notification') && this.check ==false){
 						this.totalValue =0;
