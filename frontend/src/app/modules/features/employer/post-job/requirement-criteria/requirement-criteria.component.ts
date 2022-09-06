@@ -526,6 +526,12 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
 					this.childForm.get('requirement.experience').setValidators(null);
 					this.childForm.get('requirement.experience').updateValueAndValidity();
+			for(let i=0;i<this.childForm.value.requirement['hands_on_experience']['length'];i++){
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(null);
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(null);
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+			}
 				}
 				
 				/*if (this.childForm.value.jobInfo.entry == true) {

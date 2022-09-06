@@ -328,6 +328,14 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	  
 		setTimeout(async () => {
 		    this.valSkillTab();
+			if(this.childForm.value.personalDetails['entry']==true){
+			for(let i=0;i<this.childForm.value.skillSet['hands_on_experience']['length'];i++){
+			this.childForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(null);
+			this.childForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
+			this.childForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(null);
+			this.childForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+			}
+		}
 			if(this.childForm.controls.skillSet.status =="INVALID"){
 			  
 		  if (this.childForm && this.savedUserDetails && (this.userInfo && this.userInfo.profile_completed == true)) {
