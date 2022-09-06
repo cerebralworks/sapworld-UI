@@ -29,6 +29,8 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	public educationsSelectedArray: any[] = [];
 	public sapExpError: boolean = false;
 	public totalExpError: boolean = false;
+	public sapExpErrorZero: boolean = false;
+	public totalExpErrorZero: boolean = false;
 	public validationType:any;
 	educationsSelectedValue: any;
 	educationsSelectedIndex: number;
@@ -115,6 +117,9 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   
 	ngOnChanges(changes): void {
 		setTimeout( async () => {
+		//this.keyPress();
+		this.TotalkeyPress();
+		this.SapkeyPress();
 		this.valEduTab();
 		if((this.childForm.value.educationExp.sap_experience !==0 || this.childForm.value.educationExp.sap_experience !==null) && this.childForm.value.personalDetails.entry ===true){
 		  this.childForm.patchValue({
@@ -185,20 +190,92 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	**	To detect keyPress event
 	**/
 	
-	keyPress() {
+	/*keyPress() {
 	//if(this.childForm.value.educationExp.sap_experience !="" && this.childForm.value.educationExp.experience != ""){
 	  
 		if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience && this.childForm.value.educationExp.sap_experience!=0 ){
 			this.totalExpError = false;
 			this.sapExpError = false;
+			this.sapExpErrorZero = false;
+			this.totalExpErrorZero = false;
 		}else{
-			if(this.childForm.value.personalDetails.entry==false){
-			this.totalExpError = true;
-			this.sapExpError = true;
+		if(this.childForm.value.personalDetails.entry==false){
+			if(this.childForm.value.educationExp.sap_experience==0){
+				this.sapExpErrorZero = true;
+				this.totalExpError = false;
+				this.sapExpError = false;
+			}else{
+				this.sapExpErrorZero = false;
+			}
+			if(this.childForm.value.educationExp.experience==0){
+				this.totalExpErrorZero = true;
+				this.totalExpError = false;
+				this.sapExpError = false;
+			}else{
+				this.totalExpErrorZero = false;
+			}
+			if(this.childForm.value.educationExp.experience !=0 && this.childForm.value.educationExp.sap_experience !=0 ){
+			if(this.childForm.value.educationExp.experience<this.childForm.value.educationExp.sap_experience ){
+				//this.sapExpError = true;
+				this.totalExpError = true;
+			}
+			//this.totalExpError = true;
+				//this.sapExpError = true;
+			}
+		
+			
 		}
 		}
 	//}
     
+}*/
+TotalkeyPress(){
+		if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience && this.childForm.value.educationExp.sap_experience!=0 ){
+			this.totalExpError = false;
+			this.sapExpError = false;
+			this.sapExpErrorZero = false;
+			this.totalExpErrorZero = false;
+		}else{
+			if(this.childForm.value.personalDetails.entry==false){
+						if(this.childForm.value.educationExp.experience==0){
+							this.totalExpErrorZero = true;
+							this.totalExpError = false;
+							this.sapExpError = false;
+						}else{
+							this.totalExpErrorZero = false;
+						}
+			if(this.childForm.value.educationExp.experience !=0 && this.childForm.value.educationExp.sap_experience !=0 ){
+						if(this.childForm.value.educationExp.experience<this.childForm.value.educationExp.sap_experience ){
+							this.totalExpError = true;
+							this.sapExpError = false;
+						}
+				}
+			}
+	}
+}
+SapkeyPress(){
+if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience && this.childForm.value.educationExp.sap_experience!=0 ){
+			this.totalExpError = false;
+			this.sapExpError = false;
+			this.sapExpErrorZero = false;
+			this.totalExpErrorZero = false;
+		}else{
+			if(this.childForm.value.personalDetails.entry==false){
+						if(this.childForm.value.educationExp.sap_experience==0){
+							this.sapExpErrorZero = true;
+							this.totalExpError = false;
+							this.sapExpError = false;
+						}else{
+							this.sapExpErrorZero = false;
+						}
+			if(this.childForm.value.educationExp.experience !=0 && this.childForm.value.educationExp.sap_experience !=0 ){
+									if(this.childForm.value.educationExp.experience<this.childForm.value.educationExp.sap_experience ){
+										this.sapExpError = true;
+										this.totalExpError = false;
+									}
+							}
+			}
+	}
 }
 	/**
 	**	To create a educationExp form
