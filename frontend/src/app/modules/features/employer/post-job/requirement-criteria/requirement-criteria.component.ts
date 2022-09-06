@@ -32,6 +32,8 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	addOnBlur = true;
 	public sapExpError: boolean = false;
 	public totalExpError: boolean = false;
+	public sapExpErrorZero: boolean = false;
+	public totalExpErrorZero: boolean = false;
 	readonly separatorKeysCodes = [ENTER, COMMA] as const;
 	programming_skills = [ ];
 	optinal_skills = [ ];
@@ -296,10 +298,32 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience && this.childForm.value.requirement.sap_experience!=0 ){
 			this.totalExpError = false;
 			this.sapExpError = false;
+			this.sapExpErrorZero = false;
+			this.totalExpErrorZero = false;
 		}else{
 		if(this.childForm.value.jobInfo.entry==false){
-			this.totalExpError = true;
-			this.sapExpError = true;
+		if(this.childForm.value.requirement.sap_experience==0){
+				this.sapExpErrorZero = true;
+				this.totalExpError = false;
+				this.sapExpError = false;
+			}else{
+				this.sapExpErrorZero = false;
+			}
+			if(this.childForm.value.requirement.experience==0){
+				this.totalExpErrorZero = true;
+				this.totalExpError = false;
+				this.sapExpError = false;
+			}else{
+				this.totalExpErrorZero = false;
+			}
+			if(this.childForm.value.requirement.experience !=0 && this.childForm.value.requirement.sap_experience !=0 ){
+			if(this.childForm.value.requirement.experience<this.childForm.value.requirement.sap_experience ){
+				this.sapExpError = true;
+			}
+			//this.totalExpError = true;
+				//this.sapExpError = true;
+			}
+			
 		}
 		}
 	}

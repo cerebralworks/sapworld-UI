@@ -117,6 +117,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
   
 	ngOnChanges(changes): void {
 		setTimeout( async () => {
+		this.keyPress();
 		this.valEduTab();
 		if((this.childForm.value.educationExp.sap_experience !==0 || this.childForm.value.educationExp.sap_experience !==null) && this.childForm.value.personalDetails.entry ===true){
 		  this.childForm.patchValue({
