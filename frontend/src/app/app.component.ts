@@ -92,14 +92,13 @@ export class AppComponent {
 
 
 setUpAnalytics() {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-        .subscribe((event: NavigationEnd) => {
-            gtag('config', 'G-7HE57PE2C5',
-                {
-                    page_path: event.urlAfterRedirects
-                }
-            );
-        });
+     this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+       gtag('event', 'page_view', {
+          page_path: event.urlAfterRedirects
+       })
+      })
 }
 
 
