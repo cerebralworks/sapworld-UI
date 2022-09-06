@@ -294,7 +294,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		}
 		
 	}*/
-	keyPress(){
+	/*keyPress(){
 	if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience && this.childForm.value.requirement.sap_experience!=0 ){
 			this.totalExpError = false;
 			this.sapExpError = false;
@@ -326,7 +326,56 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 			
 		}
 		}
+	}*/
+		TotalkeyPress(){
+		if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience && this.childForm.value.requirement.sap_experience!=0 ){
+			this.totalExpError = false;
+			this.sapExpError = false;
+			this.sapExpErrorZero = false;
+			this.totalExpErrorZero = false;
+		}else{
+			if(this.childForm.value.jobInfo.entry==false){
+						if(this.childForm.value.requirement.experience==0){
+							this.totalExpErrorZero = true;
+							this.totalExpError = false;
+							this.sapExpError = false;
+						}else{
+							this.totalExpErrorZero = false;
+						}
+			if(this.childForm.value.requirement.experience !=0 && this.childForm.value.requirement.sap_experience !=0 ){
+						if(this.childForm.value.requirement.experience<this.childForm.value.requirement.sap_experience ){
+							this.totalExpError = true;
+							this.sapExpError = false;
+						}
+				}
+			}
 	}
+}
+SapkeyPress(){
+if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience && this.childForm.value.requirement.sap_experience!=0 ){
+			this.totalExpError = false;
+			this.sapExpError = false;
+			this.sapExpErrorZero = false;
+			this.totalExpErrorZero = false;
+		}else{
+			if(this.childForm.value.jobInfo.entry==false){
+						if(this.childForm.value.requirement.sap_experience==0){
+							this.sapExpErrorZero = true;
+							this.totalExpError = false;
+							this.sapExpError = false;
+						}else{
+							this.sapExpErrorZero = false;
+						}
+			if(this.childForm.value.requirement.experience !=0 && this.childForm.value.requirement.sap_experience !=0 ){
+									if(this.childForm.value.requirement.experience<this.childForm.value.requirement.sap_experience ){
+										this.sapExpError = true;
+										this.totalExpError = false;
+									}
+							}
+			}
+	}
+}
+
 
 	/**
 	**	Assign the values for the requirementCriteria Form
@@ -335,7 +384,9 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
-		this.keyPress();
+		//this.keyPress();
+		this.TotalkeyPress();
+		this.SapkeyPress();
 			 if(this.childForm && this.getPostedJobsDetails) {
 			 this.getPostedJobsDetails.job_locations=this.childForm.value.jobInfo.job_locations;
 				if (this.childForm.value.requirement.optinal_skills != null) {

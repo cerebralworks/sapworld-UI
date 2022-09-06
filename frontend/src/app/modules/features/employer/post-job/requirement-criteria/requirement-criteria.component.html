@@ -5,7 +5,7 @@
 				<label  *ngIf="!this.childForm.value.jobInfo.entry">{{"userProfile.totalYearsOfExperience" | translate }}(Min)</label>
 				<label *ngIf="this.childForm.value.jobInfo.entry">{{"userProfile.totalYearsOfExperience" | translate }}</label>
 				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
-				<input  (ngModelChange)="keyPress()"  numbersOnly formControlName="experience" type="text" class="form-control w-25 text-center" value="8+">
+				<input  (ngModelChange)="TotalkeyPress()"  numbersOnly formControlName="experience" type="text" class="form-control w-25 text-center" value="8+">
 				<app-control-messages [control]="f['experience']"></app-control-messages>
 				<small *ngIf="totalExpError"  class="text-danger">Total is greater than SAP Experience</small>
 				<small *ngIf="totalExpErrorZero"  class="text-danger">Experience Should Not Be Zero</small>		
@@ -15,7 +15,7 @@
 			<div class=" form-group">
 				<label>{{"matches.totalYearsOfSapExperience" | translate }}(Min)</label>
 				<div appMarkAsterisk *ngIf="!this.childForm.value.jobInfo.entry" ></div>
-				<input  (ngModelChange)="keyPress()"   numbersOnly formControlName="sap_experience" type="text" class="form-control w-25 text-center" value="5+">
+				<input  (ngModelChange)="SapkeyPress()"   numbersOnly formControlName="sap_experience" type="text" class="form-control w-25 text-center" value="5+">
 				<app-control-messages [control]="f['sap_experience']"></app-control-messages>
 				<small *ngIf="sapExpError" class="text-danger">SAP is not greater than Total Experience</small>
 				<small *ngIf="sapExpErrorZero"  class="text-danger">Experience Should Not Be Zero</small>
