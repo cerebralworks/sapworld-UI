@@ -12,9 +12,9 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { DataService } from '@shared/service/data.service';
 import { PushNotificationsService } from '@shared/service/notification.service';
-
+declare let gtag: Function;
 import * as moment from 'moment';
-
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -51,6 +51,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+  this.setUpAnalytics();
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
 
@@ -88,6 +89,18 @@ export class AppComponent {
   public useLanguage(lang: string): void {
     this.translateService.setDefaultLang(lang);
   }
+
+
+setUpAnalytics() {
+     this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+       gtag('event', 'page_view', {
+          page_path: event.urlAfterRedirects
+       })
+      })
+}
+
 
   checkUserLoggedIn = () => {
     this.accountService.checkUserloggedIn().subscribe(
