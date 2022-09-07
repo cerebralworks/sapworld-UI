@@ -114,10 +114,8 @@ export class RegisterFormComponent implements OnInit {
       if(currentRole.roleId == 0) {
        // this.registerUser();
 		//gtag('event', 'sign_up', { method: 'google' });
-		 gtag('event', 'signup_form_complete', {
-    'event_callback': function() {
-      this.registerUser();
-    }
+		gtag('event', 'signup_form_complete', {
+    'event_callback': this.registerUser()
   });
       }else if(currentRole.roleId == 1) {
         this.registerEmployer();
