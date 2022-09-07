@@ -113,13 +113,14 @@ export class RegisterFormComponent implements OnInit {
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 0) {
        // this.registerUser();
-		//gtag('event', 'sign_up', { method: 'google' });
-		gtag('event', 'signup_form_complete', {
+		gtag('event', 'user_signup', {
     'event_callback': this.registerUser()
   });
       }else if(currentRole.roleId == 1) {
-        this.registerEmployer();
-		//gtag('event', 'sign_up', { method: 'google' });
+        //this.registerEmployer();
+		gtag('event', 'employer_signup', {
+    'event_callback': this.registerEmployer()
+  });
       }
     }
   }
@@ -132,7 +133,6 @@ export class RegisterFormComponent implements OnInit {
       response => {
         this.isLoading = false;
         this.onClickCloseBtn(false);
-		//gtag('event', 'sign_up', { method: 'Direct' });
       }, error => {
         if(error && error.error && error.error.errors)
         this.formError = error.error.errors;
