@@ -236,7 +236,7 @@
                  </ul>
 			</div>
 			<div class="  info-box" *ngIf="jobInfo.match_select?.work_authorization=='0' || checkWrkAuth===true">
-				 <ul class="list-group">
+				 <ul class="list-group" *ngIf="jobInfo?.work_authorization !=null">
 					<li class="list-group-item">
 						<span *ngIf="matchedElement && (finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) == findCountry([userInfo?.nationality]) || (jobInfo?.work_authorization == 0 || jobInfo?.work_authorization == 1 || jobInfo?.work_authorization == 2) )">
 							<div *ngIf="finpostJobDetailsCountry(jobInfo?.job_locations[0]?.country) == findCountry([userInfo?.nationality])">
