@@ -113,10 +113,15 @@ export class RegisterFormComponent implements OnInit {
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 0) {
         this.registerUser();
-		gtag('event', 'sign_up', { method: 'google' });
+		//gtag('event', 'sign_up', { method: 'google' });
+		gtag('event','sign_up', {
+  'event_category': 'engagement',
+  'event_label':'sign_up',
+  'value': 1
+});
       }else if(currentRole.roleId == 1) {
         this.registerEmployer();
-		gtag('event', 'sign_up', { method: 'google' });
+		//gtag('event', 'sign_up', { method: 'google' });
       }
     }
   }
