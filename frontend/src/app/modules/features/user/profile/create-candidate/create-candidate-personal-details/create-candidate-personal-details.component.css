@@ -45,11 +45,11 @@ mat-form-field .mat-form-field-empty.mat-form-field-label, .mat-form-field-can-f
 	border: 2px solid #ccd1d6 !important;
 	border-bottom: 3px solid #ccd1d6 !important;
    border-radius: 10px;
-    min-height: 50px;
-    margin-top: -12px;
+    min-height: 48px;
+    margin-top: -15px;
 }
 :host::ng-deep mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix{
-	padding :0.1rem 0rem!important;
+	padding-bottom :0.1rem !important;
 }
 :host::ng-deep mat-form-field .mat-form-field-wrapper .mat-form-field-underline{
 	background-color:#ccd1d6 !important;
