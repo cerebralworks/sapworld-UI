@@ -7,7 +7,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { Subscription } from 'rxjs';
 import { LoggedIn } from '@data/schema/account';
-
+declare let gtag: Function;
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -127,7 +127,7 @@ export class RegisterFormComponent implements OnInit {
       response => {
         this.isLoading = false;
         this.onClickCloseBtn(false);
-		
+		gtag('event', 'sign_up', { method: 'Direct' });
       }, error => {
         if(error && error.error && error.error.errors)
         this.formError = error.error.errors;

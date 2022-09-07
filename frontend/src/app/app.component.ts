@@ -98,7 +98,7 @@ setUpAnalytics() {
        gtag('event', 'page_view', {
           page_path: event.urlAfterRedirects
        });
-	   gtag('event', 'sign_up', { method: 'Direct' });
+	  // gtag('event', 'sign_up', { method: 'Direct' });
       })
 }
 
