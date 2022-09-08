@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
-
+declare let gtag: Function;
 import * as lodash from 'lodash';
 
 const left = [
@@ -299,10 +299,9 @@ export class PostJobLayoutComponent implements OnInit {
 	onJobPost = (jobInfo: JobPosting) => {
 		this.employerService.jobPost(jobInfo).subscribe(
 			response => {
-				this.router.navigate(['/employer/dashboard']).then(() => {
-				  this.modalService.dismissAll();
-				  this.onToggleJobPreviewModal(false)
-				});
+				gtag('event', 'post_job', {
+					'event_callback': this.loadDash()
+				  });
 				this.isLoading = false;
 			}, error => {
 				if(error && error.error && error.error.errors)
@@ -310,6 +309,14 @@ export class PostJobLayoutComponent implements OnInit {
 				this.isLoading = false;
 			}
 		)
+	}
+	
+	loadDash(){
+	      this.router.navigate(['/employer/dashboard']).then(() => {
+				  this.modalService.dismissAll();
+				  this.onToggleJobPreviewModal(false)
+				});
+	
 	}
 	
 	/**
