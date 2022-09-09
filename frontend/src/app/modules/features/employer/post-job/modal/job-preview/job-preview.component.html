@@ -1173,10 +1173,10 @@
 		</div>
 		<button (click)="onClickCloseBtn(false)" type="button" class="btn btn-secondary"
 			data-dismiss="modal">Edit</button>
-		<button *ngIf="!postJobForm.valid || f['number_of_positions']['value'] == 0 " disabled="!postJobForm.valid || f['number_of_positions']['value'] == 0 " (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
+		<button *ngIf="!postJobForm.valid || f['number_of_positions']['value'] == 0  || f['number_of_positions']['value'] == null" disabled="!postJobForm.valid || f['number_of_positions']['value'] == 0 || f['number_of_positions']['value'] == null" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
 			{{jobId&&!isCopy ? 'Update & Close' : 'Save & Close'}}
 		</button>
-		<button *ngIf="postJobForm.valid && f['number_of_positions']['value'] != 0 " (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
+		<button *ngIf="postJobForm.valid && f['number_of_positions']['value'] != 0 && f['number_of_positions']['value'] != null" (click)="onRedirectDashboard(false)" type="button" class="btn btn-theme-blue">
 			{{jobId&&!isCopy ? 'Update & Close' : 'Save & Close'}}
 		</button>
 	</div>
