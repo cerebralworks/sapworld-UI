@@ -181,7 +181,7 @@ export class JobPreviewComponent implements OnInit {
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].updateValueAndValidity();
 	   
 	   }
-	   if((this.postJobForm.value.jobInfo.entry ===false && this.postJobForm.value.jobInfo.entry ===true) && this.postJobForm.value.requirement.hands_on_experience.length){
+	   if((this.postJobForm.value.jobInfo.entry ===false || this.postJobForm.value.jobInfo.entry ===true) && this.postJobForm.value.requirement.hands_on_experience.length){
 	  if(this.postJobForm.value.requirement.hands_on_experience[0].skill_id==null){
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValidators(null);
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValue('');
