@@ -327,7 +327,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 		}
 		}
 	}*/
-	TotalkeyPress(){
+		TotalkeyPress(){
 		if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.value.requirement.experience && this.childForm.value.requirement.sap_experience!=0 ){
 			this.totalExpError = false;
 			this.sapExpError = false;
@@ -376,6 +376,7 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 	}
 }
 
+
 	/**
 	**	Assign the values for the requirementCriteria Form
 	** 	
@@ -416,6 +417,13 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
 					this.childForm.get('requirement.experience').setValidators([Validators.required]);
 					this.childForm.get('requirement.experience').updateValueAndValidity();
+					
+					for(let i=0;i<this.childForm.value.requirement['hands_on_experience']['length'];i++){
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(Validators.required);
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(Validators.required);
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+			}
 				}
 				if (this.childForm.value.jobInfo.entry == true) {
 					this.childForm.get('requirement.domain').setValidators(null);
@@ -426,6 +434,12 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
 					this.childForm.get('requirement.experience').setValidators(null);
 					this.childForm.get('requirement.experience').updateValueAndValidity();
+					for(let i=0;i<this.childForm.value.requirement['hands_on_experience']['length'];i++){
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(null);
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(null);
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+			}
 				}
 				
 				if (this.childForm.value.jobInfo.entry == true && ( !this.childForm.value.requirement.hands_on_experience || !this.childForm.value.requirement.hands_on_experience.length || this.childForm.value.requirement.hands_on_experience==0  || ( this.childForm.value.requirement.hands_on_experience[0] && this.childForm.value.requirement.hands_on_experience[0]['experience'] =='' ))) {
@@ -516,6 +530,12 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
 					this.childForm.get('requirement.experience').setValidators([Validators.required]);
 					this.childForm.get('requirement.experience').updateValueAndValidity();
+			for(let i=0;i<this.childForm.value.requirement['hands_on_experience']['length'];i++){
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(Validators.required);
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(Validators.required);
+			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+			}
 				}
 				if (this.childForm.value.jobInfo.entry == true) {
 					this.childForm.get('requirement.domain').setValidators(null);
@@ -526,7 +546,8 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 					this.childForm.get('requirement.end_to_end_implementation').updateValueAndValidity();
 					this.childForm.get('requirement.experience').setValidators(null);
 					this.childForm.get('requirement.experience').updateValueAndValidity();
-			for(let i=0;i<this.childForm.value.requirement['hands_on_experience']['length'];i++){
+					
+					for(let i=0;i<this.childForm.value.requirement['hands_on_experience']['length'];i++){
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(null);
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(null);

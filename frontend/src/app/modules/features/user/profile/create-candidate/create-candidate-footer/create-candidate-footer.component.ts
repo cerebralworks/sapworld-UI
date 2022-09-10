@@ -121,6 +121,11 @@ export class CreateCandidateFooterComponent implements OnInit {
 			    var b:HTMLElement=document.querySelector('.ngx-select__search');
 			    b.focus();
 				}
+				if(key==='education_qualification'){
+			    var edu:HTMLElement=document.querySelector('[formcontrolname="degree"]');
+			    edu.focus();
+				}
+			  
 				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
 				invalidControl.focus();
 				break;
@@ -142,10 +147,12 @@ export class CreateCandidateFooterComponent implements OnInit {
 		if( isNaN(this.createCandidateForm.value.skillSet['hands_on_experience'][i]['skill_id'])==true ){
 		this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.setValue('');
 			}
-	this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(Validators.required);
-	this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
-	this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(Validators.required);
-	this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+			if(this.createCandidateForm.value.skillSet['new_skills']['length']==0){	
+				this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(Validators.required);
+				this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
+				this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(Validators.required);
+				this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+	       }
 				}
 			}
 		}

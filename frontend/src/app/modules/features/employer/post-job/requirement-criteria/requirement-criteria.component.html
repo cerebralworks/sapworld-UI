@@ -8,7 +8,7 @@
 				<input  (ngModelChange)="TotalkeyPress()"  numbersOnly formControlName="experience" type="text" class="form-control w-25 text-center" value="8+">
 				<app-control-messages [control]="f['experience']"></app-control-messages>
 				<small *ngIf="totalExpError"  class="text-danger">Total is greater than SAP Experience</small>
-				<small *ngIf="totalExpErrorZero"  class="text-danger">Experience Should Not Be Zero</small>
+				<small *ngIf="totalExpErrorZero"  class="text-danger">Experience Should Not Be Zero</small>		
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-4 matches-8"  *ngIf="!this.childForm.value.jobInfo.entry">

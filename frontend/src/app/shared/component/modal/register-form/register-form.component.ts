@@ -26,6 +26,7 @@ export class RegisterFormComponent implements OnInit {
   public registerForm: FormGroup;
   public loggedUserInfo: LoggedIn;
   public loggedUserInfoStatus: boolean=true;
+
   @ViewChild("registerModal", { static: false }) registerModal: TemplateRef<any>;
   isLoading: boolean;
   formError: any[] = [];
@@ -111,15 +112,15 @@ export class RegisterFormComponent implements OnInit {
 	  this.isLoading = true;
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 0) {
-	  //this.registerUser()
-        gtag('event', 'user_signup', {
-		'event_callback': this.registerUser()
-	  });
+       // this.registerUser();
+		gtag('event', 'user_signup', {
+    'event_callback': this.registerUser()
+  });
       }else if(currentRole.roleId == 1) {
         //this.registerEmployer();
-		 gtag('event', 'employer_signup', {
-		'event_callback': this.registerEmployer()
-	  });
+		gtag('event', 'employer_signup', {
+    'event_callback': this.registerEmployer()
+  });
       }
     }
   }
@@ -132,7 +133,6 @@ export class RegisterFormComponent implements OnInit {
       response => {
         this.isLoading = false;
         this.onClickCloseBtn(false);
-		//gtag('event', 'sign_up', { method: 'Direct' });
       }, error => {
         if(error && error.error && error.error.errors)
         this.formError = error.error.errors;

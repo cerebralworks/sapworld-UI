@@ -82,12 +82,25 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   **	To check and get the resume 
   **/
   ngDoCheck(): void {
-    if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
-      this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
-	  if(!this.selectedResume || this.selectedResume==undefined){
-		  this.selectedResume =this.userInfo.doc_resume[0];
-	  }
-    }
+   if(this.jobInfo !=undefined){
+    if(this.jobInfo.is_job_applied===0){
+		if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
+		  this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
+		  if(!this.selectedResume || this.selectedResume==undefined){
+			  this.selectedResume =this.userInfo.doc_resume[0];
+		  }
+		}
+	}else{
+		  this.selectedResume.file =this.jobInfo.job_applied.user_resume;
+	}
+	}else{
+		  if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
+		  this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
+			  if(!this.selectedResume || this.selectedResume==undefined){
+				  this.selectedResume =this.userInfo.doc_resume[0];
+			  }
+		   }
+	}
     if(this.userInfo && this.userInfo.doc_cover && Array.isArray(this.userInfo.doc_cover)) {
       this.selectedCover = this.userInfo.doc_cover[0];
     }

@@ -315,12 +315,19 @@
 				<div class="col-lg-8 col-md-8 matches-6  col-sm-8 info">
 					<ul class="list-group">
 						<li class="list-group-item text-uppercase" *ngIf="childForm?.value?.skillSet?.skills; else elsenullknw"> 
-							<ng-container *ngIf="childForm?.value?.skillSet?.skills.length; else elseSkillsTemplate">
+							<ng-container *ngIf="childForm?.value?.skillSet?.skills.length || childForm?.value?.skillSet?.new_skills.length !=0; else elseSkillsTemplate">
 							<small class="knldge m-0 float-left" *ngFor="let item of utilsHelperService.differenceByPropValArray(childForm?.value?.skillSet?.skills, childForm?.value?.skillSet?.hands_on_experience, 'skill_id'); let last = last;">
 							<span class="knldge"  tooltipClass="my-custom-class"  container="body"   placement="top" [ngbTooltip]="utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.long_tag)">
 								{{item ? utilsHelperService.onSplitTag(sharedService.onFindSkillsFromSingleID(item)?.tag): '--'}}{{last ? '' : '&nbsp;,&nbsp;&nbsp;'}}
 							</span>
 							</small>
+							<ng-container *ngIf="childForm?.value?.skillSet?.new_skills.length !=0">
+							<small class="knldge m-0 float-left" *ngFor="let itm of childForm?.value?.skillSet?.new_skills">
+							<span class="knldge"  tooltipClass="my-custom-class"  container="body"   placement="top">
+							&nbsp;{{itm?.tag}}
+							</span>
+							</small>
+							</ng-container>
 							</ng-container>
 				<ng-template #elseSkillsTemplate>
 						<button style="font-size: 10px;padding: 5px;"(click)="onOpenCriteriaModal('skills')" type="button" class="btn btn-theme-green" data-toggle="modal"
@@ -694,7 +701,7 @@
 					  </div>
 					  <div class="col-lg-3 col-md-6">
 							<label>{{"shared.email" | translate }}</label>
-							<input formControlName="email" type="email"  class="form-control text-lowercase" placeholder="Please Enter the E-mail">
+							<input formControlName="email" (ngModelChange)="setvalidaction()" type="email"  class="form-control text-lowercase" placeholder="Please Enter the E-mail">
 							<app-control-messages [control]="ticket['controls']['email']"></app-control-messages>
 					  </div>
 					  <div class="col-lg-4 col-md-4 matches-33 col-sm-4 col-md-6">

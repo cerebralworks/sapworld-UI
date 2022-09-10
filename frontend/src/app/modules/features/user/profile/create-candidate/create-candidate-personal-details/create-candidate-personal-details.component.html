@@ -426,7 +426,7 @@
 		  </div>
 		  <div class="col-lg-3 col-md-3 matches-6">
 				<label>Email</label>
-				<input formControlName="email" type="email"  class="form-control text-lowercase" placeholder="Please Enter the E-mail">
+				<input formControlName="email" type="email"  (ngModelChange)="setvalidaction()" class="form-control text-lowercase" placeholder="Please Enter the E-mail">
 				<app-control-messages [control]="ticket['controls']['email']"></app-control-messages>
 		  </div>
 		  <div class="col-lg-4 col-md-3 matches-6">

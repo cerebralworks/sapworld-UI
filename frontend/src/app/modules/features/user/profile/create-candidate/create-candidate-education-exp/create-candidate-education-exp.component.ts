@@ -190,7 +190,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	**	To detect keyPress event
 	**/
 	
-	/*keyPress() {
+/*keyPress() {
 	//if(this.childForm.value.educationExp.sap_experience !="" && this.childForm.value.educationExp.experience != ""){
 	  
 		if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience && this.childForm.value.educationExp.sap_experience!=0 ){
@@ -216,8 +216,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 			}
 			if(this.childForm.value.educationExp.experience !=0 && this.childForm.value.educationExp.sap_experience !=0 ){
 			if(this.childForm.value.educationExp.experience<this.childForm.value.educationExp.sap_experience ){
-				//this.sapExpError = true;
-				this.totalExpError = true;
+				this.sapExpError = true;
 			}
 			//this.totalExpError = true;
 				//this.sapExpError = true;
@@ -229,7 +228,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	//}
     
 }*/
-TotalkeyPress(){
+	TotalkeyPress(){
 		if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.value.educationExp.experience && this.childForm.value.educationExp.sap_experience!=0 ){
 			this.totalExpError = false;
 			this.sapExpError = false;

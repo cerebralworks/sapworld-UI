@@ -92,6 +92,7 @@ export class PostJobLayoutComponent implements OnInit {
 		this.onGetCountry('');
 		this.onGetLanguage('');
 		this.onGetProgram('');
+		this.loadGetSkill('');
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 		  return false;
 		};
@@ -162,6 +163,19 @@ export class PostJobLayoutComponent implements OnInit {
 		this.requestParams.search = query;
 		this.SharedAPIService.onGetProgram(this.requestParams);
 	}
+	
+	/**
+	**	To get skills Info
+	**/
+    loadGetSkill(query) {
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 100000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
+		this.SharedAPIService.onGetSkill(this.requestParams);
+	}
+	
 	
 	/**
 	**	On footer change event calls
