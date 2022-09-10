@@ -1100,7 +1100,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**	To create a new reference
 	**/
 	
-	checkref(index){
+	/*checkref(index){
 		var validRegex =/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 		var em = this.r.value[index]['email'];
 		if(!em.match(validRegex)){
@@ -1108,11 +1108,15 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		}else{
 			return true;
 		}	
-}
+}*/
 
+     setvalidaction(){	
+		this.childForm.controls.personalDetails.controls.reference['controls'][0].controls.email.setValidators(ValidationService.emailValidator);
+		this.childForm.controls.personalDetails.controls.reference['controls'][0].controls.email.updateValueAndValidity();
+      }
 
 	onDuplicateR = (index) => {
-	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null || this.checkref(index)==false){
+	  if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null || this.childForm.controls.personalDetails.controls.reference['controls'][index].status=='INVALID'){
 		 
 	  }else{
 		this.r.push(this.formBuilder.group({

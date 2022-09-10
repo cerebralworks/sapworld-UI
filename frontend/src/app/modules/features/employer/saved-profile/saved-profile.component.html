@@ -54,7 +54,7 @@
                     <span data-toggle="modal" data-target="#exampleModal">
                       <a
                       [class.disabled]="!onGetFilteredValue(item?.doc_resume)"
-                      (click)="onGetFilteredValue(item?.doc_resume) && onToggleResumeForm(true, (savedProfileMeta?.doc_resume?.path + '/' + savedProfileMeta?.doc_resume?.folder + '/' + onGetFilteredValue(item?.doc_resume)))"
+                      (click)="onGetFilteredValue(item?.doc_resume) && onToggleResumeForm(true, onGetFilteredValue(item?.doc_resume))"
                       class="btn btn-outline-blue btn-sm mr-2" href="javascript:;">
                       <i class="fas fa-file-alt"></i> {{"shared.resume" | translate}}</a>
                     </span>

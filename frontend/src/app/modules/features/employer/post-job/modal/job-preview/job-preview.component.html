@@ -1353,24 +1353,24 @@
 			
 			
 	<div class="modal-body"  *ngIf="work_authorization">
-			<div class=" form-group"  formGroupName="requirement" >
+			<div class=" form-group"   >
 				<label class="font-weight-bold">{{"userProfile.workAuthorization" | translate }} </label>
 				<div class="mt-2">
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
-						<input (click)="onChangeFieldValuesAuth('work_authorization', 0)" value="0" formControlName="work_authorization" type="radio" id="customRadioInline05"
-							name="work_authorization" class="custom-control-input">
+						<input (click)="onChangeFieldValuesAuth('work_authorization', 0)" value="0"  type="radio" id="customRadioInline05"
+							name="work_authorization_add" class="custom-control-input">
 						<label class="custom-control-label"
 							for="customRadioInline05">{{"userProfile.shouldBeACitizenPr" | translate }}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
-						<input (click)="onChangeFieldValuesAuth('work_authorization', 1)" value="1" formControlName="work_authorization" type="radio" id="customRadioInline06"
-							name="work_authorization" class="custom-control-input">
+						<input (click)="onChangeFieldValuesAuth('work_authorization', 1)" value="1"  type="radio" id="customRadioInline06"
+							name="work_authorization_add" class="custom-control-input">
 						<label class="custom-control-label"
 							for="customRadioInline06">{{"userProfile.shouldBeHavingAWorkPermit" | translate }}</label>
 					</div>
 					<div class="custom-control custom-radio custom-control-inline" style="margin-right: 9px;">
-						<input (click)="onChangeFieldValuesAuth('work_authorization', 2)" value="2" formControlName="work_authorization" type="radio" id="customRadioInline07"
-							name="work_authorization" class="custom-control-input">
+						<input (click)="onChangeFieldValuesAuth('work_authorization', 2)" value="2" type="radio" id="customRadioInline07"
+							name="work_authorization_add" class="custom-control-input">
 						<label class="custom-control-label"
 							for="customRadioInline07"> {{"userProfile.shouldBeHavingAWorkPermitOrWork" | translate }} </label>
 					</div>

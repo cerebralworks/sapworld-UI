@@ -67,20 +67,27 @@ export class UserProfileSettingComponent implements OnInit {
 	**/	
 	  
 	onSetSettings = (item: any, eventValue: boolean) => {
+	    var checkOp = false;
+	    if(item.field==='available_for_opportunity'){
+		    checkOp = true;
+		}else{
+		 checkOp = false;
+		}
 		this.privacyProtection[item.field] = eventValue;
-		this.setPrivacy(this.privacyProtection);
+		this.setPrivacy(this.privacyProtection,checkOp);
 	}
 
 	/**
 	**	To Set the privacy details Changes
 	**/	
 	  
-	setPrivacy(privacyProtection) {
+	setPrivacy(privacyProtection,val) {
 		if(this.currentProfileInfo && !this.utilsHelperService.isEmptyObj(this.currentProfileInfo)) {
 			this.isLoading = true;
 			let requestParams = {...this.currentProfileInfo};
 			requestParams.privacy_protection = privacyProtection;
 			requestParams.privacy = 'privacy';
+			requestParams.checkopportunity = val;
 			this.userService.update(requestParams).subscribe(
 				response => {
 					this.isLoading = false;

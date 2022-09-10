@@ -121,6 +121,11 @@ export class CreateCandidateFooterComponent implements OnInit {
 			    var b:HTMLElement=document.querySelector('.ngx-select__search');
 			    b.focus();
 				}
+				if(key==='education_qualification'){
+			    var edu:HTMLElement=document.querySelector('[formcontrolname="degree"]');
+			    edu.focus();
+				}
+			  
 				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
 				invalidControl.focus();
 				break;
@@ -136,19 +141,18 @@ export class CreateCandidateFooterComponent implements OnInit {
 				this.scrollTo(b);
 		  }
 		}else if(this.currentTabInfo.tabNumber == 3){
-		
 		if(this.createCandidateForm.value.personalDetails['entry']==false){
 			for(let i=0;i<this.createCandidateForm.value.skillSet['hands_on_experience']['length'];i++){	
-				if((!this.createCandidateForm.value.skillSet['hands_on_experience'][i]['skill_id'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][i]['experience'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][i]['exp_type'])){	
-			if( isNaN(this.createCandidateForm.value.skillSet['hands_on_experience'][i]['skill_id'])==true ){
-			this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.setValue('');
+			if((!this.createCandidateForm.value.skillSet['hands_on_experience'][i]['skill_id'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][i]['experience'] || !this.createCandidateForm.value.skillSet['hands_on_experience'][i]['exp_type'])){	
+		if( isNaN(this.createCandidateForm.value.skillSet['hands_on_experience'][i]['skill_id'])==true ){
+		this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.setValue('');
 			}
-		if(this.createCandidateForm.value.skillSet['new_skills']['length']==0){	
-		this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(Validators.required);
-		this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
-		this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(Validators.required);
-		this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
-		}
+			if(this.createCandidateForm.value.skillSet['new_skills']['length']==0){	
+				this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.setValidators(Validators.required);
+				this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
+				this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(Validators.required);
+				this.createCandidateForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+	       }
 				}
 			}
 		}

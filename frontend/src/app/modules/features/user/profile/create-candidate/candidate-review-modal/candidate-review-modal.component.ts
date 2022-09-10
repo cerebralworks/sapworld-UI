@@ -189,14 +189,19 @@ export class CandidateReviewModalComponent implements OnInit {
 			 for(let i=0;i<response.items.length;i++){
 				  response['items'][i]['tags'] =response['items'][i]['tag']+' -- '+response['items'][i]['long_tag'];
 			  } 
+			  var tot = [...response.items];
+			  if(this.childForm.value.skillSet.hands_on_experience.length ==0){
 			  this.skillItems = [...response.items];
+			  }else{
+			  var a = this.childForm.value.skillSet.hands_on_experience.map(a=> a.skill_id);
+			  this.skillItems= tot.filter(b=> !a.includes(b.id));
+			  }
 			}
 		  },
 		  error => {
 			this.skillItems = [];
 		  }
 		)
-		
 	}
 	
 	/**
@@ -1174,7 +1179,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	**	To create a new reference
 	**/
 	
-	checkref(index){
+	/*checkref(index){
 		var validRegex =/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 		var em = this.r.value[index]['email'];
 		if(em !== ''){
@@ -1186,14 +1191,17 @@ export class CandidateReviewModalComponent implements OnInit {
 		}else{
 		return true;
 		}
-}
-
+}*/
+	 setvalidaction(){	
+		this.childForm.controls.personalDetails.controls.reference['controls'][0].controls.email.setValidators(ValidationService.emailValidator);
+		this.childForm.controls.personalDetails.controls.reference['controls'][0].controls.email.updateValueAndValidity();
+      }
 	/**
 	**	To add the preference
 	**/
 	
 	onDuplicateR = (index) => {
-		if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null || this.checkref(index)==false){
+		if(this.r.value[index]['name']==null || this.r.value[index]['email'] =="" || this.r.value[index]['company_name'] == null || this.childForm.controls.personalDetails.controls.reference['controls'][index].status=='INVALID'){
 		 
 	  }else{
 			this.r.push(this.formBuilder.group({

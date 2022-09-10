@@ -98,7 +98,6 @@ export class SavedProfileComponent implements OnInit {
 				if (response && response.items) {
 					this.savedProfile = [...this.savedProfile, ...response.items];
 				}
-				console.log(response);
 				this.userprofilepath = `${env.apiUrl}/images/user/`;
 				this.savedProfileMeta = { ...response.meta }
 				if(response['meta']['total']){
@@ -162,7 +161,7 @@ export class SavedProfileComponent implements OnInit {
 	
 	onToggleResumeForm = (status, selectedResumeUrl?: string) => {
 		if (selectedResumeUrl) {
-			this.selectedResumeUrl = selectedResumeUrl;
+			this.selectedResumeUrl = `${env.apiUrl}/documents/resume/${selectedResumeUrl}`;
 		}
 		this.isOpenedResumeModal = status;
 	}
@@ -216,11 +215,15 @@ export class SavedProfileComponent implements OnInit {
 	**/
 	
 	onGetFilteredValue(resumeArray: any[]): any {
-		if (resumeArray && Array.isArray(resumeArray)) {
-			const filteredValue = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1);
-			if (!this.utilsHelperService.isEmptyObj(filteredValue)) {
-				return filteredValue.file;
-			}
+		if(resumeArray && Array.isArray(resumeArray)) {
+		  const filteredValue = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1);
+		  if(!this.utilsHelperService.isEmptyObj(filteredValue)) {
+			return this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 1).file;
+		  }
+		  const filteredValues = this.utilsHelperService.onGetFilteredValue(resumeArray, 'default', 0);
+		  if(!this.utilsHelperService.isEmptyObj(filteredValues)) {
+			return filteredValues.file;
+		  }
 		}
 		return "";
 	}

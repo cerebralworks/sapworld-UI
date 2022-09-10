@@ -172,7 +172,6 @@ export class JobPreviewComponent implements OnInit {
 	**	To check status of the optional data's
 	**/
 	checkValidator(){
-	
 	if(this.postJobForm.value.requirement.hands_on_experience.length===0){
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValidators(null);
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValue('');
@@ -182,7 +181,8 @@ export class JobPreviewComponent implements OnInit {
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].updateValueAndValidity();
 	   
 	   }
-	   if(this.postJobForm.value.requirement.hands_on_experience[0].skill_id==null){
+	   if((this.postJobForm.value.jobInfo.entry ===false && this.postJobForm.value.jobInfo.entry ===true) && this.postJobForm.value.requirement.hands_on_experience.length){
+	  if(this.postJobForm.value.requirement.hands_on_experience[0].skill_id==null){
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValidators(null);
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValue('');
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].updateValueAndValidity();
@@ -190,6 +190,7 @@ export class JobPreviewComponent implements OnInit {
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValue('0');
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].updateValueAndValidity();
 	   
+	   }
 	   }
 	    if(this.postJobForm.value.requirement.end_to_end_implementation===0){
 		this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['end_to_end_implementation'].setValidators(null);
@@ -888,7 +889,7 @@ export class JobPreviewComponent implements OnInit {
 			var temp = this.postJobForm.value.requirement.hands_on_experience.map(function(a,b){ return a.skill_id});
 			this.postJobForm.patchValue({
 			  requirement : {
-				skills:temp
+				skills:[]
 			  }
 			});
 		}else if(this.programming_skills==true){
@@ -918,7 +919,7 @@ export class JobPreviewComponent implements OnInit {
 			var temp = null;
 			this.postJobForm.patchValue({
 			  requirement : {
-				end_to_end_implementation:null
+				end_to_end_implementation:0
 			  }
 			});
 		}
@@ -1143,6 +1144,7 @@ export class JobPreviewComponent implements OnInit {
 	**/
 	
 	onChangeFieldValuesAuth(event,value){
+	
 		if(this.postJobForm.value.requirement.work_authorization == value){
 			this.postJobForm.controls.requirement['controls']['work_authorization'].setValue(null);
 			this.postJobForm.controls.requirement['controls']['work_authorization'].updateValueAndValidity();
@@ -1152,6 +1154,7 @@ export class JobPreviewComponent implements OnInit {
 					'work_authorization': value,
 				}
 			});
+			
 		}
 	}	
 	

@@ -492,7 +492,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		  candidateInfo.skills = lodash.uniq([...tempSkill, ...candidateInfo.skills]);
 		}*/
 		
-		if(candidateInfo.skills && candidateInfo.skills.length && candidateInfo.skills.length!=0){
+		if((candidateInfo.skills && candidateInfo.skills.length && candidateInfo.skills.length!=0) || this.skils.length !=0){
 			for(let i=0;i<this.skils.length;i++){
 				var temp = this.skils[i];
 				candidateInfo.skills.push(temp);
@@ -527,6 +527,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			this.employerService.createSkills(val).subscribe(
 				response => {
 					if(response && response['details']){
+						
 						this.skils.push(response['details']['id'])
 					}
 					this.checkUpdateSkills=true;
