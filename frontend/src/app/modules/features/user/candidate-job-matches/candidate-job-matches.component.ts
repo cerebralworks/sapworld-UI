@@ -210,6 +210,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 						if (isCount) {
 							this.matchingJobMeta = { ...response.meta }
 						}
+					}else{
+						this.router.navigate(['/user/dashboard'], {queryParams: {'nomatch':true}});
 					}
 				}
 			}else{
@@ -228,6 +230,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 				}
 			}
 		}, error => {
+			this.router.navigate(['/user/dashboard'], {queryParams: {'nomatch':true}});
 		})
 		this.subscriptions.push(sb);
 	}

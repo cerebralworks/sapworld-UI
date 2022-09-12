@@ -93,6 +93,9 @@ export class LoginFormComponent implements OnInit {
 						  this.returnUserUrl = this.route.snapshot.queryParams['redirect'];
 						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
 						  this.router.navigate(['/user/candidate-job-view/details'], {queryParams: {'show': 'appply','id': id_val }});
+					  }else if(temps[2]==="job-matches"){
+						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
+					      this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': id_val }});
 					  }else{
 						this.router.navigate(['/user/dashboard']);
 					  }
