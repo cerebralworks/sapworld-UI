@@ -38,7 +38,7 @@
         <app-control-messages [control]="f['companyName']"></app-control-messages>
       </div>
       <div class="form-group">
-        <label>{{"shared.emailAddress" | translate }}<small *ngIf="router?.url.includes('employer')" class="text-secondary"> (Company Email Address)</small></label>
+        <label>{{"shared.emailAddress" | translate }}</label>
         <div appMarkAsterisk class="input-with-icon">
           <input type="text" autocomplete="disabled" style="text-transform: lowercase;" class="form-control" [placeholder]="'Email Address'" formControlName="email">
           <i class="fas fa-envelope"></i>
