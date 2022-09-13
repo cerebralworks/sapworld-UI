@@ -26,7 +26,6 @@ export class RegisterFormComponent implements OnInit {
   public registerForm: FormGroup;
   public loggedUserInfo: LoggedIn;
   public loggedUserInfoStatus: boolean=true;
-
   @ViewChild("registerModal", { static: false }) registerModal: TemplateRef<any>;
   isLoading: boolean;
   formError: any[] = [];
@@ -112,15 +111,15 @@ export class RegisterFormComponent implements OnInit {
 	  this.isLoading = true;
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 0) {
-       // this.registerUser();
-		gtag('event', 'user_signup', {
-    'event_callback': this.registerUser()
-  });
+	  //this.registerUser()
+        gtag('event', 'user_signup', {
+		'event_callback': this.registerUser()
+	  });
       }else if(currentRole.roleId == 1) {
         //this.registerEmployer();
-		gtag('event', 'employer_signup', {
-    'event_callback': this.registerEmployer()
-  });
+		 gtag('event', 'employer_signup', {
+		'event_callback': this.registerEmployer()
+	  });
       }
     }
   }
@@ -133,6 +132,7 @@ export class RegisterFormComponent implements OnInit {
       response => {
         this.isLoading = false;
         this.onClickCloseBtn(false);
+		//gtag('event', 'sign_up', { method: 'Direct' });
       }, error => {
         if(error && error.error && error.error.errors)
         this.formError = error.error.errors;
@@ -167,8 +167,13 @@ export class RegisterFormComponent implements OnInit {
   **	To get user data as params
   **/
   onGenerateRes = () => {
-    const userInfo = this.registerForm.value;
-    let requestParams: any = {};
+  const userInfo = this.registerForm.value;
+  let requestParams: any = {};
+  if(this.route.snapshot.queryParams['redirect']){
+	   var temps = this.route.snapshot.queryParams['redirect'].split('/');
+	   var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
+	   requestParams.share_id = parseInt(id_val);
+   }
     requestParams.first_name = userInfo.firstName;
     requestParams.last_name = userInfo.lastName;
     requestParams.company = userInfo.companyName;

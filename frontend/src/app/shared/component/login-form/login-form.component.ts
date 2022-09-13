@@ -29,6 +29,7 @@ export class LoginFormComponent implements OnInit {
   public returnUserUrl: any;
 	public loggedUserInfo: any;
 	public checkrole :any;
+	public shareid :any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,6 +52,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe(response => {
 		this.loggedUserInfo = response;
       });
+	  this.shareid=this.route.snapshot.queryParamMap.get('shareid');
 	 this.checkrole = this.router.url.includes('user')? 0 : 1;
   }
 
@@ -93,7 +95,7 @@ export class LoginFormComponent implements OnInit {
 						  this.returnUserUrl = this.route.snapshot.queryParams['redirect'];
 						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
 						  this.router.navigate(['/user/candidate-job-view/details'], {queryParams: {'show': 'appply','id': id_val }});
-					  }else if(temps[2]==="job-matches"){
+					  }else if(temps[2]==="job-matches" && temps[temps.length-1].split('?').length===2){
 						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
 					      this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': id_val }});
 					  }else{
@@ -103,7 +105,12 @@ export class LoginFormComponent implements OnInit {
 					this.router.navigate(['/user/dashboard']);
 				  }
 			  }else{
+			     if(this.shareid==null){
+				    this.router.navigate(['/user/create-candidate']);
+				  }else{
+				  localStorage.setItem('shareid',this.shareid)
 				  this.router.navigate(['/user/create-candidate']);
+				  }
 			  }
             
           }else if (response.isLoggedIn && response.role.includes(1)) {
