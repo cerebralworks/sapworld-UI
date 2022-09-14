@@ -1,10 +1,11 @@
-import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild,HostListener} from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild,HostListener,TemplateRef} from '@angular/core';
 import { EmployerService } from '@data/service/employer.service';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
 import { environment as env } from '@env';
 import { HttpHeaders, HttpClient,HttpResponse, HttpParams, HttpErrorResponse } from '@angular/common/http';
-
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 class DataTablesResponse {
   data: any[];
   draw: number;
@@ -31,15 +32,21 @@ export class JobSeekerComponent implements OnInit {
 	pageIndex = 1;
 	pageSizeOptions = [10, 25,50,100];
 	isShow:boolean = false;
-	
+	@ViewChild('emailModal', { static: false }) emailModal: TemplateRef<any>;
+	public openmail:boolean =false;
+	public mbRef: NgbModalRef;
+	public userId:any;
+	public emailform : FormGroup;
 	constructor(
 		private employerService: EmployerService,
 		private ref: ChangeDetectorRef,
-		private http: HttpClient
+		private http: HttpClient,
+		private modelService: NgbModal,
+		private formBuilder: FormBuilder,
 	) { }
  
 	ngOnInit(): void {
-	
+	    this.buildForm();
 		this.paramsEmployee['limit'] = this.limit;
 		this.paramsEmployee['page'] = 0;
 		this.paramsEmployee['column'] ='id';
@@ -116,9 +123,9 @@ export class JobSeekerComponent implements OnInit {
 				'className': 'text-Capitalize',
 				'render': function (data, type, full, meta){
 				   if(full.city !=null && full.state !=null && full.zipcode !=null){
-				   return '<a  class="btn btn-outline-primary disabled btn-xs" ><i class="fas fa-envelope-open-text"></i></a>'
+				   return '<a><i class="ri-mail-fill"></i></a>'
 				   }else{
-				   return '<a id="mail_'+data+'" class="btn btn-outline-primary btn-xs" (click)="sendemail('+data+')"><i id="mailbtn_'+data+'" class="fas fa-envelope-open-text"></i></a>'
+				   return '<a id="mail_'+data+'" (click)="sendemail('+data+')"><i id="mailbtn_'+data+'" style="color:#385edf" class="ri-mail-fill"></i></a>'
 				   
 				   }
 				}
@@ -151,13 +158,50 @@ export class JobSeekerComponent implements OnInit {
 		}
 	}
 	
-	/** To send mail to user **/
+	/**
+  **	To build the meting form
+  **/
+  private buildForm(): void {
+    this.emailform = this.formBuilder.group({
+	  subject: ['',Validators.required],
+      message: ['',Validators.required]
+    });
+  }
+  
+  
+	/** To open mail send popup**/
 	
 	sendemail(val){
-	var data={
-	  id:val
+	    this.userId=val;
+		this.openmail = true;
+		setTimeout(() => {
+			this.mbRef = this.modelService.open(this.emailModal, {
+				windowClass: 'modal-holder',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		});
 	}
-	this.employerService.sendMailUser(data).subscribe()
+	
+	/** To send mail */
+	submitmail(){
+		var data={
+		  id:this.userId,
+		  message:this.emailform.value.message,
+		  subject:this.emailform.value.subject
+		}
+	   this.employerService.sendMailUser(data).subscribe(datas=>{
+	      this.closemodel();
+	   })
+	
 	}
-
+    
+	/**To close the model**/
+	
+	closemodel(){
+		this.openmail=false;
+		this.emailform.reset();
+		this.mbRef.close();
+	}
 }
