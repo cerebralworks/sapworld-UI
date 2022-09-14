@@ -123,7 +123,7 @@ export class JobSeekerComponent implements OnInit {
 				'className': 'text-Capitalize',
 				'render': function (data, type, full, meta){
 				   if(full.city !=null && full.state !=null && full.zipcode !=null){
-				   return '<a><i class="ri-mail-fill"></i></a>'
+				   return '<a style="cursor:no-drop"><i style="color:#385edf" class="ri-mail-fill"></i></a>'
 				   }else{
 				   return '<a id="mail_'+data+'" (click)="sendemail('+data+')"><i id="mailbtn_'+data+'" style="color:#385edf" class="ri-mail-fill"></i></a>'
 				   
