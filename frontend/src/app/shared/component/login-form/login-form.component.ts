@@ -98,6 +98,8 @@ export class LoginFormComponent implements OnInit {
 					  }else if(temps[2]==="job-matches" && temps[temps.length-1].split('?').length===2){
 						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
 					      this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': id_val }});
+					  }else if(temps[2]==="create-candidate"){
+					    this.router.navigate(['/user/create-candidate']);
 					  }else{
 						this.router.navigate(['/user/dashboard']);
 					  }

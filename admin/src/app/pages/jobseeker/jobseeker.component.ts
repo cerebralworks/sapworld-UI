@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild} from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild,HostListener} from '@angular/core';
 import { EmployerService } from '@data/service/employer.service';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
@@ -47,7 +47,7 @@ export class JobSeekerComponent implements OnInit {
 		this.paramsEmployee['view'] ='all';
 		this.dtOptionsss = {
 			pageLength: this.limit,
-			processing: false,
+			processing: true,
 			"searching": false,
 			"info": false,
 			serverSide: true,
@@ -86,15 +86,22 @@ export class JobSeekerComponent implements OnInit {
 				'className': 'text-Capitalize',
 			   'render': function (data, type, full, meta){
 				   if(!full.city){
-					   full.city=''
+					   full.city='-'
 				   }if(!full.country){
-					   full.country=''
+					   full.country='-'
 				   }
 				   return full.city+' '+ full.country 
 				}
 			},{
 			   'targets': 1,
-				'className': 'text-Capitalize'
+				'className': 'text-Capitalize',
+				'render': function (data, type, full, meta){
+				   if(!full.job_role){
+				      return '--';
+				   }else{
+				      return data;
+				   }
+				}
 			},{
 			   'targets': 3,
 				'className': 'text-Capitalize',
@@ -104,12 +111,24 @@ export class JobSeekerComponent implements OnInit {
 				   var month = new Date(data).toLocaleString('en-us', { month: "short" });
 				   return month+' '+date+', '+year; 
 				}
+			},{
+			   'targets': 4,
+				'className': 'text-Capitalize',
+				'render': function (data, type, full, meta){
+				   if(full.city !=null && full.state !=null && full.zipcode !=null){
+				   return '<a  class="btn btn-outline-primary disabled btn-xs" ><i class="fas fa-envelope-open-text"></i></a>'
+				   }else{
+				   return '<a id="mail_'+data+'" class="btn btn-outline-primary btn-xs" (click)="sendemail('+data+')"><i id="mailbtn_'+data+'" class="fas fa-envelope-open-text"></i></a>'
+				   
+				   }
+				}
 			}],
 			columns: [
 				{ data: 'first_name' },
 				{ data: 'job_role' },
 				{ data: 'city' },
-				{ data: 'created_at' }
+				{ data: 'created_at' },
+				{ data: 'id' }
 			]
 		};
 	
@@ -122,6 +141,23 @@ export class JobSeekerComponent implements OnInit {
 			// Do not forget to unsubscribe the event
 		//this.dtTrigger.unsubscribe();
 	  }
-		
+	
+	//Getting ID using click event
+	@HostListener("click", ["$event.target.id"]) onClick(id : any) {
+	   var arr = id.split('_')		
+		if(arr[0]==="mail" || arr[0]==="mailbtn"){
+			var val1 = arr[arr.length-1]
+			 this.sendemail(val1)    
+		}
+	}
+	
+	/** To send mail to user **/
+	
+	sendemail(val){
+	var data={
+	  id:val
+	}
+	this.employerService.sendMailUser(data).subscribe()
+	}
 
 }

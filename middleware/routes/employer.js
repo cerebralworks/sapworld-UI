@@ -94,6 +94,15 @@ module.exports = (app, env, rp) => {
 	});
 	
 	/**
+	* Admin Profile -send mail to user for profile complete
+	*/
+	
+	app.post("/api/admins/profile-complete-invite", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.adminsUserMail}`, req, res, requestBody);
+	});
+	
+	/**
 	**	To Admin update the profile Image
 	**/
 	
