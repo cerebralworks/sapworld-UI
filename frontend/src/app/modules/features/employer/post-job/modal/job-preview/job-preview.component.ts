@@ -183,7 +183,7 @@ export class JobPreviewComponent implements OnInit {
 	   }
 	   if((this.postJobForm.value.jobInfo.entry ===false || this.postJobForm.value.jobInfo.entry ===true) && this.postJobForm.value.requirement.hands_on_experience.length){
 	   
-	  if(this.postJobForm.value.requirement.hands_on_experience[0].skill_id==null){
+	  if(this.postJobForm.value.requirement.hands_on_experience[0].skill_id==null ||this.postJobForm.value.requirement.hands_on_experience[0].skill_id==''){
 	  
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValidators(null);
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValue('');
