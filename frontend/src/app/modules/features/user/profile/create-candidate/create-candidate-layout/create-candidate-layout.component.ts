@@ -73,7 +73,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	public candiatevalues :any;
 	public checkUpdateSkills : boolean =false;
 	public validationType:any;
-	
+	public shareid:any;
 	constructor(
 		private formBuilder: FormBuilder,
 		private modalService: NgbModal,
@@ -100,6 +100,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
+		this.shareid=localStorage.getItem("shareid");
 		this.buildForm();
 		this.createFormData();
 		//this.onGetCountry('');
@@ -568,7 +569,10 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	    candidateInfo['skills'] = temp.filter(function(a,b){ return a !='' });
 		this.userService.update(candidateInfo).subscribe(
 		response => {
-			
+			if(this.shareid !=null){
+			  this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': this.shareid }});
+			  localStorage.removeItem('shareid');
+			}else{
 			this.router.navigate(['/user/dashboard']).then(() => {
 				/*if(this.userInfo && this.userInfo.profile_completed == false){
 				if(!response.matches && response.matches  !=true && response.matches !=false){
@@ -594,6 +598,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
           this.modalService.dismissAll();
           this.onToggleRegisterReview(false)
         });
+		}
       }, error => {
         if(error && error.error && error.error.errors) {
           let imp = error.error.errors.filter((_val) => {

@@ -6,7 +6,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
-
+import { environment as env } from '@env';
 @Component({
   selector: 'app-posted-job',
   templateUrl: './posted-job.component.html',
@@ -36,12 +36,14 @@ export class PostedJobComponent implements OnInit {
 	public currentJobIndex: any;
 	public statusGlossary: any;
 	public mbRef: NgbModalRef;
-
+	public mbRef1: NgbModalRef;
+	public isShareModel: boolean = false;
 	@ViewChild('statusModal', { static: false }) deleteModal: TemplateRef<any>;
+	@ViewChild('shareModal', { static: false }) shareModal: TemplateRef<any>;
 	public currentValueOfStatus: any;
 	public currentValueOfJob: JobPosting;
 	isStatusValue: any;
-
+    public linkedInUrl:any;
 	constructor(
 		public employerService: EmployerService,
 		private employerSharedService: EmployerSharedService,
@@ -142,6 +144,28 @@ export class PostedJobComponent implements OnInit {
 			}); */
 		}
 	}
+	
+	/** To Open share Popup*/	
+	openshare(id){
+	   //this.linkedInUrl="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2F149.56.180.254%2F%23%2Fuser%2Fjob-matches%2Fdetails%3Fid%3D37";
+	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/user/job-matches/details?id=`)+id;
+	   console.log(this.linkedInUrl);
+		this.isShareModel=true;
+		setTimeout(() => {
+		 this.mbRef1 = this.modelService.open(this.shareModal, {
+					windowClass: 'modal-holder',
+					centered: true,
+					keyboard: false
+				});
+		});
+	}
+	
+	/** To Close share Popup*/
+	closeshare(){
+		this.isShareModel=false;
+		this.mbRef1.close();
+	}
+	
 	
 	/**
 	**	To change the status if job details 

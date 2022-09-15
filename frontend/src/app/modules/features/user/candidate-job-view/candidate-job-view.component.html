@@ -78,14 +78,14 @@
 										</div>
 									</div>
 									<div class="col-lg-5" >
-										<ng-container *ngIf="postedJobsDetails?.salary_type == 0">
+										<ng-container *ngIf="postedJobsDetails?.salary_type == 0 && postedJobsDetails?.salary !== 0">
 											<h6 class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / hr'}}</h6>
 											
 										</ng-container>
-										<ng-container *ngIf="postedJobsDetails?.salary_type ==1">
+										<ng-container *ngIf="postedJobsDetails?.salary_type ==1 && postedJobsDetails?.salary !== 0">
 											<h6 class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / Annual '}}</h6>
 										</ng-container>
-										<ng-container *ngIf="postedJobsDetails?.salary_type ==2">
+										<ng-container *ngIf="postedJobsDetails?.salary_type ==2 && postedJobsDetails?.salary !== 0">
 											<h6 class="text-capitalize job-cardh6">{{"shared.salary" | translate}} : {{sharedService.onGetCurrencyCode(postedJobsDetails?.salary_currency)?.symbol + postedJobsDetails?.salary + ' / month'}}</h6>
 										</ng-container>
 										<ng-container  *ngIf="postedJobsDetails?.salary_type < 0">

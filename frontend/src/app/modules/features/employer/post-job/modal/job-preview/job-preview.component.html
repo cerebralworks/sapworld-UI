@@ -1109,6 +1109,7 @@
 			</div>	
 			<div class="col-md-3 ">
 				<h6 class="font-weight-bold mb-2" >{{"shared.salary" | translate}} </h6>
+				<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary;else nullpay">
 				<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type == 0">
 					<h6 class="text-capitalize job-cardh6"> {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / hr'}}</h6>
 				</ng-container>
@@ -1118,9 +1119,10 @@
 				<ng-container *ngIf="postJobForm?.value?.jobInfo?.salary_type ==2">
 					<h6 class="text-capitalize job-cardh6"> {{sharedService.onGetCurrencyCode(postJobForm?.value?.jobInfo?.salary_currency)?.symbol + postJobForm?.value?.jobInfo?.salary + ' / month'}}</h6>
 				</ng-container>
-				<ng-container  *ngIf="postJobForm?.value?.jobInfo?.salary_type < 0">
-					--
 				</ng-container>
+				<ng-template  #nullpay>
+					NA
+				</ng-template>
 							
 			</div>	
 		</div>	

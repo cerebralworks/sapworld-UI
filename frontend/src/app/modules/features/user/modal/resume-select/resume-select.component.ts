@@ -85,7 +85,7 @@ export class ResumeSelectComponent implements OnInit {
 					
 					if(tempCheck.length !=0){
 						 this.isShowValidShow = true
-					}else if(this.userInfo['visa_type'] !=null && this.userInfo['visa_type']['length']&& this.userInfo['visa_type']['length']!=0){
+					}else if( (this.userInfo['visa_type'] !=null && this.userInfo['visa_type']['length']&& this.userInfo['visa_type']['length']!=0) || ( this.userInfo['visa_type'] ==null)){
 							this.isShowValidShow = true;
 					}else if (this.currentJobDetails['visa_sponsorship'] == true){
 						this.isShowValidShow = true;

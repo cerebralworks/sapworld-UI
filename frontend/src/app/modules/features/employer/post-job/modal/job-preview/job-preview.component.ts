@@ -182,7 +182,9 @@ export class JobPreviewComponent implements OnInit {
 	   
 	   }
 	   if((this.postJobForm.value.jobInfo.entry ===false || this.postJobForm.value.jobInfo.entry ===true) && this.postJobForm.value.requirement.hands_on_experience.length){
-	  if(this.postJobForm.value.requirement.hands_on_experience[0].skill_id==null){
+	   
+	  if(this.postJobForm.value.requirement.hands_on_experience[0].skill_id==null ||this.postJobForm.value.requirement.hands_on_experience[0].skill_id==''){
+	  
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValidators(null);
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].setValue('');
 	   this.postJobForm.controls.jobPrev['controls']['match_select']['controls']['hands_on_experience'].updateValueAndValidity();
@@ -272,7 +274,6 @@ export class JobPreviewComponent implements OnInit {
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		setTimeout( async () => {
-			
 			/* if(this.childForm.value.otherPref.extra_criteria){
 				var extra = this.childForm.value.otherPref.extra_criteria.filter(function(a,b){ return a.title!=null&&a.title!=''&&a.value!=null&&a.value!=''});
 				for(let i=0;i<extra.length;i++){
@@ -288,6 +289,14 @@ export class JobPreviewComponent implements OnInit {
 		
 			} */
 			
+			if(this.childForm.value.jobInfo.salary){
+			   this.childForm.patchValue({
+					jobInfo: {
+						salary: this.childForm.value.jobInfo.salary.toString(),
+					}
+				});
+					
+			}
 			if(this.childForm.value.otherPref.others){
 				var extra = this.childForm.value.otherPref.others.filter(function(a,b){ return a.value==true&&a.title!=null&&a.title!=''&&a.id!=null&&a.id!=''});
 				for(let i=0;i<extra.length;i++){
@@ -361,11 +370,7 @@ export class JobPreviewComponent implements OnInit {
 	**/
 	
 	onRedirectDashboard(status) {
-	this.childForm.patchValue({
-			jobInfo: {
-				salary: this.childForm.controls.jobInfo.value.salary.toString(),
-			}
-		});
+
 		this.postJob.next(status);
 	}
 

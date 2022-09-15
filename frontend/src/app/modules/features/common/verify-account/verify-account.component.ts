@@ -14,7 +14,7 @@ export class VerifyAccountComponent implements OnInit {
   public formError: any[] = [];
   public verifyAccountSuccess: boolean;
   public accountRole: string = "";
-
+  public shareid:any;
   constructor(
     private accountService: AccountService,
     private router: Router,
@@ -25,6 +25,7 @@ export class VerifyAccountComponent implements OnInit {
     const accountId = this.route.snapshot.queryParamMap.get('id');
     const accountToken = this.route.snapshot.queryParamMap.get('token');
     this.accountRole = this.route.snapshot.queryParamMap.get('role');
+    this.shareid = this.route.snapshot.queryParamMap.get('share');
     if (accountId && accountToken) {
       this.onVerifyAccount(accountId, accountToken)
     }
@@ -55,11 +56,13 @@ export class VerifyAccountComponent implements OnInit {
     let interval = setInterval(() => {
       this.counter--;
       if (this.counter == 0) {
-        if(this.accountRole.includes('0')) {
+        if(this.accountRole.includes('0') && this.shareid==null) {
           this.router.navigate(['/auth/user/login']);
         }else if(this.accountRole.includes('1')) {
           this.router.navigate(['/auth/employer/login']);
-        }else {
+        }else if(this.accountRole.includes('0') && this.shareid!=null) {
+		 this.router.navigate(['/auth/user/login'], {queryParams: {'shareid':this.shareid}});
+		}else {
           this.router.navigate(['/home']);
         }
 

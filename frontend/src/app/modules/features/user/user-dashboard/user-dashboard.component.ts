@@ -28,11 +28,14 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	public dashboardView: boolean = false;
 	public dashboardViewAPI: boolean = false;
 	public toggleresumeSelectModal: boolean = false;
+	public nomatchmodel: boolean = false;
 	public toggleMatchesModal: boolean = false;
 	@ViewChild('deleteModal', { static: false }) deleteModal: TemplateRef<any>;
+	@ViewChild('noMatchModal', { static: false }) noMatchModal: TemplateRef<any>;
 	@ViewChild('matchesModal', { static: false }) matchesModal: TemplateRef<any>;
 	public mbRef: NgbModalRef;
 	public mbRefs: NgbModalRef;
+	public mbRefss: NgbModalRef;
 	public queryParams: any = {};
 	public userInfo:any;
 	public nationality:any[]=[];
@@ -49,7 +52,9 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		private sharedApiService: SharedApiService,
 		private employerService: EmployerService,
 		private utilsHelperService: UtilsHelperService
-	) { }
+	) { 
+	
+	}
 	
 	/**
 	**	To initialize the view the function calls
@@ -64,6 +69,20 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 				}
 			}
 		);
+		
+		
+		if(this.route.snapshot.queryParams['nomatch']=='true' || this.route.snapshot.queryParams['nomatch']===true){
+		       this.nomatchmodel = true;
+				setTimeout(() => {
+					this.mbRefss = this.modelService.open(this.noMatchModal, {
+						windowClass: 'modal-holder',
+						centered: true,
+						backdrop: 'static',
+						keyboard: false
+					});
+				});
+		     
+		}
 		this.userSharedService.getUserProfileDetails().subscribe(
 			response => {
 				if(response){
@@ -125,6 +144,14 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 					break;
 			}
 		}
+	}
+	
+	/***To close No match popup **/
+	
+	closeNoMatch(){
+		this.mbRefss.close();
+		this.nomatchmodel=false;
+		this.router.navigate(['/user/dashboard'])
 	}
 
 	validateOnPrfile = 0;

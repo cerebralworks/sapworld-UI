@@ -289,8 +289,8 @@ if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.
 				field_of_study: [null],
 				year_of_completion: [null, [Validators.min(4)]]
 			  })]),
-			  experience: new FormControl('', Validators.required),
-			  sap_experience: new FormControl('', Validators.required),
+			  experience: new FormControl(null, Validators.required),
+			  sap_experience: new FormControl(null, Validators.required),
 			  current_employer: new FormControl('', (Validators.required,ValidationService.emptyStringValidator)),
 			  current_employer_role: new FormControl('', (Validators.required,ValidationService.emptyStringValidator)),
 			  domains_worked: new FormControl('', Validators.required),
