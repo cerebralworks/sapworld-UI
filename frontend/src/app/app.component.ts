@@ -75,6 +75,10 @@ export class AppComponent {
        }
       }
     });
+	 window.onload = (event) => {
+	var splashscreen:HTMLElement = document.getElementById('splash-screen');
+	splashscreen.style.display="none";
+	}
 	this.dataService.getNotificationDataSource().subscribe(
 	  response => {
 		if(response && response['total']) {
