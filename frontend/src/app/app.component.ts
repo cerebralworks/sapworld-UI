@@ -62,6 +62,9 @@ export class AppComponent {
 	  { property: 'og:title', content: 'SapWorld Jop Posting content in update one  :)' },
     );
 	this.metaService.updateTag(
+	  { property: 'og:description', content: 'SapWorld Jop Posting content in update one  :)' },
+    );
+	this.metaService.updateTag(
 	  { property: 'og:image', content: 'https://cdn.mainstreethost.com/wp-content/uploads/2022/01/social-media-image-size-cheat-sheet-fb-1200x630-1.jpg' },
     );
   this.setUpAnalytics();
