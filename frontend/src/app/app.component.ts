@@ -15,6 +15,7 @@ import { PushNotificationsService } from '@shared/service/notification.service';
 declare let gtag: Function;
 import * as moment from 'moment';
 import { filter } from 'rxjs/operators';
+import { Meta, Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -45,12 +46,18 @@ export class AppComponent {
     private userSharedService?: UserSharedService,
     private route?: ActivatedRoute,
     private ngxService?: NgxUiLoaderService, 
+	private titleService?: Title,
+    private metaService?: Meta,
 	private _notificationService?: PushNotificationsService
   ) { this._notificationService.requestPermission();
       this.checkUserLoggedIn();   
   }
 
   ngOnInit(): void {
+	  this.metaService.addTags([
+	   { property: 'og:image', content: 'http://rmkcdn.successfactors.com/84a30c28/d37ba75a-6f99-42ad-b278-f.jpg' },
+    ]);
+	console.log('mete');
   this.setUpAnalytics();
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
@@ -147,7 +154,7 @@ setUpAnalytics() {
 			params.view = 'user';
 			this.employerService.onGetNotification(params).subscribe(
 			  response => {
-			   console.log(response)
+			   //console.log(response)
 				if(response && response['data']) {
 					if(window.location.href.includes('notification') && this.check ==false){
 						this.totalValue =0;
