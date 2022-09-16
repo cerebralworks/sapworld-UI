@@ -7,6 +7,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
 import { environment as env } from '@env';
+import { Meta, MetaDefinition } from '@angular/platform-browser';
 @Component({
   selector: 'app-posted-job',
   templateUrl: './posted-job.component.html',
@@ -49,7 +50,8 @@ export class PostedJobComponent implements OnInit {
 		private employerSharedService: EmployerSharedService,
 		private router: Router,
 		private modelService: NgbModal,
-		private utilsHelperService: UtilsHelperService
+		private utilsHelperService: UtilsHelperService,
+		private metaService: Meta
 	) { }
 
 	validateSubscribe = 0;
@@ -82,6 +84,7 @@ export class PostedJobComponent implements OnInit {
 				}
 			}
 		)
+		this.metaService.updateTag({ content: 'New Updated tags info'}, "property='og:title'");
 	}
 	
 	/**
