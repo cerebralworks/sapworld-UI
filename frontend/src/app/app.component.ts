@@ -55,9 +55,9 @@ export class AppComponent {
 
   ngOnInit(): void {
 	  this.metaService.addTags([
-	   { property: 'og:image', content: 'http://rmkcdn.successfactors.com/84a30c28/d37ba75a-6f99-42ad-b278-f.jpg' },
+	  { property: 'og:title', content: 'SapWorld Jop Posting' },
+	  { property: 'og:image', content: 'https://cdn.mainstreethost.com/wp-content/uploads/2022/01/social-media-image-size-cheat-sheet-fb-1200x630-1.jpg' },
     ]);
-	console.log('mete');
   this.setUpAnalytics();
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
