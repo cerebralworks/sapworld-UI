@@ -55,8 +55,8 @@ export class AppComponent {
 
   ngOnInit(): void {
 	  this.metaService.addTags([
-	  { property: 'og:title', content: 'SapWorld Jop Posting' },
-	  { property: 'og:image', content: 'https://cdn.mainstreethost.com/wp-content/uploads/2022/01/social-media-image-size-cheat-sheet-fb-1200x630-1.jpg' },
+	  { property: 'og:title', content: 'SapWorld Jop Posting content in ts file :)' },
+	  { property: 'og:image', content: 'https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/blogs/13681/images/ll4PBGfeRiqDnYXUZyAz_GSM_SM_Image_Sizes_2022_Kajabi_1.png' },
     ]);
   this.setUpAnalytics();
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
