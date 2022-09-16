@@ -9,6 +9,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import * as lodash from 'lodash';
 import { Subscription } from 'rxjs';
 import { environment as env } from '@env';
+import { Meta, Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-candidate-job-matches',
   templateUrl: './candidate-job-matches.component.html',
@@ -53,7 +54,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 		private location: Location,
 		public utilsHelperService: UtilsHelperService,
 		public sharedService: SharedService,
-		private router: Router
+		private router: Router,
+		private title: Title
 	) {	}
 
 	/**
@@ -71,6 +73,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 				}
 			}
 		});
+		this.title.setTitle('matches page');    
 		this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
 		var jobIds:any = 0;
 		if(sessionStorage.getItem('view-job-id')){
