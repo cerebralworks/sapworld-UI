@@ -114,8 +114,8 @@ setUpAnalytics() {
         if(this.loggedInResponse && (this.loggedInResponse.isLoggedIn == false)) {
           this.validateCall = 0;
         }else if(this.loggedInResponse && this.loggedInResponse.isLoggedIn === true){
-			if(!this.router.url.includes('/auth') && !this.router.url.includes('/user') && !this.router.url.includes('/employer') && !this.router.url.includes('/notification')){
-		     this.router.navigate([redir]);
+			if(!this.router.url.includes('/auth') && !this.router.url.includes('/user') && !this.router.url.includes('/employer') && !this.router.url.includes('/notification') && this.loggedInResponse.role[0] !==2){
+		       this.router.navigate([redir]);
 		    }
 		}
         this.getUserInfo();
