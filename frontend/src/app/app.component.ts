@@ -44,7 +44,7 @@ export class AppComponent {
     private employerSharedService?: EmployerSharedService,
     private userSharedService?: UserSharedService,
     private route?: ActivatedRoute,
-    private ngxService?: NgxUiLoaderService
+    private ngxService?: NgxUiLoaderService,
 	private _notificationService?: PushNotificationsService
   ) { this._notificationService.requestPermission();
       this.checkUserLoggedIn();   
