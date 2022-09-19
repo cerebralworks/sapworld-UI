@@ -1,5 +1,5 @@
  <!-- Footer Section -->
- <footer class="footer" *ngIf="loggedUserInfo?.isLoggedIn">
+ <footer class="footer" *ngIf="loggedUserInfo?.isLoggedIn && !router.url.includes('admin')">
   <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'">
     <div class="row footer-widget">
       <div class="col-lg-12">
@@ -29,7 +29,7 @@
     </div>
   </div>
 </footer>
- <footer *ngIf="!loggedUserInfo?.isLoggedIn">
+ <footer *ngIf="!loggedUserInfo?.isLoggedIn && !router.url.includes('admin')">
  <div class="footer-bottom ">
 	  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'">
 		<i class="fas fa-copyright mr-1"></i> {{today | date:'yyyy'}} <a href="#"> SAP World</a> All Rights Reserved.

@@ -2,7 +2,7 @@ import { Component, OnInit,HostListener } from '@angular/core';
 import { AccountLogin } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
 import { Subscription } from 'rxjs';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -14,7 +14,8 @@ export class FooterComponent implements OnInit {
   today: number = Date.now();
   public accountUserSubscription: Subscription;
   constructor(
-    private accountService: AccountService
+    private accountService: AccountService,
+	public router:Router
 	) { }
 
   ngOnInit(): void {
