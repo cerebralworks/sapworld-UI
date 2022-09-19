@@ -7,6 +7,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
 import { environment as env } from '@env';
+import { Meta, Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-posted-job',
   templateUrl: './posted-job.component.html',
@@ -49,7 +50,8 @@ export class PostedJobComponent implements OnInit {
 		private employerSharedService: EmployerSharedService,
 		private router: Router,
 		private modelService: NgbModal,
-		private utilsHelperService: UtilsHelperService
+		private utilsHelperService: UtilsHelperService,
+		private title: Title
 	) { }
 
 	validateSubscribe = 0;
@@ -146,8 +148,8 @@ export class PostedJobComponent implements OnInit {
 	}
 	
 	/** To Open share Popup*/	
-	openshare(id){
-	   //this.linkedInUrl="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2F149.56.180.254%2F%23%2Fuser%2Fjob-matches%2Fdetails%3Fid%3D37";
+	openshare(id,item){
+	  this.title.setTitle(item.title);     //this.linkedInUrl="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2F149.56.180.254%2F%23%2Fuser%2Fjob-matches%2Fdetails%3Fid%3D37";
 	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/user/job-matches/details?id=`)+id;
 	   console.log(this.linkedInUrl);
 		this.isShareModel=true;
