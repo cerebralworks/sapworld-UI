@@ -15,7 +15,7 @@ export class PostJobLayoutComponent implements OnInit {
   constructor(private router:Router,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-      var url="http://149.56.180.254/#/admin/post-job/"+this.router.url.split('/')[2];
+      var url="http://149.56.180.254/#/admin/post-job/"+this.router.url.split('/')[this.router.url.split('/').length-1];
 	  this.urlFrame=this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 

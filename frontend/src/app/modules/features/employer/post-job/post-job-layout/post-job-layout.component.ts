@@ -257,7 +257,7 @@ export class PostJobLayoutComponent implements OnInit {
 				this.onJobUpdate(jobInfo);
 			}else {
 			    if(this.router.url.includes('admin')){
-				  jobInfo.emp_id = parseInt(this.router.url.split('/')[3]);
+				  jobInfo.emp_id = parseInt(this.router.url.split('/')[this.router.url.split('/').length-1]);
 				}
 				this.onJobPost(jobInfo);
 			}
