@@ -15,7 +15,6 @@ import { PushNotificationsService } from '@shared/service/notification.service';
 declare let gtag: Function;
 import * as moment from 'moment';
 import { filter } from 'rxjs/operators';
-import { Meta, Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -45,28 +44,13 @@ export class AppComponent {
     private employerSharedService?: EmployerSharedService,
     private userSharedService?: UserSharedService,
     private route?: ActivatedRoute,
-    private ngxService?: NgxUiLoaderService, 
-	private titleService?: Title,
-    private metaService?: Meta,
+    private ngxService?: NgxUiLoaderService
 	private _notificationService?: PushNotificationsService
   ) { this._notificationService.requestPermission();
       this.checkUserLoggedIn();   
   }
 
   ngOnInit(): void {
-	  /*this.metaService.addTags([
-	  { property: 'og:title', content: 'SapWorld Jop Posting content in ts file :)' },
-	  { property: 'og:image', content: 'https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/blogs/13681/images/ll4PBGfeRiqDnYXUZyAz_GSM_SM_Image_Sizes_2022_Kajabi_1.png' },
-    ]);*/
-	this.metaService.updateTag(
-	  { property: 'og:title', content: 'SapWorld Jop Posting content in update one  :)' },
-    );
-	this.metaService.updateTag(
-	  { property: 'og:description', content: 'SapWorld Jop Posting content in update one  :)' },
-    );
-	this.metaService.updateTag(
-	  { property: 'og:image', content: 'https://cdn.mainstreethost.com/wp-content/uploads/2022/01/social-media-image-size-cheat-sheet-fb-1200x630-1.jpg' },
-    );
   this.setUpAnalytics();
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
