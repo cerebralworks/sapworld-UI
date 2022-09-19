@@ -1,10 +1,13 @@
-import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild} from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild,TemplateRef} from '@angular/core';
 import { EmployerService } from '@data/service/employer.service';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
 import { environment as env } from '@env';
 import { HttpHeaders, HttpClient,HttpResponse, HttpParams, HttpErrorResponse } from '@angular/common/http';
-
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidationService } from '@shared/services/validation.service';
+import { AccountService } from '@data/service/account.service';
 class DataTablesResponse {
   data: any[];
   draw: number;
@@ -32,15 +35,22 @@ export class EmployersComponent implements OnInit,OnDestroy {
 	pageIndex = 1;
 	pageSizeOptions = [10, 25,50,100];
 	isShow:boolean = false;
-	
+	@ViewChild('registerModal', { static: false }) registerModal: TemplateRef<any>;
+	public openregister:boolean =false;
+	public mbRef: NgbModalRef;
+	public registerForm : FormGroup;
 	constructor(
 		private employerService: EmployerService,
 		private ref: ChangeDetectorRef,
-		private http: HttpClient
+		private http: HttpClient,
+		private modelService: NgbModal,
+		private formBuilder: FormBuilder,
+		private accountService:AccountService
+		
 	) { }
  
 	ngOnInit(): void {
-	
+	    this.buildForm();
 		this.paramsEmployee['limit'] = this.limit;
 		this.paramsEmployee['page'] = 0;
 		this.paramsEmployee['column'] ='id';
@@ -48,7 +58,7 @@ export class EmployersComponent implements OnInit,OnDestroy {
 		this.paramsEmployee['view'] ='all';
 		this.dtOptionss = {
 			pageLength: this.limit,
-			processing: false,
+			processing: true,
 			"searching": false,
 			"info": false,
 			serverSide: true,
@@ -80,13 +90,26 @@ export class EmployersComponent implements OnInit,OnDestroy {
 			   'targets': 0,
 			   'className': 'text-Capitalize',
 			   'render': function (data, type, full, meta){
+				   return data;
+				}
+			},{
+			   'targets': 1,
+			   'className': 'text-Capitalize',
+			   'render': function (data, type, full, meta){
 				   return '<a class="text-primary" href="'+`${env.subPath}`+'/#/employers/view/'+full.id+'" >'+full.first_name+' '+ full.last_name +'</a>'
 				}
 			},{
 			   'targets': 2,
-			   'className': ''
+                'className': 'text-Capitalize',
+			   'render': function (data, type, full, meta){
+				   if(data){
+				   return data;
+				   }else{
+				   return '--';
+				   }
+				}
 			},{
-			   'targets': 4,
+			   'targets': 5,
 			   'className': 'text-Capitalize',
 			   'render': function (data, type, full, meta){
 				   if(data){
@@ -99,16 +122,33 @@ export class EmployersComponent implements OnInit,OnDestroy {
 					   return temp;
 				   }
 				}
+			},{
+			   'targets': 6,
+			    'orderable':false,
+                'className': 'text-Capitalize',
+			   'render': function (data, type, full, meta){
+				  /* return '<a href="http://localhost:4200/#/admin/post-job"><i style="color:#385edf" class="ri-draft-fill"></i></a>';*/
+				   return '<a href="'+`${env.subPath}`+'/#/post-job/'+full.id+'"><i style="color:#385edf" class="ri-draft-fill"></i></a>';
+				}
+			},{
+			   'targets': 7,
+			   'orderable':false,
+                'className': 'text-Capitalize',
+			   'render': function (data, type, full, meta){
+				   return '<a href="#"><i style="color:#385edf" class="ri-mail-fill"></i></a>';
+				}
 			}],
 			columns: [
+			    { data: 'company' },
 				{ data: 'first_name' },
 				{ data: 'phone' },
 				{ data: 'email' },
 				{ data: 'jobposting' },
-				{ data: 'last_post' }
+				{ data: 'last_post' },
+				{ data: 'id' },
+				{ data: 'id' }
 			]
 		};
-	
 	}
 	onGetEmployerData() {
 		
@@ -124,5 +164,67 @@ export class EmployersComponent implements OnInit,OnDestroy {
 		console.log(id);
 	}
 		
+		
+	 /**
+	  ** To build the meting form
+	  **/
+	  private buildForm(): void {
+		this.registerForm = this.formBuilder.group({
+		  company: ['',Validators.required],
+		  first_name: ['',Validators.required],
+		  last_name: ['',Validators.required],
+		  email: ['',[Validators.required,ValidationService.emailValidator]],
+		  phone: ['']
+		});
+	  }
+		
+	/**
+	**	Assign the form controls to f
+	**/
+	
+	get f() {
+		return this.registerForm.controls;
+	}
+	
+	
+	/** To open the popup**/
+    openReg(){
+	this.openregister = true;
+		setTimeout(() => {
+			this.mbRef = this.modelService.open(this.registerModal, {
+				windowClass: 'modal-holder',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		});
+	
+	}
 
+   
+	/**To close the model**/
+	closemodel(){
+		this.openregister=false;
+		this.registerForm.reset();
+		this.mbRef.close();
+	}
+	
+	/**To submit the register */
+	submitregister(){
+	   let reqParams:any ={};
+	   reqParams.first_name=this.registerForm.value.first_name;
+	   reqParams.last_name=this.registerForm.value.last_name;
+	   reqParams.company=this.registerForm.value.company;
+	   reqParams.phone=this.registerForm.value.phone;
+	   reqParams.email=this.registerForm.value.email.toLowerCase();
+	   reqParams.password="Password@123";
+	   this.accountService.employerSignup(reqParams).subscribe(
+      response => {
+        this.closemodel();
+      }, error => {
+        
+      }
+    )
+	
+	}
 }

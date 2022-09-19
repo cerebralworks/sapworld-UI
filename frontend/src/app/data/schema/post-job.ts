@@ -54,4 +54,5 @@ export interface JobPosting {
   min: any;
   max: any;
   travel_opportunity: number;
+  emp_id:any;
 }

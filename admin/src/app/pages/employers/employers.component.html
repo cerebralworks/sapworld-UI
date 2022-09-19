@@ -7,7 +7,10 @@
 						<h1>Employers</h1>
 					</div>
 					<div class="float-right">
-						<button type="button" class="btn btn-outline-secondary btn-sm " onclick="history.go(-1)">
+					   <a class="btn btn-outline-primary btn-sm my-1 mr-2" (click)="openReg()" role="button">
+							<i class="ri-add-circle-line align-middle"></i> Add Employer
+						</a>
+						<button type="button" class="btn btn-outline-secondary btn-sm my-1" onclick="history.go(-1)">
 							<i class="ri-arrow-left-circle-line align-middle"></i> Back
 						</button>
 					</div>
@@ -45,12 +48,14 @@
 										<div class="table-responsive">
 											<table  datatable id="DataTable" [dtOptions]="dtOptionss"  class="sort-table table custom-table m-0">
 												<thead>
-													<tr>
-														<th>Employer Name</th>
-														<th>Phone</th>
-														<th>Email</th>
-														<th>Posted Jobs</th>
-														<th>Last Posted on</th>
+													<tr><th>COMPANY NAME</th>
+														<th>EMPLOYER NAME</th>
+														<th>PHONE</th>
+														<th>EMAIL</th>
+														<th>POSTED JOBS</th>
+														<th>LAST POSTER ON</th>
+														<th>POST JOB</th>
+														<th>EMAIL</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -68,3 +73,46 @@
 			</div>
 		</div>
 	</div>
+	<!-- Modal Section -->
+		
+	<ng-template *ngIf="registerForm"  #registerModal let-modal let-d="dismiss">
+	<div class="modal-content" >
+	  <div class="modal-header">
+		<h5 class="modal-title" id="emailModalLabel">Add Employer</h5>
+		  <span class="modal-title" (click)="closemodel()" role="button">x</span>
+	  </div>
+		<div class="modal-body">
+				<form class="myadmin-form" [formGroup]="registerForm" (ngSubmit)="submitregister()">
+					<div class="form-group">
+						<label>Company Name *</label>
+						<input type="text" class="form-control" placeholder="Company Name" formControlName="company" name="company">
+						<app-control-messages [control]="f['company']"></app-control-messages>
+					</div>
+					<div class="form-group">
+						<label>First Name *</label>
+						<input type="text" class="form-control" placeholder="Employer First Name" formControlName="first_name" name="first_name">
+						<app-control-messages [control]="f['first_name']"></app-control-messages>
+					</div>
+					<div class="form-group">
+						<label>Last Name *</label>
+						<input type="text" class="form-control" placeholder="Employer Last Name" formControlName="last_name" name="last_name">
+						<app-control-messages [control]="f['last_name']"></app-control-messages>
+					</div>
+					<div class="form-group">
+						<label>Email Address *</label>
+						<input type="email" class="form-control" placeholder="Email Address" formControlName="email" name="email">
+						<app-control-messages [control]="f['email']"></app-control-messages>
+					</div>
+					<div class="form-group">
+						<label>Phone Number</label>
+						<input type="email" class="form-control" placeholder="Phone Number" formControlName="phone" name="phone">
+					</div>
+					<div class="modal-footer">
+				<button type="submit" [disabled]="!registerForm.valid" class="btn btn-sm btn-primary px-3"  >Add</button>
+			  </div>
+				</form>	  
+			  </div>	  
+	</div>
+	</ng-template>
+		
+    <!-- //Modal Section -->

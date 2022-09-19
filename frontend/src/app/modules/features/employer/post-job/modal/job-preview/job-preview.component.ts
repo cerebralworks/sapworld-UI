@@ -145,8 +145,9 @@ export class JobPreviewComponent implements OnInit {
 			this.programItems = [];
 		  }
 		);
-		
-		this.onGetProfile();
+		if(!this.router.url.includes('admin')){
+		   this.onGetProfile();
+		}
 		this.onGetIndustries();
 		this.onGetSkill()
 	}

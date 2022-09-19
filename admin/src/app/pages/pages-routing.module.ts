@@ -47,6 +47,10 @@ const routes: Routes = [
         path: 'profile-edit',
         loadChildren: () =>
           import('./profile/create-admin-profile/create-admin-profile.module').then((m) => m.CreateAdminProfileModule),
+      },{
+        path: 'post-job/:id',
+        loadChildren: () =>
+          import('./post-job/post-job.module').then((m) => m.PostJobModule),
       },
       {
         path: '',

@@ -353,6 +353,7 @@ a:hover {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+	min-width :1200px !important;
 }
 .main-panel.active {
     width: calc(100%);
@@ -779,8 +780,8 @@ div.dataTables_wrapper div.dataTables_filter input {
 .modal-content{
 	border-radius:0;
 	border: none;
-	margin-top:-10rem !important;
 }
+
 .modal-header {
     padding: 0.85rem 0.95rem;
     border-bottom: none;
@@ -831,4 +832,53 @@ div.dataTables_wrapper div.dataTables_filter input {
     line-height: 1.5;
     border-radius: 0.2rem;
 	background-color:#007bff !important;
+}
+
+.btn-group-sm>.btn, .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: .875rem;
+}
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d !important;
+}
+
+/*--Post Job TABS Styles--*/
+.nav-pills .nav-link{
+	font-size: 16px;
+	font-weight: 700;
+	color: #4f5769 !important;
+	border-radius: 0;
+	padding: 0 0.25rem 0.65rem;
+	margin-right: 2rem;
+	margin-bottom: -1px;
+	border-bottom: 3px solid transparent;
+	background-color: transparent;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+	font-size: 16px;
+	font-weight: 700;
+	color: #1150ee !important;
+	border-radius: 0;
+	padding: 0 0.25rem 0.65rem;
+	margin-right: 2rem;
+	margin-bottom: -1px;
+	border-bottom: 3px solid #1150ee;
+	background-color: transparent !important;
+}
+ #pills-tab {
+    background-color: initial;
+    border-bottom: 1px solid #eaeaea;
+    padding: 20px 20px 0px 20px;
+    position: relative;
+    background: #fcfcfc;
+    border-radius: 7px 7px 0 0;
+}
+.tab-content{
+	
+	 -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+	background: #fcfcfc;
 }
