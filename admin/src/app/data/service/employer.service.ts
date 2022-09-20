@@ -202,6 +202,14 @@ export class EmployerService extends CacheService {
     );
   };
   
+  sendMailEmployer = (params) => {
+    return this.apiService.post('/api/admins/employer-complete-invite', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
+  
   
   getCompanyProfileInfo = (params: any): Observable<GetResponse> => {
     return this.apiService.get('/api/admins/profile', params).pipe(

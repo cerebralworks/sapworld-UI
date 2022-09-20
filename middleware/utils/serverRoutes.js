@@ -52,6 +52,7 @@ const routes = {
     adminsCreate: '/admins/create',
     adminPhotoUpdate: '/admins/update-photo',
     adminsUserMail: '/admins/profile-complete-invite',
+    adminsEmployerMail: '/admins/employer-complete-invite',
     adminDashboardDetails: '/admins/dashboard-details',
     adminDashboardEmployeeDetails: '/admins/employee-list',
     adminDashboardUserDetails: '/admins/user-list',

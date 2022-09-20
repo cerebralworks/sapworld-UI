@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild,TemplateRef} from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef,OnDestroy, ViewChild,TemplateRef,HostListener} from '@angular/core';
 import { EmployerService } from '@data/service/employer.service';
 import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
@@ -39,6 +39,11 @@ export class EmployersComponent implements OnInit,OnDestroy {
 	public openregister:boolean =false;
 	public mbRef: NgbModalRef;
 	public registerForm : FormGroup;
+	@ViewChild('emailModal', { static: false }) emailModal: TemplateRef<any>;
+	public openmail:boolean =false;
+	public mbRefs: NgbModalRef;
+	public emailform : FormGroup;
+	public userId:any;
 	constructor(
 		private employerService: EmployerService,
 		private ref: ChangeDetectorRef,
@@ -51,6 +56,7 @@ export class EmployersComponent implements OnInit,OnDestroy {
  
 	ngOnInit(): void {
 	    this.buildForm();
+	    this.buildForm1();
 		this.paramsEmployee['limit'] = this.limit;
 		this.paramsEmployee['page'] = 0;
 		this.paramsEmployee['column'] ='id';
@@ -135,7 +141,12 @@ export class EmployersComponent implements OnInit,OnDestroy {
 			   'orderable':false,
                 'className': 'text-Capitalize',
 			   'render': function (data, type, full, meta){
-				   return '<a href="#"><i style="color:#385edf" class="ri-mail-fill"></i></a>';
+				   if(full.verified ===true){
+				   return '<a style="cursor:no-drop"><i style="color:#385edf" class="ri-mail-fill"></i></a>'
+				   }else{
+				   return '<a id="mail_'+data+'" (click)="sendemail('+data+')"><i id="mailbtn_'+data+'" style="color:#385edf" class="ri-mail-fill"></i></a>'
+				   
+				   }
 				}
 			}],
 			columns: [
@@ -225,6 +236,59 @@ export class EmployersComponent implements OnInit,OnDestroy {
         
       }
     )
+	}
 	
+	/**
+  **	To build the mail form
+  **/
+  private buildForm1(): void {
+    this.emailform = this.formBuilder.group({
+	  subject: ['',Validators.required],
+      message: ['',Validators.required]
+    });
+  }
+  
+  //Getting ID using click event
+	@HostListener("click", ["$event.target.id"]) onClick(id : any) {
+	   var arr = id.split('_')		
+		if(arr[0]==="mail" || arr[0]==="mailbtn"){
+			var val1 = arr[arr.length-1]
+			 this.sendemail(val1)    
+		}
+	}
+	
+	/** To open mail send popup**/
+	
+	sendemail(val){
+	    this.userId=val;
+		this.openmail = true;
+		setTimeout(() => {
+			this.mbRefs = this.modelService.open(this.emailModal, {
+				windowClass: 'modal-holder',
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		});
+	}
+	
+	submitmail(){
+		var data={
+		  id:this.userId,
+		  message:this.emailform.value.message,
+		  subject:this.emailform.value.subject
+		}
+	   this.employerService.sendMailEmployer(data).subscribe(datas=>{
+	      this.closemodelmail();
+	   })
+	
+	}
+	
+	/**To close the model**/
+	
+	closemodelmail(){
+		this.openmail=false;
+		this.emailform.reset();
+		this.mbRefs.close();
 	}
 }

@@ -103,6 +103,15 @@ module.exports = (app, env, rp) => {
 	});
 	
 	/**
+	* Admin Profile -send mail to employer for profile complete
+	*/
+	
+	app.post("/api/admins/employer-complete-invite", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.adminsEmployerMail}`, req, res, requestBody);
+	});
+	
+	/**
 	**	To Admin update the profile Image
 	**/
 	
