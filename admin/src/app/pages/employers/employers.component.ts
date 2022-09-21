@@ -186,7 +186,7 @@ export class EmployersComponent implements OnInit,OnDestroy {
 		  first_name: ['',Validators.required],
 		  last_name: ['',Validators.required],
 		  email: ['',[Validators.required,ValidationService.emailValidator]],
-		  phone: ['',[Validators.required,ValidationService.mobileNumber]]
+		  phone: ['']
 		});
 	  }
 		
