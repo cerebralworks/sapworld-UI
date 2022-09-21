@@ -4,6 +4,8 @@ const routes = {
     userSignup: '/users/signup',
     userDelete: '/users/delete-account',
     accountVerify: '/accounts/verify',
+    accountVerifyOtp: '/accounts/verify-otp',
+    accountSendOtp: '/accounts/send-otp',
     listIndustries: '/industries/list',
     employerProfile: '/employers/profile',
     userProfile: '/users/profile',
@@ -56,6 +58,7 @@ const routes = {
     adminDashboardDetails: '/admins/dashboard-details',
     adminDashboardEmployeeDetails: '/admins/employee-list',
     adminDashboardUserDetails: '/admins/user-list',
+    adminsEmployerCreate: '/admins/create-employer',
     userDashboard: '/users/user-dashboard',
     employerDashboard: '/employers/employers-dashboard',
 	

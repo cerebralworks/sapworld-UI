@@ -44,6 +44,7 @@ export class EmployersComponent implements OnInit,OnDestroy {
 	public mbRefs: NgbModalRef;
 	public emailform : FormGroup;
 	public userId:any;
+	formError: any[] = [];
 	constructor(
 		private employerService: EmployerService,
 		private ref: ChangeDetectorRef,
@@ -185,7 +186,7 @@ export class EmployersComponent implements OnInit,OnDestroy {
 		  first_name: ['',Validators.required],
 		  last_name: ['',Validators.required],
 		  email: ['',[Validators.required,ValidationService.emailValidator]],
-		  phone: ['']
+		  phone: ['',[Validators.required,ValidationService.mobileNumber]]
 		});
 	  }
 		
@@ -228,14 +229,13 @@ export class EmployersComponent implements OnInit,OnDestroy {
 	   reqParams.company=this.registerForm.value.company;
 	   reqParams.phone=this.registerForm.value.phone;
 	   reqParams.email=this.registerForm.value.email.toLowerCase();
-	   reqParams.password="Password@123";
-	   this.accountService.employerSignup(reqParams).subscribe(
+	   reqParams.password=Array(8).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
+	   this.accountService.addEmployer(reqParams).subscribe(
       response => {
         this.closemodel();
       }, error => {
-        
-      }
-    )
+        this.formError = error.error.errors;
+      })
 	}
 	
 	/**
@@ -291,4 +291,5 @@ export class EmployersComponent implements OnInit,OnDestroy {
 		this.emailform.reset();
 		this.mbRefs.close();
 	}
+	
 }

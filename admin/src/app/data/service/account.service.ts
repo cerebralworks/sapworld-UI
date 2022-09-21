@@ -171,6 +171,14 @@ export class AccountService extends CacheService {
       })
     );
   };
+  
+  addEmployer = (params) => {
+    return this.apiService.post('/api/admins/create-employer', params).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
 
   logoutAPI = () => {
     return this.apiService.post('/api/logout').pipe(

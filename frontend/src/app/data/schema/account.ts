@@ -12,7 +12,8 @@ export interface LoggedIn {
   CALENDLY_TOKEN: string;
   ORGANIZATION_ID: string;
   isLoggedIn: boolean;
-  role: Array<any>
+  role: Array<any>;
+  set_password:boolean;
 }
 
 export interface AccountSignup {
