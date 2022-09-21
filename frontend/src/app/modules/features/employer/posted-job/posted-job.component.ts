@@ -7,7 +7,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
 import { environment as env } from '@env';
-import { Meta, Title,MetaDefinition  } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-posted-job',
   templateUrl: './posted-job.component.html',
@@ -45,18 +45,12 @@ export class PostedJobComponent implements OnInit {
 	public currentValueOfJob: JobPosting;
 	isStatusValue: any;
     public linkedInUrl:any;
-	 description: MetaDefinition = {
-      name: "description",
-      content: "This is a description"
-    }
 	constructor(
 		public employerService: EmployerService,
 		private employerSharedService: EmployerSharedService,
 		private router: Router,
 		private modelService: NgbModal,
 		private utilsHelperService: UtilsHelperService,
-		private title: Title,
-		private metaService: Meta
 	) { }
 
 	validateSubscribe = 0;
@@ -154,9 +148,6 @@ export class PostedJobComponent implements OnInit {
 	
 	/** To Open share Popup*/	
 	openshare(id,item){
-	  this.title.setTitle(item.title);    
-			this.metaService.addTags([description]);
-			this.metaService.updateTag([description]);
 	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/user/job-matches/details?id=`)+id;
 		this.isShareModel=true;
 		setTimeout(() => {
