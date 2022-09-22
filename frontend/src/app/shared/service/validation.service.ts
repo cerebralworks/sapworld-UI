@@ -18,7 +18,7 @@ export class ValidationService {
       inValidMobile: 'Invalid mobile number',
       invalidUrl: 'Invalid url',
       invalidOtp: 'Invalid OTP',
-      noFreeEmail: "Please use your business email, we don't accept Gmail, Yahoo, Hotmail and Mailinator accounts."
+      noFreeEmail: "Please use your business email."
     };
 
     return config[validatorName];
@@ -94,10 +94,9 @@ public static emptyStringValidator(control:AbstractControl):any{
   }
 
   public static noFreeEmail(control) {
-    // RFC 2822 compliant regex
     if (
       control.value.match(
-        /^([\w-.]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)(?!mailinators\.com)([\w-]+.)+[\w-]{2,4})?$/
+        /^([\w-.]+@(?!yopmail\.)(?!mailinator\.)([\w-]+.)+[\w-]{2,4})?$/
       )
     ) {
       return null;
