@@ -190,7 +190,7 @@ export class RegisterFormComponent implements OnInit {
 	  firstName: ['', Validators.compose([Validators.required,ValidationService.StartingEmptyStringValidator,Validators.minLength(3)])],
       lastName: ['', [Validators.required,ValidationService.emptyStringValidator]],
 	  companyName: [''],
-      email: ['', [Validators.required, ValidationService.emailValidator]],
+      email: ['', [Validators.required, ValidationService.emailValidator,ValidationService.noFreeEmail]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       
       isAgreed: ['',Validators.required]
