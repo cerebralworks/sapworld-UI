@@ -94,6 +94,51 @@ module.exports = (app, env, rp) => {
 	});
 	
 	/**
+	* Admin Profile -send mail to user for profile complete
+	*/
+	
+	app.post("/api/admins/profile-complete-invite", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.adminsUserMail}`, req, res, requestBody);
+	});
+	
+	/**
+	* Admin Profile -send mail to employer for profile complete
+	*/
+	
+	app.post("/api/admins/employer-complete-invite", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.adminsEmployerMail}`, req, res, requestBody);
+	});
+	
+	/**
+	* Admin add employer
+	*/
+	
+	app.post("/api/admins/create-employer", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.adminsEmployerCreate}`, req, res, requestBody);
+	});
+	
+	/**
+	* verify otp
+	*/
+	
+	app.post("/api/accounts/verify-otp", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.accountVerifyOtp}`, req, res, requestBody);
+	});
+	
+	/**
+	* send otp
+	*/
+	
+	app.post("/api/accounts/send-otp", (req, res) => {
+		let requestBody = { ...req.body };    
+		requestCustom.post(`${serverRoutes.accountSendOtp}`, req, res, requestBody);
+	});
+	
+	/**
 	**	To Admin update the profile Image
 	**/
 	
