@@ -17,6 +17,7 @@ export class ValidationService {
       range: `The field must contain atleast characters.`,
       inValidMobile: 'Invalid mobile number',
       invalidUrl: 'Invalid url',
+      invalidOtp: 'Invalid OTP',
       noFreeEmail: "Please use your business email, we don't accept Gmail, Yahoo, Hotmail and Mailinator accounts."
     };
 
@@ -119,6 +120,17 @@ public static emptyStringValidator(control:AbstractControl):any{
     }
   }
 
+ public static otpValidation(control) {
+    if (
+      control && control.value && (control.value.match(
+        /^(\d\s*){6}$/g
+      ))
+    ) {
+      return null;
+    } else {
+      return { invalidOtp: true };
+    }
+  }
   public static checkLimit(min: number, max: number): ValidatorFn {
     return (c: AbstractControl): { [key: string]: boolean } | null => {
         if (c.value && (isNaN(c.value) || c.value < min || c.value > max)) {

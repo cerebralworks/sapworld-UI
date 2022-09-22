@@ -70,6 +70,28 @@
    </p>
   </form>
 
+<ng-template #otpModal *ngIf="openotp" let-modal >
+	<div class="modal-dialog" style="margin:0 !important">
+		<div class="modal-content">
+		  <div class="modal-body text-justify">
+			 <h5 class="modal-title" id="exampleModalLabel">OTP Verification</h5>
+			 <form [formGroup]="otpForm" (ngSubmit)="sendotp()">
+			 <div class="form-group">
+			  <input type="text" style="border-color: white;border-bottom: 2px solid #83858a; border-radius: 0px;" class="form-control" formControlName="otp" name="otp" />
+			  <app-control-messages [control]="o['otp']"></app-control-messages>
+		     </div>
+			 <button [disabled]="!otpForm.valid" type="submit" class="btn btn-block btn-lg btn-theme-blue" type="submit" >
+			  Submit OTP
+			 </button>
+			 </form>
+		  </div>
+		</div>
+	  </div>
+	
+</ng-template>
+
+
+
 <app-register-form
 [toggleRegisterModal]="isOpenedRegisterForm"
 *ngIf="isOpenedRegisterForm"

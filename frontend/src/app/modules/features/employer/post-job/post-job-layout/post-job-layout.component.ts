@@ -256,6 +256,9 @@ export class PostJobLayoutComponent implements OnInit {
 			if(this.jobId && this.isCopy == false) {
 				this.onJobUpdate(jobInfo);
 			}else {
+			    if(this.router.url.includes('admin')){
+				  jobInfo.emp_id = parseInt(this.router.url.split('/')[this.router.url.split('/').length-1]);
+				}
 				this.onJobPost(jobInfo);
 			}
 		}
@@ -326,11 +329,14 @@ export class PostJobLayoutComponent implements OnInit {
 	}
 	
 	loadDash(){
+	      if(this.router.url.includes('admin')){
+			window.location.reload();
+		  }else{
 	      this.router.navigate(['/employer/dashboard']).then(() => {
 				  this.modalService.dismissAll();
 				  this.onToggleJobPreviewModal(false)
 				});
-	
+	     }
 	}
 	
 	/**

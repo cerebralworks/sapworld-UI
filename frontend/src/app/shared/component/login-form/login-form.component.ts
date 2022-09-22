@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AccountService } from '@data/service/account.service';
@@ -8,7 +8,7 @@ import { SharedApiService } from '@shared/service/shared-api.service';
 import { environment as env } from '@env';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '@shared/service/data.service';
-
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -25,12 +25,16 @@ export class LoginFormComponent implements OnInit {
   public error: string;
   public isLoading: boolean;
   public loginForm: FormGroup;
+  public otpForm: FormGroup;
   public returnEmployerUrl: any;
   public returnUserUrl: any;
 	public loggedUserInfo: any;
 	public checkrole :any;
 	public shareid :any;
-
+	public mbRef: NgbModalRef;
+    public openotp:boolean =false;
+  @ViewChild("otpModal", { static: false }) otpModal: TemplateRef<any>;
+  public userId:any;
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
@@ -39,10 +43,12 @@ export class LoginFormComponent implements OnInit {
 	private dataService: DataService,
     private accountService: AccountService,
 	private SharedAPIService: SharedApiService,
+	private modalService: NgbModal,
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
+    this.buildForm1();
     //this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
    // this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
     this.returnEmployerUrl =  '/employer/dashboard';
@@ -85,7 +91,7 @@ export class LoginFormComponent implements OnInit {
       userCredentials.username = userCredentials.username.toLowerCase();
       this.accountService.login(userCredentials).subscribe(
         response => {
-		sessionStorage.clear();
+		  sessionStorage.clear();
           //this.isLoading = false;
           if (response.isLoggedIn && response.role.includes(0)) {
 			  if(response['verified']==true){
@@ -125,9 +131,24 @@ export class LoginFormComponent implements OnInit {
 				  this.router.navigate(['/employer/create-profile']);
 			  }
             
-          }/*else if (response.isLoggedIn && response.role.includes(2)) {
-				  window.location.href=`${env.adminUrl}`;
-			}*/
+          }else if(response.set_password ===true){
+		        let reqParams:any ={};
+				reqParams.id=response.userId;
+				this.userId=response.userId;
+		        reqParams.otp=Array(6).fill("0123456789").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
+		        this.accountService.sendOtp(reqParams).subscribe(data=>{ 
+				})
+		        this.openotp=true;
+				setTimeout(()=>{
+				this.mbRef = this.modalService.open(this.otpModal, {
+					windowClass: 'modal-holder',
+					centered: true,
+					backdrop: 'static',
+					size: 'md',
+					keyboard: false
+				  });
+				});
+		  }
         }, error => {
 			this.toastr.error('Invalid username or password combination.');
           this.isLoading = false;
@@ -162,6 +183,41 @@ export class LoginFormComponent implements OnInit {
       username: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', Validators.required]
     });
+  }
+  
+  /**
+  **	To build the login form
+  **/
+  private buildForm1(): void {
+    this.otpForm = this.formBuilder.group({
+      otp: ['', [Validators.required,ValidationService.otpValidation]]
+    });
+  }
+  
+  /**
+	**	Assign the form controls to f
+	**/
+	
+	get o() {
+		return this.otpForm.controls;
+	}
+  
+  /**To submit otp**/
+  sendotp(){
+  var values:any={};
+  values.otp=parseInt(this.otpForm.value.otp);
+  values.id=this.userId;
+     this.accountService.verifyOtp(values).subscribe(data=>{
+	    this.mbRef.close();
+		this.openotp=false;
+	     this.accountService.logout().subscribe(
+		  response => {
+			localStorage.clear();
+			this.router.navigate(['/reset-password'], {queryParams: {'id':data.id,'token':data.token,'verify':true}});
+		}); 
+		
+	})
+  
   }
 
   /**

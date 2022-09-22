@@ -151,9 +151,23 @@ export class AccountService extends CacheService {
     );
   };
   
+  /** To verify OTP **/
+  verifyOtp = (requestParams: any): Observable<any> => {
+    return this.apiService.post('/api/accounts/verify-otp', requestParams).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
   
-  
-  
+  /** To sent OTP **/
+  sendOtp = (requestParams: any): Observable<any> => {
+    return this.apiService.post('/api/accounts/send-otp', requestParams).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  };
   /**
    * To Signup the user after send invite link
    */

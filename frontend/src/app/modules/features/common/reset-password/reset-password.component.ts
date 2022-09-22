@@ -46,11 +46,16 @@ export class ResetPasswordComponent implements OnInit {
     this.isLoading = true;
     const accountId = this.route.snapshot.queryParamMap.get('id');
     const accountToken = this.route.snapshot.queryParamMap.get('token');
-
+    const verify = this.route.snapshot.queryParamMap.get('verify');
+	
     let requestParams: any = {};
     requestParams.id = accountId;
     requestParams.token = accountToken;
-
+    if(verify==null){
+	requestParams.verify = false;
+	}else{
+	requestParams.verify = true;
+	}
     const userCredentials = {...requestParams , ...this.resetPasswordForm.value};
     if (this.resetPasswordForm.valid) {
       this.accountService.resetPassword(userCredentials).subscribe(

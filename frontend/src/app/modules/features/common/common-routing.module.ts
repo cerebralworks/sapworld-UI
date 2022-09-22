@@ -24,6 +24,11 @@ const routes: Routes = [
       import('@modules/features/common/find-candidates/find-candidates.module').then(m => m.FindCandidatesModule)
   },
   {
+    path: 'admin/post-job/:id',
+    loadChildren: () =>
+      import('@modules/features/employer/post-job/post-job.module').then(m => m.PostJobModule)
+  },
+  {
     path: 'find-jobs',
     loadChildren: () =>
       import('@modules/features/common/find-jobs/find-jobs.module').then(m => m.FindJobsModule)
