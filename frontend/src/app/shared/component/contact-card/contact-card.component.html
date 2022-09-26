@@ -45,7 +45,7 @@
             <br *ngIf="isMultipleMatches">
           <i class="fas fa-mobile" *ngIf="userInfo?.phone"></i> {{userInfo?.phone | phone}}
         </h6>
-        <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+        <ng-container *ngIf="loggedUserInfo?.role && (loggedUserInfo?.role?.includes(1) || loggedUserInfo?.role?.includes(2))">
           <ng-container *ngIf="userInfo?.privacy_protection?.email == true; else elseEmailTemplate">
             <a href="mailto:{{userInfo?.email}}">
               <i class="fas fa-envelope" *ngIf="userInfo?.email"></i>
@@ -288,14 +288,14 @@
           </a>
         </span>
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
-          <a *ngIf="!isUploadShowResume && selectedResume?.file" style="font-size:12px;"
+          <a *ngIf="!isUploadShowResume" style="font-size:12px;"
           [class.disabled]="!selectedResume?.file"
           (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
-          </a> <a *ngIf="isUploadShowResume || !selectedResume?.file" style="font-size:12px;"
+            <i class="fas fa-file-alt"></i>{{"shared.resume" | translate }}
+          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="font-size:12px;"
          (click)="openResumselect(true)"  id="addResumeFile" 
            class="btn btn-outline-blue btn-sm" href="javascript:;">
-            <i class="fas fa-file-alt"></i>  {{"shared.addResume" | translate }}
+            <i class="fas fa-file-alt"></i>{{"shared.addResume" | translate }}
           </a>
         </span>
 

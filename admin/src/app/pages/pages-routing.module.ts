@@ -51,7 +51,12 @@ const routes: Routes = [
         path: 'post-job/:id',
         loadChildren: () =>
           import('./post-job/post-job.module').then((m) => m.PostJobModule),
+      },{
+        path: 'posted-job/:id',
+        loadChildren: () =>
+          import('./posted-job/posted-job.module').then((m) => m.PostedJobModule),
       },
+	  
       {
         path: '',
         redirectTo: '/dashboard',

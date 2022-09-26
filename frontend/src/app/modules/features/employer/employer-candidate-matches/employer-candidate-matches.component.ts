@@ -82,10 +82,10 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
   public loggedUserInfo: any;
   public randomNum: number;
   public userprofilepath :any;
-
+  public empID:any;
   constructor(
     public sharedService: SharedService,
-    private router: Router,
+    public router: Router,
     private route: ActivatedRoute,
     public utilsHelperService: UtilsHelperService,
     private dataService: DataService,
@@ -104,7 +104,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
       {value: {min: 7, max: 10}, text: '7 - 10'},
       {value: {min: 10, max: 20}, text: '10 '}
     ]
-	
+	this.empID=this.route.snapshot.queryParamMap.get('empids');
 	/**
 	**	Validate the params value in routing strategy
 	**/
@@ -183,7 +183,7 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			this.skillItems = response
 		  }
 		);
-
+        if(this.empID==null){
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 		  details => {
 			if(details) {
@@ -195,6 +195,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			}
 		  }
 		)
+		}else{
+		this.onGetPostedJobCount(this.empID);
+		}
 		// this.onGetCandidateListForCountry();
 
 		this.accountService
@@ -651,11 +654,19 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 	**/
 	
 	onClearFilter = () => {
+	    if(!this.router.url.includes('admin')){
 		const navigationExtras: NavigationExtras = {
 			queryParams: {activeTab:'matches', 'id': this.selectedJob.id}
 		};
-		this.onGetCandidateList(this.selectedJob.id);
 		this.router.navigate([], navigationExtras);
+		}else{
+		const navigationExtras: NavigationExtras = {
+			queryParams: {activeTab:'matches', 'id': this.selectedJob.id,'empids':this.empID}
+		};
+		this.router.navigate([], navigationExtras);
+		}
+		this.onGetCandidateList(this.selectedJob.id);
+		
 		// this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
 	}
   
@@ -1061,6 +1072,11 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 			}
 		}
 		return data;
+	}
+	
+	/**Go Back**/
+	onRedirectBack(){
+	    this.router.navigate(['/admin/employer-dashboard'], {queryParams: {activeTab: 'postedJobs','empids':this.empID}})
 	}
 
 }

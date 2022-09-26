@@ -1,3 +1,21 @@
+<section class="sub-header mt-3" *ngIf="router.url.includes('admin')">
+  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" >
+    <div class="row">
+      <div class="col-lg-5 col-md-5 col-sm-5 d-flex align-items-center">
+       
+        <ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a (click)="onRedirectBack();"  style="cursor:pointer;" ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Matches
+            <!-- {{"dashboard.postJobDetailView" | translate}} -->
+          </li>
+        </ol>
+      </div>
+      <div class="col-lg-7 col-md-7 col-sm-7 clearfix">
+      </div>
+    </div>
+  </div>
+</section>
 <section class="my-5">
   <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" >
     <div class="row mb-4">
@@ -149,16 +167,23 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-lg-7 col-md-5">
-                      <a href="javascript:;" [routerLink]="['/employer/job-candidate-matches/details/view']" [queryParams]="{jobId: selectedJob?.id, userId: item?.id, location_id: selectedJob?.job_location?.id}">
+                      <a href="javascript:;" *ngIf="!router.url.includes('admin')" [routerLink]="['/employer/job-candidate-matches/details/view']" [queryParams]="{jobId: selectedJob?.id, userId: item?.id, location_id: selectedJob?.job_location?.id}">
                         <h5 class="text-capitalize"> 
                           <span>{{(item?.first_name ? item?.first_name : '') + ' ' + (item?.last_name ? item?.last_name : '')}}</span>
                           <small *ngIf="item?.job_role"> - {{item?.job_role}}</small>
                           <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application) && item?.job_application?.status != 2 " class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;">{{ item?.job_application?.status == 7 ? 'Applied' : 'Applied'}}</span>
                           <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application) && item?.job_application?.status == 2 " class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;"> {{"shared.hired" | translate}} </span>
                         </h5>
-                        <!-- <h6> -->
-
-                        <!-- </h6> -->
+                        
+                      </a>
+					  <a href="javascript:;" *ngIf="router.url.includes('admin')" [routerLink]="['/admin/job-candidate-matches']" [queryParams]="{jobId: selectedJob?.id, userId: item?.id, location_id: selectedJob?.job_location?.id,empids:empID}">
+                        <h5 class="text-capitalize"> 
+                          <span>{{(item?.first_name ? item?.first_name : '') + ' ' + (item?.last_name ? item?.last_name : '')}}</span>
+                          <small *ngIf="item?.job_role"> - {{item?.job_role}}</small>
+                          <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application) && item?.job_application?.status != 2 " class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;">{{ item?.job_application?.status == 7 ? 'Applied' : 'Applied'}}</span>
+                          <span *ngIf="!utilsHelperService.isEmptyObj(item?.job_application) && item?.job_application?.status == 2 " class="badge badge-success applied-badge ml-1" style="font-size: 11px;padding: 3px 6px;"> {{"shared.hired" | translate}} </span>
+                        </h5>
+                        
                       </a>
                     </div>
                     <div class="col-lg-5  col-md-7 text-right mt-2">
@@ -185,8 +210,8 @@
 						<i class="fas fa-paper-plane"></i> {{"shared.sendMail" | translate }} </a>
 					</span>
                     </div>
-                    <div *ngIf="savedProfiles?.includes(item?.id) " (click)="onUnSaveProfile(item)" class="save-icon active" tooltip="Un Save"><i class="far fa-bookmark"></i></div>
-                    <div *ngIf="!savedProfiles?.includes(item?.id) " (click)="onSaveProfile(item)" class="save-icon" tooltip="Save"><i class="far fa-bookmark"></i></div>
+                    <div *ngIf="savedProfiles?.includes(item?.id) && !router.url.includes('admin')" (click)="onUnSaveProfile(item)" class="save-icon active" tooltip="Un Save"><i class="far fa-bookmark"></i></div>
+                    <div *ngIf="!savedProfiles?.includes(item?.id) && !router.url.includes('admin')" (click)="onSaveProfile(item)" class="save-icon" tooltip="Save"><i class="far fa-bookmark"></i></div>
                   </div>
                   <div class="media">
                     <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="item?.photo ? userMeta?.photo?.path+'/'+ userMeta?.photo?.folder+'/'+userMeta?.photo?.sizes?.medium+'/'+item?.photo+'?v='+ randomNum : 'assets/images/user-img-icon.jpg'">

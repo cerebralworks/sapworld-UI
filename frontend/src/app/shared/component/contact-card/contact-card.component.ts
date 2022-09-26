@@ -55,13 +55,17 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public selected: any[]=[];
   public userprofilepath:any;
   public matchesModels:boolean = false;
+  public empID:any;
 toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   constructor(
     public utilsHelperService: UtilsHelperService,
     private router: Router,
+    private route: ActivatedRoute,
     private userService: UserService,
     private accountService: AccountService
-  ) { }
+  ) {
+	this.empID=this.route.snapshot.queryParamMap.get('empids');
+  }
   
   /**
   **	To get the loggedUserInfo
@@ -75,7 +79,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
       .subscribe(response => {
         this.loggedUserInfo = response;
       });
-	  this.matchesModels = (this.router.url.includes('/user/job-matches/details')) || (this.router.url.includes('/employer/job-multiple-candidate-matches'))?true:false;
+	  this.matchesModels = (this.router.url.includes('/user/job-matches/details')) || (this.router.url.includes('/employer/job-multiple-candidate-matches')) || (this.router.url.includes('/admin/job-multiple-candidate-matches'))?true:false;
   }
 
   /**
@@ -88,16 +92,19 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
 		  this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
 		  if(!this.selectedResume || this.selectedResume==undefined){
 			  this.selectedResume =this.userInfo.doc_resume[0];
+			  this.isUploadShowResume=false;
 		  }
 		}
 	}else{
 		  this.selectedResume.file =this.jobInfo.job_applied.user_resume;
+		  this.isUploadShowResume=false;
 	}
 	}else{
 		  if(this.userInfo && this.userInfo.doc_resume && Array.isArray(this.userInfo.doc_resume)) {
 		  this.selectedResume = this.utilsHelperService.onGetFilteredValue(this.userInfo.doc_resume, 'default', 1);
 			  if(!this.selectedResume || this.selectedResume==undefined){
 				  this.selectedResume =this.userInfo.doc_resume[0];
+				  this.isUploadShowResume=false;
 			  }
 		   }
 	}
@@ -243,10 +250,13 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   **/
   
    OpenMatchesWithID(){
-		
 		if(this.selected.length!=0){
 			var selectedIds = this.selected.join(',');
+			if(this.empID==null){
 			this.router.navigate(['/employer/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userInfo.id,employeeId:this.postedJobsMatchDetails[0].company} });
+			}else{
+			this.router.navigate(['/admin/job-multiple-candidate-matches'], { queryParams: {jobId: selectedIds,id: this.userInfo.id,employeeId:this.empID} });
+			}
 		}
 	}
 	

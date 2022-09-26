@@ -30,7 +30,7 @@
 </section>
 
 <!-- Nav Tab Section -->
-<section class="nav-tab">
+<section class="nav-tab" *ngIf="!router.url.includes('admin')">
 	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'"  >
 		<div class="row">
 			<div class="col-lg-12">

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { CandidateProfile } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
@@ -25,19 +25,22 @@ export class SendMailJobPreviewComponent implements OnInit {
 
   public mbRef: NgbModalRef;
   public sendMailModalSub: Subscription;
-
+  public empID:any;
   @ViewChild("sendMailModal", { static: false }) sendMailModal: TemplateRef<any>;
 
   constructor(
     private modalService: NgbModal,
     public router: Router,
+    public route: ActivatedRoute,
     private employerService: EmployerService,
     private toastrService: ToastrService,
     public utilsHelperService: UtilsHelperService
-  ) { }
+  ) { 
+    this.empID=this.route.snapshot.queryParamMap.get('empids')?this.route.snapshot.queryParamMap.get('empids'):this.route.snapshot.queryParamMap.get('employeeId');
+  }
 
   ngOnInit(): void {
-
+    
   }
 
   /**
@@ -119,7 +122,9 @@ export class SendMailJobPreviewComponent implements OnInit {
       requestParams.email_id = this.userInfo.email;
       requestParams.account = this.userInfo['account'];
       requestParams.id = this.userInfo.id;
-
+      if(this.empID !=null){
+	   requestParams.emp_id = this.empID;
+	  }
       this.employerService.sendMail(requestParams).subscribe(
         response => {
           this.toastrService.success('Mail sent successfully', 'Success')

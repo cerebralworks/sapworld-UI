@@ -80,7 +80,7 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 				}
 			}
 		});
-		this.router.navigate([], {queryParams: {userscoring: null,path: null,id: null,jobId: null,employeeId: null}, queryParamsHandling: 'merge'});
+		this.router.navigate([], {queryParams: {userscoring: null,path: null,id: null,jobId: null}, queryParamsHandling: 'merge'});
 		if(sessionStorage.getItem('view-user-id')){
 			this.userID = parseInt(sessionStorage.getItem('view-user-id'));
 			this.onGetCandidateInfo();
@@ -338,6 +338,8 @@ export class EmployerCandidateMultipleProfileMatchesComponent implements OnInit 
 		//this.location.back();
 		if(this.employeePath =='userscoring'){
 			this.router.navigate(['/employer/job-candidate-matches/details/view']);
+		}else if(this.router.url.includes('admin')){
+		    this.router.navigate(['/admin/candidate-profile'], { queryParams: {id: this.userID,jobid:this.jobID,'empids':this.employeeID} });
 		}else{
 			this.router.navigate(['/employer/candidate-profile']);
 		}

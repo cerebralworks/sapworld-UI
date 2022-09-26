@@ -69,9 +69,12 @@
 							<img src="assets/images/job-logo-img.png" class="img-fluid mx-auto">
 						</div>
 						<div class="text">
-							<a [routerLink]="[ '/employer/job-detail-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id }"  class="text-capitalize" href="javascript:;">
+							<a *ngIf="!router.url.includes('admin')" [routerLink]="[ '/employer/job-detail-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id }"  class="text-capitalize" href="javascript:;">
 							<h5>{{matchingJob?.jobs?.title}}</h5>
-						</a>
+						    </a>
+							<a *ngIf="router.url.includes('admin')" [routerLink]="[ '/admin/job-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id,empids:employeeID }"  class="text-capitalize" href="javascript:;">
+							<h5>{{matchingJob?.jobs?.title}}</h5>
+						    </a>
 							
 								<h5><ng-container *ngFor="let item of matchingJob?.jobs?.job_locations;index as i" >
 								<small class="text-capitalize">

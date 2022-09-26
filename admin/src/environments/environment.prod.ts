@@ -20,6 +20,7 @@ export const environment = {
   API_URL: 'assets/api',
   clientUrl: `${baseUrl}`,
   adminUrl: 'http://149.56.180.254/admin',
+  app_url: 'http://149.56.180.254/',
   apiPath: 'http://149.56.180.254:5000',
   appVersion: 'v717demo1',
   USERDATA_KEY: 'authf649fc9a5f55',

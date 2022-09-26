@@ -44,6 +44,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	public postedJobsMatchDetailsArray:any[] =[];
 	public nationality: any[] = [];
 	public applicationDetails: any = {};
+	public empID:any;
     prev : any;
 	constructor(
 		private userService: UserService,
@@ -88,6 +89,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		var jobIds:any=0;
 		var userIds:any=0;
 		var location_ids:any=0;
+		this.empID=this.route.snapshot.queryParamMap.get('empids');
 		if(sessionStorage.getItem('jobId')){
 			jobIds = parseInt(sessionStorage.getItem('jobId'));
 		}if(sessionStorage.getItem('userId')){
@@ -113,6 +115,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	ngOnInit(): void {
 	
 	  this.screenWidth = window.innerWidth;	
+	  if(this.empID==null){
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
 				if(details && details.id){
@@ -124,6 +127,10 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 				}
 			}
 		)
+		}else{
+		    this.DetailsShownCheck = true;
+			this.onGetPostedJobs();
+		}
 		if(this.jobId) {
 			this.onGetPostedJob();
 		}
@@ -157,6 +164,8 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'shortlisted',reset: 'true'}});
 		}else if(this.prev === 'true'){
 			this.router.navigate(['/notification']);
+		}else if(this.router.url.includes('admin')){
+		  this.router.navigate(['/admin/job-candidate-matches'], { queryParams: {jobId: this.jobId, userId: this.userID,'empids':this.empID} });
 		}
 		else{
 			this.router.navigate(['/employer/job-candidate-matches/details/view'], { queryParams: {jobId: this.jobId, userId: this.userID} });
@@ -257,7 +266,7 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 	onGetPostedJobs() {
 		let requestParams: any = {};
 		requestParams.view = 'users_matches';
-		requestParams.company = this.employeeID;
+		requestParams.company = this.employeeID?this.employeeID:this.empID;
 		requestParams.id = this.userID;
 		this.employerService.getPostedJobCount(requestParams).subscribe(
 			response => {

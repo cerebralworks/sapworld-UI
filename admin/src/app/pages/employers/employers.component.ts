@@ -116,6 +116,16 @@ export class EmployersComponent implements OnInit,OnDestroy {
 				   }
 				}
 			},{
+			   'targets': 4,
+                'className': 'text-Capitalize',
+			   'render': function (data, type, full, meta){
+			       if(parseInt(data)==0){
+				   return '<a style="cursor:no-drop">'+data+'</a>';
+				   }else{
+				   return '<a href="'+`${env.subPath}`+'/#/posted-job/'+full.id+'">'+data+'</a>';
+				   }
+				}
+			},{
 			   'targets': 5,
 			   'className': 'text-Capitalize',
 			   'render': function (data, type, full, meta){
@@ -216,9 +226,10 @@ export class EmployersComponent implements OnInit,OnDestroy {
    
 	/**To close the model**/
 	closemodel(){
+	    this.mbRef.close();
 		this.openregister=false;
 		this.registerForm.reset();
-		this.mbRef.close();
+		
 	}
 	
 	/**To submit the register */

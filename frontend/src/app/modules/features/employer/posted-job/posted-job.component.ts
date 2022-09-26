@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild,Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
@@ -7,7 +7,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
 import { environment as env } from '@env';
-
+import { Title, Meta } from '@angular/platform-browser';
+import { SharedApiService } from '@shared/service/shared-api.service';
 @Component({
   selector: 'app-posted-job',
   templateUrl: './posted-job.component.html',
@@ -45,13 +46,20 @@ export class PostedJobComponent implements OnInit {
 	public currentValueOfJob: JobPosting;
 	isStatusValue: any;
     public linkedInUrl:any;
+	public empID:any;
 	constructor(
 		public employerService: EmployerService,
 		private employerSharedService: EmployerSharedService,
 		private router: Router,
 		private modelService: NgbModal,
 		private utilsHelperService: UtilsHelperService,
-	) { }
+		private meta:Meta,
+		private titleService:Title,
+		private route:ActivatedRoute,
+		private SharedAPIService: SharedApiService,
+	) { 
+	  this.empID=this.route.snapshot.queryParamMap.get('empids');
+	}
 
 	validateSubscribe = 0;
 	
@@ -64,6 +72,7 @@ export class PostedJobComponent implements OnInit {
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
+		if(this.empID==null){
 		this.employerService.profile().subscribe(
         details => {
           if(details) {
@@ -83,6 +92,18 @@ export class PostedJobComponent implements OnInit {
 				}
 			}
 		)
+		}else{
+		        this.onGetLanguage('');
+		        this.loadGetSkill('');
+		        this.onGetProgram('');
+		        this.onGetCountry('');
+		        this.onGetPostedJobCount(this.empID);
+				this.onGetAppliedJobCount(this.empID);
+				this.onGetShortListJobCount(this.empID);
+				this.onGetJobCount(this.empID);
+				this.onGetPostedJob(this.empID);
+		
+		}
 	}
 	
 	/**
@@ -165,6 +186,57 @@ export class PostedJobComponent implements OnInit {
 		this.mbRef1.close();
 	}
 	
+	/**
+	**	To get the language details
+	**/
+	
+	onGetLanguage(query) {
+		var requestParams:any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+		this.SharedAPIService.onGetLanguage(requestParams);
+	}
+	
+	/**
+	**	To get program Info
+	**/
+    onGetProgram(query) {
+		var requestParams:any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+		this.SharedAPIService.onGetProgram(requestParams);
+	}
+	
+	/**
+	**	To get the counry details
+	**/
+	
+	onGetCountry(query) {
+		var requestParams:any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+		this.SharedAPIService.onGetCountry(requestParams);
+
+	}
+	
+	/**
+	**	To get skills Info
+	**/
+    loadGetSkill(query) {
+		var requestParams:any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+		this.SharedAPIService.onGetSkill(requestParams);
+	}
+	
 	
 	/**
 	**	To change the status if job details 
@@ -176,14 +248,25 @@ export class PostedJobComponent implements OnInit {
 		requestParams.location_id = this.currentValueOfJob['job_locations'][0]['id'];
 		requestParams.status = parseInt(this.currentValueOfStatus);
 		requestParams.status_glossary = this.statusGlossary;
+		if(this.empID !=null){
+		  requestParams.emp_id=this.empID;
+		}
 		this.employerService.changeJobStatus(requestParams).subscribe(
 			response => {
 				//this.onStatusModelClose();
+				if(this.empID ==null){
 				this.onGetPostedJob(this.currentEmployerDetails.id);
 				this.onGetPostedJobCount(this.currentEmployerDetails.id);
 				this.onGetAppliedJobCount(this.currentEmployerDetails.id);
 				this.onGetShortListJobCount(this.currentEmployerDetails.id);
 				this.onGetJobCount(this.currentEmployerDetails.id);
+				}else{
+				this.onGetPostedJob(this.empID);
+				this.onGetPostedJobCount(this.empID);
+				this.onGetAppliedJobCount(this.empID);
+				this.onGetShortListJobCount(this.empID);
+				this.onGetJobCount(this.empID);
+				}
 				this.getDataCount = true;
 			}, error => {
 			}
@@ -221,7 +304,11 @@ export class PostedJobComponent implements OnInit {
 		}
 		this.page = 1;
 		this.limit = 10;
+		if(this.empID==null){
 		this.onGetPostedJob(this.currentEmployerDetails.id, this.isStatusValue);
+		}else{
+		this.onGetPostedJob(this.empID, this.isStatusValue);
+		}
 	}
 	
 	/**
@@ -253,6 +340,9 @@ export class PostedJobComponent implements OnInit {
 	onDeletePostedJob() {
 		this.isLoading = true;
 		let requestParams: any = {};
+		if(this.empID !=null){
+		  requestParams.emp_id=this.empID;
+		}
 		requestParams.ids = [parseInt(this.currentJobDetails.id)];
 		this.employerService.deletePostedJob(requestParams).subscribe(
 			response => {
@@ -261,11 +351,19 @@ export class PostedJobComponent implements OnInit {
 					this.postedJobs.splice(this.currentJobIndex, 1);
 					this.postedJobMeta.total = this.postedJobMeta.total ? this.postedJobMeta.total - 1 : this.postedJobMeta.total;
 				}
+				if(this.empID ==null){
 				this.onGetPostedJob(this.currentEmployerDetails.id);
 				this.onGetPostedJobCount(this.currentEmployerDetails.id);
 				this.onGetAppliedJobCount(this.currentEmployerDetails.id);
 				this.onGetShortListJobCount(this.currentEmployerDetails.id);
 				this.onGetJobCount(this.currentEmployerDetails.id);
+				}else{
+				this.onGetPostedJob(this.empID);
+				this.onGetPostedJobCount(this.empID);
+				this.onGetAppliedJobCount(this.empID);
+				this.onGetShortListJobCount(this.empID);
+				this.onGetJobCount(this.empID);
+				}
 				this.isLoading = false;
 			}, error => {
 				this.onDeleteJobConfirmed(false);
@@ -419,6 +517,8 @@ export class PostedJobComponent implements OnInit {
 		this.page = this.page + 1;
 		if(this.currentEmployerDetails.id) {
 			this.onGetPostedJob(this.currentEmployerDetails.id);
+		}else if(this.empID !=null){
+		  this.onGetPostedJob(this.empID);
 		}
 	}	
 		
@@ -432,6 +532,8 @@ export class PostedJobComponent implements OnInit {
 		this.page = event.pageIndex+1;
 		if(this.currentEmployerDetails.id) {
 		  this.onGetPostedJob(this.currentEmployerDetails.id);
+		}else if(this.empID !=null){
+		  this.onGetPostedJob(this.empID);
 		}
 	}
 		

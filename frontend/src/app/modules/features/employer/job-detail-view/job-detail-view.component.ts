@@ -43,6 +43,7 @@ export class JobDetailViewComponent implements OnInit {
 	CommonColor = ["blue","orange","purple","red","yallow","dblue","green"];
 	public validateSubscribe: number = 0;
 	public loading : boolean;
+	public empID:any;
 	constructor(
 		public employerService: EmployerService,
 		private route: ActivatedRoute,
@@ -52,9 +53,9 @@ export class JobDetailViewComponent implements OnInit {
 		private location: Location,
 		public utilsHelperService: UtilsHelperService,
 		private employerSharedService: EmployerSharedService,
-		private router: Router
+		public router: Router
 	) {
-	
+	   this.empID=this.route.snapshot.queryParamMap.get('empids');
 	}
 
 	/**
@@ -115,6 +116,8 @@ export class JobDetailViewComponent implements OnInit {
 		if(this.loggedUserInfo.isLoggedIn && this.loggedUserInfo.role.includes(1)) {
 		    sessionStorage.clear();
 			this.router.navigate(['/employer/dashboard'], {queryParams: {activeTab: 'postedJobs'}})
+		}else if(this.router.url.includes('admin')){
+		this.router.navigate(['/admin/employer-dashboard'], {queryParams: {activeTab: 'postedJobs','empids':this.empID}})
 		}else {
 			this.location.back();
 		}
