@@ -88,6 +88,7 @@ export class JobDetailViewComponent implements OnInit {
 			this.onGetSkill();
 			this.onGetIndustries();
 		}
+		if(this.empID==null){
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
 				if(details) {
@@ -99,6 +100,10 @@ export class JobDetailViewComponent implements OnInit {
 				}
 			}
 		)
+		}else{
+			 this.companyIdValue = this.empID;
+			 this.onGetPostedJob(this.empID);
+		}
 		this.accountService
 		.isCurrentUser()
 		.subscribe(response => {
