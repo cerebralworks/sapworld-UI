@@ -304,8 +304,6 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		let requestParams: any = {};
 		if(this.empID !=null){
 		requestParams.empid=parseInt(this.empID);
-		}else{
-		requestParams.empid=null;
 		}
 		requestParams.page = this.page;			
 		requestParams.id = this.jobId;
