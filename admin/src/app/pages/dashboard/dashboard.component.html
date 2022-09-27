@@ -12,41 +12,47 @@
 			</div>
 		</div>
 		<div class="row mt-2" >
-			<div class="col-lg-6">	
+			<div class="col-lg-7">	
 				<div class="myCard"> 
 					<div class="myCard-header"> 								
 						<h1>Employers</h1>
 					</div>
 					<div class="myCard-body row"> 
-						<div class="col-lg-4"> 							
-							<div class="profile-card" (click)="clickTotal()"   style="cursor: pointer;">
+						<div class="col-lg-3"> 							
+							<div class="profile-card"    style="cursor: pointer;">
 								<h3 class="blue-badge">Total Employers</h3>	
-								<h1>{{employeeDetails.total}}</h1>	
+								<a routerLink="/employers" routerLinkActive="active"><h1>{{employeeDetails.total}}</h1></a>	
 							</div>
 						</div>							
-						<div class="col-lg-4"> 							
+						<div class="col-lg-3"> 							
 							<div class="profile-card"   (click)="clickActive()"  style="cursor: pointer;">
-								<h3 class="green-badge">Active</h3>	
+								<h3 class="green-badge">Active Jobs</h3>	
 								<h1>{{employeeDetails.active}}</h1>	
 							</div>
 						</div>							
-						<div class="col-lg-4"> 							
+						<div class="col-lg-3"> 							
 							<div class="profile-card"  (click)="clickInActive()"  style="cursor: pointer;">
-								<h3 class="orange-badge">Inactive</h3>	
+								<h3 class="orange-badge">Inactive Jobs</h3>	
 								<h1>{{employeeDetails.inactive}}</h1>	
+							</div>
+						</div>
+						<div class="col-lg-3"> 							
+							<div class="profile-card"  (click)="clickTotal()"  style="cursor: pointer;">
+								<h3 class="aqua-badge">Total Jobs</h3>	
+								<h1>{{totalJobs}}</h1>	
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">	
+			<div class="col-lg-5">	
 				<div class="myCard"> 
 					<div class="myCard-header"> 								
 						<h1>Job Seekers</h1>
 					</div>
 					<div class="myCard-body row"> 							
 						<div class="col-lg-4"> 							
-							<div class="profile-card"  (click)="clickTotalJobseeker()"  style="cursor: pointer;">
+							<div class="profile-card"  routerLink="/jobseeker" routerLinkActive="active"  style="cursor: pointer;">
 								<h3 class="purple-badge">Total Job Seekers</h3>	
 								<h1>{{jobSeekerDetails.total}}</h1>	
 							</div>
@@ -84,6 +90,7 @@
 										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
 										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
 										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+										<a  [ngClass]="(alljobs === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('alljobs')" class="badge badge-pill  mb-3 px-2 pt-1">All</a>
 									<h1>{{total}}</h1>	
 								</div>
 							</div>
@@ -127,7 +134,7 @@
 			<div class="col-lg-12 " *ngIf="ShowEmployeeActive" >	
 				<div class="myCard"> 
 					<div class="myCard-header green-hedr "> 								
-						<h1>Active</h1>
+						<h1>Active Jobs</h1>
 					</div>
 					<div class="myCard-body">
 						<div class="row mb-2">
@@ -139,6 +146,7 @@
 										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
 										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
 										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+										<a  [ngClass]="(alljobs === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('alljobs')" class="badge badge-pill  mb-3 px-2 pt-1">All</a>
 									<h1>{{total}}</h1>	
 								</div>
 							</div>
@@ -182,7 +190,7 @@
 			<div class="col-lg-12 " *ngIf="ShowEmployeeInActive" >	
 				<div class="myCard"> 
 					<div class="myCard-header orange-hedr "> 								
-						<h1>Inactive</h1>
+						<h1>Inactive Jobs</h1>
 					</div>
 					<div class="myCard-body"> 
 						<div class="row mb-2">
@@ -194,6 +202,7 @@
 										<a  [ngClass]="(fourteen === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourteen')" class="badge badge-pill  mb-3 px-2 pt-1">14 Days</a>
 										<a  [ngClass]="(thirty === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('thirty')" class="badge badge-pill  mb-3 px-2 pt-1">30 Days</a>
 										<a  [ngClass]="(fourtyfive === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('fourtyfive')" class="badge badge-pill  mb-3 px-2 pt-1">45 Days</a>
+										<a  [ngClass]="(alljobs === true)?'badge-primary':'badge-secondary'"  (click)="ChangeDate('alljobs')" class="badge badge-pill  mb-3 px-2 pt-1">All</a>
 									<h1>{{total}}</h1>	
 								</div>
 							</div>

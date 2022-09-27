@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 	@ViewChild(DataTableDirective, {static: false})
 	dtElement:  DataTableDirective;	
 	dtOptions: DataTables.Settings = {};
-	dtTrigger = new Subject<void>();
+	dtTrigger: Subject<any> = new Subject<any>();
 	dtTriggerActive: Subject<any> = new Subject<any>();
 	dtTriggerInActive: Subject<any> = new Subject<any>();
 	dtTriggerNotOpen: Subject<any> = new Subject<any>();
@@ -57,11 +57,12 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 	public fourteen:boolean=false;
 	public thirty:boolean=false;
 	public fourtyfive:boolean=false;
+	public alljobs:boolean=false;
 	public paramsEmployee ={};
 	min: any = 0;
 	max: any = 0;
 	total: any = 0;
-
+    public totalJobs:number=0
 	constructor(
 		private employerService: EmployerService,
 		private ref: ChangeDetectorRef,
@@ -101,6 +102,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 					}
 					if(response['employee'].length ==1){
 						this.employeeDetails = response['employee'][0];
+						this.totalJobs=response['employee'][0]['all'];
 					}else{
 						this.employeeDetails ={
 							'active': 0,
@@ -176,7 +178,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		if(this.ShowJobTotal ==true || this.ShowJobAcive == true || this.ShowJobInActive == true){
 			this.dtOptions = {
 				pageLength: this.limit,
-				processing: false,
+				processing: true,
 				"searching": false,
 				"info": false,
 				serverSide: true,
@@ -246,7 +248,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 		}	else{
 			this.dtOptions = {
 				pageLength: this.limit,
-				processing: false,
+				processing: true,
 				"searching": false,
 				"info": false,
 				serverSide: true,
@@ -402,7 +404,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['page'] = 0;
 			this.paramsEmployee['column'] ='created_at';
 			this.paramsEmployee['sort'] ='DESC';
-			this.paramsEmployee['view'] ='employer-inactive';
+			this.paramsEmployee['view'] ='employer-active';
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
 		}
@@ -432,7 +434,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.paramsEmployee['page'] = 0;
 			this.paramsEmployee['column'] ='created_at';
 			this.paramsEmployee['sort'] ='DESC';
-			this.paramsEmployee['view'] ='employer-active';
+			this.paramsEmployee['view'] ='employer-inactive';
 			this.paramsEmployee['day'] =1;
 			this.handlePageEvent('today');
 		}
@@ -541,6 +543,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=false;
 			this.thirty=false;
 			this.fourtyfive=false;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =1;
 		}if(data=='seven'){
 			this.seven=true;
@@ -548,6 +551,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=false;
 			this.thirty=false;
 			this.fourtyfive=false;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =7;
 		}if(data=='fourteen'){
 			this.today=false;
@@ -555,6 +559,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=true;
 			this.thirty=false;
 			this.fourtyfive=false;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =14;
 		}if(data=='thirty'){
 			this.today=false;
@@ -562,6 +567,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=false;
 			this.thirty=true;
 			this.fourtyfive=false;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =30;
 		}if(data=='fourtyfive'){
 			this.today=false;
@@ -569,7 +575,16 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=false;
 			this.thirty=false;
 			this.fourtyfive=true;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =45;
+		}if(data=='alljobs'){
+			this.today=false;
+			this.seven=false;
+			this.fourteen=false;
+			this.thirty=false;
+			this.fourtyfive=false;
+			this.alljobs=true;
+			this.paramsEmployee['day'] =1000000;
 		}
 		if(this.ShowEmployeeActive==true){
 			this.ShowEmployeeActive = false;
@@ -622,6 +637,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=false;
 			this.thirty=false;
 			this.fourtyfive=false;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =1;
 		}if(data=='seven'){
 			this.seven=true;
@@ -629,6 +645,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=false;
 			this.thirty=false;
 			this.fourtyfive=false;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =7;
 		}if(data=='fourteen'){
 			this.today=false;
@@ -636,6 +653,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=true;
 			this.thirty=false;
 			this.fourtyfive=false;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =14;
 		}if(data=='thirty'){
 			this.today=false;
@@ -643,6 +661,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=false;
 			this.thirty=true;
 			this.fourtyfive=false;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =30;
 		}if(data=='fourtyfive'){
 			this.today=false;
@@ -650,7 +669,16 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 			this.fourteen=false;
 			this.thirty=false;
 			this.fourtyfive=true;
+			this.alljobs=false;
 			this.paramsEmployee['day'] =45;
+		}if(data=='alljobs'){
+			this.today=false;
+			this.seven=false;
+			this.fourteen=false;
+			this.thirty=false;
+			this.fourtyfive=false;
+			this.alljobs=true;
+			this.paramsEmployee['day'] =1000000;
 		}
 		if(this.ShowEmployeeActive==true){
 			this.ShowEmployeeActive = false;

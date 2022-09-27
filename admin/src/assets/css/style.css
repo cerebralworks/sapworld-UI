@@ -353,7 +353,7 @@ a:hover {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-	min-width :1200px !important;
+	/* min-width :1200px !important; */
 }
 .main-panel.active {
     width: calc(100%);
@@ -582,6 +582,7 @@ table.dataTable {
     border-spacing: 0;
     font-size: 0.8rem;
     color: #000;
+	width :100% !important;
 }
 .custom-table {border: none;background: #fff;}
 .custom-table thead {background: #d2d8e8;}
@@ -881,4 +882,13 @@ div.dataTables_wrapper div.dataTables_filter input {
     min-height: 1px;
     padding: 1.25rem;
 	background: #fcfcfc;
+}
+@media (min-width: 768px) and (max-width: 1400px) {
+  .tablescreens{
+	  width:90% !important;
+	  
+  }
+  body {
+	  overflow-x:hidden !important;
+  }
 }
