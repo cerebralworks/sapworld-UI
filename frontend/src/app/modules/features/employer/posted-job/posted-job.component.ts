@@ -168,8 +168,8 @@ export class PostedJobComponent implements OnInit {
 	}
 	
 	/** To Open share Popup*/	
-	openshare(id,item){
-	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/user/job-matches/details?id=`)+id;
+	openshare(id){
+	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/user/job-matches/details?id=`)+btoa(id);
 		this.isShareModel=true;
 		setTimeout(() => {
 		 this.mbRef1 = this.modelService.open(this.shareModal, {
