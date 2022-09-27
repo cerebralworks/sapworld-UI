@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit,OnDestroy  {
 	@ViewChild(DataTableDirective, {static: false})
 	dtElement:  DataTableDirective;	
 	dtOptions: DataTables.Settings = {};
-	dtTrigger: Subject<any> = new Subject<any>();
+	dtTrigger = new Subject<void>();
 	dtTriggerActive: Subject<any> = new Subject<any>();
 	dtTriggerInActive: Subject<any> = new Subject<any>();
 	dtTriggerNotOpen: Subject<any> = new Subject<any>();
