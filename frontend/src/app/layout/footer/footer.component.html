@@ -1,6 +1,6 @@
  <!-- Footer Section -->
- <footer class="footer" *ngIf="loggedUserInfo?.isLoggedIn">
-  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'">
+ <footer class="footer" >
+  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" *ngIf="loggedUserInfo?.isLoggedIn && !router.url.includes('admin')">
     <div class="row footer-widget">
       <div class="col-lg-12">
         <div class="footer-logo"> <img src="assets/images/logo-footer.png"  alt="JobFind"> </div>
@@ -23,13 +23,13 @@
       </div>
     </div>
     </div>
-  <div class="footer-bottom">
+  <div class="footer-bottom" *ngIf="loggedUserInfo?.isLoggedIn && !router.url.includes('admin')">
     <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'">
     <i class="fas fa-copyright mr-1"></i> {{today | date:'yyyy'}} <a href="#"> SAP World</a> All Rights Reserved.
     </div>
   </div>
 </footer>
- <footer *ngIf="!loggedUserInfo?.isLoggedIn">
+ <footer *ngIf="!loggedUserInfo?.isLoggedIn && !router.url.includes('admin')">
  <div class="footer-bottom ">
 	  <div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'">
 		<i class="fas fa-copyright mr-1"></i> {{today | date:'yyyy'}} <a href="#"> SAP World</a> All Rights Reserved.

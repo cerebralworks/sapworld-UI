@@ -132,6 +132,7 @@ export class RegisterFormComponent implements OnInit {
       response => {
         this.isLoading = false;
         this.onClickCloseBtn(false);
+		//gtag('event', 'sign_up', { method: 'Direct' });
       }, error => {
         if(error && error.error && error.error.errors)
         this.formError = error.error.errors;

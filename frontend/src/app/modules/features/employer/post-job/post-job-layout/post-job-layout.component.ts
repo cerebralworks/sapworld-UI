@@ -254,6 +254,10 @@ export class PostJobLayoutComponent implements OnInit {
 	   delete jobInfo.temp_extra_criteria;
 		if (this.postJobForm.valid) {
 			if(this.jobId && this.isCopy == false) {
+			    if(this.router.url.includes('admin')){
+			    var a=this.router.url.split('/')[this.router.url.split('/').length-1];
+			    jobInfo.emp_id=parseInt(a.split('?')[0]);
+				}
 				this.onJobUpdate(jobInfo);
 			}else {
 			    if(this.router.url.includes('admin')){
@@ -317,7 +321,7 @@ export class PostJobLayoutComponent implements OnInit {
 		this.employerService.jobPost(jobInfo).subscribe(
 			response => {
 				gtag('event', 'post_job', {
-					'event_callback': this.loadDash()
+					'event_callback': this.loadDash(response)
 				  });
 				this.isLoading = false;
 			}, error => {
@@ -328,11 +332,11 @@ export class PostJobLayoutComponent implements OnInit {
 		)
 	}
 	
-	loadDash(){
-	      if(this.router.url.includes('admin')){
-			window.location.reload();
-		  }else{
-	      this.router.navigate(['/employer/dashboard']).then(() => {
+	loadDash(response){
+           if(this.router.url.includes('admin')){
+			  this.router.navigate(['/admin/employer-dashboard'], { queryParams: {activeTab:'postedJobs','empids':response['details'].company } })
+			}else{
+	           this.router.navigate(['/employer/dashboard']).then(() => {
 				  this.modalService.dismissAll();
 				  this.onToggleJobPreviewModal(false)
 				});
@@ -349,10 +353,14 @@ export class PostJobLayoutComponent implements OnInit {
 		jobInfo.id = this.postedJobsDetails.id;
 		this.employerService.jobUpdate(jobInfo).subscribe(
 		  response => {
+		    if(this.router.url.includes('admin')){
+			  this.router.navigate(['/admin/employer-dashboard'], { queryParams: {activeTab:'postedJobs','empids':response['details'].company } })
+			}else{
 			this.router.navigate(['/employer/dashboard']).then(() => {
 			  this.modalService.dismissAll();
 			  this.onToggleJobPreviewModal(false)
 			});
+			}
 			this.isLoading = false;
 		  }, error => {
 			if(error && error.error && error.error.errors)

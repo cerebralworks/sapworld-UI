@@ -29,14 +29,36 @@ export class EmployerDashboardComponent implements OnInit {
     public checkDB : boolean = false;
 	constructor(
 		private route: ActivatedRoute,
-		private router: Router,
+		public router: Router,
 		private sharedApiService: SharedApiService,
 		private employerSharedService: EmployerSharedService,
 		private employerService: EmployerService,
 		private utilsHelperService: UtilsHelperService,
 		private LocationStrategy : LocationStrategy
 	){
-		this.employerSharedService.getEmployerProfileDetails().subscribe(
+		if(this.route.snapshot.queryParamMap.get('empids')==null){
+		   this.loadEmp();
+		}
+		this.router.routeReuseStrategy.shouldReuseRoute = () => {
+			return false;
+		};
+
+		this.route.queryParams.subscribe(params => {
+		   if(Object.keys(params).length === 0){
+		     this.checkDB = true;
+			 sessionStorage.clear();
+		   }
+			if(params && !this.utilsHelperService.isEmptyObj(params)) {
+				this.queryParams = {...params}
+			}
+		});
+	}
+	
+	
+	/**To get Employer details*/
+	
+	loadEmp(){
+	this.employerSharedService.getEmployerProfileDetails().subscribe(
 			details => {
 				if(details) {
 					this.employeeData = details;
@@ -51,19 +73,6 @@ export class EmployerDashboardComponent implements OnInit {
 				}
 			}
 		)
-		this.router.routeReuseStrategy.shouldReuseRoute = () => {
-			return false;
-		};
-
-		this.route.queryParams.subscribe(params => {
-		   if(Object.keys(params).length === 0){
-		     this.checkDB = true;
-			 sessionStorage.clear();
-		   }
-			if(params && !this.utilsHelperService.isEmptyObj(params)) {
-				this.queryParams = {...params}
-			}
-		});
 	}
 	
 	/**

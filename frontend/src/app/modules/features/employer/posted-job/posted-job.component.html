@@ -33,7 +33,9 @@
             <tbody>
             <ng-container *ngIf="postedJobs?.length > 0; else elseTemplate">
               <tr *ngFor="let item of postedJobs; let i=index">
-                <td><a class="text-capitalize" href="javascript:;" [routerLink]="['/employer/job-detail-view', 'details']" [queryParams]="{id: item?.id}" routerLinkActive="router-link-active" >
+                <td *ngIf="!router.url.includes('admin')"><a class="text-capitalize" href="javascript:;" [routerLink]="['/employer/job-detail-view', 'details']" [queryParams]="{id: item?.id}" routerLinkActive="router-link-active" >
+                {{item?.title}}</a></td>
+				<td *ngIf="router.url.includes('admin')"><a class="text-capitalize" href="javascript:;" [routerLink]="['/admin/job-view', 'details']" [queryParams]="{id: item?.id,empids:empID}" routerLinkActive="router-link-active" >
                 {{item?.title}}</a></td>
                 <!-- <td>
                   {{item?.company?.company ? item?.company?.company : '-'}}
@@ -52,19 +54,28 @@
                 </td>
                 <td>{{item.created_at ? (item.created_at | date: "MMM dd, y" : 'UTC') : '-'}}</td>
                 <td class="text-center">
-                  <a  [routerLink]="['/employer/dashboard']" *ngIf="item.status != 0 &&  CheckMatchesCount(item?.id) !=0 "
+                  <a  [routerLink]="['/employer/dashboard']" *ngIf="item.status != 0 &&  CheckMatchesCount(item?.id) !=0 && !router.url.includes('admin')"
                   [queryParams]="{activeTab: 'matches', id: item?.id }" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
+				  <a  [routerLink]="['/admin/employer-dashboard']" *ngIf="item.status != 0 &&  CheckMatchesCount(item?.id) !=0 && router.url.includes('admin')"
+                  [queryParams]="{activeTab: 'matches', id: item?.id,empids:empID }" href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
 				   <a   *ngIf="item.status == 0 || CheckMatchesCount(item?.id) ==0 " style="cursor: no-drop;"
                    href="javascript:;"> {{ CheckMatchesCount(item?.id)}}</a>
 				  </td>
-                <td class="text-center">
+                <td class="text-center" *ngIf="!router.url.includes('admin')">
 				<a  [routerLink]="['/employer/dashboard']"
                   [queryParams]="{activeTab: 'applicants', id: item?.id }" *ngIf="CheckAppliedCount(item?.id) !=0 " > {{ CheckAppliedCount(item?.id)}}</a>
 				  <a  *ngIf="CheckAppliedCount(item?.id) ==0 " style="cursor: no-drop;" > {{ CheckAppliedCount(item?.id)}}</a>
 				  </td>
-                <td class="text-center"><a *ngIf="CheckShortlistedCount(item?.id) !=0 " [routerLink]="['/employer/dashboard']"
+				  <td class="text-center" *ngIf="router.url.includes('admin')">
+				  <a style="cursor: default;" > {{ CheckAppliedCount(item?.id)}}</a>
+				  </td>
+                <td class="text-center" *ngIf="!router.url.includes('admin')">
+				<a *ngIf="CheckShortlistedCount(item?.id) !=0 " [routerLink]="['/employer/dashboard']"
                   [queryParams]="{activeTab: 'shortlisted', id: item?.id }" > {{CheckShortlistedCount(item?.id)}}</a>
 				  <a  *ngIf="CheckShortlistedCount(item?.id) ==0 "  style="cursor: no-drop;" > {{CheckShortlistedCount(item?.id)}}</a>
+				  </td>
+				  <td class="text-center" *ngIf="router.url.includes('admin')">
+				  <a  style="cursor: default;" > {{CheckShortlistedCount(item?.id)}}</a>
 				  </td>
                 <td class="text-center" *ngIf="item?.status != 0">
                 <select (change)="onSelectStatus($event?.target?.value, item)" class="form-control form-control-td">
@@ -81,10 +92,12 @@
                 </td>
                 <td class="text-center">
                 <!-- <a href="javascript:;" disabled style="cursor: no-drop;" *ngIf="item.status == 0 "  class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a> -->
-                <a href="javascript:;"  *ngIf="item?.status != 0 "[routerLink]="['/employer/post-job']" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-				<a  class="mr-2"  style="color:blue;" [routerLink]="['/employer/post-job']"  [queryParams]="{id: item?.id,status:'copy'}"  data-toggle="tooltip" title="Clone"><i class="far fa-clone"></i></a>
+                <a href="javascript:;"  *ngIf="item?.status != 0 && !router.url.includes('admin')"[routerLink]="['/employer/post-job']" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+				<a href="javascript:;"  *ngIf="item?.status != 0 && router.url.includes('admin') "[routerLink]="['/admin/post-job/',empID]" [queryParams]="{id: item?.id}" class="text-info mr-2"  data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
+				<a  class="mr-2" *ngIf="!router.url.includes('admin') "  style="color:blue;" [routerLink]="['/employer/post-job']"  [queryParams]="{id: item?.id,status:'copy'}"  data-toggle="tooltip" title="Clone"><i class="far fa-clone"></i></a>
+				<a  class="mr-2" *ngIf="router.url.includes('admin') " style="color:blue;" [routerLink]="['/admin/post-job/',empID]"  [queryParams]="{id: item?.id,status:'copy'}"  data-toggle="tooltip" title="Clone"><i class="far fa-clone"></i></a>
                 <a href="javascript:;" (click)="onDeleteJobConfirm(item, i)" class="text-danger mr-2"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                <!--<a *ngIf="item?.status != 0" (click)="openshare(item?.id)" class="text-primary"  data-toggle="tooltip" title="Share" ><i class="fa fa-share-alt"></i></a>-->
+                <!--<a *ngIf="item?.status != 0 && !router.url.includes('admin')" (click)="openshare(item?.id)" class="text-primary"  data-toggle="tooltip" title="Share" ><i class="fa fa-share-alt"></i></a>-->
                 </td>
               </tr>
             </ng-container>

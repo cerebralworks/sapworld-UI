@@ -44,7 +44,7 @@ export class AppComponent {
     private employerSharedService?: EmployerSharedService,
     private userSharedService?: UserSharedService,
     private route?: ActivatedRoute,
-    private ngxService?: NgxUiLoaderService, 
+    private ngxService?: NgxUiLoaderService,
 	private _notificationService?: PushNotificationsService
   ) { this._notificationService.requestPermission();
       this.checkUserLoggedIn();   
@@ -101,7 +101,7 @@ setUpAnalytics() {
     ).subscribe((event: NavigationEnd) => {
        gtag('event', 'page_view', {
           page_path: event.urlAfterRedirects
-       })
+       });
       })
 }
 
@@ -147,7 +147,7 @@ setUpAnalytics() {
 			params.view = 'user';
 			this.employerService.onGetNotification(params).subscribe(
 			  response => {
-			   console.log(response)
+			   //console.log(response)
 				if(response && response['data']) {
 					if(window.location.href.includes('notification') && this.check ==false){
 						this.totalValue =0;

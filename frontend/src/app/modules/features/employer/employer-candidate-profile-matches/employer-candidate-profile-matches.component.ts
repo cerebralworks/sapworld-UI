@@ -68,6 +68,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public IsValidate: boolean = false;
 	public matchForm: FormGroup;
 	public userprofilepath:any;
+	public empID:any;
 	constructor(
 		private dataService: DataService,
 		private route: ActivatedRoute,
@@ -77,7 +78,7 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		private modelService: NgbModal,
 		public utilsHelperService: UtilsHelperService,
 		public sharedService: SharedService,
-		private router: Router
+		public router: Router
 	) {
 		
 		this.route.queryParams.subscribe(params => {
@@ -103,7 +104,8 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 			userIds = parseInt(sessionStorage.getItem('userId'));
 		}if(sessionStorage.getItem('location_id')){
 			location_ids = parseInt(sessionStorage.getItem('location_id'));
-		}	 
+		}	
+		this.empID=this.route.snapshot.queryParamMap.get('empids');
 		this.jobId = jobIds;
 		this.userId = userIds;
 		this.location_id = location_ids;
@@ -238,6 +240,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		}else{
 			requestParams.page = this.page;			
 		}
+		if(this.empID !=null){
+		requestParams.empid=parseInt(this.empID);
+		}
 		requestParams.id = this.jobId;
 		requestParams.location_id = this.location_id;
 		requestParams.additional_fields = 'job_application';
@@ -297,6 +302,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onGetJobScoringByIds = (isMultipleMatch: boolean = false, isCount: boolean = false) => {
 		let requestParams: any = {};
+		if(this.empID !=null){
+		requestParams.empid=parseInt(this.empID);
+		}
 		requestParams.page = this.page;			
 		requestParams.id = this.jobId;
 		requestParams.location_id = this.location_id;
@@ -489,7 +497,11 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	
 	onRedirectBack = () => {
 		// this.location.back();
+		if(this.router.url.includes('admin')){
+		this.router.navigate(['/admin/employer-dashboard'], { queryParams: {activeTab: 'matches',reset: 'true', id: this.jobId,'empids':this.empID} });
+		}else{
 		this.router.navigate(['/employer/dashboard'], { queryParams: {activeTab: 'matches',reset: 'true', id: this.jobId} });
+		}
 	}
 	
 	
