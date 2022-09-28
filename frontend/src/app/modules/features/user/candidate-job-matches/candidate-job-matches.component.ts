@@ -60,13 +60,14 @@ export class CandidateJobMatchesComponent implements OnInit {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
 				var qpid:any=0;
-				var a=atob(urlQueryParams.id);
-				if(btoa(a)===urlQueryParams.id){
+				console.log(btoa(atob(urlQueryParams.id)));
+				console.log(urlQueryParams.id);
+				if(btoa(atob(urlQueryParams.id))==urlQueryParams.id){
 				   qpid=atob(urlQueryParams.id);
 				}else{
 				   qpid=urlQueryParams.id;
 				}
-				if(qpid) {
+				if(urlQueryParams && urlQueryParams.id) {
 					sessionStorage.setItem('view-job-id',qpid);
 				}
 			}
