@@ -59,13 +59,14 @@ export class CandidateJobMatchesComponent implements OnInit {
 	this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
+				var qpid:any=0;
 				if(btoa(atob(urlQueryParams.id))==urlQueryParams.id){
-				   urlQueryParams.id=atob(urlQueryParams.id);
+				   qpid=atob(urlQueryParams.id);
 				}else{
-				   urlQueryParams.id=urlQueryParams.id;
+				   qpid=urlQueryParams.id;
 				}
 				if(urlQueryParams && urlQueryParams.id) {
-					sessionStorage.setItem('view-job-id',urlQueryParams.id);
+					sessionStorage.setItem('view-job-id',qpid);
 				}
 			}
 		});
