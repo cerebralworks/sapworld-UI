@@ -54,26 +54,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		public sharedService: SharedService,
 		private router: Router
-	) {		
-	
-	this.route.queryParams.subscribe(params => {
-			if(params && !this.utilsHelperService.isEmptyObj(params)) {
-				let urlQueryParams = {...params};
-				var qpid:any=0;
-				console.log(btoa(atob(urlQueryParams.id)));
-				console.log(urlQueryParams.id);
-				if(btoa(atob(urlQueryParams.id))==urlQueryParams.id){
-				   qpid=atob(urlQueryParams.id);
-				}else{
-				   qpid=urlQueryParams.id;
-				}
-				if(urlQueryParams && urlQueryParams.id) {
-					sessionStorage.setItem('view-job-id',qpid);
-				}
-			}
-		});
-		
-	}
+	) {	}
 
 	/**
 	**	When the page loads the OnInit Calls
@@ -82,7 +63,19 @@ export class CandidateJobMatchesComponent implements OnInit {
 	ngOnInit(): void {
 	this.userprofilepath = `${env.apiUrl}/images/user/`;
 	  this.screenWidth = window.innerWidth;	
-		
+		this.route.queryParams.subscribe(params => {
+			if(params && !this.utilsHelperService.isEmptyObj(params)) {
+				let urlQueryParams = {...params};
+				if(btoa(atob(urlQueryParams.id))==urlQueryParams.id){
+				   urlQueryParams.id=atob(urlQueryParams.id);
+				}else{
+				   urlQueryParams.id=urlQueryParams.id;
+				}
+				if(urlQueryParams && urlQueryParams.id) {
+					sessionStorage.setItem('view-job-id',urlQueryParams.id);
+				}
+			}
+		});
 		this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
 		var jobIds:any = 0;
 		if(sessionStorage.getItem('view-job-id')){
