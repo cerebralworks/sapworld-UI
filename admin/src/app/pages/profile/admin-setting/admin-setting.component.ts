@@ -24,6 +24,9 @@ export class AdminSettingComponent implements OnInit {
   public returnEmpUrl: any;
   public isLoading: boolean = false;
   public userInfo: any;
+  public showPassword: boolean;
+  public showPasswords: boolean;
+  formError: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,7 +71,7 @@ export class AdminSettingComponent implements OnInit {
     this.changePasswordForm = this.formBuilder.group({
       userNames: [''],
       email: [''],
-      current_password: [''],
+      current_password: ['',Validators.required],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       confirmPassword: ['', [Validators.required]]
     }, {validator: ValidationService.pwdMatchValidator});
@@ -93,11 +96,20 @@ export class AdminSettingComponent implements OnInit {
   **	To upload the reset user data
   **/
   change() {
-    this.isLoading = true;
+	  this.changePasswordForm.markAllAsTouched();
+    for (const key of Object.keys(this.changePasswordForm.controls)) {
+			  if(this.changePasswordForm.controls[key].invalid) {
+				const invalidControl: HTMLElement = document.querySelector('[formcontrolname="' + key + '"]');
+				invalidControl.focus();
+				break;
+			 }
+		  }
+    
 
     const requestParams = {...this.changePasswordForm.value};
     delete requestParams.confirmPassword
     if (this.changePasswordForm.valid) {
+		this.isLoading = true;
       this.accountService.changePassword(requestParams).subscribe(
         response => {
           this.isLoading = false;
