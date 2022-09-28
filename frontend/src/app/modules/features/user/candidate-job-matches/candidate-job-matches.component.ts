@@ -66,7 +66,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
-				if(btoa(atob(urlQueryParams.id))==urlQueryParams.id){
+				if(btoa(atob(urlQueryParams.id)).replace('=','')==urlQueryParams.id){
 				   urlQueryParams.id=atob(urlQueryParams.id);
 				}else{
 				   urlQueryParams.id=urlQueryParams.id;
