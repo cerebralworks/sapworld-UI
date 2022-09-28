@@ -117,6 +117,7 @@ export class AdminSettingComponent implements OnInit {
               this.router.navigate([this.returnEmpUrl]);
             })         
         }, error => {
+		this.formError = error.error.errors;
           this.isLoading = false;
           if(error && error.error && error.error.errors) {
             error.error.errors.map((val) => {
