@@ -101,14 +101,13 @@ export class LoginFormComponent implements OnInit {
 						  this.returnUserUrl = this.route.snapshot.queryParams['redirect'];
 						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
 						  this.router.navigate(['/user/candidate-job-view/details'], {queryParams: {'show': 'appply','id': id_val }});
-					  }else if(temps[2]==="job-matches" && temps[temps.length-1].split('?').length===2){
-						  var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
-					      this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': id_val }});
 					  }else if(temps[2]==="create-candidate"){
 					    this.router.navigate(['/user/create-candidate']);
 					  }else{
 						this.router.navigate(['/user/dashboard']);
 					  }
+				  }else if(this.route.snapshot.queryParams['linkedin'] !=undefined){
+					      this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': this.route.snapshot.queryParams['linkedin'] }});
 				  }else{
 					this.router.navigate(['/user/dashboard']);
 				  }
@@ -123,9 +122,13 @@ export class LoginFormComponent implements OnInit {
             
           }else if (response.isLoggedIn && response.role.includes(1)) {
 			  if(response['verified']==true){
+			     if(this.route.snapshot.queryParams['linkedin'] !=undefined){
+				   this.router.navigate(['/employer/job-detail-view/details'], { queryParams: { id: this.route.snapshot.queryParams['linkedin'] } });
+				 }else{
 				  //let requestParams: any = {};
 				  //this.SharedAPIService.onGetCompanyDetails(requestParams);
 				  this.router.navigate([this.returnEmployerUrl]);
+				  }
 			  }else{
 				  
 				  this.router.navigate(['/employer/create-profile']);

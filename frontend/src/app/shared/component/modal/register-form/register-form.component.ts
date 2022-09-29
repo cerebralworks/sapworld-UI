@@ -169,10 +169,8 @@ export class RegisterFormComponent implements OnInit {
   onGenerateRes = () => {
   const userInfo = this.registerForm.value;
   let requestParams: any = {};
-  if(this.route.snapshot.queryParams['redirect']){
-	   var temps = this.route.snapshot.queryParams['redirect'].split('/');
-	   var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
-	   requestParams.share_id = parseInt(id_val);
+  if(this.route.snapshot.queryParams['linkedin'] !=undefined){
+	   requestParams.share_id = atob(this.route.snapshot.queryParams['linkedin']);
    }
     requestParams.first_name = userInfo.firstName;
     requestParams.last_name = userInfo.lastName;

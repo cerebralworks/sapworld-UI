@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit,HostListener, TemplateRef, ViewChild,} from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { AccountLogin } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit {
   public mbRefs: NgbModalRef;
   @ViewChild('deleteAccountModal', { static: false }) deleteAccountModal: TemplateRef<any>;
   public modelshow :boolean=false;
+  public jobId:any;
   constructor(
     public router: Router,
     public translateService: TranslateService,
@@ -50,10 +51,12 @@ export class HeaderComponent implements OnInit {
     private userSharedService: UserSharedService,
 	private _notificationService: PushNotificationsService,
 	private modelService: NgbModal,
-  ) { }
+	private route:ActivatedRoute
+  ) { 
+     this.jobId=this.route.snapshot.queryParamMap.get('id');
+    }
 
   ngOnInit(): void {
-  
 	  this.screenWidth = window.innerWidth;
 	  this._notificationService.requestPermission();
     this.randomNum = Math.random();
@@ -108,7 +111,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onRedirectUrl = (url: string) => {
-    this.router.navigate([url])
+    if(this.router.url.includes('linkedin-share') || this.route.snapshot.queryParams['linkedin'] !=undefined){
+	  this.router.navigate([url],{queryParams:{'linkedin':this.jobId}})
+	}else{
+      this.router.navigate([url])
+	}
   }
 
   useLanguage(lang: string): void {

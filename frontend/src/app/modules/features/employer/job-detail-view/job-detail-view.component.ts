@@ -143,6 +143,7 @@ export class JobDetailViewComponent implements OnInit {
 					this.loading = true;
 				}
 			}, error => {
+			this.router.navigate(['/employer/dashboard']);
 			}
 		)
 	}

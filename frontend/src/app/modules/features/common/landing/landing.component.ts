@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { LoggedIn } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
@@ -44,7 +44,7 @@ export class LandingComponent extends CacheService implements OnInit, AfterViewI
   public moviesInput$ = new Subject<string>();
   public selectedMovie: any;
   public minLengthTerm = 2;
-
+  public jobId:any;
   public customOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -79,9 +79,11 @@ export class LandingComponent extends CacheService implements OnInit, AfterViewI
     private formBuilder: FormBuilder,
     private userService: UserService,
     public utilsHelperService: UtilsHelperService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+	private route:ActivatedRoute
   ) {
     super();
+	this.jobId=this.route.snapshot.queryParamMap.get('id');  
   }
 
   onCheck = (event) => {
@@ -97,6 +99,11 @@ console.log(event);
 		  .isCurrentUser()
 		  .subscribe(response => {
 			this.loggedUserInfo = response;
+			if(response.role.includes(1) && this.router.url.includes('linkedin-share')){
+			  this.router.navigate(['/employer/job-detail-view/details'], { queryParams: { id: this.jobId } })
+			}else if(response.role.includes(0) && this.router.url.includes('linkedin-share')){
+			   this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': this.jobId }});
+			}
 		  });
 	}
 	
@@ -301,8 +308,12 @@ console.log(event);
       }
     }
   }
- onRedirectUrl = (url: string) => {
-    this.router.navigate([url])
+ onRedirectUrl = (url:string) => {
+    if(this.router.url.includes('linkedin-share')){
+	  this.router.navigate([url],{queryParams:{'linkedin':this.jobId}})
+	}else{
+      this.router.navigate([url])
+	}
   }
   
   onReturnIDFronArray = (arrayOfObj: any [] =[], field: string, isString: boolean = false) => {

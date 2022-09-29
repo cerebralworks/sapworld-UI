@@ -54,7 +54,8 @@ export class CandidateJobMatchesComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		public sharedService: SharedService,
 		private router: Router
-	) {	}
+	) {		
+	}
 
 	/**
 	**	When the page loads the OnInit Calls
@@ -66,11 +67,12 @@ export class CandidateJobMatchesComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
-				if(btoa(atob(urlQueryParams.id)).replace('=','')==urlQueryParams.id){
+				/*if(btoa(atob(urlQueryParams.id)).replace('=','')==urlQueryParams.id){
+				  console.log(btoa(atob(urlQueryParams.id)).replace('=',''));
 				   urlQueryParams.id=atob(urlQueryParams.id);
 				}else{
 				   urlQueryParams.id=urlQueryParams.id;
-				}
+				}*/
 				if(urlQueryParams && urlQueryParams.id) {
 					sessionStorage.setItem('view-job-id',urlQueryParams.id);
 				}
@@ -91,7 +93,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 					}
 					this.userInfo = response;
 					this.userDetails = response;
-					if (this.jobId && this.matchFind ==false) {
+					if (this.jobId && this.matchFind ==false && this.userInfo.id !=undefined) {
 						
 						this.onGetUserScoringById();
 						this.matchFind = true;
