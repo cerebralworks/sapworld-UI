@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef ,ViewChild,TemplateRef} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@modules/auth/_services/auth.service';
@@ -8,6 +8,7 @@ import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { UtilsHelperService } from '@shared/services/utils-helper.service';
 import { ValidationService } from '@shared/services/validation.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-setting',
@@ -26,7 +27,10 @@ export class AdminSettingComponent implements OnInit {
   public userInfo: any;
   public showPassword: boolean;
   public showPasswords: boolean;
-  formError: any[] = [];
+  //formError: any[] = [];
+  public passwordupdate: boolean = false;
+  @ViewChild('logoutpopup', { static: false }) logoutpopup: TemplateRef<any>;
+  public mbRef: NgbModalRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,7 +40,8 @@ export class AdminSettingComponent implements OnInit {
 		private employerService: EmployerService,
     private accountService: AccountService,
     private employerSharedService: EmployerSharedService,
-    private utilsHelperService: UtilsHelperService
+    private utilsHelperService: UtilsHelperService,
+	private modelService: NgbModal,
   ) { }
   
   /**
@@ -71,7 +76,7 @@ export class AdminSettingComponent implements OnInit {
     this.changePasswordForm = this.formBuilder.group({
       userNames: [''],
       email: [''],
-      current_password: ['',Validators.required],
+      //current_password: ['',Validators.required],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       confirmPassword: ['', [Validators.required]]
     }, {validator: ValidationService.pwdMatchValidator});
@@ -112,20 +117,33 @@ export class AdminSettingComponent implements OnInit {
 		this.isLoading = true;
       this.accountService.changePassword(requestParams).subscribe(
         response => {
+			this.passwordupdate= true;
+		  setTimeout(() => {
+					this.mbRef = this.modelService.open(this.logoutpopup, {
+						windowClass: 'modal-holder',
+						centered: true,
+						backdrop: 'static',
+						keyboard: false
+					});
+				},1000);
           this.isLoading = false;
-            this.logout(() => {
+		  this.changePasswordForm.reset({
+			  'password': '',
+			  'confirmPassword': '',
+			});
+            /*this.logout(() => {
               this.router.navigate([this.returnEmpUrl]);
-            })         
+            })*/         
         }, error => {
-		this.formError = error.error.errors;
+		//this.formError = error.error.errors;
           this.isLoading = false;
           if(error && error.error && error.error.errors) {
             error.error.errors.map((val) => {
-              if(val.field == 'current_password') {
+              /*if(val.field == 'current_password') {
                 val.rules.map((val_temp) => {
                   //this.toastrService.error(this.utilsHelperService.capitalizeWord(val_temp.message), 'Failed');
                 })
-              }
+              }*/
             })
           }else {
            // this.toastrService.error('Something went wrong', 'Failed');
@@ -134,6 +152,21 @@ export class AdminSettingComponent implements OnInit {
         }
       )
     }
+  }
+  
+  /*close the pop and log out or dashboard navigate
+  */
+  sessionclose(val){
+		this.mbRef.close();
+		this.passwordupdate=false;
+	  if(val===true){
+	  this.logout(() => {
+              this.router.navigate([this.returnEmpUrl]);
+        })           
+	  }else{
+		  this.router.navigate(['/dashboard'])
+	  }
+		
   }
   
   /**

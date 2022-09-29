@@ -13,7 +13,7 @@
           <i class="fas fa-lock"></i>
         </div>
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
         <label>Current Password <span style="color:red;">*</span></label>
         <div  class="input-with-icon">
           <input type="password" class="form-control" [placeholder]="'Current Password'" formControlName="current_password">
@@ -21,11 +21,11 @@
         </div>
         <app-control-messages [control]="f['current_password']"></app-control-messages>
 		<small class="text-danger" *ngIf="formError?.length > 0 && formError[0]?.field == 'current_password'">
-		<!--{{formError[0]?.rules[0]?.rule == 'min' ? formError[0]?.rules[0]?.message : ''}}
-		{{formError[0]?.rules[0]?.rule == 'invalid' ? formError[0]?.rules[0]?.message : ''}}-->
+		{{formError[0]?.rules[0]?.rule == 'min' ? formError[0]?.rules[0]?.message : ''}}
+		{{formError[0]?.rules[0]?.rule == 'invalid' ? formError[0]?.rules[0]?.message : ''}}
 		Invalid current password.
 		</small>
-      </div>
+      </div>-->
       <div class="form-group">
         <label>New Password <span style="color:red;">*</span></label>
         <div  class="input-with-icon input-group">
@@ -40,7 +40,7 @@
 			  [class.hide]="!showPassword"></i>
 			</span>
 			</div>
-          <i class="fas fa-lock"></i>
+          <i class="fas fa-lock" style="z-index:3;"></i>
         </div>
         <app-control-messages [control]="f['password']"></app-control-messages>
       </div>
@@ -58,7 +58,7 @@
 			  [class.hide]="!showPasswords"></i>
 			</span>
 			</div>
-          <i class="fas fa-lock"></i>
+          <i class="fas fa-lock" style="z-index:3;"></i>
         </div>
         <app-control-messages [control]="f['confirmPassword']"></app-control-messages>
       </div>
@@ -83,4 +83,20 @@
 </div>
 </form>
 </div>
+
+<ng-template *ngIf="passwordupdate" #logoutpopup let-modal let-d="dismiss">
+	<div class="modal-content">
+		<div class="modal-body text-center">
+			<h1 class="text-green mx-auto pt-4"><i style="color:#6ecf6e;" class="far fa-check-circle fa-2x"></i></h1>
+			<h6 class="mt-3" style="font-size: 20px;"> Password Updated Successfully
+			</h6>
+		</div>
+		<div class="modal-footer">
+			<div class=" mx-auto">
+				<button type="button" class="btn btn-theme-blue" style="margin-right:10px;" (click)="sessionclose(true)"  data-dismiss="modal">Log Out</button>
+				<button type="button" class="btn btn-success"  (click)="sessionclose(false)" > Go To Dashboard </button>
+			</div>
+		</div>
+	</div>	
+</ng-template>
 </section>
