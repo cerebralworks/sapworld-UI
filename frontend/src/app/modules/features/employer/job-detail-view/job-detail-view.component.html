@@ -3,11 +3,16 @@
     <div class="row">
       <div class="col-lg-5 col-md-5 col-sm-5 d-flex align-items-center">
        
-        <ol class="breadcrumb">
+        <ol class="breadcrumb" *ngIf="!router.url.includes('linkedin-share')">
 		  <li class="breadcrumb-item"><a (click)="onRedirectBack();" style="cursor:pointer;" ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a></li>
           <li class="breadcrumb-item active" aria-current="page">
             {{"home.backToJobs" | translate}}
             <!-- {{"dashboard.postJobDetailView" | translate}} -->
+          </li>
+        </ol>
+		<ol class="breadcrumb" *ngIf="router.url.includes('linkedin-share')">
+          <li class="breadcrumb-item active" aria-current="page">
+            {{"shared.viewjobs" | translate}}
           </li>
         </ol>
       </div>

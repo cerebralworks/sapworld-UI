@@ -87,7 +87,7 @@ const routes: Routes = [
   },{
     path: 'linkedin-share',
     loadChildren: () =>
-      import('@modules/features/common/landing/landing.module').then(m => m.LandingModule)
+      import('@modules/features/employer/job-detail-view/job-detail-view.module').then(m => m.JobDetailViewModule)
   },
   {
     path: 'cookie-policy',

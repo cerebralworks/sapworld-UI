@@ -151,7 +151,7 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	closeNoMatch(){
 		this.mbRefss.close();
 		this.nomatchmodel=false;
-		this.router.navigate(['/user/dashboard'])
+		this.router.navigate(['/user/dashboard'],{queryParams:{activeTab:'matches'}})
 	}
 
 	validateOnPrfile = 0;

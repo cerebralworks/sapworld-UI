@@ -53,19 +53,19 @@
 					<div class="myCard-body row"> 							
 						<div class="col-lg-4"> 							
 							<div class="profile-card"  routerLink="/jobseeker" routerLinkActive="active"  style="cursor: pointer;">
-								<h3 class="purple-badge">Total Job Seekers</h3>	
+								<h3 style="white-space:nowrap" class="purple-badge">Total Job Seekers</h3>	
 								<h1>{{jobSeekerDetails.total}}</h1>	
 							</div>
 						</div>							
-						<div class="col-lg-4"> 							
+						<div class="col-lg-3"> 							
 							<div class="profile-card"  (click)="clickAvailableJobseeker()"  style="cursor: pointer;">
 								<h3 class="aqua-badge">Available</h3>	
 								<h1>{{jobSeekerDetails.available}}</h1>	
 							</div>
 						</div>							
-						<div class="col-lg-4"> 							
+						<div class="col-lg-5"> 							
 							<div class="profile-card"  (click)="clickNotAvailableJobseeker()"  style="cursor: pointer;">
-								<h3 class="yallow-badge">Not Open for Roles</h3>	
+								<h3 style="white-space:nowrap" class="yallow-badge">Not Open for Roles</h3>	
 								<h1>{{jobSeekerDetails.notavailable}}</h1>	
 							</div>
 						</div>

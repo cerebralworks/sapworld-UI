@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
 	private modelService: NgbModal,
 	private route:ActivatedRoute
   ) { 
-     this.jobId=this.route.snapshot.queryParamMap.get('id');
+     this.jobId=this.route.snapshot.queryParamMap.get('id')?this.route.snapshot.queryParamMap.get('id'):this.route.snapshot.queryParamMap.get('linkedin');
     }
 
   ngOnInit(): void {
@@ -111,6 +111,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onRedirectUrl = (url: string) => {
+    
     if(this.router.url.includes('linkedin-share') || this.route.snapshot.queryParams['linkedin'] !=undefined){
 	  this.router.navigate([url],{queryParams:{'linkedin':this.jobId}})
 	}else{
