@@ -112,7 +112,10 @@ export class JobDetailViewComponent implements OnInit {
 		.isCurrentUser()
 		.subscribe(response => {
 			this.loggedUserInfo = response;
+			console.log(this.loggedUserInfo)
+			console.log(this.router.url.includes('linkedin-share'))
 			if(response.role.includes(1) && this.router.url.includes('linkedin-share')){
+			 console.log('sucess')
 			  this.router.navigate(['/employer/job-detail-view/details'], { queryParams: { id: jobId } })
 			}else if(response.role.includes(0) && this.router.url.includes('linkedin-share')){
 			   this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': jobId }});
