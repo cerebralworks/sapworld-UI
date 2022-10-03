@@ -172,7 +172,7 @@ export class RegisterFormComponent implements OnInit {
   const userInfo = this.registerForm.value;
   let requestParams: any = {};
   if(this.route.snapshot.queryParams['linkedin'] !=undefined){
-       var decode = decodeURIComponent(this.route.snapshot.queryParams['linkedin']);
+       var decode = this.route.snapshot.queryParams['linkedin'].replaceAll(' ','+');
 	   requestParams.share_id = this.utilsHelperService.decryptData(decode);
    }
     requestParams.first_name = userInfo.firstName;

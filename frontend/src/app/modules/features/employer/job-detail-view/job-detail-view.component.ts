@@ -73,7 +73,7 @@ export class JobDetailViewComponent implements OnInit {
 		    
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
-				var decode = decodeURIComponent(urlQueryParams.id);
+				var decode = urlQueryParams.id.replaceAll(' ','+');
 				if(urlQueryParams && urlQueryParams.id) {
 					sessionStorage.setItem('view-job-id',this.utilsHelperService.decryptData(decode));
 				}
