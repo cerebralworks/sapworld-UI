@@ -7,6 +7,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { Subscription } from 'rxjs';
 import { LoggedIn } from '@data/schema/account';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 declare let gtag: Function;
 @Component({
   selector: 'app-register-form',
@@ -37,6 +38,7 @@ export class RegisterFormComponent implements OnInit {
     private route: ActivatedRoute,
     private accountService: AccountService,
     public sharedService: SharedService,
+	public utilsHelperService: UtilsHelperService,
   ) { }
 
   ngOnInit(): void {
@@ -170,7 +172,8 @@ export class RegisterFormComponent implements OnInit {
   const userInfo = this.registerForm.value;
   let requestParams: any = {};
   if(this.route.snapshot.queryParams['linkedin'] !=undefined){
-	   requestParams.share_id = atob(this.route.snapshot.queryParams['linkedin']);
+       var decode = decodeURIComponent(this.route.snapshot.queryParams['linkedin']);
+	   requestParams.share_id = this.utilsHelperService.decryptData(decode);
    }
     requestParams.first_name = userInfo.firstName;
     requestParams.last_name = userInfo.lastName;
