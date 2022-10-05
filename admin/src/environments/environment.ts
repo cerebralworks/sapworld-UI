@@ -15,6 +15,8 @@ export const environment = {
   envName: 'DEV',
   API_URL: 'assets/api',
   clientUrl: `${baseUrl}:${port}`,
+  app_url: 'http://localhost:4200/',
+  apiPath: 'http://localhost:5000',
   appVersion: 'v717demo1',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
