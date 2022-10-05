@@ -19,6 +19,7 @@
 /frontend/node_modules
 /middleware/node_modules
 /admin/node_modules
+/frontend/.angular
 
 # profiling files
 chrome-profiler-events*.json

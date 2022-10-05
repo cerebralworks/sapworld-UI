@@ -174,6 +174,9 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 		let requestParams: any = {};
 		requestParams.expand = 'company';
 		requestParams.id = this.jobId;
+		if(this.empID !=null){
+		requestParams.empid=parseInt(this.empID);
+		}
 		//requestParams.location_id = this.location_id;
 		const sb = this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {

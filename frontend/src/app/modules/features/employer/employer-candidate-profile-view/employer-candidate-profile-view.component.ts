@@ -199,6 +199,9 @@ export class EmployerCandidateProfileViewComponent implements OnInit {
 		requestParams.id = this.jobId;
 		requestParams.location_id = this.location_id;
 		requestParams.user_id = this.userID;
+		if(this.empID !=null){
+		requestParams.emp_id=this.empID;
+		}
 		this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {
 				if (response && response.details) {
