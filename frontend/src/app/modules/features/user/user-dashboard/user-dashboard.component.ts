@@ -42,10 +42,11 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 	public screenWidth: any;
 	public checkDB : boolean = false;
 	public applicantCouuntDetails:any = 0;
+	public requestParams: any;
 	constructor(
 		private route: ActivatedRoute,
 		private userSharedService: UserSharedService,
-		private router: Router,
+		public router: Router,
 		private dataService: DataService,
 		private modelService: NgbModal,
 		private userService: UserService,
@@ -83,7 +84,8 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 				});
 		     
 		}
-		this.userSharedService.getUserProfileDetails().subscribe(
+				 if(this.route.snapshot.queryParamMap.get('userid')==null){
+			this.userSharedService.getUserProfileDetails().subscribe(
 			response => {
 				if(response){
 					this.userInfo = response;
@@ -104,6 +106,33 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 				}
 			}
 		)
+		}else{
+			this.onGetCountry('');
+			this.onGetLanguage('');
+			let requestParams: any = {};
+		 requestParams.userid = this.route.snapshot.queryParamMap.get('userid');
+		this.userService.profile(requestParams).subscribe(
+			response => {
+				if(response){
+					this.userInfo = response.details;
+					if(response.details.profile_completed){
+						if(response.details.profile_completed == false  ){
+							this.dashboardView = false;
+							this.router.navigate(['/user/create-candidate']);
+						}else{
+							this.dashboardView = true; 
+						if(this.dashboardViewAPI ==false){
+								this.onGetAppliedJobs();
+								this.onGetShortListJobs();
+								//this.onGetPostedJob();
+								this.dashboardViewAPI =true;
+							}
+						}
+					}
+				}
+			}
+			)
+		}
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
@@ -144,6 +173,34 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 					break;
 			}
 		}
+	}
+
+
+	/**
+	**	To get the counry details
+	**/
+	
+	onGetCountry(query) {
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 1000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
+		this.sharedApiService.onGetCountry(this.requestParams);
+
+	}
+	
+	/**
+	**	To get the language details
+	**/
+	
+	onGetLanguage(query) {
+		this.requestParams = {};
+		this.requestParams.page = 1;
+		this.requestParams.limit = 1000;
+		this.requestParams.status = 1;
+		this.requestParams.search = query;
+		this.sharedApiService.onGetLanguage(this.requestParams);
 	}
 	
 	/***To close No match popup **/
@@ -262,6 +319,9 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		let requestParams: any = {};
 		requestParams.page = 1;
 		requestParams.limit = 100000;
+	if(this.route.snapshot.queryParamMap.get('userid')!=null){
+			requestParams.userid = this.route.snapshot.queryParamMap.get('userid');
+	}
 		//requestParams.expand = "job_posting,user,employer";
 		this.userService.applicationsListForUser(requestParams).subscribe(
 			response => {
@@ -285,6 +345,9 @@ export class UserDashboardComponent implements OnInit, DoCheck, OnDestroy {
 		requestParams.page = 1;
 		requestParams.limit = 100000;
 		requestParams.short_listed = 1;
+	if(this.route.snapshot.queryParamMap.get('userid')!=null){
+			requestParams.userid = this.route.snapshot.queryParamMap.get('userid');
+	}
 		//requestParams.expand = "job_posting,user,employer";
 		this.userService.applicationsListForUser(requestParams).subscribe(
 			response => {

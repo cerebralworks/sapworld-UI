@@ -4,6 +4,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile-setting',
@@ -23,10 +24,11 @@ export class UserProfileSettingComponent implements OnInit {
 	public privacyProtection: any;
 
 	constructor(
+		public router: Router,
 		private userService: UserService,
 		private toastrService: ToastrService,
 		private userSharedService: UserSharedService,
-		private utilsHelperService: UtilsHelperService
+		private utilsHelperService: UtilsHelperService,
 	) { }
 
 	/**

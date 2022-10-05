@@ -56,6 +56,8 @@ export class ContactCardComponent implements OnInit, DoCheck, OnDestroy {
   public userprofilepath:any;
   public matchesModels:boolean = false;
   public empID:any;
+  public userid:any;
+  public queryParams: any = {};
 toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   constructor(
     public utilsHelperService: UtilsHelperService,
@@ -65,6 +67,7 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
     private accountService: AccountService
   ) {
 	this.empID=this.route.snapshot.queryParamMap.get('empids');
+	this.userid=this.route.snapshot.queryParamMap.get('userid');
   }
   
   /**
@@ -240,9 +243,18 @@ toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Saus
   **	To navigate matches
   **/
   onTabChange(){
-    const navigationExtras = {queryParams:{ activeTab: "matches"}}
-
-    this.router.navigate([], navigationExtras);
+    if(this.userid==null){
+	const navigationExtras = {queryParams:{ 
+	activeTab: "matches"
+	}}	  
+	this.router.navigate([], navigationExtras);
+	 }else{
+	const navigationExtras = {queryParams:{ 
+	activeTab: "matches",
+	userid:this.userid
+	}}	  
+	this.router.navigate([], navigationExtras);
+}
   }
 
   /**

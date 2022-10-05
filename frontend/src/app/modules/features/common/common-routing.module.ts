@@ -94,6 +94,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('@modules/features/common/cookie-policy/cookie-policy.module').then(m => m.CookiePolicyModule)
   },
+	{
+    path: 'admin/user-dashboard',
+    loadChildren: () =>
+      import('@modules/features/user/user-dashboard/user-dashboard.module').then(m => m.UserDashboardModule)
+  },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 

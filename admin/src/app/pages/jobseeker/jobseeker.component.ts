@@ -97,7 +97,12 @@ export class JobSeekerComponent implements OnInit {
 			   'targets': 0,
 				'className': 'text-Capitalize',
 			   'render': function (data, type, full, meta){
-				   return full.first_name+' '+ full.last_name 
+				   //return full.first_name+' '+ full.last_name 
+	if(full.city !=null && full.state !=null && full.zipcode !=null){
+				   return '<a href="'+`${env.subPath}`+'/#/jobseeker-view/'+full.id+'">'+full.first_name+' '+ full.last_name +'</a>';
+			}else{
+		return '<a style="cursor:no-drop">'+full.first_name+' '+ full.last_name +'</a>';
+				}	
 				}
 			},{
 			   'targets': 2,

@@ -440,6 +440,10 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(null);
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+
+			if((!this.t.value[i]['experience'] || !this.t.value[i]['skill_name']) && i !=0){
+				this.t.removeAt(i);
+			}
 			}
 				}
 				
@@ -555,6 +559,10 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(null);
 			this.childForm.controls.requirement['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+
+			if( (!this.t.value[i]['experience'] || !this.t.value[i]['skill_name']) && i !=0 ){
+			this.t.removeAt(i);
+			}
 			}
 				}
 				
@@ -902,7 +910,7 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 	**/
 	
 	onDuplicate = (index) => {
-		if(this.t.value[index]['skill_id']== null ||this.t.value[index]['skill_name']== '' || this.t.value[index]['experience']== '' ){
+		if(this.t.value[index]['skill_id']== null ||this.t.value[index]['experience']== '' || isNaN(this.t.value[index]['skill_id'])==true || this.t.value[index]['experience']== null){
 		  
 		}else{
 			this.t.push(this.formBuilder.group({
@@ -941,6 +949,14 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 		this.t.controls[0]['controls']['experience'].reset();
 		this.t.controls[0]['controls']['skill_id'].reset();
 		this.t.controls[0]['controls']['skill_name'].reset();
+		if(this.childForm.value.jobInfo.entry===true){
+		this.f.hands_on_experience.controls[0].get('experience').setValidators(null); 
+		this.f.hands_on_experience.controls[0].get('experience').updateValueAndValidity();
+		this.f.hands_on_experience.controls[0].get('skill_id').setValidators(null); 
+		this.f.hands_on_experience.controls[0].get('skill_id').updateValueAndValidity();
+		this.f.hands_on_experience.controls[0].get('skill_name').setValidators(null); 
+		this.f.hands_on_experience.controls[0].get('skill_name').updateValueAndValidity();
+		}
 		}else {
 			this.t.removeAt(index);
 		}
