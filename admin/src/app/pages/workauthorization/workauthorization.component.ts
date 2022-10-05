@@ -63,14 +63,15 @@ dtElement:  DataTableDirective;
   ngOnInit(): void {
     this.load();
     this.requestParams = {};
-		this.requestParams.page = this.pages;
+		this.requestParams.page = 0;
 		this.requestParams.limit = this.limit;
     this.requestParams.column = this.column;
     this.requestParams.sort = this.sorting;
 		this.requestParams.status = 1;
+		this.requestParams.search = '';
     this.dtOption = {
         "searching": false,
-        processing : false,
+        processing : true,
 				"info": false,
 				serverSide: true,
 				deferRender: true,
@@ -79,19 +80,21 @@ dtElement:  DataTableDirective;
 				"dom": '<"top"i>rt<"bottom"flp><"clear">',
       ajax:  (dataTablesParameters: any, callback) => {
           if(this.valUpd && dataTablesParameters.start == 0 ){
-			this.pages = this.pages;
-			dataTablesParameters.start = this.pages;
-		}else{
-			this.pages = parseInt(dataTablesParameters.start)/dataTablesParameters.length;
-			this.pages++;
-		}
+		            this.pages = this.pages;
+					//this.pages = dataTablesParameters.start;
+					//dataTablesParameters.start = this.pages;
+				}else{
+				    this.pages = dataTablesParameters.start;
+					//this.pages = parseInt(dataTablesParameters.start)/dataTablesParameters.length;
+					//this.pages++;
+				}
 					this.limit = dataTablesParameters.length;
 					var cloumns =dataTablesParameters.order[0].column;
 					this.column = dataTablesParameters.columns[cloumns]["data"];
 					this.sorting = dataTablesParameters.order[0].dir;
           var temp = this.column+' '+this.sorting
           this.http.get<DataTablesResponse>(
-          `${env.serverUrl}`+'/api/workauthorization/list'+'?page='+this.pages+'&limit='+this.limit+'&sorting='+temp).subscribe(response=>{
+          `${env.serverUrl}`+'/api/workauthorization/list'+'?page='+this.pages+'&limit='+this.limit+'&sort='+temp+'&search='+this.requestParams.search).subscribe(response=>{
           this.storage = response
           for(var i=0;i<=response['items'].length-1;i++){
             if(response['items'][i].id===this.valUpd){
@@ -103,8 +106,8 @@ dtElement:  DataTableDirective;
             }
           }
           callback({
-            recordsTotal: response['meta'].total,
-            recordsFiltered: response['meta'].total,
+            recordsTotal: parseInt(response['meta'].total),
+            recordsFiltered: parseInt(response['meta'].total),
             data: response['items']
           })
 
@@ -264,6 +267,12 @@ update(id : any,datas : any){
 			this.ref.detectChanges()
   })
 }
+
+    onSearchChange(searchValue: string): void {  
+		this.requestParams['search'] =searchValue;
+		this.rerender();
+	}
+	
 /**
  * Getting country list by using GET api to display in country name box
  */

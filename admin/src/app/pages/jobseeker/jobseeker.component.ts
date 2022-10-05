@@ -18,10 +18,11 @@ class DataTablesResponse {
   styleUrls: ['./jobseeker.component.scss']
 })
 export class JobSeekerComponent implements OnInit {
-
+    
 	SlideOptions = { items: 5, dots: false, nav: true };  
 	CarouselOptions = { dots: false, nav: true }; 
-
+	@ViewChild(DataTableDirective, {static: false})
+    dtElement:  DataTableDirective;	
 	dtOptionsss: DataTables.Settings = {};
 	totalEmployers:any=[];
 	totalEmployersCountry:any=[];
@@ -47,17 +48,26 @@ export class JobSeekerComponent implements OnInit {
  
 	ngOnInit(): void {
 	    this.buildForm();
-		this.paramsEmployee['limit'] = this.limit;
+		this.loaddatas();
+	     this.paramsEmployee['limit'] = this.limit;
 		this.paramsEmployee['page'] = 0;
 		this.paramsEmployee['column'] ='id';
 		this.paramsEmployee['sort'] ='DESC';
 		this.paramsEmployee['view'] ='all';
+	}
+	
+	
+	loaddatas(){
+	if($.fn.dataTable.isDataTable("#DataTable")){
+			$('#DataTable').DataTable().clear().destroy();		
+		}
 		this.dtOptionsss = {
 			pageLength: this.limit,
 			processing: true,
 			"searching": false,
 			"info": false,
 			serverSide: true,
+			deferRender: true,
 			ajax:  (dataTablesParameters: any, callback) => {
 				this.paramsEmployee['page'] = dataTablesParameters.start;
 				this.paramsEmployee['limit'] = dataTablesParameters.length;
@@ -73,6 +83,7 @@ export class JobSeekerComponent implements OnInit {
 						this.totalEmployers =response['user'];
 						this.totalEmployersCountry =response['country'];
 						this.isShow = true;
+						this.ref.detectChanges();
 					}
 					callback({
 							recordsTotal: response['Count'][0]['count'],
@@ -138,8 +149,7 @@ export class JobSeekerComponent implements OnInit {
 				{ data: 'id' }
 			]
 		};
-	
-	}
+		}
 	onGetEmployerData() {
 		
 	}
@@ -157,6 +167,18 @@ export class JobSeekerComponent implements OnInit {
 			 this.sendemail(val1)    
 		}
 	}
+	
+	/**
+	**	To render the table data
+	**/
+	
+    rerender(): void {
+		if(this.dtElement){
+			this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+				dtInstance.ajax.reload();
+			});
+		}
+    }  
 	
 	/**
   **	To build the meting form
@@ -204,4 +226,10 @@ export class JobSeekerComponent implements OnInit {
 		this.emailform.reset();
 		this.mbRef.close();
 	}
+	
+	onSearchChange(searchValue: string): void {  
+		this.paramsEmployee['search'] =searchValue;
+		this.rerender();
+	}
 }
+

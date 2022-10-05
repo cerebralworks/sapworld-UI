@@ -65,6 +65,12 @@
 								<!-- Table start -->
 								<div class="row">
 									<div class="offset-lg-2 col-lg-8">
+								 <form class="form-inline float-right mb-2">
+									<div class="form-group">
+										<label class="mr-3">Search </label>
+										<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+									</div>
+								</form>
 										<div class="table-container">
 											<div class="table-responsive">
 												<table datatable [dtOptions]="dtOption" class="sort-table table custom-table m-0">

@@ -76,6 +76,12 @@
 								<div class="row">
 									<div class="offset-lg-2 col-lg-8">
 										<div class="table-container">
+										    <form class="form-inline float-right mb-2">
+												<div class="form-group">
+													<label class="mr-3">Search </label>
+													<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+												</div>
+											</form>
 											<div class="table-responsive">
 												<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="top"></div><table datatable [dtOptions]="dtOption" class="sort-table table custom-table m-0 dataTable no-footer" id="DataTables_Table_0" role="grid">
 													<thead>

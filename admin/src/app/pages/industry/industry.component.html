@@ -66,8 +66,15 @@
 								<div class="row">
 									<div class="offset-lg-2 col-lg-8">
 										<div class="table-container">
-											<div class="table-responsive">
-												<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="top"></div><table datatable [dtOptions]="dtOption" class="sort-table table custom-table m-0 dataTable no-footer" id="DataTables_Table_0" role="grid">
+											<form class="form-inline float-right mb-2">
+												<div class="form-group">
+													<label class="mr-3">Search </label>
+													<input type="text" class="form-control form-control-sm rounded-pill" (input)="onSearchChange($event.target.value)" id="inputSearch">
+												</div>
+											</form>
+										<div class="table-responsive">
+												<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="top"></div>
+												<table datatable [dtOptions]="dtOption" class="sort-table table custom-table m-0 dataTable no-footer" id="DataTables_Table_0" role="grid">
 													<thead>
 														<tr role="row"><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Industry Name: activate to sort column ascending" style="width: 383.484px;">Industry Name</th><th class="text-center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 220.516px;">Action</th></tr>
 													</thead>

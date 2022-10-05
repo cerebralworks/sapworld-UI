@@ -53,12 +53,13 @@ export class TechnicalSkillsComponent implements OnInit {
  */
 
   ngOnInit(): void {
-    this.requestParams = {};
-		this.requestParams.page = this.pages;
-		this.requestParams.limit = this.limit;
-    this.requestParams.column = this.column;
-    this.requestParams.sort = this.sorting;
+		this.requestParams = {};
+	    this.requestParams.page = 0;
+	    this.requestParams.limit = this.limit;
+		this.requestParams.column = this.column;
+		this.requestParams.sort = this.sorting;
 		this.requestParams.status = 1;
+		this.requestParams.search = '';
     this.dtOption = {
         "searching": false,
         processing : true,
@@ -70,11 +71,13 @@ export class TechnicalSkillsComponent implements OnInit {
 				"dom": '<"top"i>rt<"bottom"flp><"clear">',
       ajax:  (dataTablesParameters: any, callback) => {
           if(this.valUpd && dataTablesParameters.start == 0 ){
-					this.pages = this.pages;
-					dataTablesParameters.start = this.pages;
+		            this.pages = this.pages;
+					//this.pages = dataTablesParameters.start;
+					//dataTablesParameters.start = this.pages;
 				}else{
-					this.pages = parseInt(dataTablesParameters.start)/dataTablesParameters.length;
-					this.pages++;
+				    this.pages = dataTablesParameters.start;
+					//this.pages = parseInt(dataTablesParameters.start)/dataTablesParameters.length;
+					//this.pages++;
 				}
 					this.limit = dataTablesParameters.length;
 					var cloumns =dataTablesParameters.order[0].column;
@@ -82,7 +85,7 @@ export class TechnicalSkillsComponent implements OnInit {
 					this.sorting = dataTablesParameters.order[0].dir;
           var temp = this.column+' '+this.sorting
           this.http.get<DataTablesResponse>(
-          `${env.serverUrl}`+'/api/program/list'+'?page='+this.pages+'&limit='+this.limit+'&sorting='+temp).subscribe(response=>{
+          `${env.serverUrl}`+'/api/program/list'+'?page='+this.pages+'&limit='+this.limit+'&sort='+temp+'&search='+this.requestParams.search).subscribe(response=>{
           this.storage = response
           for(var i=0;i<=response['items'].length-1;i++){
             if(response['items'][i].id===this.valUpd){
@@ -93,8 +96,8 @@ export class TechnicalSkillsComponent implements OnInit {
             }
           }
           callback({
-            recordsTotal: response['meta'].total,
-            recordsFiltered: response['meta'].total,
+            recordsTotal: parseInt(response['meta'].total),
+            recordsFiltered: parseInt(response['meta'].total),
             data: response['items']
           })
 
@@ -225,6 +228,13 @@ get f(){
 			this.ref.detectChanges()
   })
 }
+
+  onSearchChange(searchValue: string): void {  
+		this.requestParams['search'] =searchValue;
+		this.rerender();
+	}
+	
+	
 /**
    * To add industry name using POST method
    * To no space validation
