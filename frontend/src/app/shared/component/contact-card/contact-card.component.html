@@ -20,7 +20,7 @@
         </h5>
 		<div >
     <div class="media">
-      <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="userInfo?.photo ? userprofilepath+userInfo?.photo : 'assets/images/user-img-icon.jpg'">
+      <img *ngIf="loggedUserInfo?.role && (loggedUserInfo?.role?.includes(0) || loggedUserInfo?.role?.includes(2))" [src]="userInfo?.photo ? userprofilepath+userInfo?.photo : 'assets/images/user-img-icon.jpg'">
       <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
         <ng-container *ngIf="userInfo?.privacy_protection?.photo == true; else elsePhotoTemplate">
           <img [src]="userInfo?.photo ? userprofilepath+userInfo?.photo : 'assets/images/user-img-icon.jpg'">
@@ -288,11 +288,11 @@
           </a>
         </span>
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
-          <a *ngIf="!isUploadShowResume" style="font-size:12px;"
+          <a *ngIf="!isUploadShowResume && selectedResume?.file" style="font-size:12px;"
           [class.disabled]="!selectedResume?.file"
           (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>{{"shared.resume" | translate }}
-          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="font-size:12px;"[class.disabled]="router.url.includes('admin') || userid!=null"
+          </a> <a *ngIf="isUploadShowResume || !selectedResume?.file" style="font-size:12px;"[class.disabled]="router.url.includes('admin') || userid!=null"
          (click)="openResumselect(true)"  id="addResumeFile" 
            class="btn btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>{{"shared.addResume" | translate }}
