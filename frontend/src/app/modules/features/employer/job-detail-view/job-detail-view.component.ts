@@ -136,6 +136,9 @@ export class JobDetailViewComponent implements OnInit {
 		let requestParams: any = {};
 		requestParams.expand = 'company';
 		requestParams.id = jobId;
+		if(this.empID !=null){
+		requestParams.emp_id=this.empID;
+		}
 		this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {
 				if(response && response.details) {
