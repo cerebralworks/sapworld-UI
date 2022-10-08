@@ -389,6 +389,10 @@ export class PostJobLayoutComponent implements OnInit {
     let requestParams: any = {};
     requestParams.expand = 'company';
     requestParams.id = jobId;
+	if(this.router.url.includes('admin')){
+		var a=this.router.url.split('/')[this.router.url.split('/').length-1];
+		requestParams.emp_id=parseInt(a.split('?')[0]);
+	}
     this.employerService.getPostedJobDetails(requestParams).subscribe(
       response => {
 		  if(response['details']['entry'] == true){
