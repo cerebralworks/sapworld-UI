@@ -6,6 +6,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Location } from '@angular/common';
 import { UserSharedService } from '@data/service/user-shared.service';
+import { UserService } from '@data/service/user.service';
 @Component({
   selector: 'app-candidate-job-view',
   templateUrl: './candidate-job-view.component.html',
@@ -30,6 +31,7 @@ export class CandidateJobViewComponent implements OnInit {
 	public screenWidth: any;
     public loading : boolean;
 	public backToNotication:boolean = false;
+	public userid:any;
 	
 	constructor(
 		private route: ActivatedRoute,
@@ -38,12 +40,14 @@ export class CandidateJobViewComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		private location: Location,
 		public sharedService: SharedService,
-		private router: Router
+		private router: Router,
+	private userService?: UserService
 	) {
-	  
+		this.userid=this.route.snapshot.queryParamMap.get('userid');
 		/**	
 		**	Checking Routing params
 		**/
+		if(this.userid==null){
 		this.userSharedService.getUserProfileDetails().subscribe(
 			response => {
 				this.userInfo = response;
@@ -53,6 +57,19 @@ export class CandidateJobViewComponent implements OnInit {
 				}
 			}
 		)
+}else{
+	let requestParams: any = {};
+		 requestParams.userid = this.userid;
+		this.userService.profile(requestParams).subscribe(
+			response => {
+				this.userInfo = response.details;
+				if(this.jobId && this.isgetValue == false) {
+					this.isgetValue =true;
+					this.onGetPostedJobDetails();
+				}
+			}
+		)
+}
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
@@ -126,6 +143,7 @@ export class CandidateJobViewComponent implements OnInit {
 	onRedirectBack = () => {
 		
 		// this.location.back();
+		if(this.userid==null){
 		if(sessionStorage.getItem('view-job-path')=='applied'){
 			this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'applied'}});
 		}else if(sessionStorage.getItem('view-job-path')=='shortlisted'){
@@ -135,6 +153,9 @@ export class CandidateJobViewComponent implements OnInit {
 		}else{
 			this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId}});
 		}
+}else{
+	this.router.navigate(['/user/job-matches/details'], {queryParams: {id: this.jobId,userid:this.userid}});
+}
 	}
 	
 	navigateMatches(){

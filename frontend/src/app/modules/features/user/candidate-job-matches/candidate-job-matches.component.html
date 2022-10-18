@@ -8,7 +8,7 @@
 				</button> -->
 				<ol class="breadcrumb">
 				  <li class="breadcrumb-item">
-					<a (click)="onRedirectBack();"  ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a>
+					<a (click)="onRedirectBack();" href="javascript:;" ><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a>
 				 </li>
 				  <li class="breadcrumb-item active" aria-current="page">{{"shared.jobMatches" | translate}}</li>
 				</ol>
@@ -72,7 +72,7 @@
 							<img src="assets/images/job-logo-img.png" class="img-fluid mx-auto">
 						</div>
 						<div class="text">
-							<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id ,location_id: matchingJob?.jobs?.job_location?.id }"  class="text-capitalize" href="javascript:;">
+							<a [routerLink]="[ '/user/candidate-job-view/details' ]" [queryParams]="{id: matchingJob?.jobs?.id ,location_id: matchingJob?.jobs?.job_location?.id ,userid:userid}"  class="text-capitalize" href="javascript:;">
 							<h5>{{matchingJob?.jobs?.title}}</h5>
 						</a>
 							<h5><ng-container *ngFor="let item of matchingJob?.jobs?.job_locations;index as i" >
@@ -100,8 +100,12 @@
 								<i class="fas fa-file-alt mr-1"></i>{{"shared.jobDescription" | translate}}</a> &nbsp;
 							
 							<span>
-								<a class="btn btn-outline-light btn-sm" [routerLink]="['/user/dashboard']" [queryParams]="{activeTab:'matches'}" routerLinkActive="router-link-active" >	
+								<a *ngIf="userid==null;else adminview" class="btn btn-outline-light btn-sm" [routerLink]="['/user/dashboard']" [queryParams]="{activeTab:'matches'}" routerLinkActive="router-link-active" >	
 								<i class="fas fa-tasks"></i>{{"tabs.matches" | translate}}</a>
+								<ng-template #adminview>
+								<a  class="btn btn-outline-light btn-sm" (click)="onRedirectBack();" >	
+								<i class="fas fa-tasks"></i>{{"tabs.matches" | translate}}</a>
+								</ng-template>
 							</span>
 						</div>
 						<div class="">
@@ -120,7 +124,7 @@
 						[moreElement]="moreElement" [userInfo]="userInfo">
 						</app-shared-job-profile-matches>
 							<div class="col-lg-12 info" style="text-align:end;">
-										<button type="button" *ngIf="!matchingJob?.jobs.is_job_applied"  [ngClass]="{'applied-btn-green': (matchingJob?.jobs.is_job_applied ), 'btn-outline-green': !matchingJob?.jobs.is_job_applied}" [disabled]="matchingJob?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJob?.jobs)" class="btn btn-outline-green ml-auto" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.apply" | translate}}</button>
+										<button type="button" *ngIf="!matchingJob?.jobs.is_job_applied"  [ngClass]="{'applied-btn-green': (matchingJob?.jobs.is_job_applied ), 'btn-outline-green': !matchingJob?.jobs.is_job_applied}" [disabled]="matchingJob?.jobs.is_job_applied || router.url.includes('admin') || userid!=null" (click)="onToggleResumeSelectModals(true, matchingJob?.jobs)" class="btn btn-outline-green ml-auto" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.apply" | translate}}</button>
 										<button type="button" *ngIf="matchingJob?.jobs.is_job_applied && matchingJob?.jobs?.job_application?.status != 2 " [disabled]="matchingJob?.jobs.is_job_applied " (click)="onToggleResumeSelectModals(true, matchingJob?.jobs)" class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> <i class="fas fa-check"></i> {{"shared.applied" | translate}} </button>
 										<button type="button" *ngIf="matchingJob?.jobs?.job_application?.status == 2 " [disabled]="matchingJob?.jobs.is_job_applied " class="btn btn-outline-green ml-auto applied-btn-green" data-toggle="modal" data-target="#applyJob" style="bottom: 15px; right: 15px;"> {{"shared.hired" | translate}} </button>
 									</div>

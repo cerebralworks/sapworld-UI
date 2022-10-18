@@ -42,6 +42,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 	public loading : boolean;
 	public userDetails:any;
 	public userprofilepath:any;
+	public userid:any;
 	/**
 	**	To implements the import Packages in constructor
 	**/
@@ -54,7 +55,9 @@ export class CandidateJobMatchesComponent implements OnInit {
 		public utilsHelperService: UtilsHelperService,
 		public sharedService: SharedService,
 		private router: Router
-	) {	}
+	) {		
+	this.userid=this.route.snapshot.queryParamMap.get('userid');
+	}
 
 	/**
 	**	When the page loads the OnInit Calls
@@ -66,13 +69,9 @@ export class CandidateJobMatchesComponent implements OnInit {
 		this.route.queryParams.subscribe(params => {
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
-				if(btoa(atob(urlQueryParams.id)).replace('=','')==urlQueryParams.id){
-				   urlQueryParams.id=atob(urlQueryParams.id);
-				}else{
-				   urlQueryParams.id=urlQueryParams.id;
-				}
+				var decode = urlQueryParams.id.replaceAll(' ','+');
 				if(urlQueryParams && urlQueryParams.id) {
-					sessionStorage.setItem('view-job-id',urlQueryParams.id);
+					sessionStorage.setItem('view-job-id',this.utilsHelperService.decryptData(decode));
 				}
 			}
 		});
@@ -83,6 +82,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 		}
 		//this.jobId = this.route.snapshot.paramMap.get('id');
 		this.jobId = jobIds;
+if(this.userid==null){	
 		this.userSharedService.getUserProfileDetails().subscribe(
 			response => {
 				if(response){
@@ -91,7 +91,7 @@ export class CandidateJobMatchesComponent implements OnInit {
 					}
 					this.userInfo = response;
 					this.userDetails = response;
-					if (this.jobId && this.matchFind ==false) {
+					if (this.jobId && this.matchFind ==false && this.userInfo.id !=undefined) {
 						
 						this.onGetUserScoringById();
 						this.matchFind = true;
@@ -103,6 +103,31 @@ export class CandidateJobMatchesComponent implements OnInit {
 				}
 			}
 		)
+		}else{
+		let requestParams: any = {};
+		 requestParams.userid = this.userid;
+		this.userService.profile(requestParams).subscribe(
+			response => {
+					if(response.details){
+					if(response.details.skills){
+						response.details.skillses = this.utilsHelperService.differenceByPropValArray(response.details.skills, response.details.hands_on_experience, 'skill_id')
+					}
+					this.userInfo = response.details;
+					this.userDetails = response.details;
+					if (this.jobId && this.matchFind ==false) {
+						
+						this.onGetUserScoringById();
+						this.matchFind = true;
+						setTimeout(() => {
+							this.onGetUserScoringByIds(true, true);
+						},1000);
+						
+					}
+				}
+				}
+			)
+
+		}
 		
 	}
 
@@ -194,6 +219,9 @@ export class CandidateJobMatchesComponent implements OnInit {
 				}
 			}
 		}
+		if(this.userid!=null){
+			requestParams.userdetails = this.userDetails.experience;
+			}
 		const sb = this.userService.getUserScoring(requestParams).subscribe(
 		response => {
 			if(response.jobs.skills){
@@ -300,6 +328,9 @@ export class CandidateJobMatchesComponent implements OnInit {
 				}
 			}
 		}
+		if(this.userid!=null){
+			requestParams.userdetails = this.userDetails.experience;
+			}
 		const sb = this.userService.getUserScoring(requestParams).subscribe(
 		response => {
 			
@@ -485,7 +516,11 @@ export class CandidateJobMatchesComponent implements OnInit {
 	
 	onRedirectBack = () => {
 		//this.location.back();
-		this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'matches'}})
+		if(this.userid==null){
+	this.router.navigate(['/user/dashboard'], {queryParams: {activeTab: 'matches'}})
+	}else{
+	this.router.navigate(['admin/user-dashboard'], {queryParams: {activeTab: 'matches',userid:this.userid}})
+	}
 	}
 
 	/**

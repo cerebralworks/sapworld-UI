@@ -7,6 +7,7 @@ import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
+import { UserService } from '@data/service/user.service';	
 
 @Component({
   selector: 'app-matching-job',
@@ -37,6 +38,7 @@ export class MatchingJobComponent implements OnInit {
 	public postedJobCountry: any[] = [];
 	public postedJobMeta: any;
 	public userInfo: any;
+	public userInfos: any;
 	public currentJobDetails: any;
 	public sortByValue: string = 'created_at.desc';
 	public experienceFilter: { value: {min: number, max: number}; text: string; }[];
@@ -65,15 +67,17 @@ export class MatchingJobComponent implements OnInit {
 	public cityString: string;
 	public skillString: any;
 	tempQueryParams: any;
+	public userid:any;
 
 	constructor(
 		public sharedService: SharedService,
-		private router: Router,
+		public router: Router,
 		private route: ActivatedRoute,
 		public utilsHelperService: UtilsHelperService,
 		private dataService: DataService,
 		private employerService: EmployerService,
-		private userSharedService: UserSharedService
+		private userSharedService: UserSharedService,
+		private userService?: UserService,
 	) {
 		
 		this.experienceFilter = [
@@ -84,6 +88,7 @@ export class MatchingJobComponent implements OnInit {
 		  {value: {min: 7, max: 10}, text: '7 - 10'},
 		  {value: {min: 10, max: 20}, text: '10'}
 		]
+		this.userid=this.route.snapshot.queryParamMap.get('userid');
 		
 		/**
 		**	Routing params get the values 
@@ -146,14 +151,26 @@ export class MatchingJobComponent implements OnInit {
 	**/
 	
 	ngOnInit(): void {
-		this.userSharedService.getUserProfileDetails().subscribe(
+		if(this.userid==null){
+				this.userSharedService.getUserProfileDetails().subscribe(
 			response => {
 				this.userInfo = response;
+				this.onGetPostedJob('');
 				if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length && this.validateAPI == 0) {
           
 				}
 			}
 		)
+		}else{
+			let requestParams: any = {};
+		 requestParams.userid = this.userid;
+		this.userService.profile(requestParams).subscribe(
+			response => {
+				this.userInfo = response.details;
+				this.onGetPostedJob('');
+				}
+			)
+		} 
 		this.dataService.getCountryDataSource().subscribe(
 			response => {
 				if (response && Array.isArray(response) && response.length) {
@@ -162,10 +179,17 @@ export class MatchingJobComponent implements OnInit {
 				}
 			}
 		);
-		this.onGetPostedJob('');
+
+		this.dataService.getSkillDataSource().subscribe(
+				response => {
+					this.skillItems = response
+				}
+			);
+
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};    
+
 
 		this.experienceFilter = [
 			{value: {min: 0, max: 1}, text: ''},
@@ -175,12 +199,6 @@ export class MatchingJobComponent implements OnInit {
 			{value: {min: 7, max: 10}, text: '7 - 10 '},
 			{value: {min: 10, max: 20}, text: '10'}
 		]
-
-		this.dataService.getSkillDataSource().subscribe(
-			response => {
-				this.skillItems = response
-			}
-		);
 	}
 
 	/**
@@ -501,12 +519,14 @@ export class MatchingJobComponent implements OnInit {
 	}
 	
 	onToggleResumeSelectModals = (status, item?) => {
+if(this.userid==null){
 		if(!this.utilsHelperService.isEmptyObj(item)) {
 			this.currentJobDetails = item;
 		}
 		this.isOpenedResumeSelectModal = status;
 		this.onEvent.emit(true);
 		this.onGetPostedJob('');
+}
 	}
 
 	onLoadMoreJob = () => {
@@ -640,11 +660,24 @@ export class MatchingJobComponent implements OnInit {
 	**/
 	
 	onClearFilter = () => {
-		const navigationExtras: NavigationExtras = {
+		/*const navigationExtras: NavigationExtras = {
 			queryParams: {activeTab:'matches'}
 		};
-		this.router.navigate([], navigationExtras);
+		this.router.navigate([], navigationExtras);*/
 		// this.onRedirectRouteWithQuery({activeTab:'matches', 'id': this.selectedJob.id})
+
+if(this.userid==null){
+	const navigationExtras: NavigationExtras = {queryParams:{ 
+	activeTab: "matches"
+	}}	  
+	this.router.navigate([], navigationExtras);
+	 }else{
+	const navigationExtras: NavigationExtras = {queryParams:{ 
+	activeTab: "matches",
+	userid:this.userid
+	}}	  
+	this.router.navigate([], navigationExtras);
+}
 	}
 
 	/**
@@ -739,6 +772,14 @@ export class MatchingJobComponent implements OnInit {
 			this.onGetPostedJob('');
 		}
 		
+	}
+
+	/**
+	**	To Click back Button navigate to profile page
+	**/
+
+	onRedirectBack = () =>{
+		this.router.navigate(['admin/user-dashboard'], {queryParams: {activeTab: 'profile',userid:this.userid}})
 	}
 
 }

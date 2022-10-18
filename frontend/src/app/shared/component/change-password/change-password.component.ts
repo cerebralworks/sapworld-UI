@@ -81,7 +81,7 @@ export class ChangePasswordComponent implements OnInit {
     this.changePasswordForm = this.formBuilder.group({
       userName: [''],
       email: [''],
-      current_password: [''],
+      //current_password: [''],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       confirmPassword: ['', [Validators.required]]
     }, {validator: ValidationService.pwdMatchValidator});

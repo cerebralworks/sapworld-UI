@@ -73,12 +73,15 @@ export class JobDetailViewComponent implements OnInit {
 		    
 			if(params && !this.utilsHelperService.isEmptyObj(params)) {
 				let urlQueryParams = {...params};
+				var decode = urlQueryParams.id.replaceAll(' ','+');
 				if(urlQueryParams && urlQueryParams.id) {
-					sessionStorage.setItem('view-job-id',urlQueryParams.id);
+					sessionStorage.setItem('view-job-id',this.utilsHelperService.decryptData(decode));
 				}
 			}
 		});
+		if(!this.router.url.includes('linkedin-share')){
 		this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: 'merge'});
+	    }
 		var jobId = 0;
 		if(sessionStorage.getItem('view-job-id')){
 			jobId = parseInt(sessionStorage.getItem('view-job-id'));
@@ -87,6 +90,7 @@ export class JobDetailViewComponent implements OnInit {
 			this.onGetPostedJobDetails(jobId);
 			this.onGetSkill();
 			this.onGetIndustries();
+			this.onGetLanguage('');
 		}
 		if(this.empID==null){
 		this.employerSharedService.getEmployerProfileDetails().subscribe(
@@ -108,6 +112,11 @@ export class JobDetailViewComponent implements OnInit {
 		.isCurrentUser()
 		.subscribe(response => {
 			this.loggedUserInfo = response;
+			if(response.role.includes(1) && this.router.url.includes('linkedin-share')){
+			  this.router.navigate(['/employer/job-detail-view/details'], { queryParams: { id: jobId } })
+			}else if(response.role.includes(0) && this.router.url.includes('linkedin-share')){
+			   this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': jobId }});
+			}
 		});
 	}
 	
@@ -137,7 +146,9 @@ export class JobDetailViewComponent implements OnInit {
 		requestParams.expand = 'company';
 		requestParams.id = jobId;
 		if(this.empID !=null){
-		requestParams.emp_id=this.empID;
+		 requestParams.emp_id=this.empID;
+		}else if(this.router.url.includes('linkedin-share')){
+		 requestParams.jobshare=true;
 		}
 		this.employerService.getPostedJobDetails(requestParams).subscribe(
 			response => {
@@ -146,6 +157,7 @@ export class JobDetailViewComponent implements OnInit {
 					this.loading = true;
 				}
 			}, error => {
+			this.router.navigate(['/employer/dashboard'],{queryParams:{activeTab:'postedJobs'}});
 			}
 		)
 	}
@@ -254,6 +266,7 @@ export class JobDetailViewComponent implements OnInit {
 			}
 		)
 	}
+	
 	/**
 	**	TO Convert array from string
 	**/
@@ -351,6 +364,19 @@ export class JobDetailViewComponent implements OnInit {
 		this.SharedAPIService.onGetSkill(requestParams);
 		 
 	  }
+	  
+	  /**
+	**	To get the language details
+	**/
+	
+	onGetLanguage(query) {
+		let requestParams:any = {};
+		requestParams.page = 1;
+		requestParams.limit = 1000;
+		requestParams.status = 1;
+		requestParams.search = query;
+		this.SharedAPIService.onGetLanguage(requestParams);
+	}
 	  
 	  @HostListener('window:resize', ['$event'])
   onResize(event) {  

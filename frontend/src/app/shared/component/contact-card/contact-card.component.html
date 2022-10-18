@@ -15,12 +15,12 @@
           <small *ngIf="isContactIcon" (click)="onToggleContactInfoModal(true)" class="ml-2" type="button" data-toggle="modal" data-target="#contactModal">
             <i class="fas fa-address-card"></i>
             </small>
-			<small [routerLink]="[ '/user/create-candidate' ]" *ngIf="isEdit" class="ml-2" href="javascript:;" title="Edit" style="font-size: 11px;cursor:pointer;" ><i
+			<small [routerLink]="[ '/user/create-candidate' ]" *ngIf="isEdit && !router.url.includes('admin')" class="ml-2" href="javascript:;" title="Edit" style="font-size: 11px;cursor:pointer;" ><i
             class="fas fa-pencil-alt text-orange"></i></small>
         </h5>
 		<div >
     <div class="media">
-      <img *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" [src]="userInfo?.photo ? userprofilepath+userInfo?.photo : 'assets/images/user-img-icon.jpg'">
+      <img *ngIf="loggedUserInfo?.role && (loggedUserInfo?.role?.includes(0) || loggedUserInfo?.role?.includes(2))" [src]="userInfo?.photo ? userprofilepath+userInfo?.photo : 'assets/images/user-img-icon.jpg'">
       <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1);">
         <ng-container *ngIf="userInfo?.privacy_protection?.photo == true; else elsePhotoTemplate">
           <img [src]="userInfo?.photo ? userprofilepath+userInfo?.photo : 'assets/images/user-img-icon.jpg'">
@@ -133,7 +133,7 @@
           (click)="selectedCover?.file && onToggleCoverForm(true, (selectedCover?.file))" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.coverLetter" | translate }}
           </a>
-		  <a *ngIf="isUploadShow && !selectedCover?.file" 
+		  <a *ngIf="isUploadShow && !selectedCover?.file" [class.disabled]="router.url.includes('admin')"
           (click)="openCoverselect(true)" class="btn btn-smss btn-outline-orange  btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.addCover" | translate }}
           </a>
@@ -143,7 +143,7 @@
           [class.disabled]="!selectedResume?.file"
           (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-smss btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i> {{"shared.resume" | translate }}
-          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="margin-top: .25rem;"
+          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="margin-top: .25rem;"[class.disabled]="router.url.includes('admin')"
          (click)="openResumselect(true)"  id="addResumeFile" 
            class="btn  btn-smss btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.addResume" | translate }}
@@ -282,17 +282,17 @@
           (click)="selectedCover?.file && onToggleCoverForm(true, (selectedCover?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;" style="font-size:12px;">
             <i class="fas fa-file-alt"></i>  {{"shared.coverLetter" | translate }}
           </a>
-		  <a *ngIf="isUploadShow && !selectedCover?.file" 
+		  <a *ngIf="isUploadShow && !selectedCover?.file" [class.disabled]="router.url.includes('admin') || userid!=null"
           (click)="openCoverselect(true)" class="btn btn-outline-blue btn-sm" style="font-size:12px;" href="javascript:;">
             <i class="fas fa-file-alt"></i>  {{"shared.addCover" | translate }}
           </a>
         </span>
         <span *ngIf="isResume" class="profile-btn"  style="display: inline-block;">
-          <a *ngIf="!isUploadShowResume" style="font-size:12px;"
+          <a *ngIf="!isUploadShowResume && selectedResume?.file" style="font-size:12px;"
           [class.disabled]="!selectedResume?.file"
           (click)="selectedResume?.file && onToggleResumeForm(true, (selectedResume?.file))" class="btn btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>{{"shared.resume" | translate }}
-          </a> <a *ngIf="isUploadShowResume && !selectedResume?.file" style="font-size:12px;"
+          </a> <a *ngIf="isUploadShowResume || !selectedResume?.file" style="font-size:12px;"[class.disabled]="router.url.includes('admin') || userid!=null"
          (click)="openResumselect(true)"  id="addResumeFile" 
            class="btn btn-outline-blue btn-sm" href="javascript:;">
             <i class="fas fa-file-alt"></i>{{"shared.addResume" | translate }}

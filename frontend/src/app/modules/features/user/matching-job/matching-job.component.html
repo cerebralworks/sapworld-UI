@@ -1,3 +1,22 @@
+<!-- Sub Header Section -->
+<section class="sub-header mt-1" *ngIf="router.url.includes('admin')">
+	<div class="matchwidths">
+		<div class="row">
+			<div class="col-lg-5 d-flex align-items-center">
+
+				<ol class="breadcrumb">
+				  <li class="breadcrumb-item">
+					<a (click)="onRedirectBack();"   href="javascript:;"><i class="fas fa-chevron-circle-left my-auto mr-1"></i></a>
+				 </li>
+				  <li class="breadcrumb-item active" aria-current="page"> User Profile </li>
+				</ol>
+			</div>
+			<div class="col-lg-7 clearfix">
+			</div>
+		</div>
+	</div>
+</section>
+
 <section class="my-5">
 	<div [ngClass]="(screenWidth >= 1500)?'container-fluid':'container'" >
 		<div class="row mb-5">
@@ -28,7 +47,7 @@
 								<div class="card-body">
 									<div class="clearfix">
 										<div class="float-left">
-											<a href="javascript:;"  [routerLink]="[ '/user/job-matches/details' ]" [queryParams]="{id: item?.id }">
+											<a href="javascript:;"   [routerLink]="[ '/user/job-matches/details' ]" [queryParams]="{id: item?.id, userid:userid}">
 												<h5 class="text-capitalize">{{item?.title}}</h5>
 											</a>
 										</div>
@@ -36,7 +55,7 @@
 											<button [ngClass]="{'applied-btn-green': (item?.is_job_applied ), 'btn-outline-green': !item?.is_job_applied}" [disabled]="item?.is_job_applied " type="button" class="btn btn-sm" (click)="onToggleResumeSelectModals(true, item)"> <i class="fas fa-check"  *ngIf="item?.job_application?.status != 2"></i>
 												<a *ngIf="item?.job_application?.status == 2" style="color: #fff;">{{"shared.hired" | translate}} </a>
 												<a *ngIf="item?.is_job_applied && item?.job_application?.status != 2" style="color: #fff;">{{"shared.applied" | translate}} </a>
-												<a *ngIf="!item?.is_job_applied" >{{"shared.applyNow" | translate}} </a>
+												<a  [class.disabled]="router.url.includes('admin')" *ngIf="!item?.is_job_applied" >{{"shared.applyNow" | translate}} </a>
 											</button>
 										</div>
 									</div>

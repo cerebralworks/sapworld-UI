@@ -334,6 +334,10 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 				this.childForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.skill_id.updateValueAndValidity();
 				this.childForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.setValidators(null);
 				this.childForm.controls.skillSet['controls']['hands_on_experience'].controls[i].controls.experience.updateValueAndValidity();
+				
+				if( (!this.t.value[i]['experience'] || !this.t.value[i]['skill_name']) && i !=0 ){
+				this.t.removeAt(i);
+			}
 			}
 		}
 			if(this.childForm.controls.skillSet.status =="INVALID"){
@@ -632,11 +636,19 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		if(temp.length !=0){
 			this.skillsItems.push(temp[0]);
 		}
-		if (index == 0) {
+		if (index == 0 &&this.t.value.length==1) {
 			//this.t.reset();
 		this.t.controls[0]['controls']['experience'].reset();
 		this.t.controls[0]['controls']['skill_id'].reset();
 		this.t.controls[0]['controls']['skill_name'].reset();
+		if(this.childForm.value.personalDetails.entry===true){
+		this.f.hands_on_experience.controls[0].get('experience').setValidators(null); 
+		this.f.hands_on_experience.controls[0].get('experience').updateValueAndValidity();
+		this.f.hands_on_experience.controls[0].get('skill_id').setValidators(null); 
+		this.f.hands_on_experience.controls[0].get('skill_id').updateValueAndValidity();
+		this.f.hands_on_experience.controls[0].get('skill_name').setValidators(null); 
+		this.f.hands_on_experience.controls[0].get('skill_name').updateValueAndValidity();
+		}
 		} else {
 			this.t.removeAt(index);
 		}

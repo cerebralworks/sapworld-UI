@@ -1,4 +1,4 @@
-<div *ngIf="!isDashboard">
+<div *ngIf="!isDashboard && !router.url.includes('admin')">
   <div class="row mb-5" *ngFor="let item of profileSettings; let i=index">
     <div class="col-lg-4 col-md-6">
 		<h5 *ngIf="item?.field == 'photo'">{{"profileSettings.photo" | translate }}</h5>
@@ -24,7 +24,7 @@
 </div>
 
 
-<div *ngIf="isDashboard">
+<div *ngIf="isDashboard  && !router.url.includes('admin')">
 
   <div class="title">
     <h2>{{"shared.profileSetting" | translate }}</h2>

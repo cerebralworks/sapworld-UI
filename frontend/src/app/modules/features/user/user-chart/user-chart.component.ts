@@ -323,7 +323,8 @@ export class UserChartComponent implements OnInit {
 	onGetAppliedJobsDetails = () => {
       let requestParams: any = {};
       requestParams.page = this.page;
-      requestParams.limit = this.applicantCouuntDetails;
+      //requestParams.limit = this.applicantCouuntDetails;
+      requestParams.limit = 100000;
       requestParams.expand = "job_posting,user,employer";
 	  requestParams.sort = "updated_at.desc";
       this.userService.applicationsListForUser(requestParams).subscribe(

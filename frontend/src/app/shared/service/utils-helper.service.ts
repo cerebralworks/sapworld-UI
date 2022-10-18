@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { SharedService } from './shared.service';
-
+import * as CryptoJS from 'crypto-js';
 declare const require;
 // const bowser = require('bowser');
 
@@ -139,5 +139,29 @@ export class UtilsHelperService {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(", ");
   }
+   
+   //To encrypt string
+   encryptData(data) {
 
+		try {
+		  return CryptoJS.AES.encrypt(JSON.stringify(data), 'SECRETKEY').toString();
+		} catch (e) {
+		  console.log(e);
+		}
+	  }
+	
+	 //To decrypt string
+    decryptData(data) {
+		try {
+		  const bytes = CryptoJS.AES.decrypt(data, 'SECRETKEY');
+		  
+		  if (bytes.toString()) {
+			return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+		  }
+		  return data;
+		} catch (e) {
+		  console.log(e);
+		}
+	  }
+  
 }

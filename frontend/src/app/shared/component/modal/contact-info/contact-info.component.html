@@ -11,7 +11,7 @@
       <h5  *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)">
         {{userInfo?.phone | phone}}
       </h5>
-      <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+      <ng-container *ngIf="loggedUserInfo?.role && (loggedUserInfo?.role?.includes(1) || loggedUserInfo?.role?.includes(2))">
         <ng-container *ngIf="userInfo?.privacy_protection?.phone == true; else elsePhoneTemplate">
           <h5>
             {{userInfo?.phone | phone}}
@@ -30,7 +30,7 @@
       <h5>
         <a *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(0)" href="mailto:{{userInfo?.email}}">{{userInfo?.email}}</a>
 
-        <ng-container *ngIf="loggedUserInfo?.role && loggedUserInfo?.role?.includes(1)">
+        <ng-container *ngIf="loggedUserInfo?.role && (loggedUserInfo?.role?.includes(1) ||  loggedUserInfo?.role?.includes(2) ) ">
           <ng-container *ngIf="userInfo?.privacy_protection?.email == true; else elseEmailTemplate">
             <a href="mailto:{{userInfo?.email}}">{{userInfo?.email}}</a>
           </ng-container>

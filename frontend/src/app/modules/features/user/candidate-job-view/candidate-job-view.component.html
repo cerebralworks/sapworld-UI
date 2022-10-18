@@ -34,7 +34,7 @@
 									</div>
 									<div class="col-lg-5 col-md-5 matches-8 " >
 										<a class="btn btn-sm" *ngIf="postedJobsDetails['status'] == 3"  style="margin-right: 4px;    color: #fff;border-color: #b30606;background: #b71111;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.closed" | translate}}</a>
-										<a class="btn btn-outline-green btn-sm" *ngIf="postedJobsDetails?.is_job_applied == 0" (click)="onToggleResumeSelectModal(true, postedJobsDetails) && postedJobsDetails['status'] == 1" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.apply" | translate}}</a>
+										<a class="btn btn-outline-green btn-sm" *ngIf="postedJobsDetails?.is_job_applied == 0" (click)="onToggleResumeSelectModal(true, postedJobsDetails) && postedJobsDetails['status'] == 1" style="margin-right: 4px;" href="javascript:;" [class.disabled]="router.url.includes('admin')|| userid!=null" ><i class="fas fa-file-alt"></i> {{"shared.apply" | translate}}</a>
 										<!--<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.is_job_applied != 0 && postedJobsDetails?.job_applied?.status != 2" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.applied" | translate}}</a>-->
 										<a class="btn btn-outline-green btn-sm applied-btn-green" *ngIf="postedJobsDetails?.job_applied?.status == 2" style="margin-right: 4px;" href="javascript:;" ><i class="fas fa-file-alt"></i> {{"shared.hired" | translate}}</a>
 										<a class="btn btn-outline-blue btn-sm" (click)="onToggleJDModal(true)" href="javascript:;" style="margin-right: 4px;"><i class="fas fa-file-alt"></i> {{"shared.description" | translate}}</a>

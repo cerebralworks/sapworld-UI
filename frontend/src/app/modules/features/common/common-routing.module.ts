@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/guard/auth.guard';
 import { Role } from '@data/schema/role';
 import { HomeComponent } from './home/home.component';
-
+import {PostedJobComponent} from '@modules/features/employer/posted-job/posted-job.component'
 const routes: Routes = [
   
   {
@@ -84,11 +84,20 @@ const routes: Routes = [
     path: 'terms-and-conditions',
     loadChildren: () =>
       import('@modules/features/common/terms-condition/terms-condition.module').then(m => m.TermsConditionModule)
+  },{
+    path: 'linkedin-share',
+    loadChildren: () =>
+      import('@modules/features/employer/job-detail-view/job-detail-view.module').then(m => m.JobDetailViewModule)
   },
   {
     path: 'cookie-policy',
     loadChildren: () =>
       import('@modules/features/common/cookie-policy/cookie-policy.module').then(m => m.CookiePolicyModule)
+  },
+	{
+    path: 'admin/user-dashboard',
+    loadChildren: () =>
+      import('@modules/features/user/user-dashboard/user-dashboard.module').then(m => m.UserDashboardModule)
   },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
