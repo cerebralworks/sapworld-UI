@@ -16,6 +16,7 @@ import { SharedApiService } from '@shared/service/shared-api.service';
 })
 export class PostedJobComponent implements OnInit {
 	
+	
 	/**
 	**	Variable declaration
 	**/
