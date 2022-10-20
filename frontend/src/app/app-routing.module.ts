@@ -9,7 +9,7 @@ const routes: Routes = [];
     RouterModule.forRoot(routes, {
     scrollPositionRestoration: "enabled",
 	anchorScrolling: 'enabled',
-    useHash: true,
+    useHash: false,
     relativeLinkResolution: 'legacy'
 }),
     LayoutModule

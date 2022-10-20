@@ -53,7 +53,7 @@ export class PostedJobComponent implements OnInit {
 		private router: Router,
 		private modelService: NgbModal,
 		private utilsHelperService: UtilsHelperService,
-		private meta:Meta,
+		private metaService:Meta,
 		private titleService:Title,
 		private route:ActivatedRoute,
 		private SharedAPIService: SharedApiService,
