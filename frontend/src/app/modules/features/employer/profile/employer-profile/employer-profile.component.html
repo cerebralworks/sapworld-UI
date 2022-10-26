@@ -36,7 +36,7 @@
                 {{companyProfileInfo?.website}}
               </h6>
               <h4 *ngIf="companyProfileInfo?.social_media_link?.length">
-                <a class="mr-1" *ngFor="let item of companyProfileInfo?.social_media_link" href="{{item.url}}" target="_blank">
+                <a class="mr-1" *ngFor="let item of companyProfileInfo?.social_media_link" href="{{item.url?.includes('http' || 'https') ? item.url : '//'+item.url}}" target="_blank">
                   <ng-container [ngSwitch]="item?.media">
                     <ng-container *ngSwitchCase="'youtube'">
                       <i class="fab fa-youtube-square"></i>
