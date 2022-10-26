@@ -96,10 +96,10 @@ console.log(event);
    */
 	ngOnInit(): void {
 	//debugging	
-		this.titleService.setTitle('home component changes');
+		/*this.titleService.setTitle('home component changes');
     this.meta.updateTag(
       { property: 'og:title', content:'home component changes' }
-    );
+    );*/
 	
 		this.onCreateForm();
 		this.accountService
