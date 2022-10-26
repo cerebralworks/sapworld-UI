@@ -176,7 +176,7 @@ export class PostedJobComponent implements OnInit {
 	  //var a=id.toString();
 	  const encrypt = this.utilsHelperService.encryptData(id);
 	   //this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/linkedin-share?id=`)+encodeURIComponent(encrypt);
-	   	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}linkedin-share?id=`)+encodeURIComponent(encrypt);
+	   	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?id=`)+encodeURIComponent(encrypt);
 	  // console.log(encodeURIComponent(encrypt))
 		this.isShareModel=true;
 		setTimeout(() => {
