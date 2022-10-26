@@ -70,9 +70,9 @@ export class PostedJobComponent implements OnInit {
 	**/
 	 	 
 	ngOnInit(): void {
-	    /*this.titleService.setTitle('postedjob');
-        this.metaService.updateTag({property: 'og:title', content: 'postedjob'});
-        this.metaService.updateTag({name: 'title', content: 'postedjob'});*/
+	    this.titleService.setTitle('postedjob component page');
+        this.metaService.updateTag({property: 'og:title', content: 'postedjob component page'});
+      
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
