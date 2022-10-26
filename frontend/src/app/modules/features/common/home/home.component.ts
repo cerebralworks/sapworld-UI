@@ -15,6 +15,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { concat, fromEvent, Observable, of, Subject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 // import { concat, Observable, of, Subject, throwError } from 'rxjs';
+import { Title, Meta } from '@angular/platform-browser';
 
 
 @Component({
@@ -79,7 +80,9 @@ export class HomeComponent extends CacheService implements OnInit, AfterViewInit
     private formBuilder: FormBuilder,
     private userService: UserService,
     public utilsHelperService: UtilsHelperService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+	private meta?:Meta,
+	private titleService?:Title,
   ) {
     super();
   }
@@ -92,6 +95,12 @@ console.log(event);
    * To initialize the page
    */
 	ngOnInit(): void {
+	//debugging	
+		this.titleService.setTitle('home component changes');
+    this.meta.updateTag(
+      { property: 'og:title', content:'home component changes' }
+    );
+	
 		this.onCreateForm();
 		this.accountService
 		  .isCurrentUser()
