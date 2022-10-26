@@ -70,9 +70,9 @@ export class PostedJobComponent implements OnInit {
 	**/
 	 	 
 	ngOnInit(): void {
-	    this.titleService.setTitle('postedjob');
+	    /*this.titleService.setTitle('postedjob');
         this.metaService.updateTag({property: 'og:title', content: 'postedjob'});
-        this.metaService.updateTag({name: 'title', content: 'postedjob'});
+        this.metaService.updateTag({name: 'title', content: 'postedjob'});*/
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
@@ -176,7 +176,7 @@ export class PostedJobComponent implements OnInit {
 	  //var a=id.toString();
 	  const encrypt = this.utilsHelperService.encryptData(id);
 	   //this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/linkedin-share?id=`)+encodeURIComponent(encrypt);
-	   	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?id=`)+encodeURIComponent(encrypt);
+	   	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}linkedin-share?id=`)+encodeURIComponent(encrypt);
 	  // console.log(encodeURIComponent(encrypt))
 		this.isShareModel=true;
 		setTimeout(() => {
