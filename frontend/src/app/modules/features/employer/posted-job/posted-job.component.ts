@@ -169,8 +169,8 @@ export class PostedJobComponent implements OnInit {
 	openshare(id,title){
 	
 	 const encrypt = this.utilsHelperService.encryptData(id);
-	  //let url=`${env.clientUrl}/social-share?job=`+encodeURIComponent(title)+'&id='+encrypt;
-	  let url=`${env.clientUrl}/social-share?job=`+encodeURIComponent(title);
+	  let url=`${env.clientUrl}/social-share?job=`+encodeURIComponent(title)+'&id='+encrypt;
+	  //let url=`${env.clientUrl}/social-share?job=`+encodeURIComponent(title);
 	  window.open(url, '_blank');
 	  
 	  
