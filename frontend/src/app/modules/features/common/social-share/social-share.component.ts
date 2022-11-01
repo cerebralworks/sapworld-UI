@@ -16,8 +16,8 @@ export class SocialShareComponent implements OnInit {
   ngOnInit(): void {
      this.jobName=this.route.snapshot.queryParamMap.get('job');
 	 const encrypt = this.route.snapshot.queryParamMap.get('id');
-	   //this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?id=`)+encodeURIComponent(encrypt);
-	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?job=`)+encodeURIComponent(this.jobName)+'&id='+encodeURIComponent(encrypt);
+	  var id=encrypt.replace(/\s/g, '+');
+	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?job=`)+encodeURIComponent(this.jobName)+'&id='+id;
   }
 
 }
