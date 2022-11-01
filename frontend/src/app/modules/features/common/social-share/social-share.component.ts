@@ -17,7 +17,7 @@ export class SocialShareComponent implements OnInit {
      this.jobName=this.route.snapshot.queryParamMap.get('job');
 	 const encrypt = this.route.snapshot.queryParamMap.get('id');
 	  var id=encrypt.replace(/\s/g, '+');
-	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?job=`)+encodeURIComponent(this.jobName)+'&id='+id;
+	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?job=`)+encodeURIComponent(this.jobName+'&id='+id);
   }
 
 }
