@@ -57,9 +57,10 @@ export class AppComponent {
 
   ngOnInit(): void {
   //To change dynamic job title
-  if(this.document.location.pathname=='/linkedin-share'){
-	   var job=decodeURIComponent(this.document.location.search.split('job=')[1].split('&id')[0]);
-	   //var job=decodeURIComponent(this.document.location.search.split('=')[1]);
+   if(this.document.location.pathname=='/social-share'){
+	   let job=decodeURIComponent(this.document.location.search.split('job=')[1].split('&id')[0]);
+	    job =job.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
+	  // var job=decodeURIComponent(this.document.location.search.split('=')[1]);
 	   this.titleService.setTitle(job);
        this.metaService.updateTag({property: 'og:title', content: job});
        this.metaService.updateTag({name: 'title', content: job});
@@ -128,7 +129,7 @@ setUpAnalytics() {
         if(this.loggedInResponse && (this.loggedInResponse.isLoggedIn == false)) {
           this.validateCall = 0;
         }else if(this.loggedInResponse && this.loggedInResponse.isLoggedIn === true){
-			if(!this.router.url.includes('/auth') && !this.router.url.includes('/user') && !this.router.url.includes('/employer') && !this.router.url.includes('/notification') && this.loggedInResponse.role[0] !==2 && !this.router.url.includes('linkedin-share') && !this.router.url.includes('social-share')){
+			if(!this.router.url.includes('/auth') && !this.router.url.includes('/user') && !this.router.url.includes('/employer') && !this.router.url.includes('/notification') && this.loggedInResponse.role[0] !==2 && !this.router.url.includes('/linkedin-share') && !this.router.url.includes('/social-share')){
 		      this.router.navigate([redir]);
 		    }
 		}
