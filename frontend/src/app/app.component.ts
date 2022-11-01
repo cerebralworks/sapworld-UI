@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Inject } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { LoggedIn } from '@data/schema/account';
