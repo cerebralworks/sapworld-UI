@@ -15,6 +15,8 @@ import { PushNotificationsService } from '@shared/service/notification.service';
 declare let gtag: Function;
 import * as moment from 'moment';
 import { filter } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
+import { Title, Meta } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -45,12 +47,23 @@ export class AppComponent {
     private userSharedService?: UserSharedService,
     private route?: ActivatedRoute,
     private ngxService?: NgxUiLoaderService,
-	private _notificationService?: PushNotificationsService
+	private _notificationService?: PushNotificationsService,
+	private metaService?:Meta,
+	@Inject(DOCUMENT) private document?: any,
+    private titleService?:Title
   ) { this._notificationService.requestPermission();
       this.checkUserLoggedIn();   
   }
 
   ngOnInit(): void {
+  //To change dynamic job title
+  if(this.document.location.pathname=='/social-share'){
+	   var job=decodeURIComponent(this.document.location.search.split('job=')[1].split('&id')[0]);
+	   this.titleService.setTitle(job);
+       this.metaService.updateTag({property: 'og:title', content: job});
+       this.metaService.updateTag({name: 'title', content: job});
+	 }
+	 
   this.setUpAnalytics();
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';

@@ -7,7 +7,6 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {PageEvent} from '@angular/material/paginator';
 import { environment as env } from '@env';
-import { Title, Meta } from '@angular/platform-browser';
 import { SharedApiService } from '@shared/service/shared-api.service';
 @Component({
   selector: 'app-posted-job',
@@ -54,8 +53,6 @@ export class PostedJobComponent implements OnInit {
 		private router: Router,
 		private modelService: NgbModal,
 		private utilsHelperService: UtilsHelperService,
-		private metaService:Meta,
-		private titleService:Title,
 		private route:ActivatedRoute,
 		private SharedAPIService: SharedApiService,
 	) { 
@@ -70,9 +67,6 @@ export class PostedJobComponent implements OnInit {
 	**/
 	 	 
 	ngOnInit(): void {
-	    this.titleService.setTitle('postedjob component page');
-        this.metaService.updateTag({property: 'og:title', content: 'postedjob component page'});
-      
 		this.router.routeReuseStrategy.shouldReuseRoute = () => {
 			return false;
 		};
@@ -172,8 +166,14 @@ export class PostedJobComponent implements OnInit {
 	}
 	
 	/** To Open share Popup*/	
-	openshare(id){
-	  //var a=id.toString();
+	openshare(id,title){
+	
+	 const encrypt = this.utilsHelperService.encryptData(id);
+	  let url=`${env.clientUrl}/social-share?job=`+encodeURIComponent(title)+'&id='+encrypt;
+	  window.open(url, '_blank');
+	  
+	  
+	  /*//var a=id.toString();
 	  const encrypt = this.utilsHelperService.encryptData(id);
 	   //this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/linkedin-share?id=`)+encodeURIComponent(encrypt);
 	   	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?id=`)+encodeURIComponent(encrypt);
@@ -185,7 +185,7 @@ export class PostedJobComponent implements OnInit {
 					centered: true,
 					keyboard: false
 				});
-		});
+		});*/
 	}
 	
 	/** To Close share Popup*/

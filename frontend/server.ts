@@ -46,8 +46,18 @@ export function app() {
   }));
 
   // All regular routes use the Universal engine
-  server.get('*', (req, res) => {
+  /*server.get('*', (req, res) => {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+  });*/
+  
+  // Will do SSR
+  server.get('/social-share', (req, res) => {
+    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+  });
+  
+  // This route will do CSR
+ server.get('*', (req, res) => {
+    res.sendFile(join(distFolder, 'index.html'));
   });
 
   return server;
