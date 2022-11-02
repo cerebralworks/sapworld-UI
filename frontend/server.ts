@@ -55,40 +55,7 @@ export function app() {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });*/
   server.get('/linkedin-share', (req, res) => {
-    /*res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });*/
-	
-	const timeoutAfter = 1000; // timeout after 1s
-    const indexFile = join(distFolder, 'index.html');
-
-    let isActive = setTimeout(() => {
-      console.error(`TIMEOUT after ${timeoutAfter}ms on `, req.url);
-      isActive = null;
-      const html = readFileSync(indexFile).toString() + '<!-- data-cy=error-timeout -->';
-      res.status(200).send(html);
-    }, timeoutAfter)
-
-    res.render(
-      indexHtml,
-      {
-        req,
-        res,
-      },
-      (err: Error, html: string) => {
-        if(err) console.error(err);
-        if(isActive) {
-          clearTimeout(isActive); // clear timeout if response comes first
-        } else {
-          return; // if timeout, response is already sent
-        }
-
-        if(!html) {
-          // if there is error, just render index.html, it's better then 500 error
-          html = readFileSync(indexFile).toString() + '<!-- data-cy=error -->';
-        }
-        res.status(200).send(html);
-      },
-    );
-	
+    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
   
   // This route will do CSR
