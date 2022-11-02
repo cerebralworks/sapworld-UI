@@ -58,8 +58,7 @@ export class AppComponent {
   ngOnInit(): void {
   //To change dynamic job title
   if(this.document.location.pathname=='/linkedin-share'){
-	   let a=decodeURIComponent(this.document.location.search.split('job=')[1].split('&id')[0]);
-	   let job = a.replaceAll('-',' ');
+	   var job=decodeURIComponent(this.document.location.search.split('job=')[1].split('&id')[0]);
 	   //var job=decodeURIComponent(this.document.location.search.split('=')[1]);
 	   this.titleService.setTitle(job);
        this.metaService.updateTag({property: 'og:title', content: job});
