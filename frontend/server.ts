@@ -55,7 +55,15 @@ export function app() {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });*/
   server.get('/linkedin-share', (req, res) => {
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] }, (err: Error, html: string) =>
+{
+
+  if(!html)
+  {
+      res.status(500);
+  }
+  res.send(html || err.message);
+});
   });
   
   // This route will do CSR
