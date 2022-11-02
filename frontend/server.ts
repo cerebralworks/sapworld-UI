@@ -51,20 +51,12 @@ export function app() {
   });*/
   
   // Will do SSR
-  /*server.get('/social-share', (req, res) => {
+  server.get('/social-share', (req, res) => {
+    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+  });
+  /*server.get('/linkedin-share', (req, res) => {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });*/
-  server.get('/linkedin-share', (req, res) => {
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] }, (err: Error, html: string) =>
-{
-
-  if(!html)
-  {
-      res.status(500);
-  }
-  res.send(html || err.message);
-});
-  });
   
   // This route will do CSR
  server.get('*', (req, res) => {
