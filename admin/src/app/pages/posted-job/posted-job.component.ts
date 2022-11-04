@@ -12,7 +12,7 @@ export class PostedJobComponent implements OnInit {
   constructor(private router:Router,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-  var url=`${env.app_url}#/admin/employer-dashboard?activeTab=postedJobs&empids=`+this.router.url.split('/')[this.router.url.split('/').length-1];;
+  var url=`${env.app_url}admin/employer-dashboard?activeTab=postedJobs&empids=`+this.router.url.split('/')[this.router.url.split('/').length-1];;
 	  this.urlFrame=this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   

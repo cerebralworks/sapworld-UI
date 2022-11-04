@@ -15,11 +15,11 @@ console.log(baseUrl);
 export const environment = {
   production: true,
   serverUrl: 'http://149.56.180.254:5000',
-  subPath: '/admin',
+  subPath: '/administration',
   envName: 'PROD',
   API_URL: 'assets/api',
   clientUrl: `${baseUrl}`,
-  adminUrl: 'http://149.56.180.254/admin',
+  adminUrl: 'http://149.56.180.254/administration',
   app_url: 'http://149.56.180.254/',
   apiPath: 'http://149.56.180.254:5000',
   appVersion: 'v717demo1',

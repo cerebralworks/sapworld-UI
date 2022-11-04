@@ -10,7 +10,7 @@ export const environment = {
   membershipUrl: 'https://api.calendly.com/organization_memberships',
   eventUrl: 'https://api.calendly.com/event_types',
   serverUrl:`${baseUrl}:5000`,
-  adminUrl: `${baseUrl}/admin`,
+  adminUrl: `${baseUrl}/administration`,
    apiUrl: `${baseUrl}:5000`,
   envName: 'PROD',
   API_URL: 'assets/api',

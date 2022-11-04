@@ -18,7 +18,7 @@ export class JobseekerViewComponent implements OnInit {
 
 
   ngOnInit(): void {
-	  var url=`${env.app_url}#/admin/user-dashboard?activeTab=profile&userid=`+this.router.url.split('/')[this.router.url.split('/').length-1];
+	  var url=`${env.app_url}admin/user-dashboard?activeTab=profile&userid=`+this.router.url.split('/')[this.router.url.split('/').length-1];
 	  //var url=`${env.app_url}#/admin/user-dashboard?activeTab=profile`;
 	  this.urlFrame=this.sanitizer.bypassSecurityTrustResourceUrl(url);
 		console.log('url',this.urlFrame);
