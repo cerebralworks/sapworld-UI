@@ -9,11 +9,13 @@ const routes: Routes = [];
     RouterModule.forRoot(routes, {
     scrollPositionRestoration: "enabled",
 	anchorScrolling: 'enabled',
-    useHash: true,
-    relativeLinkResolution: 'legacy'
+    useHash: false,
+    relativeLinkResolution: 'legacy',
+	initialNavigation:'enabled'
 }),
     LayoutModule
   ],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

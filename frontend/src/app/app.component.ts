@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Inject } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AppGlobals } from '@config/app.global';
 import { LoggedIn } from '@data/schema/account';
@@ -15,6 +15,8 @@ import { PushNotificationsService } from '@shared/service/notification.service';
 declare let gtag: Function;
 import * as moment from 'moment';
 import { filter } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
+import { Title, Meta } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -45,12 +47,24 @@ export class AppComponent {
     private userSharedService?: UserSharedService,
     private route?: ActivatedRoute,
     private ngxService?: NgxUiLoaderService,
-	private _notificationService?: PushNotificationsService
+	private _notificationService?: PushNotificationsService,
+	private metaService?:Meta,
+	@Inject(DOCUMENT) private document?: any,
+    private titleService?:Title
   ) { this._notificationService.requestPermission();
       this.checkUserLoggedIn();   
   }
 
   ngOnInit(): void {
+  //To change dynamic job title
+  if(this.document.location.pathname=='/linkedin-share'){
+	   var job=decodeURIComponent(this.document.location.search.split('job=')[1].split('&id')[0]);
+	   //var job=decodeURIComponent(this.document.location.search.split('=')[1]);
+	   this.titleService.setTitle(job);
+       this.metaService.updateTag({property: 'og:title', content: job});
+       this.metaService.updateTag({name: 'title', content: job});
+	 }
+	 
   this.setUpAnalytics();
     this.returnEmployerUrl = this.route.snapshot.queryParams['redirect'] || '/employer/dashboard';
     this.returnUserUrl = this.route.snapshot.queryParams['redirect'] || '/user/dashboard';
@@ -114,8 +128,8 @@ setUpAnalytics() {
         if(this.loggedInResponse && (this.loggedInResponse.isLoggedIn == false)) {
           this.validateCall = 0;
         }else if(this.loggedInResponse && this.loggedInResponse.isLoggedIn === true){
-			if(!this.router.url.includes('/auth') && !this.router.url.includes('/user') && !this.router.url.includes('/employer') && !this.router.url.includes('/notification') && this.loggedInResponse.role[0] !==2){
-		       this.router.navigate([redir]);
+			if(!this.router.url.includes('/auth') && !this.router.url.includes('/user') && !this.router.url.includes('/employer') && !this.router.url.includes('/notification') && this.loggedInResponse.role[0] !==2 && !this.router.url.includes('/linkedin-share') && !this.router.url.includes('/social-share')){
+		      this.router.navigate([redir]);
 		    }
 		}
         this.getUserInfo();

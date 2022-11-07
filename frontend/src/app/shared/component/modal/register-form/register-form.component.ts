@@ -7,6 +7,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { Subscription } from 'rxjs';
 import { LoggedIn } from '@data/schema/account';
+import { UtilsHelperService } from '@shared/service/utils-helper.service';
 declare let gtag: Function;
 @Component({
   selector: 'app-register-form',
@@ -37,6 +38,7 @@ export class RegisterFormComponent implements OnInit {
     private route: ActivatedRoute,
     private accountService: AccountService,
     public sharedService: SharedService,
+	public utilsHelperService: UtilsHelperService,
   ) { }
 
   ngOnInit(): void {
@@ -66,7 +68,7 @@ export class RegisterFormComponent implements OnInit {
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 1) {
         this.registerForm.get('companyName').setValidators([Validators.required,ValidationService.StartingEmptyStringValidator]);
-        this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator, ValidationService.noFreeEmail]);
+        this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator]);
         this.registerForm.get('companyName').updateValueAndValidity();
       }else {
         this.registerForm.get('companyName').setValidators(null);
@@ -169,10 +171,9 @@ export class RegisterFormComponent implements OnInit {
   onGenerateRes = () => {
   const userInfo = this.registerForm.value;
   let requestParams: any = {};
-  if(this.route.snapshot.queryParams['redirect']){
-	   var temps = this.route.snapshot.queryParams['redirect'].split('/');
-	   var id_val = temps[temps.length-1].split('&')[0].split('?')[1].split('=')[1];
-	   requestParams.share_id = parseInt(id_val);
+  if(this.route.snapshot.queryParams['linkedin'] !=undefined){
+       var decode = this.route.snapshot.queryParams['linkedin'].replaceAll(' ','+');
+	   requestParams.share_id = this.utilsHelperService.decryptData(decode);
    }
     requestParams.first_name = userInfo.firstName;
     requestParams.last_name = userInfo.lastName;

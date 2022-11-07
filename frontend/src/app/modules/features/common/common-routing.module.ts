@@ -99,6 +99,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('@modules/features/user/user-dashboard/user-dashboard.module').then(m => m.UserDashboardModule)
   },
+  {
+    path: 'social-share',
+    loadChildren: () =>
+      import('@modules/features/common/social-share/social-share.module').then(m => m.SocialShareModule)
+  },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 
