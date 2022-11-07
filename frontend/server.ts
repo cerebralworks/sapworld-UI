@@ -6,8 +6,8 @@ import * as express from 'express';
 import { join } from 'path';
 import 'localstorage-polyfill';
 import { existsSync ,readFileSync } from 'fs';
-const fs = require("fs");
-import * as https from 'https';
+//const fs = require("fs");
+//import * as https from 'https';
 const distFolder1 = join(process.cwd(), 'dist/sap-world/browser');
 const indexHtml1 = existsSync(join(distFolder1, 'index.original.html')) ? 'index.original.html' : 'index.html';
 const template = readFileSync(join(distFolder1, indexHtml1)).toString();
@@ -70,14 +70,14 @@ export function app() {
 
 function run() {
   const port = process.env.PORT || 4000;
-  const options ={
+ /* const options ={
     key: fs.readFileSync("/var/www/certificate/server.key", "utf8"),
     cert: fs.readFileSync("/var/www/certificate/server.crt", "utf8"),
     ca: [fs.readFileSync("/var/www/certificate/server.ca-bundle", "utf8")]
-  }
+  }*/
   // Start up the Node server
-  //const server = app();
-  const server = https.createServer(options, app());
+  const server = app();
+  //const server = https.createServer(options, app());
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
