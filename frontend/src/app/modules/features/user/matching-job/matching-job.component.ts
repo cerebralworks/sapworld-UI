@@ -412,8 +412,8 @@ export class MatchingJobComponent implements OnInit {
 				if(this.userInfo.experience >= requestParams.min_experience && !(this.userInfo.experience >= requestParams.max_experience) ){
 					requestParams.max_experience = this.userInfo.experience
 				}if(!(this.userInfo.experience > requestParams.min_experience) && !(this.userInfo.experience > requestParams.max_experience) ){
-					requestParams.min_experience = 100
-					requestParams.max_experience = 101
+					//requestParams.min_experience = 100
+					//requestParams.max_experience = 101
 				}
 			}
 		}
