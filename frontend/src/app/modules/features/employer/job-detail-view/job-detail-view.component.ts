@@ -112,15 +112,22 @@ export class JobDetailViewComponent implements OnInit {
 		.isCurrentUser()
 		.subscribe(response => {
 			this.loggedUserInfo = response;
-			if(response.role.includes(1) && this.router.url.includes('linkedin-share')){
-			  this.router.navigate(['/employer/job-detail-view/details'], { queryParams: { id: jobId } })
-			}else if(response.role.includes(0) && this.router.url.includes('linkedin-share')){
-			   this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': jobId }});
-			}
 		});
 	}
 	
-
+	goNavigate(){
+	     var jobId=sessionStorage.getItem('view-job-id');
+	      if(this.loggedUserInfo.role.includes(1) && this.router.url.includes('linkedin-share')){
+			  this.router.navigate(['/employer/job-detail-view/details'], { queryParams: { id: jobId } })
+			}else if(this.loggedUserInfo.role.includes(0) && this.router.url.includes('linkedin-share')){
+			   this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': jobId }});
+			}else{
+			 sessionStorage.setItem('linkedin',this.utilsHelperService.encryptData(jobId));
+			 this.router.navigate(['/'])
+			}
+	
+	}
+	
 	/**
 	**	To back button triggers
 	**	Assign set pathname

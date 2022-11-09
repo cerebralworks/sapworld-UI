@@ -166,27 +166,21 @@ export class PostedJobComponent implements OnInit {
 	}
 	
 	/** To Open share Popup*/	
-	openshare(id,title){
 	
-	 const encrypt = this.utilsHelperService.encryptData(id);
-	  //let url=`${env.clientUrl}/social-share?job=`+encodeURIComponent(title)+'&id='+encrypt;
-	  let url=`${env.clientUrl}/social-share?job=`+encodeURIComponent(title)+'&id='+encodeURIComponent(encrypt);
-	  window.open(url, '_blank');
-	  
-	  
-	  /*//var a=id.toString();
+	openshare(id,title){
+	 
 	  const encrypt = this.utilsHelperService.encryptData(id);
-	   //this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/#/linkedin-share?id=`)+encodeURIComponent(encrypt);
-	   	   this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?id=`)+encodeURIComponent(encrypt);
-	  // console.log(encodeURIComponent(encrypt))
-		this.isShareModel=true;
+	  var jbName=title.trim().replace(/\s/g, '-');
+	  this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?job=${jbName}&id=${encrypt}`);
+	    this.isShareModel=true;
 		setTimeout(() => {
 		 this.mbRef1 = this.modelService.open(this.shareModal, {
 					windowClass: 'modal-holder',
 					centered: true,
 					keyboard: false
 				});
-		});*/
+		});
+		console.log(encrypt)
 	}
 	
 	/** To Close share Popup*/
