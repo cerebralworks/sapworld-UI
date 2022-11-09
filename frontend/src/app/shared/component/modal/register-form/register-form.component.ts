@@ -68,7 +68,7 @@ export class RegisterFormComponent implements OnInit {
       const currentRole = this.sharedService.getCurrentRoleFromUrl();
       if(currentRole.roleId == 1) {
         this.registerForm.get('companyName').setValidators([Validators.required,ValidationService.StartingEmptyStringValidator]);
-        this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator]);
+        this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator, ValidationService.noFreeEmail]);
         this.registerForm.get('companyName').updateValueAndValidity();
       }else {
         this.registerForm.get('companyName').setValidators(null);
@@ -192,7 +192,7 @@ export class RegisterFormComponent implements OnInit {
 	  firstName: ['', Validators.compose([Validators.required,ValidationService.StartingEmptyStringValidator,Validators.minLength(3)])],
       lastName: ['', [Validators.required,ValidationService.emptyStringValidator]],
 	  companyName: [''],
-      email: ['', [Validators.required, ValidationService.emailValidator]],
+      email: ['', [Validators.required, ValidationService.emailValidator,ValidationService.noFreeEmail]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       
       isAgreed: ['',Validators.required]
