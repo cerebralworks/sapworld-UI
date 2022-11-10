@@ -676,11 +676,11 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-radius: 15px;
 }
 .page-item.disabled .page-link {
-    color: #385edf;
+    color: #adafb1;
     pointer-events: none;
     cursor: auto;
     background-color: #fff;
-    border-color: #dee2e6;
+    border-color: #adafb1;
     border: none;
 }
 .page-link {
@@ -883,9 +883,18 @@ div.dataTables_wrapper div.dataTables_filter input {
     padding: 1.25rem;
 	background: #fcfcfc;
 }
+@media (min-width: 1200px) and (max-width: 1300px) {
+  .tablescreens{
+	   width:90% !important;
+	  
+  }
+  body {
+	  overflow-x:hidden !important;
+  }
+}
 @media (min-width: 1300px) and (max-width: 1400px) {
   .tablescreens{
-	  width:97% !important;
+	   width:97% !important;
 	  
   }
   body {
