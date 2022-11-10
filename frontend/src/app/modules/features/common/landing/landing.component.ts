@@ -93,6 +93,7 @@ console.log(event);
    * To initialize the page
    */
 	ngOnInit(): void {
+	   
 		this.onCreateForm();
 		this.accountService
 		  .isCurrentUser()
@@ -303,7 +304,7 @@ console.log(event);
     }
   }
  onRedirectUrl = (url:string) => {
-      this.router.navigate([url])
+    this.router.navigate([url],{queryParams:{'linkedin':sessionStorage.getItem('linkedin')}})
   }
   
   onReturnIDFronArray = (arrayOfObj: any [] =[], field: string, isString: boolean = false) => {

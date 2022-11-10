@@ -153,7 +153,8 @@ export class LoginFormComponent implements OnInit {
 				});
 		  }
         }, error => {
-			this.toastr.error('Invalid username or password combination.');
+		    var user=this.checkrole==0?'jobseeker': 'employer';
+			this.toastr.error(`Invalid username or password for ${user}.`);
           this.isLoading = false;
           this.showError = true;
         }
