@@ -885,19 +885,20 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 @media (min-width: 1200px) and (max-width: 1300px) {
   .tablescreens{
-	   width:90% !important;
+	   width:91% !important;
 	  
   }
-  body {
-	  overflow-x:hidden !important;
-  }
+ 
 }
 @media (min-width: 1300px) and (max-width: 1400px) {
   .tablescreens{
 	   width:97% !important;
 	  
   }
-  body {
+  
+}
+@media (min-width: 1200px){
+	body {
 	  overflow-x:hidden !important;
   }
 }

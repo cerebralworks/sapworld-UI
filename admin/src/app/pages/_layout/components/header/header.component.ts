@@ -138,9 +138,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 		  if(idName.indexOf('sidebar-icon-only') !=-1){
 			  document.getElementById('kt_body').className = 'page-loaded ';
 			  document.getElementById('emppage').className = 'main-panel tablescreens';
+			  document.getElementById('jspage').className = 'main-panel tablescreens';
 		  }else{
 			  document.getElementById('kt_body').className = 'page-loaded sidebar-icon-only';
 			  document.getElementById('emppage').className = 'main-panel';
+			  document.getElementById('jspage').className = 'main-panel';
 		  }
 	  }
   }
