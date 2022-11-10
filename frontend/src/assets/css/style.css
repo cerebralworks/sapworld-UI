@@ -4061,7 +4061,31 @@ policy-sec {
 .e-quick-popup-wrapper .e-event-popup .e-date-time{
 	display:none !important;
 }
+/** Fade right**/
+@keyframes rightfade {
+  from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+}
+.rightfades{
+  animation: rightfade 1.1s;
+}
 
+/** Fade left**/
+@keyframes leftfade {
+  from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+}
+.leftfades{
+  animation: leftfade 1.1s;
+}
 
 
 
