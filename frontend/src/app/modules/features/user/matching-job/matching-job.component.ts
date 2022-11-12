@@ -155,7 +155,9 @@ export class MatchingJobComponent implements OnInit {
 				this.userSharedService.getUserProfileDetails().subscribe(
 			response => {
 				this.userInfo = response;
-				this.onGetPostedJob('');
+				if(this.userInfo.id){
+					this.onGetPostedJob('');	
+				}
 				if(this.userInfo && this.userInfo.skills && this.userInfo.skills.length && this.validateAPI == 0) {
           
 				}
