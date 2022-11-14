@@ -180,7 +180,7 @@ setUpAnalytics() {
 						document.getElementById('notifi_count')['style']['display']='block';
 						document.getElementById('notifi_color')['style']['display']='block';
 						document.getElementById('notifi_count')['innerHTML']=this.totalValue;
-						if((this.userProfileInfo['details']['privacy_protection']['employer_mail_send']===true && data[0]['title'] === "Job Invitation") || (this.userProfileInfo['details']['privacy_protection']['new_match']===true && data[0]['title'] === "New Job Matches")){
+						if(((this.userProfileInfo['details']['privacy_protection']['employer_mail_send']===true && data[data.length-1]['title'] === "Job Invitation") || (this.userProfileInfo['details']['privacy_protection']['new_match']===true && data[data.length-1]['title'] === "New Job Matches") || (this.userProfileInfo['details']['privacy_protection']['profile_shortlisted']===true && data[data.length-1]['title'] === "Application Shortlisted") || (this.userProfileInfo['details']['privacy_protection']['profile_rejected']===true && data[data.length-1]['title'] === "Application Not fit for this job") || (this.userProfileInfo['details']['privacy_protection']['interview_scheduled']===true && data[data.length-1]['title'] === "New schedule status") || (this.userProfileInfo['details']['privacy_protection']['interview_scheduled']===true && data[data.length-1]['title'] === "New Meeting Link")) && data.length!=0){
 						this._notificationService.generateNotification(data);
 						}
 					}else{
@@ -221,7 +221,7 @@ setUpAnalytics() {
 						document.getElementById('notifi_count')['style']['display']='block';
 						document.getElementById('notifi_color')['style']['display']='block';
 						document.getElementById('notifi_count')['innerHTML']=this.totalValue;
-						if((this.employerProfileInfo['details']['privacy_protection']['new_match']===true && data[0]['title'] === "New User Matches") || (this.employerProfileInfo['details']['privacy_protection']['new_candidate_applied']===true && data[0]['title'] === "New Application Request")){
+						if(((this.employerProfileInfo['details']['privacy_protection']['new_match']===true && data[data.length-1]['title'] === "New User Matches") || (this.employerProfileInfo['details']['privacy_protection']['new_match']===true && data[data.length-1]['title'] === "Multiple User Matches") || (this.employerProfileInfo['details']['privacy_protection']['new_candidate_applied']===true && data[data.length-1]['title'] === "New Application Request") || (this.employerProfileInfo['details']['privacy_protection']['matching_canditate_respond']===true && data[data.length-1]['title'] != "")) && data.length!=0){
 						this._notificationService.generateNotification(data);
 						}
 					}else{

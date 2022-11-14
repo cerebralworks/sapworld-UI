@@ -66,7 +66,7 @@ export class PushNotificationsService {
         let self = this;
         source.forEach((item) => {
             let options = {
-                body: item.alertContent,
+                body: item.alertContent.replaceAll("//",""),
                 icon: "assets/images/logo.png"
             };
 			if(item.title){
