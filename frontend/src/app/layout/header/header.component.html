@@ -16,7 +16,7 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-2" style="display: contents;">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!router.url.includes('linkedin-share')">
           <a href="https://www.linkedin.com/" target="_blank" class="m-1 btn btn-sm btn-secondary"><i class="fab fa-linkedin-in"></i></a>
           </li>	
           <!--<li class="nav-item">
