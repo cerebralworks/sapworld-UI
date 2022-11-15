@@ -105,7 +105,7 @@
         </div>
         <app-shared-job-profile [jobInfo]="postedJobsDetails" [fieldsExclude]="{salary: true, visa_sponsorship: true, end_to_end_implementation: true}">
         </app-shared-job-profile>
-		<a *ngIf="router.url.includes('linkedin-share')" class="btn btn-smss btn-outline-green btn-md float-right" (click)="goNavigate()">Apply / View Job</a>
+		<a *ngIf="router.url.includes('linkedin-share')" class="btn btn-smss btn-outline-green btn-md float-right" (click)="goNavigate()">Apply</a>
       </div>
       <div class="col-lg-4 col-md-4 matches-8" >
 		<div class="title" *ngIf="postedJobsDetails?.screening_process && postedJobsDetails?.screening_process.length">

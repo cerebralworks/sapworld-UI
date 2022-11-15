@@ -123,7 +123,7 @@ export class JobDetailViewComponent implements OnInit {
 			   this.router.navigate(['/user/job-matches/details'], {queryParams: {'id': jobId }});
 			}else{
 			 sessionStorage.setItem('linkedin',this.utilsHelperService.encryptData(jobId));
-			 this.router.navigate(['/'])
+			 this.router.navigate(['/auth/user/login'],{queryParams:{'linkedin':this.utilsHelperService.encryptData(jobId)}})
 			}
 	
 	}
