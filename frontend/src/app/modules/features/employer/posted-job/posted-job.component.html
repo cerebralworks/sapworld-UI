@@ -97,7 +97,7 @@
 				<a  class="mr-2" *ngIf="!router.url.includes('admin') "  style="color:blue;" [routerLink]="['/employer/post-job']"  [queryParams]="{id: item?.id,status:'copy'}"  data-toggle="tooltip" title="Clone"><i class="far fa-clone"></i></a>
 				<a  class="mr-2" *ngIf="router.url.includes('admin') " style="color:blue;" [routerLink]="['/admin/post-job/',empID]"  [queryParams]="{id: item?.id,status:'copy'}"  data-toggle="tooltip" title="Clone"><i class="far fa-clone"></i></a>
                 <a href="javascript:;" (click)="onDeleteJobConfirm(item, i)" class="text-danger mr-2"   data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                <a *ngIf="item?.status != 0 && !router.url.includes('admin')" (click)="openshare(item?.id,item?.title)" class="text-primary"  data-toggle="tooltip" title="Share" ><i class="fa fa-share-alt"></i></a>
+                <a *ngIf="item?.status != 0" (click)="openshare(item?.id,item?.title)" class="text-primary"  data-toggle="tooltip" title="Share" ><i class="fa fa-share-alt"></i></a>
                 </td>
               </tr>
             </ng-container>
