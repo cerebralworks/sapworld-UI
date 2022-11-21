@@ -171,7 +171,8 @@ export class PostedJobComponent implements OnInit {
 	 
 	  const encrypt = this.utilsHelperService.encryptData(id);
 	  //var jbName=title.trim().replace(/\s/g, '-');
-	  var jbName=title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+	  var titlecase=title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+	  var jbName= titlecase.trim().replace(/\s/g, '-');
 	  this.linkedInUrl ="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(`${env.clientUrl}/linkedin-share?job=${jbName}&id=${encrypt}`);
 	    this.isShareModel=true;
 		setTimeout(() => {
@@ -181,7 +182,7 @@ export class PostedJobComponent implements OnInit {
 					keyboard: false
 				});
 		});
-		//console.log(this.linkedInUrl)
+		//console.log(jbName)
 	}
 	
 	/** To Close share Popup*/
