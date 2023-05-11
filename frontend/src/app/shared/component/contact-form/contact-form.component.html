@@ -45,16 +45,16 @@
 				<div class="col-lg-6 bg-light">
 					<form class="p-5" [formGroup]="contactform" (ngSubmit)="submit()">
 						<div class="form-group">
-							<label>{{"contactform.name" | translate }}</label>
-							<input appMarkAsterisk type="text" class="form-control" placeholder="Your Full Name" formControlName="name" name="name">
+							<label>{{"contactform.name" | translate }}<span class="required-asterisk">*</span></label>
+							<input type="text" class="form-control" placeholder="Your Full Name" formControlName="name" name="name">
 							<div *ngIf="submitted && f.name.errors">
 						<span class="warning" *ngIf="f.name.errors.required">{{"contactform.alert1" | translate }}</span>
 						</div>
 						</div>
 						
 						<div class="form-group">
-							<label for="exampleFormControlInput1">{{"contactform.email1" | translate }}</label>
-							<input appMarkAsterisk type="email" class="form-control" id="exampleFormControlInput1" placeholder="Your Email Address" formControlName="email" name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+							<label for="exampleFormControlInput1">{{"contactform.email1" | translate }}<span class="required-asterisk">*</span></label>
+							<input  type="email" class="form-control" id="exampleFormControlInput1" placeholder="Your Email Address" formControlName="email" name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 							<div *ngIf="submitted && f.email.errors">
 						<span class="warning" *ngIf="f.email.errors.required">{{"contactform.alert2" | translate }}</span>
 						</div>
@@ -64,15 +64,15 @@
 						<span class="warning" *ngIf="dubmail">{{"contactform.exist" | translate }}</span>
 						</div>
 						<div class="form-group">
-							<label>{{"contactform.subject" | translate }}</label>
-							<input appMarkAsterisk type="text" class="form-control" placeholder="Subject" formControlName="subject" name="subject">
+							<label>{{"contactform.subject" | translate }}<span class="required-asterisk">*</span></label>
+							<input  type="text" class="form-control" placeholder="Subject" formControlName="subject" name="subject">
 							<div *ngIf="submitted && f.subject.errors">
 						<span class="warning" *ngIf="f.subject.errors.required">{{"contactform.alert3" | translate }}</span>
 						</div>
 						</div>
 						<div class="form-group">
-							<label>{{"contactform.message" | translate }}</label>
-							<textarea appMarkAsterisk class="form-control" placeholder="Message" formControlName="message" rows="5" name="messgae"></textarea>
+							<label>{{"contactform.message" | translate }}<span class="required-asterisk">*</span></label>
+							<textarea class="form-control" placeholder="Message" formControlName="message" rows="5" name="messgae"></textarea>
 							<div *ngIf="submitted && f.message.errors">
 						<span class="warning" *ngIf="f.message.errors.required">{{"contactform.alert4" | translate }}</span>
 						</div>
