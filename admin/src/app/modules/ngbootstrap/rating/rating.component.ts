@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 
 const basicDemo = {
@@ -258,7 +258,7 @@ export class NgbdRatingConfig {
   styles: [
     `
 		.star {
-		f	ont-size: 1.5rem;
+		    font-size: 1.5rem;
 			color: #b0c4de;
 		}
 		.filled {
@@ -303,7 +303,7 @@ export class RatingComponent implements OnInit {
   selected = 0;
   hovered = 0;
   readonly = false;
-  ctrl = new FormControl(null, Validators.required);
+  ctrl = new UntypedFormControl(null, Validators.required);
 
   toggle() {
     if (this.ctrl.disabled) {

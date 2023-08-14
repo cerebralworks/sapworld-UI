@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { PaginatorState } from '@shared/models/paginator.model';
 import { SortState } from '@shared/models/sort.model';
@@ -13,16 +13,16 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./employer-list.component.scss']
 })
 export class EmployerListComponent implements OnInit {
-  public filterGroup: FormGroup;
+  public filterGroup: UntypedFormGroup;
   private subscriptions: Subscription[] = [];
   public sorting: SortState;
   public employerList: any = {};
   public paginator: PaginatorState;
   public isLoading: boolean = false;
-  public searchField: FormControl = new FormControl();
+  public searchField: UntypedFormControl = new UntypedFormControl();
   
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private employerService: EmployerService,
     private cd: ChangeDetectorRef
   ) { }

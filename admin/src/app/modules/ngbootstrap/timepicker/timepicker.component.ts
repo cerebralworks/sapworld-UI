@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormsModule, FormControl } from '@angular/forms';
+import { FormsModule, UntypedFormControl } from '@angular/forms';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -336,7 +336,7 @@ export class TimepickerComponent implements OnInit {
     this.exampleCustomValidation = customValidation;
     this.exampleGlobalConfigurationOfTimepickers = globalConfigurationOfTimepickers;
 
-    this.ctrl = new FormControl('', (control: FormControl) => {
+    this.ctrl = new UntypedFormControl('', (control: UntypedFormControl) => {
       const value = control.value;
 
       if (!value) {

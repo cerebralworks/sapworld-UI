@@ -1,6 +1,6 @@
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
 import { Component, DoCheck, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -91,7 +91,7 @@ export class CreateAdminProfileComponent implements OnInit, DoCheck {
   ]
 };
 
-	public createCompanyForm: FormGroup;
+	public createCompanyForm: UntypedFormGroup;
 	public defaultProfilePic: string;
 	public mbRef: any;
 	public profilePicValue: any;
@@ -114,7 +114,7 @@ export class CreateAdminProfileComponent implements OnInit, DoCheck {
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
  
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private modalService: NgbModal,
 		private utilsHelperService: UtilsHelperService,
 		private employerSharedService: EmployerSharedService,
@@ -334,16 +334,16 @@ export class CreateAdminProfileComponent implements OnInit, DoCheck {
 			contact: [''],
 			latlng: [null],
 			social_media_link: [null],
-			linkedin: new FormControl(''),
-			github: new FormControl(''),
-			youtube: new FormControl(''),
-			blog: new FormControl(''),
-			portfolio: new FormControl(''),
-			linkedinBoolen: new FormControl(false),
-			githubBoolen: new FormControl(false),
-			youtubeBoolen: new FormControl(false),
-			blogBoolen: new FormControl(false),
-			portfolioBoolen: new FormControl(false),
+			linkedin: new UntypedFormControl(''),
+			github: new UntypedFormControl(''),
+			youtube: new UntypedFormControl(''),
+			blog: new UntypedFormControl(''),
+			portfolio: new UntypedFormControl(''),
+			linkedinBoolen: new UntypedFormControl(false),
+			githubBoolen: new UntypedFormControl(false),
+			youtubeBoolen: new UntypedFormControl(false),
+			blogBoolen: new UntypedFormControl(false),
+			portfolioBoolen: new UntypedFormControl(false),
 		});
 	}
 

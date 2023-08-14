@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@modules/auth/_services/auth.service';
 
@@ -19,14 +19,14 @@ export class AdminSettingComponent implements OnInit {
  /**
   **	Variable declaration
   **/
-  public changePasswordForm: FormGroup;
+  public changePasswordForm: UntypedFormGroup;
   public returnUserUrl: any;
   public returnEmpUrl: any;
   public isLoading: boolean = false;
   public userInfo: any;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public router: Router,
     private route: ActivatedRoute,
 		private ref: ChangeDetectorRef,private authService: AuthService,

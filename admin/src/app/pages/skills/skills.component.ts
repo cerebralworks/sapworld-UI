@@ -1,5 +1,5 @@
 import { Component, OnInit,ChangeDetectorRef,OnDestroy, HostListener,ViewChild} from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '@env';
@@ -19,7 +19,7 @@ class DataTablesResponse {
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent implements OnInit {
-	addskills : FormGroup;
+	addskills : UntypedFormGroup;
 	submitted : boolean = false;
 	storage : any = "";
 	limit : number = 10;
@@ -42,14 +42,14 @@ export class SkillsComponent implements OnInit {
 	@ViewChild(DataTableDirective, {static: false})
 	dtElement:  DataTableDirective;
 	
-	constructor( private fb : FormBuilder ,
+	constructor( private fb : UntypedFormBuilder ,
 	private ref: ChangeDetectorRef,
 	private es : EmployerService,
 	private http : HttpClient) 
 	{
 		this.addskills = this.fb.group({
-			long_tag : new FormControl("",Validators.required),
-			tag : new FormControl("",Validators.required)
+			long_tag : new UntypedFormControl("",Validators.required),
+			tag : new UntypedFormControl("",Validators.required)
 		})
 	}
 	

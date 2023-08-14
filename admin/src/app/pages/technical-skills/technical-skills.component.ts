@@ -1,5 +1,5 @@
 import { Component, OnInit,ChangeDetectorRef,OnDestroy, HostListener,ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '@env';
@@ -19,7 +19,7 @@ class DataTablesResponse {
 export class TechnicalSkillsComponent implements OnInit {
 	//SlideOptions = { items: 5, dots: false, nav: true };  
 	//CarouselOptions = { dots: false, nav: true }; 
-  addTech : FormGroup;
+  addTech : UntypedFormGroup;
   submitted : boolean = false;
   empty : boolean = false;
   show : boolean = false;
@@ -37,12 +37,12 @@ export class TechnicalSkillsComponent implements OnInit {
   dtOption : DataTables.Settings = {};
   @ViewChild(DataTableDirective, {static: false})
   dtElement:  DataTableDirective;
-  constructor(private fb : FormBuilder,
+  constructor(private fb : UntypedFormBuilder,
     private ref : ChangeDetectorRef,
     private http :HttpClient,
     private es : EmployerService) {
     this.addTech = this.fb.group({
-      name : new FormControl("",Validators.required)
+      name : new UntypedFormControl("",Validators.required)
     })
    }
 /**

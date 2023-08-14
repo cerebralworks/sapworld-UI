@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { UserModel } from '../_models/user.model';
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     email: 'admin@demo.com',
     password: 'demo',
   };
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   hasError: boolean;
   returnUrl: string;
   isLoading$: Observable<boolean>;
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public isLoading: boolean;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,

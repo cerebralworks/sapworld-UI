@@ -1,5 +1,5 @@
 import { Component, OnInit,ChangeDetectorRef,OnDestroy, HostListener,ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '@env';
@@ -21,7 +21,7 @@ class DataTablesResponse {
 })
 export class WorkAuthorizationComponent implements OnInit {
 country : any[] =[];
-addWA : FormGroup;
+addWA : UntypedFormGroup;
 submitted : boolean = false;
 show : boolean=false;
 empty : boolean=false;
@@ -45,11 +45,11 @@ dtOption : DataTables.Settings = {};
 dtElement:  DataTableDirective;
   constructor(private es : EmployerService,
 		private ref: ChangeDetectorRef,
-    private fb : FormBuilder,
+    private fb : UntypedFormBuilder,
     private http : HttpClient) { 
       this.addWA = this.fb.group({
-        name : new FormControl("",Validators.required),
-        visa : new FormControl("",Validators.required)
+        name : new UntypedFormControl("",Validators.required),
+        visa : new UntypedFormControl("",Validators.required)
 
       })
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit,ChangeDetectorRef,OnDestroy, HostListener,ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '@env';
@@ -19,7 +19,7 @@ class DataTablesResponse {
 })
 
 export class IndustryComponent implements OnInit {
-	addindustry : FormGroup;
+	addindustry : UntypedFormGroup;
 	submitted : boolean = false;
 	storage : any ="";
 	requestParams : any ={};
@@ -38,12 +38,12 @@ export class IndustryComponent implements OnInit {
 	@ViewChild(DataTableDirective, {static: false})
 	dtElement:  DataTableDirective;
 	
-	constructor(private fb : FormBuilder ,
+	constructor(private fb : UntypedFormBuilder ,
     private ref : ChangeDetectorRef,
     private http : HttpClient,
     private es : EmployerService) {
 		this.addindustry = this.fb.group({
-			name : new FormControl("",Validators.required)
+			name : new UntypedFormControl("",Validators.required)
 		})
 	}
 	

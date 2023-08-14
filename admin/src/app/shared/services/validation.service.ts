@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +57,7 @@ export class ValidationService {
 	}
   }
 
-  public static pwdMatchValidator(frm: FormGroup) {
+  public static pwdMatchValidator(frm: UntypedFormGroup) {
     if ((frm.get('password') && frm.get('password').value) && (frm.get('confirmPassword') && frm.get('confirmPassword').value)) {
       if (frm.get('password').value !== frm.get('confirmPassword').value) {
         frm.get('confirmPassword').setErrors({ 'mismatch': true });
