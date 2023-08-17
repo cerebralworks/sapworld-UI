@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RoleInfo } from '@data/schema/role';
 import { AccountService } from '@data/service/account.service';
@@ -24,7 +24,7 @@ export class ForgotPasswordComponent implements OnInit {
   public fpSub: Subscription;
   public isMailSent: boolean = false;
   public errorShow: boolean = false;
-  public forgotPasswordForm: FormGroup
+  public forgotPasswordForm: UntypedFormGroup
   @ViewChild("fpModal", { static: false }) fpModal: TemplateRef<any>;
 
   public isLoading: boolean;
@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
     private modalService: NgbModal,
     public router: Router,
     private accountService: AccountService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private sharedService: SharedService,
 
   ) { }

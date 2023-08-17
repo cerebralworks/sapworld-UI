@@ -1,7 +1,7 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { Component, Input, OnChanges, OnInit,ElementRef, SimpleChanges, ViewChild } from '@angular/core';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
@@ -10,8 +10,8 @@ import { EmployerService } from '@data/service/employer.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {MatAutocompleteSelectedEvent, MatAutocomplete,MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
+import {MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent, MatLegacyAutocomplete as MatAutocomplete,MatLegacyAutocompleteTrigger as MatAutocompleteTrigger} from '@angular/material/legacy-autocomplete';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
@@ -64,7 +64,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
     @ViewChild('myselect') myselect;
     optionsSelect:Array<any>;
 	public searchCallback = (search: string, item) => true; 
-	programCtrl = new FormControl();
+	programCtrl = new UntypedFormControl();
 	filteredProgram: Observable<any[]>;
 	@ViewChild('programInput') programInput: ElementRef<HTMLInputElement>;
 	@ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -72,7 +72,7 @@ export class RequirementCriteriaComponent implements OnInit, OnChanges {
 
 	constructor(
 		private parentF: FormGroupDirective,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private employerService: EmployerService,
 		private dataService: DataService,
 		private route: ActivatedRoute,
@@ -707,53 +707,53 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 		this.childForm = this.parentF.form;
 		if(this.childForm.value.jobInfo.entry==false){
 			
-			this.childForm.addControl('requirement', new FormGroup({
-				experience: new FormControl(null, Validators.required),
-				education: new FormControl(null),
-				sap_experience: new FormControl(null, Validators.required),
-				domain: new FormControl(null, Validators.required),
-				hands_on_experience: new FormArray([this.formBuilder.group({
+			this.childForm.addControl('requirement', new UntypedFormGroup({
+				experience: new UntypedFormControl(null, Validators.required),
+				education: new UntypedFormControl(null),
+				sap_experience: new UntypedFormControl(null, Validators.required),
+				domain: new UntypedFormControl(null, Validators.required),
+				hands_on_experience: new UntypedFormArray([this.formBuilder.group({
 					skill_id: [null, Validators.required],
 					skill_name: [''],
 					experience: ['', [Validators.required,]],
 					exp_type: ['years', [Validators.required]]
 				})]),
-				new_skills: new FormArray([]),
-				skills: new FormControl(null),
-				skills_Data: new FormControl(null),
-				skills_Datas: new FormControl(null),
-				programming_skills:  new FormControl(null),
-				optinal_skills: new FormControl(null, Validators.required),
-				work_authorization: new FormControl(null),
-				visa_sponsorship: new FormControl(false, Validators.required),
-				need_reference: new FormControl(false, Validators.required),
-				end_to_end_implementation: new FormControl(null,Validators.required),
-				travel_opportunity: new FormControl(null, Validators.required)
+				new_skills: new UntypedFormArray([]),
+				skills: new UntypedFormControl(null),
+				skills_Data: new UntypedFormControl(null),
+				skills_Datas: new UntypedFormControl(null),
+				programming_skills:  new UntypedFormControl(null),
+				optinal_skills: new UntypedFormControl(null, Validators.required),
+				work_authorization: new UntypedFormControl(null),
+				visa_sponsorship: new UntypedFormControl(false, Validators.required),
+				need_reference: new UntypedFormControl(false, Validators.required),
+				end_to_end_implementation: new UntypedFormControl(null,Validators.required),
+				travel_opportunity: new UntypedFormControl(null, Validators.required)
 			}));
 		}else{
 			
-			this.childForm.addControl('requirement', new FormGroup({
-				experience: new FormControl(null),
-				education: new FormControl(null),
-				sap_experience: new FormControl(null),
-				domain: new FormControl(null),
-				hands_on_experience: new FormArray([this.formBuilder.group({
+			this.childForm.addControl('requirement', new UntypedFormGroup({
+				experience: new UntypedFormControl(null),
+				education: new UntypedFormControl(null),
+				sap_experience: new UntypedFormControl(null),
+				domain: new UntypedFormControl(null),
+				hands_on_experience: new UntypedFormArray([this.formBuilder.group({
 					skill_id: [''],
 					skill_name: [''],
 					experience: [''],
 					exp_type: ['years']
 				})]),
-				new_skills: new FormArray([]),
-				skills: new FormControl(null),
-				skills_Data: new FormControl(null),
-				skills_Datas: new FormControl(null),
-				programming_skills:  new FormControl(null),
-				optinal_skills: new FormControl(null),
-				work_authorization: new FormControl(null),
-				visa_sponsorship: new FormControl(false, Validators.required),
-				need_reference: new FormControl(false, Validators.required),
-				end_to_end_implementation: new FormControl(null),
-				travel_opportunity: new FormControl(null, Validators.required)
+				new_skills: new UntypedFormArray([]),
+				skills: new UntypedFormControl(null),
+				skills_Data: new UntypedFormControl(null),
+				skills_Datas: new UntypedFormControl(null),
+				programming_skills:  new UntypedFormControl(null),
+				optinal_skills: new UntypedFormControl(null),
+				work_authorization: new UntypedFormControl(null),
+				visa_sponsorship: new UntypedFormControl(false, Validators.required),
+				need_reference: new UntypedFormControl(false, Validators.required),
+				end_to_end_implementation: new UntypedFormControl(null),
+				travel_opportunity: new UntypedFormControl(null, Validators.required)
 			}));
 		}
 
@@ -772,11 +772,11 @@ if(parseFloat(this.childForm.value.requirement.sap_experience)<=this.childForm.v
 	**/
 	
 	get t() {
-		return this.f.hands_on_experience as FormArray;
+		return this.f.hands_on_experience as UntypedFormArray;
 	}
 
 	get newskills() {
-		return this.f.new_skills as FormArray;
+		return this.f.new_skills as UntypedFormArray;
 	}
 	 
 	

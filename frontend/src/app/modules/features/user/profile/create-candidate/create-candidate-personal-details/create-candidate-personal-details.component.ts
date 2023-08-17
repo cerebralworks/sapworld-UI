@@ -3,7 +3,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { tabInfo } from '@data/schema/create-candidate';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { DataService } from '@shared/service/data.service';
@@ -15,8 +15,8 @@ import { ImageCropperComponent, ImageCroppedEvent, base64ToFile } from 'ngx-imag
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { UserService } from '@data/service/user.service';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
+import {MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent, MatLegacyAutocomplete as MatAutocomplete} from '@angular/material/legacy-autocomplete';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '@env';
 @Component({
@@ -111,7 +111,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		private utilsHelperService: UtilsHelperService,
 		private userService: UserService,
 		private SharedAPIService: SharedApiService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private http : HttpClient
 	) { }
 	
@@ -366,9 +366,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
          this.r.removeAt(0);
           this.savedUserDetails.reference.map((value, index) => {
             this.r.push(this.formBuilder.group({
-				name: new FormControl(null),
-				email: new FormControl(''),
-				company_name: new FormControl(null)
+				name: new UntypedFormControl(null),
+				email: new UntypedFormControl(''),
+				company_name: new UntypedFormControl(null)
 			}));
             this.onChangeLanguageValueReference(value.name, index);
           });
@@ -756,45 +756,45 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	
 	createForm() {
 		this.childForm = this.parentF.form;
-		this.childForm.addControl('personalDetails', new FormGroup({
-		 entry: new FormControl(false),
-		 first_name: new FormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator]),
-		  last_name: new FormControl('', [Validators.required,ValidationService.emptyStringValidator]),
-		  email: new FormControl(''),
-		  phone: new FormControl(''),
-		 city: new FormControl('', Validators.required),
-		  state: new FormControl('', Validators.required),
-		  zipcode: new FormControl(null, [Validators.required,Validators.minLength(4)]),
-		  country: new FormControl('', Validators.required),
-		  nationality: new FormControl(null, Validators.required),
-		  clients_worked: new FormControl(null, Validators.required),
-		  authorized_country: new FormControl(null),
-		  authorized_country_select: new FormControl(null),
-		  visa_type: new FormControl(null),
-		  language_known: new FormArray([this.formBuilder.group({
+		this.childForm.addControl('personalDetails', new UntypedFormGroup({
+		 entry: new UntypedFormControl(false),
+		 first_name: new UntypedFormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator]),
+		  last_name: new UntypedFormControl('', [Validators.required,ValidationService.emptyStringValidator]),
+		  email: new UntypedFormControl(''),
+		  phone: new UntypedFormControl(''),
+		 city: new UntypedFormControl('', Validators.required),
+		  state: new UntypedFormControl('', Validators.required),
+		  zipcode: new UntypedFormControl(null, [Validators.required,Validators.minLength(4)]),
+		  country: new UntypedFormControl('', Validators.required),
+		  nationality: new UntypedFormControl(null, Validators.required),
+		  clients_worked: new UntypedFormControl(null, Validators.required),
+		  authorized_country: new UntypedFormControl(null),
+		  authorized_country_select: new UntypedFormControl(null),
+		  visa_type: new UntypedFormControl(null),
+		  language_known: new UntypedFormArray([this.formBuilder.group({
 			language: [null, Validators.required],
-			native: new FormControl(null, Validators.required),
-			intermediate: new FormControl(null, Validators.required),
-			fluent: new FormControl(null, Validators.required)
+			native: new UntypedFormControl(null, Validators.required),
+			intermediate: new UntypedFormControl(null, Validators.required),
+			fluent: new UntypedFormControl(null, Validators.required)
 		  })]),
-		  reference: new FormArray([this.formBuilder.group({
-			name: new FormControl(null),
+		  reference: new UntypedFormArray([this.formBuilder.group({
+			name: new UntypedFormControl(null),
 			email: [null,ValidationService.emailValidator],
-			company_name: new FormControl(null)
+			company_name: new UntypedFormControl(null)
 		  })]),
-		  social_media_link: new FormControl(null),
-		  linkedin: new FormControl(''),
-		  github: new FormControl(''),
-		  youtube: new FormControl(''),
-		  blog: new FormControl(''),
-		  portfolio: new FormControl(''),
-		  linkedinBoolen: new FormControl(false),
-		  githubBoolen: new FormControl(false),
-		  youtubeBoolen: new FormControl(false),
-		  blogBoolen: new FormControl(false),
-		  portfolioBoolen: new FormControl(false),
-		  work_authorization: new FormControl(null),
-		  latlng: new FormControl({}, Validators.required),
+		  social_media_link: new UntypedFormControl(null),
+		  linkedin: new UntypedFormControl(''),
+		  github: new UntypedFormControl(''),
+		  youtube: new UntypedFormControl(''),
+		  blog: new UntypedFormControl(''),
+		  portfolio: new UntypedFormControl(''),
+		  linkedinBoolen: new UntypedFormControl(false),
+		  githubBoolen: new UntypedFormControl(false),
+		  youtubeBoolen: new UntypedFormControl(false),
+		  blogBoolen: new UntypedFormControl(false),
+		  portfolioBoolen: new UntypedFormControl(false),
+		  work_authorization: new UntypedFormControl(null),
+		  latlng: new UntypedFormControl({}, Validators.required),
 		}));
 		
       
@@ -1058,7 +1058,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	}
 	
 	get t() {
-		return this.f.language_known as FormArray;
+		return this.f.language_known as UntypedFormArray;
 	}
   
 	/**
@@ -1093,7 +1093,7 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	}
 	
 	get r() {
-		return this.f.reference as FormArray;
+		return this.f.reference as UntypedFormArray;
 	}
   
 	/**
@@ -1120,9 +1120,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 		 
 	  }else{
 		this.r.push(this.formBuilder.group({
-			name: new FormControl(null),
+			name: new UntypedFormControl(null),
 			email: [null,ValidationService.emailValidator],
-			company_name: new FormControl(null)
+			company_name: new UntypedFormControl(null)
 		}));
 	  }
 	}

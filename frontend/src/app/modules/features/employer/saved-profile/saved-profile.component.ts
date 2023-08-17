@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
@@ -7,7 +7,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import { environment as env } from '@env';
 
 @Component({
@@ -33,7 +33,7 @@ export class SavedProfileComponent implements OnInit {
 	pageSizeOptions = [10, 25,50,100];
 	public savedProfileMeta: any;
 	public selectedResumeUrl: string;
-	public searchField: FormControl = new FormControl();
+	public searchField: UntypedFormControl = new UntypedFormControl();
 	public employerDetails: any = {};
 	public validateSubscribe: number = 0;
 	public loggedUserInfo: any;

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
@@ -18,7 +18,7 @@ export class ChangePasswordComponent implements OnInit {
   /**
   **	Variable declaration
   **/
-  public changePasswordForm: FormGroup;
+  public changePasswordForm: UntypedFormGroup;
   public returnUserUrl: any;
   public returnEmpUrl: any;
   public isLoading: boolean = false;
@@ -26,7 +26,7 @@ export class ChangePasswordComponent implements OnInit {
   public userInfo: any;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public router: Router,
     private route: ActivatedRoute,
     private accountService: AccountService,

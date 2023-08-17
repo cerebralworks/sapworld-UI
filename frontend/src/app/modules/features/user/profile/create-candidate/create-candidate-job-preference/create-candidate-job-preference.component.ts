@@ -1,12 +1,12 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component,ViewChild,ElementRef, Input, OnInit, SimpleChanges} from '@angular/core';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedService } from '@shared/service/shared.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
-import {MatChipInputEvent} from '@angular/material/chips';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 
 declare let google: any;
 
@@ -56,7 +56,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private userSharedService: UserSharedService,
 		private SharedAPIService: SharedApiService,
 		private dataService: DataService
@@ -140,11 +140,11 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 		'availability': [Validators.required],
 		}
 		
-	    this.addValidators(<FormGroup>this.childForm.controls['jobPref']);
+	    this.addValidators(<UntypedFormGroup>this.childForm.controls['jobPref']);
 	
 	}
 	
-	public addValidators(form: FormGroup) {
+	public addValidators(form: UntypedFormGroup) {
 		if(form && form.controls) {
 			for (const key in form.controls) {
 				form.get(key).setValidators(this.validationType[key]);
@@ -589,22 +589,22 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	createForm() {
 		this.childForm = this.parentF.form;
 
-		this.childForm.addControl('jobPref', new FormGroup({
-			job_type: new FormControl(null, Validators.required),
-			job_role: new FormControl(''),
-			willing_to_relocate: new FormControl(null, Validators.required),
-			preferred_location: new FormControl(null),
-			availability : new FormControl('', Validators.required),
-			travel: new FormControl(null, Validators.required),
+		this.childForm.addControl('jobPref', new UntypedFormGroup({
+			job_type: new UntypedFormControl(null, Validators.required),
+			job_role: new UntypedFormControl(''),
+			willing_to_relocate: new UntypedFormControl(null, Validators.required),
+			preferred_location: new UntypedFormControl(null),
+			availability : new UntypedFormControl('', Validators.required),
+			travel: new UntypedFormControl(null, Validators.required),
 			//preferred_countries: new FormControl(null, Validators.required),
-			preferred_locations : new FormArray([this.formBuilder.group({
+			preferred_locations : new UntypedFormArray([this.formBuilder.group({
 				city: [''],
 				state: [''],
 				stateShort: [''],
 				country: ['']
 			  })]),
-			remote_only: new FormControl(false, Validators.required),
-			visa_sponsered: new FormControl(false, Validators.required),
+			remote_only: new UntypedFormControl(false, Validators.required),
+			visa_sponsered: new UntypedFormControl(false, Validators.required),
 		}));
 		 this.requestParams = {'Exist the createForm':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
 				this.SharedAPIService.onSaveLogs(this.requestParams);
@@ -737,7 +737,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 	}
 	
 	get t() {
-		return this.f.preferred_locations as FormArray;
+		return this.f.preferred_locations as UntypedFormArray;
 	}
   
 	/**

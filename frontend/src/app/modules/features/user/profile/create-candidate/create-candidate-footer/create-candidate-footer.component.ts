@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output,ChangeDetectorRef} from '@angular/core';
-import { FormControl, FormGroup,Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup,Validators } from '@angular/forms';
 import { tabInfo, tabProgressor } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
@@ -20,7 +20,7 @@ export class CreateCandidateFooterComponent implements OnInit {
 	@Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
 	@Output() createCandidate: EventEmitter<any> = new EventEmitter();
 	@Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
-	@Input() createCandidateForm: FormGroup;
+	@Input() createCandidateForm: UntypedFormGroup;
 	public savedUserDetails: any;
 	public nextBtnValidate: boolean =false ;
 	public userInfo: any;
@@ -347,12 +347,12 @@ export class CreateCandidateFooterComponent implements OnInit {
 	**	To get the errors of the form
 	**/
 	
-	getErrors = (formGroup: FormGroup, errors: any = {}) => {
+	getErrors = (formGroup: UntypedFormGroup, errors: any = {}) => {
 		Object.keys(formGroup.controls).forEach(field => {
 		  const control = formGroup.get(field);
-		  if (control instanceof FormControl) {
+		  if (control instanceof UntypedFormControl) {
 			errors[field] = control.errors;
-		  } else if (control instanceof FormGroup) {
+		  } else if (control instanceof UntypedFormGroup) {
 			errors[field] = this.getErrors(control);
 		  }
 		});

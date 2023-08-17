@@ -9,7 +9,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Location } from '@angular/common';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { DataService } from '@shared/service/data.service';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import { PlatformLocation } from '@angular/common'
 @Component({
   selector: 'app-employer-candidate-profile-view',

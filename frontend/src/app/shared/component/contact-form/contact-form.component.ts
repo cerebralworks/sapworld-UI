@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup,Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 @Component({
   selector: 'app-contact-form',
@@ -8,15 +8,15 @@ import { EmployerService } from '@data/service/employer.service';
 })
 export class ContactFormComponent implements OnInit {
 
-public contactform : FormGroup
+public contactform : UntypedFormGroup
 public submitted : boolean = false;
 public dubmail : boolean = false;
-  constructor(private fb : FormBuilder, private EmpService : EmployerService) {
+  constructor(private fb : UntypedFormBuilder, private EmpService : EmployerService) {
   this.contactform = this.fb.group({
-  name : new FormControl('',Validators.required),
-  email : new FormControl('',Validators.required),
-  subject : new FormControl('',Validators.required),
-  message : new FormControl('',Validators.required)
+  name : new UntypedFormControl('',Validators.required),
+  email : new UntypedFormControl('',Validators.required),
+  subject : new UntypedFormControl('',Validators.required),
+  message : new UntypedFormControl('',Validators.required)
   })
   }
 

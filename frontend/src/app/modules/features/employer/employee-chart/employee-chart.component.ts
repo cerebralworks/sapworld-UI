@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild,ViewChildren,QueryList,HostListener  } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import { EmployerService } from '@data/service/employer.service';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -12,8 +12,7 @@ import { UserSharedService } from '@data/service/user-shared.service';
 
 import * as moment from 'moment';
 
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import {  ChartOptions } from 'chart.js';
 @Component({
   selector: 'app-employee-chart',
   templateUrl: './employee-chart.component.html',
@@ -216,11 +215,11 @@ export class EmployeeChartComponent implements OnInit {
 		
 		public startDate:any;
 		public endDate:any;*/
-		public lineChartData: ChartDataSets[] = [{
+		public lineChartData = [{
 		     label: '' 
 		}];
-       public lineChartLabels: Label[] = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-	   public lineChartOptions: ChartOptions ={
+       public lineChartLabels = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+	   public lineChartOptions ={
 			responsive: true,
 			scales: {
 				yAxes: [{
@@ -249,7 +248,7 @@ export class EmployeeChartComponent implements OnInit {
 		   }
 			
 		};
-	   public lineChartColors: Color[] = [{
+	   public lineChartColors = [{
 		  borderColor: '#007bff',
 		  backgroundColor: 'transparent',
 		},];

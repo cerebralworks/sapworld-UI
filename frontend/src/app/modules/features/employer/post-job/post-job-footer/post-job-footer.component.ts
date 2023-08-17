@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 
 @Component({
@@ -16,13 +16,13 @@ export class PostJobFooterComponent implements OnInit {
 	@Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
 	@Output() onEnableJobPreviewModal: EventEmitter<boolean> = new EventEmitter();
 	@Output() postJob: EventEmitter<any> = new EventEmitter();
-	@Input() postJobForm: FormGroup;
+	@Input() postJobForm: UntypedFormGroup;
 
 	public btnType: string;
 	public isOpenedJobPreviewModal: any;
 	public timeError: boolean = false;
 	public sapExpError: boolean = false;
-	public formgroup : FormGroup;
+	public formgroup : UntypedFormGroup;
 
 	constructor() { }
 
@@ -120,7 +120,7 @@ export class PostJobFooterComponent implements OnInit {
 			}else{
 				a.style.display = "none";
 			}
-			this.formgroup = this.postJobForm.get('jobInfo') as FormGroup;
+			this.formgroup = this.postJobForm.get('jobInfo') as UntypedFormGroup;
 			for (const key of Object.keys(this.formgroup.controls) ){
 				  if (this.formgroup.controls[key].invalid){
 					  if(key =='job_locations'){
@@ -154,7 +154,7 @@ export class PostJobFooterComponent implements OnInit {
 	this.checksapExprience();
 		if(this.postJobForm.controls.requirement.invalid === true && this.sapExpError === false){
 			this.postJobForm.controls.requirement.markAllAsTouched();
-			this.formgroup = this.postJobForm.get('requirement') as FormGroup;
+			this.formgroup = this.postJobForm.get('requirement') as UntypedFormGroup;
 			for (const key of Object.keys(this.formgroup.controls) ){
 				  if (this.formgroup.controls[key].invalid){
 				  if(key =='optinal_skills'){
@@ -191,7 +191,7 @@ export class PostJobFooterComponent implements OnInit {
 	}else if(this.currentTabInfo.tabNumber==3){
 		if(this.postJobForm.controls.otherPref.invalid === true){
 			this.postJobForm.controls.otherPref.markAllAsTouched();
-			this.formgroup = this.postJobForm.get('otherPref') as FormGroup;
+			this.formgroup = this.postJobForm.get('otherPref') as UntypedFormGroup;
 			for (const key of Object.keys(this.formgroup.controls) ){
 				  if (this.formgroup.controls[key].invalid){
 						const invalidControl: HTMLElement = document.querySelector('[class="ngx-select__search form-control ng-star-inserted"]');
@@ -263,12 +263,12 @@ export class PostJobFooterComponent implements OnInit {
 	**	To get the error details
 	**/
 	
-	getErrors = (formGroup: FormGroup, errors: any = {}) => {
+	getErrors = (formGroup: UntypedFormGroup, errors: any = {}) => {
 		Object.keys(formGroup.controls).forEach(field => {
 			const control = formGroup.get(field);
-			if (control instanceof FormControl) {
+			if (control instanceof UntypedFormControl) {
 				errors[field] = control.errors;
-			} else if (control instanceof FormGroup) {
+			} else if (control instanceof UntypedFormGroup) {
 				errors[field] = this.getErrors(control);
 			}
 		});

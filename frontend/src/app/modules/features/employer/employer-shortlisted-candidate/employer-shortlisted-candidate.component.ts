@@ -5,9 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
-import {PageEvent} from '@angular/material/paginator';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AmazingTimePickerService } from 'amazing-time-picker';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+//import { AmazingTimePickerService } from 'amazing-time-picker';
 import { environment as env } from '@env';
 @Component({
   selector: 'app-employer-shortlisted-candidate',
@@ -80,7 +80,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 	@ViewChild("ResendURLModel", { static: false }) ResendURLModel: TemplateRef<any>;
 	@ViewChild("ScheduleDiscuss", { static: false }) ScheduleDiscuss: TemplateRef<any>;
 	@ViewChild("MeetingLink", { static: false }) MeetingLink: TemplateRef<any>;
-	public meetingform: FormGroup;
+	public meetingform: UntypedFormGroup;
 	public requestParam : any={};
 	public meetingformdata : any;
 	public meetingformdata1: any[]=[];
@@ -99,8 +99,8 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		private route: ActivatedRoute,
 		private location: Location,
 		private employerSharedService: EmployerSharedService,
-		 private formBuilder: FormBuilder,
-		 private atp: AmazingTimePickerService 
+		 private formBuilder: UntypedFormBuilder,
+		 //private atp: AmazingTimePickerService 
 	) {
 		
 		this.route.queryParams.subscribe(params => {
@@ -873,7 +873,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
   
   getTimeValue(e,data){
   
-  var amazingTimePicker = this.atp.open({
+  /*var amazingTimePicker = this.atp.open({
 				changeToMinutes: true,
 			});
   /*amazingTimePicker.afterClose().subscribe(time  => {
@@ -893,7 +893,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
  
   this.meetingform.controls['interviewTime'].setValue(newtime);
   });*/
-    amazingTimePicker.afterClose().subscribe(time  => {
+   /* amazingTimePicker.afterClose().subscribe(time  => {
 		this.itime=time;
 		var splitTime = time.split(':');
 		if(parseInt(splitTime[0], 10) > 0 && parseInt(splitTime[0], 10) <12){
@@ -945,7 +945,7 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			
 		}
 		}
-  });
+  });*/
   }
   
   /** To send the meeting link*/

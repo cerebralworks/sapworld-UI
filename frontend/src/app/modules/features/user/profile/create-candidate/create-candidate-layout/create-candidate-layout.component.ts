@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnChanges, OnInit,SimpleChanges,HostListener } from '@angular/core';
 import { CandidateProfile, tabInfo, tabProgressor } from '@data/schema/create-candidate';
 import { trigger, transition, query, style, animate, group } from '@angular/animations';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '@data/service/user.service';
@@ -60,7 +60,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	public slidingCounter: number = 0;
 	public slindingList: Array<number> = [1, 2, 3, 4];
 	public isOpenedRegisterReviewModal: any;
-	public candidateForm: FormGroup;
+	public candidateForm: UntypedFormGroup;
 	public userId: string;
 	public filesToUploadData: any;
 	public userPhotoInfo: any;
@@ -75,7 +75,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	public validationType:any;
 	public shareid:any;
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private modalService: NgbModal,
 		public router: Router,
 		private route: ActivatedRoute,
@@ -262,53 +262,53 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	**/
 	createFormData(){
 		if(!this.utilsHelperService.isEmptyObj(this.candidateForm) && !this.utilsHelperService.isEmptyObj(this.userInfo) && this.userInfo.profile_completed && this.validateOnForm==0) {
-			this.candidateForm.addControl('jobPref', new FormGroup({
-				job_type: new FormControl(null),
-				job_role: new FormControl(''),
-				willing_to_relocate: new FormControl(null),
-				preferred_location: new FormControl(null),
-				preferred_countries: new FormControl(null),
-				preferred_locations : new FormArray([this.formBuilder.group({
+			this.candidateForm.addControl('jobPref', new UntypedFormGroup({
+				job_type: new UntypedFormControl(null),
+				job_role: new UntypedFormControl(''),
+				willing_to_relocate: new UntypedFormControl(null),
+				preferred_location: new UntypedFormControl(null),
+				preferred_countries: new UntypedFormControl(null),
+				preferred_locations : new UntypedFormArray([this.formBuilder.group({
 					city: [''],
 					state: [''],
 					stateShort: [''],
 					country: ['']
 				  })]),
-				travel: new FormControl(null, Validators.required),
-				availability: new FormControl(null, Validators.required),
-				remote_only: new FormControl(false, Validators.required),
-				visa_sponsered: new FormControl(false),
+				travel: new UntypedFormControl(null, Validators.required),
+				availability: new UntypedFormControl(null, Validators.required),
+				remote_only: new UntypedFormControl(false, Validators.required),
+				visa_sponsered: new UntypedFormControl(false),
 				//preferred_countries: new FormControl(null),
 			}));
-			this.candidateForm.addControl('skillSet', new FormGroup({
-				hands_on_experience: new FormArray([this.formBuilder.group({
+			this.candidateForm.addControl('skillSet', new UntypedFormGroup({
+				hands_on_experience: new UntypedFormArray([this.formBuilder.group({
 					skill_id: [''],
 					skill_name: ['dasdasd'],
 					experience: [''],
 					exp_type: ['years']
 				})]),
-				skills: new FormControl(null),
-					programming_skills: new FormControl(null),
-					other_skills: new FormControl(null),
-					certification: new FormControl(null),
-					bio: new FormControl('Lorem Ipsum'),
-					new_skills: new FormArray([]),
-					skills_Data: new FormControl(null),
-					skills_Datas: new FormControl(null),
+				skills: new UntypedFormControl(null),
+					programming_skills: new UntypedFormControl(null),
+					other_skills: new UntypedFormControl(null),
+					certification: new UntypedFormControl(null),
+					bio: new UntypedFormControl('Lorem Ipsum'),
+					new_skills: new UntypedFormArray([]),
+					skills_Data: new UntypedFormControl(null),
+					skills_Datas: new UntypedFormControl(null),
 				}));
-				this.candidateForm.addControl('educationExp', new FormGroup({
-					education_qualification: new FormArray([this.formBuilder.group({
+				this.candidateForm.addControl('educationExp', new UntypedFormGroup({
+					education_qualification: new UntypedFormArray([this.formBuilder.group({
 					degree: [''],
 					field_of_study: [''],
 					year_of_completion: ['']
 				})]),
-				employer_role_type: new FormControl(null),
-				experience: new FormControl('', Validators.required),
-				sap_experience: new FormControl(''),
-				current_employer: new FormControl(''),
-				current_employer_role: new FormControl(''),
-				domains_worked: new FormControl(''),
-				end_to_end_implementation: new FormControl(null),
+				employer_role_type: new UntypedFormControl(null),
+				experience: new UntypedFormControl('', Validators.required),
+				sap_experience: new UntypedFormControl(''),
+				current_employer: new UntypedFormControl(''),
+				current_employer_role: new UntypedFormControl(''),
+				domains_worked: new UntypedFormControl(''),
+				end_to_end_implementation: new UntypedFormControl(null),
 			}));
 			this.validateOnForm++
 			this.ngAfterViewInitCheck();
@@ -357,14 +357,14 @@ export class CreateCandidateLayoutComponent implements OnInit {
 			this.slidingCounter++;
 			setTimeout(() => {
 				if(this.slidingCounter == 1) {
-				  this.addValidators(<FormGroup>this.candidateForm.controls['educationExp']);
+				  this.addValidators(<UntypedFormGroup>this.candidateForm.controls['educationExp']);
 				}else if(this.slidingCounter == 2) {
-				  this.addValidators(<FormGroup>this.candidateForm.controls['skillSet']);
+				  this.addValidators(<UntypedFormGroup>this.candidateForm.controls['skillSet']);
 				  this.candidateForm.controls.skillSet['controls'].hands_on_experience.controls.map((val, index) => {
-				  this.addValidators(<FormGroup>val);
+				  this.addValidators(<UntypedFormGroup>val);
 				})
 				}else if(this.slidingCounter == 3) {
-				  this.addValidators(<FormGroup>this.candidateForm.controls['jobPref']);
+				  this.addValidators(<UntypedFormGroup>this.candidateForm.controls['jobPref']);
 				}
 			 }, 300);
 		}
@@ -376,7 +376,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	**	To remove a validationType
 	**/
 	
-	public removeValidators(form: FormGroup) {
+	public removeValidators(form: UntypedFormGroup) {
 		if(form && form.controls) {
 			for (const key in form.controls) {
 				form.get(key).clearValidators();
@@ -388,7 +388,7 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	/**
 	**	To add the preferred_location
 	**/
-	public addValidators(form: FormGroup) {
+	public addValidators(form: UntypedFormGroup) {
 		if(form && form.controls) {
 			for (const key in form.controls) {
 				form.get(key).setValidators(this.validationType[key]);
@@ -405,14 +405,14 @@ export class CreateCandidateLayoutComponent implements OnInit {
 	onPrevious() {
 		if (this.slidingCounter > 0) {
 			if(this.slidingCounter == 1) {
-				this.removeValidators(<FormGroup>this.candidateForm.controls['educationExp']);
+				this.removeValidators(<UntypedFormGroup>this.candidateForm.controls['educationExp']);
 			}else if(this.slidingCounter == 2) {
-				this.removeValidators(<FormGroup>this.candidateForm.controls['skillSet']);
+				this.removeValidators(<UntypedFormGroup>this.candidateForm.controls['skillSet']);
 					this.candidateForm.controls.skillSet['controls'].hands_on_experience.controls.map((val, index) => {
-					this.removeValidators(<FormGroup>val);
+					this.removeValidators(<UntypedFormGroup>val);
 				})
 			}else if(this.slidingCounter == 3) {
-				this.removeValidators(<FormGroup>this.candidateForm.controls['jobPref']);
+				this.removeValidators(<UntypedFormGroup>this.candidateForm.controls['jobPref']);
 			}
 			this.slidingCounter--;
 		}

@@ -17,25 +17,25 @@ import { ControlMessagesComponent } from './component/control-messages/control-m
 import { ApiService } from './service/api.service';
 import { PushNotificationsService } from './service/notification.service';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+//import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { CurrencyFormatterDirective } from './directives/currency-formatter.directive';
 import { MarkAsteriskDirective } from './directives/mark-asterisk.directive';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { DeleteModalComponent } from './component/modal/delete-modal/delete-modal.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { AvatarModule } from 'ngx-avatar';
+//import { AvatarModule } from 'ngx-avatar';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ContactCardComponent } from './component/contact-card/contact-card.component';
 import { RouterModule } from '@angular/router';
-import { NgxSliderModule } from '@angular-slider/ngx-slider';
+//import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgInitDirective } from './directives/nginit.directive';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+//import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ClickOutsideDirective } from './directives/clickOutside.directive';
 import { AutocompleteDirective } from './directives/autocomplete.directive';
 import { OnlyNumber } from './directives/only-number.directive';
 import { AppPasswordDirective } from './directives/app-password.directive';
-import {Ng2TelInputModule} from 'ng2-tel-input';
+//import {Ng2TelInputModule} from 'ng2-tel-input';
 import { SharedUserProfileComponent } from './component/shared-user-profile/shared-user-profile.component';
 import { SharedUserProfileJobMatchesComponent } from './component/shared-user-profile-job-matches/shared-user-profile-job-matches.component';
 import { SharedUserProfileJobMultipleMatchesComponent } from './component/shared-user-profile-job-multiple-matches/shared-user-profile-job-multiple-matches.component';
@@ -52,7 +52,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContactFormComponent } from './component/contact-form/contact-form.component';
-import { AmazingTimePickerModule } from 'amazing-time-picker';
+//import { AmazingTimePickerModule } from 'amazing-time-picker';
 import {SplashScreenComponent} from './component/splash-screen/splash-screen.component';
 @NgModule({
   declarations: [
@@ -100,17 +100,17 @@ import {SplashScreenComponent} from './component/splash-screen/splash-screen.com
     ReactiveFormsModule,
     NgSelectModule,
     NgxSelectModule,
-    GooglePlaceModule,
+    //GooglePlaceModule,
     TranslateModule.forChild(),
     AngularEditorModule,
-    AvatarModule,
+    //AvatarModule,
     ImageCropperModule,
-    NgxSliderModule,
-    PerfectScrollbarModule,
-    Ng2TelInputModule,
+    //NgxSliderModule,
+    //PerfectScrollbarModule,
+    //Ng2TelInputModule,
     NgxDocViewerModule,
     CarouselModule,
-	AmazingTimePickerModule
+	//AmazingTimePickerModule
   ],
   exports: [
     LoginFormComponent,
@@ -129,7 +129,7 @@ import {SplashScreenComponent} from './component/splash-screen/splash-screen.com
     ContactInfoComponent,
     NotesViewComponent,
     NgSelectModule,
-    GooglePlaceModule,
+    //GooglePlaceModule,
     ControlMessagesComponent,
     NumbersOnlyDirective,
     CurrencyFormatterDirective,
@@ -137,13 +137,13 @@ import {SplashScreenComponent} from './component/splash-screen/splash-screen.com
     MarkAsteriskDirective,
     DeleteModalComponent,
     AngularEditorModule,
-    AvatarModule,
+    //AvatarModule,
     ImageCropperModule,
     ContactCardComponent,
     RouterModule,
-    NgxSliderModule,
+    //NgxSliderModule,
     NgInitDirective,
-    PerfectScrollbarModule,
+    //PerfectScrollbarModule,
     ClickOutsideDirective,
     AutocompleteDirective,
     AppPasswordDirective,
@@ -155,7 +155,7 @@ import {SplashScreenComponent} from './component/splash-screen/splash-screen.com
     SharedJobProfileMultipleMatchesComponent,
     SharedUserProfileJobMatchesComponent,
     SharedUserProfileJobMultipleMatchesComponent,
-    Ng2TelInputModule,
+    //Ng2TelInputModule,
     NgxDocViewerModule,
     NgxDocViewerModule,
     JobPreviewModalComponent,
@@ -163,7 +163,7 @@ import {SplashScreenComponent} from './component/splash-screen/splash-screen.com
     TimePipe,
     CarouselModule,
     ChangePasswordComponent,
-	AmazingTimePickerModule,
+	//AmazingTimePickerModule,
 	SplashScreenComponent
   ],
   providers: [ApiService,PushNotificationsService]

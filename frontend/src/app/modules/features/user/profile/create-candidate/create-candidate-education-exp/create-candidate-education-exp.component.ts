@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
@@ -44,7 +44,7 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private dataService: DataService,
 		private userSharedService: UserSharedService,
 		private SharedAPIService: SharedApiService,
@@ -97,11 +97,11 @@ export class CreateCandidateEducationExpComponent implements OnInit, OnChanges {
 		'domains_worked': [Validators.required]
 		}
 		if(this.childForm.value.personalDetails.entry===false){
-	    this.addValidators(<FormGroup>this.childForm.controls['educationExp']);
+	    this.addValidators(<UntypedFormGroup>this.childForm.controls['educationExp']);
 	  }
 	}
 	
-	public addValidators(form: FormGroup) {
+	public addValidators(form: UntypedFormGroup) {
 		if(form && form.controls) {
 			for (const key in form.controls) {
 				form.get(key).setValidators(this.validationType[key]);
@@ -282,36 +282,36 @@ if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.
 	createForm() {
 		this.childForm = this.parentF.form;
 		if(this.childForm.value.personalDetails.entry==false){
-			this.childForm.addControl('educationExp', new FormGroup({
-			  employer_role_type: new FormControl(null),
-			  education_qualification: new FormArray([this.formBuilder.group({
+			this.childForm.addControl('educationExp', new UntypedFormGroup({
+			  employer_role_type: new UntypedFormControl(null),
+			  education_qualification: new UntypedFormArray([this.formBuilder.group({
 				degree: [''],
 				field_of_study: [null],
 				year_of_completion: [null, [Validators.min(4)]]
 			  })]),
-			  experience: new FormControl(null, Validators.required),
-			  sap_experience: new FormControl(null, Validators.required),
-			  current_employer: new FormControl('', (Validators.required,ValidationService.emptyStringValidator)),
-			  current_employer_role: new FormControl('', (Validators.required,ValidationService.emptyStringValidator)),
-			  domains_worked: new FormControl('', Validators.required),
+			  experience: new UntypedFormControl(null, Validators.required),
+			  sap_experience: new UntypedFormControl(null, Validators.required),
+			  current_employer: new UntypedFormControl('', (Validators.required,ValidationService.emptyStringValidator)),
+			  current_employer_role: new UntypedFormControl('', (Validators.required,ValidationService.emptyStringValidator)),
+			  domains_worked: new UntypedFormControl('', Validators.required),
 			  //clients_worked: new FormControl(''),
-			  end_to_end_implementation: new FormControl(null),
+			  end_to_end_implementation: new UntypedFormControl(null),
 			}));
 		}else{
-			this.childForm.addControl('educationExp', new FormGroup({
-			  employer_role_type: new FormControl(null),
-			  education_qualification: new FormArray([this.formBuilder.group({
+			this.childForm.addControl('educationExp', new UntypedFormGroup({
+			  employer_role_type: new UntypedFormControl(null),
+			  education_qualification: new UntypedFormArray([this.formBuilder.group({
 				degree: [''],
 				field_of_study: [null],
 				year_of_completion: [null, [Validators.min(4)]]
 			  })]),
-			  experience: new FormControl(''),
-			  sap_experience: new FormControl(''),
-			  current_employer: new FormControl(null),
-			  current_employer_role: new FormControl(null),
-			  domains_worked: new FormControl(''),
+			  experience: new UntypedFormControl(''),
+			  sap_experience: new UntypedFormControl(''),
+			  current_employer: new UntypedFormControl(null),
+			  current_employer_role: new UntypedFormControl(null),
+			  domains_worked: new UntypedFormControl(''),
 			  //clients_worked: new FormControl(''),
-			  end_to_end_implementation: new FormControl(null),
+			  end_to_end_implementation: new UntypedFormControl(null),
 			}));
 		}
 	}
@@ -321,7 +321,7 @@ if(parseFloat(this.childForm.value.educationExp.sap_experience)<=this.childForm.
 	}
 
 	get t() {
-		return this.f.education_qualification as FormArray;
+		return this.f.education_qualification as UntypedFormArray;
 	}
 	
 	/**

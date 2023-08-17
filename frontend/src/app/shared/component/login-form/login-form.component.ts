@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild,TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AccountService } from '@data/service/account.service';
 import { ValidationService } from '@shared/service/validation.service';
@@ -24,8 +24,8 @@ export class LoginFormComponent implements OnInit {
   public showError: boolean = false;
   public error: string;
   public isLoading: boolean;
-  public loginForm: FormGroup;
-  public otpForm: FormGroup;
+  public loginForm: UntypedFormGroup;
+  public otpForm: UntypedFormGroup;
   public returnEmployerUrl: any;
   public returnUserUrl: any;
 	public loggedUserInfo: any;
@@ -36,7 +36,7 @@ export class LoginFormComponent implements OnInit {
   @ViewChild("otpModal", { static: false }) otpModal: TemplateRef<any>;
   public userId:any;
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public router: Router,
     public toastr: ToastrService,
     private route: ActivatedRoute,

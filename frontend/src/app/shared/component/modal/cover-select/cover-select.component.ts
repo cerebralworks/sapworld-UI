@@ -1,5 +1,5 @@
 import { Component, EventEmitter, ElementRef,Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder,FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -30,11 +30,11 @@ export class CoverSelectComponent implements OnInit {
   public userInfo: any;
   @ViewChild("coverSelectModal", { static: false }) coverSelectModal: TemplateRef<any>;
   @ViewChild("coverTitleModal", { static: false }) coverTitleModal: TemplateRef<any>;
-  public coverSelectForm: FormGroup;
+  public coverSelectForm: UntypedFormGroup;
   public resumeSelected: any;
   public fileExtension:any;
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     public router: Router,
     private userSharedService: UserSharedService,

@@ -1,14 +1,14 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component, Input, OnInit,ViewChild,ElementRef, SimpleChanges } from '@angular/core';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
 import { SharedApiService } from '@shared/service/shared-api.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
+import {MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent, MatLegacyAutocomplete as MatAutocomplete} from '@angular/material/legacy-autocomplete';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
@@ -49,7 +49,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	public requestParams: any;	
 	public errorShown: boolean = false;
 	public searchCallback = (search: string, item) => true; 
-	programCtrl = new FormControl();
+	programCtrl = new UntypedFormControl();
 	filteredProgram: Observable<any[]>;
 	@ViewChild('programInput') programInput: ElementRef<HTMLInputElement>;
 	@ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -57,7 +57,7 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	constructor(
 		private parentF: FormGroupDirective,
 		public sharedService: SharedService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private dataService: DataService,
 		private userSharedService: UserSharedService,
 		private SharedAPIService: SharedApiService,
@@ -305,13 +305,13 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 		//'programming_skills': [Validators.required]
 		}
 		if(this.childForm.value.personalDetails.entry===false){
-	    this.addValidators(<FormGroup>this.childForm.controls['skillSet']);
+	    this.addValidators(<UntypedFormGroup>this.childForm.controls['skillSet']);
 	  }
 	
 	
 	}
 	
-	public addValidators(form: FormGroup) {
+	public addValidators(form: UntypedFormGroup) {
 		if(form && form.controls) {
 			for (const key in form.controls) {
 				form.get(key).setValidators(this.validationType[key]);
@@ -560,39 +560,39 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	createForm() {
 		this.childForm = this.parentF.form;
 		if(this.childForm.value.personalDetails.entry==false){
-			this.childForm.addControl('skillSet', new FormGroup({
-			  hands_on_experience: new FormArray([this.formBuilder.group({
+			this.childForm.addControl('skillSet', new UntypedFormGroup({
+			  hands_on_experience: new UntypedFormArray([this.formBuilder.group({
 				skill_id: [null, Validators.required],
 				skill_name: [''],
 				experience: ['', [Validators.required,]],
 				exp_type: ['years', [Validators.required]]
 			  })]),
-			  skills: new FormControl(null),
-			  new_skills: new FormArray([]),
-			  skills_Data: new FormControl(null),
-			  skills_Datas: new FormControl(null),
+			  skills: new UntypedFormControl(null),
+			  new_skills: new UntypedFormArray([]),
+			  skills_Data: new UntypedFormControl(null),
+			  skills_Datas: new UntypedFormControl(null),
 			  //programming_skills: new FormControl(null, Validators.required),
-			  programming_skills: new FormControl([]),
-			  other_skills: new FormControl(null),
-			  certification: new FormControl(null),
-			  bio: new FormControl('Lorem Ipsum')
+			  programming_skills: new UntypedFormControl([]),
+			  other_skills: new UntypedFormControl(null),
+			  certification: new UntypedFormControl(null),
+			  bio: new UntypedFormControl('Lorem Ipsum')
 			}));
 		}else{
-			this.childForm.addControl('skillSet', new FormGroup({
-			  hands_on_experience: new FormArray([this.formBuilder.group({
+			this.childForm.addControl('skillSet', new UntypedFormGroup({
+			  hands_on_experience: new UntypedFormArray([this.formBuilder.group({
 				skill_id: [''],
 				skill_name: [''],
 				experience: [''],
 				exp_type: ['years']
 			  })]),
-			  skills: new FormControl(null),
-			  new_skills: new FormArray([]),
-			  skills_Data: new FormControl(null),
-			  skills_Datas: new FormControl(null),
-			  programming_skills: new FormControl([]),
-			  other_skills: new FormControl(null),
-			  certification: new FormControl(null),
-			  bio: new FormControl('Lorem Ipsum')
+			  skills: new UntypedFormControl(null),
+			  new_skills: new UntypedFormArray([]),
+			  skills_Data: new UntypedFormControl(null),
+			  skills_Datas: new UntypedFormControl(null),
+			  programming_skills: new UntypedFormControl([]),
+			  other_skills: new UntypedFormControl(null),
+			  certification: new UntypedFormControl(null),
+			  bio: new UntypedFormControl('Lorem Ipsum')
 			}));
 
 		}
@@ -603,11 +603,11 @@ export class CreateCandidateSkillsetComponent implements OnInit {
 	}
 
 	get t() {
-		return this.f.hands_on_experience as FormArray;
+		return this.f.hands_on_experience as UntypedFormArray;
 	}
 	
 	get newskills() {
-		return this.f.new_skills as FormArray;
+		return this.f.new_skills as UntypedFormArray;
 	}
 	/**
 	**	To add the hands_on_experience

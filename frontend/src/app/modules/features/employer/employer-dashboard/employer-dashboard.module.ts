@@ -14,7 +14,7 @@ import { EmployerSubscriptionComponent } from '../modal/employer-subscription/em
 import { MatchOtherPostComponent } from '../modal/match-other-post/match-other-post.component';
 import { MaterialModule } from '@shared/material.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { Daterangepicker } from 'ng2-daterangepicker';
 
 const routes: Routes = [
@@ -40,7 +40,7 @@ const routes: Routes = [
     CommonModule,
     Daterangepicker,
     SharedModule,
-    ChartsModule,
+    NgChartsModule,
     MaterialModule,
 	TooltipModule.forRoot(),
     RouterModule.forChild(routes)

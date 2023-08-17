@@ -7,7 +7,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { SharedService } from '@shared/service/shared.service';
 import { DataService } from '@shared/service/data.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder,FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import * as lodash from 'lodash';
 import { CandidateProfile } from '@data/schema/create-candidate';
@@ -66,13 +66,13 @@ export class EmployerCandidateProfileMatchesComponent implements OnInit, OnDestr
 	public optional: boolean = true;
 	public nice: boolean = true;
 	public IsValidate: boolean = false;
-	public matchForm: FormGroup;
+	public matchForm: UntypedFormGroup;
 	public userprofilepath:any;
 	public empID:any;
 	constructor(
 		private dataService: DataService,
 		private route: ActivatedRoute,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private employerService: EmployerService,
 		private location: Location,
 		private modelService: NgbModal,

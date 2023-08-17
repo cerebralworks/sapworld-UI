@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnDestroy, OnInit, TemplateRef,ElementRef, ViewChild, Input } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import { EmployerService } from '@data/service/employer.service';
 export {}; declare global { interface Window { Calendly: any; } } 
 import { DomSanitizer} from '@angular/platform-browser';

@@ -1,7 +1,7 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component,ViewEncapsulation,OnChanges, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
@@ -10,7 +10,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { DataService } from '@shared/service/data.service';
-import {MatChipInputEvent} from '@angular/material/chips';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -58,7 +58,7 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 	constructor(
 		private parentF: FormGroupDirective,
 		private modalService: NgbModal,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private employerService: EmployerService,
 		private route: ActivatedRoute,
 		private sharedService: SharedService,
@@ -123,9 +123,9 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 	
 	createForm() {
 		this.childForm = this.parentF.form;
-		this.childForm.addControl('screeningProcess', new FormGroup({
-			screening_process: new FormArray([]),
-			temp_screening_process: new FormControl(null),
+		this.childForm.addControl('screeningProcess', new UntypedFormGroup({
+			screening_process: new UntypedFormArray([]),
+			temp_screening_process: new UntypedFormControl(null),
 		}));
 
 	}
@@ -135,7 +135,7 @@ export class ScreeningProcessComponent implements OnInit, OnChanges {
 	}
 	
 	  get t() {
-		return this.f.screening_process as FormArray;
+		return this.f.screening_process as UntypedFormArray;
 	  }
 	  
 	

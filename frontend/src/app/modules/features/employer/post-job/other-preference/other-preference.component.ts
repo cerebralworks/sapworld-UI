@@ -1,7 +1,7 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component,ViewEncapsulation,OnChanges, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { tabInfo } from '@data/schema/create-candidate';
 import { JobPosting } from '@data/schema/post-job';
@@ -10,7 +10,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { DataService } from '@shared/service/data.service';
-import {MatChipInputEvent} from '@angular/material/chips';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -51,7 +51,7 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	constructor(
 		private parentF: FormGroupDirective,
 		private modalService: NgbModal,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private employerService: EmployerService,
 		private route: ActivatedRoute,
 		private sharedService: SharedService,
@@ -140,18 +140,18 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	
 	createForm() {
 		this.childForm = this.parentF.form;
-		this.childForm.addControl('otherPref', new FormGroup({
-			facing_role: new FormControl(null),
-			training_experience: new FormControl(null),
-			certification: new FormControl(null),
-			others_data: new FormControl(null),
-			language: new FormControl(null, Validators.required),
-			extra_criteria: new FormArray([this.formBuilder.group({
+		this.childForm.addControl('otherPref', new UntypedFormGroup({
+			facing_role: new UntypedFormControl(null),
+			training_experience: new UntypedFormControl(null),
+			certification: new UntypedFormControl(null),
+			others_data: new UntypedFormControl(null),
+			language: new UntypedFormControl(null, Validators.required),
+			extra_criteria: new UntypedFormArray([this.formBuilder.group({
 				title: [null],
 				value: [null]
 			})]),
-			others: new FormArray([]),
-			temp_extra_criteria: new FormArray([])
+			others: new UntypedFormArray([]),
+			temp_extra_criteria: new UntypedFormArray([])
 		}));
 		if(!this.route.snapshot.queryParamMap.get('id')){
 			if(this.childForm.value.otherPref.others.length == 0){
@@ -206,15 +206,15 @@ export class OtherPreferenceComponent implements OnInit, OnChanges {
 	}
 	
 	get t() {
-		return this.f.extra_criteria as FormArray;
+		return this.f.extra_criteria as UntypedFormArray;
 	}
 
 	get others() {
-		return this.f.others as FormArray;
+		return this.f.others as UntypedFormArray;
 	}
 
 	get tEX() {
-		return this.f.temp_extra_criteria as FormArray;
+		return this.f.temp_extra_criteria as UntypedFormArray;
 	}
 
 	/**

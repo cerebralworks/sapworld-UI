@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { DataService } from '@shared/service/data.service';
@@ -16,7 +16,7 @@ export class CreateCandidateHeaderComponent implements OnInit {
 	**/
 	
   @Input() currentTabInfo: tabInfo;
-  @Input() createCandidateForm: FormGroup;
+  @Input() createCandidateForm: UntypedFormGroup;
   @Output() onTabChangeEvent: EventEmitter<tabInfo> = new EventEmitter();
   public tabInfos: any[] = [];
   public tabTempArray: any[] = [];
@@ -72,7 +72,7 @@ export class CreateCandidateHeaderComponent implements OnInit {
 	/**
 	**	remove the validation for edit update
 	**/
-	public removeValidators(form: FormGroup) {
+	public removeValidators(form: UntypedFormGroup) {
 		for (const key in form.controls) {
 		  form.get(key).clearValidators();
 		  form.get(key).updateValueAndValidity();
@@ -82,7 +82,7 @@ export class CreateCandidateHeaderComponent implements OnInit {
 	/**
 	**	Add the validation 
 	**/
-	public addValidators(form: FormGroup) {
+	public addValidators(form: UntypedFormGroup) {
 		for (const key in form.controls) {
 		  form.get(key).setValidators(this.validationType[key]);
 		  form.get(key).updateValueAndValidity();

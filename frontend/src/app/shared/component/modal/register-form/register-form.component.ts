@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +24,7 @@ export class RegisterFormComponent implements OnInit {
 
   public mbRef: NgbModalRef;
   public registerModalSub: Subscription;
-  public registerForm: FormGroup;
+  public registerForm: UntypedFormGroup;
   public loggedUserInfo: LoggedIn;
   public loggedUserInfoStatus: boolean=true;
   @ViewChild("registerModal", { static: false }) registerModal: TemplateRef<any>;
@@ -34,7 +34,7 @@ export class RegisterFormComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     public router: Router,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private accountService: AccountService,
     public sharedService: SharedService,

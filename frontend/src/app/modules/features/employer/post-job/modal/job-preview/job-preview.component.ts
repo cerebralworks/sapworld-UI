@@ -1,7 +1,7 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { Component,ViewEncapsulation, EventEmitter,ElementRef, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { AbstractControl, ControlContainer, FormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from '@shared/service/data.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import {MatChipInputEvent} from '@angular/material/chips';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 
 @Component({
   selector: 'app-job-preview',
@@ -43,7 +43,7 @@ export class JobPreviewComponent implements OnInit {
 	@Input() toggleJobPreviewModal: boolean;
 	@Input() isCopy: boolean = false;
 	@Output() onEvent = new EventEmitter<boolean>();
-	@Input() postJobForm: FormGroup;
+	@Input() postJobForm: UntypedFormGroup;
 	@Output() postJob: EventEmitter<any> = new EventEmitter();
 	@Input('postedJobsDetails')
 	set postedJobsDetails(inFo: JobPosting) {
@@ -101,7 +101,7 @@ export class JobPreviewComponent implements OnInit {
 		private sanitizer: DomSanitizer,
 		public router: Router,
 		private parentF: FormGroupDirective,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private employerService: EmployerService,
 		public sharedService: SharedService,
 		public route: ActivatedRoute,
@@ -307,7 +307,7 @@ export class JobPreviewComponent implements OnInit {
 					}
 						
 					if(this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] ==undefined || this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] ==null || this.postJobForm.controls.jobPrev['value']['match_select'][tempTitle] =="" ){
-						this.postJobForm.controls.jobPrev['controls']['match_select']['addControl'](extra[i]['id'],new FormControl(""));
+						this.postJobForm.controls.jobPrev['controls']['match_select']['addControl'](extra[i]['id'],new UntypedFormControl(""));
 					}
 				}		
 			}
@@ -354,12 +354,12 @@ export class JobPreviewComponent implements OnInit {
 	**	To get the errors in the form data's
 	**/
 	
-	getErrors = (formGroup: FormGroup, errors: any = {}) => {
+	getErrors = (formGroup: UntypedFormGroup, errors: any = {}) => {
 		Object.keys(formGroup.controls).forEach(field => {
 			const control = formGroup.get(field);
-			if (control instanceof FormControl) {
+			if (control instanceof UntypedFormControl) {
 				errors[field] = control.errors;
-			} else if (control instanceof FormGroup) {
+			} else if (control instanceof UntypedFormGroup) {
 				errors[field] = this.getErrors(control);
 			}
 		});
@@ -420,33 +420,33 @@ export class JobPreviewComponent implements OnInit {
 		  visa_sponsorship: true
 		}
 		this.MacthObj = {
-		  experience: new FormControl('0', Validators.required),
-		  sap_experience: new FormControl('0', Validators.required),
-		  domain: new FormControl(''),
-		  hands_on_experience: new FormControl('0', Validators.required),
-		  skills: new FormControl(''),
-		  programming_skills: new FormControl(''),
-		  optinal_skills: new FormControl(''),
-		  certification: new FormControl(''),
-		  type: new FormControl('0', Validators.required),
-		  employer_role_type: new FormControl(''),
-		  availability: new FormControl('0', Validators.required),
-		  work_authorization: new FormControl(''),
+		  experience: new UntypedFormControl('0', Validators.required),
+		  sap_experience: new UntypedFormControl('0', Validators.required),
+		  domain: new UntypedFormControl(''),
+		  hands_on_experience: new UntypedFormControl('0', Validators.required),
+		  skills: new UntypedFormControl(''),
+		  programming_skills: new UntypedFormControl(''),
+		  optinal_skills: new UntypedFormControl(''),
+		  certification: new UntypedFormControl(''),
+		  type: new UntypedFormControl('0', Validators.required),
+		  employer_role_type: new UntypedFormControl(''),
+		  availability: new UntypedFormControl('0', Validators.required),
+		  work_authorization: new UntypedFormControl(''),
 		  //facing_role: new FormControl(''),
 		  //training_experience: new FormControl(''),
-		  end_to_end_implementation: new FormControl(''),
-		  education: new FormControl(''),
-		  travel_opportunity: new FormControl(''),
-		  need_reference: new FormControl(''),
+		  end_to_end_implementation: new UntypedFormControl(''),
+		  education: new UntypedFormControl(''),
+		  travel_opportunity: new UntypedFormControl(''),
+		  need_reference: new UntypedFormControl(''),
 		  //remote: new FormControl(''),
 		 // willing_to_relocate: new FormControl(''),
-		  language: new FormControl(''),
+		  language: new UntypedFormControl(''),
 		}
 
-		this.childForm.addControl('jobPrev', new FormGroup({
-			number_of_positions: new FormControl(null, Validators.required),
-			must_match: new FormControl(this.mustMacthObj),
-			match_select: new FormGroup(this.MacthObj),
+		this.childForm.addControl('jobPrev', new UntypedFormGroup({
+			number_of_positions: new UntypedFormControl(null, Validators.required),
+			must_match: new UntypedFormControl(this.mustMacthObj),
+			match_select: new UntypedFormGroup(this.MacthObj),
 		}));
 		this.checkValidator();
 	}

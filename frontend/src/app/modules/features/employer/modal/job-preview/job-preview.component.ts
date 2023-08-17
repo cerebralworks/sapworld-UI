@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { AbstractControl, ControlContainer, FormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { EmployerService } from '@data/service/employer.service';
@@ -41,7 +41,7 @@ export class JobPreviewModalComponent implements OnInit {
 		private modalService: NgbModal,
 		public router: Router,
 		private parentF: FormGroupDirective,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private employerService: EmployerService,
 		public sharedService: SharedService,
 		public utilsHelperService: UtilsHelperService,
@@ -97,12 +97,12 @@ export class JobPreviewModalComponent implements OnInit {
 	**	To validate the errors in the job preview	
 	**/
 	 
-	getErrors = (formGroup: FormGroup, errors: any = {}) => {
+	getErrors = (formGroup: UntypedFormGroup, errors: any = {}) => {
 		Object.keys(formGroup.controls).forEach(field => {
 			const control = formGroup.get(field);
-			if (control instanceof FormControl) {
+			if (control instanceof UntypedFormControl) {
 				errors[field] = control.errors;
-			} else if (control instanceof FormGroup) {
+			} else if (control instanceof UntypedFormGroup) {
 				errors[field] = this.getErrors(control);
 			}
 		});

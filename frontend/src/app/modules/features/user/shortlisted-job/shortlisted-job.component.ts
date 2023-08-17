@@ -1,6 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { UserService } from '@data/service/user.service';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
 @Component({

@@ -12,7 +12,7 @@ import { UserSettingModule } from '../profile/user-setting/user-setting.module';
 import { UserSharedModuleModule } from '../user-shared-module/user-shared-module.module';
 import { VisaSponsoredComponent } from '../visa-sponsored/visa-sponsored.component';
 import { MaterialModule } from '@shared/material.module';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { Daterangepicker } from 'ng2-daterangepicker';
 
 const routes: Routes = [
@@ -37,7 +37,7 @@ const routes: Routes = [
     CommonModule,
     Daterangepicker,
     UserSharedModuleModule,
-    ChartsModule,
+    NgChartsModule,
     MaterialModule,
     RouterModule.forChild(routes)
   ],

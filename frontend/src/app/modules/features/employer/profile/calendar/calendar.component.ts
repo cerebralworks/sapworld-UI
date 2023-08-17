@@ -1,5 +1,5 @@
 import { Component, DoCheck, ElementRef,TemplateRef, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl,UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
@@ -37,7 +37,7 @@ export class CalendarComponent implements OnInit {
 	**/
 	public currentView: View = 'Agenda';
 	public appliedJobs: any[] = [];	
-	public createCompanyForm: FormGroup;
+	public createCompanyForm: UntypedFormGroup;
 	//public currentTabInfo: tabInfo = {tabNumber: 2, tabName: 'inviteLink'};
 	public currentTabInfo: tabInfo = {tabNumber: 3, tabName: 'calender'};
 	public employerDetails: any;
@@ -69,7 +69,7 @@ export class CalendarComponent implements OnInit {
 	public eventSettings: EventSettingsModel; 
 	public meeting_link :any;
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private sharedService: SharedService,
 		private utilsHelperService: UtilsHelperService,
 		private dataService: DataService,
@@ -233,12 +233,12 @@ export class CalendarComponent implements OnInit {
 			firstName: [''],
 			lastName: [''],
 			invite_url: [''],			
-			calender_status: new FormControl(true),
-			invite_urls:new FormArray([this.formBuilder.group({
+			calender_status: new UntypedFormControl(true),
+			invite_urls:new UntypedFormArray([this.formBuilder.group({
 				title: [null, Validators.required],
 				url: [null, Validators.required]
 			})]),
-			calender_urls:new FormArray([this.formBuilder.group({
+			calender_urls:new UntypedFormArray([this.formBuilder.group({
 				title: [null, Validators.required],
 				url: [null, Validators.required]
 			})]),
@@ -251,16 +251,16 @@ export class CalendarComponent implements OnInit {
 			contact: [''],
 			latlng: [null],
 			social_media_link: [null],
-			linkedin: new FormControl(''),
-			github: new FormControl(''),
-			youtube: new FormControl(''),
-			blog: new FormControl(''),
-			portfolio: new FormControl(''),
-			linkedinBoolen: new FormControl(false),
-			githubBoolen: new FormControl(false),
-			youtubeBoolen: new FormControl(false),
-			blogBoolen: new FormControl(false),
-			portfolioBoolen: new FormControl(false),
+			linkedin: new UntypedFormControl(''),
+			github: new UntypedFormControl(''),
+			youtube: new UntypedFormControl(''),
+			blog: new UntypedFormControl(''),
+			portfolio: new UntypedFormControl(''),
+			linkedinBoolen: new UntypedFormControl(false),
+			githubBoolen: new UntypedFormControl(false),
+			youtubeBoolen: new UntypedFormControl(false),
+			blogBoolen: new UntypedFormControl(false),
+			portfolioBoolen: new UntypedFormControl(false),
 		});
 	}
 
@@ -274,11 +274,11 @@ export class CalendarComponent implements OnInit {
 	
 	
 	get t() {
-		return this.f.invite_urls as FormArray;
+		return this.f.invite_urls as UntypedFormArray;
 	}
 	
 	get c() {
-		return this.f.calender_urls as FormArray;
+		return this.f.calender_urls as UntypedFormArray;
 	}
 	
 	/**

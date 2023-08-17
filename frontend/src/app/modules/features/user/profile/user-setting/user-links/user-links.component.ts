@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { EmployerSharedService } from '@data/service/employer-shared.service';
 import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -16,12 +16,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserLinksComponent implements OnInit {
 
-	public userLinksForm: FormGroup;
+	public userLinksForm: UntypedFormGroup;
 	public socialMediaLinks: any[] = [];
 	public currentProfileInfo: any;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private sharedService: SharedService,
 		private utilsHelperService: UtilsHelperService,
 		private dataService: DataService,
@@ -106,16 +106,16 @@ export class UserLinksComponent implements OnInit {
 	
 	private buildForm(): void {
 		this.userLinksForm = this.formBuilder.group({
-		  linkedin: new FormControl(''),
-		  github: new FormControl(''),
-		  youtube: new FormControl(''),
-		  blog: new FormControl(''),
-		  portfolio: new FormControl(''),
-		  linkedinBoolen: new FormControl(false),
-		  githubBoolen: new FormControl(false),
-		  youtubeBoolen: new FormControl(false),
-		  blogBoolen: new FormControl(false),
-		  portfolioBoolen: new FormControl(false),
+		  linkedin: new UntypedFormControl(''),
+		  github: new UntypedFormControl(''),
+		  youtube: new UntypedFormControl(''),
+		  blog: new UntypedFormControl(''),
+		  portfolio: new UntypedFormControl(''),
+		  linkedinBoolen: new UntypedFormControl(false),
+		  githubBoolen: new UntypedFormControl(false),
+		  youtubeBoolen: new UntypedFormControl(false),
+		  blogBoolen: new UntypedFormControl(false),
+		  portfolioBoolen: new UntypedFormControl(false),
 		});
 	}
 	

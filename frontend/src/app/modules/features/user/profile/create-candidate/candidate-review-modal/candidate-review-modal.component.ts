@@ -1,6 +1,6 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Component,ElementRef,ViewEncapsulation, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -10,7 +10,7 @@ import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 import { SharedApiService } from '@shared/service/shared-api.service';
-import {MatChipInputEvent} from '@angular/material/chips';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { ValidationService } from '@shared/service/validation.service';
 import { trigger, style, animate, transition, state, group } from '@angular/animations';
@@ -131,7 +131,7 @@ export class CandidateReviewModalComponent implements OnInit {
 		private modalService: NgbModal,
 		public router: Router,
 		private parentF: FormGroupDirective,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private employerService: EmployerService,
 		public sharedService: SharedService,
 		public route: ActivatedRoute,
@@ -543,9 +543,9 @@ export class CandidateReviewModalComponent implements OnInit {
 				 i=0;
 			 }
 			  this.r.push(this.formBuilder.group({
-				name: new FormControl(null),
-				email: new FormControl(''),
-				company_name: new FormControl(null)
+				name: new UntypedFormControl(null),
+				email: new UntypedFormControl(''),
+				company_name: new UntypedFormControl(null)
 			}));
 		}else if(this.mobileNumber == true){
 			this.childForm.patchValue({
@@ -877,7 +877,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	**/
 	
 	get t() {
-    return this.f.education_qualification as FormArray;
+    return this.f.education_qualification as UntypedFormArray;
 	}
 	
 	/**
@@ -1076,7 +1076,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	**/
 	
 	get ts() {
-		return this.childForm.controls.jobPref.controls.preferred_locations as FormArray;
+		return this.childForm.controls.jobPref.controls.preferred_locations as UntypedFormArray;
 	}
   
 	/**
@@ -1172,7 +1172,7 @@ export class CandidateReviewModalComponent implements OnInit {
 	};
   
 	get r() {
-		return this.childForm.controls.personalDetails.controls.reference as FormArray;
+		return this.childForm.controls.personalDetails.controls.reference as UntypedFormArray;
 	}
 	
 	/**
@@ -1205,9 +1205,9 @@ export class CandidateReviewModalComponent implements OnInit {
 		 
 	  }else{
 			this.r.push(this.formBuilder.group({
-				name: new FormControl(null),
+				name: new UntypedFormControl(null),
 			email: [null,ValidationService.emailValidator],
-			company_name: new FormControl(null)
+			company_name: new UntypedFormControl(null)
 			}));
 		}
 	}

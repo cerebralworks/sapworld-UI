@@ -1,7 +1,7 @@
 import { Component, Input,ViewChild, OnInit,ElementRef, SimpleChanges ,ViewEncapsulation} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { ControlContainer, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import {  FormArray, FormBuilder } from '@angular/forms';
+import { ControlContainer, UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import {  UntypedFormArray, UntypedFormBuilder } from '@angular/forms';
 
 import { textEditorConfig } from '@config/rich-editor';
 import { tabInfo } from '@data/schema/create-candidate';
@@ -15,8 +15,8 @@ import { Options} from "ngx-google-places-autocomplete/objects/options/options";
 import { GooglePlaceDirective } from "ngx-google-places-autocomplete";
 import { ComponentRestrictions } from "ngx-google-places-autocomplete/objects/options/componentRestrictions";
 import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
-import {MatChipInputEvent} from '@angular/material/chips';
-import { AmazingTimePickerService } from 'amazing-time-picker';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
+//import { AmazingTimePickerService } from 'amazing-time-picker';
 
 declare let google: any;
 @Component({
@@ -66,9 +66,9 @@ export class JobInformationComponent implements OnInit {
 	public errEuro : boolean =false;
 	constructor(
 		private parentF: FormGroupDirective,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public sharedService: SharedService,
-		private atp: AmazingTimePickerService,
+		//private atp: AmazingTimePickerService,
 		private route: ActivatedRoute,
 	) { }
 
@@ -300,22 +300,22 @@ export class JobInformationComponent implements OnInit {
 		
 		this.childForm = this.parentF.form;
 
-		this.childForm.addControl('jobInfo', new FormGroup({
-			title: new FormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator,Validators.minLength(3)]),
-			employer_role_type: new FormControl(''),
-			entry: new FormControl(false),
-			negotiable: new FormControl(false),
-			type: new FormControl('', Validators.required),
-			contract_duration: new FormControl(''),
-			salary_type: new FormControl(''),
-			salary_currency: new FormControl('USD'),
-			salary: new FormControl(null),
+		this.childForm.addControl('jobInfo', new UntypedFormGroup({
+			title: new UntypedFormControl('',[Validators.required,ValidationService.StartingEmptyStringValidator,Validators.minLength(3)]),
+			employer_role_type: new UntypedFormControl(''),
+			entry: new UntypedFormControl(false),
+			negotiable: new UntypedFormControl(false),
+			type: new UntypedFormControl('', Validators.required),
+			contract_duration: new UntypedFormControl(''),
+			salary_type: new UntypedFormControl(''),
+			salary_currency: new UntypedFormControl('USD'),
+			salary: new UntypedFormControl(null),
 			//city: new FormControl(null, Validators.required),
 			/*state: new FormControl('', Validators.required),
 			latlng: new FormControl({}, Validators.required),
 			country: new FormControl('', Validators.required),
 			zipcode: new FormControl(null, Validators.required), */
-			job_locations : new FormArray([this.formBuilder.group({
+			job_locations : new UntypedFormArray([this.formBuilder.group({
 				city:['',Validators.required],
 				state: [''],
 				stateshort: ['', Validators.required],
@@ -323,41 +323,41 @@ export class JobInformationComponent implements OnInit {
 				zipcode: [''],
 				country: ['', Validators.required]
 			})]),
-			min: new FormControl(null),
-			max: new FormControl(null),
-			availability: new FormControl(null, Validators.required),
-			remote: new FormControl(null, Validators.required),
+			min: new UntypedFormControl(null),
+			max: new UntypedFormControl(null),
+			availability: new UntypedFormControl(null, Validators.required),
+			remote: new UntypedFormControl(null, Validators.required),
 			//willing_to_relocate: new FormControl(null, Validators.required),
-			willing_to_relocate: new FormControl(null),
-			health_wellness: new FormGroup({
-			  dental: new FormControl(false),
+			willing_to_relocate: new UntypedFormControl(null),
+			health_wellness: new UntypedFormGroup({
+			  dental: new UntypedFormControl(false),
 			  //vision: new FormControl(false),
 			 // health: new FormControl(false),
-			  disability: new FormControl(false),
-			  life: new FormControl(false)
+			  disability: new UntypedFormControl(false),
+			  life: new UntypedFormControl(false)
 			}),
-			paid_off: new FormGroup({
-			  vacation_policy: new FormControl(false),
-			  paid_sick_leaves: new FormControl(false),
-			  paid_parental_leave: new FormControl(false),
-			  maternity: new FormControl(false)
+			paid_off: new UntypedFormGroup({
+			  vacation_policy: new UntypedFormControl(false),
+			  paid_sick_leaves: new UntypedFormControl(false),
+			  paid_parental_leave: new UntypedFormControl(false),
+			  maternity: new UntypedFormControl(false)
 			}),
-			financial_benefits: new FormGroup({
-			  tuition_reimbursement: new FormControl(false),
-			  corporate_plan: new FormControl(false),
-			  retirement_plan: new FormControl(false),
-			  performance_bonus: new FormControl(false),
-			  purchase_plan: new FormControl(false)
+			financial_benefits: new UntypedFormGroup({
+			  tuition_reimbursement: new UntypedFormControl(false),
+			  corporate_plan: new UntypedFormControl(false),
+			  retirement_plan: new UntypedFormControl(false),
+			  performance_bonus: new UntypedFormControl(false),
+			  purchase_plan: new UntypedFormControl(false)
 			}),
-			office_perks: new FormGroup({
-			  telecommuting: new FormControl(false),
-			  free_food: new FormControl(false),
-			  wellness_program: new FormControl(false),
-			  social_outings: new FormControl(false),
-			  office_space: new FormControl(false)
+			office_perks: new UntypedFormGroup({
+			  telecommuting: new UntypedFormControl(false),
+			  free_food: new UntypedFormControl(false),
+			  wellness_program: new UntypedFormControl(false),
+			  social_outings: new UntypedFormControl(false),
+			  office_space: new UntypedFormControl(false)
 			}),
-			remote_option : new FormControl(null),
-			description: new FormControl('', [Validators.required,Validators.minLength(100)]),
+			remote_option : new UntypedFormControl(null),
+			description: new UntypedFormControl('', [Validators.required,Validators.minLength(100)]),
 		}));
 	}
 
@@ -442,7 +442,7 @@ export class JobInformationComponent implements OnInit {
 	}*/
 	
 	getValue(event,data){
-		console.log('data',data)
+		/*
 		if(data == 'min'){
 			var amazingTimePicker = this.atp.open({
 				time : this.min, 
@@ -510,13 +510,13 @@ export class JobInformationComponent implements OnInit {
 			
 		}
 		}
-	});
+	});*/
 		
 	}
 	
 		
 	get t() {
-		return this.f.job_locations as FormArray;
+		return this.f.job_locations as UntypedFormArray;
 	}
   
 	/**

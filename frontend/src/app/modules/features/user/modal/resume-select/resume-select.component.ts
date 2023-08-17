@@ -1,5 +1,5 @@
 import { Component, EventEmitter, ElementRef,Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder,FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder,UntypedFormControl,UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -22,7 +22,7 @@ export class ResumeSelectComponent implements OnInit {
 	
 	public userSelectedResume: File;
 	public selectedResumeUrl: any;
-	public resumeForm: FormGroup;
+	public resumeForm: UntypedFormGroup;
 	public isOpenedResumeModal: boolean;
 	public isShowData: boolean = false;
 	public isShowValidShow: boolean = false;
@@ -47,12 +47,12 @@ export class ResumeSelectComponent implements OnInit {
 	@ViewChild("openSuccessPopup", { static: false }) openSuccessModal: TemplateRef<any>;
 	@ViewChild("openWarningPopup", { static: false }) openWarningPopup: TemplateRef<any>;
 	@ViewChild('userResume', { static: false }) userResume: ElementRef;
-	public resumeSelectForm: FormGroup;
-	public jobDetailsForm: FormGroup;
+	public resumeSelectForm: UntypedFormGroup;
+	public jobDetailsForm: UntypedFormGroup;
 	public resumeSelected: any;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private modalService: NgbModal,
 		public router: Router,
 		private dataService: DataService,
@@ -201,21 +201,21 @@ export class ResumeSelectComponent implements OnInit {
 			title: ['', [Validators.required]]
 		});
 		this.jobDetailsForm = this.formBuilder.group({
-			others: new FormArray([this.formBuilder.group({
+			others: new UntypedFormArray([this.formBuilder.group({
 				id: [null],
 				title: [null],
 				value: [null]
 			})])
 		});
 		this.resumeForm = this.formBuilder.group({
-			title: new FormControl('', [Validators.required])
+			title: new UntypedFormControl('', [Validators.required])
 		});
 		this.buildData();
 		
 	}
 
 	get others() {
-		return this.ft.others as FormArray; 
+		return this.ft.others as UntypedFormArray; 
 	}
 	  
 	changeStatus(id,event){

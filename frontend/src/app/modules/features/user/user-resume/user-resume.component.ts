@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit,Input, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserSharedService } from '@data/service/user-shared.service';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -37,8 +37,8 @@ export class UserResumeComponent implements OnInit {
 	public currentCoverDetails: any;
 	public isDeleteModalOpened: boolean;
 	public isDeleteModalOpenedCover: boolean;
-	public resumeForm: FormGroup;
-	public coverForm: FormGroup;
+	public resumeForm: UntypedFormGroup;
+	public coverForm: UntypedFormGroup;
 	
 	constructor(
 		private userService: UserService,
@@ -46,7 +46,7 @@ export class UserResumeComponent implements OnInit {
 		private toastrService: ToastrService,
 		private userSharedService: UserSharedService,
 		private modalService: NgbModal,
-		private formBuilder: FormBuilder
+		private formBuilder: UntypedFormBuilder
 	) { }
 	
 	
@@ -69,10 +69,10 @@ export class UserResumeComponent implements OnInit {
 	
 	private buildForm(): void {
 		this.resumeForm = this.formBuilder.group({
-			title: new FormControl('', [Validators.required])
+			title: new UntypedFormControl('', [Validators.required])
 		});
 		this.coverForm = this.formBuilder.group({
-			title: new FormControl('', [Validators.required])
+			title: new UntypedFormControl('', [Validators.required])
 		});
 	}
 

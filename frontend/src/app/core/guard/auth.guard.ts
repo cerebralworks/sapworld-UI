@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Logger } from '@app/logger/logger.service';
 import { AccountService } from '@data/service/account.service';
 
@@ -8,7 +8,7 @@ const log = new Logger('AuthenticationGuard');
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard  {
 
   constructor(private router: Router,
               private accountService: AccountService) { }

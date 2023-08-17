@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';
 import { ValidationService } from '@shared/service/validation.service';
@@ -12,12 +12,12 @@ import { ValidationService } from '@shared/service/validation.service';
 export class ResetPasswordComponent implements OnInit {
 
   public isLoading: boolean;
-  public resetPasswordForm: FormGroup;
+  public resetPasswordForm: UntypedFormGroup;
   public returnUrl: any;
   formError: any;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public router: Router,
     private route: ActivatedRoute,
     private accountService: AccountService,

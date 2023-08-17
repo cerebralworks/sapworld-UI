@@ -8,10 +8,9 @@ const routes: Routes = [];
   imports: [
     RouterModule.forRoot(routes, {
     scrollPositionRestoration: "enabled",
-	anchorScrolling: 'enabled',
+    anchorScrolling: 'enabled',
     useHash: false,
-    relativeLinkResolution: 'legacy',
-	initialNavigation:'enabled'
+    initialNavigation: 'enabledBlocking'
 }),
     LayoutModule
   ],

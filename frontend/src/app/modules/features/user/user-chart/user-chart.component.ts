@@ -1,11 +1,11 @@
 import { Component, DoCheck, OnDestroy, OnInit,Input, TemplateRef, ViewChild,ViewChildren,QueryList  } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import {PageEvent} from '@angular/material/paginator';
+import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import { EmployerService } from '@data/service/employer.service';
 import { UserSharedService } from '@data/service/user-shared.service';
-import { ChartOptions,ChartType,BorderWidth,ChartTooltipItem,ChartData } from 'chart.js';
-import { MultiDataSet, Label,Color ,BaseChartDirective } from 'ng2-charts';
+import { ChartOptions,ChartType,ChartData } from 'chart.js';
+import {  BaseChartDirective } from 'ng2-charts';
 import { DaterangepickerComponent,DaterangepickerConfig   } from 'ng2-daterangepicker';
 
 import * as moment from 'moment';

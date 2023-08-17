@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { tabInfo } from '@data/schema/create-candidate';
 import { trigger, transition, query, style, animate, group } from '@angular/animations';
-import { ControlContainer, FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ControlContainer, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { EmployerService } from '@data/service/employer.service';
 import { JobPosting } from '@data/schema/post-job';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -54,7 +54,7 @@ export class PostJobLayoutComponent implements OnInit {
 	public slindingList: Array<number> = [1, 2, 3, 4];
 	public isOpenedJobPreviewModal: boolean;
 	public isEnableJobPreviewModal: any;
-	public postJobForm: FormGroup;
+	public postJobForm: UntypedFormGroup;
 	public isLoading: boolean;
 	public getDataCount: boolean = false;
 	public showData: boolean = false;
@@ -69,7 +69,7 @@ export class PostJobLayoutComponent implements OnInit {
 	public skils : any=[];
 	public showBack:boolean = false;
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private employerService: EmployerService,
 		private employerSharedService: EmployerSharedService,
 		private modalService: NgbModal,
@@ -396,76 +396,76 @@ export class PostJobLayoutComponent implements OnInit {
     this.employerService.getPostedJobDetails(requestParams).subscribe(
       response => {
 		  if(response['details']['entry'] == true){
-			 this.postJobForm.addControl('requirement', new FormGroup({
-				experience: new FormControl(null),
-				education: new FormControl(null),
-				sap_experience: new FormControl(null),
-				domain: new FormControl(null),
-				hands_on_experience: new FormArray([this.formBuilder.group({
+			 this.postJobForm.addControl('requirement', new UntypedFormGroup({
+				experience: new UntypedFormControl(null),
+				education: new UntypedFormControl(null),
+				sap_experience: new UntypedFormControl(null),
+				domain: new UntypedFormControl(null),
+				hands_on_experience: new UntypedFormArray([this.formBuilder.group({
 					skill_id: [''],
 					skill_name: [''],
 					experience: [''],
 					exp_type: ['years']
 				})]),
-				new_skills: new FormArray([]),
-				skills: new FormControl(null),
-				skills_Data: new FormControl(null),
-				skills_Datas: new FormControl(null),
-				programming_skills:  new FormControl(null),
-				optinal_skills: new FormControl(null),
-				work_authorization: new FormControl(null),
-				visa_sponsorship: new FormControl(false, Validators.required),
-				need_reference: new FormControl(false, Validators.required),
-				travel_opportunity: new FormControl(null, Validators.required),
-				end_to_end_implementation: new FormControl(null)
+				new_skills: new UntypedFormArray([]),
+				skills: new UntypedFormControl(null),
+				skills_Data: new UntypedFormControl(null),
+				skills_Datas: new UntypedFormControl(null),
+				programming_skills:  new UntypedFormControl(null),
+				optinal_skills: new UntypedFormControl(null),
+				work_authorization: new UntypedFormControl(null),
+				visa_sponsorship: new UntypedFormControl(false, Validators.required),
+				need_reference: new UntypedFormControl(false, Validators.required),
+				travel_opportunity: new UntypedFormControl(null, Validators.required),
+				end_to_end_implementation: new UntypedFormControl(null)
 			}));
 
 		  }else{
-			  this.postJobForm.addControl('requirement', new FormGroup({
-				experience: new FormControl(null, Validators.required),
-				education: new FormControl(null),
-				sap_experience: new FormControl(null, Validators.required),
-				domain: new FormControl(null,Validators.required),
-				hands_on_experience: new FormArray([this.formBuilder.group({
+			  this.postJobForm.addControl('requirement', new UntypedFormGroup({
+				experience: new UntypedFormControl(null, Validators.required),
+				education: new UntypedFormControl(null),
+				sap_experience: new UntypedFormControl(null, Validators.required),
+				domain: new UntypedFormControl(null,Validators.required),
+				hands_on_experience: new UntypedFormArray([this.formBuilder.group({
 					skill_id: [null, Validators.required],
 					skill_name: [''],
 					experience: ['', [Validators.required,]],
 					exp_type: ['years', [Validators.required]]
 				})]),
-				new_skills: new FormArray([]),
-				skills: new FormControl(null),
-				skills_Data: new FormControl(null),
-				skills_Datas: new FormControl(null),
-				programming_skills:  new FormControl(null),
-				optinal_skills: new FormControl(null, Validators.required),
-				work_authorization: new FormControl(null),
-				visa_sponsorship: new FormControl(false, Validators.required),
-				need_reference: new FormControl(false, Validators.required),
-				travel_opportunity: new FormControl(null, Validators.required),
-				end_to_end_implementation: new FormControl(null)
+				new_skills: new UntypedFormArray([]),
+				skills: new UntypedFormControl(null),
+				skills_Data: new UntypedFormControl(null),
+				skills_Datas: new UntypedFormControl(null),
+				programming_skills:  new UntypedFormControl(null),
+				optinal_skills: new UntypedFormControl(null, Validators.required),
+				work_authorization: new UntypedFormControl(null),
+				visa_sponsorship: new UntypedFormControl(false, Validators.required),
+				need_reference: new UntypedFormControl(false, Validators.required),
+				travel_opportunity: new UntypedFormControl(null, Validators.required),
+				end_to_end_implementation: new UntypedFormControl(null)
 			}));
 		  }
-		this.postJobForm.addControl('otherPref', new FormGroup({
-			facing_role: new FormControl(null),
-			training_experience: new FormControl(null),
-			certification: new FormControl(null),
-			others_data: new FormControl(null),
-			language: new FormControl(null, Validators.required),
-			extra_criteria: new FormArray([this.formBuilder.group({
+		this.postJobForm.addControl('otherPref', new UntypedFormGroup({
+			facing_role: new UntypedFormControl(null),
+			training_experience: new UntypedFormControl(null),
+			certification: new UntypedFormControl(null),
+			others_data: new UntypedFormControl(null),
+			language: new UntypedFormControl(null, Validators.required),
+			extra_criteria: new UntypedFormArray([this.formBuilder.group({
 				title: [null],
 				value: [null]
 			})]),
-			others: new FormArray([this.formBuilder.group({
+			others: new UntypedFormArray([this.formBuilder.group({
 				id: [null],
 				title: [null],
 				value: [null]
 			})]),
-			temp_extra_criteria: new FormArray([]),
+			temp_extra_criteria: new UntypedFormArray([]),
 		}));
 		
-		this.postJobForm.addControl('screeningProcess', new FormGroup({
-			screening_process: new FormArray([]),
-			temp_screening_process: new FormControl(null),
+		this.postJobForm.addControl('screeningProcess', new UntypedFormGroup({
+			screening_process: new UntypedFormArray([]),
+			temp_screening_process: new UntypedFormControl(null),
 		}));
         if(response && response.details) {
 			if(this.isCopy){

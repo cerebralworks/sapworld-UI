@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
 import { LoggedIn } from '@data/schema/account';
 import { AccountService } from '@data/service/account.service';
@@ -31,7 +31,7 @@ export class LandingComponent extends CacheService implements OnInit, AfterViewI
   public currentUserDetails: any;
   public location: string = "";
   public jobTtileORModule: string = "";
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
 
   @ViewChild('searchJob', { static: false }) searchJobs: ElementRef;
   public filteredValues: any[] = [];
@@ -76,7 +76,7 @@ export class LandingComponent extends CacheService implements OnInit, AfterViewI
     private employerSharedService: EmployerSharedService,
     private userSharedService: UserSharedService,
     private accountService: AccountService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private userService: UserService,
     public utilsHelperService: UtilsHelperService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -107,13 +107,13 @@ console.log(event);
    */
   onCreateForm = () => {
     this.searchForm = this.formBuilder.group({
-      search: new FormControl(''),
-      location: new FormControl(''),
-      skillId: new FormControl('')
+      search: new UntypedFormControl(''),
+      location: new UntypedFormControl(''),
+      skillId: new UntypedFormControl('')
     }, { validator: atLeastOne(Validators.required, ['search', 'location']) });
   }
 
-  atLeastOnePhoneRequired(group: FormGroup): { [s: string]: boolean } {
+  atLeastOnePhoneRequired(group: UntypedFormGroup): { [s: string]: boolean } {
     if (group) {
       if (group.controls['search'].value || group.controls['location'].value) {
         return null;
@@ -319,7 +319,7 @@ console.log(event);
 }
 
 export const atLeastOne = (validator: ValidatorFn, controls: string[] = null) => (
-  group: FormGroup,
+  group: UntypedFormGroup,
 ): ValidationErrors | null => {
   if (!controls) {
     controls = Object.keys(group.controls)

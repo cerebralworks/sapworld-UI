@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer} from '@angular/platform-browser';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
-import { FormBuilder, FormControl,FormArray, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl,UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms';
 import { DayService, WeekService, WorkWeekService,PrintService, MonthService, AgendaService, MonthAgendaService,CurrentAction,EventSettingsModel,ResourcesModel,CellClickEventArgs,EJ2Instance,View} from '@syncfusion/ej2-angular-schedule';
 import { extend, Internationalization } from '@syncfusion/ej2-base';
 
@@ -29,7 +29,7 @@ export class CalendarComponent implements OnInit {
 	public appliedJobMeta: any;
 	public currentView: View = 'Month';
     public intl: Internationalization = new Internationalization();
-	public createUserForm: FormGroup;
+	public createUserForm: UntypedFormGroup;
 	public currentProfileInfo: any;
 	public currentuser : any;
 	public loggedUserInfo : any;
@@ -50,7 +50,7 @@ export class CalendarComponent implements OnInit {
 	
 	constructor(
 		
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private utilsHelperService: UtilsHelperService,
 		private userservice : UserSharedService, 
 		private accountService : AccountService,
@@ -412,7 +412,7 @@ export class CalendarComponent implements OnInit {
 	private buildForm(): void {
 		
 		this.createUserForm = this.formBuilder.group({
-			calender_urls:new FormArray([this.formBuilder.group({
+			calender_urls:new UntypedFormArray([this.formBuilder.group({
 				title: [null, Validators.required],
 				url: [null, Validators.required]
 			})])
@@ -428,7 +428,7 @@ export class CalendarComponent implements OnInit {
 	}
 	
 	get c() {
-		return this.f.calender_urls as FormArray;
+		return this.f.calender_urls as UntypedFormArray;
 	}
 	
 	onSaveUser(data){

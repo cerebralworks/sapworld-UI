@@ -1,5 +1,5 @@
 import { Component, EventEmitter, ElementRef,Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder,FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobPosting } from '@data/schema/post-job';
 import { UserSharedService } from '@data/service/user-shared.service';
@@ -33,11 +33,11 @@ export class ResumeSelectComponent implements OnInit {
 
   @ViewChild("coverSelectModal", { static: false }) coverSelectModal: TemplateRef<any>;
   @ViewChild("resumeTitleModal", { static: false }) resumeTitleModal: TemplateRef<any>;
-  public resumeForm: FormGroup;
+  public resumeForm: UntypedFormGroup;
   public resumeSelected: any;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     public router: Router,
     private userSharedService: UserSharedService,

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ValidationService } from '../../service/validation.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ValidationService } from '../../service/validation.service';
 })
 export class ControlMessagesComponent {
   @Input()
-  public control: FormControl;
+  public control: UntypedFormControl;
   @Input()
   public labelName?: string;
   /**
