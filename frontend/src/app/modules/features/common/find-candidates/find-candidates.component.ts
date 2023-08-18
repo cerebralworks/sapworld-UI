@@ -1,4 +1,4 @@
-import { LabelType, Options } from '@angular-slider/ngx-slider';
+import { LabelType, Options } from 'ngx-slider-v2';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AccountService } from '@data/service/account.service';

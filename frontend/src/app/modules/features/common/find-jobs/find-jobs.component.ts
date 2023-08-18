@@ -4,7 +4,7 @@ import { EmployerService } from '@data/service/employer.service';
 import { SharedService } from '@shared/service/shared.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 
-import { Options, LabelType } from '@angular-slider/ngx-slider';
+import { Options, LabelType } from 'ngx-slider-v2';
 import * as queryString from "query-string";
 import { DataService } from '@shared/service/data.service';
 import { CacheService } from '@shared/service/cache.service';

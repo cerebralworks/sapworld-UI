@@ -66,8 +66,8 @@ module.exports = (app, env, rp) => {
 	app.post("/api/users/update", (req, res) => {
 		let requestBody = { ...req.body };    
 		requestCustom.post(`${serverRoutes.userUpdate}`, req, res, requestBody);
-		let requestBodys = JSON.stringify(res.body);  
-		fs.appendFileSync("./logs/logs.json",requestBodys);
+		//let requestBodys = JSON.stringify(res.body);  
+		//fs.appendFileSync("./logs/logs.json",requestBodys);
 	});
 	
 	/**

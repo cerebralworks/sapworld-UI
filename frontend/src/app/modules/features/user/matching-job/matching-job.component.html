@@ -194,7 +194,8 @@
 								<i class="fas fa-angle-down float-right pt-1"></i>
 							</div>
 							<div [ngClass]="{'show': (queryParams?.min_salary && queryParams?.max_salary)}" class="card-body p-3 collapse multi-collapse" id="collapseSalary">
-								<ngx-slider (userChangeEnd)="onFilterWithSalary($event)" [(value)]="minSalary" [(highValue)]="maxSalary" [options]="options"></ngx-slider>
+								<!--<ngx-slider (userChangeEnd)="onFilterWithSalary($event)" [(value)]="minSalary" [(highValue)]="maxSalary" [options]="options"></ngx-slider>-->
+                                
 							</div>
 						</div>
 						<!--<div class="card mt-4">

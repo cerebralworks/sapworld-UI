@@ -24,13 +24,12 @@ import { MarkAsteriskDirective } from './directives/mark-asterisk.directive';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { DeleteModalComponent } from './component/modal/delete-modal/delete-modal.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-//import { AvatarModule } from 'ngx-avatar';
+import { AvatarModule } from 'ngx-avatars';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ContactCardComponent } from './component/contact-card/contact-card.component';
 import { RouterModule } from '@angular/router';
-//import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgxSliderModule } from 'ngx-slider-v2';
 import { NgInitDirective } from './directives/nginit.directive';
-//import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ClickOutsideDirective } from './directives/clickOutside.directive';
 import { AutocompleteDirective } from './directives/autocomplete.directive';
 import { OnlyNumber } from './directives/only-number.directive';
@@ -98,15 +97,14 @@ import {SplashScreenComponent} from './component/splash-screen/splash-screen.com
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+	NgxSliderModule,
     NgSelectModule,
     NgxSelectModule,
     //GooglePlaceModule,
     TranslateModule.forChild(),
     AngularEditorModule,
-    //AvatarModule,
+    AvatarModule,
     ImageCropperModule,
-    //NgxSliderModule,
-    //PerfectScrollbarModule,
     //Ng2TelInputModule,
     NgxDocViewerModule,
     CarouselModule,
@@ -137,13 +135,12 @@ import {SplashScreenComponent} from './component/splash-screen/splash-screen.com
     MarkAsteriskDirective,
     DeleteModalComponent,
     AngularEditorModule,
-    //AvatarModule,
+    AvatarModule,
     ImageCropperModule,
     ContactCardComponent,
     RouterModule,
-    //NgxSliderModule,
+    NgxSliderModule,
     NgInitDirective,
-    //PerfectScrollbarModule,
     ClickOutsideDirective,
     AutocompleteDirective,
     AppPasswordDirective,
