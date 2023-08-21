@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild,ViewChildren,QueryList,HostListener  } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit, TemplateRef, ViewChild,ViewChildren,QueryList,HostListener   } from '@angular/core';
 import { UserService } from '@data/service/user.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
@@ -12,7 +12,10 @@ import { UserSharedService } from '@data/service/user-shared.service';
 
 import * as moment from 'moment';
 
-import {  ChartOptions } from 'chart.js';
+//import {  ChartOptions } from 'chart.js';
+
+import { ChartDataset,Chart,TooltipItem, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 @Component({
   selector: 'app-employee-chart',
   templateUrl: './employee-chart.component.html',
@@ -75,6 +78,46 @@ export class EmployeeChartComponent implements OnInit {
 		public totalInterviewed :any = 0;
 		public jobStatus:any;
 		public chartDetails :any;
+		@ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+		 public barChartType:ChartType = 'bar';
+ public barChartData: ChartConfiguration['data'] = {  labels: ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],
+    datasets: [] };
+ public barChartLabels: any= [];
+ public barChartColors:any = [];
+ public barChartLegend = false;
+ 
+ //Bar chart options
+ public barChartOptions: ChartConfiguration['options'] = {
+		responsive: true,
+		scales: {
+		 y: {
+			display: true,
+			min: 0,
+			suggestedMax:5,
+			ticks: {
+			 stepSize: 1,
+			 
+			  callback: (value: any, index: any, data: any) => {
+				return value;
+			  }
+			}
+		  },
+		},
+		plugins: {
+		legend: {
+			   display: true,
+                labels: {
+				   filter: function(legendItem, chartData) {
+					if (legendItem.text === '' || legendItem.strokeStyle === 'transparent') {
+					  return false;
+					}
+					  return true;
+				   }	   
+               }
+            },
+			
+		},
+	  };
 		public totalApplications:any[]=[];
 		/*public borders:any[]= [
 				"#7cd7ff",
@@ -215,47 +258,8 @@ export class EmployeeChartComponent implements OnInit {
 		
 		public startDate:any;
 		public endDate:any;*/
-		public lineChartData = [{
-		     label: '' 
-		}];
-       public lineChartLabels = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-	   public lineChartOptions ={
-			responsive: true,
-			scales: {
-				yAxes: [{
-					ticks: {
-						min:0,
-						stepSize: 1,
-						suggestedMax:5,
-						
-					}
-				}]
-            },
-			legend: {
-			   display: true,
-                labels: {
-				   filter: function(legendItem, chartData) {
-					if (legendItem.text === '' || legendItem.strokeStyle === 'transparent') {
-					  return false;
-					}
-					  return true;
-				   }	   
-               }
-            },
-		    tooltips: {
-				 mode: 'index',
-				 intersect: true
-		   }
-			
-		};
-	   public lineChartColors = [{
-		  borderColor: '#007bff',
-		  backgroundColor: 'transparent',
-		},];
-	   public lineChartLegend = true;
-	   public lineChartType = 'line';
-	   public lineChartPlugins = [];
 		
+	   public showChart:boolean=false;
 	/**	
 	**	To implement the package section constructor
 	**/
@@ -618,24 +622,10 @@ export class EmployeeChartComponent implements OnInit {
 			  var patchchart1 ={
 					  data: this.totalApplications,
 					  label:"All Applications",
-					  borderColor: '#007bff',
-		              backgroundColor: 'transparent',
+					  borderColor: '#007bff'
 					};
-			this.lineChartData.push(patchchart1);
-			this.chartDetails.map((a,i)=>{
-			 var arrData = [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec];
-			 arrData = arrData.map(function(val, i) {
-					return val === '0' ? null : val;
-				});
-				    var patchchart ={
-					  data:arrData ,
-					  label:a.title,
-					  borderColor: 'transparent',
-		              backgroundColor: 'transparent',
-					};
-					this.lineChartData.push(patchchart);  
-			  })
-			
+			this.barChartData.datasets.push(patchchart1);
+			this.showChart=true;
 			}else{
 				
 			}
@@ -699,37 +689,26 @@ export class EmployeeChartComponent implements OnInit {
 	**/
 	
 	selectJob(e){
+	 
 	   if(e==0){
-	   this.lineChartData.shift();
 		var patchchart1 ={
 				  data: this.totalApplications,
 				  label:"All Applications",
-				  borderColor: '#007bff',
-				  backgroundColor: 'transparent',
+				  borderColor: '#007bff'
 				};
-		this.lineChartData.push(patchchart1);
-	    this.chartDetails.map((a,i)=>{
-	        var arrData = [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec];
-			 arrData = arrData.map(function(val, i) {
-					return val === '0' ? null : val;
-				});
-			var patchchart ={
-			  data: arrData,
-			  label:a.title,
-			  borderColor: 'transparent',
-			  backgroundColor: 'transparent',
-			};
-			this.lineChartData.push(patchchart);  
-		})
+		this.barChartData.datasets=[patchchart1];
+		this.chart?.update();
 	   
 	   }
 	   else{
 	    var a = JSON.parse(e); 
-		var patchcharts ={
-			data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec], 
-			label: a.title
-			};
-		this.lineChartData= [patchcharts];
+		var patchchart ={
+				  data: [a.jan,a.feb,a.mar,a.apr,a.may,a.jun,a.jul,a.aug,a.sep,a.oct,a.nov,a.dec], 
+			       label: a.title,
+				  borderColor: '#007bff'
+				};
+		this.barChartData.datasets=[patchchart];
+		this.chart?.update();
 		}
 	}
 	

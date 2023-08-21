@@ -324,15 +324,16 @@
 							</div>
 						</div>
 						<!-- <canvas id="jobsChart5" height="80"></canvas>		 -->
-						<canvas baseChart width="1177" height="313"
-							[datasets]="lineChartData"
-							[labels]="lineChartLabels"
-							[options]="lineChartOptions"
-							[colors]="lineChartColors"
-							[legend]="lineChartLegend"
-							[chartType]="lineChartType"
-							[plugins]="lineChartPlugins">
-						</canvas>
+						<canvas  width="1177" height="313" baseChart
+						   *ngIf="showChart"
+							[data]="barChartData" 
+							[options]="barChartOptions"
+							[ngStyle]="barChartColors" 
+							[legend]="barChartLegend" 
+							[type]="barChartType" 
+							>
+						 </canvas>
+						
 						
 					</div>
 				</div>			

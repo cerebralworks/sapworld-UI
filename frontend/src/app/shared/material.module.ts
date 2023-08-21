@@ -32,7 +32,7 @@ import {MatLegacyProgressSpinnerModule as MatProgressSpinnerModule} from '@angul
 import {MatLegacyRadioModule as MatRadioModule} from '@angular/material/legacy-radio';
 import {MatLegacySelectModule as MatSelectModule} from '@angular/material/legacy-select';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatLegacySliderModule as MatSliderModule} from '@angular/material/legacy-slider';
+//import {MatLegacySliderModule as MatSliderModule} from '@angular/material/legacy-slider';
 import {MatLegacySlideToggleModule as MatSlideToggleModule} from '@angular/material/legacy-slide-toggle';
 import {MatLegacySnackBarModule as MatSnackBarModule} from '@angular/material/legacy-snack-bar';
 import {MatSortModule} from '@angular/material/sort';
@@ -42,6 +42,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatLegacyTooltipModule as MatTooltipModule} from '@angular/material/legacy-tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   exports: [

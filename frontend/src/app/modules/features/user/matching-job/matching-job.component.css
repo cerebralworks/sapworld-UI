@@ -6,3 +6,6 @@
     color: #11b771;
     text-decoration: none;
 }
+mat-slider {
+  width:100%;
+}

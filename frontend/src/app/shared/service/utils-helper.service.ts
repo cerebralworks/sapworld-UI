@@ -163,5 +163,27 @@ export class UtilsHelperService {
 		  console.log(e);
 		}
 	  }
+	  
+	  /** This Function to convert blob URL to base64
+     * @url - pass the blob url
+	**/
+   getImageAsBase64(url: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = () => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve(reader.result as string);
+        };
+        reader.readAsDataURL(xhr.response);
+      };
+      xhr.onerror = () => {
+        reject('Failed to convert image to base64.');
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.send();
+    });
+  }
   
 }

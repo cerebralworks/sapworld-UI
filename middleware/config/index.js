@@ -23,7 +23,7 @@ if(process.env.NODE_ENV=='production'){
 		},
 		SERVICE_API_URL: {
 			doc: "The IP address to bind.",
-			format: "url",
+			format: "*",
 			default: "localhost",
 			env: "PRODUCTION_SERVICE_API_URL"
 		},

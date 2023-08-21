@@ -211,7 +211,8 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	
 	onUserPhotoUpdate = (callback = () => { }) => {
 		const formData = new FormData();
-		formData.append('photo', this.croppedFile, ((this.croppedFile.name) ? this.croppedFile.name : ''));
+		//formData.append('photo', this.croppedFile, ((this.croppedFile.name) ? this.croppedFile.name : ''));
+		formData.append('photo', base64ToFile(this.croppedFile));
 		formData.append('extension', this.fileExtension);
 		this.employerService.photoUpdate(formData).subscribe(
 			response => {
@@ -413,10 +414,13 @@ export class CreateEmployerProfileComponent implements OnInit, DoCheck {
 	**/
 	
 	imageCropped(event: ImageCroppedEvent) {
-		this.profilePicValue = event.base64.split(",")[1];
-		let file = base64ToFile(event.base64);
-		this.croppedFile = file;
-		this.profilePicAsEvent = event;
+		var objectUrl:any = event.objectUrl;
+		this.utilsHelperService.getImageAsBase64(objectUrl).then(base64 => {
+		  this.croppedFile = base64;
+			this.profilePicValue = base64.split(",")[1];
+			this.profilePicAsEvent = event;
+			let file = base64ToFile(base64);
+		});
 	}
 
 	/**

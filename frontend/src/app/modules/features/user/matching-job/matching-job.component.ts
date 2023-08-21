@@ -1,4 +1,3 @@
-import { LabelType, Options } from 'ngx-slider-v2';
 import { Component,EventEmitter,Output, OnInit,Input } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { EmployerService } from '@data/service/employer.service';
@@ -46,22 +45,8 @@ export class MatchingJobComponent implements OnInit {
 	public minMaxExp: any[] = [];
 	public skills: any[] = [];
 	public customObject: any = Object;
-	public minSalary: number = 30000;
-	public maxSalary: number = 300000;
-	public options: Options = {
-		floor: 30000,
-		ceil: 300000,
-		translate: (value: number, label: LabelType): string => {
-			switch (label) {
-				case LabelType.Low:
-					return "<b>Min:</b> " + value;
-				case LabelType.High:
-					return "<b>Max:</b> " + value;
-				default:
-					return "" + value;
-			}
-		}
-	};
+	public minSalary: number = 0;
+	public maxSalary: number = 0;
 	public skillItems: any = {};
 	public customParseInt: any = parseInt;
 	public cityString: string;
@@ -781,7 +766,21 @@ if(this.userid==null){
 	onRedirectBack = () =>{
 		this.router.navigate(['admin/user-dashboard'], {queryParams: {activeTab: 'profile',userid:this.userid}})
 	}
-
+	
+	onSliderChange=(event,type)=>{
+		 if(type==='min'){
+		   this.minSalary=event.target.value;
+		 }else{
+		   this.maxSalary=event.target.value;
+		 }
+	    this.page=1;
+		if(event.target.value ===0 && event.target.value ===0) {
+		    this.onRedirectRouteWithQuery({min_salary: '', max_salary: ''})	
+		}else{
+			this.onRedirectRouteWithQuery({min_salary: this.minSalary, max_salary: this.maxSalary})
+		}
+		
+	}
 }
 
 export interface queryParams {
