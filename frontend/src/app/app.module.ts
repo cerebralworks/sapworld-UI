@@ -18,7 +18,7 @@ import { AccountService } from '@data/service/account.service';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { environment } from '@env';
 import { NgChartsModule } from 'ng2-charts';
-
+import { NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
 @NgModule({
   declarations: [
     AppComponent
@@ -48,6 +48,12 @@ import { NgChartsModule } from 'ng2-charts';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
+    }),
+	NgxGpAutocompleteModule.forRoot({ 
+      loaderOptions: { 
+            apiKey: 'AIzaSyAlNbHgwIyn7mVCKpkdie_uu8_a87A1fvc',
+            libraries: ['places']
+      } 
     }),
     NgxUiLoaderModule, // import NgxUiLoaderModule
     // NgxUiLoaderHttpModule,

@@ -107,10 +107,10 @@
 							{{addresss}}
 							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 						</mat-chip>
-						<input placeholder="" #chipsInput
+						<input placeholder="" autocomplete="off" #chipsInput
 						(onAddressChange)="handleAddressChange($event)"
 						[options]='options' id="preferredLocation"
-						ngx-google-places-autocomplete
+						ngx-gp-autocomplete
 							autocomplete="disabled" 
 							[matChipInputFor]="chipList"
 							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"

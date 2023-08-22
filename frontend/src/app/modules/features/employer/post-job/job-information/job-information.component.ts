@@ -10,12 +10,8 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { SharedService } from '@shared/service/shared.service';
 import { ValidationService } from '@shared/service/validation.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Address as gAddress } from "ngx-google-places-autocomplete/objects/address";
-import { Options} from "ngx-google-places-autocomplete/objects/options/options";
-import { GooglePlaceDirective } from "ngx-google-places-autocomplete";
-import { ComponentRestrictions } from "ngx-google-places-autocomplete/objects/options/componentRestrictions";
-import { AddressComponent as gAddressComponent } from "ngx-google-places-autocomplete/objects/addressComponent";
 import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
+import { NgxGpAutocompleteDirective } from "@angular-magic/ngx-gp-autocomplete";
 //import { AmazingTimePickerService } from 'amazing-time-picker';
 
 declare let google: any;
@@ -31,7 +27,7 @@ export class JobInformationComponent implements OnInit {
 	/**
 	**	Variable Declaration
 	**/
-	@ViewChild('places') places: GooglePlaceDirective;
+	@ViewChild('places') places: NgxGpAutocompleteDirective;
 	visible = true;
 	selectable = true;
 	removable = true;
@@ -580,14 +576,16 @@ export class JobInformationComponent implements OnInit {
 	**/
 	
 	handleAddressChange = (event) => {
+	
 	   var EUCountry =["AT","LI","BE","LT",
 							"LU","DK","MT","EE","FI","NO","CZ",
 							"FR","PL","DE","PT","GR","SK","HU","NL",
 							"SI","IS","ES","IT","SE","LV","CH","IE"
 							];
 		var valLen=this.places['autocomplete']['componentRestrictions']['country'].length;
-		
+		console.log(valLen);
 		const address = this.sharedService.fromGooglePlace(event);
+		
 		if(event.geometry){
 			var tempData =[];
 			if(this.t.value){

@@ -90,25 +90,25 @@
 		<div class="col-lg-8 col-md-12">
 			<div class=" form-group">
 				<label >{{"shared.jobLocation" | translate }}<span class="required-asterisk">*</span></label>
-				<!--<mat-form-field class="example-chip-list" style="width: 100%;">	
+				<mat-form-field class="example-chip-list" style="width: 100%;">	
 					<mat-chip-list #chipList aria-label="address" >
 						<mat-chip *ngFor="let addresss of address;let i=index;" [selectable]="selectable"
 							[removable]="removable" (removed)="onRemove(i)">
 							{{addresss}}
 							<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 						</mat-chip>
-						<input placeholder="" #chipsInput
+						<input autocomplete="off" placeholder="" #chipsInput
 						(onAddressChange)="handleAddressChange($event)"
 						[options]='options' id="preferredLocation"
-						ngx-google-places-autocomplete
-						 #places="ngx-places" 
-							autocomplete="disabled" 
+						ngx-gp-autocomplete
+						#places="ngx-places"
 							[matChipInputFor]="chipList"
 							[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 							[matChipInputAddOnBlur]="addOnBlur"
 							(matChipInputTokenEnd)="add($event)">
 					</mat-chip-list>
-				</mat-form-field>-->
+				</mat-form-field>
+				
 				<app-control-messages [control]="t['job_locations']"></app-control-messages>
 				<small  id="jobLocationsErroe" class="text-danger" style="display:none;">{{'Field is required.'}}</small>
 				<span class="text-danger" *ngIf="errEuro">Select Valid Europian Country</span>
