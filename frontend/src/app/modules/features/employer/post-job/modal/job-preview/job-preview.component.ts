@@ -11,6 +11,7 @@ import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '@shared/service/data.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import * as moment from 'moment';
 
 import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 
@@ -150,6 +151,15 @@ export class JobPreviewComponent implements OnInit {
 		}
 		this.onGetIndustries();
 		this.onGetSkill()
+		
+		if( this.postJobForm.value.jobInfo.min && this.postJobForm.value.jobInfo.max){
+		this.postJobForm.patchValue({
+			  jobInfo : {
+				min:moment(this.postJobForm.value.jobInfo.min, 'hh:mm A').format('HH:mm'),
+				max:moment(this.postJobForm.value.jobInfo.max, 'hh:mm A').format('HH:mm')
+			  }
+			});
+		}
 	}
 	
 	/**

@@ -13,6 +13,7 @@ import { SharedModule } from '@shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from '@shared/material.module';
 //import { AmazingTimePickerModule } from 'amazing-time-picker';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
 	//AmazingTimePickerModule 
+	NgxMaterialTimepickerModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   exports: [RouterModule]

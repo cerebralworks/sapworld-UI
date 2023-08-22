@@ -54,6 +54,7 @@ import { ContactFormComponent } from './component/contact-form/contact-form.comp
 //import { AmazingTimePickerModule } from 'amazing-time-picker';
 import {SplashScreenComponent} from './component/splash-screen/splash-screen.component';
 import { NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 @NgModule({
   declarations: [
     LoginFormComponent,
@@ -111,6 +112,7 @@ import { NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
     CarouselModule,
 	NgxGpAutocompleteModule,
 	//AmazingTimePickerModule
+	NgxMaterialTimepickerModule
   ],
   exports: [
     LoginFormComponent,
@@ -164,6 +166,7 @@ import { NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
     ChangePasswordComponent,
 	//AmazingTimePickerModule,
 	SplashScreenComponent,
+	NgxMaterialTimepickerModule,
 	NgxGpAutocompleteModule
   ],
   providers: [ApiService,PushNotificationsService]

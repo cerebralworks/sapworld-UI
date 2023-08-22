@@ -13,6 +13,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import { NgxGpAutocompleteDirective } from "@angular-magic/ngx-gp-autocomplete";
 //import { AmazingTimePickerService } from 'amazing-time-picker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import * as moment from 'moment';
+
 
 declare let google: any;
 @Component({
@@ -64,7 +67,7 @@ export class JobInformationComponent implements OnInit {
 		private parentF: FormGroupDirective,
 		private formBuilder: UntypedFormBuilder,
 		public sharedService: SharedService,
-		//private atp: AmazingTimePickerService,
+		private timepicker: NgxMaterialTimepickerModule,
 		private route: ActivatedRoute,
 	) { }
 
@@ -190,18 +193,18 @@ export class JobInformationComponent implements OnInit {
 					
 				}
 				if (this.childForm.value.jobInfo.min) {
-					this.getPostedJobsDetails.min = this.childForm.value.jobInfo.min;
+					this.getPostedJobsDetails.min = moment(this.childForm.value.jobInfo.min, 'hh:mm A').format('HH:mm');
 					this.childForm.patchValue({
 					jobInfo : {
-						min:this.childForm.value.jobInfo.min
+						min:moment(this.childForm.value.jobInfo.min, 'hh:mm A').format('HH:mm')
 					}
 					});
 				}
 				if (this.childForm.value.jobInfo.max) {
-					this.getPostedJobsDetails.max = this.childForm.value.jobInfo.max;
+					this.getPostedJobsDetails.max = moment(this.childForm.value.jobInfo.max, 'hh:mm A').format('HH:mm');
 					this.childForm.patchValue({
 					jobInfo : {
-						max:this.childForm.value.jobInfo.max
+						max:moment(this.childForm.value.jobInfo.max, 'hh:mm A').format('HH:mm')
 					}
 					});
 				}
@@ -259,14 +262,14 @@ export class JobInformationComponent implements OnInit {
 				if (this.childForm.value.jobInfo.min) {
 					this.childForm.patchValue({
 					jobInfo : {
-						min:this.childForm.value.jobInfo.min
+						min:moment(this.childForm.value.jobInfo.min, 'hh:mm A').format('HH:mm')
 					}
 					});
 				}
 				if (this.childForm.value.jobInfo.max) {
 					this.childForm.patchValue({
 					jobInfo : {
-						max:this.childForm.value.jobInfo.max
+						max:moment(this.childForm.value.jobInfo.max, 'hh:mm A').format('HH:mm')
 					}
 					});
 				}
@@ -409,104 +412,79 @@ export class JobInformationComponent implements OnInit {
 		}
 	}
 
-	/**
-	**	When the Address Change
-	**  assign lat&lng 
-	**/
 	
-	/*getValue(event,data){
-		this.minError = false;
-		this.maxError = false;
-		var maxCheck = this.childForm.value.jobInfo.max;
-		var minCheck = this.childForm.value.jobInfo.min;
-
-		if(minCheck && maxCheck){
-			maxCheck= maxCheck.split(':');
-			minCheck= minCheck.split(':');
-			var maxCheck_1=parseInt(maxCheck[0]);
-			var maxCheck_2=parseInt(maxCheck[1]);
-			var minCheck_1= parseInt(minCheck[0]);
-			var minCheck_2= parseInt(minCheck[1]);
-			if(minCheck_1>maxCheck_1){
-				this.minError = true;
-			}else if(minCheck_2>maxCheck_2){
-				this.maxError = true;
-			}
-			
-		}
-		
-	}*/
+	getValue(selectedTime:any,data:any): void{
 	
-	getValue(event,data){
-		/*
-		if(data == 'min'){
-			var amazingTimePicker = this.atp.open({
-				time : this.min, 
-				changeToMinutes: true,
-			});
-		}if(data == 'max'){
-			var amazingTimePicker = this.atp.open({
-				time : this.max, 
-				changeToMinutes: true,
-			});
-		}
-		
-        amazingTimePicker.afterClose().subscribe(time  => {
-			var splitTime = time.split(':');
-			if( time && data =='min' ){
-			this.childForm.get('jobInfo.max').setValidators([Validators.required]);
-			this.childForm.get('jobInfo.max').updateValueAndValidity();
-				this.min=time;
-				this.childForm.get('jobInfo').controls['min'].setValue(this.min) 
-			}if(time && data =='max'){
-				this.childForm.get('jobInfo.min').setValidators([Validators.required]);
-				this.childForm.get('jobInfo.min').updateValueAndValidity();
-				this.max=time;
-				this.childForm.get('jobInfo').controls['max'].setValue(this.max)
-			}
+	  const timeParts = selectedTime.split(' '); // Split the time and AM/PM part
+	  const time = timeParts[0]; // Extract the time part (e.g., "6:30")
 
-		this.minError = false;
-		this.maxError = false;
-		var maxCheck = this.childForm.value.jobInfo.max;
-		var minCheck = this.childForm.value.jobInfo.min;
-		if(minCheck !=null && maxCheck ==null){
-			this.maxtimeError=true;
-		}else if(maxCheck !=null && minCheck ==null){
-			this.mintimeError=true;
-		}else{
-			this.mintimeError=false;
-			this.maxtimeError=false;
-		}
-		
-		if(minCheck && maxCheck){
-			maxCheck= maxCheck.split(':');
-			minCheck= minCheck.split(':');
-			var maxCheck_1=parseInt(maxCheck[0]);
-			var maxCheck_2=parseInt(maxCheck[1]);
-			var minCheck_1= parseInt(minCheck[0]);
-			var minCheck_2= parseInt(minCheck[1]);
-			if(minCheck_1>12 && maxCheck_1>12){
-				//minCheck_1=minCheck_1-12;
-				if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
+	  const timeSegments = time.split(':'); // Split the time into hours and minutes
+	  let hours = Number(timeSegments[0]); // Extract hours as a number
+	  const minutes = Number(timeSegments[1]); // Extract minutes as a number
+
+	  // Adjust hours based on AM/PM
+	  if (timeParts[1] === 'PM' && hours !== 12) {
+		hours += 12;
+	  } else if (timeParts[1] === 'AM' && hours === 12) {
+		hours = 0;
+	  }
+
+	  // Format hours and minutes as HH:mm
+	    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+	
+	  if (data === 'min') {
+		this.childForm.get('jobInfo.max').setValidators([Validators.required]);
+		this.childForm.get('jobInfo.max').updateValueAndValidity();
+		this.min = formattedTime;
+		this.min ? this.childForm.get('jobInfo').controls['min'].setValue(moment(this.min, 'hh:mm A').format('HH:mm')):undefined;
+		this.max ? this.childForm.get('jobInfo').controls['max'].setValue(moment(this.max, 'hh:mm A').format('HH:mm')):undefined;
+	  } else if (data === 'max') {
+		this.childForm.get('jobInfo.min').setValidators([Validators.required]);
+		this.childForm.get('jobInfo.min').updateValueAndValidity();
+		this.max =formattedTime;
+		this.max ? this.childForm.get('jobInfo').controls['max'].setValue(moment(this.max, 'hh:mm A').format('HH:mm')):undefined;
+		this.min ? this.childForm.get('jobInfo').controls['min'].setValue(moment(this.min, 'hh:mm A').format('HH:mm')):undefined;
+	  }
+	  
+	  this.minError = false;
+	  this.maxError = false;
+	  const maxCheck = this.childForm.value.jobInfo.max;
+	  const minCheck = this.childForm.value.jobInfo.min;
+	  if (minCheck != null && maxCheck == null) {
+		this.maxtimeError = true;
+	  } else if (maxCheck != null && minCheck == null) {
+		this.mintimeError = true;
+	  } else {
+		this.mintimeError = false;
+		this.maxtimeError = false;
+	  }
+	  
+	    if (minCheck && maxCheck) {
+			const maxCheckArray = maxCheck.split(':');
+			const minCheckArray = minCheck.split(':');
+			const maxCheck_1 = parseInt(maxCheckArray[0], 10);
+			const maxCheck_2 = parseInt(maxCheckArray[1], 10);
+			const minCheck_1 = parseInt(minCheckArray[0], 10);
+			const minCheck_2 = parseInt(minCheckArray[1], 10);
+			if (minCheck_1 > 12 && maxCheck_1 > 12) {
+			  if ((minCheck_2 > maxCheck_2) && (minCheck_1 === maxCheck_1)) {
 				this.minError = true;
-			}else if(minCheck_1>maxCheck_1){
+			  } else if (minCheck_1 > maxCheck_1) {
 				this.minError = true;
-			}else if( (maxCheck_1==minCheck_1) && (maxCheck_2==minCheck_2) ){
-					this.minError = true;
-			}
-			}else if((maxCheck_1==minCheck_1) && (maxCheck_2==minCheck_2) ){
+			  } else if ((maxCheck_1 === minCheck_1) && (maxCheck_2 === minCheck_2)) {
 				this.minError = true;
-			}else{
-			if(minCheck_1>maxCheck_1 && minCheck_1<12){
+			  }
+			} else if ((maxCheck_1 === minCheck_1) && (maxCheck_2 === minCheck_2)) {
+			  this.minError = true;
+			} else {
+			  if (minCheck_1 > maxCheck_1 && minCheck_1 < 12) {
 				this.minError = true;
-			}else if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
+			  } else if ((minCheck_2 > maxCheck_2) && (minCheck_1 === maxCheck_1)) {
 				this.maxError = true;
-
+			  }
 			}
-			
 		}
-		}
-	});*/
+		
 		
 	}
 	
