@@ -4,9 +4,9 @@
 .poin-no{
 	cursor:no-drop;
 }
-
-
-
+::ng-deep  .timepicker-overlay{
+	z-index: 9999 !important;
+}
 ul.statusHistory {
     list-style-type: none;
     position: relative;

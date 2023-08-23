@@ -343,15 +343,19 @@
 	  <div class="row">
 	   <div class="col-6 form-group">
         <label>Interview start Time</label>           
-		 <div (click)="getTimeValue($event,'min')">
-		  <input type="text" formControlName="interviewTime" class="form-control" placeholder="-- -- --" readonly><i class="fas fa-clock" style="position:absolute; top:3rem; right:2rem; color: #a8afb5; "></i>
+		 <div>
+		  <input [ngxTimepicker]="startTime" style="background:transparent" formControlName="interviewTime" value="{{interviewTime}}" class="form-control" placeholder="-- -- --" readonly>
+		  <ngx-material-timepicker-toggle style="position:absolute; top:2.5rem; right:2rem; color: #a8afb5; " [for]="startTime"></ngx-material-timepicker-toggle>
+		  <ngx-material-timepicker #startTime (timeSet)="getTimeValue($event,'min')" ></ngx-material-timepicker>
 		  <small class="text-danger" *ngIf="minError"  > The start time must be lesser than the end time </small>
 		 </div>
       </div>
 	  <div class="col-6 form-group">
         <label>Interview End Time</label>   
-		 <div (click)="getTimeValue($event,'max')">
-		  <input type="text" formControlName="interviewEndTime" class="form-control" placeholder="-- -- --" readonly><i class="fas fa-clock" style="position:absolute; top:3rem; right:2rem; color: #a8afb5; "></i>
+		 <div>
+		  <input [ngxTimepicker]="endTime" style="background:transparent" formControlName="interviewEndTime" value="{{interviewEndTime}}" class="form-control" placeholder="-- -- --" readonly>
+		  <ngx-material-timepicker-toggle style="position:absolute; top:2.5rem; right:2rem; color: #a8afb5; " [for]="endTime"></ngx-material-timepicker-toggle>
+		  <ngx-material-timepicker #endTime (timeSet)="getTimeValue($event,'max')" ></ngx-material-timepicker>
 			<small class="text-danger"  *ngIf="maxError" > The end time must be greater than the start time </small>
 		 </div>
       </div>

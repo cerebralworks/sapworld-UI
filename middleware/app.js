@@ -7,8 +7,7 @@ const errorHandler = require("errorhandler");
 var cookieParser = require("cookie-parser");
 const session = require("express-session");
 const redis = require("redis");
-const redisClient = redis.createClient();
-const redisStore = require("connect-redis")(session);
+const RedisStore = require("connect-redis").default;
 const https = require("https");
 const http = require("http");
 const routes = require("./routes");
@@ -16,7 +15,12 @@ const serverRoutes = require("./utils/serverRoutes");
 
 // Environment variable configuration
 const env = require("./config");
-const { SERVICE_API_URL, PORT, NODE_ENV } = env;
+const { SERVICE_API_URL, PORT, NODE_ENV, REDIS_CLIENT_URL } = env;
+
+const redisClient = redis.createClient({
+	url: REDIS_CLIENT_URL,
+});
+
 
 // Bind default base url to every http request.
 var rp = require("request-promise-native").defaults({
@@ -25,6 +29,30 @@ var rp = require("request-promise-native").defaults({
 
 // Defining the Express app
 const app = express();
+
+// To connect redis client
+redisClient.connect().catch(console.log);
+
+let redisStore = new RedisStore({
+    client: redisClient,
+});
+
+redisClient.on("error", err => {
+  // console.log("Redis error: ", err);
+});
+
+// Adding session to store values. We are using redis session. We need to check redis active on our system.
+app.use(
+  session({
+    secret: "sapWorldRedisSession",
+    name: "sapWorldRedis",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
+    store: redisStore
+  })
+);
+
 app.use(express.static('uploads'));
 // Server implementation
 let server;
@@ -73,26 +101,6 @@ app.use(
   })
 );
 
-redisClient.on("error", err => {
-  // console.log("Redis error: ", err);
-});
-
-// Adding session to store values. We are using redis session. We need to check redis active on our system.
-app.use(
-  session({
-    secret: "sapWorldRedisSession",
-    name: "sapWorldRedis",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
-    store: new redisStore({
-      host: "localhost",
-      port: 6379,
-      client: redisClient,
-      ttl: 3600,
-    }),
-  })
-);
 
 app.use(function(req, res, next) {
   if (!req.session) {

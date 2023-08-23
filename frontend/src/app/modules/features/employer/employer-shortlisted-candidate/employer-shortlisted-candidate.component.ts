@@ -7,8 +7,9 @@ import { EmployerService } from '@data/service/employer.service';
 import { UtilsHelperService } from '@shared/service/utils-helper.service';
 import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-//import { AmazingTimePickerService } from 'amazing-time-picker';
 import { environment as env } from '@env';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import * as moment from 'moment';
 @Component({
   selector: 'app-employer-shortlisted-candidate',
   templateUrl: './employer-shortlisted-candidate.component.html',
@@ -98,9 +99,9 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private location: Location,
+		private timepicker: NgxMaterialTimepickerModule,
 		private employerSharedService: EmployerSharedService,
 		 private formBuilder: UntypedFormBuilder,
-		 //private atp: AmazingTimePickerService 
 	) {
 		
 		this.route.queryParams.subscribe(params => {
@@ -871,53 +872,20 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
   }
   
   
-  getTimeValue(e,data){
-  
-  /*var amazingTimePicker = this.atp.open({
-				changeToMinutes: true,
-			});
-  /*amazingTimePicker.afterClose().subscribe(time  => {
-	var a= time.split(':');
-	this.itime=time;
-  if(parseInt(a[0], 10) > 0 && parseInt(a[0], 10) <12){
-     var newtime =time+'AM';
-  }else if(parseInt(a[0], 10) > 12 && parseInt(a[0], 10) !=12){
-    var newtime=parseInt(a[0])-12+':'+a[1]+'PM';
-  }else if(a[0] ==='00'){
-  var newtime= '12:00AM';
-  
-  }else if(a[0] =='12'){
-  var newtime= '12:00PM';
-  
-  }
- 
-  this.meetingform.controls['interviewTime'].setValue(newtime);
-  });*/
-   /* amazingTimePicker.afterClose().subscribe(time  => {
-		this.itime=time;
-		var splitTime = time.split(':');
-		if(parseInt(splitTime[0], 10) > 0 && parseInt(splitTime[0], 10) <12){
-		var newtime =time+' AM';
-		}else if(parseInt(splitTime[0], 10) > 12 && parseInt(splitTime[0], 10) !=12){
-		var newtime=parseInt(splitTime[0])-12+':'+splitTime[1]+' PM';
-		}else if(splitTime[0] ==='00'){
-		var newtime='12:'+splitTime[1]+' AM';
-		}else if(splitTime[0] =='12'){
-		var newtime='12:'+splitTime[1]+' PM';
+  getTimeValue(selectedTime:any,data:any): void{
+	  if( selectedTime && data =='min' ){
+			this.min=selectedTime;
+			this.meetingform.controls['interviewTime'].setValue(selectedTime);
+		}if(selectedTime && data =='max'){
+			this.max=selectedTime;
+			this.meetingform.controls['interviewEndTime'].setValue(selectedTime);
 		}
-		if( time && data =='min' ){
-			this.min=newtime;
-			this.meetingform.controls['interviewTime'].setValue(newtime);
-		}if(time && data =='max'){
-			this.max=newtime;
-			this.meetingform.controls['interviewEndTime'].setValue(newtime);
-		}
+		
 		this.minError = false;
 		this.maxError = false;
 		var maxCheck = this.meetingform.value.interviewEndTime;
 		var minCheck = this.meetingform.value.interviewTime;
 		
-		//console.log(!this.meetingform.valid);
 		if(minCheck && maxCheck){
 			maxCheck= maxCheck.split(':');
 			minCheck= minCheck.split(':');
@@ -928,7 +896,6 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			var minCheck_2= parseInt(minCheck[1]);
 			var minCheck_3= (minCheck[1].split(' '));
 			if(minCheck_1>12 && maxCheck_1>12){
-				//minCheck_1=minCheck_1-12;
 				if((minCheck_2>maxCheck_2) && (minCheck_1==maxCheck_1)){
 				this.minError = true;
 			}else if(minCheck_1>maxCheck_1){
@@ -945,7 +912,6 @@ export class EmployerShortlistedCandidateComponent implements OnInit {
 			
 		}
 		}
-  });*/
   }
   
   /** To send the meeting link*/

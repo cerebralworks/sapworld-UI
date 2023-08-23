@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { tabInfo } from '@data/schema/create-candidate';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-post-job-footer',
@@ -65,8 +66,8 @@ export class PostJobFooterComponent implements OnInit {
 		var maxCheck = this.postJobForm.controls.jobInfo.value.max;
 		var minCheck = this.postJobForm.controls.jobInfo.value.min;
 		if(minCheck !=null && maxCheck !=null){
-			maxCheck= maxCheck.split(':');
-			minCheck= minCheck.split(':');
+			maxCheck= moment(maxCheck, 'hh:mm A').format('HH:mm').split(':');
+			minCheck= moment(minCheck, 'hh:mm A').format('HH:mm').split(':');
 			var maxCheck_1=parseInt(maxCheck[0]);
 			var maxCheck_2=parseInt(maxCheck[1]);
 			var minCheck_1= parseInt(minCheck[0]);
@@ -92,7 +93,7 @@ export class PostJobFooterComponent implements OnInit {
 		}
 	}
 	
-	
+
 	}
 	/**
 	**	To click the pervoius Button

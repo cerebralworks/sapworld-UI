@@ -124,7 +124,6 @@ export class NotificationComponent implements OnInit {
 			  this.notificationDetails = response['details'];
 			  this.notificationDetailsMeta = response['meta'];
 			  this.length = this.notificationDetailsMeta['total'];
-			  console.log(this.notificationDetails);
 			}
 		  }, error => {
 		  }

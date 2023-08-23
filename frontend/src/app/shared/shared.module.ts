@@ -51,7 +51,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContactFormComponent } from './component/contact-form/contact-form.component';
-//import { AmazingTimePickerModule } from 'amazing-time-picker';
 import {SplashScreenComponent} from './component/splash-screen/splash-screen.component';
 import { NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
@@ -111,7 +110,6 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     NgxDocViewerModule,
     CarouselModule,
 	NgxGpAutocompleteModule,
-	//AmazingTimePickerModule
 	NgxMaterialTimepickerModule
   ],
   exports: [

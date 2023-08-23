@@ -120,7 +120,8 @@
 				<div class="row mt-2">
 					<div class="col-lg-6 col-md-6">
 							<div>
-							  <input [ngxTimepicker]="minPicker" style="background:transparent" placeholder="--:-- --" formControlName="min"  value="{{min}}" class="form-control" readonly><i class="fas fa-clock" style="position:absolute; top:1.2rem; right:2rem; color: #a8afb5; " ></i>
+							  <input [ngxTimepicker]="minPicker" style="background:transparent" placeholder="--:-- --" formControlName="min"  value="{{min}}" class="form-control" readonly>
+							  <ngx-material-timepicker-toggle style="position:absolute; top:0.5rem; right:2rem; color: #a8afb5; " [for]="minPicker"></ngx-material-timepicker-toggle>
 								<ngx-material-timepicker #minPicker (timeSet)="getValue($event,'min')" ></ngx-material-timepicker>
 							  <small  class="text-danger"  *ngIf="minError" > The start time must be lesser than the end time </small>
 							  <small  class="text-danger"  *ngIf="mintimeError" > Field is required. </small>
@@ -128,7 +129,8 @@
 					</div>
 					<div class="col-lg-6 col-md-6" >
 						<div>
-						<input [ngxTimepicker]="maxPicker" style="background:transparent" placeholder="--:-- --" formControlName="max"  value="{{max}}"  class="form-control" readonly><i class="fas fa-clock" style="position:absolute; top:1.2rem; right:2rem; color: #a8afb5; " ></i>
+						<input [ngxTimepicker]="maxPicker" style="background:transparent" placeholder="--:-- --" formControlName="max"  value="{{max}}"  class="form-control" readonly>
+						<ngx-material-timepicker-toggle style="position:absolute; top:0.5rem; right:2rem; color: #a8afb5; " [for]="maxPicker"></ngx-material-timepicker-toggle>
 						<ngx-material-timepicker #maxPicker (timeSet)="getValue($event,'max')" ></ngx-material-timepicker>
 						  <small  class="text-danger"  *ngIf="maxError" > The end time must be greater than the start time </small>
 						  <small  class="text-danger"  *ngIf="maxtimeError" > Field is required. </small>

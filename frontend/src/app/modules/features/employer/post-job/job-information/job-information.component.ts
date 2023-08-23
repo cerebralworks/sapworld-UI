@@ -12,7 +12,6 @@ import { ValidationService } from '@shared/service/validation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
 import { NgxGpAutocompleteDirective } from "@angular-magic/ngx-gp-autocomplete";
-//import { AmazingTimePickerService } from 'amazing-time-picker';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import * as moment from 'moment';
 
