@@ -19,6 +19,9 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { environment } from '@env';
 import { NgChartsModule } from 'ng2-charts';
 import { NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -54,6 +57,10 @@ import { NgxGpAutocompleteModule } from "@angular-magic/ngx-gp-autocomplete";
             apiKey: 'AIzaSyAlNbHgwIyn7mVCKpkdie_uu8_a87A1fvc',
             libraries: ['places']
       } 
+    }),
+	CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
     }),
     NgxUiLoaderModule, // import NgxUiLoaderModule
     // NgxUiLoaderHttpModule,

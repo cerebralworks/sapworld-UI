@@ -113,18 +113,61 @@
   </div>
   <div class="modal-body text-capitalize">
     <div>
-	<h5 style="color:green;font-weight:bold;">Meeting Invitation Details</h5>
+	  <h5 style="color:green;font-weight:bold;">Meeting Invitation Details</h5>
       <strong>Job Details : </strong>{{ modalData?.event?.title }}<br />
       <strong>Applicant Name : </strong>{{ modalData?.event?.meta.user }}<br />
       <strong>Interview Date : </strong>{{ modalData?.event?.start | date:'MMM d, y' }}<br />
       <strong>Interview Time : </strong>{{ modalData?.event?.meta.startTime }} - {{ modalData?.event?.meta.endTime }} ({{ modalData?.event?.meta.zone }}) <br />
-      <strong>Interviewer name : </strong>{{ modalData?.event?.meta.interviewerName }}<br />
 	  <strong>Meeting Link : </strong> <a href='{{ modalData?.event?.meta.link }}' target="_blank" rel="noopener noreferrer"  style="color:blue;"  > click here </a>
     </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close()">
       OK
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #editModal let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Edit Event</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-capitalize">
+    <form>
+	    <div class="form-group">
+        <label>Interview Date</label>   
+          <input type="date" class="form-control"  name="interviewDate" readonly>
+       </div>
+	   <div class="row">
+	   <div class="col-6 form-group">
+        <label>Interview start Time</label>           
+		 <div>
+		  <input type="text"  class="form-control"  readonly>
+		 </div>
+      </div>
+	  <div class="col-6 form-group">
+        <label>Interview End Time</label>   
+		 <div >
+		  <input type="text"  class="form-control" readonly>
+		 </div>
+      </div>
+	  </div>
+	   <div class="form-group">
+        <label>Time Zone</label>   
+          <input type="text" class="form-control"  name="interviewDate" readonly>
+       </div>
+	   <div class="form-group">
+        <label>Interview Link</label>   
+         <input type="text" class="form-control"  name="link">
+      </div>
+	</form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" >
+      save
     </button>
   </div>
 </ng-template>

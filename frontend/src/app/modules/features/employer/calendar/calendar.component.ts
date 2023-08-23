@@ -5,7 +5,7 @@ import {
    parse,format
 } from 'date-fns';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from '@data/service/user.service';
+import { EmployerService } from '@data/service/employer.service';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -34,7 +34,9 @@ const colors: Record<string, EventColor> = {
 export class CalendarComponent {
 
  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-  public appliedJobs: any[] = [];	
+ @ViewChild('editModal', { static: true }) editModal: TemplateRef<any>;
+  public appliedJobs: any[] = [];
+  public selectedEvent:any;
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
@@ -47,33 +49,35 @@ export class CalendarComponent {
   };
   
   
-  constructor(private modal: NgbModal,private userService : UserService) {}
+  constructor(private modal: NgbModal,private employerService: EmployerService) {}
   
     //Page load function
     ngOnInit(): void {
-	  this.onGetAppliedJobs();
+	  this.onGetShortListedJobs();
     }
     /**
 	**	TO get the shortlisted user details
 	**/
 	
-	onGetAppliedJobs = () => {
+	onGetShortListedJobs = () => {
+		
 		let requestParams: any = {};
-      requestParams.page = 1;
-      requestParams.limit = 100000000;
-      requestParams.expand = "job_posting,user,employer";
-	  requestParams.sort = "updated_at.desc";
-      this.userService.applicationsListForUser(requestParams).subscribe(
-        response => {
-			this.appliedJobs=[];
-          if(response && response.items && response.items.length > 0) {
-            this.appliedJobs = [...this.appliedJobs, ...response.items];
-          }
-          //this.appliedJobMeta = { ...response.meta }
-		  this.insertCalendarDetails();
-        }, error => {
-        }
-      )
+		requestParams.page = 1;
+		requestParams.limit = 10000000000000;
+		requestParams.expand = "job_posting,user,employer";
+		requestParams.sort = "updated_at.desc";
+		requestParams.short_listed = 1;
+		this.employerService.applicationsList(requestParams).subscribe(
+			response => {
+				this.appliedJobs=[];
+			  if(response && response.items && response.items.length > 0) {
+				this.appliedJobs = [...this.appliedJobs, ...response.items];
+			  }
+			  
+			  this.insertCalendarDetails();
+			}, error => {
+			}
+		)
 	}
 	
 	/** To insert data in the calendar **/
@@ -118,7 +122,7 @@ export class CalendarComponent {
 								zone:ArrayMeeting['zone'],
 								startTime:ArrayMeeting['interviewtime'],
 								endTime:ArrayMeeting['interviewendtime'],
-								interviewerName:ArrayMeeting['name'],
+								application_id:ArrayValue,
 								link:dataValue
 							  },
 						  color: CategoryColor
@@ -185,7 +189,12 @@ export class CalendarComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'md' });
+	if(action==='Edited'){
+	  this.selectedEvent=event;
+	  this.modal.open(this.editModal, { size: 'md' });
+	}else{
+      this.modal.open(this.modalContent, { size: 'md' });
+	}
   }
   
   /** To set the calendar active view **/
