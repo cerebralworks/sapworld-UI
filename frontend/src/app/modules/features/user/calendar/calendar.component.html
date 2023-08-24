@@ -80,6 +80,7 @@
     [viewDate]="viewDate"
     [events]="events"
     [refresh]="refresh"
+	[cellTemplate]="customCellTemplate"
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
     (eventClicked)="handleEvent('Clicked', $event.event)"
@@ -103,6 +104,20 @@
   >
   </mwl-calendar-day-view>
 </div>
+
+<ng-template #customCellTemplate let-day="day">
+  <div class="cal-cell-top">
+    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+  </div>
+  <div *ngIf="day.events">
+    <p *ngFor="let event of day.events; let x = index"
+       class="custom-event"
+       [style.background-color]="event.color.primary"
+       (click)="handleEvent('Clicked', day.events[x])">
+      <span class="text-white p-1 small">{{ event?.title }}</span>
+    </p>
+  </div>
+</ng-template>
 
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
@@ -128,6 +143,7 @@
     </button>
   </div>
 </ng-template>
+
 
     </div>
 </section>

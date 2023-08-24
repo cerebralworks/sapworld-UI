@@ -156,13 +156,13 @@ export class CalendarComponent {
 	
   //To handle the event action
   actions: CalendarEventAction[] = [
-    {
+    /*{
       label: '<i class="fas fa-fw fa-pencil-alt text-success"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       },
-    }
+    }*/
   ];
 
   

@@ -15,7 +15,7 @@ import { MatchOtherPostComponent } from '../modal/match-other-post/match-other-p
 import { MaterialModule } from '@shared/material.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgChartsModule } from 'ng2-charts';
-import { Daterangepicker } from 'ng2-daterangepicker';
+//import { Daterangepicker } from 'ng2-daterangepicker';
 
 const routes: Routes = [
   {
@@ -38,7 +38,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    Daterangepicker,
+   // Daterangepicker,
     SharedModule,
     NgChartsModule,
     MaterialModule,

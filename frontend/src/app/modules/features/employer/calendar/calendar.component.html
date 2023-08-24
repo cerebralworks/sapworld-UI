@@ -80,6 +80,7 @@
     [viewDate]="viewDate"
     [events]="events"
     [refresh]="refresh"
+	 [cellTemplate]="customCellTemplate"
     [activeDayIsOpen]="activeDayIsOpen"
     (dayClicked)="dayClicked($event.day)"
     (eventClicked)="handleEvent('Clicked', $event.event)"
@@ -103,6 +104,7 @@
   >
   </mwl-calendar-day-view>
 </div>
+
 
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
@@ -128,7 +130,22 @@
   </div>
 </ng-template>
 
-<ng-template #editModal let-close="close">
+<ng-template #customCellTemplate let-day="day">
+  <div class="cal-cell-top">
+    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+  </div>
+  <div *ngIf="day.events">
+    <p *ngFor="let event of day.events; let x = index"
+       class="custom-event"
+       [style.background-color]="event.color.primary"
+       (click)="handleEvent('Clicked', day.events[x])">
+      <span class="text-white p-2 small">{{ event?.title }}</span>
+    </p>
+  </div>
+</ng-template>
+
+
+<!--<ng-template #editModal let-close="close">
   <div class="modal-header">
     <h5 class="modal-title">Edit Event</h5>
     <button type="button" class="close" (click)="close()">
@@ -136,41 +153,41 @@
     </button>
   </div>
   <div class="modal-body text-capitalize">
-    <form>
+    <form [formGroup]="meetingform" >
 	    <div class="form-group">
         <label>Interview Date</label>   
-          <input type="date" class="form-control"  name="interviewDate" readonly>
+          <input type="date" class="form-control"  formControlName="interviewDate" name="interviewDate" readonly>
        </div>
 	   <div class="row">
 	   <div class="col-6 form-group">
         <label>Interview start Time</label>           
 		 <div>
-		  <input type="text"  class="form-control"  readonly>
+		  <input type="text"  class="form-control"  formControlName="interviewTime" readonly>
 		 </div>
       </div>
 	  <div class="col-6 form-group">
         <label>Interview End Time</label>   
 		 <div >
-		  <input type="text"  class="form-control" readonly>
+		  <input type="text"  class="form-control" formControlName="interviewEndTime" readonly>
 		 </div>
       </div>
 	  </div>
 	   <div class="form-group">
         <label>Time Zone</label>   
-          <input type="text" class="form-control"  name="interviewDate" readonly>
+          <input type="text" class="form-control"  formControlName="timeZone" readonly>
        </div>
 	   <div class="form-group">
         <label>Interview Link</label>   
-         <input type="text" class="form-control"  name="link">
+         <input type="text" class="form-control"  formControlName="link" name="link">
       </div>
 	</form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" >
+    <button type="button" (click)="updateForm()" class="btn btn-primary" >
       save
     </button>
   </div>
-</ng-template>
+</ng-template>-->
 
     </div>
 </section>

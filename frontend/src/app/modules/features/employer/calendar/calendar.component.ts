@@ -14,6 +14,7 @@ import {
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
 import { Subject } from 'rxjs';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 const colors: Record<string, EventColor> = {
   blue: {
     primary: '#0066ff',
@@ -34,7 +35,7 @@ const colors: Record<string, EventColor> = {
 export class CalendarComponent {
 
  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
- @ViewChild('editModal', { static: true }) editModal: TemplateRef<any>;
+ //@ViewChild('editModal', { static: true }) editModal: TemplateRef<any>;
   public appliedJobs: any[] = [];
   public selectedEvent:any;
   view: CalendarView = CalendarView.Month;
@@ -43,18 +44,36 @@ export class CalendarComponent {
   refresh = new Subject<void>();
   events: CalendarEvent[] = [];
   activeDayIsOpen: boolean = false;
+  public meetingform: UntypedFormGroup;
   modalData: {
     action: string;
     event: CalendarEvent;
   };
   
   
-  constructor(private modal: NgbModal,private employerService: EmployerService) {}
+  constructor(private modal: NgbModal,
+  private employerService: EmployerService,
+  private formBuilder: UntypedFormBuilder) {}
   
     //Page load function
     ngOnInit(): void {
 	  this.onGetShortListedJobs();
+	  this.buildForm();
     }
+	
+	/**
+  **	To build the meting form
+  **/
+  private buildForm(): void {
+    this.meetingform = this.formBuilder.group({
+	  interviewDate: [''],
+      interviewTime: [''],
+	  interviewEndTime: [''],
+      timeZone: [''],
+      link: ['',Validators.required]
+    });
+  }
+  
     /**
 	**	TO get the shortlisted user details
 	**/
@@ -112,6 +131,7 @@ export class CalendarComponent {
 							CategoryColor = { ...colors.blue };
 						  }
 						  tempTitle=tempTitle.toUpperCase();
+						  
 				         var events = {
 						  start: new Date(this.concatDateTime(ArrayMeeting['interviewdate'],ArrayMeeting['interviewtime'])),
 						  end: new Date(this.concatDateTime(ArrayMeeting['interviewdate'],ArrayMeeting['interviewendtime'])),
@@ -119,10 +139,11 @@ export class CalendarComponent {
 						  actions: this.actions,
 						  meta: {
 								user: names,
+								date:ArrayMeeting['interviewdate'],
 								zone:ArrayMeeting['zone'],
 								startTime:ArrayMeeting['interviewtime'],
 								endTime:ArrayMeeting['interviewendtime'],
-								application_id:ArrayValue,
+								application_id:ArrayValue['id'],
 								link:dataValue
 							  },
 						  color: CategoryColor
@@ -160,13 +181,13 @@ export class CalendarComponent {
 	
   //To handle the event action
   actions: CalendarEventAction[] = [
-    {
+    /*{
       label: '<i class="fas fa-fw fa-pencil-alt text-success"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       },
-    }
+    }*/
   ];
 
   
@@ -189,12 +210,19 @@ export class CalendarComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-	if(action==='Edited'){
+	/*if(action==='Edited'){
 	  this.selectedEvent=event;
+	  this.meetingform.patchValue({
+	   interviewDate:event.meta.date,
+	   timeZone:event.meta.zone,
+	   link:event.meta.link,
+	   interviewTime:event.meta.startTime,
+	   interviewEndTime:event.meta.endTime
+	  });
 	  this.modal.open(this.editModal, { size: 'md' });
-	}else{
+	}else{*/
       this.modal.open(this.modalContent, { size: 'md' });
-	}
+	//}
   }
   
   /** To set the calendar active view **/
@@ -206,5 +234,48 @@ export class CalendarComponent {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+  
+  /** To update the meeting link **/
+  /*updateForm(){
+   if(this.meetingform.valid){
+   
+     var itemGet = this.appliedJobs.filter(a=> a.id === this.selectedEvent['meta']['application_id']);
+	  if(itemGet.length !=0){
+		itemGet = itemGet[0];
+		itemGet['views'] = true;
+		this.onSaveInviteLink(itemGet, true);
+		}
+   }
+  }*/
+  
+    /**
+	**	To save the meeting link
+	**/
+	/*onSaveInviteLink = (item, values) => {
+		if((item && item.id)) {
+			let requestParams: any = {};
+			requestParams.job_posting = item.job_posting.id;
+			requestParams.user =item.user.id;
+			requestParams.short_listed = item.short_listed ;
+			requestParams.views = true ;
+			requestParams.invite_status = item.invite_status ;
+			requestParams.invite_send = item.invite_send ;
+			requestParams.status = item.status ;
+			requestParams.events = item.events ;
+			requestParams.invite_url = item.invite_url ;
+			requestParams.application_status = item.application_status ;
+			requestParams.meeting = 'meeting' ;
+			requestParams.meeting_link = this.meetingform.value.link;
+			this.employerService.shortListUser(requestParams).subscribe(
+				response => {
+					//this.onGetShortListedJobs();
+				}, error => {
+					//this.onGetShortListedJobs();
+				}
+			)
+		}else {
+			//this.onGetShortListedJobs();
+		}
+	}*/
 
 }

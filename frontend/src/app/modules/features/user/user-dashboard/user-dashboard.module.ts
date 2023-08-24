@@ -13,7 +13,7 @@ import { UserSharedModuleModule } from '../user-shared-module/user-shared-module
 import { VisaSponsoredComponent } from '../visa-sponsored/visa-sponsored.component';
 import { MaterialModule } from '@shared/material.module';
 import { NgChartsModule } from 'ng2-charts';
-import { Daterangepicker } from 'ng2-daterangepicker';
+//import { Daterangepicker } from 'ng2-daterangepicker';
 
 const routes: Routes = [
   {
@@ -35,7 +35,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    Daterangepicker,
+    //Daterangepicker,
     UserSharedModuleModule,
     NgChartsModule,
     MaterialModule,

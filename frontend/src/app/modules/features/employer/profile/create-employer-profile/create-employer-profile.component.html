@@ -47,7 +47,7 @@
 
           <div class=" form-group">
             <label>{{"shared.city" | translate}}</label>
-			<input formControlName="city" appMarkAsterisk #placesRef="ngx-places" ngx-gp-autocomplete [options]='options' class="form-control text-capitalize" (onAddressChange)="handleAddressChange($event)"/>
+			<input formControlName="city" appMarkAsterisk #placesRef="ngx-places" ngx-gp-autocomplete class="form-control text-capitalize" (onAddressChange)="handleAddressChange($event)"/>
               <app-control-messages [control]="f['city']"></app-control-messages>
           </div>
           <div class=" form-group">

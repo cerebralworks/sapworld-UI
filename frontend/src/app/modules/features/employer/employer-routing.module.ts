@@ -71,7 +71,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.Employer] },
     loadChildren: () =>
-      //import('@modules/features/employer/profile/calendar/calendar.module').then(m => m.CalendarModule)
       import('@modules/features/employer/calendar/calendar.module').then(m => m.CalendarModules)
   },
 ];
