@@ -43,7 +43,7 @@
     "morgan": "^1.9.1",
     "ngx-toastr": "^17.0.2",
     "nodemailer": "^6.9.4",
-    "redis": "^4.6.7",
+    "redis": "^4.6.8",
     "refresh-token": "^1.0.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",

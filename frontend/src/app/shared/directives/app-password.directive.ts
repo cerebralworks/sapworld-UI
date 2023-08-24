@@ -16,7 +16,7 @@ export class AppPasswordDirective {
       this.el.nativeElement.setAttribute('type', 'text');
       span.innerHTML = `<div class='input-group-append'>
       <span style='cursor: pointer;' class='btn input-icon input-group-text'>
-      <i class="fas fa-eye"></i>
+      <i class="fas fa-eye-slash"></i>
       </span>
       </div>`;
     } else {
