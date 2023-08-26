@@ -176,7 +176,8 @@ export class CalendarComponent {
 		);
 
 		// Format the combined DateTime as desired
-		return format(combinedDateTime, 'yyyy-MM-dd hh:mm a');
+		//return format(combinedDateTime, 'yyyy-MM-dd hh:mm a');
+		return combinedDateTime;
     }
 	
   //To handle the event action
