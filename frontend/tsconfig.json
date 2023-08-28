@@ -13,8 +13,9 @@
     "importHelpers": true,
     "resolveJsonModule": true,
     // "esModuleInterop": true,
-    "target": "es2015",
-    "module": "es2020",
+	 "useDefineForClassFields": false,
+    "target": "es2022",
+    "module": "es2022",
     "paths": {
       "@app/*": [
         "src/app/core/*"
@@ -36,7 +37,7 @@
       ]
     },
     "lib": [
-      "es2021",
+      "es2022",
       "dom"
     ]
   }

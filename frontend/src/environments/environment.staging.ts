@@ -1,6 +1,5 @@
-let host = window.location.host;
-let hostName = host.split(':');
-const baseUrl = `${window.location.protocol}//${hostName[0]}`;
+
+const baseUrl = `http://localhost`;
 console.log(baseUrl);
 
 export const environment = {

@@ -1,8 +1,6 @@
-let host = window.location.host;
-let hostName = host.split(':');
-const baseUrl = `${window.location.protocol}//${hostName[0]}`;
-const baseAdminUrl = `${window.location.protocol}//admin.${hostName[0]}`;
-console.log(baseUrl);
+
+const baseUrl = `http://localhost`;
+const baseAdminUrl = `http://localhost`;
 
 export const environment = {
   production: true,

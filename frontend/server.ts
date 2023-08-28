@@ -6,8 +6,6 @@ import * as express from 'express';
 import { join } from 'path';
 import 'localstorage-polyfill';
 import { existsSync ,readFileSync } from 'fs';
-//const fs = require("fs");
-//import * as https from 'https';
 const distFolder1 = join(process.cwd(), 'dist/sap-world/browser');
 const indexHtml1 = existsSync(join(distFolder1, 'index.original.html')) ? 'index.original.html' : 'index.html';
 const template = readFileSync(join(distFolder1, indexHtml1)).toString();
@@ -27,7 +25,7 @@ global['Event'] = null;
 import { AppServerModule } from './src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
-export function app() {
+export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/sap-world/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
@@ -52,10 +50,7 @@ export function app() {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });*/
   
-  // Will do SSR
-  /*server.get('/social-share', (req, res) => {
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
-  });*/
+  // Will do SSR for particular route
   server.get('/linkedin-share', (req, res) => {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });

@@ -3,12 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 import { env } from 'process';
-let host = window.location.host;
+/*let host = window.location.host;
 let hostName = host.split(':');
 const baseUrl = `${window.location.protocol}//${hostName[0]}`;
 const port = hostName[1];
-console.log(baseUrl);
-
+console.log(baseUrl);*/
+const baseUrl = `http://localhost`;
 export const environment = {
   production: false,
   calenderUrl: 'https://api.calendly.com/organizations/',
@@ -20,7 +20,7 @@ export const environment = {
   apiUrl: `${baseUrl}:1337`,
   envName: 'DEV',
   API_URL: 'assets/api',
-  clientUrl: `${baseUrl}:${port}`
+  clientUrl: `${baseUrl}`
 };
 
 /*

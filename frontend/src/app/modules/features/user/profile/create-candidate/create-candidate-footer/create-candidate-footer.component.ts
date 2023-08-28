@@ -288,7 +288,7 @@ export class CreateCandidateFooterComponent implements OnInit {
 				
 					if(this.createCandidateForm.value.personalDetails.authorized_country){
 						this.requestParams = {'Check Authorized Country Aftre':'footer','Check Before concat authorized_country':'footer','time':new Date().toLocaleString()};
-						this.SharedAPIService.onSaveLogs(this.requestParams);
+						//this.SharedAPIService.onSaveLogs(this.requestParams);
 						var val= this.createCandidateForm.value.personalDetails.authorized_country.concat(this.createCandidateForm.value.personalDetails.authorized_country_select);
 						val= [...new Set(val)];
 						

@@ -607,7 +607,7 @@ export class CreateCandidateJobPreferenceComponent implements OnInit {
 			visa_sponsered: new UntypedFormControl(false, Validators.required),
 		}));
 		 this.requestParams = {'Exist the createForm':'CreateCandidateJobPreferenceComponent','time':new Date().toLocaleString()};
-				this.SharedAPIService.onSaveLogs(this.requestParams);
+				//this.SharedAPIService.onSaveLogs(this.requestParams);
 	}
 
 	get f() {

@@ -89,11 +89,13 @@ module.exports = (app, env, rp) => {
 		form.parse(req, function(err, fields, files) {
 			var formData = fields;
 			if (files.photo) {
+				const uploadedFile = files.photo[0]; // Assuming doc_resume is an array
+				const fileReadStream = fs.createReadStream(uploadedFile.filepath);
 				formData.photo = {
-					value: fs.createReadStream(files.photo.path),
+					value: fileReadStream,
 					options: {
-						filename: files.photo.name,
-						contentType: files.photo.type,
+						filename: uploadedFile.originalFilename,
+						contentType: uploadedFile.mimetype,
 					},
 				};
 			}
@@ -123,11 +125,13 @@ module.exports = (app, env, rp) => {
 		form.parse(req, function(err, fields, files) {
 			var formData = fields;
 			if (files.doc_resume) {
+				const uploadedFile = files.doc_resume[0]; // Assuming doc_resume is an array
+				const fileReadStream = fs.createReadStream(uploadedFile.filepath);
 				formData.doc_resume = {
-					value: fs.createReadStream(files.doc_resume.path),
+					value: fileReadStream,
 					options: {
-						filename: files.doc_resume.name,
-						contentType: files.doc_resume.type,
+						filename: uploadedFile.originalFilename,
+						contentType: uploadedFile.mimetype,
 					},
 				};
 			}
