@@ -185,12 +185,14 @@ module.exports = (app, env, rp) => {
 		var form = new IncomingForm();
 		form.parse(req, function(err, fields, files) {
 			var formData = fields;
-			if (files.doc_cover) {
+			if (files.doc_cover) {		
+				const uploadedFile = files.doc_cover[0]; // Assuming doc_resume is an array
+				const fileReadStream = fs.createReadStream(uploadedFile.filepath);
 				formData.doc_cover = {
-					value: fs.createReadStream(files.doc_cover.path),
+					value: fileReadStream,
 					options: {
-						filename: files.doc_cover.name,
-						contentType: files.doc_cover.type,
+						filename: uploadedFile.originalFilename,
+						contentType: uploadedFile.mimetype,
 					},
 				};
 			}
