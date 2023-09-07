@@ -57,15 +57,15 @@ app.use(express.static('uploads'));
 // Server implementation
 let server;
 if (
-  fs.existsSync("/var/www/production/sapworld_ssl_certificate/sapworld.key") &&
- fs.existsSync("/var/www/production/sapworld_ssl_certificate/3db15e2858acb1e1.pem") &&
-  fs.existsSync("/var/www/production/sapworld_ssl_certificate/gd_bundle-g2-g1.crt")
+  fs.existsSync("/var/www/certificate/sapworld.key") &&
+ fs.existsSync("/var/www/certificate/server.ca-bundle") &&
+  fs.existsSync("/var/www/certificate/sapworld.crt")
 ) {
   // https implementation
   const options = {
-    key: fs.readFileSync("/var/www/production/sapworld_ssl_certificate/sapworld.key", "utf8"),
-    cert: fs.readFileSync("/var/www/production/sapworld_ssl_certificate/3db15e2858acb1e1.pem", "utf8"),
-    ca: [fs.readFileSync("/var/www/production/sapworld_ssl_certificate/gd_bundle-g2-g1.crt", "utf8")]
+    key: fs.readFileSync("/var/www/certificate/sapworld.key", "utf8"),
+    cert: fs.readFileSync("/var/www/certificate/server.ca-bundle", "utf8"),
+    ca: [fs.readFileSync("/var/www/certificate/sapworld.crt", "utf8")]
   };
   server = https.createServer(options, app);
 } else {
