@@ -64,8 +64,8 @@ if (
   // https implementation
   const options = {
     key: fs.readFileSync("/var/www/certificate/sapworld.key", "utf8"),
-    cert: fs.readFileSync("/var/www/certificate/server.ca-bundle", "utf8"),
-    ca: [fs.readFileSync("/var/www/certificate/sapworld.crt", "utf8")]
+    cert: fs.readFileSync("/var/www/certificate/sapworld.crt", "utf8"),
+    ca: [fs.readFileSync("/var/www/certificate/server.ca-bundle", "utf8")]
   };
   server = https.createServer(options, app);
 } else {
