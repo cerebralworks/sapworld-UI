@@ -606,7 +606,9 @@ export class CreateCandidateLayoutComponent implements OnInit {
            return _val.rules.filter(val => val.rule == 'unique')
           });
           if(imp.length > 0 && imp[0].rules.length > 0) {
-            this.toastrService.error(imp[0].rules[0].message)
+            this.toastrService.error(imp[0].rules[0].message,'', {
+		  timeOut: 2500
+		})
           }
         }
       }

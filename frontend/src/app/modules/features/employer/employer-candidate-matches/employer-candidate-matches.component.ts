@@ -768,7 +768,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				}
 			)
 		}else {
-			this.toastrService.error('Something went wrong', 'Failed')
+			this.toastrService.error('Something went wrong','', {
+		  timeOut: 2500
+		})
 		}
 	}
   
@@ -790,7 +792,9 @@ export class EmployerCandidateMatchesComponent implements OnInit, OnDestroy {
 				}
 			)
 		} else {
-			this.toastrService.error('Something went wrong', 'Failed')
+			this.toastrService.error('Something went wrong','', {
+		  timeOut: 2500
+		})
 		}
 	}
   

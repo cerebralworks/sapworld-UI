@@ -152,7 +152,9 @@ export class EmployerProfileComponent implements OnInit {
 					this.isLoading = false;
 				}, error => {
 					this.isLoading = false;
-					this.toastrService.error('Something went wrong', 'Failed');      
+					this.toastrService.error('Something went wrong','', {
+		  timeOut: 2500
+		});      
 				}
 			)
 		}

@@ -172,7 +172,9 @@ export class UserLinksComponent implements OnInit {
       this.userService.update(requestParams).subscribe(
         response => {
         }, error => {
-          this.toastrService.error('Something went wrong', 'Failed');        }
+          this.toastrService.error('Something went wrong','', {
+		  timeOut: 2500
+		});        }
       )
     }
 

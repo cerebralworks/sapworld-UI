@@ -42,8 +42,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (evt.body && evt.body.success && evt.body.message) {
             if (req.url.search(logout) === -1) {
               this.toastrService.success(
-                evt.body.message,
-                ''
+                evt.body.message,'', {
+		  timeOut: 2500
+		}
               );
             }
           }
@@ -81,14 +82,18 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 					}else if(err.error.error.message =='Unauthorized! Invalid credentials!'){
 						
 					}else{
-						this.toastrService.error(err.error.error.message, '');
+						this.toastrService.error(err.error.error.message,'', {
+		  timeOut: 2500
+		});
 					}
                 } else if (err.error.err) {
 					if(err.error.err.msg =='Forbidden Access! :: IP Logged' || err.error.err.message =='Forbidden Access! :: IP Logged'){
 						this.accountService.logout();
 						location.reload();
 					}else{
-						this.toastrService.error(err.error.err.msg || err.error.err.message, '');
+						this.toastrService.error(err.error.err.msg || err.error.err.message,'', {
+		  timeOut: 2500
+		});
 					}
                 }
               }

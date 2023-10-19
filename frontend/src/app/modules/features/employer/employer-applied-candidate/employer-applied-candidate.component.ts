@@ -269,7 +269,9 @@ export class EmployerAppliedCandidateComponent implements OnInit {
 					}
 				)
 			}else {
-				this.toastrService.error('Something went wrong, please try again', 'Failed')
+				this.toastrService.error('Something went wrong, please try again' ,'', {
+		  timeOut: 2500
+		})
 			}
 		}
 	}

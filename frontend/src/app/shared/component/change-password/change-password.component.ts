@@ -126,12 +126,16 @@ export class ChangePasswordComponent implements OnInit {
             error.error.errors.map((val) => {
               if(val.field == 'current_password') {
                 val.rules.map((val_temp) => {
-                  this.toastrService.error(this.utilsHelperService.capitalizeWord(val_temp.message), 'Failed');
+                  this.toastrService.error(this.utilsHelperService.capitalizeWord(val_temp.message),'', {
+		  timeOut: 2500
+		});
                 })
               }
             })
           }else {
-            this.toastrService.error('Something went wrong', 'Failed');
+            this.toastrService.error('Something went wrong','', {
+		  timeOut: 2500
+		});
           }
 
         }

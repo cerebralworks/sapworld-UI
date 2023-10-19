@@ -142,7 +142,9 @@ export class SavedProfileComponent implements OnInit {
 				}
 			)
 		} else {
-			this.toastrService.error('Something went wrong', 'Failed')
+			this.toastrService.error('Something went wrong','', {
+		  timeOut: 2500
+		})
 		}
 	}
 	

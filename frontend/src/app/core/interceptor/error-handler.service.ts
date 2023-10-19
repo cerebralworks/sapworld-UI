@@ -24,10 +24,14 @@ export class ErrorsHandler extends ErrorHandler {
       // Server or connection error happened
       if (!navigator.onLine) {
         // Handle offline error
-        return this.toastrService.error("No Internet Connection");
+        return this.toastrService.error("No Internet Connection",'', {
+		  timeOut: 2500
+		});
       } else {
         // Handle Http Error (error.status === 403, 404...)
-        return this.toastrService.error(`${error.status} - ${error.message}`);
+        return this.toastrService.error(`${error.status} - ${error.message}`,'', {
+		  timeOut: 2500
+		});
       }
     } else {
       // Handle Client Error (Angular Error, ReferenceError...)

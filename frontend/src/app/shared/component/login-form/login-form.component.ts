@@ -154,7 +154,10 @@ export class LoginFormComponent implements OnInit {
 		  }
         }, error => {
 		    var user=this.checkrole==0?'jobseeker': 'employer';
-			this.toastr.error(`Invalid username or password for ${user}.`);
+		 this.toastr.error(`Invalid username or password for ${user}.`,'', {
+		  timeOut: 2500
+		});
+
           this.isLoading = false;
           this.showError = true;
         }

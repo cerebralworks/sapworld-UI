@@ -89,11 +89,15 @@ export class UserResumeComponent implements OnInit {
 			.name.split(".")
 			.pop();
 			if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
-				this.toastrService.error('File format not supported(Allowed Format:doc,pdf,docx)');
+				this.toastrService.error('File format not supported(Allowed Format:doc,pdf,docx)','', {
+		  timeOut: 2500
+		});
 				return;
 			}
 			if (files.item(0).size > 10485760) {
-				this.toastrService.error('Size Should be less than or equal to 10 MB');
+				this.toastrService.error('Size Should be less than or equal to 10 MB','', {
+		  timeOut: 2500
+		});
 				return;
 			}
 			if(data=="cover"){

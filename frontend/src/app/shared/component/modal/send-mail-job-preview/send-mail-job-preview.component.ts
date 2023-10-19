@@ -127,14 +127,20 @@ export class SendMailJobPreviewComponent implements OnInit {
 	  }
       this.employerService.sendMail(requestParams).subscribe(
         response => {
-          this.toastrService.success('Mail sent successfully', 'Success')
+          this.toastrService.success('Mail sent successfully','', {
+		  timeOut: 2500
+		})
           this.onClickCloseBtn(false);
         }, error => {
-          this.toastrService.error('Something went wrong', 'Failed')
+          this.toastrService.error('Something went wrong','', {
+		  timeOut: 2500
+		})
         }
       )
     }else {
-      this.toastrService.error('Something went wrong', 'Failed')
+      this.toastrService.error('Something went wrong','', {
+		  timeOut: 2500
+		})
     }
   }
 

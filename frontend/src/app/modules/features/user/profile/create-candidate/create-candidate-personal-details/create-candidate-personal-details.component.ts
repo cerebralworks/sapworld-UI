@@ -882,11 +882,15 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 			.name.split(".")
 			.pop();
 		  if (!this.utilsHelperService.isInArray(allowedExtensions, this.fileExtension)) {
-			this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
+			this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)','', {
+		  timeOut: 2500
+		});
 			return;
 		  }
 		  if (files.item(0).size > 3145728) {
-			this.toastrService.error('Size Should be less than or equal to 3 MB');
+			this.toastrService.error('Size Should be less than or equal to 3 MB','', {
+		  timeOut: 2500
+		});
 			return;
 		  }
 		  this.open(CropImagePopUp);
@@ -938,7 +942,9 @@ export class CreateCandidatePersonalDetailsComponent implements OnInit {
 	**/
 	
 	loadImageFailed(event: any) {
-		this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)');
+		this.toastrService.error('File format not supported(Allowed Format:jpg,jpeg,png)','', {
+		  timeOut: 2500
+		});
 		this.mbRef.close();
 	}
 	

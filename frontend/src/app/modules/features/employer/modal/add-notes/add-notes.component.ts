@@ -92,7 +92,9 @@ export class AddNotesComponent implements OnInit {
 				}
 			)
 		}else {
-			this.toastrService.error('Please Fill the description', 'Warning')
+			this.toastrService.error('Please Fill the description','', {
+		  timeOut: 2500
+		})
 		}
 	}
 	
